@@ -1,6 +1,5 @@
 ## Università degli studi del Sannio
-## Esame di Ingegneria del Software
-## a.a. 2020/2021
+## Esame di Ingegneria del Software - a.a. 2020/2021
 
 # Proposta di Formazione di un Gruppo
 
