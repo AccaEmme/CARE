@@ -11,7 +11,7 @@ Versione _1_ del _17.03.2021_
 
 
 Checkout the documentation on the [Wiki page](/%2E%2E/wiki/) \[lang: IT\]:
- - [1. Problem Statement](/%2E%2E/wiki/Problem-Statement)
- - [2. Project Members](/%2E%2E/wikis/Project-request)
- - [3. Assignment request/](/%2E%2E/wikis/Project-request)
+ - [1. Problem Statement](https://github.com/AccaEmme/CARE/wiki/1.-Problem-Statement)
+ - [2. Project Members](https://github.com/AccaEmme/CARE/wiki/2.-Assignment-Request)
+ - [3. Assignment request/](https://github.com/AccaEmme/CARE/wiki/2.-Assignment-Request)
  - [4. ¿who knows?](https://www.google.it)
