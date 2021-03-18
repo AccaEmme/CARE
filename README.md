@@ -3,6 +3,9 @@
 
 # Proposta di Formazione di un Gruppo
 
+
+![C++ Var Types](https://github.com/AccaEmme/CARE/blob/main/docs/logo.jpg)
+
 ## &quot;**C.A.R.E. - Centro Accoglienza Regionale Ematica&quot;**
 Progetto per la fornitura di un sistema software per la gestione integrata delle scorte di sangue per la rete dei centri trasfusionali territoriali di &quot;UnaRegione&quot;
 
