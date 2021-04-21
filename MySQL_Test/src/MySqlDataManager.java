@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,8 +13,8 @@ public class MySqlDataManager implements DataManager{
     private String host;
     private String db;
 
-    private static final  String username = "root";
-    private static final String password = "to write";
+    private static final  String username = null;
+    private static final String password = null;
 
     private static final String SQL_CREATE_DB = "CREATE DATABASE IF NOT EXISTS";
     private static final String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS SACCHE"
@@ -31,7 +32,7 @@ public class MySqlDataManager implements DataManager{
         Properties loadProps = new Properties();
 
         try {
-            loadProps.loadFromXML(new FileInputStream("localsettings/db_settings.xml")); //non dimenticare di aggiungere il file mostrato dal prof per i settings
+            loadProps.loadFromXML(new FileInputStream("C:\\Users\\giuli\\Desktop\\CARE\\MySQL_Test\\src\\db_settings.xml")); //non dimenticare di aggiungere il file mostrato dal prof per i settings
 
         } catch (InvalidPropertiesFormatException e) {
             e.printStackTrace();
@@ -40,6 +41,16 @@ public class MySqlDataManager implements DataManager{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean readCredentials(){
+        boolean correctlyRead = true;
+
+        try {
+            File credentials = new File();
+        }
+
+        return correctlyRead;
     }
 
     public void createDB(){
