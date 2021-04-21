@@ -72,7 +72,7 @@ public class MySqlDataManager implements DataManager{
         String url = "jdbc:mysql://"+host;
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
-        PreparedStatement preparedStatement = conn.prepareStatement(SQL_CREATE_DB+db)){
+        PreparedStatement preparedStatement = conn.prepareStatement(SQL_CREATE_DB+" "+db)){
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException throwables) {
