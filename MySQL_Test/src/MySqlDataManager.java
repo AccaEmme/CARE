@@ -68,6 +68,25 @@ public class MySqlDataManager implements DataManager{
         return correctlyRead;
     }
 
+
+    public void addItemsToSacche(int amount){
+        String url = "jdbc:mysql://"+host;
+
+
+        for (int i = 0; i<amount; i++){ //inefficiente da cambiare
+            try (Connection conn = DriverManager.getConnection(url+"/"+db, username, password);
+                 PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO sacche (SERIALE, GRUPPO)"+
+                         "values('seriale"+i+"', 'gr"+i+"');")){
+                preparedStatement.execute();
+                preparedStatement.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void createDB(){
         String url = "jdbc:mysql://"+host;
 
