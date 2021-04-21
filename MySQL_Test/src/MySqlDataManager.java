@@ -46,9 +46,9 @@ public class MySqlDataManager implements DataManager{
     private boolean readCredentials(){
         boolean correctlyRead = true;
 
-        try {
+        /*try {
             File credentials = new File();
-        }
+        }*/
 
         return correctlyRead;
     }
