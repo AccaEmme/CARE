@@ -8,13 +8,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
+import java.util.Scanner;
 
 public class MySqlDataManager implements DataManager{
-    private String host;
-    private String db;
+    private String host = null;
+    private String db = null;
 
-    private static final  String username = null;
-    private static final String password = null;
+    private String username = null;
+    private String password = null;
 
     private static final String SQL_CREATE_DB = "CREATE DATABASE IF NOT EXISTS";
     private static final String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS SACCHE"
@@ -29,6 +30,8 @@ public class MySqlDataManager implements DataManager{
     private static final String SQL_QUERY = "SELECT * FROM sacche WHERE GRUPPO = ?";
 
     public MySqlDataManager(){
+        boolean readCorrectly = readCredentials();
+
         Properties loadProps = new Properties();
 
         try {
@@ -41,15 +44,27 @@ public class MySqlDataManager implements DataManager{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        host = loadProps.getProperty("db_host");
+        db = loadProps.getProperty("db_name");
     }
 
     private boolean readCredentials(){
         boolean correctlyRead = true;
 
-        /*try {
-            File credentials = new File();
-        }*/
+        try {
+            File credentials = new File("credentials.txt");
+            Scanner scanner = new Scanner(credentials);
+            while (scanner.hasNextLine()){
+                this.username = scanner.nextLine();
+                this.password = scanner.nextLine();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            correctlyRead = false;
+        }
 
+        //System.out.println(this.username+"\n"+this.password);
         return correctlyRead;
     }
 
@@ -64,6 +79,14 @@ public class MySqlDataManager implements DataManager{
             throwables.printStackTrace();
         } catch (Exception e){
             e.printStackTrace();
+        }
+
+        try (Connection conn = DriverManager.getConnection(url+"/"+db, this.username, this.password);
+        PreparedStatement preparedStatement = conn.prepareStatement(SQL_CREATE_TABLE)){
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 }
