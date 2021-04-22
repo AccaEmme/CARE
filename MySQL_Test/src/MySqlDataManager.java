@@ -2,13 +2,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.InvalidPropertiesFormatException;
-import java.util.Properties;
-import java.util.Scanner;
+import java.sql.*;
+import java.util.*;
 
 public class MySqlDataManager implements DataManager{
     private String host = null;
@@ -27,7 +22,7 @@ public class MySqlDataManager implements DataManager{
 
     private static final String SQL_INSERT = "INSERT INTO SACCHE (SERIALE, GRUPPO) VALUES (?,?)";
 
-    private static final String SQL_QUERY = "SELECT * FROM sacche WHERE GRUPPO = ?";
+    private static final String SQL_QUERY = "SELECT * FROM sacche WHERE GRUPPO = ";
 
     public MySqlDataManager(){
         boolean readCorrectly = readCredentials();
@@ -85,6 +80,63 @@ public class MySqlDataManager implements DataManager{
                 e.printStackTrace();
             }
         }
+    }
+
+    public class Sacca{
+        public Sacca(String seriale, String gruppo){
+            this.seriale = seriale;
+            this.gruppo = gruppo;
+        }
+
+        @Override
+        public String toString() {
+            return "Sacca{" +
+                    "seriale='" + seriale + '\'' +
+                    ", gruppo='" + gruppo + '\'' +
+                    '}';
+        }
+
+        public String getGruppo() {
+            return gruppo;
+        }
+
+        public String getSeriale() {
+            return seriale;
+        }
+
+        public void setGruppo(String gruppo) {
+            this.gruppo = gruppo;
+        }
+
+        public void setSeriale(String seriale) {
+            this.seriale = seriale;
+        }
+
+        private String seriale;
+        private String gruppo;
+    }
+
+    @Override
+    public List<Sacca> getSacche(String g) {    //uso la stringa perche' non ho voglia di implementare la classe gs
+        String url = "jdbc:mysql://"+host+"/"+db;
+
+        List<Sacca> sacche = new ArrayList<>(); //salvero' qui' le sacche lette dal database
+
+        try(Connection connection = DriverManager.getConnection(url, username, password)) {
+            //il codice della query va scritto qui
+            try (Statement statement = connection.createStatement()){
+                ResultSet rs = statement.executeQuery(SQL_QUERY+"'"+g+"'"); //eseguo la query con la stringa
+                while (rs.next()){
+                    String seriale = rs.getString("SERIALE");
+                    String gruppo = rs.getString("GRUPPO");
+
+                    sacche.add(new Sacca(seriale,gruppo));
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } ;
+        return sacche;
     }
 
     public void createDB(){
