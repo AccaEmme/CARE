@@ -1,0 +1,380 @@
+<html>
+ <head>
+   <title>CARE - Centro Accoglienza Regionale Ematica</title>
+   <style>
+        .sidenav {
+            height: 100%;
+            width: 160px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidenav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidenav p, li {
+           --padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            color: #818181;
+            
+        }
+       
+        .main {
+            margin-left: 160px; /* Same as the width of the sidenav */
+            font-size: 28px; /* Increased text to enable scrolling */
+            padding: 0px 10px;
+            align-content: center;
+            align-items: center;
+            text-align: center;
+        }  
+
+        @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+        }
+
+        -plusminus{
+            height: 10%;
+        }
+    
+       p{
+            font-weight: bold;
+            font-style: italic;
+       }
+       p.error{
+            color:  #ff0033;
+       }
+
+       p.warning{
+            color:  #eed202;
+       }
+       p.correct{
+            color:  #008000;
+       }
+       body{
+           background-color: rgb(253, 253, 253);
+       }
+       #BloodBags-table{
+           width: 100%;
+           border: 5;
+       }
+       #Bloodbags-td{
+           height: 70px;
+           border-radius: 25px;
+           border: 2px solid #73AD21;
+           padding: 10px;
+       }
+
+        fieldset > label {
+            float: right;
+            width: 200px;
+        }
+        fieldset {
+            border-width: 5px;
+            color: black;
+            border-color: green;
+            border-radius: 5px;
+        }
+        legend {
+            position:relative;
+            
+            left:18px;
+            margin-left: 5px;
+            padding: 2px;
+            border: 1px solid green;
+            background-color: rgba(85, 85, 85, 0.616);
+            color: black;
+            opacity: 0.6;
+            border: 1px solid thin;
+            /*padding: 10px 10px;*/
+            /*border-radius: 20px;*/
+            
+        }
+/*
+        label{
+        clear: both;
+        font-weight: bold;
+        padding: 1px;
+        }*/
+
+       body{
+           align-items: center;
+           align-content: center;
+           text-align: center;
+           align-tracks: center;
+           -ms-grid-column-align: center;
+       }
+   </style>
+  </head>
+
+  <body>
+    <div class="sidenav">
+        <img src="https://github.com/AccaEmme/CARE/raw/main/docs/care1.2.png" alt="logo" width="30%"/>
+        <a href="#dashboard"><img src="http://www.newdesignfile.com/postpic/2015/09/business-intelligence-dashboard-icon_357441.png" weight="3%" height="3%" /> Dashboard</a>
+        <a href="#services"><img src="https://www.pikpng.com/pngl/b/489-4895350_png-file-svg-transparent-dashboard-icon-png-clipart.png" />Services</a>
+        <a href="#clients">BloodRequests</a>
+        <a href="#contact">Broadcast Chat</a>
+        <a href="#contact">Logout</a>
+        <hr>
+        <p>Next Version:</p>
+            <ul>
+                <li>Patients</li>
+                <li>Donators</li>
+            </ul>
+      </div>
+
+      <div class="main">
+        <!-- START:   Availability BloodBags -->
+        <fieldset>
+            <legend><img src="https://image.flaticon.com/icons/png/512/124/124383.png" width="10%"> In Magazzino</legend>           
+            <label>s</label>
+            <table id="BloodBags-table">
+                <tr>
+                    <td id="BloodBags-td">
+                        <table border="0">
+                            <tr>
+                                <td align="right"><p>A+</p></td>
+                                <td align="left"><p class="warning">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="plus.png" alt="plusbutton" width="20%" /></a></td>
+                                <td align="left"><a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td id="BloodBags-td">
+                        <table border="0">
+                            <tr>
+                                <td align="right"><b>B+</b></td>
+                                <td align="left"><p class="correct">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="plus.png" alt="plusbutton" width="20%" /></a></td>
+                                <td align="left"><a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td id="BloodBags-td">
+                        <table border="0">
+                            <tr>
+                                <td align="right"><b>0+</b></td>
+                                <td align="left"><p class="error">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="plus.png" alt="plusbutton" width="20%" /></a></td>
+                                <td align="left"><a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td id="BloodBags-td">
+                        <table border="0">
+                            <tr>
+                                <td align="right"><b>AB+</b></td>
+                                <td align="left"><p class="warning">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="plus.png" alt="plusbutton" width="20%" /></a></td>
+                                <td align="left"><a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="BloodBags-td">
+                        <table border="0">
+                            <tr>
+                                <td align="right"><b>A-</b></td>
+                                <td align="left"><p class="warning">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="plus.png" alt="plusbutton" width="20%" /></a></td>
+                                <td align="left"><a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td id="BloodBags-td">
+                        <table border="0">
+                            <tr>
+                                <td align="right"><b>B-</b></td>
+                                <td align="left"><p class="warning">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="plus.png" alt="plusbutton" width="20%" /></a></td>
+                                <td align="left"><a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td id="BloodBags-td">
+                        <table border="0">
+                            <tr>
+                                <td align="right"><b>0-</b></td>
+                                <td align="left"><p class="correct">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="plus.png" alt="plusbutton" width="20%" /></a></td>
+                                <td align="left"><a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td id="BloodBags-td">
+                        <table border="0">
+                            <tr>
+                                <td align="right"><b>AB-</b></td>
+                                <td align="left"><p class="correct">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="plus.png" alt="plusbutton" width="20%" /></a></td>
+                                <td align="left"><a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <!-- END:   Availability BloodBags -->
+
+        <!-- START: Expiring BloodBags -->
+        <fieldset>
+            <legend><img src="http://download.seaicons.com/icons/oxygen-icons.org/oxygen/256/Actions-edit-clear-history-icon.png" width="10%"> In Scadenza</legend>
+            <p> In scadenza: </p>
+            <table id="BloodBags-table" border="1">
+                <tr>
+                    <td align="center">-</td>
+                    <td align="center"><p>In Locale:</p></td>
+                    <td align="center"><p>Sede Centrale:</p></td>
+                    <td align="center"><p>Altri Nodi:</p></td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p>A+:</p>
+                    </td>
+                    <td align="center">
+                        <p class="error">5 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="correct">0 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="warning">1 sacche</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p>A-:</p>
+                    </td>
+                    <td align="center">
+                        <p class="warning">2 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="warning">4 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="correct">0 sacche</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p>B+:</p>
+                    </td>
+                    <td align="center">
+                        <p class="warning">3 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="correct">0 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="warning">2 sacche</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p>B-:</p>
+                    </td>
+                    <td align="center">
+                        <p class="error">5 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="correct">0 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="error">6 sacche</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p>AB+:</p>
+                    </td>
+                    <td align="center">
+                        <p class="correct">0 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="warning">4 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="correct">0 sacche</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p>AB-:</p>
+                    </td>
+                    <td align="center">
+                        <p class="warning">4 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="warning">3 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="warning">2 sacche</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p>0+:</p>
+                    </td>
+                    <td align="center">
+                        <p class="correct">0 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="correct">0 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="correct">0 sacche</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p>0-:</p>
+                    </td>
+                    <td align="center">
+                        <p class="correct">0 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="correct">0 sacche</p>
+                    </td>
+                    <td align="center">
+                        <p class="correct">0 sacche</p>
+                    </td>
+                </tr>
+
+            </table>
+        </fieldset>
+        <!-- END:   Expiring BloodBags -->
+
+      </div>
+  </body>
+</html>
