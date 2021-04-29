@@ -8,6 +8,7 @@ public class TestReadFromDataBase {
         List<MySqlDataManager.Sacca> saccas;
         saccas=dm.getSacche("gr30");
 
+        
         for (MySqlDataManager.Sacca sacca: saccas) {
             System.out.println(sacca);  //stampo la sacca con il metodo toString
         }

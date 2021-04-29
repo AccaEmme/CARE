@@ -11,6 +11,7 @@ public class MySqlDataManager implements DataManager{
 
     private String username = null;
     private String password = null;
+    
 
     private static final String SQL_CREATE_DB = "CREATE DATABASE IF NOT EXISTS";
     private static final String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS SACCHE"

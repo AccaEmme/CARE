@@ -7,6 +7,7 @@ public class TestCreateAndPopulateDB {
         DataManager dm = new MySqlDataManager();
         dm.createDB();      //creo l'oggetto db
         dm.addItemsToSacche(20);
+        
 
 
     }
