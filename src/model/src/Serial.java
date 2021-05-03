@@ -12,12 +12,12 @@ import java.util.Scanner;
 
 /*
  * Ogni seriale deve identificare univocamente una sacca di sangue BloodBag.
- * L'univocità tra le sacche di differenti strutture è definita nell'autodeterminazione del codice seriale, mentre l'univocità tra le sacche della stessa struttura è definita in base al giorno e al contatore.
- * Il contatore è un progressivo dipendente dalla data, ovvero la prima sacca del nuovo giorno ha progressivo 1.
- * Il seriale pertanto oltre a preservare l'univocità delle sacche, risulta autoesplicativo di informazioni immediate.
- * Il seriale non prevede un codice regionale, in quanto il concetto di regione è puramente astratto, la sede centrale non è altro che una sede con un codice provinciale con poteri, funzioni e dunque autorizzazioni diverse. 
+ * L'univocitï¿½ tra le sacche di differenti strutture ï¿½ definita nell'autodeterminazione del codice seriale, mentre l'univocitï¿½ tra le sacche della stessa struttura ï¿½ definita in base al giorno e al contatore.
+ * Il contatore ï¿½ un progressivo dipendente dalla data, ovvero la prima sacca del nuovo giorno ha progressivo 1.
+ * Il seriale pertanto oltre a preservare l'univocitï¿½ delle sacche, risulta autoesplicativo di informazioni immediate.
+ * Il seriale non prevede un codice regionale, in quanto il concetto di regione ï¿½ puramente astratto, la sede centrale non ï¿½ altro che una sede con un codice provinciale con poteri, funzioni e dunque autorizzazioni diverse. 
  * 
- * Il seriale è composto dai seguenti codici:
+ * Il seriale ï¿½ composto dai seguenti codici:
  * 	[IT]
  *  -
  *  [NA] provincia
@@ -26,9 +26,9 @@ import java.util.Scanner;
  *  -
  *  [APOS] gruppo
  *  -
- *  [20210416] aaaa mm gg di etichettatura, si presume sia contestuale al prelievo; è noto che la sacca di sangue ha validità di scadenza 1 mese dal prelievo.
+ *  [20210416] aaaa mm gg di etichettatura, si presume sia contestuale al prelievo; ï¿½ noto che la sacca di sangue ha validitï¿½ di scadenza 1 mese dal prelievo.
  *  -
- *  [0001] progressivo di 4 cifre, si presume che una singola struttura in un giorno non riesca a raccogliere più di 9999 sacche
+ *  [0001] progressivo di 4 cifre, si presume che una singola struttura in un giorno non riesca a raccogliere piï¿½ di 9999 sacche
  *  
  *  Esempio seriale: IT-NA206000-APOS-20210416-0001
  */
@@ -50,7 +50,7 @@ public class Serial {
 			String nationality;
 		
 			do {
-				System.out.println("Nazionalità [IT]:");
+				System.out.println("Nazionalita\' [ IT]:");
 				nationality = sc.nextLine();
 			} while(nationality.length() <0 || nationality.length()>2 );
 			
