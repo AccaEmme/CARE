@@ -50,7 +50,7 @@ public class Serial {
 			String nationality;
 		
 			do {
-				System.out.println("Nazionalita\' [ IT]:");
+				System.out.println("Nazionalità  [ IT]:");
 				nationality = sc.nextLine();
 			} while(nationality.length() <0 || nationality.length()>2 );
 			
