@@ -1,14 +1,15 @@
 package com.ranauro.sangue;
 
 public class Sacca {
+
     private final Seriale seriale;
-    private final String gruppo;
+    private final GruppoSanguigno gruppo;
 
     /*
      * @pre
      * gs not null
      */
-    public Sacca(String gs) {
+    public Sacca(GruppoSanguigno gs) {
         assert gs != null;
         seriale = new Seriale();
         gruppo = gs;
@@ -20,7 +21,7 @@ public class Sacca {
      * gs not null
      *
      */
-    public Sacca(Seriale ser, String gs) {
+    public Sacca(Seriale ser, GruppoSanguigno gs) {
         assert gs != null && ser != null;
         seriale = ser;
         gruppo = gs;
@@ -30,7 +31,7 @@ public class Sacca {
         return this.seriale;
     }
 
-    public String getGruppo() {
+    public GruppoSanguigno getGruppo() {
         return this.gruppo;
     }
 

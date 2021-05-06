@@ -19,11 +19,12 @@ import com.mongodb.client.MongoCollection;
 import static com.mongodb.client.model.Filters.*;
 
 
+import com.ranauro.sangue.GruppoSanguigno;
 import com.ranauro.sangue.Sacca;
 import com.ranauro.sangue.Seriale;
 import org.bson.Document;
 
-public class MyMongoDataManager {
+public class MyMongoDataManager implements DataManager {
 
     private static final String TAG_DB = "db_mongo_name";
     private static final String TAG_HOST = "db_mongo_host";
@@ -76,7 +77,7 @@ public class MyMongoDataManager {
         mongoClient.close();
     }
 
-    public List<Sacca> getSacche(String gruppoSanguigno) {
+    public List<Sacca> getSacche(GruppoSanguigno g) {
 
         List<Sacca> sacche = new ArrayList<Sacca>();
 
@@ -84,12 +85,17 @@ public class MyMongoDataManager {
         MongoDatabase database = mongoClient.getDatabase(db);
         MongoCollection<Document> collection = database.getCollection(COLLECTION_SACCHE);
 
-        for (Document current : collection.find(eq(ELEMENT_GRUPPO,gruppoSanguigno))) {
-            Sacca s = new Sacca(new Seriale(current.getString(ELEMENT_SERIALE)), gruppoSanguigno);
+        for (Document current : collection.find(eq(ELEMENT_GRUPPO,g.toString()))) {
+            Sacca s = new Sacca(new Seriale(current.getString(ELEMENT_SERIALE)), GruppoSanguigno.valueOf(current.getString(ELEMENT_GRUPPO)));
             sacche.add(s);
         }
         mongoClient.close();
         return sacche;
+
+    }
+
+    @Override
+    public void addItemsToSacche(int i) {
 
     }
 }

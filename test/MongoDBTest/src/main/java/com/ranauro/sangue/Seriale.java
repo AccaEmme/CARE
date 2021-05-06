@@ -9,6 +9,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 public class Seriale {
+
     private static final String TAG_RADICE = "radice";
     private static final String TAG_LAST_ASSIGNED = "last_assigned";
 
@@ -69,4 +70,5 @@ public class Seriale {
             e.printStackTrace();
         }
     }
+
 }
