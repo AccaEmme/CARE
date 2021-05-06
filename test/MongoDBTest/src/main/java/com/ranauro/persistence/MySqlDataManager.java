@@ -28,7 +28,7 @@ public class MySqlDataManager implements DataManager{
     private static final String COL_GRUPPO = "GRUPPO";
 
     private static final String username = "root";
-    private static final String password = "AppleWatch456099";
+    private static final String password = "password";
 
     private static final String SQL_CREATE_DB = "CREATE DATABASE IF NOT EXISTS ";
 
