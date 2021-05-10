@@ -3,29 +3,7 @@
  <head>
    <title>CARE - Centro Accoglienza Regionale Ematica</title>
    <style>
-.topnav {
-  overflow: hidden;
-  background-color: rgb(165, 0, 0);;
-  position: fixed;
-  width: 100%;
-  margin-top: 0px;
-  border-top-right-radius: 50px 20px;
-  border-top-left-radius: 50px 20px;
-}
 
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: right;
-  padding: 14px 1px;
-  text-decoration: none;
-  font-size: 18px;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
 
         .sidenav {
             height: 80%;
@@ -97,13 +75,37 @@
             color:  #eed202;
        }
 
-       div.warning{
-            background-color: #eed202;
-            color: black;
-       }
        p.correct{
             color:  #008000;
        }
+       .alert {
+  padding: 10px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+}
+
+.alert.success  { background-color: #04AA6D;}
+.alert.info     { background-color: #2196F3;}
+.alert.warningg {background-color: #ff9800;}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
        body{
            background-color: rgba(253, 253, 253, 0.808);
        }
@@ -123,7 +125,7 @@
             color: black;
             border-color: green;
             border-radius: 50px;
-            margin-top: 133px;
+            margin-top: 83px;
         }
         
         legend {
@@ -166,10 +168,6 @@
   </head>
 
   <body onload="javascript:document.getElementById('textarea_chatbroadcast_msgs').scrollTop=document.getElementById('textarea_chatbroadcast_msgs').scrollHeight">
-<div class="topnav">
-  <a href="#contact"><img src="icon-settings.png" alt="Settings" width="3%" height="3%" /></a>
-  <a href="#logout">Logout</a>
-</div>
 
     <div class="sidenav">
         <div id="logo">
@@ -179,7 +177,7 @@
         <img src="https://image.flaticon.com/icons/png/512/124/124383.png" weight="3%" height="3%" /><a href="#warehouse">In Magazzino</a><br />
         <img src="http://download.seaicons.com/icons/oxygen-icons.org/oxygen/256/Actions-edit-clear-history-icon.png" weight="3%" height="3%" /><a href="#expiring">In Scadenza</a><br />
         <img src="broadcastchat.png" weight="3%" height="3%" /><a href="#broadcastchat">Broadcast Chat</a><br />
-        <img src="https://avatars.githubusercontent.com/u/6004765?v=4" weight="3%" height="3%" /><a href="#logout">Logout</a><br />
+        <img src="https://avatars.githubusercontent.com/u/6004765?v=4" weight="3%" height="3%" /><a href="#logout">Logout <small>(206-001)</small></a><br />
         <hr>
         <p>Next Version:</p>
             <ul>
@@ -188,7 +186,278 @@
             </ul>
       </div>
 
-      <div class="main">
+      <div class="main"><h1>CARE - Centro Accoglienza Regionale Ematica</h1><h2>Struttura: NA 206 - operatore loggato: 001</h2>
+        <div class="alert warningg">
+            <span class="closebtn">&times;</span>  
+            <strong>Warning!</strong> Stai per superare il quantitativo di scorta massima prevista per A+
+         </div>
+         <div class="alert">
+            <span class="closebtn">&times;</span>  
+            <strong>Danger!</strong> La sacca XXX_SERIAL_XXX gruppo A- è scaduta
+          </div>
+          
+          <!--
+          <div class="alert success">
+            <span class="closebtn">&times;</span>  
+            <strong>Success!</strong> Indicates a successful or positive action.
+          </div>
+          -->
+
+          <div class="alert info">
+            <span class="closebtn">&times;</span>  
+            <strong>Info!</strong> Dai priorità alle sacche in scadenza.
+          </div>
+
+          <div class="alert warning">
+            <span class="closebtn">&times;</span>  
+            <strong>Warning!</strong> Sangue AB+ in scadenza tra una settimana nella struttura codice 201
+          </div>
+
+          <fieldset>
+            <legend><img src="https://image.flaticon.com/icons/png/512/124/124383.png" width="10%"><a name="management"> Gestione e richieste</a></legend>
+          <!-- START:   Management  BloodBags -->
+            <form action="#" method="POST">
+                <table cellspacing="0" cellpadding="0" border="0" width="325">
+                    <tr style="color:white;background-color:grey; font-size: 12px;">
+                        <th>
+                            Ho bisogno di:
+                            <select name="needsof">
+                                <option>A+</option>
+                                <option>B+</option>
+                                <option>AB+</option>
+                                <option>0+</option>
+                                <option>A-</option>
+                                <option>B-</option>
+                                <option>AB-</option>
+                                <option>0-</option>
+                            </select>
+                            <table>
+                                <tr>
+                                    <td><input type="checkbox" name="show_mine" checked /> Mostra proprio magazzino</td>
+                                    <td><input type="checkbox" name="show_others" checked /> Mostra di altri Nodi</td>
+                                    <td><input type="checkbox" name="show_central" checked /> Mostra di sede centrale</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="show_requests" checked /> Mostra richieste sacche da altri nodi</td>
+                                    <td><input type="checkbox" name="show_expired" checked /> Mostra scaduti</td>
+                                </tr>
+                            </table>
+                        </th>
+                    </tr>
+                    <tr>
+                      <td>
+                         <table cellspacing="0" cellpadding="1" border="1" width="666" >
+                           <tr style="color:white;background-color:grey; font-size: 12px;">
+                            <th width="125px">Data Creazione</th>
+                            <th width="240px">Seriale</th>
+                            <th width="80px">Gruppo sanguigno</th>
+                            <th width="111px">Puo' donare a</th>
+                            <th width="80px">Sede Magazzino</th>
+                            <th width="80px">Azione</th>
+                           </tr>
+                         </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                         <div style="width:666px; height:180px; overflow:auto;">
+                           <table cellspacing="0" cellpadding="1" border="1" width="666" style="font-size: 11px;" >
+                            <tr bgcolor="red">
+                                <td width="140px">01-11-2020 08:11</td>
+                                <td width="277px">IT-NA206003-APOS-20201101-0010</td>
+                                <td width="80px">Apos</td>
+                                <td width="111px">.</td>
+                                <td width="80px">NA206</td>
+                                <td width="111px">
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                </td>
+                            </tr>
+                            <tr bgcolor="red">
+                                <td width="140px">17-12-2020 09:16</td>
+                                <td width="277px">IT-AV207005-APOS-20201217-0010</td>
+                                <td width="80px">Apos</td>
+                                <td width="111px">.</td>
+                                <td width="80px">AV207</td>
+                                <td width="111px">
+                                    <input type="button" name="request" value="Richiedi" disabled />
+                                    <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="140px">16-04-2021 11:36</td>
+                                <td width="277px">IT-NA206001-APOS-20210416-0001</td>
+                                <td width="80px">Apos</td>
+                                <td width="111px">Apos, ABpos</td>
+                                <td width="80px">NA206</td>
+                                <td width="111px">
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="140px">16-04-2021 11:36</td>
+                                <td width="277px">IT-NA206001-ABPOS-20210416-0002</td>
+                                <td width="80px">ABpos</td>
+                                <td width="111px"></td>
+                                <td width="80px">NA206</td>
+                                <td width="111px">
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="140px">16-04-2021 11:36</td>
+                                <td width="277px">IT-NA206003-BNEG-20210416-0003</td>
+                                <td width="80px">Bneg</td>
+                                <td width="111px"></td>
+                                <td width="80px">NA206</td>
+                                <td width="111px">
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                </td>
+                            </tr>
+                            <tr bgcolor="yellow">
+                                <td width="140px">16-04-2021 11:36</td>
+                                <td width="277px">IT-AV207005-APOS-20210417-0010</td>
+                                <td width="80px">Apos</td>
+                                <td width="111px">.</td>
+                                <td width="80px">NA206</td>
+                                <td width="111px">
+                                    <input type="button" name="request" value="Richiedi" />
+                                    <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="140px">16-04-2021 11:36</td>
+                                <td width="277px">IT-NA206005-APOS-20210418-0001</td>
+                                <td width="111px">Apos</td>
+                                <td width="111px"></td>
+                                <td width="80px">NA206</td>
+                                <td width="111px">
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="140px">16-04-2021 11:36</td>
+                                <td width="277px">IT-NA206002-APOS-20210419-0001</td>
+                                <td width="111px">Apos</td>
+                                <td width="111px"></td>
+                                <td width="80px">NA206</td>
+                                <td width="111px">
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="140px">16-04-2021 11:36</td>
+                                <td width="277px">IT-NA206003-BNEG-20210416-0003</td>
+                                <td width="80px">Bneg</td>
+                                <td width="111px"></td>
+                                <td width="80px">NA206</td>
+                                <td width="111px">
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                </td>
+                            </tr>
+                            <tr bgcolor="yellow">
+                                <td width="140px">16-04-2021 11:36</td>
+                                <td width="277px">IT-AV207005-APOS-20210417-0010</td>
+                                <td width="80px">Apos</td>
+                                <td width="111px">.</td>
+                                <td width="80px">NA206</td>
+                                <td width="111px">
+                                    <input type="button" name="request" value="Richiedi" />
+                                    <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="140px">16-04-2021 11:36</td>
+                                <td width="277px">IT-NA206002-APOS-20210419-0001</td>
+                                <td width="111px">Apos</td>
+                                <td width="111px"></td>
+                                <td width="80px">NA206</td>
+                                <td width="111px">
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="140px">16-04-2021 11:36</td>
+                                <td width="277px">IT-NA206003-BNEG-20210416-0003</td>
+                                <td width="80px">Bneg</td>
+                                <td width="111px"></td>
+                                <td width="80px">NA206</td>
+                                <td width="111px">
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                </td>
+                            </tr>
+                           </table>  
+                         </div>
+                      </td>
+                    </tr>
+                  </table>
+            </form>
+        <!-- END:   Management BloodBags -->
+        <!-- START:   Requests -->
+          <form action="#" method="POST">
+            <table cellspacing="0" cellpadding="0" border="0" width="325">
+                <tr style="color:white;background-color:grey;">
+                    <th>Richieste:</th>
+                </tr>
+                <tr>
+                  <td>
+                     <table cellspacing="0" cellpadding="1" border="1" width="666" >
+                       <tr style="color:white;background-color:grey; font-size: 12px;">
+                        <th width="125px">Data richiesta</th>
+                        <th width="240px">Seriale</th>
+                        <th width="80px">Gruppo sanguigno</th>
+                        <th width="111px">Richiesto da:</th>
+                        <th width="80px">Note</th>
+                        <th width="80px">Azione</th>
+                       </tr>
+                     </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                     <div style="width:666px; height:180px; overflow:auto;">
+                       <table cellspacing="0" cellpadding="1" border="1" width="666" style="font-size: 11px;" >
+                        <tr bgcolor="red">
+                            <td width="140px">01-11-2020 08:11</td>
+                            <td width="277px">IT-NA206003-APOS-20201101-0010</td>
+                            <td width="80px">Apos</td>
+                            <td width="111px">SA205</td>
+                            <td width="80px">.</td>
+                            <td width="111px">
+                                <input type="button" name="request" value="Approva" disabled />
+                                <input type="button" name="cancel_request" value="Rifiuta richiesta" disabled/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="140px">16-04-2021 11:36</td>
+                            <td width="277px">IT-NA206001-APOS-20210416-0001</td>
+                            <td width="80px">Apos</td>
+                            <td width="111px">BN204</td>
+                            <td width="80px">Abbiamo bisogno, accettate la richiesta entro un giorno. Grazie</td>
+                            <td width="111px">
+                                <input type="button" name="request" value="Approva" />
+                                <input type="button" name="cancel_request" value="Rifiuta richiesta" />
+                            </td>
+                        </tr>
+                       </table>  
+                     </div>
+                  </td>
+                </tr>
+              </table>
+        </form>
+        <!-- END:   Requests -->
+          </fieldset>
+
+
+
         <!-- START:   Availability BloodBags -->
         <fieldset>
             <legend><img src="https://image.flaticon.com/icons/png/512/124/124383.png" width="10%"><a name="warehouse"> In Magazzino</a></legend>           
@@ -198,7 +467,9 @@
                         <table border="0">
                             <tr>
                                 <td align="right"><p>A+</p></td>
-                                <td align="left"><p class="warning">5 sacche</p><div class="">Stai per superare il quantitativo massimo previsto</div></td>
+                                <td align="left">
+                                    <p class="warning">5 sacche</p>
+                                </td>
                             </tr>
                             <tr>
                                 <td align="right"><a href="#"><img src="plus.png" alt="plusbutton" width="20%" /></a></td>
@@ -455,5 +726,19 @@
         </fieldset>
         <!-- END: BROADCAST CHAT -->
       </div>
+      <script>
+        /* START: alert */
+        var close = document.getElementsByClassName("closebtn");
+        var i;
+        
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function(){
+            var div = this.parentElement;
+            div.style.opacity = "0";
+            setTimeout(function(){ div.style.display = "none"; }, 600);
+          }
+        }
+        /* END: alert */
+    </script>
   </body>
 </html>
