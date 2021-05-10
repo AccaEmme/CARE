@@ -83,7 +83,8 @@ public class MongoManager {
         Properties properties = new Properties();
 
         try {
-            properties.loadFromXML(new FileInputStream("C:/Users/giuli/Desktop/uri.xml"));
+            //properties.loadFromXML(new FileInputStream("C:/Users/giuli/Desktop/uri.xml"));  //pc fisso
+            properties.loadFromXML(new FileInputStream("/Users/folly/Desktop/uri.xml"));  //mac
         } catch (InvalidPropertiesFormatException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
