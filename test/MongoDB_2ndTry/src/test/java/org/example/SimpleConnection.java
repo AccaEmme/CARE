@@ -5,6 +5,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +30,10 @@ public class SimpleConnection {
         document.append("Age", "21");
 
         collection.insertOne(document);
+
+        mongoClient.close();
     }
+
 
     private String createURI(){
         String username = "";
@@ -52,4 +56,5 @@ public class SimpleConnection {
 
         return "mongodb+srv://"+username+":"+password+"@care.a1sy7.mongodb.net/test";
     }
+
 }
