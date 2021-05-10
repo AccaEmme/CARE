@@ -1,8 +1,8 @@
 package com.ranauro.manager;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
-
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
@@ -153,16 +153,36 @@ public class MongoManager {
      * eccezione da personalizzare in futuro
      * */
     public void dump() throws Exception{
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(SERIALE, "prova");
-        jsonObject.put(GRUPPO, "gruppo");
-
+        JSONObject jsonObject;
         FileWriter file = null;
+
+        List<Sacca> sacche = this.getSacche();
+
+        Date date = new Date();
+
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd_HH:mm");//dd/MM/yyyy
+        Date now = new Date();
+        String dumpName = sdfDate.format(now);
+
         try {
-            file = new FileWriter("dumps/dump.json");
+            file = new FileWriter("dumps/"+"dump_"+dumpName+".json",true);
+            file.write("[");
+
+            for (int i = 0; i < sacche.size()-1; i++){
+                jsonObject = new JSONObject();
+                jsonObject.put(SERIALE, sacche.get(i).getSerialeString());
+                jsonObject.put(GRUPPO, sacche.get(i).getGruppoString());
+
+                file.write(jsonObject.toJSONString());
+                file.write(",\n");
+            }
+            jsonObject = new JSONObject();
+            jsonObject.put(SERIALE, sacche.get(sacche.size()-1).getSerialeString());
+            jsonObject.put(GRUPPO, sacche.get(sacche.size()-1).getGruppoString());
+
             file.write(jsonObject.toJSONString());
-            System.out.println("Successfully Copied JSON Object to File.");
-            System.out.println("File: \n"+jsonObject);
+
+            file.write("]");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
