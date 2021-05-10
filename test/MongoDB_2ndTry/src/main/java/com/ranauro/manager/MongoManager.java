@@ -3,14 +3,17 @@ package com.ranauro.manager;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.InvalidPropertiesFormatException;
-import java.util.Properties;
+import java.util.*;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.ranauro.sangue.GruppoSanguigno;
 import com.ranauro.sangue.Sacca;
+import com.ranauro.sangue.Seriale;
 import org.bson.Document;
 
 public class MongoManager {
@@ -31,6 +34,47 @@ public class MongoManager {
     //implementazione non necessaria
     public void createDB(){}
 
+
+
+    /** ################################ DELETE ################################*/
+    public void deleteSacca(Sacca sacca){
+        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
+
+        mongoCollection.deleteOne(Filters.eq("seriale", sacca.getSeriale().toString()));
+        System.out.println("Deleted element: "+sacca.toString());
+        mongoClient.close();
+    }
+
+    /** ################################ GET ################################*/
+    public List<Sacca> getSacche(){
+        List<Sacca> sacche = new ArrayList<>();
+
+        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
+
+        FindIterable<Document> iterDoc = mongoCollection.find();
+
+        GruppoSanguigno gruppoSanguigno;
+        for (Document document : iterDoc){
+            gruppoSanguigno = GruppoSanguigno.valueOf(document.getString(GRUPPO));
+
+            Sacca sacca = new Sacca(new Seriale(document.getString(SERIALE)), gruppoSanguigno );
+            sacche.add(sacca);
+        }
+        System.out.println(sacche.size()+" elements read.");
+        return sacche;
+    }
+
+
+
+    /** ################################ CREATE ################################*/
     public void addSacca(Sacca sacca){
         MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
@@ -42,6 +86,9 @@ public class MongoManager {
             document.append(GRUPPO, sacca.getGruppoString());
 
         mongoCollection.insertOne(document);
+        System.out.println("Added element: "+document);
+
+        mongoClient.close();
     }
 
     public void addDocument(Document doc){
@@ -53,6 +100,7 @@ public class MongoManager {
 
         mongoCollection.insertOne(doc);
         System.out.println("Added document: "+doc);
+        mongoClient.close();
     }
 
 

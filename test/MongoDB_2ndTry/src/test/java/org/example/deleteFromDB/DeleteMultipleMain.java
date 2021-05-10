@@ -20,7 +20,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 import java.util.Set;
 
-public class DeleteMultiple {
+public class DeleteMultipleMain {
     public static void main(String[] args) {
         MongoClientURI clientURI = new MongoClientURI(createURI());
         MongoClient mongoClient = new MongoClient(clientURI);

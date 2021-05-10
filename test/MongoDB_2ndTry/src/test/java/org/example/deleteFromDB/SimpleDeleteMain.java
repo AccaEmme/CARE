@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-public class SimpleDelete {
+public class SimpleDeleteMain {
     public static void main(String[] args) {
         MongoClientURI clientURI = new MongoClientURI(createURI());
         MongoClient mongoClient = new MongoClient(clientURI);
