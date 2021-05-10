@@ -10,12 +10,16 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.ranauro.sangue.Sacca;
 import org.bson.Document;
 
 public class MongoManager {
     private String connectionStringURI = "";
     private String db_name = "";
     private String collection_name = "";
+
+    private static String SERIALE = "seriale";
+    private static String GRUPPO = "GRUPPO";
 
     public MongoManager(){
         connectionStringURI = createURI();
@@ -27,6 +31,19 @@ public class MongoManager {
     //implementazione non necessaria
     public void createDB(){}
 
+    public void addSacca(Sacca sacca){
+        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
+
+        Document document = new Document(SERIALE, sacca.getSerialeString());
+            document.append(GRUPPO, sacca.getGruppoString());
+
+        mongoCollection.insertOne(document);
+    }
+
     public void addDocument(Document doc){
         MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
@@ -35,6 +52,7 @@ public class MongoManager {
         MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
 
         mongoCollection.insertOne(doc);
+        System.out.println("Added document: "+doc);
     }
 
 
