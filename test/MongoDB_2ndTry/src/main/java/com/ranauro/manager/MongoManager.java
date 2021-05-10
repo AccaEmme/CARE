@@ -1,3 +1,11 @@
+/**
+ * @Author  Giuliano Ranauro
+ * @Date    11/05/21
+ * @IDE     Intellij
+ * @Dependencies:   junit, org.mongodb, com.googlecode.json-simple
+ * */
+
+
 package com.ranauro.manager;
 
 import java.io.*;
@@ -104,6 +112,9 @@ public class MongoManager {
 
 
     private String[] getDbProperties(){
+        /**
+         * reading database name and collection name from xml
+         * */
         String[] db_collection_names = new String[2];
 
         Properties properties = new Properties();
@@ -118,6 +129,9 @@ public class MongoManager {
             e.printStackTrace();
         }
 
+        /**
+         * reading from an array, so i can return multiple values insted of only one
+         * */
         db_collection_names[0] = properties.getProperty("db_name");
         db_collection_names[1] = properties.getProperty("collection_name");
 
@@ -142,8 +156,8 @@ public class MongoManager {
 
 
 
-        username = properties.getProperty("username");
-        password = properties.getProperty("password");
+        username = properties.getProperty("username");      //reading username from xml (private, local)
+        password = properties.getProperty("password");      //reading password from xml (private, local)
 
         return "mongodb+srv://"+username+":"+password+"@care.a1sy7.mongodb.net/test";
     }
@@ -165,9 +179,11 @@ public class MongoManager {
         String dumpName = sdfDate.format(now);
 
         try {
+            //new filewriter in append mode
             file = new FileWriter("dumps/"+"dump_"+dumpName+".json",true);
-            file.write("[");
+            file.write("[");//array of objects
 
+            //adding every element to the dump
             for (int i = 0; i < sacche.size()-1; i++){
                 jsonObject = new JSONObject();
                 jsonObject.put(SERIALE, sacche.get(i).getSerialeString());
@@ -176,13 +192,14 @@ public class MongoManager {
                 file.write(jsonObject.toJSONString());
                 file.write(",\n");
             }
+            //adding last element withoud comma
             jsonObject = new JSONObject();
             jsonObject.put(SERIALE, sacche.get(sacche.size()-1).getSerialeString());
             jsonObject.put(GRUPPO, sacche.get(sacche.size()-1).getGruppoString());
 
-            file.write(jsonObject.toJSONString());
+            file.write(jsonObject.toJSONString());  //writing last element
 
-            file.write("]");
+            file.write("]");                    //closing the array
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
