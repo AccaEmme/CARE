@@ -36,7 +36,7 @@ public class DeleteMultipleMain {
         }
 
 
-        System.out.println("Elementi eliminato.");
+        System.out.println("Elementi eliminati.");
     }
     private static String createURI(){
         String username = "";

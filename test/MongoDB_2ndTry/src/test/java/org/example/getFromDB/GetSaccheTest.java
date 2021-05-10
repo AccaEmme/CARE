@@ -16,6 +16,10 @@ public class GetSaccheTest {
         MongoManager mongoManager = new MongoManager();
         List<Sacca> sacche = mongoManager.getSacche();
 
+
+        if (sacche.size() == 0)
+            System.out.println("There are no bags in the database.");
+        else
         for (Sacca sacca : sacche)
             System.out.println(sacca.toString());
     }

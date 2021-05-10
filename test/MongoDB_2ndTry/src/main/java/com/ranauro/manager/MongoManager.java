@@ -1,8 +1,6 @@
 package com.ranauro.manager;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 import com.mongodb.MongoClient;
@@ -15,6 +13,7 @@ import com.ranauro.sangue.GruppoSanguigno;
 import com.ranauro.sangue.Sacca;
 import com.ranauro.sangue.Seriale;
 import org.bson.Document;
+import org.json.simple.JSONObject;
 
 public class MongoManager {
     private String connectionStringURI = "";
@@ -141,9 +140,38 @@ public class MongoManager {
             e.printStackTrace();
         }
 
+
+
         username = properties.getProperty("username");
         password = properties.getProperty("password");
 
         return "mongodb+srv://"+username+":"+password+"@care.a1sy7.mongodb.net/test";
+    }
+    /** ################################ ADVANCED ################################*/
+
+    /**
+     * eccezione da personalizzare in futuro
+     * */
+    public void dump() throws Exception{
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(SERIALE, "prova");
+        jsonObject.put(GRUPPO, "gruppo");
+
+        FileWriter file = null;
+        try {
+            file = new FileWriter("dumps/dump.json");
+            file.write(jsonObject.toJSONString());
+            System.out.println("Successfully Copied JSON Object to File.");
+            System.out.println("File: \n"+jsonObject);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                file.flush();
+                file.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
