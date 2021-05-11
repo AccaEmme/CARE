@@ -12,7 +12,7 @@ public class BloodBag {
     /**
      * @// TODO: 11/05/2021   modificare le classi {@code Seriale} e la classe {@code GruppoSanguigno}*/
     private Seriale serial;                     //the serial of the blood bag
-    private GruppoSanguigno bloodGroup;         //the blood group of the blood bag
+    private BloodGroup bloodGroup;         //the blood group of the blood bag
     private Date expirationDate;                //the day the bag will expire
     private Date creationDate;                  //the day the bag was taken
     /**@// TODO: 11/05/2021 create class "hospital" that can be the origin or the destination of a bag */
@@ -27,7 +27,7 @@ public class BloodBag {
      * @param creationDate bag's creation date
      * @param origin where the bag was taken
      * */
-    public BloodBag(Seriale serial, GruppoSanguigno bloodGroup, Date expirationDate, Date creationDate, String origin){
+    public BloodBag(Seriale serial, BloodGroup bloodGroup, Date expirationDate, Date creationDate, String origin){
         assert bloodGroup != null && serial != null && serial != null && creationDate != null;
 
         this.serial = serial;
@@ -42,7 +42,7 @@ public class BloodBag {
      * @param creationDate bag's creation date
      * @param origin where the bag was taken
      * */
-    public BloodBag(GruppoSanguigno bloodGroup, Date expirationDate, Date creationDate, String origin){
+    public BloodBag(BloodGroup bloodGroup, Date expirationDate, Date creationDate, String origin){
         assert bloodGroup != null && serial != null && serial != null && creationDate != null;
 
         this.serial = new Seriale();
@@ -63,7 +63,7 @@ public class BloodBag {
 
     // ########################### UTIL ###########################
     public String toString(){
-        return "Seriale: " + serial + "Gruppo: " + this.bloodGroup + ", Origin: " + this.origin + ", Creation date: "+this.creationDate + ", Expiration date: "+expirationDate;
+        return " Seriale: " + serial + ",\n\t Blood Group: " + this.bloodGroup + ",\n\t Origin: " + this.origin + ",\n\t Creation date: "+this.creationDate + ",\n\t Expiration date: "+expirationDate + ".";
     }
 
     public boolean equals(Object o){
@@ -77,7 +77,7 @@ public class BloodBag {
         return serial;
     }
 
-    public GruppoSanguigno getBloodGroup() {
+    public BloodGroup getBloodGroup() {
         return bloodGroup;
     }
 
@@ -99,7 +99,7 @@ public class BloodBag {
         this.serial = serial;
     }
 
-    public void setBloodGroup(GruppoSanguigno bloodGroup) {
+    public void setBloodGroup(BloodGroup bloodGroup) {
         this.bloodGroup = bloodGroup;
     }
 

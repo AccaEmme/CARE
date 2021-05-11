@@ -1,39 +1,45 @@
 package org.example.SimpleExamples;
 
 import com.ranauro.manager.MongoManager;
-import com.ranauro.sangue.GruppoSanguigno;
-import com.ranauro.sangue.Sacca;
-import org.bson.Document;
+import com.ranauro.sangue.BloodBag;
+import com.ranauro.sangue.BloodGroup;
+import com.ranauro.sangue.SaccaOLD;
+
+import java.util.Date;
 
 public class AddAllSaccheToDB {
     public static void main(String[] args) {
-        GruppoSanguigno[] gruppiSanguigni = GruppoSanguigno.values();
-        Sacca sacca = null ;
-
+        BloodGroup[] bloodGroups = BloodGroup.values();
+        BloodBag bloodBag = null;
         MongoManager mongoManager = new MongoManager();
 
-        addTwice(gruppiSanguigni, sacca, mongoManager);
+        //addTwice(gruppiSanguigni, saccaOLD, mongoManager);
+
+        for (BloodGroup group : bloodGroups){
+            bloodBag = new BloodBag(group, new Date(), new Date(), "FateBeneFratelli");
+            mongoManager.addSacca(bloodBag);
+        }
 
     }
-    private static void addOnce(GruppoSanguigno[] gruppiSanguigni, Sacca sacca, MongoManager mongoManager){
-        for (GruppoSanguigno gs : gruppiSanguigni) {
-            sacca = new Sacca(gs);
-            mongoManager.addSacca(sacca);
+    /*private static void addOnce(BloodGroup[] gruppiSanguigni, SaccaOLD saccaOLD, MongoManager mongoManager){
+        for (BloodGroup gs : gruppiSanguigni) {
+            saccaOLD = new SaccaOLD(gs);
+            mongoManager.addSacca(saccaOLD);
 
 
-            System.out.println("Added sacca: "+sacca);
+            System.out.println("Added sacca: "+ saccaOLD);
         }
     }
-    private static void addTwice(GruppoSanguigno[] gruppiSanguigni, Sacca sacca, MongoManager mongoManager){
-        for (GruppoSanguigno gs : gruppiSanguigni) {
-            sacca = new Sacca(gs);
-            mongoManager.addSacca(sacca);
-            System.out.println("Added sacca: "+sacca);
+    private static void addTwice(BloodGroup[] gruppiSanguigni, SaccaOLD saccaOLD, MongoManager mongoManager){
+        for (BloodGroup gs : gruppiSanguigni) {
+            saccaOLD = new SaccaOLD(gs);
+            mongoManager.addSacca(saccaOLD);
+            System.out.println("Added sacca: "+ saccaOLD);
 
-            sacca = new Sacca(gs);
-            mongoManager.addSacca(sacca);
+            saccaOLD = new SaccaOLD(gs);
+            mongoManager.addSacca(saccaOLD);
 
-            System.out.println("Added sacca: "+sacca);
+            System.out.println("Added sacca: "+ saccaOLD);
         }
-    }
+    }*/
 }

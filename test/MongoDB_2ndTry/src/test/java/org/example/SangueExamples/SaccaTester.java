@@ -1,13 +1,13 @@
 package org.example.SangueExamples;
 
-import com.ranauro.sangue.GruppoSanguigno;
-import com.ranauro.sangue.Sacca;
+import com.ranauro.sangue.BloodGroup;
+import com.ranauro.sangue.SaccaOLD;
 
 public class SaccaTester {
     public static void main(String[] args) {
-        GruppoSanguigno[] gruppiSanguigni = GruppoSanguigno.values();
+        BloodGroup[] gruppiSanguigni = BloodGroup.values();
 
-        Sacca sacca = new Sacca(gruppiSanguigni[0]);
-        System.out.println(sacca);
+        SaccaOLD saccaOLD = new SaccaOLD(gruppiSanguigni[0]);
+        System.out.println(saccaOLD);
     }
 }

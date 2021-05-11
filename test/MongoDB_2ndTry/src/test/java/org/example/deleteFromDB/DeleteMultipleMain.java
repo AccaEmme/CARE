@@ -11,14 +11,13 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.ranauro.sangue.GruppoSanguigno;
+import com.ranauro.sangue.BloodGroup;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
-import java.util.Set;
 
 public class DeleteMultipleMain {
     public static void main(String[] args) {
@@ -30,9 +29,9 @@ public class DeleteMultipleMain {
 
         //mongoCollection.deleteOne(Filters.eq("GRUPPO", "Bm"));
 
-        GruppoSanguigno[] gruppi = GruppoSanguigno.values();
-        for (GruppoSanguigno gruppoSanguigno: gruppi){
-            mongoCollection.deleteMany(Filters.eq("GRUPPO",gruppoSanguigno.toString()));
+        BloodGroup[] gruppi = BloodGroup.values();
+        for (BloodGroup bloodGroup : gruppi){
+            mongoCollection.deleteMany(Filters.eq("GRUPPO", bloodGroup.toString()));
         }
 
 

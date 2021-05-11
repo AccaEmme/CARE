@@ -9,6 +9,8 @@
 package com.ranauro.manager;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import com.mongodb.MongoClient;
@@ -17,8 +19,9 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.ranauro.sangue.GruppoSanguigno;
-import com.ranauro.sangue.Sacca;
+import com.ranauro.sangue.BloodBag;
+import com.ranauro.sangue.BloodGroup;
+import com.ranauro.sangue.SaccaOLD;
 import com.ranauro.sangue.Seriale;
 import org.bson.Document;
 import org.json.simple.JSONObject;
@@ -28,8 +31,11 @@ public class MongoManager {
     private String db_name = "";
     private String collection_name = "";
 
-    private static String SERIALE = "seriale";
-    private static String GRUPPO = "GRUPPO";
+    private static String SERIALE = "SERIAL";
+    private static String GRUPPO = "GROUP";
+    private static String EXPIRATION = "EXPIRATION_DAY";
+    private static String CREATION = "CREATION_DAY";
+    private static String ORIGIN = "ORIGIN";
 
     public MongoManager(){
         connectionStringURI = createURI();
@@ -44,21 +50,21 @@ public class MongoManager {
 
 
     /** ################################ DELETE ################################*/
-    public void deleteSacca(Sacca sacca){
+    public void deleteSacca(SaccaOLD saccaOLD){
         MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
 
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
         MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
 
-        mongoCollection.deleteOne(Filters.eq("seriale", sacca.getSeriale().toString()));
-        System.out.println("Deleted element: "+sacca.toString());
+        mongoCollection.deleteOne(Filters.eq("seriale", saccaOLD.getSeriale().toString()));
+        System.out.println("Deleted element: "+ saccaOLD.toString());
         mongoClient.close();
     }
 
     /** ################################ GET ################################*/
-    public List<Sacca> getSacche(){
-        List<Sacca> sacche = new ArrayList<>();
+    public List<SaccaOLD> getSacche(){
+        List<SaccaOLD> sacche = new ArrayList<>();
 
         MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
@@ -68,29 +74,66 @@ public class MongoManager {
 
         FindIterable<Document> iterDoc = mongoCollection.find();
 
-        GruppoSanguigno gruppoSanguigno;
+        BloodGroup bloodGroup;
         for (Document document : iterDoc){
-            gruppoSanguigno = GruppoSanguigno.valueOf(document.getString(GRUPPO));
+            bloodGroup = BloodGroup.valueOf(document.getString(GRUPPO));
 
-            Sacca sacca = new Sacca(new Seriale(document.getString(SERIALE)), gruppoSanguigno );
-            sacche.add(sacca);
+            SaccaOLD saccaOLD = new SaccaOLD(new Seriale(document.getString(SERIALE)), bloodGroup);
+            sacche.add(saccaOLD);
         }
         System.out.println(sacche.size()+" elements read.");
         return sacche;
     }
-
-
-
-    /** ################################ CREATE ################################*/
-    public void addSacca(Sacca sacca){
+    public List<BloodBag> getBloodBags() throws ParseException {
+        List<BloodBag> bags = new ArrayList<>();
         MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
 
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
         MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
 
-        Document document = new Document(SERIALE, sacca.getSerialeString());
-            document.append(GRUPPO, sacca.getGruppoString());
+        FindIterable<Document> iterDoc = mongoCollection.find();
+        BloodGroup bloodGroup;
+        Seriale serial;
+        Date expirationDate;
+        Date creationDate;
+        String origin;
+
+        DateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy");
+        for (Document document : iterDoc){
+            bloodGroup = BloodGroup.valueOf(document.getString(GRUPPO));
+            serial = new Seriale(document.getString(SERIALE));
+
+            expirationDate = dateFormat.parse(document.getString(EXPIRATION));
+            creationDate = dateFormat.parse(document.getString(CREATION));
+
+            origin = document.getString(ORIGIN);
+
+            System.out.println(bloodGroup);
+            System.out.println(serial);
+            System.out.println(expirationDate);
+            System.out.println(creationDate);
+            System.out.println(origin+"\n");
+        }
+
+        return bags;
+    }
+
+
+
+    /** ################################ CREATE ################################*/
+    public void addSacca(BloodBag bag){
+        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
+
+        Document document = new Document(SERIALE, bag.getSerial().toString());
+            document.append(GRUPPO, bag.getBloodGroup().toString());
+            document.append(EXPIRATION, bag.getExpirationDate().toString());
+            document.append(CREATION, bag.getCreationDate().toString());
+            document.append(ORIGIN, bag.getOrigin());
 
         mongoCollection.insertOne(document);
         System.out.println("Added element: "+document);
@@ -170,7 +213,7 @@ public class MongoManager {
         JSONObject jsonObject;
         FileWriter file = null;
 
-        List<Sacca> sacche = this.getSacche();
+        List<SaccaOLD> sacche = this.getSacche();
 
         Date date = new Date();
 
