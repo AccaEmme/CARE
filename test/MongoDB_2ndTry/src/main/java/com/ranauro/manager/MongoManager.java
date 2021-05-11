@@ -37,7 +37,7 @@ public class MongoManager {
     private static String CREATION = "CREATION_DAY";
     private static String ORIGIN = "ORIGIN";
 
-    private static final String DATE_FORMAT = "yyyy-mm-dd hh:mm:ss";
+    private static final String DATE_FORMAT = "yyyy-mm-dd_hh:mm:ss";
 
     public MongoManager(){
         connectionStringURI = createURI();
