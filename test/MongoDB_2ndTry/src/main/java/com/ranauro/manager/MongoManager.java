@@ -13,6 +13,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
@@ -25,6 +28,7 @@ import com.ranauro.sangue.SaccaOLD;
 import com.ranauro.sangue.Seriale;
 import org.bson.Document;
 import org.json.simple.JSONObject;
+import static com.mongodb.client.model.Filters.*;
 
 public class MongoManager {
     private String connectionStringURI = "";
@@ -65,27 +69,112 @@ public class MongoManager {
     }
 
     /** ################################ GET ################################*/
-    public List<SaccaOLD> getSacche(){
-        List<SaccaOLD> sacche = new ArrayList<>();
+    public BloodBag searchBag(Seriale serial){
+        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
 
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(this.collection_name);
+
+        Document document = mongoCollection.find(eq(SERIALE, serial.toString())).first();
+
+        System.out.println("Document: " + document.toJson());
+
+        BloodGroup bloodGroup = BloodGroup.valueOf(document.getString(GRUPPO));
+        Seriale serialToUse = new Seriale(document.getString(SERIALE));
+
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+
+        Date expirationDate = null;
+        Date creationDate = null;
+        try {
+            expirationDate = dateFormat.parse(document.getString(EXPIRATION));
+            creationDate = dateFormat.parse(document.getString(CREATION));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String origin = document.getString(ORIGIN);
+
+        mongoClient.close();
+
+        assert expirationDate != null && creationDate != null && origin != null;
+        return new BloodBag(serialToUse, bloodGroup, expirationDate, creationDate, origin);
+    }
+    /**
+     * @// TODO: 11/05/2021 implementare i filtri come si deve, al momento non ricordo come si fa >:/ */
+    public List<BloodBag> filterByBloodGroup(BloodGroup group){
+        List<BloodBag> bags = new ArrayList<>();
+
+        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(this.collection_name);
+
+
+        BloodGroup bloodGroup = null;
+        Seriale serial = null;
+        Date expirationDate = null;
+        Date creationDate = null;
+        String origin = null;
+
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        for (Document document : mongoCollection.find(eq(GRUPPO,group.toString()))){
+            bloodGroup = BloodGroup.valueOf(document.getString(GRUPPO));
+            serial = new Seriale(document.getString(SERIALE));
+
+            try {
+                expirationDate = dateFormat.parse(document.getString(EXPIRATION));
+                creationDate = dateFormat.parse(document.getString(CREATION));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            origin = document.getString(ORIGIN);
+
+            assert serial != null && bloodGroup != null && expirationDate != null && creationDate != null && origin != null;
+
+            bags.add(new BloodBag(serial, bloodGroup, expirationDate, creationDate, origin));
+        }
+
+        mongoClient.close();
+
+        return bags;
+    }
+
+    public BloodBag getFirst(){
         MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
 
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
         MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
 
-        FindIterable<Document> iterDoc = mongoCollection.find();
+        Document document = (Document) mongoCollection.find().first();
+        System.out.println("Document: " + document.toJson());
 
-        BloodGroup bloodGroup;
-        for (Document document : iterDoc){
-            bloodGroup = BloodGroup.valueOf(document.getString(GRUPPO));
+        BloodGroup bloodGroup = BloodGroup.valueOf(document.getString(GRUPPO));
+        Seriale serial = new Seriale(document.getString(SERIALE));
 
-            SaccaOLD saccaOLD = new SaccaOLD(new Seriale(document.getString(SERIALE)), bloodGroup);
-            sacche.add(saccaOLD);
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+
+        Date expirationDate = null;
+        Date creationDate = null;
+        try {
+            expirationDate = dateFormat.parse(document.getString(EXPIRATION));
+            creationDate = dateFormat.parse(document.getString(CREATION));
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        System.out.println(sacche.size()+" elements read.");
-        return sacche;
+
+        String origin = document.getString(ORIGIN);
+
+        mongoClient.close();
+
+        assert bloodGroup != null && serial != null && expirationDate != null && creationDate != null && origin != null;
+        return new BloodBag(serial, bloodGroup, expirationDate, creationDate, origin);
     }
+
     public List<BloodBag> getBloodBags() throws ParseException {
         List<BloodBag> bags = new ArrayList<>();
         MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
@@ -112,16 +201,12 @@ public class MongoManager {
 
             origin = document.getString(ORIGIN);
 
-            /*
-            System.out.println(bloodGroup);
-            System.out.println(serial);
-            System.out.println(expirationDate);
-            System.out.println(creationDate);
-            System.out.println(origin+"\n");*/
+            assert bloodGroup != null && serial != null && expirationDate != null && creationDate != null && origin != null;
 
             bags.add(new BloodBag(serial, bloodGroup, expirationDate, creationDate, origin));
         }
 
+        mongoClient.close();
         return bags;
     }
 
@@ -159,6 +244,7 @@ public class MongoManager {
 
         DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
+        /**@// TODO: 11/05/2021 modify "insertOne" with "insertMany" */
         for (BloodBag bag : bags){
             Document document = new Document(SERIALE, bag.getSerial().toString());
             document.append(GRUPPO, bag.getBloodGroup().toString());
@@ -305,4 +391,33 @@ public class MongoManager {
             }
         }
     }
+
+    public String getConnectionStringURI() {
+        return connectionStringURI;
+    }
+
+    public String getDb_name() {
+        return db_name;
+    }
+
+    public String getCollection_name() {
+        return collection_name;
+    }
+
+    public static String getDateFormat() {
+        return DATE_FORMAT;
+    }
+
+    public void setConnectionStringURI(String connectionStringURI) {
+        this.connectionStringURI = connectionStringURI;
+    }
+
+    public void setDb_name(String db_name) {
+        this.db_name = db_name;
+    }
+
+    public void setCollection_name(String collection_name) {
+        this.collection_name = collection_name;
+    }
+
 }
