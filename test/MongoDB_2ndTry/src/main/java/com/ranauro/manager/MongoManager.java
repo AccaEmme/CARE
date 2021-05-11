@@ -37,6 +37,8 @@ public class MongoManager {
     private static String CREATION = "CREATION_DAY";
     private static String ORIGIN = "ORIGIN";
 
+    private static final String DATE_FORMAT = "yyyy-mm-dd hh:mm:ss";
+
     public MongoManager(){
         connectionStringURI = createURI();
         String[] db_collection_names = getDbProperties();
@@ -99,7 +101,7 @@ public class MongoManager {
         Date creationDate;
         String origin;
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         for (Document document : iterDoc){
             bloodGroup = BloodGroup.valueOf(document.getString(GRUPPO));
             serial = new Seriale(document.getString(SERIALE));
@@ -133,7 +135,7 @@ public class MongoManager {
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
         MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
 
         Document document = new Document(SERIALE, bag.getSerial().toString());
@@ -220,12 +222,12 @@ public class MongoManager {
         JSONObject jsonObject;
         FileWriter file = null;
 
-        List<SaccaOLD> sacche = this.getSacche();
+        List<BloodBag> bags = this.getBloodBags();
 
         Date date = new Date();
 
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd_HH:mm");//dd/MM/yyyy
-        Date now = new Date();
+        SimpleDateFormat sdfDate = new SimpleDateFormat(DATE_FORMAT);
+        Date now = new Date();  //time of the dump
         String dumpName = sdfDate.format(now);
 
         try {
@@ -234,18 +236,36 @@ public class MongoManager {
             file.write("[");//array of objects
 
             //adding every element to the dump
-            for (int i = 0; i < sacche.size()-1; i++){
+            String expirationString;
+            String creationString;
+            for (int i = 0; i < bags.size()-1; i++){
                 jsonObject = new JSONObject();
-                jsonObject.put(SERIALE, sacche.get(i).getSerialeString());
-                jsonObject.put(GRUPPO, sacche.get(i).getGruppoString());
+                jsonObject.put(SERIALE, bags.get(i).getSerial().toString());
+                jsonObject.put(GRUPPO, bags.get(i).getBloodGroup().toString());
+
+                expirationString = sdfDate.format(bags.get(i).getExpirationDate());
+                creationString = sdfDate.format(bags.get(i).getCreationDate());
+
+                jsonObject.put(EXPIRATION, expirationString);
+                jsonObject.put(CREATION, creationString);
+
+                jsonObject.put(ORIGIN, bags.get(i).getOrigin());
+
 
                 file.write(jsonObject.toJSONString());
                 file.write(",\n");
             }
             //adding last element withoud comma
             jsonObject = new JSONObject();
-            jsonObject.put(SERIALE, sacche.get(sacche.size()-1).getSerialeString());
-            jsonObject.put(GRUPPO, sacche.get(sacche.size()-1).getGruppoString());
+            jsonObject.put(SERIALE, bags.get(bags.size()-1).getSerial().toString());
+            jsonObject.put(GRUPPO, bags.get(bags.size()-1).getBloodGroup().toString());
+            expirationString = sdfDate.format(bags.get(bags.size()-1).getExpirationDate());
+            creationString = sdfDate.format(bags.get(bags.size()-1).getCreationDate());
+
+            jsonObject.put(EXPIRATION, expirationString);
+            jsonObject.put(CREATION, creationString);
+
+            jsonObject.put(ORIGIN, bags.get(bags.size()-1).getOrigin());
 
             file.write(jsonObject.toJSONString());  //writing last element
 
