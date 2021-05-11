@@ -150,6 +150,30 @@ public class MongoManager {
         mongoClient.close();
     }
 
+    public void addBloodBag(List<BloodBag> bags){
+        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
+
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+
+        for (BloodBag bag : bags){
+            Document document = new Document(SERIALE, bag.getSerial().toString());
+            document.append(GRUPPO, bag.getBloodGroup().toString());
+            document.append(EXPIRATION, dateFormat.format(bag.getExpirationDate()));
+            document.append(CREATION, dateFormat.format(bag.getCreationDate()));
+            document.append(ORIGIN, bag.getOrigin());
+
+            mongoCollection.insertOne(document);
+            System.out.println("Added element: "+document);
+        }
+
+        mongoClient.close();
+
+    }
+
     public void addDocument(Document doc){
         MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);

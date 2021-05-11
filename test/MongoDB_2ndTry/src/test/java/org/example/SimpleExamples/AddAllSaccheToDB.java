@@ -4,7 +4,9 @@ import com.ranauro.manager.MongoManager;
 import com.ranauro.sangue.BloodBag;
 import com.ranauro.sangue.BloodGroup;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class AddAllSaccheToDB {
     public static void main(String[] args) {
@@ -14,11 +16,20 @@ public class AddAllSaccheToDB {
 
         //addTwice(gruppiSanguigni, saccaOLD, mongoManager);
 
-        for (BloodGroup group : bloodGroups){
+        //not efficent
+        /*for (BloodGroup group : bloodGroups){
             bloodBag = new BloodBag(group, new Date(), new Date(), "FateBeneFratelli");
             mongoManager.addBloodBag(bloodBag);
+        }*/
+
+        List<BloodBag> bags = new ArrayList<>();
+        for (BloodGroup group : bloodGroups){
+            bags.add(new BloodBag(group, new Date(), new Date(), "FateBeneFratelli"));
         }
 
+        mongoManager.addBloodBag(bags);
+
+        //WAAAAAAY faster!
     }
 
 
