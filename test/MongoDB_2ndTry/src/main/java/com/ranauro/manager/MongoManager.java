@@ -99,21 +99,25 @@ public class MongoManager {
         Date creationDate;
         String origin;
 
-        DateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         for (Document document : iterDoc){
             bloodGroup = BloodGroup.valueOf(document.getString(GRUPPO));
             serial = new Seriale(document.getString(SERIALE));
+
 
             expirationDate = dateFormat.parse(document.getString(EXPIRATION));
             creationDate = dateFormat.parse(document.getString(CREATION));
 
             origin = document.getString(ORIGIN);
 
+            /*
             System.out.println(bloodGroup);
             System.out.println(serial);
             System.out.println(expirationDate);
             System.out.println(creationDate);
-            System.out.println(origin+"\n");
+            System.out.println(origin+"\n");*/
+
+            bags.add(new BloodBag(serial, bloodGroup, expirationDate, creationDate, origin));
         }
 
         return bags;
@@ -122,17 +126,20 @@ public class MongoManager {
 
 
     /** ################################ CREATE ################################*/
-    public void addSacca(BloodBag bag){
+    public void addBloodBag(BloodBag bag){
         MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
 
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
         MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+
+
         Document document = new Document(SERIALE, bag.getSerial().toString());
             document.append(GRUPPO, bag.getBloodGroup().toString());
-            document.append(EXPIRATION, bag.getExpirationDate().toString());
-            document.append(CREATION, bag.getCreationDate().toString());
+            document.append(EXPIRATION, dateFormat.format(bag.getExpirationDate()));
+            document.append(CREATION, dateFormat.format(bag.getCreationDate()));
             document.append(ORIGIN, bag.getOrigin());
 
         mongoCollection.insertOne(document);

@@ -31,7 +31,7 @@ public class DeleteMultipleMain {
 
         BloodGroup[] gruppi = BloodGroup.values();
         for (BloodGroup bloodGroup : gruppi){
-            mongoCollection.deleteMany(Filters.eq("GRUPPO", bloodGroup.toString()));
+            mongoCollection.deleteMany(Filters.eq("GROUP", bloodGroup.toString()));
         }
 
 

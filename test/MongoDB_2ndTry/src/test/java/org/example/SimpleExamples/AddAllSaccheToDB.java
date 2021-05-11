@@ -3,7 +3,6 @@ package org.example.SimpleExamples;
 import com.ranauro.manager.MongoManager;
 import com.ranauro.sangue.BloodBag;
 import com.ranauro.sangue.BloodGroup;
-import com.ranauro.sangue.SaccaOLD;
 
 import java.util.Date;
 
@@ -17,10 +16,21 @@ public class AddAllSaccheToDB {
 
         for (BloodGroup group : bloodGroups){
             bloodBag = new BloodBag(group, new Date(), new Date(), "FateBeneFratelli");
-            mongoManager.addSacca(bloodBag);
+            mongoManager.addBloodBag(bloodBag);
         }
 
     }
+
+
+
+
+
+
+
+
+
+
+
     /*private static void addOnce(BloodGroup[] gruppiSanguigni, SaccaOLD saccaOLD, MongoManager mongoManager){
         for (BloodGroup gs : gruppiSanguigni) {
             saccaOLD = new SaccaOLD(gs);
