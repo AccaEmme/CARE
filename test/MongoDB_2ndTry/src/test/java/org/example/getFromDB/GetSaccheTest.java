@@ -7,8 +7,7 @@
 package org.example.getFromDB;
 
 import com.ranauro.manager.MongoManager;
-import com.ranauro.sangue.BloodBag;
-import com.ranauro.sangue.SaccaOLD;
+import com.ranauro.blood.BloodBag;
 
 import java.text.ParseException;
 import java.util.List;

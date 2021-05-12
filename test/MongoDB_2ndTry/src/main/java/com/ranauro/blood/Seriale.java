@@ -1,4 +1,4 @@
-package com.ranauro.sangue;
+package com.ranauro.blood;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

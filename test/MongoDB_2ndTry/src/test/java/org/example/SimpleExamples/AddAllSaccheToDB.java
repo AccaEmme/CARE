@@ -1,8 +1,8 @@
 package org.example.SimpleExamples;
 
 import com.ranauro.manager.MongoManager;
-import com.ranauro.sangue.BloodBag;
-import com.ranauro.sangue.BloodGroup;
+import com.ranauro.blood.BloodBag;
+import com.ranauro.blood.BloodGroup;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +24,7 @@ public class AddAllSaccheToDB {
 
         List<BloodBag> bags = new ArrayList<>();
         for (BloodGroup group : bloodGroups){
+            bags.add(new BloodBag(group, new Date(), new Date(), "FateBeneFratelli"));
             bags.add(new BloodBag(group, new Date(), new Date(), "FateBeneFratelli"));
         }
 

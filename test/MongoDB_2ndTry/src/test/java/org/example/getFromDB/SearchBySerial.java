@@ -8,7 +8,7 @@
 package org.example.getFromDB;
 
 import com.ranauro.manager.MongoManager;
-import com.ranauro.sangue.Seriale;
+import com.ranauro.blood.Seriale;
 
 public class SearchBySerial {
     public static void main(String[] args) {

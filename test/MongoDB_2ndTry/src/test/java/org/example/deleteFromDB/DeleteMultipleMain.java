@@ -11,7 +11,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.ranauro.sangue.BloodGroup;
+import com.ranauro.blood.BloodGroup;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

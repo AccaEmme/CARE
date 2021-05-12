@@ -4,7 +4,7 @@
  * Ide: Intellij
  * JDK: 1.8
  */
-package com.ranauro.sangue;
+package com.ranauro.blood;
 
 import java.util.Date;
 

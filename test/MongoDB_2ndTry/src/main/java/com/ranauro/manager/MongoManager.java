@@ -14,18 +14,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.ranauro.sangue.BloodBag;
-import com.ranauro.sangue.BloodGroup;
-import com.ranauro.sangue.SaccaOLD;
-import com.ranauro.sangue.Seriale;
+import com.ranauro.blood.BloodBag;
+import com.ranauro.blood.BloodGroup;
+import com.ranauro.blood.SaccaOLD;
+import com.ranauro.blood.Seriale;
+import com.ranauro.util.Costants;
 import org.bson.Document;
 import org.json.simple.JSONObject;
 import static com.mongodb.client.model.Filters.*;
@@ -34,14 +33,12 @@ public class MongoManager {
     private String connectionStringURI = "";
     private String db_name = "";
     private String collection_name = "";
-
+/*
     private static String SERIALE = "SERIAL";
     private static String GRUPPO = "GROUP";
     private static String EXPIRATION = "EXPIRATION_DAY";
     private static String CREATION = "CREATION_DAY";
-    private static String ORIGIN = "ORIGIN";
-
-    private static final String DATE_FORMAT = "yyyy-mm-dd_hh-mm-ss";
+    private static String ORIGIN = "ORIGIN";*/
 
     public MongoManager(){
         connectionStringURI = createURI();
@@ -76,25 +73,25 @@ public class MongoManager {
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
         MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(this.collection_name);
 
-        Document document = mongoCollection.find(eq(SERIALE, serial.toString())).first();
+        Document document = mongoCollection.find(eq(Costants.SERIAL, serial.toString())).first();
 
         System.out.println("Document: " + document.toJson());
 
-        BloodGroup bloodGroup = BloodGroup.valueOf(document.getString(GRUPPO));
-        Seriale serialToUse = new Seriale(document.getString(SERIALE));
+        BloodGroup bloodGroup = BloodGroup.valueOf(document.getString(Costants.GROUP));
+        Seriale serialToUse = new Seriale(document.getString(Costants.SERIAL));
 
-        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        DateFormat dateFormat = new SimpleDateFormat(Costants.DATE_FORMAT);
 
         Date expirationDate = null;
         Date creationDate = null;
         try {
-            expirationDate = dateFormat.parse(document.getString(EXPIRATION));
-            creationDate = dateFormat.parse(document.getString(CREATION));
+            expirationDate = dateFormat.parse(document.getString(Costants.SERIAL));
+            creationDate = dateFormat.parse(document.getString(Costants.CREATION));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        String origin = document.getString(ORIGIN);
+        String origin = document.getString(Costants.ORIGIN);
 
         mongoClient.close();
 
@@ -119,19 +116,19 @@ public class MongoManager {
         Date creationDate = null;
         String origin = null;
 
-        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-        for (Document document : mongoCollection.find(eq(GRUPPO,group.toString()))){
-            bloodGroup = BloodGroup.valueOf(document.getString(GRUPPO));
-            serial = new Seriale(document.getString(SERIALE));
+        DateFormat dateFormat = new SimpleDateFormat(Costants.DATE_FORMAT);
+        for (Document document : mongoCollection.find(eq(Costants.GROUP,group.toString()))){
+            bloodGroup = BloodGroup.valueOf(document.getString(Costants.GROUP));
+            serial = new Seriale(document.getString(Costants.SERIAL));
 
             try {
-                expirationDate = dateFormat.parse(document.getString(EXPIRATION));
-                creationDate = dateFormat.parse(document.getString(CREATION));
+                expirationDate = dateFormat.parse(document.getString(Costants.EXPIRATION));
+                creationDate = dateFormat.parse(document.getString(Costants.CREATION));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
-            origin = document.getString(ORIGIN);
+            origin = document.getString(Costants.ORIGIN);
 
             assert serial != null && bloodGroup != null && expirationDate != null && creationDate != null && origin != null;
 
@@ -153,21 +150,21 @@ public class MongoManager {
         Document document = (Document) mongoCollection.find().first();
         System.out.println("Document: " + document.toJson());
 
-        BloodGroup bloodGroup = BloodGroup.valueOf(document.getString(GRUPPO));
-        Seriale serial = new Seriale(document.getString(SERIALE));
+        BloodGroup bloodGroup = BloodGroup.valueOf(document.getString(Costants.GROUP));
+        Seriale serial = new Seriale(document.getString(Costants.SERIAL));
 
-        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        DateFormat dateFormat = new SimpleDateFormat(Costants.DATE_FORMAT);
 
         Date expirationDate = null;
         Date creationDate = null;
         try {
-            expirationDate = dateFormat.parse(document.getString(EXPIRATION));
-            creationDate = dateFormat.parse(document.getString(CREATION));
+            expirationDate = dateFormat.parse(document.getString(Costants.EXPIRATION));
+            creationDate = dateFormat.parse(document.getString(Costants.CREATION));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        String origin = document.getString(ORIGIN);
+        String origin = document.getString(Costants.ORIGIN);
 
         mongoClient.close();
 
@@ -190,16 +187,16 @@ public class MongoManager {
         Date creationDate;
         String origin;
 
-        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        DateFormat dateFormat = new SimpleDateFormat(Costants.DATE_FORMAT);
         for (Document document : iterDoc){
-            bloodGroup = BloodGroup.valueOf(document.getString(GRUPPO));
-            serial = new Seriale(document.getString(SERIALE));
+            bloodGroup = BloodGroup.valueOf(document.getString(Costants.GROUP));
+            serial = new Seriale(document.getString(Costants.SERIAL));
 
 
-            expirationDate = dateFormat.parse(document.getString(EXPIRATION));
-            creationDate = dateFormat.parse(document.getString(CREATION));
+            expirationDate = dateFormat.parse(document.getString(Costants.EXPIRATION));
+            creationDate = dateFormat.parse(document.getString(Costants.CREATION));
 
-            origin = document.getString(ORIGIN);
+            origin = document.getString(Costants.ORIGIN);
 
             assert bloodGroup != null && serial != null && expirationDate != null && creationDate != null && origin != null;
 
@@ -220,14 +217,14 @@ public class MongoManager {
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
         MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
 
-        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        DateFormat dateFormat = new SimpleDateFormat(Costants.DATE_FORMAT);
 
 
-        Document document = new Document(SERIALE, bag.getSerial().toString());
-            document.append(GRUPPO, bag.getBloodGroup().toString());
-            document.append(EXPIRATION, dateFormat.format(bag.getExpirationDate()));
-            document.append(CREATION, dateFormat.format(bag.getCreationDate()));
-            document.append(ORIGIN, bag.getOrigin());
+        Document document = new Document(Costants.SERIAL, bag.getSerial().toString());
+            document.append(Costants.GROUP, bag.getBloodGroup().toString());
+            document.append(Costants.EXPIRATION, dateFormat.format(bag.getExpirationDate()));
+            document.append(Costants.CREATION, dateFormat.format(bag.getCreationDate()));
+            document.append(Costants.ORIGIN, bag.getOrigin());
 
         mongoCollection.insertOne(document);
         System.out.println("Added element: "+document);
@@ -242,15 +239,15 @@ public class MongoManager {
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
         MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
 
-        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        DateFormat dateFormat = new SimpleDateFormat(Costants.DATE_FORMAT);
 
         /**@// TODO: 11/05/2021 modify "insertOne" with "insertMany" */
         for (BloodBag bag : bags){
-            Document document = new Document(SERIALE, bag.getSerial().toString());
-            document.append(GRUPPO, bag.getBloodGroup().toString());
-            document.append(EXPIRATION, dateFormat.format(bag.getExpirationDate()));
-            document.append(CREATION, dateFormat.format(bag.getCreationDate()));
-            document.append(ORIGIN, bag.getOrigin());
+            Document document = new Document(Costants.SERIAL, bag.getSerial().toString());
+            document.append(Costants.GROUP, bag.getBloodGroup().toString());
+            document.append(Costants.EXPIRATION, dateFormat.format(bag.getExpirationDate()));
+            document.append(Costants.CREATION, dateFormat.format(bag.getCreationDate()));
+            document.append(Costants.ORIGIN, bag.getOrigin());
 
             mongoCollection.insertOne(document);
             System.out.println("Added element: "+document);
@@ -336,7 +333,7 @@ public class MongoManager {
 
         Date date = new Date();
 
-        SimpleDateFormat sdfDate = new SimpleDateFormat(DATE_FORMAT);
+        SimpleDateFormat sdfDate = new SimpleDateFormat(Costants.DATE_FORMAT);
         Date now = new Date();  //time of the dump
         String dumpName = sdfDate.format(now);
 
@@ -350,16 +347,16 @@ public class MongoManager {
             String creationString;
             for (int i = 0; i < bags.size()-1; i++){
                 jsonObject = new JSONObject();
-                jsonObject.put(SERIALE, bags.get(i).getSerial().toString());
-                jsonObject.put(GRUPPO, bags.get(i).getBloodGroup().toString());
+                jsonObject.put(Costants.SERIAL, bags.get(i).getSerial().toString());
+                jsonObject.put(Costants.GROUP, bags.get(i).getBloodGroup().toString());
 
                 expirationString = sdfDate.format(bags.get(i).getExpirationDate());
                 creationString = sdfDate.format(bags.get(i).getCreationDate());
 
-                jsonObject.put(EXPIRATION, expirationString);
-                jsonObject.put(CREATION, creationString);
+                jsonObject.put(Costants.EXPIRATION, expirationString);
+                jsonObject.put(Costants.CREATION, creationString);
 
-                jsonObject.put(ORIGIN, bags.get(i).getOrigin());
+                jsonObject.put(Costants.ORIGIN, bags.get(i).getOrigin());
 
 
                 file.write(jsonObject.toJSONString());
@@ -367,15 +364,15 @@ public class MongoManager {
             }
             //adding last element withoud comma
             jsonObject = new JSONObject();
-            jsonObject.put(SERIALE, bags.get(bags.size()-1).getSerial().toString());
-            jsonObject.put(GRUPPO, bags.get(bags.size()-1).getBloodGroup().toString());
+            jsonObject.put(Costants.SERIAL, bags.get(bags.size()-1).getSerial().toString());
+            jsonObject.put(Costants.GROUP, bags.get(bags.size()-1).getBloodGroup().toString());
             expirationString = sdfDate.format(bags.get(bags.size()-1).getExpirationDate());
             creationString = sdfDate.format(bags.get(bags.size()-1).getCreationDate());
 
-            jsonObject.put(EXPIRATION, expirationString);
-            jsonObject.put(CREATION, creationString);
+            jsonObject.put(Costants.EXPIRATION, expirationString);
+            jsonObject.put(Costants.CREATION, creationString);
 
-            jsonObject.put(ORIGIN, bags.get(bags.size()-1).getOrigin());
+            jsonObject.put(Costants.ORIGIN, bags.get(bags.size()-1).getOrigin());
 
             file.write(jsonObject.toJSONString());  //writing last element
 
@@ -405,7 +402,7 @@ public class MongoManager {
     }
 
     public static String getDateFormat() {
-        return DATE_FORMAT;
+        return Costants.DATE_FORMAT;
     }
 
     public void setConnectionStringURI(String connectionStringURI) {

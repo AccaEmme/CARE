@@ -7,8 +7,8 @@
  */
 package org.example.SangueExamples;
 
-import com.ranauro.sangue.BloodBag;
-import com.ranauro.sangue.BloodGroup;
+import com.ranauro.blood.BloodBag;
+import com.ranauro.blood.BloodGroup;
 
 import java.util.Date;
 

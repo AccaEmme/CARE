@@ -1,7 +1,7 @@
 package org.example.SangueExamples;
 
-import com.ranauro.sangue.BloodGroup;
-import com.ranauro.sangue.SaccaOLD;
+import com.ranauro.blood.BloodGroup;
+import com.ranauro.blood.SaccaOLD;
 
 public class SaccaTester {
     public static void main(String[] args) {
