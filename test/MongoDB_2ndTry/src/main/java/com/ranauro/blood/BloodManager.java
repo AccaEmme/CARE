@@ -34,11 +34,11 @@ public class BloodManager {
         this.bags = bags;
     }
 
-    public BloodManager testBloodBag(Tester<BloodGroup> groupTester){
+    public BloodManager testBloodBag(Tester<BloodBag> tester){
         List<BloodBag> filteredBags = new ArrayList<>();
 
         for (BloodBag bag : bags)
-            if (groupTester.test(bag.getBloodGroup()))
+            if (tester.test(bag))
                 filteredBags.add(bag);
 
         return new BloodManager(filteredBags);

@@ -24,7 +24,6 @@ public class FilterBagsByGroup {
         for (BloodBag bag : filteredBags.getBags())
             System.out.println(bag.toString());
 
-        //System.out.println(bloodGroup.toString());
     }
 
 
