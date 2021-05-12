@@ -8,7 +8,7 @@ package com.ranauro.blood;
 
 import java.util.Date;
 
-public class BloodBag {
+public class BloodBag implements Comparable<BloodBag>{
     /**
      * @// TODO: 11/05/2021   modificare le classi {@code Seriale} e la classe {@code GruppoSanguigno}*/
     private Seriale serial;                     //the serial of the blood bag
@@ -71,6 +71,11 @@ public class BloodBag {
         return ((BloodBag) o).getSerial().toString().equals(this.getSerial().toString());
     }
 
+    @Override
+    public int compareTo(BloodBag o) {
+        return this.serial.toString().compareTo(o.getSerial().toString());
+    }
+
 
     // ########################### GET ###########################
     public Seriale getSerial() {
@@ -114,4 +119,6 @@ public class BloodBag {
     public void setOrigin(String origin) {
         this.origin = origin;
     }
+
+
 }
