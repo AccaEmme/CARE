@@ -1,6 +1,8 @@
-package it.unisannio.ingsof20_21.group8.CARE_MVC.Model;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers;
+
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Blood;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Serial;
+
 import java.util.Scanner;
 
 public class SerialTester {

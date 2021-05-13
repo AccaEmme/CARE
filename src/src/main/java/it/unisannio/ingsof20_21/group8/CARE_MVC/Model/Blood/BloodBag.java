@@ -1,4 +1,5 @@
-package it.unisannio.ingsof20_21.group8.CARE_MVC.Model;
+package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
+
 public class BloodBag {
 	public BloodBag(Blood b) {
 		this.serial=new Serial(b);

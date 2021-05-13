@@ -1,4 +1,4 @@
-package it.unisannio.ingsof20_21.group8.CARE_MVC.Model;
+package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ public enum Blood {
 	Apos, Aneg, Bpos, Bneg, ZEROpos, ZEROneg, ABpos, ABneg;
 	
 	
-	private static  HashMap<Blood, List<Blood>> canDonateTo = new HashMap<>() {
+	private static  HashMap<Blood, List<Blood>> canDonateTo = new HashMap() {
 		{
 			put(Apos, new ArrayList<Blood>(Arrays.asList(Apos, ABpos)));
 			put(Aneg, new ArrayList<Blood>(Arrays.asList(Apos, Aneg, ABpos, ABneg)));
@@ -23,7 +23,7 @@ public enum Blood {
 		}
 	};
 	
-	private static HashMap<Blood, List<Blood>> canReceiveFrom = new HashMap<>() {
+	private static HashMap<Blood, List<Blood>> canReceiveFrom = new HashMap() {
 		{
 			put (Apos, new ArrayList<Blood>(Arrays.asList(Apos, Aneg, ZEROpos, ZEROneg)));
 			put (Aneg, new ArrayList<Blood>(Arrays.asList(Aneg, ZEROneg)));

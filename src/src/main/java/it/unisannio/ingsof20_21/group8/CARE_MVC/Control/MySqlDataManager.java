@@ -13,8 +13,8 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Blood;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 // import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Serial; Non necessaria in quanto il costruttore della sacca richiama la generazione del seriale.
 
 

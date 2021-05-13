@@ -17,8 +17,8 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Blood;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 
 public class MongoDataManager implements DataManager {
 	
