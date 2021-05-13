@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.2.2\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1sUQmuHzMg82kOR08ORuIWchxgl" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood" />
+      <recent name="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Tester" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.SerialTester">
+    <configuration name="BloodBagTester" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers.BloodBagTester" />
+      <module name="CARE_MVC" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SerialTester" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers.SerialTester" />
+      <module name="CARE_MVC" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.SerialTester" />
+        <item itemvalue="Application.BloodBagTester" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="" />
+      <created>1620924851557</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1620924851557</updated>
+    </task>
+    <task id="LOCAL-00001" summary="MVC update">
+      <created>1620925764034</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1620925764034</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="MVC update" />
+    <option name="LAST_COMMIT_MESSAGE" value="MVC update" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="691" y="301" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1620925347124">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="691" y="301" key="#com.intellij.ide.util.PackageChooserDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925347124" />
+    <state x="700" y="380" width="553" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1620925347734">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="700" y="380" width="553" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925347734" />
+    <state x="690" y="272" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1620925549934">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="690" y="272" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925549934" />
+    <state x="407" y="6" key="CommitChangelistDialog2" timestamp="1620925763437">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="407" y="6" key="CommitChangelistDialog2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925763437" />
+    <state width="1141" height="278" key="GridCell.Tab.0.bottom" timestamp="1620925836696">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1141" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925836696" />
+    <state width="1141" height="278" key="GridCell.Tab.0.center" timestamp="1620925836695">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1141" height="278" key="GridCell.Tab.0.center/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925836695" />
+    <state width="1141" height="278" key="GridCell.Tab.0.left" timestamp="1620925836695">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1141" height="278" key="GridCell.Tab.0.left/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925836695" />
+    <state width="1141" height="278" key="GridCell.Tab.0.right" timestamp="1620925836695">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1141" height="278" key="GridCell.Tab.0.right/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925836695" />
+    <state x="184" y="87" key="MergeDialog" timestamp="1620925989330">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="184" y="87" key="MergeDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925989330" />
+    <state x="583" y="279" key="MultipleFileMergeDialog" timestamp="1620926016258">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="583" y="279" key="MultipleFileMergeDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620926016258" />
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1620925766913">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925766913" />
+    <state x="777" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1620925922176">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="777" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925922176" />
+  </component>
+</project>
