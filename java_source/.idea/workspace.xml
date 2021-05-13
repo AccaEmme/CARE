@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/src.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/src.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Managers/DataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MongoDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Managers/MongoDataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MySqlDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Managers/MySqlDataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/TestCreateAndPopulateSqlDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/TestCreateAndPopulateSqlDB.java" afterDir="false" />
-    </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,18 +45,6 @@
       <recent name="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Tester" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager" selected="Application.SerialTester">
     <configuration name="BloodBagTester" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers.BloodBagTester" />
@@ -99,9 +80,6 @@
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="" />
@@ -119,17 +97,6 @@
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="MVC update" />
