@@ -4,6 +4,8 @@ import java.util.Random;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Blood;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Managers.DataManager;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Managers.MySqlDataManager;
 
 
 public class TestCreateAndPopulateSqlDB {
