@@ -5,26 +5,52 @@ package it.gc.Prj_20_21_Pillola_03.sacca;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
 /**
- * Unit test for simple App.
+ * Unit test for seriale.
  */
 public class SerialeTest 
 {
-	@Test
-	public void creazioneFile() {
-		String path = "localsettings.xml";
-		File toDelete = new File(path);
-		toDelete.delete();
 	
-	}
-    
+
+		
+		@BeforeClass
+		public static void createFile() throws IOException {
+			String path1 = "localsettings.xml";
+			File to = new File(path1);
+			String path2 = "localsettings_temp.xml";
+			File from = new File(path2);
+	        Files.copy(to.toPath(), from.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			to.delete();
+		
+		}
+		@AfterClass
+		public static void regeneratonFile() throws IOException {
+			String path1 = "localsettings_temp.xml";
+			File to = new File(path1);
+			String path2 = "localsettings.xml";
+			File from = new File(path2);
+	        Files.copy(to.toPath(), from.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		
+		
+		}
+    		@Test
+		public void testFile() {
+			String path = "localsettings.xml";
+			File f = new File(path);
+		   assertTrue(f.exists());
+    		}
   /*  @Test
     public void fileCreationSerialmatrix() 
     {

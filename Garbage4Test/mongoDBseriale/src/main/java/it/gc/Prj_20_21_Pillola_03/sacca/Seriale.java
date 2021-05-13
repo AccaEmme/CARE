@@ -159,7 +159,9 @@ public class Seriale {
 		saveProps.setProperty("counter", Integer.toString(counter));
 		
 		try {
-			saveProps.storeToXML(new FileOutputStream("localsettings.xml"), "");
+			FileOutputStream f=new FileOutputStream("localsettings.xml");
+			saveProps.storeToXML(f, "");
+			f.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
