@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="db_mysql_host">localhost</entry>
+<entry key="db_mysql_port">3306</entry>
+<entry key="db_mysql_name">CARE</entry>
+</properties>
