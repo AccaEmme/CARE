@@ -8,10 +8,7 @@ import java.util.Scanner;
 public class SerialTester {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//Serial init_serial = new Serial("IT-NA206000-");
 		Scanner sc = new Scanner(System.in);
-		
 		
 		System.out.println("Gruppo sanguigno [Apos, Aneg, Bpos, Bneg, ABpos, ABneg, ZEROpos, ZEROneg]:");
 		String gsang = sc.nextLine();
