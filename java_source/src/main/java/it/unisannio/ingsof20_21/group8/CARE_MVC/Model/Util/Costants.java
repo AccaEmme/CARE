@@ -5,7 +5,7 @@
  * JDK: 1.8
  * @version 1.0
  */
-package it.unisannio.ingsof20_21.group8.CARE_MVC.Util;
+package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util;
 
 public class Costants {
     public static final String DATE_FORMAT = "yyyy-mm-dd_hh-mm-ss";
