@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/src.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/src.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Managers/DataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MongoDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Managers/MongoDataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MySqlDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Managers/MySqlDataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/TestCreateAndPopulateSqlDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/TestCreateAndPopulateSqlDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,6 +44,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Managers" />
       <recent name="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood" />
       <recent name="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Tester" />
     </key>
@@ -98,7 +95,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -117,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620925764034</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Managers package">
+      <created>1620934093970</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1620934093970</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -133,7 +137,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="MVC update" />
-    <option name="LAST_COMMIT_MESSAGE" value="MVC update" />
+    <MESSAGE value="Managers package" />
+    <option name="LAST_COMMIT_MESSAGE" value="Managers package" />
   </component>
   <component name="WindowStateProjectService">
     <state x="691" y="301" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1620925347124">
