@@ -1,9 +1,4 @@
-/**
- * @author giuliano ranauro
- * Date: 29-10-20
- * Ide: Intellij
- * JDK: 1.8
- */
+
 package com.ranauro.blood;
 
 import java.util.Date;

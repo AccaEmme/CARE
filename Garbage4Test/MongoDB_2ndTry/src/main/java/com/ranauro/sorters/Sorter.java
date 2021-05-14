@@ -1,10 +1,4 @@
-/**
- * @author giuliano ranauro
- * Date: 12/05/2021 15:44
- * Ide: Intellij
- * JDK: 1.8
- * @version 1.0
- */
+
 package com.ranauro.sorters;
 
 import java.util.Comparator;

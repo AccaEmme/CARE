@@ -1,10 +1,4 @@
-/**
- * @author giuliano ranauro
- * Date: 12/05/2021 12:31
- * Ide: Intellij
- * JDK: 1.8
- * @version 1.0
- */
+
 package com.ranauro.testers;
 
 import com.ranauro.blood.BloodBag;

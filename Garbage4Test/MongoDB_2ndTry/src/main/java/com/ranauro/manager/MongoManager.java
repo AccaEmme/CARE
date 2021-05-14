@@ -1,9 +1,4 @@
-/**
- * @Author  Giuliano Ranauro
- * @Date    11/05/21
- * @IDE     Intellij
- * @Dependencies:   junit, org.mongodb, com.googlecode.json-simple
- * */
+
 
 
 package com.ranauro.manager;

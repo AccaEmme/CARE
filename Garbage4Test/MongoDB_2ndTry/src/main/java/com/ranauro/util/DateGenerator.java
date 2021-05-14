@@ -1,10 +1,4 @@
-/**
- * @author giuliano ranauro
- * Date: 12/05/2021 15:09
- * Ide: Intellij
- * JDK: 1.8
- * @version 1.0
- */
+
 package com.ranauro.util;
 
 import java.text.ParseException;
