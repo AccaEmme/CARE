@@ -20,8 +20,12 @@ import com.ranauro.blood.BloodGroup;
 import com.ranauro.blood.SaccaOLD;
 import com.ranauro.blood.Seriale;
 import com.ranauro.util.Costants;
+import com.ranauro.util.DateGenerator;
 import org.bson.Document;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import static com.mongodb.client.model.Filters.*;
 
 public class MongoManager {
@@ -316,6 +320,50 @@ public class MongoManager {
         return "mongodb+srv://"+username+":"+password+"@care.a1sy7.mongodb.net/test";
     }
     /** ################################ ADVANCED ################################*/
+    public void readDump(File dumpFile) throws IOException, org.json.simple.parser.ParseException, ParseException {
+        List<BloodBag> readBags = new ArrayList<>();
+
+        /*
+        metodo barbaro per aggiungere solo le sacche che non sono gia presenti.
+        cercherò un modo migliore per farlo.
+        List<BloodBag> databaseBags = new ArrayList<>(this.getBloodBags());        //adding to a set existing elements on the db
+        Set<String> databaseBagsSerial = new HashSet<>();
+
+        for (BloodBag bag : databaseBags){
+            databaseBagsSerial.add(bag.getSerial().toString());
+        }*/
+
+        JSONParser parser = new JSONParser();
+
+        JSONArray a = (JSONArray) parser.parse(new FileReader(dumpFile));
+
+        for (Object o : a)
+        {
+            JSONObject bag = (JSONObject) o;
+
+            /**
+             * creating the object BloogBag and adding it right the way into the list*/
+            readBags.add(new BloodBag(new Seriale((String) bag.get(Costants.SERIAL)),
+                    BloodGroup.valueOf((String) bag.get(Costants.GROUP)),
+                    DateGenerator.generateDate((String) bag.get(Costants.CREATION)),
+                    DateGenerator.generateDate((String) bag.get(Costants.EXPIRATION)),
+                    (String) bag.get(Costants.ORIGIN)));
+        }
+        this.addBloodBag(readBags);
+        System.out.println("I've added "+readBags.size()+" bags.");
+
+        /**
+         * adding bag only if not existing
+         * i think there could be a better and optimized way to do so
+         * @// TODO: 14/05/2021 check a better way
+        int count = 0;
+        for (BloodBag readBag : readBags) {
+            if (!(databaseBags.contains(readBag.getSerial().toString())))
+                this.addBloodBag(readBag);
+            count ++;
+        }
+        System.out.println("I've added "+count+" bags");*/
+    }
 
     /**
      * eccezione da personalizzare in futuro
