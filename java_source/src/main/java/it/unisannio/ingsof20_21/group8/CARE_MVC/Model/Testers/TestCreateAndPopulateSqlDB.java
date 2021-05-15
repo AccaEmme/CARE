@@ -1,7 +1,9 @@
-package it.unisannio.ingsof20_21.group8.CARE_MVC.Control;
+package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers;
 
 import java.util.Random;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.DataManager;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.MySqlDataManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Blood;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 

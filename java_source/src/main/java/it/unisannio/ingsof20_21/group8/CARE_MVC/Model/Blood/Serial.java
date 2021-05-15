@@ -1,6 +1,5 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Blood;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,25 +14,29 @@ import java.util.Scanner;
 
 /*
  * Ogni seriale deve identificare univocamente una sacca di sangue BloodBag.
- * L'univocit� tra le sacche di differenti strutture � definita nell'autodeterminazione del codice seriale, mentre l'univocit� tra le sacche della stessa struttura � definita in base al giorno e al contatore.
- * Il contatore � un progressivo dipendente dalla data, ovvero la prima sacca del nuovo giorno ha progressivo 1.
- * Il seriale pertanto oltre a preservare l'univocit� delle sacche, risulta autoesplicativo di informazioni immediate.
- * Il seriale non prevede un codice regionale, in quanto il concetto di regione � puramente astratto, la sede centrale non � altro che una sede con un codice provinciale con poteri, funzioni e dunque autorizzazioni diverse.
- *
- * Il seriale � composto dai seguenti codici:
+ * L'univocità tra le sacche di differenti strutture è definita nell'autodeterminazione del codice seriale, mentre l'univocità tra le sacche della stessa struttura è definita in base al giorno e al contatore.
+ * Il contatore è un progressivo dipendente dalla data, ovvero la prima sacca del nuovo giorno ha progressivo 1.
+ * Il seriale pertanto oltre a preservare l'univocità delle sacche, risulta autoesplicativo di informazioni immediate.
+ * Il seriale non prevede un codice regionale, in quanto il concetto di regione è puramente astratto, la sede centrale non è altro che una sede con un codice provinciale con poteri, funzioni e dunque autorizzazioni diverse. 
+ * 
+ * Il seriale è composto dai seguenti codici:
  * 	[IT]
  *  -
  *  [NA] provincia
  *  [206] codice struttura
  *  [000] eventuale codice uffici interni 3 cifre
  *  -
- *  [APOS] gruppo
+ *  [Apos] gruppo
  *  -
- *  [20210416] aaaa mm gg di etichettatura, si presume sia contestuale al prelievo; � noto che la sacca di sangue ha validit� di scadenza 1 mese dal prelievo.
+ *  [20210416] aaaa mm gg di etichettatura, si presume sia contestuale al prelievo; è noto che la sacca di sangue ha validità di scadenza 1 mese dal prelievo.
  *  -
- *  [0001] progressivo di 4 cifre, si presume che una singola struttura in un giorno non riesca a raccogliere pi� di 9999 sacche
- *
- *  Esempio seriale: IT-NA206000-APOS-20210416-0001
+ *  [0001] progressivo di 4 cifre, si presume che una singola struttura in un giorno non riesca a raccogliere più di 9999 sacche
+ *  
+ *  Esempio seriale: IT-NA206000-Apos-20210416-0001
+ *  La dimensione dei caratteri assunta dal seriale può essere esclusivamente di:  
+ *   - 30 caratteri
+ *   - 31 caratteri
+ *   - 33 caratteri
  */
 
 
@@ -68,6 +71,8 @@ public class Serial {
             System.out.println("Eventuale codice ufficio interno [000]:");
             String codint = sc.nextLine();
 
+            sc.close();
+            
             String serialmatrix = nationality+"-"+prov+codstr+codint;
             initXML(serialmatrix);
             try {
