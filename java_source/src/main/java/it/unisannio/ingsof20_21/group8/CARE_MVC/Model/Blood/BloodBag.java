@@ -6,19 +6,23 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class BloodBag {
+	/*
+	Rendiamo obbligatorio il codice fiscale paziente
+	
 	public BloodBag(Blood b) throws ParseException {
 		this.serial=new Serial(b);
 		this.blood=b;
 		this.creationDate=this.getCreationDate();
 		this.expirationDate=this.getExpirationDate();
 	}
+	*/
 
-	public BloodBag(Blood b, String donatorID) throws ParseException {
+	public BloodBag(Blood b, String donatorCF) throws ParseException {
 		this.serial=new Serial(b);
 		this.blood=b;
 		this.creationDate=this.getCreationDate();
 		this.expirationDate=this.getExpirationDate();
-		this.donatorID=donatorID;
+		this.donatorCF=donatorCF;
 	}
 	
 	public Serial getSerial() {
@@ -29,12 +33,12 @@ public class BloodBag {
 		return this.blood;
 	}
 
-	public void setDonatorID(String donatorID) {
-		this.donatorID=donatorID;
+	public void setDonatorCF(String donatorCF) {
+		this.donatorCF=donatorCF;
 	}
 	
-	public String getDonatorID() {
-		return this.donatorID;
+	public String getDonatorCF() {
+		return this.donatorCF;
 	}
 	
 	public Date getCreationDate() throws ParseException {
@@ -44,9 +48,9 @@ public class BloodBag {
 							serial.toString().length()-5	// extract date from serial
 						 );
 		SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
-		Date date = ft.parse(datestr);
+		creationDate = ft.parse(datestr);
 		//System.out.println( "->"+ft.format(date) );
-		return date;
+		return creationDate;
 	}
 	
 	public Date getExpirationDate() throws ParseException {
@@ -56,10 +60,10 @@ public class BloodBag {
 		//cal.setTime( new SimpleDateFormat("yyyyMMdd").parse("20210131") );
 		//cal.setTime( new SimpleDateFormat("yyyyMMdd").parse("20211231") );
 		cal.add(Calendar.MONTH, 1);
-		Date dateobj =  cal.getTime();
+		expirationDate =  cal.getTime();
 		//SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
 		//System.out.println( "scadenza:"+ft.format(dateobj) );
-		return dateobj;
+		return expirationDate;
 	} 
 	
 	@Override
@@ -69,6 +73,7 @@ public class BloodBag {
 
 	private final Serial 	serial;
 	private final Blood 	blood;
-	private final Date		creationDate, expirationDate;
-	private String			donatorID=null;
+	private Date			creationDate;
+	private Date 			expirationDate;
+	private String			donatorCF; //=null;	 *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
 }

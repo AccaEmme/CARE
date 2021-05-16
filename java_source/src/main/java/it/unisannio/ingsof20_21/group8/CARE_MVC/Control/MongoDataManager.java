@@ -5,6 +5,7 @@ import static com.mongodb.client.model.Filters.eq;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
@@ -82,9 +83,15 @@ public class MongoDataManager implements DataManager {
 	    MongoCollection<Document> collection = database.getCollection(COLLECTION_SACCHE);
 	
 		for (Document current : collection.find(eq(ELEMENT_GRUPPO,g.toString()))) {
-			BloodBag s = new BloodBag(
-										Blood.valueOf( current.getString(ELEMENT_GRUPPO) )
-									);
+			BloodBag s = null;
+			try {
+				s = new BloodBag(
+											Blood.valueOf( current.getString(ELEMENT_GRUPPO) )
+										);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		    sacche.add(s);		
 		}
 		mongoClient.close();

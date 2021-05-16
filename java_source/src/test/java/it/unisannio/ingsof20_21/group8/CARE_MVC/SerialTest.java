@@ -21,16 +21,16 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Serial;
 /**
  * Unit test for Serial.
  */
-public class SerialTest 
-{
-	
+public class SerialTest {
+		public static String path = "./localsettings/";
+		public static String filename = "serial_settings.xml";
 
 		
 		@BeforeClass
 		public static void createFile() throws IOException {
-			String path1 = "localsettings/serial_settings.xml";
+			String path1 = path+filename;
 			File from = new File(path1);
-			String path2 = "localsettings/serial_settings_temp.xml";
+			String path2 = path+"serial_settings_temp.xml";
 			File to = new File(path2);
 	        Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			from.delete();
@@ -38,9 +38,9 @@ public class SerialTest
 		}
 		@AfterClass
 		public static void regeneratonFile() throws IOException {
-			String path1 = "localsettings/serial_settings_temp.xml";
+			String path1 = path+"serial_settings_temp.xml";
 			File from = new File(path1);
-			String path2 = "localsettings/serial_settings.xml";
+			String path2 = path+filename;
 			File to = new File(path2);
 	        Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		
@@ -48,8 +48,7 @@ public class SerialTest
 		}
     		@Test
 		public void testFile() {
-			String path = "localsettings/serial_settings.xml";
-			File f = new File(path);
+			File f = new File(path+filename);
 		   assertTrue(f.exists());
     		}
 
@@ -92,7 +91,7 @@ public class SerialTest
     	assertTrue((s.equals(new Serial(s.toString()))));
     }
     @Test
-    public void sserialDefineGood4()
+    public void serialDefineGood4()
     {
     	Blood g= Blood.valueOf("Bneg") ;
     	Serial s = new Serial(g);
