@@ -110,7 +110,7 @@ public class Serial {
         FileOutputStream fos;
         BufferedOutputStream bos;
 
-        f = new File("localsettings.xml");
+        f = new File("localsettings/serial_settings.xml");
         try {
             f.createNewFile();
         } catch (IOException e) {
@@ -154,12 +154,21 @@ public class Serial {
         saveProps.setProperty("counter", Integer.toString(counter));
 
         try {
-            saveProps.storeToXML(new FileOutputStream("localsettings/serial_settings.xml"), "");
+        	FileOutputStream f= new FileOutputStream("localsettings/serial_settings.xml");
+            saveProps.storeToXML(f, "");
+        	f.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
+    public Serial(String s) {
+		serial = s;
+		Serial.updateSerial();
+	}
+    public boolean equals (Object o) {
+		return ((Serial) o ).serial.equals(this.serial);
+	}
 
     private final String serial;
 }
