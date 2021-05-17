@@ -15,6 +15,8 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.ranauro.Exceptions.BagsOverfillException;
+import com.ranauro.Node.Node;
 import com.ranauro.blood.BloodBag;
 import com.ranauro.blood.BloodGroup;
 import com.ranauro.blood.SaccaOLD;
@@ -48,6 +50,23 @@ public class MongoManager {
 
     //implementazione non necessaria
     public void createDB(){}
+
+    /**
+     * @param node the node making the request
+     * @param group the blood type that the node is requesting
+     * @param amount the amount of bags the node is requesting*/
+    public void askForBags(Node node, BloodGroup group, int amount) throws BagsOverfillException {
+
+        //checking if the node capacity is enough to get the requested bags amount
+        if ((node.getBags().size()) + amount > node.getBagsCapacity())
+            throw new BagsOverfillException("the node has made a request greater than its capacity");
+        /**
+         * in questo caso ci si potrebbe comportare in diversi modi diversi, da concordare con il resto del gruppo:
+         * - la sacca viene prelevata da un nodo vicino che ne ha un'abbondanza o eccesso
+         * - la sacca viene prelevata dalla sede centrale
+         * - la sacca viene prelevata da un nodo vicino che ha contrassegnato la/le sacche come eccesso
+         * ....*/
+    }
 
 
 
