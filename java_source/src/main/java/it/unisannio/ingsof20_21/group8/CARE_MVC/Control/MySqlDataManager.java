@@ -18,8 +18,8 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 // import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Serial; Non necessaria in quanto il costruttore della sacca richiama la generazione del seriale.
 
 
-public class MySqlDataManager implements DataManager{
-	
+public class MySqlDataManager{
+	/*
 	private  String host = "127.0.0.1";
 	private  String port = "3306";
 	private  String db = "CARE";
@@ -151,6 +151,6 @@ public class MySqlDataManager implements DataManager{
 		return sacche;
 	}
 
-
+*/
 
 }

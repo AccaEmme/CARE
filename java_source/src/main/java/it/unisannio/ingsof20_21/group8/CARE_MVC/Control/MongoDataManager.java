@@ -21,8 +21,8 @@ import com.mongodb.client.MongoDatabase;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Blood;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 
-public class MongoDataManager implements DataManager {
-	
+public class MongoDataManager  {
+	/*
 	private static final String TAG_HOST = "db_mongo_host";
 	private static final String TAG_PORT = "db_mongo_port";
 	private static final String TAG_DB = "db_mongo_name";
@@ -98,6 +98,6 @@ public class MongoDataManager implements DataManager {
 		return sacche;
 
 	}
-
+*/
 	
 }

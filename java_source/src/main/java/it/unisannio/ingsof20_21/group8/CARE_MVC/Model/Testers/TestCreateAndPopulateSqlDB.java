@@ -11,7 +11,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 
 public class TestCreateAndPopulateSqlDB {
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		DataManager dm = new MySqlDataManager();
 		dm.createDB();
 		
@@ -30,14 +30,14 @@ public class TestCreateAndPopulateSqlDB {
 			System.out.println("Added BloodBag: "+s);			
 		}		
 		
-		/*
+
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 		    public void run() {
 		        Serial.updateSettings();
 		    }
 		}));
-		*/
+
 
 	}
-
+*/
 }
