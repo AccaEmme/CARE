@@ -1,5 +1,7 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,9 +47,9 @@ public class Serial {
     private static int lastdate;
     private static int counter;
     private static Date dNow = new Date();
-    private static SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
+    private static SimpleDateFormat ft = new SimpleDateFormat(Constants.DATE_FORMAT);
     private static String currentDate_aaaaMMdd = ft.format(dNow);
-    private static String filesettings="localsettings/serial_settings.xml";
+    private static String filesettings=Constants.SETTINGS_PATH;
 
     static {
         Properties loadProps = new Properties();
@@ -110,7 +112,7 @@ public class Serial {
         FileOutputStream fos;
         BufferedOutputStream bos;
 
-        f = new File("localsettings/serial_settings.xml");
+        f = new File(Constants.SETTINGS_PATH);
         try {
             f.createNewFile();
         } catch (IOException e) {
@@ -154,7 +156,7 @@ public class Serial {
         saveProps.setProperty("counter", Integer.toString(counter));
 
         try {
-        	FileOutputStream f= new FileOutputStream("localsettings/serial_settings.xml");
+        	FileOutputStream f= new FileOutputStream(Constants.SETTINGS_PATH);
             saveProps.storeToXML(f, "");
         	f.close();
         } catch (IOException e) {

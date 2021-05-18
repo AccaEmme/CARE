@@ -1,5 +1,7 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -47,7 +49,7 @@ public class BloodBag {
 							serial.toString().length()-13, 	// extract date from serial
 							serial.toString().length()-5	// extract date from serial
 						 );
-		SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat ft = new SimpleDateFormat(Constants.DATE_FORMAT);
 		creationDate = ft.parse(datestr);
 		//System.out.println( "->"+ft.format(date) );
 		return creationDate;
@@ -57,11 +59,11 @@ public class BloodBag {
 		// We can't allow user set a wrong "expiration date", so the system will stamp the right updated date.
 		Calendar cal = Calendar.getInstance();
 		cal.setTime( this.getCreationDate() );
-		//cal.setTime( new SimpleDateFormat("yyyyMMdd").parse("20210131") );
-		//cal.setTime( new SimpleDateFormat("yyyyMMdd").parse("20211231") );
+		//cal.setTime( new SimpleDateFormat(Constants.DATE_FORMAT).parse("20210131") );
+		//cal.setTime( new SimpleDateFormat(Constants.DATE_FORMAT).parse("20211231") );
 		cal.add(Calendar.MONTH, 1);
 		expirationDate =  cal.getTime();
-		//SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
+		//SimpleDateFormat ft = new SimpleDateFormat(Constants.DATE_FORMAT);
 		//System.out.println( "scadenza:"+ft.format(dateobj) );
 		return expirationDate;
 	} 
