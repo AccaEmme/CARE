@@ -15,11 +15,11 @@ import java.util.Properties;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Blood;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 // import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Serial; Non necessaria in quanto il costruttore della sacca richiama la generazione del seriale.
 
 
 public class MySqlDataManager{
-	/*
 	private  String host = "127.0.0.1";
 	private  String port = "3306";
 	private  String db = "CARE";
@@ -33,7 +33,7 @@ public class MySqlDataManager{
 	private static final String COL_GRUPPO = "BloodType";
 			
     private static final String username = "root";
-    private static final String password = "CanforaMarkUs30Lode";
+    private  String password;
 
     private static final String SQL_CREATE_DB 		= "CREATE DATABASE IF NOT EXISTS ";
     private static final String SQL_DROP_DB 		= "DROP DATABASE IF EXISTS ";
@@ -51,7 +51,7 @@ public class MySqlDataManager{
 	public MySqlDataManager() {
 		Properties loadProps = new Properties();
 	    try {
-			loadProps.loadFromXML(new FileInputStream("localsettings/db_settings.xml"));
+			loadProps.loadFromXML(new FileInputStream(Constants.SETTINGS_PATH));
 		} catch (InvalidPropertiesFormatException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
@@ -59,15 +59,29 @@ public class MySqlDataManager{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	    //host = loadProps.getProperty(TAG_HOST);
-	    //port = loadProps.getProperty(TAG_PORT);
-	    //db = loadProps.getProperty(TAG_DB);	
-	}
+	    host = loadProps.getProperty(TAG_HOST);
+	    port = loadProps.getProperty(TAG_PORT);
+	    db = loadProps.getProperty(TAG_DB);
+
+	    try {
+	        loadProps.loadFromXML(new FileInputStream(Constants.MYSQL_LOGIN_SETTINGS_PATH));
+        } catch (InvalidPropertiesFormatException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+	    this.password = loadProps.getProperty("password");
+    }
 
 	public void createDB () {
-        //String url = "jdbc:mysql://"+host+":"+port;
-		String url = "jdbc:mysql://127.0.0.1:3306";
+        String url = "jdbc:mysql://"+host+":"+port;
+		//String url = "jdbc:mysql://127.0.0.1:3306";
 
+		/**
+		 * @// TODO: 19/05/2021 modificare i metodi in modo tale che accettino dei argomenti. */
         try (Connection conn = DriverManager.getConnection(url, username, password);
         	PreparedStatement preparedStatement = conn.prepareStatement(SQL_CREATE_DB+db)) {
         	System.out.println(SQL_CREATE_DB+db);
@@ -111,6 +125,14 @@ public class MySqlDataManager{
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
              PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT)) {
+        	/**
+			 * private final Serial 	serial;
+			 * 	private final Blood 	blood;
+			 * 	private Date			creationDate;
+			 * 	private Date 			expirationDate;
+			 * 	private String			donatorCF; //=null;	 *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
+			 * 	private note
+			 * 	*/
 
             preparedStatement.setString(1, s.getSerial().toString());
             preparedStatement.setString(2, s.getBloodType().toString());
@@ -124,7 +146,12 @@ public class MySqlDataManager{
         } 
 
     }
+
+    public void writeLog(){
+
+	}
 	
+    /*
 	public List<BloodBag> getBloodBag(Blood g) {
 		String url = "jdbc:mysql://"+host+":"+port+"/"+db;
 		
@@ -149,8 +176,8 @@ public class MySqlDataManager{
             e.printStackTrace();
         }
 		return sacche;
-	}
+	}*/
 
-*/
+
 
 }

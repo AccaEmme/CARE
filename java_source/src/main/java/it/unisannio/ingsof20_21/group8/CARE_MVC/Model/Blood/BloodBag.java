@@ -1,6 +1,7 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,6 +26,14 @@ public class BloodBag {
 		this.creationDate=this.getCreationDate();
 		this.expirationDate=this.getExpirationDate();
 		this.donatorCF=donatorCF;
+	}
+	public BloodBag(Blood b, String donatorCF, String note) throws ParseException {
+		this.serial=new Serial(b);
+		this.blood=b;
+		this.creationDate=this.getCreationDate();
+		this.expirationDate=this.getExpirationDate();
+		this.donatorCF=donatorCF;
+		this.note = note;
 	}
 	
 	public Serial getSerial() {
@@ -61,7 +70,7 @@ public class BloodBag {
 		cal.setTime( this.getCreationDate() );
 		//cal.setTime( new SimpleDateFormat(Constants.DATE_FORMAT).parse("20210131") );
 		//cal.setTime( new SimpleDateFormat(Constants.DATE_FORMAT).parse("20211231") );
-		cal.add(Calendar.MONTH, 1);
+		cal.add(Calendar.MONTH, this.monthIncrementAmount);
 		expirationDate =  cal.getTime();
 		//SimpleDateFormat ft = new SimpleDateFormat(Constants.DATE_FORMAT);
 		//System.out.println( "scadenza:"+ft.format(dateobj) );
@@ -73,9 +82,35 @@ public class BloodBag {
 		return "BloodBag [serial=" + serial + ", group=" + blood /*+ ", expireDate=" + expireDate + */+"]";
 	}
 
+	public Blood getBlood() {
+		return blood;
+	}
+
+	public void setCreationDate(Date creationDate){
+		this.creationDate = creationDate;
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(creationDate);
+		cal.add(Calendar.MONTH, this.monthIncrementAmount);
+		expirationDate =  cal.getTime();
+
+		Logger logger = new Logger();
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
 	private final Serial 	serial;
 	private final Blood 	blood;
 	private Date			creationDate;
 	private Date 			expirationDate;
 	private String			donatorCF; //=null;	 *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
+	private String 			note;
+
+	private final int monthIncrementAmount = 1;
 }
