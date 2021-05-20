@@ -23,6 +23,7 @@ public class User {
 
     private String username;
     /**
-     * @// TODO: 19/05/2021 verificare se la password deve essere sata nella classe */
+     * @// TODO: 19/05/2021 verificare se la password deve essere sata nella classe
+     * getRole() */
     private String password;
 }

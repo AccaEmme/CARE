@@ -1,7 +1,6 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.DataManager;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.MySqlDataManager;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.DataManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 
 import java.lang.reflect.Method;

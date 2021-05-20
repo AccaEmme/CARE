@@ -31,5 +31,5 @@ public class Constants {
             + Constants.COL_GROUP + " varchar(5) NOT NULL,"
             + " PRIMARY KEY (Serial)"
             + ")";
-
+    
 }
