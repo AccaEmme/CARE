@@ -12,6 +12,7 @@ public class BloodBag {
 	//Rendiamo obbligatorio il codice fiscale paziente
 	//mi dispiace ma devo rimettere questo costruttore perchè il database non è per nulla allineato alle classi
 
+	/*
 	public BloodBag(BloodGroup bloodGroup) throws ParseException {
 		this.serial=new Serial(bloodGroup);		//usiamo le variabili che abbiano un nome comprensibile pls
 		this.bloodGroup=bloodGroup;
@@ -19,6 +20,7 @@ public class BloodBag {
 		this.expirationDate=this.getExpirationDate();
 		this.donatorCF = "Not present right now";	//ovviamente da gestire meglio, quando le tabelle del database saranno allineate.
 	}
+	*/
 
 
 	public BloodBag(BloodGroup bloodGroup, String donatorCF) throws ParseException {
@@ -87,20 +89,6 @@ public class BloodBag {
 		return bloodGroup;
 	}
 
-	public void setCreationDate(Date creationDate){
-		this.creationDate = creationDate;
-
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(creationDate);
-		cal.add(Calendar.MONTH, this.monthIncrementAmount);
-		expirationDate =  cal.getTime();
-
-		/**
-		 * commento solo per far eseguire il codice a quello stupido di intellij
-		 * @// TODO: 20/05/2021  completare il logger */
-		//Logger logger = new Logger();
-	}
-
 	public String getNote() {
 		return note;
 	}
@@ -116,5 +104,5 @@ public class BloodBag {
 	private String			donatorCF; //=null;	 *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
 	private String 			note;
 
-	private final int monthIncrementAmount = 1;
+	public static final int monthIncrementAmount = 1;
 }
