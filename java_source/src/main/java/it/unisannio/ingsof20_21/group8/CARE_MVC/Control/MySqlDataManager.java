@@ -36,7 +36,7 @@ public class MySqlDataManager implements DataManager{
 	public MySqlDataManager() {
 		Properties loadProps = new Properties();
 	    try {
-			loadProps.loadFromXML(new FileInputStream(Constants.SETTINGS_PATH));
+			loadProps.loadFromXML(new FileInputStream(Constants.DB_SETTINGS_PATH));
 		} catch (InvalidPropertiesFormatException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
@@ -49,7 +49,8 @@ public class MySqlDataManager implements DataManager{
 	    db = loadProps.getProperty(Constants.TAG_DB);
 
 	    try {
-	        loadProps.loadFromXML(new FileInputStream(Constants.MYSQL_LOGIN_SETTINGS_PATH));
+	        //loadProps.loadFromXML(new FileInputStream(Constants.MYSQL_LOGIN_SETTINGS_PATH));
+			loadProps.loadFromXML(new FileInputStream(Constants.MYSQL_LOGIN_SETTINGS_PATH_MAC));
         } catch (InvalidPropertiesFormatException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {

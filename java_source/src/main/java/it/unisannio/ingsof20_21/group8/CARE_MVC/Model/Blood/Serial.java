@@ -49,7 +49,7 @@ public class Serial {
     private static Date dNow = new Date();
     private static SimpleDateFormat ft = new SimpleDateFormat(Constants.DATE_FORMAT);
     private static String currentDate_aaaaMMdd = ft.format(dNow);
-    private static String filesettings=Constants.SETTINGS_PATH;
+    private static String filesettings=Constants.DB_SETTINGS_PATH;
 
     static {
         Properties loadProps = new Properties();
@@ -112,7 +112,7 @@ public class Serial {
         FileOutputStream fos;
         BufferedOutputStream bos;
 
-        f = new File(Constants.SETTINGS_PATH);
+        f = new File(Constants.DB_SETTINGS_PATH);
         try {
             f.createNewFile();
         } catch (IOException e) {
@@ -156,7 +156,7 @@ public class Serial {
         saveProps.setProperty("counter", Integer.toString(counter));
 
         try {
-        	FileOutputStream f= new FileOutputStream(Constants.SETTINGS_PATH);
+        	FileOutputStream f= new FileOutputStream(Constants.DB_SETTINGS_PATH);
             saveProps.storeToXML(f, "");
         	f.close();
         } catch (IOException e) {

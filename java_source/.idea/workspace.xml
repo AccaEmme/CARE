@@ -5,29 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBagManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/MySQLDataManagerTesters/SimpleTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/localsettings/serial_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/DataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MongoDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MongoDataManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MySqlDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MySqlDataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Blood.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Serial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Serial.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodBagTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodBagTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/SerialTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/SerialTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/TestCreateAndPopulateSqlDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/TestCreateAndPopulateSqlDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/MySQLDataManagerTesters/SimpleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/MySQLDataManagerTesters/SimpleTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/SerialTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/SerialTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Blood$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Blood$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Blood.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBag.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Serial.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Managers/BloodBagManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/DataManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/DataManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MongoDataManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MongoDataManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MySqlDataManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MySqlDataManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodBagTester.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodBagTester.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodTester.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodTester.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/SerialTester.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/SerialTester.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/TestCreateAndPopulateSqlDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/TestCreateAndPopulateSqlDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Constants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/it/unisannio/ingsof20_21/group8/CARE_MVC/SerialTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/unisannio/ingsof20_21/group8/CARE_MVC/SerialTest.class" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,7 +63,19 @@
       <recent name="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Tester" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.BloodTester">
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.SimpleTest">
     <configuration name="BloodBagTester" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers.BloodBagTester" />
       <module name="CARE_MVC" />
@@ -111,6 +116,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SimpleTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers.MySQLDataManagerTesters.SimpleTest" />
+      <module name="src" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers.MySQLDataManagerTesters.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SerialTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="src" />
       <extension name="coverage">
@@ -128,6 +146,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SimpleTest" />
         <item itemvalue="Application.BloodTester" />
         <item itemvalue="Application.SerialTester" />
         <item itemvalue="JUnit.SerialTest" />
@@ -135,7 +154,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -169,12 +188,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="MVC update" />
@@ -250,5 +270,16 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1621527875194" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/MySQLDataManagerTesters/SimpleTest.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

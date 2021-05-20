@@ -2,8 +2,11 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util;
 
 public class Constants {
     public static final String DATE_FORMAT = "yyyyMMdd";
-    public static final String SETTINGS_PATH = "localsettings/serial_settings.xml";
+    public static final String DB_SETTINGS_PATH = "localsettings/db_settings.xml";
+    public static final String SERIAL_SETTINGS_PATH = "localsettings/serial_settings.xml";
+    //TEMP
     public static final String MYSQL_LOGIN_SETTINGS_PATH = "C:/Users/giuli/Desktop/login.xml";
+    public static final String MYSQL_LOGIN_SETTINGS_PATH_MAC = "/Users/folly/Desktop/uri.xml";
     public static final String SERIAL = "SERIAL";
     public static final String GROUP = "GROUP";
     public static final String EXPIRATION = "EXPIRATION_DAY";
