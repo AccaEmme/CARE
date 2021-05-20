@@ -5,20 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/localsettings/serial_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MySqlDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MySqlDataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/MySQLDataManagerTesters/SimpleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/MySQLDataManagerTesters/SimpleTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/DataManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/DataManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MongoDataManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MongoDataManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MySqlDataManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/MySqlDataManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodBagTester.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodBagTester.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodTester.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodTester.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/SerialTester.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/SerialTester.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/TestCreateAndPopulateSqlDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/TestCreateAndPopulateSqlDB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Constants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/unisannio/ingsof20_21/group8/CARE_MVC/SerialTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/unisannio/ingsof20_21/group8/CARE_MVC/SerialTest.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -180,7 +167,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621450830407</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="minor changes&#10;la connessione non funziona, ma devo accertarmene sull'altro computer.">
+      <created>1621531692309</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1621531692309</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -199,7 +193,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="MVC update" />
     <MESSAGE value="added user, logger" />
-    <option name="LAST_COMMIT_MESSAGE" value="added user, logger" />
+    <MESSAGE value="minor changes&#10;la connessione non funziona, ma devo accertarmene sull'altro computer." />
+    <option name="LAST_COMMIT_MESSAGE" value="minor changes&#10;la connessione non funziona, ma devo accertarmene sull'altro computer." />
   </component>
   <component name="WindowStateProjectService">
     <state x="765" y="201" key="#com.intellij.ide.util.MemberChooser" timestamp="1621528319125">
