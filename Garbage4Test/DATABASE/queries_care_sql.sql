@@ -1,3 +1,5 @@
+-- drop database care;
+
 CREATE DATABASE IF NOT EXISTS  `CARE` 
 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
@@ -6,32 +8,36 @@ USE care;
 CREATE TABLE IF NOT EXISTS `state_table` (
     id_state smallint NOT NULL PRIMARY KEY AUTO_INCREMENT,
     state varchar(10)
-    -- 0 : presente
-    -- 1 : trasferito
-    -- 2 : scaduto
+    -- 1 : presente
+    -- 2 : trasferito
+    -- 3 : scaduto
 );
 
 insert into `state_table` (id_state, state) values
-    (0, 'presente'),
-    (1, 'trasferito'),
-    (2, 'scaduto');
+    (null, 'presente'),
+    (null, 'trasferito'),
+    (null, 'scaduto');
 
+select* from `state_table`;
 drop table IF EXISTS `BloodBags`;
 
-CREATE TABLE IF NOT EXISTS `BloodBags` (
+
+
+CREATE TABLE IF NOT EXISTS `BloodBags`(
  serial char(32) NOT NULL PRIMARY KEY,
  Rh char(7) NOT NULL,
  creation int NOT NULL,
  expiring int NOT NULL,
- id_state smallint,
- foreign key (id_state) references state_table(id_state),-- referenzia la tabella degli stati
- note TEXT
+ id_state smallint NOT NULL,
+ note TEXT,
+ foreign key (id_state) references `state_table`(id_state)-- referenzia la tabella degli stati
 );
 insert into `BloodBags` (serial, Rh, creation, expiring, id_state, note) values
-    ('IT-NA206000-Apos-20210517-0002', 'Apos', '0', '1', 0, null ),
-    ('IT-NA206000-Apos-20210518-0003', 'Aneg', '0', '1', 1, null ),
-    ('IT-NA206000-Apos-20210519-0004', 'Apos', '0', '1', 2, null ),
-    ('IT-NA206000-Apos-20210510-0005', 'Aneg', '0', '1', 0, null );
+    ('IT-NA206000-Apos-20210517-0002', 'Apos', '0', '1', 1, null ),
+    ('IT-NA206000-Apos-20210518-0003', 'Aneg', '0', '1', 2, null ),
+    ('IT-NA206000-Apos-20210519-0004', 'Apos', '0', '1', 3, null ),
+    ('IT-NA206000-Apos-20210510-0005', 'Aneg', '0', '1', 1, null );
+
 drop table IF EXISTS `Logger`;
 
 CREATE TABLE IF NOT EXISTS `Logger`(
@@ -101,6 +107,3 @@ insert into `Users` (iduser, username, password, lastaccess, idrole) values
     (NULL, 'Peppe',     'ea66ebb84ff0940dd72a35d12bcd8a72', 1620038943, 2),
     (NULL, 'Antonello', 'ea66ebb84ff0940dd72a35d12bcd8a72', 1620038944, 3),
     (NULL, 'Luigino',   'ea66ebb84ff0940dd72a35d12bcd8a72', 1620038945, 3);
-
-
-
