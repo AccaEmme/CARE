@@ -13,7 +13,7 @@ public class SimpleTest {
         List<BloodBag> bags = manager.getBloodBag(BloodGroup.valueOf("Apos"));
 
         for (BloodBag bag : bags){
-            System.out.println(bag.toString());
+            System.out.println(bag.toString()); 
         }
     }
 }
