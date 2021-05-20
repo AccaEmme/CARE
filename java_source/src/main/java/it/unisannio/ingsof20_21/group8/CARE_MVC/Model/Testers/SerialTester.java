@@ -1,6 +1,6 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Blood;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Serial;
 
 import java.util.Scanner;
@@ -14,7 +14,7 @@ public class SerialTester {
 		String gsang = sc.nextLine();
 		sc.close();
 		
-		Serial s = new Serial( Blood.valueOf(gsang) );
+		Serial s = new Serial( BloodGroup.valueOf(gsang) );
 		System.out.println( s.toString() +"\n");
 		
 		//Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {

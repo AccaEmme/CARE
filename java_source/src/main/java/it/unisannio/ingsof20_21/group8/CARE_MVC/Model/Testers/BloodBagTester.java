@@ -2,7 +2,7 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers;
 
 import java.text.ParseException;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Blood;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 
 public class BloodBagTester {
@@ -10,7 +10,7 @@ public class BloodBagTester {
 	public static void main(String[] args) throws ParseException {
 		String CF1="BNCMRA86A41A509Y", CF2="RSSMRA80A01A509I";
 		
-		BloodBag bb = new BloodBag(Blood.Bpos, CF1);
+		BloodBag bb = new BloodBag(BloodGroup.Bpos, CF1);
 		System.out.println( 
 							"Ho creato la sacca: "			+ bb.getSerial()
 							+"\n con gruppo sanguigno "		+ bb.getBloodType()
@@ -26,7 +26,7 @@ public class BloodBagTester {
 		
 		// -----------------------------------------------
 		
-		BloodBag bb2 = new BloodBag(Blood.ABneg, CF2);
+		BloodBag bb2 = new BloodBag(BloodGroup.ABneg, CF2);
 		System.out.println( 
 				"Ho creato la sacca: "			+ bb2.getSerial()
 				+"\n con gruppo sanguigno "		+ bb2.getBloodType()

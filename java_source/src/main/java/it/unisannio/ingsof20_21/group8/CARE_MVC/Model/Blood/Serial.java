@@ -94,7 +94,7 @@ public class Serial {
     }
 
 
-    public Serial(Blood bloodgroup) {
+    public Serial(BloodGroup bloodgroup) {
         Serial.counter=(Integer.parseInt(currentDate_aaaaMMdd) > lastdate)?1:counter++;	//if today > lastdate -> counter = 0 else counter++
 
         serial = serialmatrix+

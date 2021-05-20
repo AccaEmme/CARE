@@ -8,45 +8,30 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.InvalidPropertiesFormatException;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Blood;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 // import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Serial; Non necessaria in quanto il costruttore della sacca richiama la generazione del seriale.
 
 
-public class MySqlDataManager{
-	private  String host = "127.0.0.1";
-	private  String port = "3306";
-	private  String db = "CARE";
+public class MySqlDataManager implements DataManager{
+	private  String host;
+	private  String port;
+	private  String db;
 	
-	private static final String TAG_HOST = "127.0.0.1";
-	private static final String TAG_PORT = "3306";
-	private static final String TAG_DB = "CARE";
 
-	private static final String TABLE_SACCHE = "BloodBags";
-	private static final String COL_Serial = "Serial";
-	private static final String COL_GRUPPO = "BloodType";
 			
     private static final String username = "root";
     private  String password;
 
-    private static final String SQL_CREATE_DB 		= "CREATE DATABASE IF NOT EXISTS ";
-    private static final String SQL_DROP_DB 		= "DROP DATABASE IF EXISTS ";
-    private static final String SQL_CREATE_TABLE 	= "CREATE TABLE IF NOT EXISTS " + TABLE_SACCHE
-            + "("
-            + COL_Serial + " varchar(20) NOT NULL,"
-            + COL_GRUPPO + " varchar(5) NOT NULL,"
-            + " PRIMARY KEY (Serial)"
-            + ")";
+
+    //queste non le ho messe nella classe Constants perche non so come si comporta il punto interrogativo nelle stringhe
+    private static final String SQL_INSERT = "INSERT INTO "+ Constants.TABLE_SACCHE +" ("+ Constants.COL_Serial+", "+Constants.COL_GROUP +") VALUES (?,?)";
     
-    private static final String SQL_INSERT = "INSERT INTO "+ TABLE_SACCHE +" ("+ COL_Serial+", "+COL_GRUPPO+") VALUES (?,?)";
-    
-	private static final String SQL_QUERY = "SELECT * FROM " + TABLE_SACCHE +  " WHERE "+ COL_GRUPPO + " = ?";
+	private static final String SQL_QUERY = "SELECT * FROM " + Constants.TABLE_SACCHE +  " WHERE "+ Constants.COL_GROUP + " = ?";
 	
 	public MySqlDataManager() {
 		Properties loadProps = new Properties();
@@ -59,9 +44,9 @@ public class MySqlDataManager{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	    host = loadProps.getProperty(TAG_HOST);
-	    port = loadProps.getProperty(TAG_PORT);
-	    db = loadProps.getProperty(TAG_DB);
+	    host = loadProps.getProperty(Constants.TAG_HOST);
+	    port = loadProps.getProperty(Constants.TAG_PORT);
+	    db = loadProps.getProperty(Constants.TAG_DB);
 
 	    try {
 	        loadProps.loadFromXML(new FileInputStream(Constants.MYSQL_LOGIN_SETTINGS_PATH));
@@ -83,8 +68,8 @@ public class MySqlDataManager{
 		/**
 		 * @// TODO: 19/05/2021 modificare i metodi in modo tale che accettino dei argomenti. */
         try (Connection conn = DriverManager.getConnection(url, username, password);
-        	PreparedStatement preparedStatement = conn.prepareStatement(SQL_CREATE_DB+db)) {
-        	System.out.println(SQL_CREATE_DB+db);
+        	PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_CREATE_DB+db)) {
+        	System.out.println(Constants.SQL_CREATE_DB+db);
         	preparedStatement.execute();
         	preparedStatement.close();
         } catch (SQLException e) {
@@ -94,7 +79,7 @@ public class MySqlDataManager{
         }
         
        try (Connection conn = DriverManager.getConnection(url+"/"+db, username, password);
-            PreparedStatement preparedStatement = conn.prepareStatement(SQL_CREATE_TABLE)) {
+            PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_CREATE_TABLE)) {
        		preparedStatement.execute();
        		preparedStatement.close();;
         } catch (SQLException e) {
@@ -109,7 +94,7 @@ public class MySqlDataManager{
 		String url = "jdbc:mysql://127.0.0.1:3306/CARE";
 		
 	    try (Connection conn = DriverManager.getConnection(url, username, password);
-	    	PreparedStatement preparedStatement = conn.prepareStatement(SQL_DROP_DB+db)) {
+	    	PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_DROP_DB+db)) {
 	        preparedStatement.execute();
 	        preparedStatement.close();
 	    } catch (SQLException e) {
@@ -147,7 +132,43 @@ public class MySqlDataManager{
 
     }
 
-    public void writeLog(){
+	@Override
+	public List<BloodBag> getBloodBag(BloodGroup bloodGroup) {
+		String url = "jdbc:mysql://"+host+":"+port+"/"+db;
+
+		List<BloodBag> sacche = new ArrayList<BloodBag>();	// *** mettere un iterator
+
+		try (Connection conn = DriverManager.getConnection(url, username, password);
+			 PreparedStatement preparedStatement = conn.prepareStatement(SQL_QUERY)){
+
+			preparedStatement.setString(1, bloodGroup.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()){
+				//BloodBag bag = new BloodBag();
+				BloodGroup group = BloodGroup.valueOf(rs.getString(Constants.COL_GROUP));
+
+
+				/*BloodBag s = new BloodBag(
+						BloodGroup.valueOf(rs.getString(Constants.COL_Serial) ,rs.getString(Constants.COL_GRUPPO) )
+				);*/
+				sacche.add(new BloodBag(group));
+			}
+			rs.close();
+			preparedStatement.close();
+		} catch (SQLException e) {
+			System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sacche;
+	}
+
+	@Override
+	public void writeLog(Date currentDate, User currentUser, String currentClass, String currentMethod, String currentResult) {
+
+	}
+
+	public void writeLog(){
 
 	}
 	

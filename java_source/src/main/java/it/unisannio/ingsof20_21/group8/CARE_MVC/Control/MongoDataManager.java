@@ -2,25 +2,6 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Control;
 
 import static com.mongodb.client.model.Filters.eq;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.InvalidPropertiesFormatException;
-import java.util.List;
-import java.util.Properties;
-
-import org.bson.Document;
-
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Blood;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
-
 public class MongoDataManager  {
 	/*
 	private static final String TAG_HOST = "db_mongo_host";

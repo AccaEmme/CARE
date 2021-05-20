@@ -1,5 +1,5 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Control;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Blood;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 
@@ -11,7 +11,7 @@ public interface DataManager {
 	void createDB();
 	void dropDB();
 	void addBloodBag(BloodBag bloodbag);
-	List<BloodBag> getBloodBag(Blood blood);
+	List<BloodBag> getBloodBag(BloodGroup bloodGroup);
 
 	/**
 	 * private final Date now = new Date();

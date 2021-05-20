@@ -1,7 +1,6 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,27 +8,29 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class BloodBag {
-	/*
-	Rendiamo obbligatorio il codice fiscale paziente
-	
-	public BloodBag(Blood b) throws ParseException {
-		this.serial=new Serial(b);
-		this.blood=b;
+
+	//Rendiamo obbligatorio il codice fiscale paziente
+	//mi dispiace ma devo rimettere questo costruttore perchè il database non è per nulla allineato alle classi
+
+	public BloodBag(BloodGroup bloodGroup) throws ParseException {
+		this.serial=new Serial(bloodGroup);		//usiamo le variabili che abbiano un nome comprensibile pls
+		this.bloodGroup=bloodGroup;
 		this.creationDate=this.getCreationDate();
 		this.expirationDate=this.getExpirationDate();
+		this.donatorCF = "Not present right now";	//ovviamente da gestire meglio, quando le tabelle del database saranno allineate.
 	}
-	*/
 
-	public BloodBag(Blood b, String donatorCF) throws ParseException {
-		this.serial=new Serial(b);
-		this.blood=b;
+
+	public BloodBag(BloodGroup bloodGroup, String donatorCF) throws ParseException {
+		this.serial=new Serial(bloodGroup);
+		this.bloodGroup =bloodGroup;
 		this.creationDate=this.getCreationDate();
 		this.expirationDate=this.getExpirationDate();
 		this.donatorCF=donatorCF;
 	}
-	public BloodBag(Blood b, String donatorCF, String note) throws ParseException {
-		this.serial=new Serial(b);
-		this.blood=b;
+	public BloodBag(BloodGroup bloodGroup, String donatorCF, String note) throws ParseException {
+		this.serial=new Serial(bloodGroup);
+		this.bloodGroup =bloodGroup;
 		this.creationDate=this.getCreationDate();
 		this.expirationDate=this.getExpirationDate();
 		this.donatorCF=donatorCF;
@@ -40,8 +41,8 @@ public class BloodBag {
 		return this.serial;
 	}
 	
-	public Blood getBloodType() {
-		return this.blood;
+	public BloodGroup getBloodType() {
+		return this.bloodGroup;
 	}
 
 	public void setDonatorCF(String donatorCF) {
@@ -79,11 +80,11 @@ public class BloodBag {
 	
 	@Override
 	public String toString() {
-		return "BloodBag [serial=" + serial + ", group=" + blood /*+ ", expireDate=" + expireDate + */+"]";
+		return "BloodBag [serial=" + serial + ", group=" + bloodGroup /*+ ", expireDate=" + expireDate + */+"]";
 	}
 
-	public Blood getBlood() {
-		return blood;
+	public BloodGroup getBlood() {
+		return bloodGroup;
 	}
 
 	public void setCreationDate(Date creationDate){
@@ -94,7 +95,10 @@ public class BloodBag {
 		cal.add(Calendar.MONTH, this.monthIncrementAmount);
 		expirationDate =  cal.getTime();
 
-		Logger logger = new Logger();
+		/**
+		 * commento solo per far eseguire il codice a quello stupido di intellij
+		 * @// TODO: 20/05/2021  completare il logger */
+		//Logger logger = new Logger();
 	}
 
 	public String getNote() {
@@ -106,7 +110,7 @@ public class BloodBag {
 	}
 
 	private final Serial 	serial;
-	private final Blood 	blood;
+	private final BloodGroup bloodGroup;
 	private Date			creationDate;
 	private Date 			expirationDate;
 	private String			donatorCF; //=null;	 *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
