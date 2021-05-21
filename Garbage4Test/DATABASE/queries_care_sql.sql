@@ -21,7 +21,7 @@ insert into `state_table` (id_state, state) values
 select* from `state_table`;
 drop table IF EXISTS `BloodBags`;
 
-
+test
 
 CREATE TABLE IF NOT EXISTS `BloodBags`(
  serial char(32) NOT NULL PRIMARY KEY,
