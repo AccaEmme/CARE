@@ -264,7 +264,7 @@
            </tr>
            <tr>
                  <td>Master endpoint:<br><small>(sede centrale)</small></td>
-                 <td>IP: <input type="text" name="master_ip" placeholder="92.86.104.10" /><br />Port: <input type="text" name="master_port" placeholder="3308(MySQL default) or 27017(MongoDB default)" /></td>
+                 <td><input type="text" name="master_ip" placeholder="IP:PORT;..." /> <small> ( i.g. 92.86.104.10:3308;www.care.it/Molise:27017 )</small></td>
             </tr>
             <tr>
                 <td>Sync:</td>
@@ -342,6 +342,149 @@
           </table>
     </form>
     </div>
+
+    <!-- START: routing table -->
+    <div align="center">
+        <h2>Routing Table:</h2>
+	 <input type="radio" name="routingtable_useEndpoint" value="downloadRoutingTable" id="downloadRoutingTable" checked /> <label for="downloadRoutingTable">Scarica e utilizza da Master Endpoint ( 92.86.104.10:3308;www.care.it/Molise:27017 )</label><br />
+	 <input type="radio" name="routingtable_useEndpoint" value="createRoutingTable" id="createRoutingTable" /> <label for="createRoutingTable">Compila routing table</label>
+        <form action="#">
+        <table cellspacing="0" cellpadding="0" border="0" width="325">
+            <tr>
+              <td>
+                 <table cellspacing="0" cellpadding="1" border="1" width="1000" >
+                   <tr style="color:white;background-color:grey">
+                    <th align="center" width="40px">Usa</th>
+                    <th align="center" width="430px">IP/DNS</th>
+                    <th align="center" width="120px">Nome Nodo</th>
+                    <th align="center" width="50px">Nazione</th>
+                    <th align="center" width="50px">Regione</th>
+                    <th align="center" width="50px">Prov.</th>
+                    <th align="center" width="50px">Comune</th>
+                   </tr>
+                 </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                 <div style="width:1000px; height:180px; overflow:auto;">
+                   <table cellspacing="0" cellpadding="1" border="1" width="1000" style="font-size: 11px;" >
+                    <tr>
+                        <td align="center" width="50px"><input type="checkbox" checked /></td>
+                        <td align="center">https://www.care.it/Campania/AV/Avellino/Malzoni</td>
+                        <td align="center" width="50px">Malzoni</td>
+                        <td align="center" width="50px">Italy</td>
+                        <td align="center" width="50px">Campania</td>
+                        <td align="center" width="50px">AV</td>
+                        <td align="center" width="50px">Avellino</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><input type="checkbox" checked /></td>
+                        <td align="center">https://www.care.it/Campania/AV/Avellino/Moscati</td>
+                        <td align="center">Malzoni</td>
+                        <td align="center">Italy</td>
+                        <td align="center">Campania</td>
+                        <td align="center">AV</td>
+                        <td align="center">Avellino</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><input type="checkbox" checked /></td>
+                        <td align="center">https://www.care.it/Campania/AV/Avellino/Salvoni</td>
+                        <td align="center">Salvoni</td>
+                        <td align="center">Italy</td>
+                        <td align="center">Campania</td>
+                        <td align="center">AV</td>
+                        <td align="center">Avellino</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><input type="checkbox" checked /></td>
+                        <td align="center">https://www.care.it/Campania/AV/Mercogliano/ClinicaMontevergine</td>
+                        <td align="center">Clinica Montevergine</td>
+                        <td align="center">Italy</td>
+                        <td align="center">Campania</td>
+                        <td align="center">AV</td>
+                        <td align="center">Mercogliano</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><input type="checkbox" checked /></td>
+                        <td align="center">https://www.care.it/Campania/AV/Solofra/Landolfi</td>
+                        <td align="center">Landolfi</td>
+                        <td align="center">Italy</td>
+                        <td align="center">Campania</td>
+                        <td align="center">AV</td>
+                        <td align="center">Solofra</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><input type="checkbox" checked /></td>
+                        <td align="center">https://www.care.it/Campania/BN/Benevento/SanPio</td>
+                        <td align="center">San Pio</td>
+                        <td align="center">Italy</td>
+                        <td align="center">Campania</td>
+                        <td align="center">BN</td>
+                        <td align="center">Benevento</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><input type="checkbox" checked /></td>
+                        <td align="center">https://www.care.it/Campania/BN/Benevento/Rummo</td>
+                        <td align="center">Rummo</td>
+                        <td align="center">Italy</td>
+                        <td align="center">Campania</td>
+                        <td align="center">BN</td>
+                        <td align="center">Benevento</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><input type="checkbox" checked /></td>
+                        <td align="center">https://www.care.it/Campania/CE/Caserta/SanSebastiano</td>
+                        <td align="center">San Sebastiano</td>
+                        <td align="center">Italy</td>
+                        <td align="center">Campania</td>
+                        <td align="center">CE</td>
+                        <td align="center">Caserta</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><input type="checkbox" checked /></td>
+                        <td align="center">https://www.care.it/Campania/CE/Caserta/SanSebastiano</td>
+                        <td align="center">San Sebastiano</td>
+                        <td align="center">Italy</td>
+                        <td align="center">Campania</td>
+                        <td align="center">CE</td>
+                        <td align="center">Caserta</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><input type="checkbox" checked /></td>
+                        <td align="center">https://www.care.it/Campania/SA/Salerno/SanLeonardo</td>
+                        <td align="center">SanLeonardo</td>
+                        <td align="center">Italy</td>
+                        <td align="center">Campania</td>
+                        <td align="center">SA</td>
+                        <td align="center">Salerno</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><input type="checkbox" checked /></td>
+                        <td align="center">https://www.care.it/Campania/SA/Salerno/Ruggi</td>
+                        <td align="center">Ruggi</td>
+                        <td align="center">Italy</td>
+                        <td align="center">Campania</td>
+                        <td align="center">SA</td>
+                        <td align="center">Salerno</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><input type="checkbox" checked /></td>
+                        <td align="center">https://www.care.it/Campania/NA/Napoli/Cardarelli</td>
+                        <td align="center">Cardarelli</td>
+                        <td align="center">Italy</td>
+                        <td align="center">Campania</td>
+                        <td align="center">NA</td>
+                        <td align="center">Napoli</td>
+                    </tr>
+                   </table>
+                 </div>
+              </td>
+            </tr>
+          </table>
+    </form>
+    </div>
+    <!-- END:   routing table -->
 </div>
  </body>
 </html>
