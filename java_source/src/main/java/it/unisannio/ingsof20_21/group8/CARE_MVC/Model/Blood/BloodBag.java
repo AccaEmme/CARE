@@ -30,6 +30,7 @@ public class BloodBag {
 		this.expirationDate=this.getExpirationDate();
 		this.donatorCF=donatorCF;
 	}
+	
 	public BloodBag(BloodGroup bloodGroup, String donatorCF, String note) throws ParseException {
 		this.serial=new Serial(bloodGroup);
 		this.bloodGroup =bloodGroup;
@@ -47,10 +48,7 @@ public class BloodBag {
 		return this.bloodGroup;
 	}
 
-	public void setDonatorCF(String donatorCF) {
-		this.donatorCF=donatorCF;
-	}
-	
+
 	public String getDonatorCF() {
 		return this.donatorCF;
 	}

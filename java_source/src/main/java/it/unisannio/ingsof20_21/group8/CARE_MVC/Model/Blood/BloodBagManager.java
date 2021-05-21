@@ -37,6 +37,7 @@ public class BloodBagManager extends BloodBag {
     	super(bloodGroup, donatorCF);
     	this.currentUser = currentUser;
         this.dataManager = dataManager;
+        /* Location */
     }
 	
     public BloodBagManager(User currentUser, DataManager dataManager, BloodGroup bloodGroup, String donatorCF, String note) throws ParseException{
@@ -45,12 +46,21 @@ public class BloodBagManager extends BloodBag {
         this.dataManager = dataManager;
     }
     
+	public void setDonatorCF(String donatorCF) {
+		this.donatorCF=donatorCF;
+	}
+	
+    
 	public void setCreationDate(Date creationDate){
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(creationDate);
 		cal.add(Calendar.MONTH, BloodBag.monthIncrementAmount);
 		Date expirationDate =  cal.getTime();
 
+		/*
+		 * TODO: la data non può essere superiore a quella odierna, la data non può essere antecedente a -7gg
+		 */
+		
 		dataManager.updateExpirationDate(this, expirationDate);
 		dataManager.writeLog(
 							cal.getTime(),

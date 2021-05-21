@@ -12,7 +12,7 @@ public class BloodBagManagerTester {
 
 	public static void main(String[] args) throws ParseException {
 		// TODO Auto-generated method stub
-		User u 			= new User();
+		User u 			= new User(/* ... */ );
 		DataManager db 	= null;
 		MySqlDataManager db2 = new MySqlDataManager();
 		
