@@ -12,9 +12,18 @@ public class TestCreateAndPopulateSqlDB {
 
 	public static void main(String[] args) {
 		DataManager dm = new MySqlDataManager();
-		dm.createDB();
+		//dm.createDB();
 		
-		final int NUMSACCHE=15;
+		
+		//String filename = "./localsettings/mysqldump.sql";
+		//dm.restoreDump(filename);
+		
+		dm.setStateTable("presente");
+		dm.setStateTable("trasferito");
+		dm.setStateTable("eliminato");
+		
+		
+		final int NUMSACCHE=50;
 	    BloodGroup gruppi[] = BloodGroup.values();
 		Random generatore = new Random();
 		
@@ -24,7 +33,9 @@ public class TestCreateAndPopulateSqlDB {
 				s = new BloodBag(
 									gruppi[generatore.nextInt(gruppi.length)],
 									"CF"+i+""
+									,"provanota"
 								);
+				/* provare anche costruttore con nota */
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

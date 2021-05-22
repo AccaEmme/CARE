@@ -10,12 +10,16 @@ public interface DataManager {
 	void createDB();
 	void dropDB();
 	
+	// filling Working tables.
+	void setStateTable(/*short id_state, */String state);
+	
+	
 	void addBloodBag(BloodBag bloodbag);
 	List<BloodBag> getBloodBag(BloodBag blood);
 	
 	void updateExpirationDate(BloodBag b, Date newExpirationDate);
 	void writeLog(Date currentDate, User currentUser, String currentClass, String currentMethod, String currentResult);
 	
-	public boolean restoreDump();
+	public void restoreDump(String filename);
 	public boolean createDump();
 }

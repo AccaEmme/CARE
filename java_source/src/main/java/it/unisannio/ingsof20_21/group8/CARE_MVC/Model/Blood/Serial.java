@@ -112,7 +112,7 @@ public class Serial {
         FileOutputStream fos;
         BufferedOutputStream bos;
 
-        f = new File(Constants.DB_SETTINGS_PATH);
+        f = new File(Constants.SERIAL_SETTINGS_PATH);
         try {
             f.createNewFile();
         } catch (IOException e) {
@@ -156,7 +156,7 @@ public class Serial {
         saveProps.setProperty("counter", Integer.toString(counter));
 
         try {
-        	FileOutputStream f= new FileOutputStream(Constants.DB_SETTINGS_PATH);
+        	FileOutputStream f= new FileOutputStream(Constants.SERIAL_SETTINGS_PATH);
             saveProps.storeToXML(f, "");
         	f.close();
         } catch (IOException e) {
