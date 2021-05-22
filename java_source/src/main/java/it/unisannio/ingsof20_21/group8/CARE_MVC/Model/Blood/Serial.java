@@ -49,7 +49,7 @@ public class Serial {
     private static Date dNow = new Date();
     private static SimpleDateFormat ft = new SimpleDateFormat(Constants.DATE_FORMAT);
     private static String currentDate_aaaaMMdd = ft.format(dNow);
-    private static String filesettings=Constants.DB_SETTINGS_PATH;
+    private static String filesettings=Constants.SERIAL_SETTINGS_PATH;
 
     static {
         Properties loadProps = new Properties();
@@ -89,8 +89,8 @@ public class Serial {
         }
 
         serialmatrix = 	loadProps.getProperty("serialmatrix");
-        lastdate = 		Integer.valueOf(loadProps.getProperty("lastdate"));
         counter = 		Integer.valueOf(loadProps.getProperty("counter"));
+        lastdate = 		Integer.valueOf(loadProps.getProperty("lastdate"));
     }
 
 

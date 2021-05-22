@@ -4,9 +4,12 @@ public class Constants {
     public static final String DATE_FORMAT = "yyyyMMdd";
     public static final String DB_SETTINGS_PATH = "localsettings/db_settings.xml";
     public static final String SERIAL_SETTINGS_PATH = "localsettings/serial_settings.xml";
-    //TEMP
-    public static final String MYSQL_LOGIN_SETTINGS_PATH = "C:/Users/giuli/Desktop/login.xml";
-    public static final String MYSQL_LOGIN_SETTINGS_PATH_MAC = "/Users/folly/Desktop/uri.xml";
+    
+    // *** TEMP
+    public static final String MYSQL_LOGIN_SETTINGS_PATH = "../../login.xml";
+//    public static final String MYSQL_LOGIN_SETTINGS_PATH = "../../CareMySQLLogin.xml";
+    //public static final String MYSQL_LOGIN_SETTINGS_PATH_MAC = "/Users/folly/Desktop/uri.xml"; *** use relative path.
+    
     public static final String SERIAL = "SERIAL";
     public static final String GROUP = "GROUP";
     public static final String EXPIRATION = "EXPIRATION_DAY";

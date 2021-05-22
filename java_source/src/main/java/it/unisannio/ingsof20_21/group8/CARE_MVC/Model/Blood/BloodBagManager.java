@@ -46,8 +46,8 @@ public class BloodBagManager extends BloodBag {
         this.dataManager = dataManager;
     }
     
-	public void setDonatorCF(String donatorCF) {
-		this.donatorCF=donatorCF;
+	public void setDonatorCF(String newDonatorCF) {
+		dataManager.updateDonatorCF(newDonatorCF);
 	}
 	
     
