@@ -10,5 +10,6 @@
 	<classpathentry kind="src" path="MySQL_Test/src"/>
 	<classpathentry kind="src" path="src_old/model/src"/>
 	<classpathentry kind="lib" path="MySQL_Test/lib/mysql-connector-java-8.0.24.jar"/>
+	<classpathentry kind="src" path="userAbstractLuigi"/>
 	<classpathentry kind="output" path="MongoDB_2ndTry/target/classes"/>
 </classpath>
