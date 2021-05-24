@@ -1,9 +1,5 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
-
-import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -12,7 +8,9 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-import java.util.Scanner;
+
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.InitSettings;
 
 /*
  * Ogni seriale deve identificare univocamente una sacca di sangue BloodBag.
@@ -49,40 +47,14 @@ public class Serial {
     private static Date dNow = new Date();
     private static SimpleDateFormat ft = new SimpleDateFormat(Constants.DATE_FORMAT);
     private static String currentDate_aaaaMMdd = ft.format(dNow);
-    private static String filesettings=Constants.SERIAL_SETTINGS_PATH;
+    private static String filesettings=Constants.SERIAL_SETTINGS_FILENAME_RELATIVEPATH;
 
     static {
         Properties loadProps = new Properties();
         try {
             loadProps.loadFromXML(new FileInputStream(filesettings));
         } catch(FileNotFoundException ex){
-            Scanner sc = new Scanner(System.in);
-            String nationality;
-
-            do {
-                System.out.println("Nazionalita' [IT]:");
-                nationality = sc.nextLine();
-            } while(nationality.length() <0 || nationality.length()>2 );
-
-            System.out.println("Provincia [NA]:");
-            String prov = sc.nextLine();
-
-            System.out.println("Codice Struttura [206]:");
-            String codstr = sc.nextLine();
-
-            System.out.println("Eventuale codice ufficio interno [000]:");
-            String codint = sc.nextLine();
-
-            sc.close();
-            
-            String serialmatrix = nationality+"-"+prov+codstr+codint;
-            initXML(serialmatrix);
-            try {
-                loadProps.loadFromXML(new FileInputStream(filesettings));
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            InitSettings.initXML();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -106,44 +78,6 @@ public class Serial {
         Serial.updateSerial();
     }
 
-    private static boolean initXML(String serialmatrix) {
-        File f;
-        String data;
-        FileOutputStream fos;
-        BufferedOutputStream bos;
-
-        f = new File(Constants.SERIAL_SETTINGS_PATH);
-        try {
-            f.createNewFile();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        data = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
-                + "<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">\r\n"
-                + "<properties>\r\n"
-                + "<entry key=\"serialmatrix\">"+serialmatrix+"</entry>\r\n"
-                + "<entry key=\"lastdate\">"+19000101+"</entry>\r\n"
-                + "<entry key=\"counter\">"+0+"</entry>\r\n"
-                + "</properties>\r\n"
-                + "";
-
-        try {
-            fos = new FileOutputStream(f);
-            bos = new BufferedOutputStream(fos);
-            byte[] bytes = data.getBytes();
-            bos.write(bytes);
-            bos.close();
-            fos.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return false;
-        }
-
-        System.out.println("Data written to file successfully.");
-        return true;
-    }
 
     public String toString() {
         return serial;
@@ -156,7 +90,7 @@ public class Serial {
         saveProps.setProperty("counter", Integer.toString(counter));
 
         try {
-        	FileOutputStream f= new FileOutputStream(Constants.SERIAL_SETTINGS_PATH);
+        	FileOutputStream f= new FileOutputStream(filesettings);
             saveProps.storeToXML(f, "");
         	f.close();
         } catch (IOException e) {

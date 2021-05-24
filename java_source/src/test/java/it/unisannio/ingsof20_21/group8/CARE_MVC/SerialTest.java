@@ -1,7 +1,8 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC;
 
-
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import static org.junit.Assert.assertTrue;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -22,47 +23,42 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Serial;
  * Unit test for Serial.
  */
 public class SerialTest {
-		public static String path = "./localsettings/";
-		public static String filename = "serial_settings.xml";
-
-		
-		@BeforeClass
-		public static void createFile() throws IOException {
-			String path1 = path+filename;
-			File from = new File(path1);
-			String path2 = path+"serial_settings_temp.xml";
-			File to = new File(path2);
-	        Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
-			from.delete();
-		
-		}
-		@AfterClass
-		public static void regeneratonFile() throws IOException {
-			String path1 = path+"serial_settings_temp.xml";
-			File from = new File(path1);
-			String path2 = path+filename;
-			File to = new File(path2);
-	        Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		
-		
-		}
-    		@Test
-		public void testFile() {
-			File f = new File(path+filename);
-		   assertTrue(f.exists());
-    		}
-
+	public static String path = Constants.SERIAL_SETTINGS_FILENAME_RELATIVEPATH;
+	public static String filename = Constants.SERIAL_SETTINGS_FILENAME;
+	
+	@BeforeClass
+	public static void createFile() throws IOException {
+		String path1 = path+filename;
+		File from = new File(path1);
+		String path2 = path+"serial_settings_temp.xml";
+		File to = new File(path2);
+        Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		from.delete();
+	}
+	
+	@AfterClass
+	public static void regeneratonFile() throws IOException {
+		String path1 = path+"serial_settings_temp.xml";
+		File from = new File(path1);
+		String path2 = path+filename;
+		File to = new File(path2);
+        Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
+	}
+	
+	@Test
+	public void testFile() {
+		File f = new File(path+filename);
+	   assertTrue(f.exists());
+	}
 	
    @Test(expected = NullPointerException.class)
-    public void serialDefineNull()
-    {
+    public void serialDefineNull() {
 	   BloodGroup g= BloodGroup.valueOf(null);
    	    new Serial(g);
     }
     
     @Test(expected = IllegalArgumentException.class)
-    public void serialDefineWrong()
-    {
+    public void serialDefineWrong() {
     	 BloodGroup g= BloodGroup.valueOf("ads");
     	    new Serial(g);
     }
