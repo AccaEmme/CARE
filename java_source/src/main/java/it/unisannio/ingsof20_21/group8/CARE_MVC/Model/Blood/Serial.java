@@ -77,11 +77,11 @@ public class Serial {
         );
         Serial.updateSerial();
     }
-
-
-    public String toString() {
-        return serial;
-    }
+    
+    public Serial(String s) {
+		serial = s;
+		Serial.updateSerial();
+	}
 
     public static void updateSerial() {
         Properties saveProps = new Properties();
@@ -98,12 +98,19 @@ public class Serial {
             e.printStackTrace();
         }
     }
-    public Serial(String s) {
-		serial = s;
-		Serial.updateSerial();
-	}
+    
+    public String toString() {
+    	
+        return serial;
+    
+    }
+
+
     public boolean equals (Object o) {
+    	
+    	if(o.getClass()!= Serial.class) return false;
 		return ((Serial) o ).serial.equals(this.serial);
+    	
 	}
 
     private final String serial;

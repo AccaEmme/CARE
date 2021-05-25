@@ -80,7 +80,7 @@ public class BloodBag {
 	
 	@Override
 	public String toString() {
-		return "BloodBag [serial=" + serial + ", group=" + bloodGroup /*+ ", expireDate=" + expireDate + */+"]";
+		return "BloodBag [serial=" + serial + ", group=" + bloodGroup + ", expireDate=" + new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate) + "]\nnote: '" + note + "'";
 	}
 
 	public BloodGroup getBlood() {

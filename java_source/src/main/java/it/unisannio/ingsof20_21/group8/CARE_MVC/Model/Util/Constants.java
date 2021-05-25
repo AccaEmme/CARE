@@ -2,6 +2,7 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util;
 
 public class Constants {
     public static final String DATE_FORMAT = "yyyyMMdd";
+    public static final String DATE_FORMAT_STRING = "yyyy-MM-dd";
     public static final String DB_SETTINGS_PATH = "/localsettings/db_settings.xml";
     public static final String SERIAL_SETTINGS_RELATIVEPATH = "localsettings/";
     public static final String SERIAL_SETTINGS_FILENAME = "serial_settings.xml";
