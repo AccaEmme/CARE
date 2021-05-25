@@ -9,8 +9,6 @@ import java.util.Scanner;
 public class SerialTester {
 
 	public static void main(String[] args) {
-		System.out.println("->"+Constants.SERIAL_SETTINGS_FILENAME_RELATIVEPATH);
-		
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Gruppo sanguigno [Apos, Aneg, Bpos, Bneg, ABpos, ABneg, ZEROpos, ZEROneg]:");
