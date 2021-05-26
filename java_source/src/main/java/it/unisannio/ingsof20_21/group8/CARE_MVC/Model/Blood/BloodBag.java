@@ -40,7 +40,7 @@ public class BloodBag {
 		this.note = note;
 	}
 	
-	protected Serial getSerial() {
+	public Serial getSerial() {
 		return this.serial;
 	}
 	

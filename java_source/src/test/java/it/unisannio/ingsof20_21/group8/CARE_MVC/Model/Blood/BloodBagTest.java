@@ -1,4 +1,4 @@
-package it.unisannio.ingsof20_21.group8.CARE_MVC;
+package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 
@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import org.junit.AfterClass;
 
@@ -54,7 +56,7 @@ public class BloodBagTest {
 	@Test 
 	public void testCostructorsInstance1() throws ParseException {
 		String codF = "CRSDLCER86BH0911";
-		String note = "non so cosa scrivere";
+		String note = "Prima donazione del paziente: abbiamo prelevato 50ml meno del previsto.";
 		BloodGroup bg = BloodGroup.valueOf("ZEROneg");
 		BloodBag bb1 = new BloodBag(bg, codF);
 		BloodBag bb2 = new BloodBag(bg, codF);
@@ -66,7 +68,7 @@ public class BloodBagTest {
 	@Test 
 	public void testCostructorsInstance2() throws ParseException {
 		String codF = "CRSDLCER86BH0911";
-		String note = "non so cosa scrivere";
+		String note = "Prima donazione del paziente: abbiamo prelevato 50ml meno del previsto.";
 		BloodGroup bg = BloodGroup.valueOf("ZEROneg");
 		BloodBag bb1 = new BloodBag(bg, codF, note);
 		BloodBag bb2 = new BloodBag(bg, codF, note);
@@ -78,7 +80,7 @@ public class BloodBagTest {
 	@Test 
 	public void testCostructorsInstance3() throws ParseException {
 		String codF = "CRSDLCER86BH0911";
-		String note = "non so cosa scrivere";
+		String note = "Prima donazione del paziente: abbiamo prelevato 50ml meno del previsto.";
 		BloodGroup bg = BloodGroup.valueOf("ZEROneg");
 		BloodBag bb1 = new BloodBag(bg, codF);
 		BloodBag bb2 = new BloodBag(bg, codF, note);
@@ -88,13 +90,39 @@ public class BloodBagTest {
 	}
 	
 	@Test
-	public void testDates() throws ParseException{
+	public void testDates1() throws ParseException{
 		String codF = "CRSDLCER86BH0911";
 		BloodGroup bg = BloodGroup.valueOf("Bneg");
 		BloodBag bb = new BloodBag(bg, codF);
 		assertEquals(bb.getCreationDate(), bb.getExpirationDate());
 	}
 	
+	@Test
+	public void testDates2() throws ParseException{
+		String codF = "CRSDLCER86BH0911";
+		BloodGroup bg = BloodGroup.valueOf("Bneg");
+		BloodBag bb = new BloodBag(bg, codF);
+		assertFalse(bb.getCreationDate().after(bb.getExpirationDate()));
+	}
 	
+	@Test
+	public void testDates3() throws ParseException{
+		String codF = "CRSDLCER86BH0911";
+		BloodGroup bg = BloodGroup.valueOf("Bneg");
+		BloodBag bb = new BloodBag(bg, codF);
+		assertFalse(bb.getExpirationDate().before(bb.getCreationDate()));
+	}
+	
+	@Test
+	public void testDates4() throws ParseException{
+		String codF = "CRSDLCER86BH0911";
+		BloodGroup bg = BloodGroup.valueOf("Bneg");
+		BloodBag bb = new BloodBag(bg, codF);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime( bb.getCreationDate() );
+		cal.add(Calendar.DAY_OF_MONTH, 1);
+		System.out.println(cal.getTime());
+		assertEquals(bb.getCreationDate(), cal.getTime());
+	}
 	
 }
