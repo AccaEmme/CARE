@@ -1,12 +1,21 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Location.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.InitSettings;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
+import java.util.Scanner;
+
+
 
 public class BloodBag implements BloodBagInterface {
 
@@ -25,36 +34,42 @@ public class BloodBag implements BloodBagInterface {
 
 
 	public BloodBag(BloodGroup bloodGroup, String donatorCF) throws ParseException {
-		this.serial=new Serial(bloodGroup);
-		this.bloodGroup =bloodGroup;
-		this.creationDate=this.getCreationDate();
-		this.expirationDate=this.getExpirationDate();
-		this.donatorCF=donatorCF;
+		
+		this.serial = new Serial(bloodGroup);
+		this.bloodGroup = bloodGroup;
+		this.creationDate = this.getCreationDate();
+		this.expirationDate = this.getExpirationDate();
+		this.donatorCF = donatorCF;
+		this.location = new Location();
+		this.bloodBagState = BloodBagState.Avaible;
 	}
 	
 	public BloodBag(BloodGroup bloodGroup, String donatorCF, String note) throws ParseException {
-		this.serial=new Serial(bloodGroup);
-		this.bloodGroup =bloodGroup;
-		this.creationDate=this.getCreationDate();
-		this.expirationDate=this.getExpirationDate();
-		this.donatorCF=donatorCF;
+		
+		this.serial = new Serial(bloodGroup);
+		this.bloodGroup = bloodGroup;
+		this.creationDate = this.getCreationDate();
+		this.expirationDate = this.getExpirationDate();
+		this.donatorCF = donatorCF;
 		this.note = note;
+		this.location = new Location();
+		this.bloodBagState = BloodBagState.Avaible;
 	}
 	
 	public Serial getSerial() {
 		return this.serial;
 	}
 	
-	protected BloodGroup getBloodType() {
+	public BloodGroup getBloodType() {
 		return this.bloodGroup;
 	}
 
 
-	protected String getDonatorCF() {
+	public String getDonatorCF() {
 		return this.donatorCF;
 	}
 	
-	protected Date getCreationDate() throws ParseException {
+	public Date getCreationDate() throws ParseException {
 		// We can't allow user set a wrong "creation date", so the system will stamp the right updated date.
 		String datestr = serial.toString().substring(
 							serial.toString().length()-13, 	// extract date from serial
@@ -66,7 +81,7 @@ public class BloodBag implements BloodBagInterface {
 		return creationDate;
 	}
 	
-	protected Date getExpirationDate() throws ParseException {
+	public Date getExpirationDate() throws ParseException {
 		// We can't allow user set a wrong "expiration date", so the system will stamp the right updated date.
 		Calendar cal = Calendar.getInstance();
 		cal.setTime( this.getCreationDate() );
@@ -79,21 +94,46 @@ public class BloodBag implements BloodBagInterface {
 		return expirationDate;
 	} 
 	
-	@Override
-	protected String toString() {
-		return "BloodBag [serial=" + serial + ", group=" + bloodGroup + ", expireDate=" + new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate) + "]\nnote: '" + note + "'";
-	}
-
-	protected BloodGroup getBlood() {
+	public BloodGroup getBlood() {
 		return bloodGroup;
 	}
 
-	protected String getNote() {
+	public String getNote() {
 		return note;
 	}
+	
+	public Location getLocation() { return location; }
+	
+	@Override
+	public String toString() {
+		return "BloodBag [serial=" + serial + ", group=" + bloodGroup + ", expireDate=" + new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate) + "]\nnote: '" + note + "'";
+	}
 
-	protected void setNote(String note) {
+	public void setNote(String note) {
 		this.note = note;
+	}
+	
+	protected void setLocation(Location locationR) { location = locationR; }
+	
+	public boolean transferTo(Location locationR) { 
+		
+		if(bloodBagState == BloodBagState.Used && bloodBagState == BloodBagState.Transfered && bloodBagState == BloodBagState.Dropped) return false;
+		location = locationR;
+		bloodBagState = BloodBagState.Transfered;
+		return true;
+		
+	}
+	
+	public boolean useBag() {
+		
+		if(bloodBagState == BloodBagState.Used && bloodBagState == BloodBagState.Transfered && bloodBagState == BloodBagState.Dropped) return false;
+		bloodBagState = BloodBagState.Used;
+		return true;
+	}
+
+	private enum BloodBagState{
+		
+		Available, Transfered, Used, Dropped;
 	}
 
 	private final Serial 	serial;
@@ -102,6 +142,8 @@ public class BloodBag implements BloodBagInterface {
 	private Date 			expirationDate;
 	private String			donatorCF; //=null;	 *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
 	private String 			note;
-
+	private Location		location;
+	private BloodBagState 	bloodBagState;
+	
 	public static final int monthIncrementAmount = 1;
 }
