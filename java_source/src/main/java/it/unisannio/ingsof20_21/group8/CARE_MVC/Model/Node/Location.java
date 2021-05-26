@@ -15,6 +15,7 @@ public class Location {
 	 * Costruttore della classe 'Location'.
 	 * 
 	 * @param whCode La stringa che indica il codice del magazzino del nodo.
+	 * @param denomination La stringa che indica la denominaziuone dell'ospedale, magazzino o nodo.
 	 * @param street La stringa che indica la strada del nod.
 	 * @param streetNumber L'intero che indica il numero civico della strada del nodo.
 	 * @param city La stringa che indica la città del nodo.
@@ -36,7 +37,19 @@ public class Location {
         this.bloodBags = new LinkedList<BloodBag>();
         
     }
-    
+	/*
+	 * Costruttore della classe 'Location'.
+	 * 
+	 * @param whCode La stringa che indica il codice del magazzino del nodo.
+	 * @param denomination La stringa che indica la denominaziuone dell'ospedale, magazzino o nodo.
+	 * @param street La stringa che indica la strada del nod.
+	 * @param streetNumber L'intero che indica il numero civico della strada del nodo.
+	 * @param city enum 'City' che indica la città del nodo.
+	 * @param province enum 'Province' che indica la provincia del nodo.
+	 * @param region enum 'Region' che indica la regione del nodo.
+	 * @param country enum 'Country' che indica la nazione del nodo.
+	 * 
+	 */   
     public Location(String whCode, String denomination, String street, int streetNumber, String city, String province, String region, String country) {
         
     	this.whCode = whCode;
