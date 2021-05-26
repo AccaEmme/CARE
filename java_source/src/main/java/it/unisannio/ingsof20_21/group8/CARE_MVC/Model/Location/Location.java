@@ -1,4 +1,4 @@
-package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node;
+package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Location;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -6,7 +6,8 @@ import java.util.LinkedList;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 
 /*
- * Questa classe definisce il nodo di appartenenza della sacca di sangue.
+ * Alessio: Questa classe definisce il nodo di appartenenza della sacca di sangue.
+ * Hermann: no, questa classe che potrebbe anche essere astratta, definisce una locazione, può essere dov'è situata una sacca o la città di un utente.
  */
 
 public class Location {
@@ -40,7 +41,6 @@ public class Location {
         this.bloodBags = new LinkedList<BloodBag>();
         
     }
-<<<<<<< HEAD
 	/*
 	 * Costruttore della classe 'Location'.
 	 * 
@@ -54,9 +54,7 @@ public class Location {
 	 * @param country enum 'Country' che indica la nazione del nodo.
 	 * 
 	 */   
-=======
-    
->>>>>>> fefec62bad8c40547aa6f529f4a771fdfe451d2b
+
     public Location(String whCode, String denomination, String street, int streetNumber, String city, String province, String region, String country) {
         
     	this.whCode = whCode;
