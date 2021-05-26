@@ -69,6 +69,8 @@ public class Location {
         
     }
     
+    public Location() {}
+    
     public String getWhCode() { return whCode; }
     
     public String getDenomination() { return denomination; }
@@ -109,7 +111,7 @@ public class Location {
      */
     public void setBloodBags(LinkedList<BloodBag> bloodBagsR) { bloodBags = bloodBagsR; }
     
-    public Boolean addBloodBag(BloodBag bloodBagR) { return bloodBags.add(bloodBagR); }
+    public boolean addBloodBagAtLocation(BloodBag bloodBagR) { return bloodBags.add(bloodBagR); }
     
 	private enum Country {
 		Italia, Spagna, Croazia, Grecia;
@@ -122,6 +124,7 @@ public class Location {
 	private enum Province {
 		
 		Chieti, Potenza, Bolzano, Catanzaro, Napoli, Bologna, Udine, Roma, Genova, Varese, Ancona, Campobasso, Torino, Bari, Cagliari, Palermo, Firenze, Trento, Perugia, Aosta, Padova, Benevento, Avellino, Salerno, Caserta;
+		
 	}
 	
 	private enum City {

@@ -105,7 +105,6 @@ public class Serial {
     
     }
 
-
     public boolean equals (Object o) {
     	
     	if(o.getClass()!= Serial.class) return false;
