@@ -2,6 +2,10 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <entry key="serialmatrix">IT-NA544121</entry>
+<<<<<<< HEAD
 <entry key="counter">76</entry>
+=======
+<entry key="counter">2</entry>
+>>>>>>> stash
 <entry key="lastdate">20210526</entry>
 </properties>

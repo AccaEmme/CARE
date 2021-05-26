@@ -1,5 +1,6 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 
 import java.text.ParseException;
@@ -7,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class BloodBag {
+public class BloodBag implements BloodBagInterface {
 
 	//Rendiamo obbligatorio il codice fiscale paziente
 	//mi dispiace ma devo rimettere questo costruttore perchè il database non è per nulla allineato alle classi
@@ -44,16 +45,16 @@ public class BloodBag {
 		return this.serial;
 	}
 	
-	public BloodGroup getBloodType() {
+	protected BloodGroup getBloodType() {
 		return this.bloodGroup;
 	}
 
 
-	public String getDonatorCF() {
+	protected String getDonatorCF() {
 		return this.donatorCF;
 	}
 	
-	public Date getCreationDate() throws ParseException {
+	protected Date getCreationDate() throws ParseException {
 		// We can't allow user set a wrong "creation date", so the system will stamp the right updated date.
 		String datestr = serial.toString().substring(
 							serial.toString().length()-13, 	// extract date from serial
@@ -65,7 +66,7 @@ public class BloodBag {
 		return creationDate;
 	}
 	
-	public Date getExpirationDate() throws ParseException {
+	protected Date getExpirationDate() throws ParseException {
 		// We can't allow user set a wrong "expiration date", so the system will stamp the right updated date.
 		Calendar cal = Calendar.getInstance();
 		cal.setTime( this.getCreationDate() );
@@ -79,19 +80,19 @@ public class BloodBag {
 	} 
 	
 	@Override
-	public String toString() {
+	protected String toString() {
 		return "BloodBag [serial=" + serial + ", group=" + bloodGroup + ", expireDate=" + new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate) + "]\nnote: '" + note + "'";
 	}
 
-	public BloodGroup getBlood() {
+	protected BloodGroup getBlood() {
 		return bloodGroup;
 	}
 
-	public String getNote() {
+	protected String getNote() {
 		return note;
 	}
 
-	public void setNote(String note) {
+	protected void setNote(String note) {
 		this.note = note;
 	}
 
