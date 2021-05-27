@@ -64,6 +64,9 @@ public class BloodBag implements BloodBagInterface {
 		return this.bloodGroup;
 	}
 
+	public void metodofigo() {
+		
+	}
 
 	public String getDonatorCF() {
 		return this.donatorCF;
