@@ -125,4 +125,17 @@ public class BloodBagTest {
 		assertEquals(bb.getCreationDate(), cal.getTime());
 	}
 	
+	
+	@Test
+	public void testCloneMethod() throws ParseException{
+		
+		String codF = "CRSDLCER86BH0911";
+		BloodGroup bg = BloodGroup.valueOf("Bneg");
+		BloodBag bbOldNode = new BloodBag(bg, codF);
+		BloodBag bbNewNode = bbOldNode.clone();
+		bbOldNode.transferTo(null);
+		System.out.println(bbOldNode.toString());
+		System.out.println(bbOldNode.toString());
+	}
+	
 }
