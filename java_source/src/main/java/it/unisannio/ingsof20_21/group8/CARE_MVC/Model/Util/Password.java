@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
-  
+
 // Java program to calculate MD5 hash value
 public class Password {
     public static String getMd5(String input)    {

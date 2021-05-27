@@ -9,8 +9,6 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 public class UserTester {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 		/*
 		System.out.println( Password.generatePassword(10) );
 		System.out.println( Password.generatePassword(10) );

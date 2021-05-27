@@ -60,14 +60,13 @@ public class Serial {
             e.printStackTrace();
         }
 
-        serialmatrix = 	loadProps.getProperty("serialmatrix");
-        counter = 		Integer.valueOf(loadProps.getProperty("counter"));
-        lastdate = 		Integer.valueOf(loadProps.getProperty("lastdate"));
+        serialmatrix 	= 	loadProps.getProperty("serialmatrix");
+        counter 		= 	Integer.valueOf(loadProps.getProperty("counter"));
+        lastdate 		= 	Integer.valueOf(loadProps.getProperty("lastdate"));
     }
 
 
     public Serial(BloodGroup bloodgroup) {
-    	
         Serial.counter = (Integer.parseInt(currentDate_aaaaMMdd) > lastdate)? 0 : counter ;	//if today > lastdate -> counter = 0 else counter++
 
         serial = serialmatrix+
@@ -79,9 +78,10 @@ public class Serial {
         Serial.updateSerial();
     }
     
-    public Serial(String s) {
+    public Serial(String s) { 
+    	// viene usato sia dal JUnit Test, ma viene adoperato anche per generare un oggetto Serial da ricercare.
 		serial = s;
-		Serial.updateSerial();
+		Serial.updateSerial();  // @TODO *** Hermann: inutile e pericoloso!
 	}
 
     public static void updateSerial() {
@@ -101,26 +101,22 @@ public class Serial {
     }
     
     public String toString() {
-    	
         return serial;
-    
     }
 
     public int hashCode() {
+    	int h = serial.hashCode();
     	
-    	int h = serialmatrix.hashCode();
-    	
+    	/*
     	h = 31 * lastdate + h;
     	h = 31 * counter + h;
-    	
+    	*/
     	return h;
     }
     
-    public boolean equals (Object o) {
-    	
+    public boolean equals (Object o) {  	
     	if(o.getClass()!= Serial.class) return false;
 		return ((Serial) o ).serial.equals(this.serial);
-    	
 	}
 
     private final String serial;

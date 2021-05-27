@@ -23,7 +23,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Serial;
  * Unit test for Serial.
  */
 public class SerialTest {
-	public static String path = Constants.SERIAL_SETTINGS_FILENAME_RELATIVEPATH;
+	public static String path = Constants.SERIAL_SETTINGS_RELATIVEPATH;
 	public static String filename = Constants.SERIAL_SETTINGS_FILENAME;
 	
 	@BeforeClass
@@ -64,65 +64,58 @@ public class SerialTest {
     }
    
     @Test
-    public void serialDefineGood1()
-    {
-    	BloodGroup g= BloodGroup.valueOf("Apos") ;
+    public void serialDefineGood1() {
+    	BloodGroup g= BloodGroup.valueOf("Apos");
     	Serial s = new Serial(g);
     	assertTrue((s.equals(new Serial(s.toString()))));
     }
     
-    
     @Test
-    public void serialDefineGood2()
-    {
-    	BloodGroup g= BloodGroup.valueOf("Aneg") ;
-    	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
-    }
-    @Test
-    public void serialDefineGood3()
-    {
-    	BloodGroup g= BloodGroup.valueOf("Bpos") ;
-    	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
-    }
-    @Test
-    public void serialDefineGood4()
-    {
-    	BloodGroup g= BloodGroup.valueOf("Bneg") ;
-    	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
-    }
-    @Test
-    public void serialDefineGood5()
-    {
-    	BloodGroup g= BloodGroup.valueOf("ZEROpos") ;
-    	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
-    }
-    @Test
-    public void serialDefineGood6()
-    {
-    	BloodGroup g= BloodGroup.valueOf("ZEROneg") ;
-    	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
-    }
-    @Test
-    public void serialDefineGood7()
-    {
-    	BloodGroup g= BloodGroup.valueOf("ABneg") ;
-    	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
-    }
-    @Test
-    public void serialDefineGood8()
-    {
-    	BloodGroup g= BloodGroup.valueOf("ABpos") ;
+    public void serialDefineGood2() {
+    	BloodGroup g= BloodGroup.valueOf("Aneg");
     	Serial s = new Serial(g);
     	assertTrue((s.equals(new Serial(s.toString()))));
     }
     
+    @Test
+    public void serialDefineGood3() {
+    	BloodGroup g= BloodGroup.valueOf("Bpos");
+    	Serial s = new Serial(g);
+    	assertTrue((s.equals(new Serial(s.toString()))));
+    }
     
-	
+    @Test
+    public void serialDefineGood4() {
+    	BloodGroup g= BloodGroup.valueOf("Bneg");
+    	Serial s = new Serial(g);
+    	assertTrue((s.equals(new Serial(s.toString()))));
+    }
     
+    @Test
+    public void serialDefineGood5() {
+    	BloodGroup g= BloodGroup.valueOf("ZEROpos");
+    	Serial s = new Serial(g);
+    	assertTrue((s.equals(new Serial(s.toString()))));
+    }
+    
+    @Test
+    public void serialDefineGood6() {
+    	BloodGroup g= BloodGroup.valueOf("ZEROneg");
+    	Serial s = new Serial(g);
+    	assertTrue((s.equals(new Serial(s.toString()))));
+    }
+    
+    @Test
+    public void serialDefineGood7() {
+    	BloodGroup g= BloodGroup.valueOf("ABneg");
+    	Serial s = new Serial(g);
+    	assertTrue((s.equals(new Serial(s.toString()))));
+    }
+    
+    @Test
+    public void serialDefineGood8() {
+    	BloodGroup g= BloodGroup.valueOf("ABpos");
+    	Serial s = new Serial(g);
+    	assertTrue((s.equals(new Serial(s.toString()))));
+    }
 }
