@@ -14,6 +14,9 @@ public class Node {
 	}
 	/*
 	 * TODO: ArrayList<User> impiegati bisogna inserirli?
+	 * 
+	 * Omni-star: si penso che abbia senso inserire impiegati visto che dobbiamo anche
+	 * tracciare il luogo da cui avvengono le modifiche.
 	 */
 	
 	String codstr, denominazione;
