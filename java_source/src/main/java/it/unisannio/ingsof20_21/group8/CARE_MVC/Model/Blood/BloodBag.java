@@ -1,19 +1,13 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.*;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.InitSettings;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Properties;
-import java.util.Scanner;
 
 
 
@@ -33,18 +27,19 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 	*/
 
 
-	public BloodBag(BloodGroup bloodGroup, String donatorCF) throws ParseException {
+	public BloodBag(BloodGroup bloodGroup, String donatorCF, String nodeCode) throws ParseException {
 		
 		this.serial = new Serial(bloodGroup);
 		this.bloodGroup = bloodGroup;
 		this.creationDate = this.getCreationDate();
 		this.expirationDate = this.getExpirationDate();
 		this.donatorCF = donatorCF;
-		this.location = new Location(/*null, null, null, null, donatorCF, donatorCF*/);
+		this.nodeCode = nodeCode;
+		this.node = null;
 		this.bloodBagState = BloodBagState.Available;
 	}
 	
-	public BloodBag(BloodGroup bloodGroup, String donatorCF, String note) throws ParseException {
+	public BloodBag(BloodGroup bloodGroup, String donatorCF, String note, String nodeCode) throws ParseException {
 		
 		this.serial = new Serial(bloodGroup);
 		this.bloodGroup = bloodGroup;
@@ -52,20 +47,9 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		this.expirationDate = this.getExpirationDate();
 		this.donatorCF = donatorCF;
 		this.note = note;
-		this.location = new Location();
+		this.nodeCode = nodeCode;
+		this.node = null;
 		this.bloodBagState = BloodBagState.Available;
-	}
-	
-	public BloodBag clone(){
-		
-		try {
-			return new BloodBag(this.bloodGroup, this.donatorCF, this.note);
-		}catch(Exception e) { 
-			
-			e.printStackTrace(); 
-			return null;
-			
-		}
 	}
 	
 	public Serial getSerial() {
@@ -74,10 +58,6 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 	
 	public BloodGroup getBloodType() {
 		return this.bloodGroup;
-	}
-
-	public void metodofigo() {
-		
 	}
 
 	public String getDonatorCF() {
@@ -108,22 +88,22 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		//System.out.println( "scadenza:"+ft.format(dateobj) );
 		return expirationDate;
 	} 
-	
-	public BloodGroup getBlood() {
-		return bloodGroup;
-	}
 
 	public String getNote() {
 		return note;
 	}
 	
-	public Location getLocation() { return location; }
+	public String getNodeCode() { return nodeCode; }
+	
+	public Node getNode() { return node; }
 
 	public void setNote(String note) {
 		this.note = note;
 	}
 	
-	protected void setLocation(Location locationR) { location = locationR; }
+	public void setNodeCode(String nodeCodeR) { nodeCode = nodeCodeR; }
+	
+	protected void setNode(Node nodeR) { node = nodeR; }
 	
 	/*
 	 * Il metodo che verifica lo stato della sacca.
@@ -135,15 +115,20 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		return (bloodBagState == BloodBagState.Available);
 	}
 	
-	
-	public boolean transferTo(Location locationR) { 
+	/* 
+	 * Non ha senso nell'implementazione del BloodBagManager.
+	 * 
+	public void transferTo(Node nodeR) { 
 		
-		if(!checkState()) return false;
-		location = locationR;
-		bloodBagState = BloodBagState.Transfered;
-		return true;
+		//if(!checkState()) return false;
+		node = nodeR;
+		//return true;
 		
 	}
+	*/
+	
+	//implementare meglio.
+	public void setState(String state) { bloodBagState = BloodBagState.valueOf(state); }
 	
 	public boolean useBag() {
 		
@@ -157,12 +142,39 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		return "BloodBag [serial=" + serial + ", group=" + bloodGroup + ", expireDate=" + new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate) + ", state = " + bloodBagState + "]\nnote: '" + note + "'";
 	}
 	
-	public void HashCode() {
+	public int HashCode() {
 		
+		int h = 	31 * serial.hashCode();
+		h += 		31 * bloodGroup.hashCode();
+		h += 		31 * donatorCF.hashCode();
 		
+		return h;
 	}
 
-	public enum BloodBagState{
+	@Override
+	public boolean equals(Object obj) {
+		
+		if(obj instanceof BloodBag) {
+			
+			BloodBag bBag = (BloodBag) obj;
+			return (serial.equals(bBag.getSerial()) && bloodGroup.equals(bBag.getBloodType()) && donatorCF.equals(bBag.getDonatorCF()) && node.equals(bBag.getNode()));
+		}
+			return false;
+	}
+	
+	public BloodBag clone(){
+		
+		try {
+			return new BloodBag(this.bloodGroup, this.donatorCF, this.note);
+		}catch(ParseException e) { 
+			
+			e.printStackTrace(); 
+			return null;
+			
+		}
+	}
+	
+	private enum BloodBagState{
 		
 		Available, Transfered, Used, Dropped;
 	}
@@ -173,7 +185,8 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 	private Date 			expirationDate;
 	private String			donatorCF; //=null;	 *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
 	private String 			note;
-	private Location		location;
+	private String 			nodeCode;
+	private Node				node;
 	private BloodBagState 	bloodBagState;
 	
 	public static final int monthIncrementAmount = 1;
