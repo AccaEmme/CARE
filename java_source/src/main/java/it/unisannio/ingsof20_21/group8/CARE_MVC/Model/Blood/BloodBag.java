@@ -162,7 +162,7 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		
 	}
 
-	private enum BloodBagState{
+	public enum BloodBagState{
 		
 		Available, Transfered, Used, Dropped;
 	}

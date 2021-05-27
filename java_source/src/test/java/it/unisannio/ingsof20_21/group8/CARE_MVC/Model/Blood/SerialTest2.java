@@ -21,6 +21,11 @@ import org.junit.Test;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.InitSettings;
 
+/*
+ * Si preferisce generare due SerialTest in quanto entrambi hanno un @BeforeClass che porta in due stati differenti.
+ *
+ */
+
 public class SerialTest2 {
 	public static String path = Constants.SERIAL_SETTINGS_RELATIVEPATH;
 	public static String filename = Constants.SERIAL_SETTINGS_FILENAME; 
