@@ -40,7 +40,11 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		this.creationDate = this.getCreationDate();
 		this.expirationDate = this.getExpirationDate();
 		this.donatorCF = donatorCF;
+<<<<<<< Updated upstream
 		this.location = new Location(/*null, null, null, null, donatorCF, donatorCF*/);
+=======
+		this.node = new Node();
+>>>>>>> Stashed changes
 		this.bloodBagState = BloodBagState.Available;
 	}
 	
@@ -52,7 +56,7 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		this.expirationDate = this.getExpirationDate();
 		this.donatorCF = donatorCF;
 		this.note = note;
-		this.location = new Location();
+		this.node = new Node();
 		this.bloodBagState = BloodBagState.Available;
 	}
 	
@@ -108,16 +112,12 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		//System.out.println( "scadenza:"+ft.format(dateobj) );
 		return expirationDate;
 	} 
-	
-	public BloodGroup getBlood() {
-		return bloodGroup;
-	}
 
 	public String getNote() {
 		return note;
 	}
 	
-	public Location getLocation() { return location; }
+	public Node getNode() { return node; }
 
 	public void setNote(String note) {
 		this.note = note;
@@ -157,12 +157,29 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		return "BloodBag [serial=" + serial + ", group=" + bloodGroup + ", expireDate=" + new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate) + ", state = " + bloodBagState + "]\nnote: '" + note + "'";
 	}
 	
-	public void HashCode() {
+	public int HashCode() {
 		
+		int h = 	31 * serial.hashCode();
+		h += 		31 * bloodGroup.hashCode();
+		h += 		31 * donatorCF.hashCode();
 		
+		return h;
 	}
 
+<<<<<<< Updated upstream
 	public enum BloodBagState{
+=======
+	public boolean equals(Object obj) {
+		
+		if(obj instanceof BloodBag) {
+			
+			BloodBag bBag = (BloodBag) obj;
+			return (serial.equals(bBag.getSerial()) && bloodGroup.equals(bBag.getBloodType()) && donatorCF.equals(bBag.getDonatorCF()) && node.equals(bBag.getNode());
+		}
+			return false;
+	}
+	private enum BloodBagState{
+>>>>>>> Stashed changes
 		
 		Available, Transfered, Used, Dropped;
 	}
@@ -173,7 +190,7 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 	private Date 			expirationDate;
 	private String			donatorCF; //=null;	 *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
 	private String 			note;
-	private Location		location;
+	private Node				node;
 	private BloodBagState 	bloodBagState;
 	
 	public static final int monthIncrementAmount = 1;
