@@ -45,8 +45,8 @@ public class Serial {
     private static int lastdate;
     private static int counter;
     private static Date dNow = new Date();
-    private static SimpleDateFormat ft = new SimpleDateFormat(Constants.DATE_FORMAT);
-    private static String currentDate_aaaaMMdd = ft.format(dNow);
+    //private static SimpleDateFormat ft = new SimpleDateFormat(Constants.DATE_FORMAT);
+    private static String currentDate_aaaaMMdd = Constants.dateFormat.format(dNow);
     private static String filesettings=Constants.SERIAL_SETTINGS_FILENAME_RELATIVEPATH;
 
     static {

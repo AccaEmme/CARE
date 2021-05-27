@@ -3,6 +3,7 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers;
 import java.util.Calendar;
 import java.util.Date;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 
 public class UserTester {
@@ -31,7 +32,7 @@ public class UserTester {
 
 		Date d = cal.getTime();
 		//Date prova = new Date("1900-01-01");
-		System.out.println( d.toString() );
+		System.out.println( Constants.dateFormatString.format(d) );
 		
 	}
 
