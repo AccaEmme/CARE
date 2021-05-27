@@ -76,4 +76,70 @@ public class InitSettings {
         }
 	}
 	
+	
+	/* FOR JUNIT TEST*/
+	/*----------------------------------------------------*/
+	public static void initXML(int x	,String filesettings) {
+
+        Scanner sc = new Scanner(System.in);
+        String nationality, prov, codstr, codint, serialmatrix;
+
+        File f = null;
+        String data;
+        FileOutputStream fos;
+        BufferedOutputStream bos;
+        
+        /* @TODO: ***
+        if(!f.exists()) {
+        	f.createNewFile();
+        }
+        */
+        
+    
+        nationality ="IT";
+        
+        prov = "NA";
+
+  
+        codstr = "206";
+
+   
+        codint = "00";
+        sc.close();
+        serialmatrix = nationality+"-"+prov+codstr+codint;
+        
+        
+       
+        
+        try {
+        	f = new File(filesettings);
+        	f.createNewFile();
+            		
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        data = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
+                + "<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">\r\n"
+                + "<properties>\r\n"
+                + "<entry key=\"serialmatrix\">"+serialmatrix+"</entry>\r\n"
+                + "<entry key=\"lastdate\">"+20210522+"</entry>\r\n"
+                + "<entry key=\"counter\">"+x+"</entry>\r\n"
+                + "</properties>\r\n"
+                + "";
+
+        try {
+            fos = new FileOutputStream(f);
+            bos = new BufferedOutputStream(fos);
+            byte[] bytes = data.getBytes();
+            bos.write(bytes);
+            bos.close();
+            fos.close();
+            System.out.println("Data written to file "+filesettings+" successfully.");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+	}
+	
 }

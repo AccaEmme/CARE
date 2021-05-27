@@ -67,7 +67,8 @@ public class Serial {
 
 
     public Serial(BloodGroup bloodgroup) {
-        Serial.counter=(Integer.parseInt(currentDate_aaaaMMdd) > lastdate)?1:counter++;	//if today > lastdate -> counter = 0 else counter++
+    	
+        Serial.counter = (Integer.parseInt(currentDate_aaaaMMdd) > lastdate)? 0 : counter ;	//if today > lastdate -> counter = 0 else counter++
 
         serial = serialmatrix+
                 "-"+bloodgroup+
@@ -105,6 +106,16 @@ public class Serial {
     
     }
 
+    public int hashCode() {
+    	
+    	int h = serialmatrix.hashCode();
+    	
+    	h = 31 * lastdate + h;
+    	h = 31 * counter + h;
+    	
+    	return h;
+    }
+    
     public boolean equals (Object o) {
     	
     	if(o.getClass()!= Serial.class) return false;

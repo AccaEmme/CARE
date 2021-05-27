@@ -1,11 +1,13 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util;
 
 public class Constants {
-    public static final String DATE_FORMAT = "yyyyMMdd";
+
+    //#################################################### General Strings ####################################################	
+	public static final String DATE_FORMAT = "yyyyMMdd";
     public static final String DATE_FORMAT_STRING = "yyyy-MM-dd hh:mm";
     public static final String DB_SETTINGS_PATH = "/localsettings/db_settings.xml";
     public static final String SERIAL_SETTINGS_RELATIVEPATH = "localsettings/";
-    public static final String SERIAL_SETTINGS_FILENAME = "serial_settings.xml";
+    public static final String SERIAL_SETTINGS_FILENAME = "serial_settings.xml/";
     public static final String SERIAL_SETTINGS_FILENAME_RELATIVEPATH = "localsettings/serial_settings.xml"; 
     public static final String BLOODBAG_SETTINGS_FILENAME_RELATIVEPATH = "localsettings/bloodBag_settings.xml";
     //SERIAL_SETTINGS_RELATIVEPATH+SERIAL_SETTINGS_FILENAME;
@@ -15,6 +17,8 @@ public class Constants {
     public static final String EXPIRATION = "EXPIRATION_DAY";
     public static final String CREATION = "CREATION_DAY";
     public static final String ORIGIN = "ORIGIN";
+    
+    public static final String MD5_SALT = "CanforaMarkUs30L";
 
     //#################################################### DATABASE STRINGS ####################################################
     public static final String TAG_HOST = "db_mysql_host";      //non so perchè nelle costanti c'erano i valori dell'xml .-.

@@ -1,7 +1,7 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Location.Location;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.InitSettings;
 
@@ -17,7 +17,7 @@ import java.util.Scanner;
 
 
 
-public class BloodBag implements BloodBagInterface {
+public class BloodBag implements BloodBagInterface, Cloneable {
 
 	//Rendiamo obbligatorio il codice fiscale paziente
 	//mi dispiace ma devo rimettere questo costruttore perchè il database non è per nulla allineato alle classi
@@ -40,8 +40,8 @@ public class BloodBag implements BloodBagInterface {
 		this.creationDate = this.getCreationDate();
 		this.expirationDate = this.getExpirationDate();
 		this.donatorCF = donatorCF;
-		this.location = new Location();
-		this.bloodBagState = BloodBagState.Avaible;
+		this.location = new Location(/*null, null, null, null, donatorCF, donatorCF*/);
+		this.bloodBagState = BloodBagState.Available;
 	}
 	
 	public BloodBag(BloodGroup bloodGroup, String donatorCF, String note) throws ParseException {
@@ -53,7 +53,19 @@ public class BloodBag implements BloodBagInterface {
 		this.donatorCF = donatorCF;
 		this.note = note;
 		this.location = new Location();
-		this.bloodBagState = BloodBagState.Avaible;
+		this.bloodBagState = BloodBagState.Available;
+	}
+	
+	public BloodBag clone(){
+		
+		try {
+			return new BloodBag(this.bloodGroup, this.donatorCF, this.note);
+		}catch(Exception e) { 
+			
+			e.printStackTrace(); 
+			return null;
+			
+		}
 	}
 	
 	public Serial getSerial() {
@@ -106,11 +118,6 @@ public class BloodBag implements BloodBagInterface {
 	}
 	
 	public Location getLocation() { return location; }
-	
-	@Override
-	public String toString() {
-		return "BloodBag [serial=" + serial + ", group=" + bloodGroup + ", expireDate=" + new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate) + "]\nnote: '" + note + "'";
-	}
 
 	public void setNote(String note) {
 		this.note = note;
@@ -118,9 +125,20 @@ public class BloodBag implements BloodBagInterface {
 	
 	protected void setLocation(Location locationR) { location = locationR; }
 	
+	/*
+	 * Il metodo che verifica lo stato della sacca.
+	 * @return false se la sacca di sangue non è disponibile: è stata usata, trasferita o eliminata.
+	 */
+	public boolean checkState() {
+		
+		//return !(bloodBagState == BloodBagState.Used || bloodBagState == BloodBagState.Transfered || bloodBagState == BloodBagState.Dropped);
+		return (bloodBagState == BloodBagState.Available);
+	}
+	
+	
 	public boolean transferTo(Location locationR) { 
 		
-		if(bloodBagState == BloodBagState.Used && bloodBagState == BloodBagState.Transfered && bloodBagState == BloodBagState.Dropped) return false;
+		if(!checkState()) return false;
 		location = locationR;
 		bloodBagState = BloodBagState.Transfered;
 		return true;
@@ -129,9 +147,19 @@ public class BloodBag implements BloodBagInterface {
 	
 	public boolean useBag() {
 		
-		if(bloodBagState == BloodBagState.Used && bloodBagState == BloodBagState.Transfered && bloodBagState == BloodBagState.Dropped) return false;
+		if(!checkState()) return false;
 		bloodBagState = BloodBagState.Used;
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "BloodBag [serial=" + serial + ", group=" + bloodGroup + ", expireDate=" + new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate) + ", state = " + bloodBagState + "]\nnote: '" + note + "'";
+	}
+	
+	public void HashCode() {
+		
+		
 	}
 
 	private enum BloodBagState{
