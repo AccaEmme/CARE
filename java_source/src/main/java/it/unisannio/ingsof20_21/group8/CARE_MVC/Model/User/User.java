@@ -4,23 +4,34 @@ import java.util.Date;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.MD5;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 
 public class User {
-    public User(String username, String password){
-    	/*
-    	 * Il costruttore genera una sessione utente.
-    	 * Il costruttore genera l'MD5 della password data in input, per confrontarla.
-    	 */
+	/*
+	 * Il costruttore genera una sessione utente.
+	 * Il costruttore genera l'MD5 della password data in input, per confrontarla.
+	 * Quando l'amministratore crea un utente attribuendogli un ruolo, la password viene generata in automatico ed è visibile.
+	 * Al primo cambio password dell'utente, viene eliminata la password temporanea, impostata la password cifrata e viene segnato l'ultimo cambio password.
+	 */
+	
+	public User(String username, String password){
     	this.username 	= username;
-    	this.password 	= MD5.getMd5( password+Constants.MD5_SALT ).toUpperCase();
+    	this.setPassword(password);
     	//this.session 	= MD5.getMd5(username).toUpperCase();
     }
     
-    public User(String username, Role role) {
+    @SuppressWarnings("deprecation")
+	public User(String username, Role role) {
     	// This constructor can be invoked by Administrator creates users.
     	
+    	this.username	= username;
+    	this.temppass	= String.valueOf(
+    								Password.generatePassword(Constants.USER_TEMPPASS_LENGTH)
+    						); 
+    	this.setPassword(password);
+    	this.role		= role;
     	
+    	this.password_lastupdate = new Date("1900-01-01");
     }
 
     public String getUsername() {
@@ -36,8 +47,9 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password 				= MD5.getMd5( password+Constants.MD5_SALT ).toUpperCase();
-        this.password_lastupdate 	= new Date(); 
+        this.password 				= Password.getMd5( password+Constants.USER_MD5_SALT ).toUpperCase();
+        this.password_lastupdate 	= new Date();
+        this.temppass="";
     }
     
     public Date getPasswordLastUpdate() {
@@ -60,7 +72,7 @@ public class User {
     	this.role = r;
     }
     
-    private String 		username, password;
+    private String 		username, password, temppass;
     private Location 	residence;
     private Role 		role;
     private Date		password_lastupdate;

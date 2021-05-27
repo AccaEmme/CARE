@@ -18,7 +18,10 @@ public class Constants {
     public static final String CREATION = "CREATION_DAY";
     public static final String ORIGIN = "ORIGIN";
     
-    public static final String MD5_SALT = "CanforaMarkUs30L";
+    public static final String USER_MD5_SALT = "CanforaMarkUs30L";
+    public static final String USER_DEFAULT_TEMP_PASS = "CARE:changemenow";
+    public static final int USER_TEMPPASS_LENGTH = 10;
+    public static final int USER_DAYS_EXPIRATION_PASS = 60;
 
     //#################################################### DATABASE STRINGS ####################################################
     public static final String TAG_HOST = "db_mysql_host";      //non so perchè nelle costanti c'erano i valori dell'xml .-.
