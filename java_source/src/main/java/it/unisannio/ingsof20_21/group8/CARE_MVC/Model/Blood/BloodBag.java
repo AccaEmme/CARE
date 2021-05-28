@@ -1,5 +1,6 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StateException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.*;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
@@ -115,26 +116,31 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		return (bloodBagState == BloodBagState.Available);
 	}
 	
-	/* 
-	 * Non ha senso nell'implementazione del BloodBagManager.
-	 * 
-	public void transferTo(Node nodeR) { 
+	/*
+	 * Omni-star: implementazione con un eccezione
+	 * in modo tale che si visualizzi un messaggio
+	 * di eccezione nel caso non si possa
+	 * usare o trasferire la sacca per motivi
+	 * specificati nella creazione dell'istanza dell'eccezione sotto.
+	 */
+	public void transferBag() throws StateException { 
 		
-		//if(!checkState()) return false;
-		node = nodeR;
-		//return true;
-		
+		if(!checkState()) {
+			throw new StateException("Stato della sacca non compatibile con l'operazione da eseguire. La sacca potrebbe essere stata trasferita o cestinata precedentemente.");
+		}
+		else {
+			bloodBagState = BloodBagState.Transfered;
+		}
 	}
-	*/
 	
-	//implementare meglio.
-	public void setState(String state) { bloodBagState = BloodBagState.valueOf(state); }
-	
-	public boolean useBag() {
+	public void useBag() throws StateException {
 		
-		if(!checkState()) return false;
-		bloodBagState = BloodBagState.Used;
-		return true;
+		if(!checkState()) {
+			throw new StateException("Stato della sacca non compatibile con l'operazione da eseguire. La sacca potrebbe essere stata trasferita o cestinata precedentemente.");
+		}
+		else {
+			bloodBagState = BloodBagState.Used;
+		}
 	}
 	
 	@Override

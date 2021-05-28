@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StateException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.*;
 
 public class BloodBagManager2 {
@@ -25,38 +26,45 @@ public class BloodBagManager2 {
 	
 	public boolean addBloodBag(BloodBag bloodBag) {
 		
-		return bloodBags.add(bloodBag);
+		Node node = nodes.get(bloodBag.getNodeCode());
+		return (bloodBags.add(bloodBag) && nodes.put(bloodBag.getNodeCode(), node) != null);
 		
 	}
 	
-	public boolean useBag(BloodBag bloodBag) {
+	public void useBag(BloodBag bloodBag) {
 		
 		for(BloodBag bg : bloodBags) {
 		
 			if(bg.equals(bloodBag)) {
-				
-				return bg.useBag();
+				try {
+					bg.useBag();
+				}catch(StateException e) {
+					
+					System.err.println(e);
+					e.printStackTrace();
+				}
 			}
 		}
 		
-		return false;
 	}
 	
-	public boolean transferBag(BloodBag bloodBag, Node node) {
+	public void transferBag(BloodBag bloodBag, Node node) {
 		
 		for(BloodBag bg : bloodBags) {
 			
-			if(bg.equals(bloodBag) && bg.getNode().equals(node) && bg.checkState()) {
-				
-				bg.setNode(node);
-				BloodBag bg2 = bg.clone();
-				bloodBags.add(bg2);
-				bg.setState("Transfered");
-				return true;
+			if(bg.equals(bloodBag) && !(bg.getNode().equals(node)) && bg.checkState()) {
+				try {
+					bg.setNode(node);
+					BloodBag bg2 = bg.clone();
+					bg.transferBag();
+					bloodBags.add(bg2);
+				}catch(StateException e) {
+					
+					System.err.println(e);
+					e.printStackTrace();
+				}
 			}
 		}
-		
-		return false;
 	}
 	
 	public Iterator<BloodBag> getBloodBags(){
