@@ -9,10 +9,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Scanner;
 
 
 
-public class BloodBag implements BloodBagInterface, Cloneable {
+public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodBag>{
 
 	//Rendiamo obbligatorio il codice fiscale paziente
 	//mi dispiace ma devo rimettere questo costruttore perchè il database non è per nulla allineato alle classi
@@ -26,43 +27,70 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		this.donatorCF = "Not present right now";	//ovviamente da gestire meglio, quando le tabelle del database saranno allineate.
 	}
 	*/
-
-
-	public BloodBag(BloodGroup bloodGroup, String donatorCF, Node node) throws ParseException {
+	
+	
+	public BloodBag(BloodGroup bloodGroup, String donatorCF, String nodeCode) throws ParseException {
 		
 		this.serial = new Serial(bloodGroup);
 		this.bloodGroup = bloodGroup;
 		this.creationDate = this.getCreationDate();
 		this.expirationDate = this.getExpirationDate();
 		this.donatorCF = donatorCF;
-		this.node = node;
+		this.nodeCode = nodeCode;
+		this.node = null;
+		this.note = null;
 		this.bloodBagState = BloodBagState.Available;
 	}
 	
-	public BloodBag(BloodGroup bloodGroup, String donatorCF, Node node, String note) throws ParseException {
+	public BloodBag(BloodGroup bloodGroup, String donatorCF, String nodeCode, String note) throws ParseException {
 		
 		this.serial = new Serial(bloodGroup);
 		this.bloodGroup = bloodGroup;
 		this.creationDate = this.getCreationDate();
 		this.expirationDate = this.getExpirationDate();
 		this.donatorCF = donatorCF;
-		this.node=node;
-		
+		this.nodeCode = nodeCode;
+		this.node = null;
 		this.note = note;
 		this.bloodBagState = BloodBagState.Available;
 	}
 	
-	public Serial getSerial() {
-		return this.serial;
+	public BloodBag() { 
+		
+		serial = null;
+		bloodGroup = null;
 	}
 	
-	public BloodGroup getBloodType() {
-		return this.bloodGroup;
+	public static BloodBag read(Scanner sc) {
+		
+		
+		
+			if(!sc.hasNext()) return null;
+			BloodGroup bloodGroupR = BloodGroup.valueOf(sc.next());
+			if(!sc.hasNext()) return null;
+			String donatorCFR = sc.next();
+			if(!sc.hasNext()) return null;
+			String nodeCodeR = sc.next();
+				
+			try {
+				
+				if(!sc.hasNext()) {
+					
+					return new BloodBag(bloodGroupR, donatorCFR, nodeCodeR);
+				}
+				
+				String noteR = sc.next();
+				return new BloodBag(bloodGroupR, donatorCFR, nodeCodeR, noteR);
+		}catch(ParseException e) {
+			
+			e.printStackTrace();
+			return null;
+		}
 	}
-
-	public String getDonatorCF() {
-		return this.donatorCF;
-	}
+	
+	public Serial getSerial() { return this.serial;}
+	
+	public BloodGroup getBloodGroup() { return this.bloodGroup;}
 	
 	public Date getCreationDate() throws ParseException {
 		// We can't allow user set a wrong "creation date", so the system will stamp the right updated date.
@@ -88,14 +116,32 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		//System.out.println( "scadenza:"+ft.format(dateobj) );
 		return expirationDate;
 	} 
-
-	public String getNote() {
-		return note;
-	}
 	
-	public Node getNode() { return node; }
+	public String getDonatorCF() { return this.donatorCF;}
+	
+	public String getNodeCode() { return nodeCode;}
+	
+	public Node2 getNode() { return node; }
+	
+	public String getNote() { return note;}
 
-	public void setNote(String note) {
+	
+	
+	private void setSerial(Serial serialR) { this.serial = serialR;}
+	
+	private void setBloodGroup(BloodGroup bloodGroup) { this.bloodGroup = bloodGroup;}
+	
+	private void setCreationDate(Date creationDate) { this.creationDate = creationDate;}
+	
+	private void setExpirationDate(Date expirationDate) { this.expirationDate = expirationDate;}
+	
+	private void setDonatorCF(String fisCode) { this.donatorCF = fisCode;}
+	
+	private void setNodeCode(String nodeCode) { this.nodeCode = nodeCode;}
+	
+	public void setNode(Node2 node) { this.node = node;}
+	
+	public void overWriteNote(String note) {
 		// overwrites note value.
 		this.note=note;	
 	}
@@ -107,8 +153,8 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		sb.append(note);
 		this.note=sb.toString();
 	}
+
 	
-	protected void setNode(Node nodeR) { node = nodeR; }
 	
 	/*
 	 * Il metodo che verifica lo stato della sacca.
@@ -127,13 +173,13 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 	 * usare o trasferire la sacca per motivi
 	 * specificati nella creazione dell'istanza dell'eccezione sotto.
 	 */
-	public void transferBag(Node n) throws StateException { 
+	public void transferBag() throws StateException { 
 		
 		if(!checkState()) {
 			throw new StateException("Stato della sacca non compatibile con l'operazione da eseguire. La sacca potrebbe essere stata trasferita o cestinata precedentemente.");
 		}
 		else {
-			this.setNode(n);
+			
 			bloodBagState = BloodBagState.Transfered;
 		}
 	}
@@ -148,12 +194,22 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		}
 	}
 	
+	public void dropBag() throws StateException {
+		
+		if(!checkState()) {
+			throw new StateException("Stato della sacca non compatibile con l'operazione da eseguire. La sacca potrebbe essere stata trasferita o cestinata precedentemente.");
+		}
+		else {
+			bloodBagState = BloodBagState.Dropped;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "BloodBag [serial=" + serial + ", group=" + bloodGroup + ", expireDate=" + new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate) + ", state = " + bloodBagState + "]\nnote: '" + note + "'";
 	}
 	
-	public int HashCode() {
+	public int hashCode() {
 		
 		int h = 	31 * serial.hashCode();
 		h += 		31 * bloodGroup.hashCode();
@@ -168,21 +224,39 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		if(obj instanceof BloodBag) {
 			
 			BloodBag bBag = (BloodBag) obj;
-			return (serial.equals(bBag.getSerial()) && bloodGroup.equals(bBag.getBloodType()) && donatorCF.equals(bBag.getDonatorCF()) && node.equals(bBag.getNode()));
+			return (serial.equals(bBag.getSerial()) && bloodGroup.equals(bBag.getBloodGroup()) && donatorCF.equals(bBag.getDonatorCF()) && node.equals(bBag.getNode()));
 		}
 			return false;
 	}
 	
-	public BloodBag clone(){
-		try {
-			return new BloodBag(this.bloodGroup, this.donatorCF, this.node, this.note);
-		}catch(ParseException e) { 
-			
-			e.printStackTrace(); 
-			return null;
-			
-		}
+	public int compareTo(BloodBag bloodBag) {
+		
+		return this.serial.compareTo(bloodBag.serial);
 	}
+	
+	public BloodBag clone(){
+			
+			BloodBag bg = new BloodBag();
+			bg.serial = this.serial;
+			bg.bloodGroup = this.bloodGroup;
+			bg.creationDate = this.creationDate;
+			bg.expirationDate = this.expirationDate;
+			bg.donatorCF = this.donatorCF;
+			bg.nodeCode = this.nodeCode;
+			bg.node = this.node;
+			bg.bloodBagState = this.bloodBagState;
+			bg.note = this.note;		
+			
+			return bg;
+			
+	}
+	
+	
+	public void print() {
+		
+		System.out.println("Seriale: " +serial.toString()+ ";\nGruppo: " +bloodGroup+ ";\nData Creazione: " +new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(creationDate)+ ";\nData scadenza: " +new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate)+ ";\nCodice fiscale donatore: " +donatorCF+ ";\nCodice nodo: " +nodeCode+ ";\nStato: " +bloodBagState+ ";\nNote: " +note+ ".\n");
+	}
+	
 	
 	public enum BloodBagState{ 
 		/*
@@ -196,14 +270,15 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		Dropped;	// Sacca eliminata (es. per scadenza o altre motivazioni)
 	}
 
-	private final Serial 		serial;
-	private final BloodGroup 	bloodGroup;
+	private /*final*/Serial		serial;
+	private /*final*/BloodGroup bloodGroup;
 	private Date				creationDate;
 	private Date 				expirationDate;
 	private String				donatorCF; //=null;	 *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
-	private String 				note;
-	private Node				node;
+	private String				nodeCode;
+	private Node2				node;
 	private BloodBagState 		bloodBagState;
+	private String 				note;
 	
 	public static final int 	monthIncrementAmount = 1;
 }

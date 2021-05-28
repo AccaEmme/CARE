@@ -40,7 +40,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.InitSettings;
  */
 
 
-public class Serial {
+public class Serial implements Comparable<Serial>{
     private final static String serialmatrix;
     private static int lastdate;
     private static int counter;
@@ -118,6 +118,11 @@ public class Serial {
     	if(o.getClass()!= Serial.class) return false;
 		return ((Serial) o ).serial.equals(this.serial);
 	}
+    
+    public int compareTo(Serial serial) {
+    	
+    	return this.dNow.compareTo(dNow);
+    }
 
     private final String serial;
 }

@@ -14,7 +14,7 @@ public interface BloodBagInterface {
 	 */
 	
 	public Serial getSerial();
-	public BloodGroup getBloodType();
+	public BloodGroup getBloodGroup();
 	public Date getCreationDate() throws ParseException;
 	public Date getExpirationDate() throws ParseException;
 	public String getDonatorCF();
