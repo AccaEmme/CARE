@@ -28,28 +28,27 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 	*/
 
 
-	public BloodBag(BloodGroup bloodGroup, String donatorCF, String nodeCode) throws ParseException {
+	public BloodBag(BloodGroup bloodGroup, String donatorCF, Node node) throws ParseException {
 		
 		this.serial = new Serial(bloodGroup);
 		this.bloodGroup = bloodGroup;
 		this.creationDate = this.getCreationDate();
 		this.expirationDate = this.getExpirationDate();
 		this.donatorCF = donatorCF;
-		this.nodeCode = nodeCode;
-		this.node = null;
+		this.node = node;
 		this.bloodBagState = BloodBagState.Available;
 	}
 	
-	public BloodBag(BloodGroup bloodGroup, String donatorCF, String note, String nodeCode) throws ParseException {
+	public BloodBag(BloodGroup bloodGroup, String donatorCF, Node node, String note) throws ParseException {
 		
 		this.serial = new Serial(bloodGroup);
 		this.bloodGroup = bloodGroup;
 		this.creationDate = this.getCreationDate();
 		this.expirationDate = this.getExpirationDate();
 		this.donatorCF = donatorCF;
+		this.node=node;
+		
 		this.note = note;
-		this.nodeCode = nodeCode;
-		this.node = null;
 		this.bloodBagState = BloodBagState.Available;
 	}
 	
@@ -94,15 +93,20 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		return note;
 	}
 	
-	public String getNodeCode() { return nodeCode; }
-	
 	public Node getNode() { return node; }
 
 	public void setNote(String note) {
-		this.note = note;
+		// overwrites note value.
+		this.note=note;	
 	}
 	
-	public void setNodeCode(String nodeCodeR) { nodeCode = nodeCodeR; }
+	public void appendNote(String note) {
+		// append to existing note value.
+		StringBuffer sb = new StringBuffer();
+		sb.append(this.note);
+		sb.append(note);
+		this.note=sb.toString();
+	}
 	
 	protected void setNode(Node nodeR) { node = nodeR; }
 	
@@ -123,12 +127,13 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 	 * usare o trasferire la sacca per motivi
 	 * specificati nella creazione dell'istanza dell'eccezione sotto.
 	 */
-	public void transferBag() throws StateException { 
+	public void transferBag(Node n) throws StateException { 
 		
 		if(!checkState()) {
 			throw new StateException("Stato della sacca non compatibile con l'operazione da eseguire. La sacca potrebbe essere stata trasferita o cestinata precedentemente.");
 		}
 		else {
+			this.setNode(n);
 			bloodBagState = BloodBagState.Transfered;
 		}
 	}
@@ -169,9 +174,8 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 	}
 	
 	public BloodBag clone(){
-		
 		try {
-			return new BloodBag(this.bloodGroup, this.donatorCF, this.note);
+			return new BloodBag(this.bloodGroup, this.donatorCF, this.node, this.note);
 		}catch(ParseException e) { 
 			
 			e.printStackTrace(); 
@@ -180,20 +184,26 @@ public class BloodBag implements BloodBagInterface, Cloneable {
 		}
 	}
 	
-	private enum BloodBagState{
-		
-		Available, Transfered, Used, Dropped;
+	public enum BloodBagState{ 
+		/*
+		 *  Hermann l'enumeratore deve avere visibilità pubblica non privata, perché altrimenti non può essere usato come tipo per argomento da altre classi (es. OfficerInterface->BloodBagManager).
+		 *  Non sussiste alcun rischio di sicurezza di codice, perché a runtime non è possibile aggiungere o eliminare valori dall'enumerator.
+		 *  
+		 */
+		Available,	// Sacca disponibile per essere usata o trasferita o eliminata
+		Transfered,	// Sacca trasferita a un altro nodo, viene comunque lasciata l'informazione nel database del nodo trasferente nello stato "trasferita"
+		Used,		// Sacca adoperata. Non utilizzabile, non trasferibile, non eliminabile
+		Dropped;	// Sacca eliminata (es. per scadenza o altre motivazioni)
 	}
 
-	private final Serial 	serial;
-	private final BloodGroup bloodGroup;
-	private Date			creationDate;
-	private Date 			expirationDate;
-	private String			donatorCF; //=null;	 *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
-	private String 			note;
-	private String 			nodeCode;
+	private final Serial 		serial;
+	private final BloodGroup 	bloodGroup;
+	private Date				creationDate;
+	private Date 				expirationDate;
+	private String				donatorCF; //=null;	 *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
+	private String 				note;
 	private Node				node;
-	private BloodBagState 	bloodBagState;
+	private BloodBagState 		bloodBagState;
 	
-	public static final int monthIncrementAmount = 1;
+	public static final int 	monthIncrementAmount = 1;
 }

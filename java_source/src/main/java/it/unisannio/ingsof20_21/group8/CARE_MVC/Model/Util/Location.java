@@ -23,7 +23,7 @@ public class Location {
 	 */
     public Location(
     				Country country, 	Region region, 			Province province,
-    				City city, 			String streetNumber, 	String street
+    				City city, 			String street,			String streetNumber
     		) {
     	this.street = street;
         this.streetNumber = streetNumber;
@@ -61,21 +61,19 @@ public class Location {
     
     
     
-	private enum Country {
+	public enum Country {
 		Italy, Spain, Croatia, Greece;
 	}
 	
-	private enum Region {
+	public enum Region {
 		Abruzzo, Basilicata, Bolzano, Calabria, Campania, Emilia_Romagna, Friuli_Venezia_Giulia, Lazio,	Liguria, Lombardia,	Marche,	Molise, Piemonte, Puglia, Sardegna, Sicilia, Toscana, Trento, Umbria, Valle_d_Aosta, Veneto;
 		}
 	
-	private enum Province {
-		
+	public enum Province {
 		Chieti, Potenza, Bolzano, Catanzaro, Napoli, Bologna, Udine, Roma, Genova, Varese, Ancona, Campobasso, Torino, Bari, Cagliari, Palermo, Firenze, Trento, Perugia, Aosta, Padova, Benevento, Avellino, Salerno, Caserta;
-		
 	}
 	
-	private enum City {
+	public enum City {
 		Chieti, Potenza, Bolzano, Catanzaro, Napoli, Bologna, Udine, Roma, Genova, Varese, Ancona, Campobasso, Torino, Bari, Cagliari, Palermo, Firenze, Trento, Perugia, Aosta, Padova, Benevento, Avellino, Salerno, Caserta;
 	}
     

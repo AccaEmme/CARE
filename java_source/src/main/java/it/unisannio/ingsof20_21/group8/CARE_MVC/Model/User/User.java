@@ -71,9 +71,11 @@ public class User {
     public void setRole(Role r) {
     	this.role = r;
     }
-    
+   
+   
     private String 		username, password, temppass;
     private Location 	residence;
     private Role 		role;
     private Date		password_lastupdate;
 }
+
