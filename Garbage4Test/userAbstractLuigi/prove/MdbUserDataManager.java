@@ -93,7 +93,14 @@ public class MdbUserDataManager implements UsersDataManager {
 			
 			Document user = new Document(ELEMENT_USERNAME, u.getUsername())
               .append(ELEMENT_PASSWORD, u.getPassword()); 
-			collection.replaceOne((eq(ELEMENT_USERNAME,u.getUsername())), user);
+			
+			if((collection.replaceOne((eq(ELEMENT_USERNAME,u.getUsername())), user).getMatchedCount())==0) {
+				System.out.println("user not found");
+	
+			}
+			else {
+				System.out.println("user uptated");
+			}
 			
 		
 		
@@ -107,16 +114,20 @@ public class MdbUserDataManager implements UsersDataManager {
 public void deleteUser(User  u) throws ParseException {
 
 	
-			MongoClient mongoClient = new MongoClient(connectionString);
-			MongoDatabase database = mongoClient.getDatabase(db);
-    
+	MongoClient mongoClient = new MongoClient(connectionString);
+	MongoDatabase database = mongoClient.getDatabase(db);
 
-			MongoCollection<Document> collection = database.getCollection(COLLECTION_USER);
 
-   
-		
-		
-			collection.deleteOne((eq(ELEMENT_USERNAME,u.getUsername())));
+	MongoCollection<Document> collection = database.getCollection(COLLECTION_USER);
+
+	if((collection.deleteOne((eq(ELEMENT_USERNAME,u.getUsername()))).getDeletedCount())==0) {
+		System.out.println("user not found");
+
+	}
+	else {
+		System.out.println("user deleted");
+	}
+
 		
 	
 	
