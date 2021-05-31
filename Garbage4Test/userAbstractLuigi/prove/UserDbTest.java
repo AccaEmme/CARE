@@ -16,12 +16,12 @@ public static void main(String[] args) throws ParseException {
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 		
-		UsersDataManager dm = new MdbUserDataManager();
+		UsersDataManager dm = new UserManager();
 		dm.createDB();
 		
 		User u=new User("giovanni","12345");
 		User u1=new User("marco","12345");
-	 // dm.uptadeUser(u);
+	 // dm.updateUser(u);
 		
 	/*dm.addUser(u);*/
 dm.deleteUser(u1);

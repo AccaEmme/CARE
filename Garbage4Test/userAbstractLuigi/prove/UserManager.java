@@ -21,8 +21,8 @@ import com.mongodb.client.MongoDatabase;
 
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
-/*UsrManager*/
-public class MdbUserDataManager implements UsersDataManager {
+
+public class UserManager implements UsersDataManager {
 	
 	/*per prendere le informazioni dai setting*/
 	private static final String TAG_DB = "db_mongo_name";
@@ -39,7 +39,7 @@ public class MdbUserDataManager implements UsersDataManager {
 	private final MongoClientURI connectionString;
 	
 	/*tiro fuori le informazioni dal nostro db*/
-	public MdbUserDataManager() {
+	public UserManager() {
 		Properties loadProps = new Properties();
 	    try {
 			loadProps.loadFromXML(new FileInputStream("localsettings/db_settings.xml"));
@@ -79,7 +79,7 @@ public class MdbUserDataManager implements UsersDataManager {
 	}
 	
 	
-	public void uptadeUser(User  u) throws ParseException {
+	public void updateUser(User  u) throws ParseException {
 	
 		
 		
