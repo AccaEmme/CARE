@@ -5,9 +5,9 @@ import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.Scanner;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Blood.BloodBagManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.DataManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.MySqlDataManager;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBagManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBagManager2;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
@@ -32,10 +32,10 @@ public class BloodBagManagerTester {
 		Scanner bloodSc = new Scanner(new File("BloodBags.txt"));
 		BloodBagManager2 bM = new BloodBagManager2(nodeSc, bloodSc);
 		
-		bM.print();
+		//bM.print();
 		
-		BloodBagManager2 bMBen = bM.filteredByProvince("Benevento");
-		bMBen.print();
+		//BloodBagManager2 bMBen = bM.filteredByProvince("Benevento");
+		//bMBen.print();
 		
 		BloodBagManager2 bMAve = bM.filteredByProvince("Avellino");
 		bMAve.print();

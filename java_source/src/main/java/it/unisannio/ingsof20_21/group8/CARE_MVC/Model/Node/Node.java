@@ -1,56 +1,55 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.BloodBagCloneException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 
 public class Node {
 	public Node(String codstr, String nodeName, Location warehouse) {
 		this.codstr = codstr;
 		this.nodeName = nodeName;
 		this.warehouse = warehouse;
-        //this.bloodBags = new LinkedList<BloodBag>();
+        this.bloodBags = new LinkedList<BloodBag>();
 	}
-	
-	
-	
-	/*
-	 * TODO: ArrayList<User> impiegati bisogna inserirli?
-	 * 
-	 * Omni-star: si penso che abbia senso inserire impiegati visto che dobbiamo anche
-	 * tracciare il luogo da cui avvengono le modifiche.
-	 */
 	
 	public String getCodstr() {
 		return codstr;
 	}
 	
-	public void setCodstr(String codstr) {
-		this.codstr = codstr;
-	}
-
 	public String getNodeName() {
 		return nodeName;
+	}
+	
+	public Location getWarehouse() {
+		return warehouse;
+	}
+	
+	public Iterator<BloodBag> getBloodBagsIterator() { return bloodBags.iterator();}
+
+	
+	public void setCodstr(String codstr) {
+		this.codstr = codstr;
 	}
 
 	public void setNodeName(String nodeName) {
 		this.nodeName = nodeName;
 	}
 
-
-
-	public Location getWarehouse() {
-		return warehouse;
-	}
-
-
 	public void setWarehouse(Location warehouse) {
 		this.warehouse = warehouse;
 	}
+	
+	public void addBloodBag(BloodBag bloodBag) throws BloodBagCloneException {
+		
+		if(!bloodBags.contains(bloodBag)) 
+			bloodBags.add(bloodBag);
+		else throw new BloodBagCloneException("Impossibile aggiungere una sacca che già presente.");
+	}
 
 
-	String codstr, nodeName;
-	Location warehouse;
-	//private LinkedList<BloodBag> bloodBags;
+	private String codstr, nodeName;
+	private Location warehouse;
+	private LinkedList<BloodBag> bloodBags;
 }

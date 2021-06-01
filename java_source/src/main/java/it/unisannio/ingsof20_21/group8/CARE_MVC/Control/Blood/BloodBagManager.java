@@ -1,15 +1,24 @@
-package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
+package it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Blood;
 
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.TreeSet;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.DataManager;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.BloodBagCloneException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StateException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Node2;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
 
-public class BloodBagManager extends BloodBag {
+public class BloodBagManager{
     /**
      * @param currentUser l'utente corrente
      * L'idea di base è quella di avere un manager che viene creato con l'utente della sessione corrente,
@@ -33,22 +42,17 @@ public class BloodBagManager extends BloodBag {
      * Il manager può settare la data di creazione, evitando di farlo fare al BloodBag che non può conoscere l'utente! Ecco la soluzione.
      */
 
-    public BloodBagManager(User currentUser, DataManager dataManager, BloodGroup bloodGroup, String donatorCF) throws ParseException{
-    	super(bloodGroup, donatorCF);
-    	this.currentUser = currentUser;
-        this.dataManager = dataManager;
-        /* Location */
+    public BloodBagManager() {
+    	
+    	this.bloodBags = new HashSet();
+    	this.
     }
 	
-    public BloodBagManager(User currentUser, DataManager dataManager, BloodGroup bloodGroup, String donatorCF, String note) throws ParseException{
-    	super(bloodGroup, donatorCF, note);
+    public BloodBagManager(User currentUser, DataManager dataManager) throws ParseException{
+    	
     	this.currentUser = currentUser;
         this.dataManager = dataManager;
     }
-    
-	public void setDonatorCF(String newDonatorCF) {
-		dataManager.updateDonatorCF(newDonatorCF);
-	}
 	
     
 	public void setCreationDate(Date creationDate){
@@ -78,17 +82,79 @@ public class BloodBagManager extends BloodBag {
 								"esito eccezione"
 						);
 	}
-    
-	/*
-    private void setBloodBagList() {
-    	
-    }
-    
-    public Iterator<BloodBag> getBloodBagsList() {
-    	
-    }
-    */
 	
-    private User currentUser;
-    private DataManager dataManager;
+	
+	public void addBloodBag(BloodGroup bg, String donatorCF, UserManager session) throws BloodBagCloneException{
+		
+		
+		Node node = session.getUser().getNode();
+		BloodBag bB = new BloodBag(bg, donatorCF, node);
+		node.addBloodBag(bg);
+		bloodBags.add(bg);
+		
+	}
+	
+	
+	public void useBag(BloodBag bloodBag) {
+		
+		for(BloodBag bg : bloodBags) {
+		
+			if(bg.equals(bloodBag)) {
+				try {
+					bg.useBag();
+				}catch(StateException e) {
+					
+					System.err.println(e);
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	
+	public void transferBag(BloodBag bloodBag, Node node) {
+		
+		for(BloodBag bg : bloodBags) {
+			
+			if(bg.equals(bloodBag) && !(bg.getNode().equals(node)) && bg.checkState()) {
+				try {
+					
+					bg.setNode(node);
+					BloodBag bg2 = bg.clone();
+					bg.transferBag();
+					bloodBags.add(bg2);
+				}catch(StateException e) {
+					
+					System.err.println(e);
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public void dropBag(BloodBag bloodBag) {
+		
+		for(BloodBag bg : bloodBags) {
+			
+			if(bg.equals(bloodBag) && bg.checkState()) {
+				try {
+					
+					bg.dropBag();
+				}catch(StateException e) {
+					
+					System.err.println(e);
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public Iterator<BloodBag> getBloodBags(){
+		
+		return bloodBags.iterator();
+	}
+    
+    private UserManager userM;
+	private HashSet<BloodBag> bloodBags;
+	private HashMap<String, Node> nodes;
 }	

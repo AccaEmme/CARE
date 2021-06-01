@@ -5,12 +5,12 @@ import java.text.ParseException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;						// Sebbene noi abbiamo importato il package, la visibilità protected fa sì che non possiamo utilizzare quei metodi, ma solo instanziare l'oggetto. Potente!
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.City;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Province;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Location.City;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Location.Country;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Location.Province;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Location.Region;
 
 public class BloodBagTester {
 
