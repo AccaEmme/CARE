@@ -127,17 +127,17 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 
 	
 	
-	private void setSerial(Serial serialR) { this.serial = serialR;}
+	public void setSerial(Serial serialR) { this.serial = serialR;}
 	
-	private void setBloodGroup(BloodGroup bloodGroup) { this.bloodGroup = bloodGroup;}
+	public void setBloodGroup(BloodGroup bloodGroup) { this.bloodGroup = bloodGroup;}
 	
-	private void setCreationDate(Date creationDate) { this.creationDate = creationDate;}
+	public void setCreationDate(Date creationDate) { this.creationDate = creationDate;}
 	
-	private void setExpirationDate(Date expirationDate) { this.expirationDate = expirationDate;}
+	public void setExpirationDate(Date expirationDate) { this.expirationDate = expirationDate;}
 	
-	private void setDonatorCF(String fisCode) { this.donatorCF = fisCode;}
+	public void setDonatorCF(String fisCode) { this.donatorCF = fisCode;}
 	
-	private void setNodeCode(String nodeCode) { this.nodeCode = nodeCode;}
+	public void setNodeCode(String nodeCode) { this.nodeCode = nodeCode;}
 	
 	public void setNode(Node2 node) { this.node = node;}
 	
@@ -231,7 +231,7 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 	
 	public int compareTo(BloodBag bloodBag) {
 		
-		return this.serial.compareTo(bloodBag.serial);
+		return this.creationDate.compareTo(bloodBag.creationDate);
 	}
 	
 	public BloodBag clone(){
