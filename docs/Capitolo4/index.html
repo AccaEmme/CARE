@@ -12,7 +12,7 @@
             z-index: 1;
             top: 8.5%;
             left: 0;
-            background-color: rgb(165, 0, 0);
+            background-color: rgb(207, 72, 72);
             overflow-x: hidden;
             padding-top: 20px;
             border-radius: 20px;
@@ -28,7 +28,7 @@
             padding: 6px 8px 6px 16px;
             text-decoration: none;
             font-size: 18px;
-            color: #eed202;
+            color: #d3c877;
             /*display: block;*/
         }
 
@@ -72,11 +72,11 @@
        }
 
        p.warning{
-            color:  #eed202;
+            color:  #cccc00;
        }
 
        p.correct{
-            color:  #008000;
+            color:  #2149cc;
        }
        .alert {
   padding: 10px;
@@ -122,8 +122,10 @@
 
         fieldset {
             border-width: 5px;
+            /*color: black;*/
+            /*border-color: green;*/
             color: black;
-            border-color: green;
+            border-color: #ffffcc;
             border-radius: 50px;
             margin-top: 83px;
         }
@@ -134,9 +136,10 @@
             margin-top: 100px;
             margin-left: 1px;
             padding: 2px;
-            border: 1px solid green;
-            background-color: rgba(85, 85, 85, 0.616);
-            color: black;
+            /*border: 1px solid green;*/
+            border: 1px solid #ffffcc;
+            background-color: rgba(14, 13, 13, 0.616);
+            color: #000000;
             opacity: 0.6;
             border: 1px solid thin;
             border-radius: 50px;
@@ -152,17 +155,17 @@
         }
 
         textarea#textarea_chatbroadcast_msg{
-            width: 90%;
-            resize: none;
-            margin-left: 5%
+            width:                  90%;
+            resize:                 none;
+            margin-left:            5%
         }
 
        body{
-           align-items: center;
-           align-content: center;
-           text-align: center;
-           align-tracks: center;
-           -ms-grid-column-align: center;
+           align-items:             center;
+           align-content:           center;
+           text-align:              center;
+           align-tracks:            center;
+           -ms-grid-column-align:   center;
        }
    </style>
   </head>
@@ -176,7 +179,7 @@
         <img src="http://www.newdesignfile.com/postpic/2015/09/business-intelligence-dashboard-icon_357441.png" weight="3%" height="3%" /><a href="#">Dashboard</a><br />
         <img src="https://image.flaticon.com/icons/png/512/124/124383.png" weight="3%" height="3%" /><a href="#warehouse">In Magazzino</a><br />
         <img src="http://download.seaicons.com/icons/oxygen-icons.org/oxygen/256/Actions-edit-clear-history-icon.png" weight="3%" height="3%" /><a href="#expiring">In Scadenza</a><br />
-        <img src="./images/broadcastchat.png" weight="3%" height="3%" /><a href="#broadcastchat">Broadcast Chat</a><br />
+        <img src="broadcastchat.png" weight="3%" height="3%" /><a href="#broadcastchat">Broadcast Chat</a><br />
         <img src="https://avatars.githubusercontent.com/u/6004765?v=4" weight="3%" height="3%" /><a href="#logout">Logout <small>(206-001)</small></a><br />
         <hr>
         <p>Next Version:</p>
@@ -186,7 +189,7 @@
             </ul>
       </div>
 
-      <div class="main"><h1>CARE - Centro Accoglienza Regionale Ematica</h1><h2>Struttura: NA 206 - operatore loggato: 001</h2>
+      <div class="main">
         <div class="alert warningg">
             <span class="closebtn">&times;</span>  
             <strong>Warning!</strong> Stai per superare il quantitativo di scorta massima prevista per A+
@@ -214,11 +217,12 @@
           </div>
 
           <fieldset>
-            <legend><img src="https://image.flaticon.com/icons/png/512/124/124383.png" width="10%"><a name="management"> Gestione e richieste</a></legend>
+            <legend><img src="https://image.flaticon.com/icons/png/512/124/124383.png" width="10%"><a name="management"><b>Gestione e richieste</b></a></legend>
           <!-- START:   Management  BloodBags -->
             <form action="#" method="POST">
+                <div align="center">
                 <table cellspacing="0" cellpadding="0" border="0" width="325">
-                    <tr style="color:white;background-color:grey; font-size: 12px;">
+                    <tr style="color:white;background-color:rgb(150, 145, 145); font-size: 12px;">
                         <th>
                             Ho bisogno di:
                             <select name="needsof">
@@ -248,12 +252,12 @@
                       <td>
                          <table cellspacing="0" cellpadding="1" border="1" width="666" >
                            <tr style="color:white;background-color:grey; font-size: 12px;">
-                            <th width="125px">Data Creazione</th>
-                            <th width="240px">Seriale</th>
-                            <th width="80px">Gruppo sanguigno</th>
-                            <th width="111px">Puo' donare a</th>
-                            <th width="80px">Sede Magazzino</th>
-                            <th width="80px">Azione</th>
+                            <th width="108px">Data Creazione</th>
+                            <th width="234px">Seriale</th>
+                            <th width="88px">Gruppo sanguigno</th>
+                            <th width="103px">Puo' donare a</th>
+                            <th width="65px">Sede Magazzino</th>
+                            <th width="134px">Azione</th>
                            </tr>
                          </table>
                       </td>
@@ -263,21 +267,21 @@
                          <div style="width:666px; height:180px; overflow:auto;">
                            <table cellspacing="0" cellpadding="1" border="1" width="666" style="font-size: 11px;" >
                             <tr bgcolor="red">
-                                <td width="140px">01-11-2020 08:11</td>
-                                <td width="277px">IT-NA206003-APOS-20201101-0010</td>
+                                <td width="125px">01-11-2020 08:11</td>
+                                <td width="240px">IT-NA206003-APOS-20201101-0010</td>
                                 <td width="80px">Apos</td>
-                                <td width="111px">.</td>
+                                <td witdth="111px">A+, A-,0+,0-</td>
                                 <td width="80px">NA206</td>
-                                <td width="111px">
-                                    <a href="#"><img src="./images/minus.png" alt="./images/minusbutton" width="20%" /></a>
-                                    <a href="#"><img src="./images/exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                <td width="80px">
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
                                 </td>
                             </tr>
                             <tr bgcolor="red">
                                 <td width="140px">17-12-2020 09:16</td>
                                 <td width="277px">IT-AV207005-APOS-20201217-0010</td>
                                 <td width="80px">Apos</td>
-                                <td width="111px">.</td>
+                                <td width="111px">A+, A-,0+,0-</td>
                                 <td width="80px">AV207</td>
                                 <td width="111px">
                                     <input type="button" name="request" value="Richiedi" disabled />
@@ -288,121 +292,124 @@
                                 <td width="140px">16-04-2021 11:36</td>
                                 <td width="277px">IT-NA206001-APOS-20210416-0001</td>
                                 <td width="80px">Apos</td>
-                                <td width="111px">Apos, ABpos</td>
+                                <td width="111px">A+, A-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="./images/minus.png" alt="./images/minusbutton" width="20%" /></a>
-                                    <a href="#"><img src="./images/exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
                                 </td>
                             </tr>
                             <tr>
                                 <td width="140px">16-04-2021 11:36</td>
                                 <td width="277px">IT-NA206001-ABPOS-20210416-0002</td>
                                 <td width="80px">ABpos</td>
-                                <td width="111px"></td>
+                                <td width="111px">A+,A-,B+,B-,AB+,AB-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="./images/minus.png" alt="./images/minusbutton" width="20%" /></a>
-                                    <a href="#"><img src="./images/exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
                                 </td>
                             </tr>
                             <tr>
                                 <td width="140px">16-04-2021 11:36</td>
                                 <td width="277px">IT-NA206003-BNEG-20210416-0003</td>
                                 <td width="80px">Bneg</td>
-                                <td width="111px"></td>
+                                <td width="111px">B-,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="./images/minus.png" alt="./images/minusbutton" width="20%" /></a>
-                                    <a href="#"><img src="./images/exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
                                 </td>
                             </tr>
                             <tr bgcolor="yellow">
-                                <td width="140px">16-04-2021 11:36</td>
+                                <td width="140px">17-04-2021 11:36</td>
                                 <td width="277px">IT-AV207005-APOS-20210417-0010</td>
                                 <td width="80px">Apos</td>
-                                <td width="111px">.</td>
-                                <td width="80px">NA206</td>
+                                <td width="111px">A+,A-,0+,0-</td>
+                                <td width="80px">AV207</td>
                                 <td width="111px">
                                     <input type="button" name="request" value="Richiedi" />
                                     <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
                                 </td>
                             </tr>
                             <tr>
-                                <td width="140px">16-04-2021 11:36</td>
+                                <td width="140px">18-04-2021 11:36</td>
                                 <td width="277px">IT-NA206005-APOS-20210418-0001</td>
                                 <td width="111px">Apos</td>
-                                <td width="111px"></td>
+                                <td width="111px">A+,A-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="./images/minus.png" alt="./images/minusbutton" width="20%" /></a>
-                                    <a href="#"><img src="./images/exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td width="140px">16-04-2021 11:36</td>
+                                <td width="140px">19-04-2021 11:36</td>
                                 <td width="277px">IT-NA206002-APOS-20210419-0001</td>
                                 <td width="111px">Apos</td>
-                                <td width="111px"></td>
+                                <td width="111px">A+,A-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="./images/minus.png" alt="./images/minusbutton" width="20%" /></a>
-                                    <a href="#"><img src="./images/exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td width="140px">16-04-2021 11:36</td>
-                                <td width="277px">IT-NA206003-BNEG-20210416-0003</td>
+                                <td width="140px">19-04-2021 11:36</td>
+                                <td width="277px">IT-NA206003-BNEG-20210419-0003</td>
                                 <td width="80px">Bneg</td>
-                                <td width="111px"></td>
+                                <td width="111px">B-,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="./images/minus.png" alt="./images/minusbutton" width="20%" /></a>
-                                    <a href="#"><img src="./images/exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
                                 </td>
                             </tr>
                             <tr bgcolor="yellow">
-                                <td width="140px">16-04-2021 11:36</td>
-                                <td width="277px">IT-AV207005-APOS-20210417-0010</td>
+                                <td width="140px">19-04-2021 11:36</td>
+                                <td width="277px">IT-AV207005-APOS-20210419-0010</td>
                                 <td width="80px">Apos</td>
-                                <td width="111px">.</td>
-                                <td width="80px">NA206</td>
+                                <td width="111px">A+,A-,0+,0-</td>
+                                <td width="80px">AV207</td>
                                 <td width="111px">
                                     <input type="button" name="request" value="Richiedi" />
                                     <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
                                 </td>
                             </tr>
                             <tr>
-                                <td width="140px">16-04-2021 11:36</td>
+                                <td width="140px">19-04-2021 11:36</td>
                                 <td width="277px">IT-NA206002-APOS-20210419-0001</td>
                                 <td width="111px">Apos</td>
-                                <td width="111px"></td>
+                                <td width="111px">A+,A-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="./images/minus.png" alt="./images/minusbutton" width="20%" /></a>
-                                    <a href="#"><img src="./images/exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td width="140px">16-04-2021 11:36</td>
-                                <td width="277px">IT-NA206003-BNEG-20210416-0003</td>
+                                <td width="140px">19-04-2021 11:36</td>
+                                <td width="277px">IT-NA206003-BNEG-20210419-0003</td>
                                 <td width="80px">Bneg</td>
-                                <td width="111px"></td>
+                                <td width="111px">B-,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="./images/minus.png" alt="./images/minusbutton" width="20%" /></a>
-                                    <a href="#"><img src="./images/exclamationmark.png" alt="report a problem" width="20%" /></a>
+                                    <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                    <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
                                 </td>
                             </tr>
                            </table>  
                          </div>
                       </td>
                     </tr>
-                  </table>
+                </table>
+                </div>
             </form>
         <!-- END:   Management BloodBags -->
+        <br /><br /><br />
         <!-- START:   Requests -->
           <form action="#" method="POST">
+            <div align="center">
             <table cellspacing="0" cellpadding="0" border="0" width="325">
                 <tr style="color:white;background-color:grey;">
                     <th>Richieste:</th>
@@ -411,12 +418,11 @@
                   <td>
                      <table cellspacing="0" cellpadding="1" border="1" width="666" >
                        <tr style="color:white;background-color:grey; font-size: 12px;">
-                        <th width="125px">Data richiesta</th>
-                        <th width="240px">Seriale</th>
-                        <th width="80px">Gruppo sanguigno</th>
-                        <th width="111px">Richiesto da:</th>
-                        <th width="80px">Note</th>
-                        <th width="80px">Azione</th>
+                        <th width="128px">Data richiesta</th>
+                        <th width="256px">Seriale</th>
+                        <th width="75px">Gruppo sanguigno</th>
+                        <th width="75px">Centro locale</th>
+                        <th width="116px">Azione</th>
                        </tr>
                      </table>
                   </td>
@@ -429,29 +435,28 @@
                             <td width="140px">01-11-2020 08:11</td>
                             <td width="277px">IT-NA206003-APOS-20201101-0010</td>
                             <td width="80px">Apos</td>
-                            <td width="111px">SA205</td>
-                            <td width="80px">.</td>
+                            <td width="80px">NA206</td>
                             <td width="111px">
-                                <input type="button" name="request" value="Approva" disabled />
-                                <input type="button" name="cancel_request" value="Rifiuta richiesta" disabled/>
+                                <input type="button" name="request" value="Richiedi" disabled />
+                                <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
                             </td>
                         </tr>
                         <tr>
                             <td width="140px">16-04-2021 11:36</td>
                             <td width="277px">IT-NA206001-APOS-20210416-0001</td>
                             <td width="80px">Apos</td>
-                            <td width="111px">BN204</td>
-                            <td width="80px">Abbiamo bisogno, accettate la richiesta entro un giorno. Grazie</td>
+                            <td width="80px">NA206</td>
                             <td width="111px">
-                                <input type="button" name="request" value="Approva" />
-                                <input type="button" name="cancel_request" value="Rifiuta richiesta" />
+                                <a href="#"><img src="minus.png" alt="minusbutton" width="20%" /></a>
+                                <a href="#"><img src="exclamationmark.png" alt="report a problem" width="20%" /></a>
                             </td>
                         </tr>
                        </table>  
                      </div>
                   </td>
                 </tr>
-              </table>
+            </table>
+            </div>  
         </form>
         <!-- END:   Requests -->
           </fieldset>
@@ -460,81 +465,107 @@
 
         <!-- START:   Availability BloodBags -->
         <fieldset>
-            <legend><img src="https://image.flaticon.com/icons/png/512/124/124383.png" width="10%"><a name="warehouse"> In Magazzino</a></legend>           
-            <table id="BloodBags-table" align="center">
+            <legend><img src="images\Magazzino.png" width="10%"><a name="warehouse"><b>In Magazzino</b></a></legend>           
+            <table id="BloodBags-table">
                 <tr>
                     <td id="BloodBags-td">
                         <table border="0">
-                         <tr>
-                          <td><b>A+</b></td>
-                          <td><p class="warning">5 sacche</p></td>
-                          <td><a href="#"><img src="./images/plus.png" alt="Crea sacca" width="20%" /></a></td>
-                         </tr>
+                            <tr>
+                                <td align="right"><p>A+</p></td>
+                                <td align="left">
+                                    <p class="warning">5 sacche</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="images\plus.png" alt="plusbutton" width="20%" /></a></td>
+                                
+                            </tr>
                         </table>
                     </td>
                     <td id="BloodBags-td">
                         <table border="0">
-                         <tr>
-                          <td><b>B+</b></td>
-                          <td><p class="correct">5 sacche</p></td>
-                          <td><a href="#"><img src="./images/plus.png" alt="Crea sacca" width="20%" /></a></td>
-                         </tr>
+                            <tr>
+                                <td align="right"><b>B+</b></td>
+                                <td align="left"><p class="correct">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="images\plus.png" alt="plusbutton" width="20%" /></a></td>
+                                
+                            </tr>
                         </table>
                     </td>
                     <td id="BloodBags-td">
                         <table border="0">
-                         <tr>
-                          <td><b>0+</b></td>
-                          <td><p class="error">5 sacche</p></td>
-                          <td><a href="#"><img src="./images/plus.png" alt="Crea sacca" width="20%" /></a></td>
-                         </tr>
+                            <tr>
+                                <td align="right"><b>0+</b></td>
+                                <td align="left"><p class="error">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="images\plus.png" alt="plusbutton" width="20%" /></a></td>
+                                
+                            </tr>
                         </table>
                     </td>
                     <td id="BloodBags-td">
                         <table border="0">
-                         <tr>
-                          <td><b>AB+</b></td>
-                          <td><p class="warning">5 sacche</p></td>
-                          <td><a href="#"><img src="./images/plus.png" alt="Crea sacca" width="20%" /></a></td>
-                         </tr>
+                            <tr>
+                                <td align="right"><b>AB+</b></td>
+                                <td align="left"><p class="warning">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="images\plus.png" alt="plusbutton" width="20%" /></a></td>
+                                
+                            </tr>
                         </table>
                     </td>
                 </tr>
                 <tr>
                     <td id="BloodBags-td">
                         <table border="0">
-                         <tr>
-                          <td><b>A-</b></td>
-                          <td><p class="warning">5 sacche</p></td>
-                          <td><a href="#"><img src="./images/plus.png" alt="Crea sacca" width="20%" /></a></td>
-                         </tr>
+                            <tr>
+                                <td align="right"><b>A-</b></td>
+                                <td align="left"><p class="warning">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="images\plus.png" alt="plusbutton" width="20%" /></a></td>
+                                
+                            </tr>
                         </table>
                     </td>
                     <td id="BloodBags-td">
                         <table border="0">
-                         <tr>
-                          <td><b>B-</b></td>
-                          <td><p class="warning">5 sacche</p></td>
-                          <td><a href="#"><img src="./images/plus.png" alt="Crea sacca" width="20%" /></a></td>
-                         </tr>
+                            <tr>
+                                <td align="right"><b>B-</b></td>
+                                <td align="left"><p class="warning">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="images\plus.png" alt="plusbutton" width="20%" /></a></td>
+                                
+                            </tr>
                         </table>
                     </td>
                     <td id="BloodBags-td">
                         <table border="0">
-                         <tr>
-                          <td><b>0-</b></td>
-                          <td><p class="correct">5 sacche</p></td>
-                          <td><a href="#"><img src="./images/plus.png" alt="Crea sacca" width="20%" /></a></td>
-                         </tr>
+                            <tr>
+                                <td align="right"><b>0-</b></td>
+                                <td align="left"><p class="correct">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="images\plus.png" alt="plusbutton" width="20%" /></a></td>
+                                
+                            </tr>
                         </table>
                     </td>
                     <td id="BloodBags-td">
                         <table border="0">
-                         <tr>
-                          <td><b>AB-</b></td>
-                          <td><p class="correct">5 sacche</p></td>
-                          <td><a href="#"><img src="./images/plus.png" alt="Crea sacca" width="20%" /></a></td>
-                         </tr>
+                            <tr>
+                                <td align="right"><b>AB-</b></td>
+                                <td align="left"><p class="correct">5 sacche</p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#"><img src="images\plus.png" alt="plusbutton" width="20%" /></a></td>
+                                
+                            </tr>
                         </table>
                     </td>
                 </tr>
@@ -544,7 +575,7 @@
 
         <!-- START: Expiring BloodBags -->
         <fieldset>
-            <legend><img src="http://download.seaicons.com/icons/oxygen-icons.org/oxygen/256/Actions-edit-clear-history-icon.png" width="10%"><a name="expiring"> In Scadenza</a></legend>
+            <legend><img src="http://download.seaicons.com/icons/oxygen-icons.org/oxygen/256/Actions-edit-clear-history-icon.png" width="10%"><a name="expiring"><b> In Scadenza</b></a></legend>
             <p> In scadenza: </p>
             <table id="BloodBags-table" border="1">
                 <tr>
@@ -672,7 +703,7 @@
 
         <!-- START: BROADCAST CHAT -->
         <fieldset>
-            <legend><img src="./images/broadcastchat.png" width="10%"><a name="./images/broadcastchat"> Broadcast Chat</a></legend>
+            <legend><img src="broadcastchat.png" width="10%"><a name="broadcastchat"><b> Broadcast Chat</b></a></legend>
             <p> Broadcast Chat: </p>
             <textarea id="textarea_chatbroadcast_msgs" disabled>
 

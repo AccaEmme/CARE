@@ -5,7 +5,7 @@
   <style>
     #niceframe{ 
         border-radius: 50px;
-        border: 2px solid white;
+        border: 2px solid #ffffff;
         /*align: "center";*/
         align-items: center;
         text-align: center;
@@ -25,16 +25,16 @@
         border-radius: 30px;
     }
     #login_btn {
-        color: rgba(85, 85, 85, 0.616);
+        color: rgba(19, 172, 44, 0.616);
         font-size: 10;
-        width: 233px;
+        width: 133px;
         height: 70px;
         border: 5;
         margin: 0;
         padding: 0;
     }
     body{
-        background-color: rgb(253, 253, 253);
+        background-color: rgb(233, 247, 248);
     }
     html, body {
         margin: 0;
@@ -46,16 +46,17 @@
  </head>
  <body>
     <div id="niceframe">
-            <img src="https://github.com/AccaEmme/CARE/raw/main/docs/logo.jpg" alt="logo" />
+            <img src="https://github.com/AccaEmme/CARE/raw/main/docs/logo.png" alt="logo" />
             <form method="POST" action="#" autocomplete="off">
                 <input type="text" name="username" placeholder="Username" />
                 <br />
                 <input type="password" name="psw" placeholder="Password"/>
                 <br />
+                <small><a href="javascript:alert('Al momento per recuperare le tue credenziali bisogna inviare una e-mail al Centro Elaborazione Dati di competenza.')">Recupera Password</a></small>
                 <div id="niceframe">
                     <input type="submit" value="LOGIN" name="login_btn" id="login_btn" />
                 </div>
-                <small><a href="javascript:alert('Al momento per recuperare le tue credenziali bisogna inviare una e-mail al Centro Elaborazione Dati di competenza.')">Recupera Password</a></small>
+                
             </form>
     </div>
  </body>
