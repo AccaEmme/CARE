@@ -18,6 +18,11 @@ public interface OfficerInterface {
 	// per seriale, per nodo, per sangue, per data, per nodo 
 	// per donatoreCF, per location, per stato
 	
+	public void requestBloodBag(BloodBag b);
+	public void responseBloodBag(BloodBag b);
+	//public Iterator<Requests> getRequestList();
+	//public Iterator<Responses> getResponsesList();
+	
 	public Iterator<BloodBag> getBloodBagsBySerial(Serial s);
 	public Iterator<BloodBag> getBloodBagsByNode(Node n);
 	public Iterator<BloodBag> getBloodBagsByBloodGroup(BloodGroup blood);
