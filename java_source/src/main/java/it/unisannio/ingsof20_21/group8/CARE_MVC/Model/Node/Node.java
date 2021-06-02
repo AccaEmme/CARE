@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.BloodBagCloneException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 
 public class Node {
 	public Node(String codstr, String nodeName, Location warehouse) {

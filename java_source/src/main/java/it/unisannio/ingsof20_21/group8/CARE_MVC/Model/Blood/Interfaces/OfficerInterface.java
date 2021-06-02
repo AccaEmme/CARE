@@ -7,8 +7,8 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag.BloodBagState;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Serial;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 
 public interface OfficerInterface {
 	

@@ -2,8 +2,8 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User;
 
 import java.util.Date;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 
 public class User {

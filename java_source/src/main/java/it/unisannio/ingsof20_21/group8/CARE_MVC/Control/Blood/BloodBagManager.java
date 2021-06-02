@@ -12,15 +12,19 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.DataManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.BloodBagCloneException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StateException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag.BloodBagState;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Node2;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Serial;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.OfficerInterface;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.StoreManagerInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
 
-public class BloodBagManager{
+public class BloodBagManager implements OfficerInterface, StoreManagerInterface{
     /**
-     * @param currentUser l'utente corrente
+     * @param currentUser l'utente current
      * L'idea di base è quella di avere un manager che viene creato con l'utente della sessione corrente,
      * in questo caso si puo usare il manager per chiamare i metodi del MySQLmanager o MongoManager
      * cosi facendo non dobbiamo preoccuparci dei permessi nei DB managers, ma preoccuparcene solo qui.
@@ -42,14 +46,15 @@ public class BloodBagManager{
      * Il manager può settare la data di creazione, evitando di farlo fare al BloodBag che non può conoscere l'utente! Ecco la soluzione.
      */
 
+	/*
+	 * ???
     public BloodBagManager() {
     	
     	this.bloodBags = new HashSet();
-    	this.
     }
+    */
 	
     public BloodBagManager(User currentUser, DataManager dataManager) throws ParseException{
-    	
     	this.currentUser = currentUser;
         this.dataManager = dataManager;
     }
@@ -157,4 +162,117 @@ public class BloodBagManager{
     private UserManager userM;
 	private HashSet<BloodBag> bloodBags;
 	private HashMap<String, Node> nodes;
+	@Override
+	public boolean checkBloodBag(BloodBag b) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean checkBloodBag(Serial s) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void requestBloodBag(BloodBag b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void responseBloodBag(BloodBag b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Iterator<BloodBag> getBloodBagsBySerial(Serial s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<BloodBag> getBloodBagsByNode(Node n) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<BloodBag> getBloodBagsByBloodGroup(BloodGroup blood) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<BloodBag> getBloodBagsByDonatorCF(String donatorCF) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<BloodBag> getBloodBagsByLocation(Location location) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<BloodBag> getBloodBagsByState(BloodBagState state) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<BloodBag> getBloodBagsByNote(String note) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<BloodBag> getBloodBagsBetweenCreationDates(Date from, Date to) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<BloodBag> getBloodBagsBetweenExpirationDates(Date from, Date to) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<BloodGroup> canDonate(BloodGroup blood) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<BloodGroup> canReceive(BloodGroup blood) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public short compareBags(BloodBag b1, BloodBag b2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void addBloodBag(BloodBag b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void useBloodBag(BloodBag b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void transferBloodBag(BloodBag b, Node n) {
+		// TODO Auto-generated method stub
+		
+	}
 }	

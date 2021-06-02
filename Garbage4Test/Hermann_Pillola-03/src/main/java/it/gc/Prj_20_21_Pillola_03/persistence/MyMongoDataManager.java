@@ -1,15 +1,36 @@
-package it.unisannio.ingsof20_21.group8.CARE_MVC.Control;
+package it.gc.Prj_20_21_Pillola_03.persistence;
 
-import static com.mongodb.client.model.Filters.eq;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.InvalidPropertiesFormatException;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Properties;
 
-public class MongoDataManager implements DataManager {
-	/*
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+
+import com.mongodb.client.MongoDatabase;
+
+import it.gc.Prj_20_21_Pillola_03.sacca.GruppoSanguigno;
+import it.gc.Prj_20_21_Pillola_03.sacca.Sacca;
+import it.gc.Prj_20_21_Pillola_03.sacca.Seriale;
+
+import com.mongodb.client.MongoCollection;
+
+import static com.mongodb.client.model.Filters.*;
+
+import org.bson.Document;
+
+public class MyMongoDataManager implements DataManager {
+	
+	private static final String TAG_DB = "db_mongo_name";
 	private static final String TAG_HOST = "db_mongo_host";
 	private static final String TAG_PORT = "db_mongo_port";
-	private static final String TAG_DB = "db_mongo_name";
 	
 	private static final String COLLECTION_SACCHE = "SACCHE";
-	private static final String ELEMENT_Serial = "Serial";
+	private static final String ELEMENT_SERIALE = "seriale";
 	private static final String ELEMENT_GRUPPO = "gruppo";
 	
 	
@@ -18,7 +39,7 @@ public class MongoDataManager implements DataManager {
 	private final MongoClientURI connectionString;
 	
 	
-	public MongoDataManager() {
+	public MyMongoDataManager() {
 		Properties loadProps = new Properties();
 	    try {
 			loadProps.loadFromXML(new FileInputStream("localsettings/db_settings.xml"));
@@ -45,40 +66,32 @@ public class MongoDataManager implements DataManager {
 		mongoClient.close();
 	}
 
-	public void addBloodBag(BloodBag s) {
+	public void addSacca(Sacca s) {
 		MongoClient mongoClient = new MongoClient(connectionString);
 	    MongoDatabase database = mongoClient.getDatabase(db);
 	    MongoCollection<Document> collection = database.getCollection(COLLECTION_SACCHE);
-	    Document unaBloodBag = new Document(ELEMENT_Serial, s.getSerial().toString())
-                .append(ELEMENT_GRUPPO, s.getBloodType().toString());    
-	    collection.insertOne(unaBloodBag); 
+	    Document unaSacca = new Document(ELEMENT_SERIALE, s.getSeriale().toString())
+                .append(ELEMENT_GRUPPO, s.getGruppo().toString());    
+	    collection.insertOne(unaSacca); 
 	    mongoClient.close();
 	}
 
-	public List<BloodBag> getBloodBag(Blood g) {
+	public List<Sacca> getSacche(GruppoSanguigno g) {
 		
-		List<BloodBag> sacche = new ArrayList<BloodBag>();
+		List<Sacca> sacche = new ArrayList<Sacca>();
 		
 		MongoClient mongoClient = new MongoClient(connectionString);
 	    MongoDatabase database = mongoClient.getDatabase(db);
 	    MongoCollection<Document> collection = database.getCollection(COLLECTION_SACCHE);
 	
 		for (Document current : collection.find(eq(ELEMENT_GRUPPO,g.toString()))) {
-			BloodBag s = null;
-			try {
-				s = new BloodBag(
-											Blood.valueOf( current.getString(ELEMENT_GRUPPO) )
-										);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Sacca s = new Sacca(new Seriale(current.getString(ELEMENT_SERIALE)), GruppoSanguigno.valueOf(current.getString(ELEMENT_GRUPPO)));
 		    sacche.add(s);		
 		}
 		mongoClient.close();
 		return sacche;
 
 	}
-*/
+
 	
 }

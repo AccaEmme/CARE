@@ -1,11 +1,11 @@
-package it.unisannio.ingsof20_21.group8.CARE_MVC.Control.User;
+package it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.MongoDataManager;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.DataManager;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.User.LoginInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Role;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 
@@ -17,15 +17,16 @@ public class UserManager implements LoginInterface, AdminInterface{
 		this.dataManager = new MongoDataManager(); 
 	}
 	
-	
-	
 	public static UserManager checkLogin(String userName, String password) {
-		
 		User user = dataManager.selectUser(userName, password);
 		if(user != null) {
-			
 			return new UserManager(user);
 		}
+		/* TODO: *** */
+	}
+	
+	public static UserManager recoverPassword(String username) {
+		/* TODO: *** */
 	}
 	
 	public User getUser() {return user;}
