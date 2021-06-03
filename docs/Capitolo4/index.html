@@ -347,7 +347,7 @@
 
 
           <fieldset>
-            <legend><img src="images\gestionerichieste.png" width="10%"><a name="management"><b> Gestione Richieste </b></a></legend>
+            <legend><img src="images\gestionerichieste.png" width="10%"><a name="management"><b> Gestione Richieste </b></a><br><small>(role-user-visibility: Officer)</small></legend>
           <!-- START:   Management  BloodBags -->
             <form action="#" method="POST">
                 <div align="center">
@@ -387,7 +387,11 @@
                             <th width="5px">Gruppo sanguigno</th>
                             <th width="200px">Puo' donare a</th>
                             <th width="65px">Sede Magazzino</th>
-                            <th width="134px">Azione</th>
+                            <th width="134px">
+                                <input type="button" name="request" value="Richiedi"  />
+                                <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
+                                <input type="button" name="report" value="Segnala" />
+                            </th>
                            </tr>
                          </table>
                          </body>
@@ -404,9 +408,7 @@
                                 <td witdth="80px">A+, A-,0+,0-</td>
                                 <td width="200px">NA206</td>
                                 <td width="80px">
-                                    <a href="#"><img src="images\minus.png" alt="minusbutton" width="15%" /></a>
-                                    &emsp;&emsp;
-                                    <a href="#"><img src="images\exclamationmark.png" alt="report a problem" width="15%" /></a>
+                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
                                 </td>
                             </tr>
                             <tr bgcolor="red">
@@ -416,8 +418,7 @@
                                 <td width="111px">A+, A-,0+,0-</td>
                                 <td width="80px">AV207</td>
                                 <td width="111px">
-                                    <input type="button" name="request" value="Richiedi" disabled />
-                                    <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
+                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
                                 </td>
                             </tr>
                             <tr>
@@ -427,9 +428,7 @@
                                 <td width="111px">A+, A-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="images\minus.png" alt="minusbutton" width="15%" /></a>
-                                    &emsp;&emsp;
-                                    <a href="#"><img src="images\exclamationmark.png" alt="report a problem" width="15%" /></a>
+                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
                                 </td>
                             </tr>
                             <tr>
@@ -439,9 +438,7 @@
                                 <td width="111px">A+,A-,B+,B-,AB+,AB-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="images\minus.png" alt="minusbutton" width="15%" /></a>
-                                    &emsp;&emsp;
-                                    <a href="#"><img src="images\exclamationmark.png" alt="report a problem" width="15%" /></a>
+                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
                                 </td>
                             </tr>
                             <tr>
@@ -451,9 +448,7 @@
                                 <td width="111px">B-,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="images\minus.png" alt="minusbutton" width="15%" /></a>
-                                    &emsp;&emsp;
-                                    <a href="#"><img src="images\exclamationmark.png" alt="report a problem" width="15%" /></a>
+                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
                                 </td>
                             </tr>
                             <tr bgcolor="yellow">
@@ -463,8 +458,7 @@
                                 <td width="111px">A+,A-,0+,0-</td>
                                 <td width="80px">AV207</td>
                                 <td width="111px">
-                                    <input type="button" name="request" value="Richiedi" />
-                                    <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
+                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
                                 </td>
                             </tr>
                             <tr>
@@ -474,9 +468,7 @@
                                 <td width="111px">A+,A-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="images\minus.png" alt="minusbutton" width="15%" /></a>
-                                    &emsp;&emsp;
-                                    <a href="#"><img src="images\exclamationmark.png" alt="report a problem" width="15%" /></a>
+                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
                                 </td>
                             </tr>
                             <tr>
@@ -486,9 +478,7 @@
                                 <td width="111px">A+,A-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="images\minus.png" alt="minusbutton" width="15%" /></a>
-                                    &emsp;&emsp;
-                                    <a href="#"><img src="images\exclamationmark.png" alt="report a problem" width="15%" /></a>
+                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
                                 </td>
                             </tr>
                             <tr>
@@ -498,9 +488,7 @@
                                 <td width="111px">B-,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="images\minus.png" alt="minusbutton" width="15%" /></a>
-                                    &emsp;&emsp;
-                                    <a href="#"><img src="images\exclamationmark.png" alt="report a problem" width="15%" /></a>
+                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
                                 </td>
                             </tr>
                             <tr bgcolor="yellow">
@@ -510,8 +498,7 @@
                                 <td width="111px">A+,A-,0+,0-</td>
                                 <td width="80px">AV207</td>
                                 <td width="111px">
-                                    <input type="button" name="request" value="Richiedi" />
-                                    <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
+                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
                                 </td>
                             </tr>
                             <tr>
@@ -521,9 +508,7 @@
                                 <td width="111px">A+,A-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="images\minus.png" alt="minusbutton" width="15%" /></a>
-                                    &emsp;&emsp;
-                                    <a href="#"><img src="images\exclamationmark.png" alt="report a problem" width="15%" /></a>
+                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
                                 </td>
                             </tr>
                             <tr>
@@ -533,9 +518,7 @@
                                 <td width="111px">B-,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <a href="#"><img src="images\minus.png" alt="minusbutton" width="15%" /></a>
-                                    &emsp;&emsp;
-                                    <a href="#"><img src="images\exclamationmark.png" alt="report a problem" width="15%" /></a>
+                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
                                 </td>
                             </tr>
                            </table>  
@@ -548,7 +531,7 @@
             </form>
         <!-- END:   Management BloodBags -->
         <br /><br /><br />
-        <!-- START:   Requests -->
+        <!-- START:   Officer Requests -->
           <form action="#" method="POST">
             <div align="center">
                 <body style="margin:0px;">
@@ -581,7 +564,6 @@
                             <td width="80px">Apos</td>
                             <td width="80px">NA206</td>
                             <td width="111px">
-                                <input type="button" name="request" value="Richiedi" disabled />
                                 <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
                             </td>
                         </tr>
@@ -591,9 +573,7 @@
                             <td width="80px">Apos</td>
                             <td width="80px">NA206</td>
                             <td width="111px">
-                                <a href="#"><img src="images\minus.png" alt="minusbutton" width="10%" /></a>
-                                &emsp;&emsp;
-                                <a href="#"><img src="images\exclamationmark.png" alt="report a problem" width="10%" /></a>
+                                <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
                             </td>
                         </tr>
                        </table>  
@@ -604,14 +584,14 @@
             </body>
             </div>  
         </form>
-        <!-- END:   Requests -->
+        <!-- END:  Officer Requests -->
           </fieldset>
 
 
 
         <!-- START:   Availability BloodBags -->
         <fieldset>
-            <legend><img src="images\magazzino.png" width="10%"><a name="warehouse"><b>In Magazzino</b></a></legend>           
+            <legend><img src="images\magazzino.png" width="10%"><a name="warehouse"><b>In Magazzino</b></a><br><small>(role-user-visibility: StoreManager)</small></legend>           
             <table id="BloodBags-table">
                 <tr>
                     <td id="BloodBags-td">
@@ -738,6 +718,64 @@
                     </td>
                 </tr>
             </table>
+
+            <!-- START:  StoreManager Requests -->
+          <form action="#" method="POST">
+            <div align="center">
+                <body style="margin:0px;">
+                <table cellspacing="0" cellpadding="0" height:"100%" width="100%" >
+                <tr style="color:white;background-color:rgb(150, 145, 145);">
+                    <th>Richieste:</th>
+                </tr>
+                <tr>
+                  <td>
+                    <body style="margin:0px;">
+                        <table cellspacing="0" cellpadding="0" height:"100%" width="100%" >
+                       <tr style="color:white;background-color:grey; font-size: 20px;">
+                        <th width="100px">Data richiesta</th>
+                        <th width="325px">Seriale</th>
+                        <th width="80px">Gruppo sanguigno</th>
+                        <th width="85px">Centro locale</th>
+                        <th width="116px">Azione</th>
+                       </tr>
+                     </table>
+                     </body>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                     <div style=" overflow-y: scroll; height:100px; margin:0px;">
+                       <table cellspacing="0" cellpadding="1" border="1" width="100%" style="font-size: 20px;" >
+                        <tr bgcolor="red">
+                            <td width="140px">01-11-2020 08:11</td>
+                            <td width="277px">IT-NA206003-APOS-20201101-0010</td>
+                            <td width="80px">Apos</td>
+                            <td width="80px">NA206</td>
+                            <td width="111px">
+                                <input type="button" name="accept_request" value="Approva richiesta" />
+                                <input type="button" name="cancel_request" value="Annulla richiesta" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="140px">16-04-2021 11:36</td>
+                            <td width="277px">IT-NA206001-APOS-20210416-0001</td>
+                            <td width="80px">Apos</td>
+                            <td width="80px">NA206</td>
+                            <td width="111px">
+                                <input type="button" name="accept_request" value="Approva richiesta" />
+                                <input type="button" name="cancel_request" value="Annulla richiesta" />
+                            </td>
+                        </tr>
+                       </table>  
+                     </div>
+                  </td>
+                </tr>
+            </table>
+            </body>
+            </div>  
+        </form>
+        <!-- END:  StoreManager Requests -->
+
         </fieldset>
         <!-- END:   Availability BloodBags -->
 
