@@ -221,10 +221,10 @@
            <!-- START: Expiring BloodBags -->
         <fieldset>
             <legend><img src="images\scadenza.png" width="10%"><a name="expiring"><b> In Scadenza</b></a></legend>
-            <table id="BloodBags-table" border="1" style="font-size: 19px;" >
+            <table id="BloodBags-table" border="1" style="font-size: 20px;" >
                 <tr>
                     <td align="center">-</td>
-                    <td align="center"><p>In Locale:</p></td>
+                   <!--  <td align="center"><p>In Locale:</p></td> -->
                     <td align="center"><p>Sede Centrale:</p></td>
                     <td align="center"><p>Altri Nodi:</p></td>
                 </tr>
@@ -232,9 +232,9 @@
                     <td align="center">
                         <p>A+</p>
                     </td>
-                    <td align="center">
+                    <!--  <td align="center">
                         <p class="error">5 sacche</p>
-                    </td>
+                    </td>-->
                     <td align="center">
                         <p class="correct">0 sacche</p>
                     </td>
@@ -246,9 +246,9 @@
                     <td align="center">
                         <p>A-</p>
                     </td>
-                    <td align="center">
-                        <p class="warning">2 sacche</p>
-                    </td>
+                    <!--  <td align="center">
+                        <p class="error">2 sacche</p>
+                    </td>-->
                     <td align="center">
                         <p class="warning">4 sacche</p>
                     </td>
@@ -260,9 +260,9 @@
                     <td align="center">
                         <p>B+</p>
                     </td>
-                    <td align="center">
-                        <p class="warning">3 sacche</p>
-                    </td>
+                    <!--  <td align="center">
+                        <p class="error">3 sacche</p>
+                    </td>-->
                     <td align="center">
                         <p class="correct">0 sacche</p>
                     </td>
@@ -274,9 +274,9 @@
                     <td align="center">
                         <p>B-</p>
                     </td>
-                    <td align="center">
+                    <!--  <td align="center">
                         <p class="error">5 sacche</p>
-                    </td>
+                    </td>-->
                     <td align="center">
                         <p class="correct">0 sacche</p>
                     </td>
@@ -288,9 +288,9 @@
                     <td align="center">
                         <p>AB+</p>
                     </td>
-                    <td align="center">
-                        <p class="correct">0 sacche</p>
-                    </td>
+                    <!--  <td align="center">
+                        <p class="error">0 sacche</p>
+                    </td>-->
                     <td align="center">
                         <p class="warning">4 sacche</p>
                     </td>
@@ -302,9 +302,9 @@
                     <td align="center">
                         <p>AB-</p>
                     </td>
-                    <td align="center">
-                        <p class="warning">4 sacche</p>
-                    </td>
+                    <!--  <td align="center">
+                        <p class="error">4 sacche</p>
+                    </td>-->
                     <td align="center">
                         <p class="warning">3 sacche</p>
                     </td>
@@ -316,9 +316,9 @@
                     <td align="center">
                         <p>0+</p>
                     </td>
-                    <td align="center">
-                        <p class="correct">0 sacche</p>
-                    </td>
+                    <!--  <td align="center">
+                        <p class="error">0 sacche</p>
+                    </td>-->
                     <td align="center">
                         <p class="correct">0 sacche</p>
                     </td>
@@ -330,9 +330,9 @@
                     <td align="center">
                         <p>0-</p>
                     </td>
-                    <td align="center">
-                        <p class="correct">0 sacche</p>
-                    </td>
+                    <!--  <td align="center">
+                        <p class="error">0 sacche</p>
+                    </td>-->
                     <td align="center">
                         <p class="correct">0 sacche</p>
                     </td>
@@ -342,6 +342,69 @@
                 </tr>
 
             </table>
+
+
+          <!-- START:  BAGS THAT ARE EXPIRING-->
+          <form action="#" method="POST">
+            <div align="center">
+                <body style="margin:0px;">
+                <table cellspacing="0" cellpadding="0" height:"100%" width="100%" >
+                <tr style="color:white;background-color:rgb(150, 145, 145);">
+                    <th>Lista:</th>
+                </tr>
+                <tr>
+                  <td>
+                    <body style="margin:0px;">
+                        <table cellspacing="0" cellpadding="0" height:"100%" width="100%" >
+                       <tr style="color:white;background-color:grey; font-size: 20px;">
+                        <th width="100px">Data Creazione</th>
+                        <th width="250px">Seriale</th>
+                        <th width="80px">Gruppo sanguigno</th>
+                        <th width="85px">Puo' donare a</th>
+                        <th width="116px">Azione</th>
+                       </tr>
+                     </table>
+                     </body>
+                  </td>
+                </tr>
+
+                <br></br>
+
+                <tr>
+                  <td>
+                     <div style=" overflow-y: scroll; height:100px; margin:0px;">
+                       <table cellspacing="0" cellpadding="1" border="1" width="100%" style="font-size: 20px;" >
+                        <tr bgcolor="red">
+                            <td width="125px">01-11-2020 08:11</td>
+                            <td width="240px">IT-NA206003-APOS-20201101-0010</td>
+                            <td width="80px">Apos</td>
+                            <td witdth="80px">A+, A-,0+,0-</td>
+                            <td width="80px">
+                                <div align ="center">
+                                    <input type="button" name="accept_request" value="Utilizza" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr bgcolor="red">
+                            <td width="140px">17-12-2020 09:16</td>
+                            <td width="277px">IT-AV207005-APOS-20201217-0010</td>
+                            <td width="80px">Apos</td>
+                            <td width="111px">A+, A-,0+,0-</td>
+                            <td width="111px">
+                                <div align ="center">
+                                    <input type="button" name="accept_request" value="Utilizza" />
+                                </div>
+                            </td>
+                        </tr>
+                       </table>  
+                     </div>
+                  </td>
+                </tr>
+            </table>
+            </body>
+            </div>  
+        </form>
+        <!-- END:  StoreManager Requests -->
         </fieldset>
         <!-- END:   Expiring BloodBags -->
 
@@ -408,7 +471,9 @@
                                 <td witdth="80px">A+, A-,0+,0-</td>
                                 <td width="200px">NA206</td>
                                 <td width="80px">
-                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    <div align ="center">
+                                        <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    </div>
                                 </td>
                             </tr>
                             <tr bgcolor="red">
@@ -418,7 +483,9 @@
                                 <td width="111px">A+, A-,0+,0-</td>
                                 <td width="80px">AV207</td>
                                 <td width="111px">
-                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    <div align ="center">
+                                        <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -428,7 +495,9 @@
                                 <td width="111px">A+, A-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    <div align ="center">
+                                        <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -438,7 +507,9 @@
                                 <td width="111px">A+,A-,B+,B-,AB+,AB-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    <div align ="center">
+                                        <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -448,7 +519,9 @@
                                 <td width="111px">B-,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    <div align ="center">
+                                        <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    </div>
                                 </td>
                             </tr>
                             <tr bgcolor="yellow">
@@ -458,7 +531,9 @@
                                 <td width="111px">A+,A-,0+,0-</td>
                                 <td width="80px">AV207</td>
                                 <td width="111px">
-                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    <div align ="center">
+                                        <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -468,7 +543,9 @@
                                 <td width="111px">A+,A-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    <div align ="center">
+                                        <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -478,7 +555,9 @@
                                 <td width="111px">A+,A-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    <div align ="center">
+                                        <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -488,7 +567,9 @@
                                 <td width="111px">B-,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    <div align ="center">
+                                        <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    </div>
                                 </td>
                             </tr>
                             <tr bgcolor="yellow">
@@ -498,7 +579,9 @@
                                 <td width="111px">A+,A-,0+,0-</td>
                                 <td width="80px">AV207</td>
                                 <td width="111px">
-                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    <div align ="center">
+                                        <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -508,7 +591,9 @@
                                 <td width="111px">A+,A-,0+,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    <div align ="center">
+                                        <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -518,7 +603,9 @@
                                 <td width="111px">B-,0-</td>
                                 <td width="80px">NA206</td>
                                 <td width="111px">
-                                    <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    <div align ="center">
+                                        <input type="checkbox" name="XXX_SERIAL_XXX" />
+                                    </div>
                                 </td>
                             </tr>
                            </table>  
@@ -564,7 +651,9 @@
                             <td width="80px">Apos</td>
                             <td width="80px">NA206</td>
                             <td width="111px">
-                                <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
+                                <div align ="center">
+                                    <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -573,7 +662,9 @@
                             <td width="80px">Apos</td>
                             <td width="80px">NA206</td>
                             <td width="111px">
-                                <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
+                                <div align ="center">
+                                    <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
+                                </div>
                             </td>
                         </tr>
                        </table>  
@@ -717,6 +808,7 @@
                 </tr>
             </table>
 
+            <br></br>
             <!-- START:  StoreManager Requests -->
           <form action="#" method="POST">
             <div align="center">
@@ -750,8 +842,10 @@
                             <td width="80px">Apos</td>
                             <td width="80px">NA206</td>
                             <td width="111px">
-                                <input type="button" name="accept_request" value="Approva richiesta" />
-                                <input type="button" name="cancel_request" value="Annulla richiesta" />
+                                <div align ="center">
+                                    <input type="button" name="accept_request" value="Approva" />
+                                    <input type="button" name="cancel_request" value="Annulla" />
+                            </div>
                             </td>
                         </tr>
                         <tr>
@@ -760,8 +854,10 @@
                             <td width="80px">Apos</td>
                             <td width="80px">NA206</td>
                             <td width="111px">
-                                <input type="button" name="accept_request" value="Approva richiesta" />
-                                <input type="button" name="cancel_request" value="Annulla richiesta" />
+                                <div align ="center">
+                                    <input type="button" name="accept_request" value="Approva" />
+                                    <input type="button" name="cancel_request" value="Annulla" />
+                                </div>
                             </td>
                         </tr>
                        </table>  
@@ -778,7 +874,7 @@
         <!-- END:   Availability BloodBags -->
 
        
-        <!-- START: BROADCAST CHAT -->
+        <!-- START: BROADCAST CHAT 
         <fieldset>
             <legend><img src="images\broadcastchat.png" width="10%"><a name="broadcastchat"><b> Broadcast Chat</b></a></legend>
             <textarea id="textarea_chatbroadcast_msgs" disabled>
@@ -805,7 +901,7 @@
                 <input type="submit" value=">" />
             </form>
         </fieldset>
-        <!-- END: BROADCAST CHAT -->
+        END: BROADCAST CHAT -->
       </div>
       <script>
         /* START: alert */
