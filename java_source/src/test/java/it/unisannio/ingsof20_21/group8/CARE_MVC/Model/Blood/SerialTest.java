@@ -54,13 +54,13 @@ public class SerialTest {
    @Test(expected = NullPointerException.class)
     public void serialDefineNull() {
 	   BloodGroup g= BloodGroup.valueOf(null);
-   	    new Serial(g);
+   	   new Serial(g);
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void serialDefineWrong() {
-    	 BloodGroup g= BloodGroup.valueOf("ads");
-    	    new Serial(g);
+    	BloodGroup g= BloodGroup.valueOf("ads");
+    	new Serial(g);
     }
    
     @Test

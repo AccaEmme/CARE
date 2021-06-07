@@ -80,11 +80,12 @@ public class Serial implements Comparable<Serial>{
     
     public Serial(String s) { 
     	// viene usato sia dal JUnit Test, ma viene adoperato anche per generare un oggetto Serial da ricercare.
+    	validateSerial(s);
 		serial = s;
 		Serial.updateSerial();  // @TODO *** Hermann: inutile e pericoloso!
 	}
 
-    public static void updateSerial() {
+    private static void updateSerial() {
         Properties saveProps = new Properties();
         saveProps.setProperty("serialmatrix", serialmatrix);
         saveProps.setProperty("lastdate", currentDate_aaaaMMdd );
@@ -100,13 +101,22 @@ public class Serial implements Comparable<Serial>{
         }
     }
     
+    public static boolean validateSerial(String s) {
+    	String regex_valid_pattern = "^IT-\\w{2}\\d{6}-("
+    								+ BloodGroup.delimitedValues("|")
+    								+ ")-\\d{8}-\\d{4}$";
+    	System.out.println(regex_valid_pattern);
+    	boolean b = s.matches(regex_valid_pattern);
+    	assert !b;
+    	return b;
+    }
+    
     public String toString() {
         return serial;
     }
 
     public int hashCode() {
     	int h = serial.hashCode();
-    	
     	/*
     	h = 31 * lastdate + h;
     	h = 31 * counter + h;
@@ -120,7 +130,6 @@ public class Serial implements Comparable<Serial>{
 	}
     
     public int compareTo(Serial serial) {
-    	
     	return this.dNow.compareTo(dNow);
     }
 

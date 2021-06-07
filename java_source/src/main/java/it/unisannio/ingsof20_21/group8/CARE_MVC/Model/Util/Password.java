@@ -5,11 +5,18 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
-// Java program to calculate MD5 hash value
 public class Password {
+	/*
+	 * [RATIONAL]
+	 * Hermann: Per evitare di dare troppe responsabilità alla classe "User",
+	 * deleghiamo alla classe Password di cui l'Utente si compone,
+	 * creando così una relazione, per avere la complessità sotto controllo.
+	 * Non perché sia una parte logica, ma perché delegando le responsabilità
+	 * aiuta una realizzazione di tipo qualitativo.
+	 */
+	
     public static String getMd5(String input)    {
         try {
-  
             // Static getInstance method is called with hashing MD5
             MessageDigest md = MessageDigest.getInstance("MD5");
   

@@ -118,9 +118,9 @@ public class BloodBagManager implements OfficerInterface, StoreManagerInterface{
 	}
 	
 	public void transferBag(BloodBag bloodBag, Node node) {
-		
-		for(BloodBag bg : bloodBags) {
-			
+		/*
+		 * Reimplementarlo: set nel database lo stato.
+		for(BloodBag bg : bloodBags) {			
 			if(bg.equals(bloodBag) && !(bg.getNode().equals(node)) && bg.checkState()) {
 				try {
 					
@@ -135,6 +135,7 @@ public class BloodBagManager implements OfficerInterface, StoreManagerInterface{
 				}
 			}
 		}
+		*/
 	}
 	
 	public void dropBag(BloodBag bloodBag) {

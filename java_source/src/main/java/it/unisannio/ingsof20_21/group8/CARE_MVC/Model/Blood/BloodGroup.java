@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 public enum BloodGroup {
 	Apos, Aneg, Bpos, Bneg, ZEROpos, ZEROneg, ABpos, ABneg;
@@ -43,5 +45,17 @@ public enum BloodGroup {
 	
 	public static Iterator<BloodGroup> canReceiveFrom(BloodGroup b){
 		return canReceiveFrom.get(b).iterator();
+	}
+	
+	public static String delimitedValues(String delimiter) {
+		/*
+		 * suggested delimitator:
+		 *  pipeline |
+		 *  comma ,
+		 */
+		
+		return Arrays.stream( BloodGroup.values() )
+				.map(Enum::toString)
+                .collect(Collectors.joining( delimiter ));
 	}
 }
