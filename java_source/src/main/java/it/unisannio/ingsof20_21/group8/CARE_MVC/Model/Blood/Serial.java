@@ -1,5 +1,7 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -8,6 +10,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Scanner;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.InitSettings;
@@ -48,13 +51,16 @@ public class Serial implements Comparable<Serial>{
     //private static SimpleDateFormat ft = new SimpleDateFormat(Constants.DATE_FORMAT);
     private static String currentDate_aaaaMMdd = Constants.dateFormat.format(dNow);
     private static String filesettings=Constants.SERIAL_SETTINGS_FILENAME_RELATIVEPATH;
-
+    
     static {
         Properties loadProps = new Properties();
+        System.out.println("debug:"+filesettings);
         try {
             loadProps.loadFromXML(new FileInputStream(filesettings));
         } catch(FileNotFoundException ex){
-            InitSettings.initXML();
+        	System.out.println("prima initXML");
+        	InitSettings.initSerialXML();
+            System.out.println("dopo initXML");
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -85,7 +91,8 @@ public class Serial implements Comparable<Serial>{
 		Serial.updateSerial();  // @TODO *** Hermann: inutile e pericoloso!
 	}
 
-    private static void updateSerial() {
+
+	private static void updateSerial() {
         Properties saveProps = new Properties();
         saveProps.setProperty("serialmatrix", serialmatrix);
         saveProps.setProperty("lastdate", currentDate_aaaaMMdd );
@@ -102,13 +109,11 @@ public class Serial implements Comparable<Serial>{
     }
     
     public static boolean validateSerial(String s) {
-    	String regex_valid_pattern = "^IT-\\w{2}\\d{6}-("
-    								+ BloodGroup.delimitedValues("|")
-    								+ ")-\\d{8}-\\d{4}$";
-    	System.out.println(regex_valid_pattern);
-    	boolean b = s.matches(regex_valid_pattern);
-    	assert !b;
-    	return b;
+    	String regex_valid_pattern = "^IT-\\w{2}\\d{6}-(" 	+ BloodGroup.delimitedValues("|") 		+ ")-\\d{8}-\\d{4}$";  // Some people, when confronted with a problem, think "I know, I'll use regular expressions." Now they have two problems. -  Jamie Zawinski, 1997
+    	if( !s.matches(regex_valid_pattern) ) 
+    		throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_SerialNotValid+s ); // return false; 
+    	return true;
+    	// *** In questo caso ho chiesto un parere anche alla community Java su telegram, c'è forte diatriba se preferibile lanciare una eccezione o gestire il booleano. Entrambi non sembra una scelta condivisa. https://softwareengineering.stackexchange.com/questions/330824/function-returning-true-false-vs-void-when-succeeding-and-throwing-an-exception
     }
     
     public String toString() {
@@ -124,7 +129,7 @@ public class Serial implements Comparable<Serial>{
     	return h;
     }
     
-    public boolean equals (Object o) {  	
+    public boolean equals(Object o) {  	
     	if(o.getClass()!= Serial.class) return false;
 		return ((Serial) o ).serial.equals(this.serial);
 	}
@@ -132,6 +137,7 @@ public class Serial implements Comparable<Serial>{
     public int compareTo(Serial serial) {
     	return this.dNow.compareTo(dNow);
     }
+
 
     private final String serial;
 }

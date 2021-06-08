@@ -80,4 +80,10 @@ public class Constants {
 						" WHERE "+ 
 						Constants.COL_GROUP + 
 						" = ?";
+	
+    //#################################################### Exception Strings ####################################################
+	public static final String ExceptionIllegalArgument_SerialNotValid = "Seriale non valido: ";
+	public static final String ExceptionIllegalArgument_BloodGroupNotValid = "BloodGroup non valido: ";
+	public static final String ExceptionIllegalArgument_BloodBagNotValid = "BloodBag non valida: ";
+	
 }

@@ -6,21 +6,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
+
 public class InitSettings {
-	public static void main(String[] args) {
-		initXML();
-		
+	
+	public static void main(String[] args) {		
+		initSerialXML();
 	}
 	
-	public static void initXML() {
+	public static void initSerialXML() {
 		String filesettings = Constants.SERIAL_SETTINGS_FILENAME_RELATIVEPATH;
-        Scanner sc = new Scanner(System.in);
         String nationality, prov, codstr, codint, serialmatrix;
 
         File f = null;
         String data;
         FileOutputStream fos;
         BufferedOutputStream bos;
+        Scanner sc = new Scanner(System.in);
         
         /* @TODO: ***
         if(!f.exists()) {
@@ -48,7 +49,6 @@ public class InitSettings {
         try {
         	f = new File(filesettings);
         	f.createNewFile();
-            		
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

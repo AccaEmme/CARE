@@ -16,17 +16,18 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodBag>{
 
 	public BloodBag(BloodGroup bloodGroup, String donatorCF, Node node) throws ParseException {
-		this.serial = new Serial(bloodGroup);
-		this.bloodGroup = bloodGroup;
-		this.creationDate = this.getCreationDate();
-		this.expirationDate = this.getExpirationDate();
-		this.donatorCF = donatorCF;
-		this.node = node;
-		this.note = null;
-		this.bloodBagState = BloodBagState.Available;
+		this.serial 		= new Serial(bloodGroup);
+		this.setBloodGroup	  ( bloodGroup );
+		this.setCreationDate  ( this.getCreationDate() );
+		this.setExpirationDate( this.getExpirationDate() );
+		this.setDonatorCF(donatorCF);
+		this.setNode(node);
+		this.setNote("");
+		this.setBloodBagState( BloodBagState.Available );
 	}
 	
-	public BloodBag(BloodGroup bloodGroup, String donatorCF, Node node, String note) throws ParseException {
+	/* Hermann: direi di eliminare questo costruttore, se le classi vogliono adoperare parametri opzionali utilizzano i setters, che ne pensate?
+	public BloodBag(BloodBag bb, BloodGroup bloodGroup, String donatorCF, Node node, String note) throws ParseException {
 //		assert	seria
 		
 		this.serial = new Serial(bloodGroup);
@@ -35,22 +36,23 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 		this.expirationDate = this.getExpirationDate();
 		this.donatorCF = donatorCF;
 		this.node = node;
+		this.BloodBag();
 		this.note = note;
-		this.bloodBagState = BloodBagState.Available;
 	}
+	*/
 	
 	
 	public Serial 		getSerial() 							{ return 			this.serial; }
 	
 	private void 		setSerial(Serial serial) 				{
-		assert Serial.validateSerial(serial.toString());
+		Serial.validateSerial(serial.toString());
 		this.serial = serial;
 	}
 	
 	public BloodGroup 	getBloodGroup() 						{ return 			this.bloodGroup; }
 	
-	public void 		setBloodGroup(BloodGroup bloodGroup) 	{
-		assert	bloodGroup != null;
+	private void 		setBloodGroup(BloodGroup bloodGroup) 	{
+		if(bloodGroup==null) throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodGroupNotValid+bloodGroup );
 		this.bloodGroup = bloodGroup;
 	}
 		
@@ -65,9 +67,12 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 		//System.out.println( "->"+ft.format(date) );
 		return creationDate;
 	}
-	private void 		setCreationDate(Date creationDate) 		{ this.creationDate = creationDate;}
+	private void 		setCreationDate(Date creationDate) 		{ 
+		if(!creationDate.after(new Date())) throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"creationDate "+creationDate+" can't be > today "+(new Date()) );
+		this.creationDate = creationDate;
+	}
 	
-	public Date getExpirationDate() throws ParseException {
+	public Date 		getExpirationDate() throws ParseException {
 		// We can't allow user set a wrong "expiration date", so the system will stamp the right updated date.
 		Calendar cal = Calendar.getInstance();
 		cal.setTime( this.getCreationDate() );
@@ -80,21 +85,29 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 		return expirationDate;
 	} 
 	private void 		setExpirationDate(Date expirationDate) { 
-		// TODO *** assert: non può essere inferiore o uguale alla data odierna
+		if(!expirationDate.after(creationDate)) throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"expirationDate "+expirationDate+" not > creationDate "+creationDate );
 		this.expirationDate = expirationDate;
 	}
 	
 	public String getDonatorCF() { return this.donatorCF;}
 	
-	public void setDonatorCF(String fisCode) { this.donatorCF = fisCode;}
+	private void setDonatorCF(String fisCode) {
+		String regex_valid_pattern = "/^(?:[A-Z][AEIOU][AEIOUX]|[B-DF-HJ-NP-TV-Z]{2}[A-Z]){2}(?:[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])(?:[A-MZ][1-9MNP-V][\\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\\dLMNP-V]|[0L][1-9MNP-V]))[A-Z]$/i";
+		if( !fisCode.matches(regex_valid_pattern) ) throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"donatorCF "+donatorCF+" do not match pattern "+regex_valid_pattern );
+
+		this.donatorCF = fisCode;
+	}
 	
 	public Node getNode() { return node; }
 	
-	public void setNode(Node node) { this.node = node;}
+	protected void setNode(Node node) {
+		if(node == null) throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"node is null ");
+		this.node = node;
+	}
 	
 	public String getNote() { return note;}	
 	
-	public void setNote(String note) {
+	protected void setNote(String note) {
 		this.note=note;			// overwrites notes
 	}
 	
@@ -106,12 +119,19 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 		this.note=sb.toString();
 	}
 
+	public BloodBagState getBloodBagState() {
+		return this.bloodBagState;
+	}
+	
+	private void setBloodBagState(BloodBagState bloodBagState) {
+		this.bloodBagState = bloodBagState;
+	}
 	
 	/*
 	 * Il metodo che verifica lo stato della sacca.
 	 * @return false se la sacca di sangue non è disponibile: è stata usata, trasferita o eliminata.
 	 */
-	public boolean checkState() {
+	public boolean checkBloodBagState() {
 		return (bloodBagState == BloodBagState.Available); //return !(bloodBagState == BloodBagState.Used || bloodBagState == BloodBagState.Transfered || bloodBagState == BloodBagState.Dropped);
 	}
 	
@@ -122,6 +142,10 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 	 * usare o trasferire la sacca per motivi
 	 * specificati nella creazione dell'istanza dell'eccezione sotto.
 	 */
+	
+	/* 
+	 * è il Manager che si occupa del trasferimento della sacca, non la sacca stessa che si trasferisce
+
 	public void transferBag() throws StateException { 
 		if(!checkState()) 	throw new StateException("Stato della sacca non compatibile con l'operazione da eseguire. La sacca potrebbe essere stata trasferita o cestinata precedentemente.");	
 		bloodBagState = BloodBagState.Transfered;
@@ -136,6 +160,7 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 		if(!checkState())	throw new StateException("Stato della sacca non compatibile con l'operazione da eseguire. La sacca potrebbe essere stata trasferita o cestinata precedentemente.");
 		bloodBagState = BloodBagState.Dropped;
 	}
+	 */
 	
 	@Override
 	public String toString() {
@@ -164,7 +189,7 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 	}
 	
 	/* 
-	 * Hermann: non mi piace che dobbiamo creare un metodo (addirittura public?) che inizializza a seriale e gruppo sanguigno a null solo per poter invocare il clonate. 
+	 * Hermann: non mi piace che dobbiamo creare un costruttore (addirittura public?) che inizializza a seriale e gruppo sanguigno a null solo per poter invocare il clonate. 
 	public BloodBag clone(){			
 			BloodBag bg = new BloodBag(
 					

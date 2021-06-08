@@ -49,11 +49,8 @@ public enum BloodGroup {
 	
 	public static String delimitedValues(String delimiter) {
 		/*
-		 * suggested delimitator:
-		 *  pipeline |
-		 *  comma ,
+		 * suggested delimitator: pipeline "|"		comma ","		semicolon ";"		tab "\t"		dash "-"	space " "
 		 */
-		
 		return Arrays.stream( BloodGroup.values() )
 				.map(Enum::toString)
                 .collect(Collectors.joining( delimiter ));

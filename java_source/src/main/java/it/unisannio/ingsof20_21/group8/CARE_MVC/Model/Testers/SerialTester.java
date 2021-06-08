@@ -20,14 +20,13 @@ public class SerialTester {
 		// Tester1
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Gruppo sanguigno ["+BloodGroup.delimitedValues(", ")+"]:");
+		System.out.println("Definisci il Gruppo sanguigno ["+BloodGroup.delimitedValues(", ")+"]:");
 		String gsang = sc.nextLine();
 		sc.close();
 		
 		Serial s = new Serial( BloodGroup.valueOf(gsang) );
 		
-		far lanciare una eccezione a validateSerial altrimenti in caso di errore ok che non genera il Seriale ma non dice nulla lasciando pensare di averlo creato.
-		Serial s = new Serial( "ZeroA" );
+		//Serial s = new Serial( "ZeroA" ); // Serve a verificare che lanci una eccezione
 		System.out.println( s.toString() +"\n");
 		System.out.println( s.toString() +" validateSerial e': "+ Serial.validateSerial(s.toString()) );
 		
@@ -37,16 +36,16 @@ public class SerialTester {
 		InitSettings.initXML(22,path2);
 		loadProps.loadFromXML(new FileInputStream(path2));
 		  
-		System.out.println(Integer.valueOf(loadProps.getProperty("counter")));
-		System.out.println(Integer.valueOf(loadProps.getProperty("lastdate")));
+		System.out.println("loadProps1 counter: " + Integer.valueOf(loadProps.getProperty("counter")));
+		System.out.println("loadProps1 lastdate: " + Integer.valueOf(loadProps.getProperty("lastdate")));
 		
 		Serial s2 = new Serial( BloodGroup.valueOf("Apos"));
 		
 		Properties loadProps2 = new Properties();
 		loadProps2.loadFromXML(new FileInputStream(path2));
 		  
-		System.out.println(Integer.valueOf(loadProps2.getProperty("counter")));
-		System.out.println(Integer.valueOf(loadProps2.getProperty("lastdate")));
+		System.out.println("loadProps2 counter: " + Integer.valueOf(loadProps2.getProperty("counter")));
+		System.out.println("loadProps2 lastdate: " + Integer.valueOf(loadProps2.getProperty("lastdate")));
 
 		
 		
