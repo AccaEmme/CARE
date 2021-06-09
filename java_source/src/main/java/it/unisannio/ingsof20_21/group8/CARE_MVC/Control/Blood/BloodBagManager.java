@@ -119,6 +119,10 @@ public class BloodBagManager implements OfficerInterface, StoreManagerInterface{
 	
 	public void transferBag(BloodBag bloodBag, Node node) {
 		/*
+		 * ArrayList<BloodBag> sacche = dataManager.getSacca("Serialexxx")
+		 * for(BloodBag b : sacche) b.setState(Transfer);
+		 * 
+		 * 
 		 * Reimplementarlo: set nel database lo stato.
 		for(BloodBag bg : bloodBags) {			
 			if(bg.equals(bloodBag) && !(bg.getNode().equals(node)) && bg.checkState()) {

@@ -58,7 +58,7 @@ public class BloodBagTester {
 		System.out.println(
 					"\n\nLa sacca "+bb3.getSerial()
 					+" e' stata inserita nella struttura: "+bb3.getNode().getNodeName()
-					+"("+bb3.getNode().getCodstr()+")"
+					+"("+bb3.getNode().getCodStr()+")"
 					+" di "+bb3.getNode().getWarehouse().getCity()
 				);
 	}

@@ -14,9 +14,9 @@ public class User {
 	 * Al primo cambio password dell'utente, viene eliminata la password temporanea, impostata la password cifrata e viene segnato l'ultimo cambio password.
 	 */
 	
-	public User(String username, String password){
+	public User(String username, String plainTextPassword){
     	this.username 	= username;
-    	this.setPassword(password);
+    	this.setPassword(plainTextPassword);
     	//this.session 	= MD5.getMd5(username).toUpperCase();
     }
     
@@ -27,7 +27,7 @@ public class User {
     	this.username	= username;
     	this.temppass	= String.valueOf(
     								Password.generatePassword(Constants.USER_TEMPPASS_LENGTH)
-    						); 
+    						);
     	this.setPassword(password);
     	this.role		= role;
     	
@@ -49,7 +49,7 @@ public class User {
     public void setPassword(String password) {
         this.password 				= Password.getMd5( password+Constants.USER_MD5_SALT ).toUpperCase();
         this.password_lastupdate 	= new Date();
-        this.temppass="";
+        this.temppass				= "";
     }
     
     public Date getPasswordLastUpdate() {
@@ -78,4 +78,3 @@ public class User {
     private Role 		role;
     private Date		password_lastupdate;
 }
-

@@ -54,29 +54,30 @@ public class Serial{
     
     static {
         Properties loadProps = new Properties();
-        System.out.println("debug:"+filesettings);
+        
         File f = new File(filesettings);
-        
-        Scanner sc = new Scanner(System.in);
-        String nationality="", prov="", codstr="", codint="", initserialmatrix="";
+        if(!f.exists())  {
+        	Scanner sc = new Scanner(System.in);
+            String nationality="", prov="", codstr="", codint="", initserialmatrix="";
 
-        do {
-            System.out.println( Constants.InitSettings_askNationality );
-            nationality = sc.nextLine();
-        } while(nationality.length() <0 || nationality.length()>2 );
+            do {
+                System.out.println( Constants.InitSettings_askNationality );
+                nationality = sc.nextLine();
+            } while(nationality.length() <0 || nationality.length()>2 );
 
-        System.out.println( Constants.InitSettings_askProvince );
-        prov = sc.nextLine();
+            System.out.println( Constants.InitSettings_askProvince );
+            prov = sc.nextLine();
 
-        System.out.println( Constants.InitSettings_askCodStr );
-        codstr = sc.nextLine();
+            System.out.println( Constants.InitSettings_askCodStr );
+            codstr = sc.nextLine();
 
-        System.out.println( Constants.InitSettings_askIntCod );
-        codint = sc.nextLine();
-        sc.close();
-        initserialmatrix = nationality+"-"+prov+codstr+codint;
-        
-        if(!f.exists())  InitSettings.initSerialXML( initserialmatrix );
+            System.out.println( Constants.InitSettings_askIntCod );
+            codint = sc.nextLine();
+            sc.close();
+            initserialmatrix = nationality+"-"+prov+codstr+codint;
+            
+        	InitSettings.initSerialXML( initserialmatrix );
+        }
         	
         try {
             loadProps.loadFromXML(new FileInputStream(filesettings));
@@ -113,6 +114,10 @@ public class Serial{
 	}
 
 
+    public String getSerial() {
+    	return this.serial;
+    }
+    
 	private static void updateSerial() {
         Properties saveProps = new Properties();
         saveProps.setProperty("serialmatrix", serialmatrix);
@@ -131,6 +136,7 @@ public class Serial{
     
     public static boolean validateSerial(String s) {
     	String regex_valid_pattern = "^IT-\\w{2}\\d{6}-(" 	+ BloodGroup.delimitedValues("|") 		+ ")-\\d{8}-\\d{4}$";  // Some people, when confronted with a problem, think "I know, I'll use regular expressions." Now they have two problems. -  Jamie Zawinski, 1997
+
     	if( !s.matches(regex_valid_pattern) ) 
     		throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_SerialNotValid+s ); // return false; 
     	return true;
@@ -140,30 +146,13 @@ public class Serial{
     public String toString() {
         return serial;
     }
-
-    public int hashCode() {
-    	int h = serial.hashCode();
-    	/*
-    	h = 31 * lastdate + h;
-    	h = 31 * counter + h;
-    	*/
-    	return h;
-    }
     
-    public boolean equals(Object o) {  	
-    	if(o.getClass()!= Serial.class) return false;
-		return ((Serial) o ).serial.equals(this.serial);
+    public boolean equals(Object o) {
+    	if(o.getClass() != Serial.class) return false;
+    	
+    	Serial s = (Serial) o;
+		return serial.equals( s.getSerial() );
 	}
-    
-    /* Hermann: 
-     * @Alessio il seriale non gestisce le date delle sacche, questa parte è da eliminare
-     * Al massimo può gestire il confronto di Stringhe per definire due sacche uguali
-     *
-    public int compareTo(Serial serial) {
-    	return this.dNow.compareTo(dNow);
-    }
-    */
-
 
     private final String serial;
 }

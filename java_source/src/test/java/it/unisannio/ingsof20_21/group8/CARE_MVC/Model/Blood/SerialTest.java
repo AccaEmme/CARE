@@ -64,57 +64,57 @@ public class SerialTest {
     }
    
     @Test
-    public void serialDefineGood1() {
+    public void serialBloodGroupWellDefinedApos() {
     	BloodGroup g= BloodGroup.valueOf("Apos");
     	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
+    	assertTrue( (s.equals(new Serial(s.toString()))) );
     }
     
     @Test
-    public void serialDefineGood2() {
+    public void serialBloodGroupWellDefinedAneg() {
     	BloodGroup g= BloodGroup.valueOf("Aneg");
     	Serial s = new Serial(g);
     	assertTrue((s.equals(new Serial(s.toString()))));
     }
     
     @Test
-    public void serialDefineGood3() {
+    public void serialBloodGroupWellDefinedBpos() {
     	BloodGroup g= BloodGroup.valueOf("Bpos");
     	Serial s = new Serial(g);
     	assertTrue((s.equals(new Serial(s.toString()))));
     }
     
     @Test
-    public void serialDefineGood4() {
+    public void serialBloodGroupWellDefinedBneg() {
     	BloodGroup g= BloodGroup.valueOf("Bneg");
     	Serial s = new Serial(g);
     	assertTrue((s.equals(new Serial(s.toString()))));
     }
     
     @Test
-    public void serialDefineGood5() {
+    public void serialBloodGroupWellDefinedZEROpos() {
     	BloodGroup g= BloodGroup.valueOf("ZEROpos");
     	Serial s = new Serial(g);
     	assertTrue((s.equals(new Serial(s.toString()))));
     }
     
     @Test
-    public void serialDefineGood6() {
+    public void serialBloodGroupWellDefinedZEROneg() {
     	BloodGroup g= BloodGroup.valueOf("ZEROneg");
     	Serial s = new Serial(g);
     	assertTrue((s.equals(new Serial(s.toString()))));
     }
-    
+
     @Test
-    public void serialDefineGood7() {
-    	BloodGroup g= BloodGroup.valueOf("ABneg");
+    public void serialBloodGroupWellDefinedABpos() {
+    	BloodGroup g= BloodGroup.valueOf("ABpos");
     	Serial s = new Serial(g);
     	assertTrue((s.equals(new Serial(s.toString()))));
     }
     
     @Test
-    public void serialDefineGood8() {
-    	BloodGroup g= BloodGroup.valueOf("ABpos");
+    public void serialBloodGroupWellDefinedABneg() {
+    	BloodGroup g= BloodGroup.valueOf("ABneg");
     	Serial s = new Serial(g);
     	assertTrue((s.equals(new Serial(s.toString()))));
     }
