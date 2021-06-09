@@ -19,10 +19,8 @@ public class SerialTester {
 	
 		// Tester1
 		Scanner sc = new Scanner(System.in);
-		
 		System.out.println("Definisci il Gruppo sanguigno ["+BloodGroup.delimitedValues(", ")+"]:");
-		String gsang = sc.nextLine();
-		sc.close();
+		String gsang = sc.nextLine();		
 		
 		Serial s = new Serial( BloodGroup.valueOf(gsang) );
 		
@@ -31,7 +29,7 @@ public class SerialTester {
 		System.out.println( s.toString() +" validateSerial e': "+ Serial.validateSerial(s.toString()) );
 		
 		// Tester2
-		String path2 = path+"serial_settings.xml";
+		String path2 = path+"serial_settings_test.xml";
 		Properties loadProps = new Properties();
 		InitSettings.initXML(22,path2);
 		loadProps.loadFromXML(new FileInputStream(path2));
@@ -55,6 +53,7 @@ public class SerialTester {
 		        //Serial.updateSerial();
 		//    }
 		//}));
+		sc.close();
 	}
 
 }

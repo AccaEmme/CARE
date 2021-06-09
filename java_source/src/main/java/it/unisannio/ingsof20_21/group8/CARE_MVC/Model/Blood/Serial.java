@@ -43,7 +43,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.InitSettings;
  */
 
 
-public class Serial /*implements Comparable<Serial>*/{
+public class Serial{
     private final static String serialmatrix;
     private static int lastdate;
     private static int counter;

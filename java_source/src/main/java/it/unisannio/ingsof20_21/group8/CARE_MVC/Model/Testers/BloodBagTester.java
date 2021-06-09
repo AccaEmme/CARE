@@ -25,7 +25,7 @@ public class BloodBagTester {
 		BloodBagInterface bbi = new BloodBag(BloodGroup.Bpos, CF1, n1); 
 		System.out.println( 
 							"Ho creato la sacca: "			+ bbi.getSerial()
-							+"\n con gruppo sanguigno "		+ bbi.getBloodType()
+							+"\n con gruppo sanguigno "		+ bbi.getBloodGroup()
 							+"\n con data creazione "		+ bbi.getCreationDate().toString()
 							+"\n con data scadenza "		+ bbi.getExpirationDate()
 							+"\n del paziente "				+ bbi.getDonatorCF()
@@ -43,7 +43,7 @@ public class BloodBagTester {
 		BloodBagInterface bb2 = new BloodBag(BloodGroup.ABneg, CF2, n2);
 		System.out.println( 
 				"Ho creato la sacca: "			+ bb2.getSerial()
-				+"\n con gruppo sanguigno "		+ bb2.getBloodType()
+				+"\n con gruppo sanguigno "		+ bb2.getBloodGroup()
 				+"\n con data creazione "		+ bb2.getCreationDate().toString()
 				+"\n con data scadenza "		+ bb2.getExpirationDate()
 				+"\n del paziente "				+ bb2.getDonatorCF()
