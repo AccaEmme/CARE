@@ -81,6 +81,12 @@ public class Constants {
 						Constants.COL_GROUP + 
 						" = ?";
 	
+	//#################################################### InitSettings Strings ####################################################
+	public static final String InitSettings_askNationality = "Nazionalita' [IT]:";
+	public static final String InitSettings_askProvince = "Provincia [NA]:";
+	public static final String InitSettings_askCodStr = "Codice Struttura [206]:";
+	public static final String InitSettings_askIntCod = "Eventuale codice ufficio interno [000]:";
+	
     //#################################################### Exception Strings ####################################################
 	public static final String ExceptionIllegalArgument_SerialNotValid = "Seriale non valido: ";
 	public static final String ExceptionIllegalArgument_BloodGroupNotValid = "BloodGroup non valido: ";

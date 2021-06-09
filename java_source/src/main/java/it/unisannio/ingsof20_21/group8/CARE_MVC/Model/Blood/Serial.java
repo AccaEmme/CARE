@@ -1,13 +1,13 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
-import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Scanner;
@@ -43,7 +43,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.InitSettings;
  */
 
 
-public class Serial implements Comparable<Serial>{
+public class Serial /*implements Comparable<Serial>*/{
     private final static String serialmatrix;
     private static int lastdate;
     private static int counter;
@@ -55,12 +55,33 @@ public class Serial implements Comparable<Serial>{
     static {
         Properties loadProps = new Properties();
         System.out.println("debug:"+filesettings);
+        File f = new File(filesettings);
+        
+        Scanner sc = new Scanner(System.in);
+        String nationality="", prov="", codstr="", codint="", initserialmatrix="";
+
+        do {
+            System.out.println( Constants.InitSettings_askNationality );
+            nationality = sc.nextLine();
+        } while(nationality.length() <0 || nationality.length()>2 );
+
+        System.out.println( Constants.InitSettings_askProvince );
+        prov = sc.nextLine();
+
+        System.out.println( Constants.InitSettings_askCodStr );
+        codstr = sc.nextLine();
+
+        System.out.println( Constants.InitSettings_askIntCod );
+        codint = sc.nextLine();
+        sc.close();
+        initserialmatrix = nationality+"-"+prov+codstr+codint;
+        
+        if(!f.exists())  InitSettings.initSerialXML( initserialmatrix );
+        	
         try {
             loadProps.loadFromXML(new FileInputStream(filesettings));
-        } catch(FileNotFoundException ex){
-        	System.out.println("prima initXML");
-        	InitSettings.initSerialXML();
-            System.out.println("dopo initXML");
+        } catch(FileNotFoundException e){
+        	e.printStackTrace();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -85,10 +106,10 @@ public class Serial implements Comparable<Serial>{
     }
     
     public Serial(String s) { 
-    	// viene usato sia dal JUnit Test, ma viene adoperato anche per generare un oggetto Serial da ricercare.
+    	// viene usato sia dal JUnit Test, ma viene adoperato anche per generare un oggetto Serial da ricercare, ma in questo caso non deve aggiornare il seriale
     	validateSerial(s);
 		serial = s;
-		Serial.updateSerial();  // @TODO *** Hermann: inutile e pericoloso!
+		//Serial.updateSerial();  // @TODO *** Hermann: inutile e pericoloso!
 	}
 
 
@@ -113,7 +134,7 @@ public class Serial implements Comparable<Serial>{
     	if( !s.matches(regex_valid_pattern) ) 
     		throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_SerialNotValid+s ); // return false; 
     	return true;
-    	// *** In questo caso ho chiesto un parere anche alla community Java su telegram, c'è forte diatriba se preferibile lanciare una eccezione o gestire il booleano. Entrambi non sembra una scelta condivisa. https://softwareengineering.stackexchange.com/questions/330824/function-returning-true-false-vs-void-when-succeeding-and-throwing-an-exception
+    	// *** Hermann: In questo caso ho chiesto un parere anche alla community Java su telegram, c'è forte diatriba se preferibile lanciare una eccezione o gestire il booleano. Entrambi non sembra una scelta condivisa. https://softwareengineering.stackexchange.com/questions/330824/function-returning-true-false-vs-void-when-succeeding-and-throwing-an-exception
     }
     
     public String toString() {
@@ -134,10 +155,17 @@ public class Serial implements Comparable<Serial>{
 		return ((Serial) o ).serial.equals(this.serial);
 	}
     
+    /* Hermann: 
+     * @Alessio il seriale non gestisce le date delle sacche, questa parte è da eliminare
+     * Al massimo può gestire il confronto di Stringhe per definire due sacche uguali
+     *
     public int compareTo(Serial serial) {
     	return this.dNow.compareTo(dNow);
     }
+    */
 
 
     private final String serial;
 }
+
+

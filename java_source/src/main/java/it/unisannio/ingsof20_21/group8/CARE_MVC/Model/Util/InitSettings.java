@@ -8,52 +8,53 @@ import java.util.Scanner;
 
 
 public class InitSettings {
-	
-	public static void main(String[] args) {		
-		initSerialXML();
+	public static void main(String[] args) {
+		String nationality="", prov="", codstr="", codint="", serialmatrix="";
+		nationality ="IT";
+        prov = "NA";
+        codstr = "206";
+        codint = "000";
+        serialmatrix = nationality+"-"+prov+codstr+codint;
+		initSerialXML( serialmatrix );
 	}
 	
-	public static void initSerialXML() {
+	public static void initSerialXML( String serialmatrix) {
 		String filesettings = Constants.SERIAL_SETTINGS_FILENAME_RELATIVEPATH;
-        String nationality, prov, codstr, codint, serialmatrix;
 
         File f = null;
-        String data;
+        String xmlData;
         FileOutputStream fos;
         BufferedOutputStream bos;
+        
+        /*
+        String nationality="", prov="", codstr="", codint="", serialmatrix="";
         Scanner sc = new Scanner(System.in);
-        
-        /* @TODO: ***
-        if(!f.exists()) {
-        	f.createNewFile();
-        }
-        */
-        
         do {
-            System.out.println("Nazionalita' [IT]:");
+            System.out.println( Constants.InitSettings_askNationality );
             nationality = sc.nextLine();
         } while(nationality.length() <0 || nationality.length()>2 );
 
-        System.out.println("Provincia [NA]:");
+        System.out.println( Constants.InitSettings_askProvince );
         prov = sc.nextLine();
 
-        System.out.println("Codice Struttura [206]:");
+        System.out.println( Constants.InitSettings_askCodStr );
         codstr = sc.nextLine();
 
-        System.out.println("Eventuale codice ufficio interno [000]:");
+        System.out.println( Constants.InitSettings_askIntCod );
         codint = sc.nextLine();
         sc.close();
         serialmatrix = nationality+"-"+prov+codstr+codint;
-       
+       */
         
         try {
         	f = new File(filesettings);
+        	if( f.exists() ) throw new IllegalArgumentException( "File already exists." );
         	f.createNewFile();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        data = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
+        xmlData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
                 + "<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">\r\n"
                 + "<properties>\r\n"
                 + "<entry key=\"serialmatrix\">"+serialmatrix+"</entry>\r\n"
@@ -65,7 +66,7 @@ public class InitSettings {
         try {
             fos = new FileOutputStream(f);
             bos = new BufferedOutputStream(fos);
-            byte[] bytes = data.getBytes();
+            byte[] bytes = xmlData.getBytes();
             bos.write(bytes);
             bos.close();
             fos.close();
@@ -79,8 +80,7 @@ public class InitSettings {
 	
 	/* FOR JUNIT TEST*/
 	/*----------------------------------------------------*/
-	public static void initXML(int x	,String filesettings) {
-
+	public static void initXML(int x, String filesettings) {
         Scanner sc = new Scanner(System.in);
         String nationality, prov, codstr, codint, serialmatrix;
 
@@ -95,21 +95,11 @@ public class InitSettings {
         }
         */
         
-    
         nationality ="IT";
-        
         prov = "NA";
-
-  
         codstr = "206";
-
-   
-        codint = "00";
-        sc.close();
+        codint = "000";
         serialmatrix = nationality+"-"+prov+codstr+codint;
-        
-        
-       
         
         try {
         	f = new File(filesettings);
@@ -140,6 +130,5 @@ public class InitSettings {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-	}
-	
+	}	
 }
