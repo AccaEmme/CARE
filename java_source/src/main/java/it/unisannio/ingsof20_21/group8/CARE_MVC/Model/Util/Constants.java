@@ -2,30 +2,32 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util;
 
 import java.text.SimpleDateFormat;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
+
 public class Constants {
 
     //#################################################### General Strings ####################################################	
-	public static final String DATE_FORMAT = "yyyyMMdd";
-	public static final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-    public static final String DATE_FORMAT_STRING = "yyyy-MM-dd";
-    public static final SimpleDateFormat dateFormatString = new SimpleDateFormat(DATE_FORMAT_STRING);
-    public static final String DB_SETTINGS_PATH = "/localsettings/db_settings.xml";
+	public static final String DATE_FORMAT 					= "yyyyMMdd";
+	public static final SimpleDateFormat dateFormat 		= new SimpleDateFormat(DATE_FORMAT);
+    public static final String DATE_FORMAT_STRING 			= "yyyy-MM-dd";
+    public static final SimpleDateFormat dateFormatString 	= new SimpleDateFormat(DATE_FORMAT_STRING);
+    public static final String DB_SETTINGS_PATH 			= "/localsettings/db_settings.xml";
     public static final String SERIAL_SETTINGS_RELATIVEPATH = "localsettings/";
-    public static final String SERIAL_SETTINGS_FILENAME = "serial_settings.xml";
+    public static final String SERIAL_SETTINGS_FILENAME 	= "serial_settings.xml";
     public static final String SERIAL_SETTINGS_FILENAME_RELATIVEPATH = "localsettings/serial_settings.xml"; 
     //public static final String BLOODBAG_SETTINGS_FILENAME_RELATIVEPATH = "localsettings/bloodBag_settings.xml"; *** da eliminare
     //SERIAL_SETTINGS_RELATIVEPATH+SERIAL_SETTINGS_FILENAME;
     
-    public static final String SERIAL = "SERIAL";
-    public static final String GROUP = "GROUP";
-    public static final String EXPIRATION = "EXPIRATION_DAY";
-    public static final String CREATION = "CREATION_DAY";
-    public static final String ORIGIN = "ORIGIN";
+    public static final String SERIAL 		= "SERIAL";
+    public static final String GROUP 		= "GROUP";
+    public static final String EXPIRATION 	= "EXPIRATION_DAY";
+    public static final String CREATION 	= "CREATION_DAY";
+    public static final String ORIGIN 		= "ORIGIN";
     
-    public static final String USER_MD5_SALT = "CanforaMarkUs30L";
-    public static final String USER_DEFAULT_TEMP_PASS = "CARE:changemenow";
-    public static final int USER_TEMPPASS_LENGTH = 10;
-    public static final int USER_DAYS_EXPIRATION_PASS = 60;
+    public static final String USER_MD5_SALT 			= "CanforaMarkUs30L";
+    public static final String USER_DEFAULT_TEMP_PASS 	= "CARE:changemenow";
+    public static final int USER_TEMPPASS_LENGTH 		= 10;
+    public static final int USER_DAYS_EXPIRATION_PASS 	= 60;
 
     //#################################################### DATABASE STRINGS ####################################################
     public static final String TAG_HOST = "db_mysql_host";      //non so perchè nelle costanti c'erano i valori dell'xml .-.
@@ -82,14 +84,19 @@ public class Constants {
 						" = ?";
 	
 	//#################################################### InitSettings Strings ####################################################
-	public static final String InitSettings_askNationality = "Nazionalita' [IT]:";
-	public static final String InitSettings_askProvince = "Provincia [NA]:";
-	public static final String InitSettings_askCodStr = "Codice Struttura [206]:";
-	public static final String InitSettings_askIntCod = "Eventuale codice ufficio interno [000]:";
+	public static final String InitSettings_askNationality 	= "Nazionalita' [IT]:";
+	public static final String InitSettings_askProvince 	= "Provincia [NA]:";
+	public static final String InitSettings_askCodStr 		= "Codice Struttura [206]:";
+	public static final String InitSettings_askIntCod 		= "Eventuale codice ufficio interno [000]:";
 	
     //#################################################### Exception Strings ####################################################
-	public static final String ExceptionIllegalArgument_SerialNotValid = "Seriale non valido: ";
-	public static final String ExceptionIllegalArgument_BloodGroupNotValid = "BloodGroup non valido: ";
-	public static final String ExceptionIllegalArgument_BloodBagNotValid = "BloodBag non valida: ";
+	public static final String ExceptionIllegalArgument_SerialNotValid 		= "Seriale non valido: ";
+	public static final String ExceptionIllegalArgument_BloodGroupNotValid 	= "BloodGroup non valido: ";
+	public static final String ExceptionIllegalArgument_BloodBagNotValid 	= "BloodBag non valida: ";
+	
+    //#################################################### RegExp pattern Data Validation ####################################################
+	// Some people, when confronted with a problem, think "I know, I'll use regular expressions." Now they have two problems. -  Jamie Zawinski, 1997	
+	public static final String RegexSerial		= "^IT-\\w{2}\\d{6}-(" 	+ BloodGroup.delimitedValues("|") + ")-\\d{8}-\\d{4}$";
+	public static final String RegexDonatorCF 	= "^^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$";
 	
 }

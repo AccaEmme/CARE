@@ -135,9 +135,7 @@ public class Serial{
     }
     
     public static boolean validateSerial(String s) {
-    	String regex_valid_pattern = "^IT-\\w{2}\\d{6}-(" 	+ BloodGroup.delimitedValues("|") 		+ ")-\\d{8}-\\d{4}$";  // Some people, when confronted with a problem, think "I know, I'll use regular expressions." Now they have two problems. -  Jamie Zawinski, 1997
-
-    	if( !s.matches(regex_valid_pattern) ) 
+    	if( !s.matches( Constants.RegexSerial ) ) 
     		throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_SerialNotValid+s ); // return false; 
     	return true;
     	// *** Hermann: In questo caso ho chiesto un parere anche alla community Java su telegram, c'è forte diatriba se preferibile lanciare una eccezione o gestire il booleano. Entrambi non sembra una scelta condivisa. https://softwareengineering.stackexchange.com/questions/330824/function-returning-true-false-vs-void-when-succeeding-and-throwing-an-exception

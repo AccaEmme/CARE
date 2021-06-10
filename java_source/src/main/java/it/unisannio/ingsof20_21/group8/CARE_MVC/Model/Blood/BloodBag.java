@@ -29,6 +29,8 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 	
 	public Serial 		getSerial() 							{ return 			this.serial; }
 	
+	a questo punto come abbiamo fatto per la data, suggerirei di fare generateSerial distinguendolo dal setSerial.
+	il metodo setSerial però non dovrà essere mai pubblico, solo JUnit e la classe stessa dovranno poterlo usare dove necessario(es. devo cercare un seriale non posso creare un oggetto che incrementi il contatore).
 	private void 		setSerial(Serial serial) 				{
 		Serial.validateSerial(serial.toString());
 		this.serial = serial;
@@ -121,9 +123,8 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 	public String getDonatorCF() { return this.donatorCF; }
 	
 	private void setDonatorCF(String fisCode) {
-		String regex_valid_pattern = "^^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$";
-		if( !fisCode.matches(regex_valid_pattern) ) throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"donatorCF "+donatorCF+" do not match pattern "+regex_valid_pattern );
-
+		if( !fisCode.matches(Constants.RegexDonatorCF) )
+			throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"donatorCF "+donatorCF+" do not match pattern "+Constants.RegexDonatorCF );
 		this.donatorCF = fisCode;
 	}
 	
