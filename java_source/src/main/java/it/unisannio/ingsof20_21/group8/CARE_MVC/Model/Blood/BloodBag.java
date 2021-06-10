@@ -74,8 +74,6 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 	    cal2.set(Calendar.SECOND, 0);
 	    cal2.set(Calendar.MILLISECOND, 0);
 		Date dateLimitAfterCreationDate =  cal2.getTime();
-		
-		System.out.println( "dateLimitBeforeCreationDate: "+dateLimitBeforeCreationDate + "\ndateLimitAfterCreationDate:" + dateLimitAfterCreationDate );
 
 		/* Si definisce il tempo limite di setCreationDate: non oltre -7gg prima, non futura a oggi. */
 		if( creationDate.before(dateLimitBeforeCreationDate) )
@@ -97,8 +95,7 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 		this.creationDate = creationDate;
 	}
 	
-	Controllare il donatorCF RegExp pattern
-	
+
 	private Date 		generateExpirationDate() throws ParseException {
 		// We can't allow user set a wrong "expiration date", so the system will stamp the right updated date.
 		Calendar cal = Calendar.getInstance();
@@ -124,7 +121,7 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 	public String getDonatorCF() { return this.donatorCF; }
 	
 	private void setDonatorCF(String fisCode) {
-		String regex_valid_pattern = "/^(?:[A-Z][AEIOU][AEIOUX]|[B-DF-HJ-NP-TV-Z]{2}[A-Z]){2}(?:[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])(?:[A-MZ][1-9MNP-V][\\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\\dLMNP-V]|[0L][1-9MNP-V]))[A-Z]$/i";
+		String regex_valid_pattern = "^^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$";
 		if( !fisCode.matches(regex_valid_pattern) ) throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"donatorCF "+donatorCF+" do not match pattern "+regex_valid_pattern );
 
 		this.donatorCF = fisCode;
