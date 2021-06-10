@@ -59,7 +59,15 @@ public class Location {
     
     public void setCountry(String countryR) { country = Country.valueOf(countryR); }
     
-    
+	public String toString() {
+		return  "{\"street\": \"" 	  		+ this.street   		+ "\""
+				+", \"streetNumber\": \""  	+ this.streetNumber 	+ "\"" 
+				+", \"city\": \"" 			+ this.city 			+ "\""
+				+", \"province\": \"" 		+ this.province 		+ "\""
+				+", \"region\": \"" 		+ this.region 			+ "\""
+				+", \"country\": \"" 		+ this.country 			+ "\""
+				+ "}";
+	}
     
 	public enum Country {
 		Italy, Spain, Croatia, Greece;

@@ -13,6 +13,17 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 
 
 public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodBag>{
+	private Serial				serial;
+	private BloodGroup 			bloodGroup;
+	private Date				creationDate;
+	private Date 				expirationDate;
+	private String				donatorCF; //=null;	 TODO: *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
+	private Node				node;
+	private BloodBagState 		bloodBagState;
+	private String 				note;
+	
+	public static final int 	monthIncrementAmount = 1;
+
 
 	public BloodBag(BloodGroup bloodGroup, String donatorCF, Node node) throws ParseException {
 		/* Attenzione: new BloodBag() va usato solo per creare sacche perché incrementa il seriale. */ 
@@ -29,8 +40,7 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 	
 	public Serial 		getSerial() 							{ return 			this.serial; }
 	
-	a questo punto come abbiamo fatto per la data, suggerirei di fare generateSerial distinguendolo dal setSerial.
-	il metodo setSerial però non dovrà essere mai pubblico, solo JUnit e la classe stessa dovranno poterlo usare dove necessario(es. devo cercare un seriale non posso creare un oggetto che incrementi il contatore).
+	
 	private void 		setSerial(Serial serial) 				{
 		Serial.validateSerial(serial.toString());
 		this.serial = serial;
@@ -182,7 +192,15 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 
 	@Override
 	public String toString() {
-		return "BloodBag [serial=" + serial + ", group=" + bloodGroup + ", expireDate=" + new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate) + ", state = " + bloodBagState + "]\nnote: '" + note + "'";
+		return   "{\"serial\": \"" 	  			+ this.serial   		+ "\""
+				+", \"bloodGroup\": \""  		+ this.bloodGroup 		+ "\"" 
+				+", \"creationDate\": \"" 		+ new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(creationDate) 	+ "\""
+				+", \"expireDate\": \"" 		+ new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate) + "\""
+				+", \"donatorCF\": \"" 			+ this.donatorCF 		+ "\""
+				+", \"node\": " 				+ this.node.toString()	+ ""
+				+", \"bloodBagState\": \"" 		+ this.bloodBagState 	+ "\""
+				+", \"note\": \"" + this.note 	+ "\""
+				+ "}";
 	}
 
 	@Override
@@ -214,15 +232,4 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 		Used,		// Sacca adoperata. Non utilizzabile, non trasferibile, non eliminabile
 		Dropped;	// Sacca eliminata (es. per scadenza o altre motivazioni)
 	}
-
-	private Serial				serial;
-	private BloodGroup 			bloodGroup;
-	private Date				creationDate;
-	private Date 				expirationDate;
-	private String				donatorCF; //=null;	 TODO: *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
-	private Node				node;
-	private BloodBagState 		bloodBagState;
-	private String 				note;
-	
-	public static final int 	monthIncrementAmount = 1;
 }

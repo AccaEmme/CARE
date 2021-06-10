@@ -44,13 +44,15 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.InitSettings;
 
 
 public class Serial{
-    private final static String serialmatrix;
     private static int lastdate;
     private static int counter;
     private static Date dNow = new Date();
     //private static SimpleDateFormat ft = new SimpleDateFormat(Constants.DATE_FORMAT);
     private static String currentDate_aaaaMMdd = Constants.dateFormat.format(dNow);
     private static String filesettings=Constants.SERIAL_SETTINGS_FILENAME_RELATIVEPATH;
+
+    private final static String serialmatrix;
+    private final String serial;
     
     static {
         Properties loadProps = new Properties();
@@ -93,7 +95,7 @@ public class Serial{
         lastdate 		= 	Integer.valueOf(loadProps.getProperty("lastdate"));
     }
 
-
+    
     public Serial(BloodGroup bloodgroup) {
         Serial.counter = (Integer.parseInt(currentDate_aaaaMMdd) > lastdate)? 0 : counter ;	//if today > lastdate -> counter = 0 else counter++
 
@@ -106,17 +108,18 @@ public class Serial{
         Serial.updateSerial();
     }
     
-    public Serial(String s) { 
-    	// viene usato sia dal JUnit Test, ma viene adoperato anche per generare un oggetto Serial da ricercare, ma in questo caso non deve aggiornare il seriale
+    public Serial(String s) {
+		// viene usato sia dal JUnit Test, ma viene adoperato anche per generare un oggetto Serial da ricercare, ma in questo caso non deve aggiornare il seriale
     	validateSerial(s);
-		serial = s;
-		//Serial.updateSerial();  // @TODO *** Hermann: inutile e pericoloso!
+    	this.serial = s;
 	}
 
 
     public String getSerial() {
     	return this.serial;
     }
+    
+    private void setSerial() {}
     
 	private static void updateSerial() {
         Properties saveProps = new Properties();
@@ -151,8 +154,6 @@ public class Serial{
     	Serial s = (Serial) o;
 		return serial.equals( s.getSerial() );
 	}
-
-    private final String serial;
 }
 
 

@@ -31,7 +31,10 @@ public class UserTester {
 		Date d = cal.getTime();
 		//Date prova = new Date("1900-01-01");
 		System.out.println( Constants.dateFormatString.format(d) );
-		
+
+		String notvalidpasswordcriteria = "123456789";
+		String validpasswordcriteria 	= "PasswordBuona1@"; 
+		if(notvalidpasswordcriteria.matches(validpasswordcriteria))
 	}
 
 }

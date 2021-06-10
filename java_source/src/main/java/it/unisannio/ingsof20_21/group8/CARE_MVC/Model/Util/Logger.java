@@ -1,10 +1,9 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util;
 
+import java.util.Date;
+
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.DataManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
-
-import java.lang.reflect.Method;
-import java.util.Date;
 
 public class Logger {
     /**
@@ -14,10 +13,10 @@ public class Logger {
      * COSA:    l'azione eseguita
      * ESITO:   se l'azione è andata a buon fine (eccezione, errore, ecc.)
      * */
-    public Logger(User currentUser, Class c, Method method, String result){
+    public Logger(User currentUser, String c, String method, String result){
         this.currentUser = currentUser;
-        this.fromClass = c.toString();
-        this.method = method.toString();
+        this.fromClass = c;
+        this.method = method;
         this.result = result;
     }
 

@@ -30,7 +30,8 @@ public class BloodBagTester {
 							+"\n con data scadenza "		+ bbi.getExpirationDate()
 							+"\n del paziente "				+ bbi.getDonatorCF()
 							+"\n note: "					+ bbi.getNote()
-							+"\n nel nodo: "				+ bbi.getNode().print()
+							+"\n nel nodo: "				+ bbi.getNode().toString()
+							+"\n\n"							+ bbi.toString()
 						);
 		
 		// -----------------------------------------------
@@ -45,7 +46,8 @@ public class BloodBagTester {
 				+"\n con data scadenza "		+ bb2.getExpirationDate()
 				+"\n del paziente "				+ bb2.getDonatorCF()
 				+"\n note: "					+ bb2.getNote()
-				+"\n nel nodo: "				+ bb2.getNode().print()
+				+"\n nel nodo: "				+ bb2.getNode().toString()
+				+"\n\n"							+ bb2.toString()
 			);
 		/* Se opzionale il CF:
 		System.out.println(

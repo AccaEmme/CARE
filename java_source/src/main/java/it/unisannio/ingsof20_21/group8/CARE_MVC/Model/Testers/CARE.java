@@ -3,9 +3,12 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Blood.BloodBagManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.DataManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.MongoDataManager;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.SystemManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.UserManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.User.LoginInterface;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.AdministratorInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.OfficerInterface;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.StoreManagerInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Role;
 
 
@@ -27,12 +30,15 @@ public class CARE {
 
 			LoginInterface currentUserSession = UserManager.checkLogin(username, password); // contiene solo metodi per verificare la login, se trovata restituisce lo UserManager
 			// LoginInterface currentUserSession = UserManager.recoverPassword(username, email);
-
+			
 			switch( currentUserSession.getUser().getRole().toString() ){
 			  // Adoperiamo le interfacce per consentire di utilizzare solo i metodi definiti nell'interfaccia
-			  Role.Officer.toString(): 		OfficerInterface 	userInterface = new BloodBagManager(currentUserSession.getUser(), userDB);
-			  Role.StoreManager.toString(): 	StoreManagerInterface 	userInterface = new BloodBagManager();
-			  Role.Administrator.toString():	AdministratorInterface	userInterface = new SystemManager(); // o UserManager
+				case Role.Officer.toString(): 			OfficerInterface 		userInterface = new BloodBagManager(currentUserSession.getUser(), userDB);
+					 break;
+				case Role.StoreManager.toString(): 		StoreManagerInterface 	userInterface2 = new BloodBagManager(currentUserSession.getUser(), userDB);
+					 break;
+				case Role.Administrator.toString():		AdministratorInterface	userInterface3 = new SystemManager(currentUserSession.getUser(), userDB); // o UserManager
+					 break;
 			  default:							OfficerInterface		userInterface = null;
 			}
 			

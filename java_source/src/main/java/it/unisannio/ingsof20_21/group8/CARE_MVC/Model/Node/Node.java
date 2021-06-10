@@ -1,8 +1,10 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node;
 
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 
 public class Node {
@@ -45,6 +47,12 @@ public class Node {
 		return false;
 	}
 
+	public String toString() {
+		return   "{\"codStr\": \"" 	  	+ this.codStr   			  + "\""
+				+", \"nodeName\": \""  	+ this.nodeName 			  + "\"" 
+				+", \"wareHouse\": " 	+ this.warehouse.toString()   + "}";
+	}
+	
 	private String codStr, nodeName;
 	private Location warehouse;
 }
