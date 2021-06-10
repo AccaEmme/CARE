@@ -31,7 +31,7 @@ public class User {
     	this.setPassword(password);
     	this.role		= role;
     	
-    	this.password_lastupdate = new Date("1900-01-01");
+    	this.password_lastupdate = new Date();
     }
 
     public String getUsername() {
