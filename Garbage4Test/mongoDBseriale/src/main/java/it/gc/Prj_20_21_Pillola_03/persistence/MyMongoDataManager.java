@@ -26,9 +26,9 @@ import org.bson.Document;
 
 public class MyMongoDataManager implements DataManager {
 	
-	private static final String TAG_DB = "db_mongo_name";
 	private static final String TAG_HOST = "db_mongo_host";
 	private static final String TAG_PORT = "db_mongo_port";
+	private static final String TAG_DB = "db_mongo_name";
 	
 	private static final String COLLECTION_SACCHE = "SACCHE";
 	private static final String ELEMENT_SERIALE = "seriale";
@@ -43,7 +43,7 @@ public class MyMongoDataManager implements DataManager {
 	public MyMongoDataManager() {
 		Properties loadProps = new Properties();
 	    try {
-			loadProps.loadFromXML(new FileInputStream("localsettings/db_settings.xml"));
+			loadProps.loadFromXML(new FileInputStream("localsettings/MongoDB_settings.xml"));
 		} catch (InvalidPropertiesFormatException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
