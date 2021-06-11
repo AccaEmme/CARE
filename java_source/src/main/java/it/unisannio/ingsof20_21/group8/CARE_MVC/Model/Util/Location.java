@@ -3,6 +3,7 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFounfException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 
 /*
@@ -25,7 +26,19 @@ public class Location {
     				Country country, 	Region region, 			Province province,
     				City city, 			String street,			String streetNumber
     		) {
+    	
+    	
     	this.street = street;
+    	try {
+    		if (street == "") {
+        			throw new StreetNotFounfException("La strada non è valida");
+        		}
+			}
+			catch(StreetNotFounfException e)
+			{
+				System.err.println("Errore nell'inserimento della strada");
+			}	
+    	
         this.streetNumber = streetNumber;
         this.city = city;
         this.province = province;
@@ -85,9 +98,13 @@ public class Location {
 		Chieti, Potenza, Bolzano, Catanzaro, Napoli, Bologna, Udine, Roma, Genova, Varese, Ancona, Campobasso, Torino, Bari, Cagliari, Palermo, Firenze, Trento, Perugia, Aosta, Padova, Benevento, Avellino, Salerno, Caserta;
 	}
     
+	public boolean exists() {return true;}
+	
+	
+	
 	private String street, streetNumber;          
     private City city;              
     private Province province;           
     private Region region;
-    private Country country; 
+    private Country country;
 }
