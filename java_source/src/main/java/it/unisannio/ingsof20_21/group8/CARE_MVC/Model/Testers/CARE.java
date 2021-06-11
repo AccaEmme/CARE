@@ -13,7 +13,17 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Role;
 
 
 public class CARE {
-
+/*
+ * CARE conosce il db usato per le sacche(mysql) e il db usato per gli utenti(mongodb).
+ * 
+ * l'utente per accedere nel sistema, richiama il checkLogin(username, plainTextPassword)
+ *   - checkLogin cerca nel database(?),
+ *   	- se trova username=db.username && MD5(plainTextPassword)=db.md5password => ritorna tutti i dati User e relativo ruolo
+ *      - se non lo trova, restituisce null o eccezione?
+ *      
+ *   - 
+ * 
+ */
 	public static void main(String[] args) {
 			DataManager userDB = new MongoDataManager(); 
 			// CareManager:
@@ -52,6 +62,13 @@ public class CARE {
 								 ); // funziona solo se è un amministratore
 */
 			// potrebbe anche esistere un metodo del tipo userInterface.showGUI() che fa apparire la relativa schermata grafica interfaccia utente
+
+
+			// Utente amministratore: 
+
+
+			//Utente amministratore genera report 
+			userInterface3.
 
 	}
 

@@ -3,7 +3,7 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFounfException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFoundException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 
 /*
@@ -25,20 +25,12 @@ public class Location {
     public Location(
     				Country country, 	Region region, 			Province province,
     				City city, 			String street,			String streetNumber
-    		) throws StreetNotFounfException  {
+    		) throws StreetNotFoundException  {
     	
-    	
-
-    
-    		if (street == "3") 
-        			throw new StreetNotFounfException("La strada non è valida");
-    		
-    		
-    				this.street = street;
-    	
-    	
-       
-    	
+    		if (street == "3")	/* TODO: *** Donato. */ 
+        			throw new StreetNotFoundException("La strada non è valida");
+    				
+    	this.street = street;
         this.streetNumber = streetNumber;
         this.city = city;
         this.province = province;

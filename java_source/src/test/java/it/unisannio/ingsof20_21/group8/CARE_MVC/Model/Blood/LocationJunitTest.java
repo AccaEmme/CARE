@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFounfException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFoundException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.City;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;
@@ -22,14 +22,18 @@ public class LocationJunitTest {
 	
 	
 	@Test
-	 public void VerifyCreateCountry() throws StreetNotFounfException {
-		  Location l = new Location(Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"25 Aprile","5");
+	 public void VerifyCreateCountry() throws StreetNotFoundException {
+		  Location l = new Location(
+				  Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"via 25 Aprile","5"
+				  );
 		  assertTrue(l.exists());
 	  }
 	
-	@Test(expected = StreetNotFounfException.class)
-	 public void Country1() throws StreetNotFounfException {
-		  Location l = new Location(Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"3","5");
+	@Test(expected = StreetNotFoundException.class)
+	 public void Country1() throws StreetNotFoundException {
+		  Location l = new Location(
+				  Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"3","5"
+				  );
 	
 	  }
 

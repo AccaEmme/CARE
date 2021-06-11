@@ -34,6 +34,7 @@ public class UserManager extends SystemManager {
 	
 	public void addUser(User user) {
 		// TODO: DB insert. method on dataManager
+		// dataManager.addUser();
 		//return false;
 	}
 	
