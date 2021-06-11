@@ -46,8 +46,9 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password 				= Password.getMd5( password+Constants.USER_MD5_SALT ).toUpperCase();
+    public void setPassword(String plainTextPassword) {
+    	Password.validatePassword(plainTextPassword);
+        this.password 				= Password.getMd5( plainTextPassword+Constants.USER_MD5_SALT ).toUpperCase();
         this.password_lastupdate 	= new Date();
         this.temppass				= "";
     }

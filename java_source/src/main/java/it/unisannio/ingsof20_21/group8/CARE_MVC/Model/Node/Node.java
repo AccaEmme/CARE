@@ -9,9 +9,9 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 
 public class Node {
 	public Node(String codStr, String nodeName, Location warehouse) {
-		this.codStr = codStr;
-		this.nodeName = nodeName;
-		this.warehouse = warehouse;
+		this.codStr 	= codStr;
+		this.nodeName 	= nodeName;
+		this.warehouse 	= warehouse;
 	}
 	
 	public String getCodStr() {
@@ -55,4 +55,11 @@ public class Node {
 	
 	private String codStr, nodeName;
 	private Location warehouse;
+	private int		 minBags=5, maxBags=10;
+	non va bene:
+		- Apos: min 5, max 10
+		- Aneg: min 4, max 9
+		- 0neg: min 3, max 4
+		assert min<max
+		
 }

@@ -39,7 +39,7 @@ public class CARE {
 					 break;
 				case Role.Administrator.toString():		AdministratorInterface	userInterface3 = new SystemManager(currentUserSession.getUser(), userDB); // o UserManager
 					 break;
-			  default:							OfficerInterface		userInterface = null;
+			  default:									OfficerInterface		userInterface4 = null;
 			}
 			
 
