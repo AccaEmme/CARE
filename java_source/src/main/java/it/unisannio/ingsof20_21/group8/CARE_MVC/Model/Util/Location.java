@@ -25,19 +25,19 @@ public class Location {
     public Location(
     				Country country, 	Region region, 			Province province,
     				City city, 			String street,			String streetNumber
-    		) {
+    		) throws StreetNotFounfException  {
     	
     	
-    	this.street = street;
-    	try {
-    		if (street == "") {
+
+    
+    		if (street == "3") 
         			throw new StreetNotFounfException("La strada non è valida");
-        		}
-			}
-			catch(StreetNotFounfException e)
-			{
-				System.err.println("Errore nell'inserimento della strada");
-			}	
+    		
+    		
+    				this.street = street;
+    	
+    	
+       
     	
         this.streetNumber = streetNumber;
         this.city = city;

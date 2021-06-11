@@ -22,14 +22,15 @@ public class LocationJunitTest {
 	
 	
 	@Test
-	 public void VerifyCreateCountry(){
+	 public void VerifyCreateCountry() throws StreetNotFounfException {
 		  Location l = new Location(Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"25 Aprile","5");
 		  assertTrue(l.exists());
 	  }
 	
 	@Test(expected = StreetNotFounfException.class)
-	 public void Country1(){
-		  Location l = new Location(Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"","5");
+	 public void Country1() throws StreetNotFounfException {
+		  Location l = new Location(Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"3","5");
+	
 	  }
 
 	
