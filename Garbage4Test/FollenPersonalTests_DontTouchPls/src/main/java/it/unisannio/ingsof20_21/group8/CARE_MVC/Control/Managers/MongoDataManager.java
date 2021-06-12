@@ -20,6 +20,8 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
 
+import static com.mongodb.client.model.Filters.eq;
+
 public class MongoDataManager {
     private String connectionStringURI = "";
     private String db_name = "";
@@ -112,6 +114,51 @@ public class MongoDataManager {
         System.out.println("Added element: "+document);
         mongoClient.close();
     }
+
+    public User getUser(String username){
+        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(this.collection_name);
+
+        Document document = mongoCollection.find(eq("username", username)).first();
+
+        return new User(document.getString("username"), document.getString("password"),false);
+    }
+    /*
+    public BloodBag searchBag(Seriale serial){
+        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(this.collection_name);
+
+        Document document = mongoCollection.find(eq(Costants.SERIAL, serial.toString())).first();
+
+        System.out.println("Document: " + document.toJson());
+
+        BloodGroup bloodGroup = BloodGroup.valueOf(document.getString(Costants.GROUP));
+        Seriale serialToUse = new Seriale(document.getString(Costants.SERIAL));
+
+        DateFormat dateFormat = new SimpleDateFormat(Costants.DATE_FORMAT);
+
+        Date expirationDate = null;
+        Date creationDate = null;
+        try {
+            expirationDate = dateFormat.parse(document.getString(Costants.SERIAL));
+            creationDate = dateFormat.parse(document.getString(Costants.CREATION));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String origin = document.getString(Costants.ORIGIN);
+
+        mongoClient.close();
+
+        assert expirationDate != null && creationDate != null && origin != null;
+        return new BloodBag(serialToUse, bloodGroup, expirationDate, creationDate, origin);
+    }*/
 
 
     /** ################################ DELETE ################################*/

@@ -13,10 +13,15 @@ public class User {
 	 * Quando l'amministratore crea un utente attribuendogli un ruolo, la password viene generata in automatico ed è visibile.
 	 * Al primo cambio password dell'utente, viene eliminata la password temporanea, impostata la password cifrata e viene segnato l'ultimo cambio password.
 	 */
-	
-	public User(String username, String password){
+
+    /**
+     * @param flag  @<code>flag = 1</code> if you want to encode the password
+     *              @<code>flag = 0</code> if you dont want to encode the password*/
+	public User(String username, String password, Boolean flag){
     	this.username 	= username;
-    	this.setPassword(password);
+    	if (flag)
+            this.setPassword(password);
+    	else this.password = password;
     	//this.session 	= MD5.getMd5(username).toUpperCase();
     }
     
