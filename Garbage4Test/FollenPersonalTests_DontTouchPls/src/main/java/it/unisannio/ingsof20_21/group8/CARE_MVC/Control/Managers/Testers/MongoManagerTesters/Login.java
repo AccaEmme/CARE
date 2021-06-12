@@ -3,6 +3,7 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.Testers.MongoM
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.MongoDataManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.UserException;
+import org.bson.Document;
 
 import java.util.Scanner;
 
@@ -20,10 +21,12 @@ public class Login {
         System.out.print("\nEnter password: ");
         User inUser = new User(inUsername,scanner.nextLine(),true);  //leggo in questo modo cosi nessuna password viene memorizzata nemmeno in ram
 
-        System.out.println("USER DATABASE: \n"+dbUser.getUsername()+" "+dbUser.getPassword());
-        System.out.println("USER LOGIN: \n"+inUser.getUsername()+" "+inUser.getPassword());
+
+
         if (inUser.getPassword().equals(dbUser.getPassword()))
             System.out.println("Correttamente autenticato!");
         else throw new UserException("Wrong password!");
+
+        System.out.println("USER:\n"+inUser.getDocument().toString());
     }
 }

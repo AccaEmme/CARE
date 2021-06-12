@@ -5,6 +5,7 @@ import java.util.Date;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
+import org.bson.Document;
 
 public class User {
 	/*
@@ -75,6 +76,18 @@ public class User {
     
     public void setRole(Role r) {
     	this.role = r;
+    }
+    public Document getDocument(){
+        Document document = new Document("username",this.getUsername());
+        document.append("password",this.getPassword());
+        if (this.getResidence()!=null)
+            document.append("location",this.getResidence());
+        if (this.getRole()!=null)
+            document.append("location",this.getRole());
+        if (this.getPasswordLastUpdate()!=null)
+            document.append("location",this.getPasswordLastUpdate());
+
+        return document;
     }
    
    

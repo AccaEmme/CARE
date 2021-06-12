@@ -6,6 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import org.bson.Document;
 import org.json.simple.JSONObject;
@@ -15,14 +16,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.InvalidPropertiesFormatException;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public class MongoDataManager {
+public class MongoDataManager implements DataManager {
     private String connectionStringURI = "";
     private String db_name = "";
     private String collection_name = "";
@@ -91,9 +89,6 @@ public class MongoDataManager {
         return db_collection_names;
     }
 
-    //implementazione non necessaria
-    public void createDB(){}
-
     public void addUser(User user){
         MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
@@ -101,18 +96,33 @@ public class MongoDataManager {
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
         MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
 
-        Document document = new Document("username",user.getUsername());
-            document.append("password",user.getPassword());
-            if (user.getResidence()!=null)
-                document.append("location",user.getResidence());
-            if (user.getRole()!=null)
-                document.append("location",user.getRole());
-            if (user.getPasswordLastUpdate()!=null)
-                document.append("location",user.getPasswordLastUpdate());
+        Document document = user.getDocument();
 
         mongoCollection.insertOne(document);
         System.out.println("Added element: "+document);
         mongoClient.close();
+    }
+
+    public User validateLogin(String username, String password) throws UserException {
+        MongoDataManager manager = new MongoDataManager();
+
+        User dbUser = manager.getUser(username);
+        if (dbUser==null)   throw new UserException("User not found!");
+
+        User inUser = new User(username,password,true);
+
+
+
+        if (inUser.getPassword().equals(dbUser.getPassword())) {
+            User user = new User(username, password, true);
+            if (dbUser.getRole()!=null)
+                user.setRole(dbUser.getRole());
+            if (dbUser.getResidence()!=null)
+                user.setResidence(dbUser.getResidence());
+
+            return user;
+        }
+        else throw new UserException("Wrong password!");
     }
 
     public User getUser(String username){
@@ -126,6 +136,51 @@ public class MongoDataManager {
 
         return new User(document.getString("username"), document.getString("password"),false);
     }
+
+    //implementazione non necessaria
+    public void createDB(){}
+
+    @Override
+    public void dropDB() {
+
+    }
+
+    @Override
+    public void setStateTable(String state) {
+
+    }
+
+    @Override
+    public void addBloodBag(BloodBag bloodbag) {
+
+    }
+
+    @Override
+    public List<BloodBag> getBloodBag(BloodBag blood) {
+        return null;
+    }
+
+    @Override
+    public void updateExpirationDate(BloodBag b, Date newExpirationDate) {
+
+    }
+
+    @Override
+    public void writeLog(Date currentDate, User currentUser, String currentClass, String currentMethod, String currentResult) {
+
+    }
+
+    @Override
+    public void restoreDump(String filename) {
+
+    }
+
+    @Override
+    public boolean createDump() {
+        return false;
+    }
+
+
     /*
     public BloodBag searchBag(Seriale serial){
         MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
