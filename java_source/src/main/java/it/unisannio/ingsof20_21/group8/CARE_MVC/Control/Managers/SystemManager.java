@@ -49,8 +49,7 @@ public abstract class SystemManager implements AdministratorInterface {
 	}
 	
 	public void setRole(User u, Role r) {
-		UserManager um = new UserManager(u, dataManager);
-		um.setRole(r);
+		//dataManager.setRole(r);
 		dataManager.writeLog(
 						new Logger(currentUser, "SystemManager", "setRole:"+u.toString(), "ok")
 						// currentUser(mario)+"ha aggiunto+"u(Francesco)
@@ -64,6 +63,12 @@ public abstract class SystemManager implements AdministratorInterface {
 	public boolean reportGiacenza() {
 		//Report r = new Report();
 		return false;
+	}
+
+	public User checkLogin(String userName, String plainTextPassword) {
+		return null;
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

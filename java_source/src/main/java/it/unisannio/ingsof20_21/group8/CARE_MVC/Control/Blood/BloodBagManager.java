@@ -146,7 +146,7 @@ public class BloodBagManager implements OfficerInterface, StoreManagerInterface{
 		
 		for(BloodBag bg : bloodBags) {
 			
-			if(bg.equals(bloodBag) && bg.checkState()) {
+			if(bg.equals(bloodBag) && bg.checkBloodBagState()) {
 				try {
 					
 					bg.dropBag();
