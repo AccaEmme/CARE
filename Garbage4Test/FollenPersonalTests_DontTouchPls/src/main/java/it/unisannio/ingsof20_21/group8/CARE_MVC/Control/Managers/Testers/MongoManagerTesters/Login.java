@@ -19,7 +19,7 @@ public class Login {
         if (dbUser==null)   throw new UserException("User not found!");
 
         System.out.print("\nEnter password: ");
-        User inUser = new User(inUsername,scanner.nextLine(),true);  //leggo in questo modo cosi nessuna password viene memorizzata nemmeno in ram
+        User inUser = new User(inUsername,scanner.nextLine());  //leggo in questo modo cosi nessuna password viene memorizzata nemmeno in ram
 
 
 

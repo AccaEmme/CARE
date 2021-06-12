@@ -14,6 +14,35 @@ public class Password {
 	 * Non perché sia una parte logica, ma perché delegando le responsabilità
 	 * aiuta una realizzazione di tipo qualitativo.
 	 */
+	String encodedPassword;
+	public Password(String password){
+	    this.encodedPassword = password;
+    }
+    public String encodePassword(){
+        try {
+            // Static getInstance method is called with hashing MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // digest() method is called to calculate message digest
+            //  of an input digest() return array of byte
+            byte[] messageDigest = md.digest(this.encodedPassword.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        }
+
+        // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 	
     public static String getMd5(String input)    {
         try {
@@ -59,5 +88,9 @@ public class Password {
            password[i] = combinedChars.charAt(random.nextInt(combinedChars.length()));
         }
         return password;
+     }
+
+     public String getPassword(){
+	    return this.encodedPassword;
      }
 }

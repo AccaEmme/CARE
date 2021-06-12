@@ -8,6 +8,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 import org.bson.Document;
 import org.json.simple.JSONObject;
 
@@ -44,8 +45,10 @@ public class MongoDataManager implements DataManager {
         Properties properties = new Properties();
 
         try {
-            properties.loadFromXML(new FileInputStream("C:/Users/giuli/Desktop/mongo_login.xml"));  //pc fisso
-            //properties.loadFromXML(new FileInputStream("/Users/folly/Desktop/uri.xml"));  //mac
+            if (System.getProperty("os.name").equals("Mac OS X"))
+                properties.loadFromXML(new FileInputStream("/Users/folly/Desktop/uri.xml"));  //mac
+            else properties.loadFromXML(new FileInputStream("C:/Users/giuli/Desktop/mongo_login.xml"));  //pc fisso
+
         } catch (InvalidPropertiesFormatException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -109,12 +112,12 @@ public class MongoDataManager implements DataManager {
         User dbUser = manager.getUser(username);
         if (dbUser==null)   throw new UserException("User not found!");
 
-        User inUser = new User(username,password,true);
+        User inUser = new User(username,password);
 
 
 
         if (inUser.getPassword().equals(dbUser.getPassword())) {
-            User user = new User(username, password, true);
+            User user = new User(username, password);
             if (dbUser.getRole()!=null)
                 user.setRole(dbUser.getRole());
             if (dbUser.getResidence()!=null)
@@ -134,7 +137,9 @@ public class MongoDataManager implements DataManager {
 
         Document document = mongoCollection.find(eq("username", username)).first();
 
-        return new User(document.getString("username"), document.getString("password"),false);
+        Password password = new Password(document.getString("password"));   //already encoded
+
+        return new User(document.getString("username"), password);
     }
 
     //implementazione non necessaria

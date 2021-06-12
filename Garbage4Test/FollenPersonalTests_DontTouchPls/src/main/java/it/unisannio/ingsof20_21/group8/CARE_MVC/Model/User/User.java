@@ -17,14 +17,25 @@ public class User {
 
     /**
      * @param flag  @<code>flag = 1</code> if you want to encode the password
-     *              @<code>flag = 0</code> if you dont want to encode the password*/
+     *              @<code>flag = 0</code> if you dont want to encode the password
+     *              OLD!*/
+    /*
 	public User(String username, String password, Boolean flag){
     	this.username 	= username;
     	if (flag)
             this.setPassword(password);
     	else this.password = password;
     	//this.session 	= MD5.getMd5(username).toUpperCase();
+    }*/
+    public User(String username, String password){
+	    this.username = username;
+	    this.setPassword(password);
     }
+    public User(String username, Password password){
+	    this.username = username;
+	    this.password = password.getPassword();
+    }
+
     
     @SuppressWarnings("deprecation")
 	public User(String username, Role role) {
