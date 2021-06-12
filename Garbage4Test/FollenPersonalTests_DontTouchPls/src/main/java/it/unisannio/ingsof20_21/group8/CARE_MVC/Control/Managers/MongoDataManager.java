@@ -5,9 +5,11 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.NullUserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.UserException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 import org.bson.Document;
 import org.json.simple.JSONObject;
@@ -105,19 +107,31 @@ public class MongoDataManager implements DataManager {
         System.out.println("Added element: "+document);
         mongoClient.close();
     }
+    private void validateUser(User user) throws UserException, NullUserException, NullPasswordException {
+        if (user == null)
+            throw new NullUserException("The user cannot be null!");
+        if (user.getPassword() == null)
+            throw new NullPasswordException("The password cannot be null");
+        if (user.getUsername() == null)
+            throw new UserException("The username cannot be null");
+    }
 
-    public User validateLogin(String username, String password) throws UserException {
+    public User validateLogin(String username, String password) throws UserException, NullPasswordException {
         MongoDataManager manager = new MongoDataManager();
 
         User dbUser = manager.getUser(username);
         if (dbUser==null)   throw new UserException("User not found!");
 
-        User inUser = new User(username,password);
-
+        User inUser = null;
+        try {
+            inUser = new User(username,password);
+        } catch (NullPasswordException e) {
+            //silenzio l'eccezione perche essa non puo verificarsi in questo stato
+        }
 
 
         if (inUser.getPassword().equals(dbUser.getPassword())) {
-            User user = new User(username, password);
+            User user = new User(username, password);   //lascio lanciare l'eccezione perche non è il manager a doverla gestire
             if (dbUser.getRole()!=null)
                 user.setRole(dbUser.getRole());
             if (dbUser.getResidence()!=null)
@@ -139,7 +153,17 @@ public class MongoDataManager implements DataManager {
 
         Password password = new Password(document.getString("password"));   //already encoded
 
-        return new User(document.getString("username"), password);
+        try {
+            try {
+                return new User(document.getString("username"), password);
+            } catch (NullPasswordException e) {
+                //silenzio l'eccezione perche non puo verificarsi
+            }
+        } catch (UserException e) {
+            //preferisco silenziare l'eccezione perchè non puo verificarsi, in quanto i controlli vengono
+            //effettuati al momento di inserimento nel database
+        }
+        return null;
     }
 
     //implementazione non necessaria

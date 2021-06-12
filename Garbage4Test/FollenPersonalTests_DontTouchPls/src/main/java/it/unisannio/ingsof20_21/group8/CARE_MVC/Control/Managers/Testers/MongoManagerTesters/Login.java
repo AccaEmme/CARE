@@ -2,8 +2,8 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.Testers.MongoM
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.MongoDataManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.UserException;
-import org.bson.Document;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 
 import java.util.Scanner;
 
@@ -19,8 +19,13 @@ public class Login {
         if (dbUser==null)   throw new UserException("User not found!");
 
         System.out.print("\nEnter password: ");
-        User inUser = new User(inUsername,scanner.nextLine());  //leggo in questo modo cosi nessuna password viene memorizzata nemmeno in ram
-
+        User inUser = null;  //leggo in questo modo cosi nessuna password viene memorizzata nemmeno in ram
+        try {
+            while (inUser == null)
+                inUser = new User(inUsername,scanner.nextLine());
+        } catch (NullPasswordException e) {
+            System.out.println("Password non valida! riprova: ");
+        }
 
 
         if (inUser.getPassword().equals(dbUser.getPassword()))

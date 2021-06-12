@@ -1,13 +1,12 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.User.LoginInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Role;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.UserException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 
 public class UserManager {
 
@@ -17,7 +16,7 @@ public class UserManager {
 		this.dataManager = new MongoDataManager(); 
 	}
 	
-	public static UserManager checkLogin(String userName, String password, DataManager dataManager) throws UserException {
+	public static UserManager checkLogin(String userName, String password, DataManager dataManager) throws UserException, NullPasswordException {
 		User user = dataManager.validateLogin(userName, password);
 		if(user != null) {
 			return new UserManager(user);

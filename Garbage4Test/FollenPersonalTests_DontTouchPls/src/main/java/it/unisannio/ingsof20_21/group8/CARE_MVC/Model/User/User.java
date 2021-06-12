@@ -2,7 +2,9 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User;
 
 import java.util.Date;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 import org.bson.Document;
@@ -27,13 +29,23 @@ public class User {
     	else this.password = password;
     	//this.session 	= MD5.getMd5(username).toUpperCase();
     }*/
-    public User(String username, String password){
+    public User(String username, String password) throws UserException, NullPasswordException {
+        this.validateCredentials(username,password);
 	    this.username = username;
 	    this.setPassword(password);
     }
-    public User(String username, Password password){
+    public User(String username, Password password) throws UserException, NullPasswordException {
+        this.validateCredentials(username,password.getPassword());
 	    this.username = username;
 	    this.password = password.getPassword();
+    }
+    private void validateCredentials(String username, String password) throws UserException, NullPasswordException {
+        if (username == null)
+            throw new UserException("The username cannot be null!");
+        if (password == null)
+            throw new NullPasswordException("The password cannot be null!");
+        if (username.length() < 5 || password.length() < 5)
+            throw new UserException("The username or the password cannot be shorter than 5 chars");
     }
 
     
