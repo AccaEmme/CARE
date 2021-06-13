@@ -2,7 +2,7 @@ package users;
 
 import java.text.SimpleDateFormat;
 
-
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 
 public class Constants {
 
@@ -96,7 +96,7 @@ public class Constants {
 	
     //#################################################### RegExp pattern Data Validation ####################################################
 	// Some people, when confronted with a problem, think "I know, I'll use regular expressions." Now they have two problems. -  Jamie Zawinski, 1997	
-	/*public static final String RegexSerial				= "^IT-\\w{2}\\d{6}-(" 	+ BloodGroup.delimitedValues("|") + ")-\\d{8}-\\d{4}$";*/
+	public static final String RegexSerial				= "^IT-\\w{2}\\d{6}-(" 	+ BloodGroup.delimitedValues("|") + ")-\\d{8}-\\d{4}$";
 	public static final String RegexDonatorCF 			= "^^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$";
 	public static final String RegexPasswordCriteria 	= "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})";
 }

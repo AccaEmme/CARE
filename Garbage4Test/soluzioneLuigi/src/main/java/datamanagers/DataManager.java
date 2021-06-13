@@ -10,6 +10,5 @@ public interface DataManager {
 	void dropDB();
 	/*void writeLog(Logger logger);
 	void writeLog(Date currentDate, users.User currentUser, String currentClass, String currentMethod, String currentResult);*/
-	void addUser(User u0) throws ParseException;
 
 }

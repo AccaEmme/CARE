@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
+
 import java.util.InvalidPropertiesFormatException;
 
 import java.util.Properties;
@@ -14,7 +14,7 @@ import com.mongodb.MongoClientURI;
 
 import com.mongodb.client.MongoDatabase;
 
-import users.Logger;
+import users.BloodBag;
 import users.User;
 
 import com.mongodb.client.MongoCollection;
@@ -27,7 +27,7 @@ import org.bson.Document;
 
 
 
-public class MongoDataManager implements DataManager {
+public class MongoDataManager implements magazziniereInterface,adminInterface {
 	
 	
 	
@@ -37,9 +37,12 @@ public class MongoDataManager implements DataManager {
 	
 	
 	private static final String COLLECTION_USER= "users";
+	private static final String COLLECTION_BAG= "blood-bags";
 	private static final String ELEMENT_USERNAME = "username";
 	private static final String ELEMENT_PASSWORD = "password";
 	private static final String ELEMENT_ROLE = "role";
+	private static final String ELEMENT_GROUP = "BloodGroup";
+	private static final String ELEMENT_SERIAL = "serial";
 	
 	
 	private final String db;
@@ -93,7 +96,21 @@ public class MongoDataManager implements DataManager {
 			
 			mongoClient.close();
 	}
-	
+	public void addBloodBag(BloodBag b) throws ParseException {
+		
+		MongoClient mongoClient = new MongoClient(connectionString);
+		MongoDatabase database = mongoClient.getDatabase(db);
+		MongoCollection<Document> collection = database.getCollection(COLLECTION_BAG);
+		Document bag = new Document(ELEMENT_GROUP, b.getBloodGroup().toString())
+            .append(ELEMENT_SERIAL, b.getSerial().toString());    
+		
+		
+		collection.insertOne(bag); /*inserimento*/
+		
+
+		
+		mongoClient.close();
+}
 	
 	public void editUser(User  u) throws ParseException {
 	
