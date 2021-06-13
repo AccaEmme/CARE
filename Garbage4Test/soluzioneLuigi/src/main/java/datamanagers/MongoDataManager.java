@@ -27,7 +27,7 @@ import org.bson.Document;
 
 
 
-public class MongoDataManager implements UserAdministrator,ReportAdministrator {
+public class MongoDataManager implements DataManager {
 	
 	
 	
@@ -151,11 +151,7 @@ public void deleteUser(User  u) throws ParseException {
 	
 	}
 
-@Override
-public void reportGiacenze() {
-	// TODO Auto-generated method stub
-	
-}
+
 
 
 
