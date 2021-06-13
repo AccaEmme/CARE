@@ -1,9 +1,12 @@
 package datamanagers;
 
-import java.text.ParseException;
 
 
-import users.User;
+
+
+
+/*metodi generali di un DataManager*/
+
 
 public interface DataManager {
 	void createDB();

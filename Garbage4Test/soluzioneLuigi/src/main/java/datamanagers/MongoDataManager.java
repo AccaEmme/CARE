@@ -13,8 +13,9 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.connection.Stream;
 
-import users.BloodBag;
+import users.BloodBagInterface;
 import users.User;
 
 import com.mongodb.client.MongoCollection;
@@ -24,7 +25,7 @@ import static com.mongodb.client.model.Filters.*;
 import org.bson.Document;
 
 
-
+// classe che implementa tutte le operazioni possibili per il DataBase*/
 
 
 public class MongoDataManager implements magazziniereInterface,adminInterface {
@@ -96,22 +97,7 @@ public class MongoDataManager implements magazziniereInterface,adminInterface {
 			
 			mongoClient.close();
 	}
-	public void addBloodBag(BloodBag b) throws ParseException {
-		
-		MongoClient mongoClient = new MongoClient(connectionString);
-		MongoDatabase database = mongoClient.getDatabase(db);
-		MongoCollection<Document> collection = database.getCollection(COLLECTION_BAG);
-		Document bag = new Document(ELEMENT_GROUP, b.getBloodGroup().toString())
-            .append(ELEMENT_SERIAL, b.getSerial().toString());    
-		
-		
-		collection.insertOne(bag); /*inserimento*/
-		
 
-		
-		mongoClient.close();
-}
-	
 	public void editUser(User  u) throws ParseException {
 	
 		
@@ -168,7 +154,34 @@ public void deleteUser(User  u) throws ParseException {
 	
 	}
 
+/*
+public void cercaSaccheCheScadonoinsettimana() {
+	MongoClient mongoClient = new MongoClient(connectionString);
+	MongoDatabase database = mongoClient.getDatabase(db);
 
+
+	MongoCollection<Document> collection = database.getCollection(COLLECTION_BAG);
+	
+	}
+*/
+
+
+	public void addBloodBag(BloodBagInterface b) throws ParseException {
+		
+		MongoClient mongoClient = new MongoClient(connectionString);
+		MongoDatabase database = mongoClient.getDatabase(db);
+		MongoCollection<Document> collection = database.getCollection(COLLECTION_BAG);
+		Document bag = new Document(ELEMENT_GROUP, b.getBloodGroup().toString())
+            .append(ELEMENT_SERIAL, b.getSerial().toString());    
+		
+		
+		collection.insertOne(bag); /*inserimento*/
+		
+
+		
+		mongoClient.close();
+}
+	
 
 
 
