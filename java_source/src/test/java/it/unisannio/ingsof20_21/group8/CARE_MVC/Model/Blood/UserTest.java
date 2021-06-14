@@ -21,11 +21,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 
 
 public class UserTest {
-<<<<<<< HEAD
-	Role segretaria = new Role.;
-=======
 	Role segretaria; //= new Role();
->>>>>>> 33f0d60ebb8476f5bff75857bdbe7f283e7c8e24
 	
 	
 	@Test
