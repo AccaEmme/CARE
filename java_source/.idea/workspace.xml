@@ -4,8 +4,74 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_googlecode_json_simple_json_simple_1_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_opentest4j_opentest4j_1_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/AdminInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/WhareHouseWorkerInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/User/Exceptions/NullUserException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Exceptions/NullPasswordException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/.project" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Password.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Password.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/BloodBagManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/BloodBagManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/DataManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/DataManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MongoDataManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MongoDataManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MySqlDataManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MySqlDataManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/Testers/MongoManagerTesters/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/Testers/MongoManagerTesters/Login.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/Testers/MongoManagerTesters/MongoDatamanagerAddUserTester.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/Testers/MongoManagerTesters/MongoDatamanagerAddUserTester.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/Testers/MongoManagerTesters/SearchUserTester.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/Testers/MongoManagerTesters/SearchUserTester.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/Testers/MongoManagerTesters/UserManagerLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/Testers/MongoManagerTesters/UserManagerLogin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/Testers/MySqlDataManagerTester.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/Testers/MySqlDataManagerTester.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/UserManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/UserManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/User/LoginInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/User/LoginInterface.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Exceptions/BloodBagCloneException.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Exceptions/BloodBagCloneException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Exceptions/NodeNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Exceptions/NodeNotFoundException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Exceptions/StateException.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Exceptions/StateException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBag$BloodBagState.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBag$BloodBagState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBag.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBag.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodGroup$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodGroup$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodGroup$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodGroup$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodGroup.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodGroup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Interfaces/BloodBagInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Interfaces/BloodBagInterface.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Interfaces/OfficerInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Interfaces/OfficerInterface.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Interfaces/StoreManagerInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Interfaces/StoreManagerInterface.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Serial.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Serial.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Node/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Node/Node.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodBagTester.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodBagTester.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/User/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/User/Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/User/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/User/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Constants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/InitSettings.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/InitSettings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location$City.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location$City.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location$Country.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location$Country.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location$Province.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location$Province.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location$Region.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location$Region.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Logger.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Logger.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Password.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Password.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Testers/PasswordTester.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Testers/PasswordTester.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/test-classes/org/example/AppTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Garbage4Test/FollenPersonalTests_DontTouchPls/target/test-classes/org/example/AppTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_11.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/src.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/src.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Blood/BloodBagManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Blood/BloodBagManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MongoDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MongoDataManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/User/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/User/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/User/UserException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/User/Exceptions/UserException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Password.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Password.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,7 +105,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Exceptions" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
@@ -47,18 +113,11 @@
       <recent name="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood" />
       <recent name="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Tester" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\giuli\Desktop\CARE\java_source\src\main\java\it\unisannio\ingsof20_21\group8\CARE_MVC\Model\Util\Exceptions" />
+      <recent name="C:\Users\giuli\Desktop\CARE\java_source\src\main\java\it\unisannio\ingsof20_21\group8\CARE_MVC\Model\User\Exceptions" />
+      <recent name="C:\Users\giuli\Desktop\CARE\java_source\src\main\java\it\unisannio\ingsof20_21\group8\CARE_MVC\Control\Managers" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.SimpleTest">
     <configuration name="BloodBagTester" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -139,7 +198,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -180,13 +239,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="MVC update" />
@@ -195,18 +253,20 @@
     <option name="LAST_COMMIT_MESSAGE" value="minor changes&#10;la connessione non funziona, ma devo accertarmene sull'altro computer." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="765" y="201" key="#com.intellij.ide.util.MemberChooser" timestamp="1621528319125">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="2685" y="201" key="#com.intellij.ide.util.MemberChooser" timestamp="1623681357080">
+      <screen x="1920" y="0" width="1920" height="1050" />
     </state>
     <state x="765" y="201" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1621528319125" />
+    <state x="2685" y="201" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623681357080" />
     <state x="691" y="301" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1620925347124">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="691" y="301" key="#com.intellij.ide.util.PackageChooserDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925347124" />
-    <state x="700" y="380" width="553" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1620925347734">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="2620" y="380" width="560" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1623681637579">
+      <screen x="1920" y="0" width="1920" height="1050" />
     </state>
     <state x="700" y="380" width="553" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925347734" />
+    <state x="2620" y="380" width="560" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623681637579" />
     <state x="375" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1621529596953">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

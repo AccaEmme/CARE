@@ -38,6 +38,15 @@ public class Location {
         this.country = country;
     }
 
+    /**@// TODO: 14/06/2021 dobbiamo prendere dal documento mongo ogni pezzo di location e creare l'oggetto adeguato */
+	private String lazyLocation;
+	public Location(String lazyLocation){
+		this.lazyLocation = lazyLocation;
+	}
+	public String getLocation(){
+		return this.lazyLocation;
+	}
+
 
     
     public String getStreet() { return street; }

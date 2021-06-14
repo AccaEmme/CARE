@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.DataManager;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.UserManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.BloodBagCloneException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StateException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
@@ -53,7 +54,8 @@ public class BloodBagManager implements OfficerInterface, StoreManagerInterface{
     	this.bloodBags = new HashSet();
     }
     */
-	
+	User currentUser;
+	DataManager dataManager;
     public BloodBagManager(User currentUser, DataManager dataManager) throws ParseException{
     	this.currentUser = currentUser;
         this.dataManager = dataManager;
@@ -70,7 +72,8 @@ public class BloodBagManager implements OfficerInterface, StoreManagerInterface{
 		 * TODO: la data non può essere superiore a quella odierna, la data non può essere antecedente a -7gg
 		 */
 		
-		dataManager.updateExpirationDate(this, expirationDate);
+		/**@// TODO: 14/06/2021 commento perche da errore */
+		//dataManager.updateExpirationDate(this, expirationDate);
 		dataManager.writeLog(
 							cal.getTime(),
 							currentUser,
@@ -80,22 +83,27 @@ public class BloodBagManager implements OfficerInterface, StoreManagerInterface{
 							);
 	
 		/* @TODO: *** il logger potrebbe anche non servire più, da vedere */
+		
+		/**
+		 * wtf is dis
 		Logger logger = new Logger(
 								currentUser,
 								this.getClass(),
-								null, /* da vedere */
+								null, // da vedere
 								"esito eccezione"
 						);
+		*/
 	}
 	
 	
 	public void addBloodBag(BloodGroup bg, String donatorCF, UserManager session) throws BloodBagCloneException{
 		
-		
+    	/**@// TODO: 14/06/2021 commento perche non è completo */
+		/*
 		Node node = session.getUser().getNode();
 		BloodBag bB = new BloodBag(bg, donatorCF, node);
 		node.addBloodBag(bg);
-		bloodBags.add(bg);
+		bloodBags.add(bg);*/
 		
 	}
 	
