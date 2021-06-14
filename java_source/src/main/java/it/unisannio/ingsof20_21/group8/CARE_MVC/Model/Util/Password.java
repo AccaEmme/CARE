@@ -17,6 +17,22 @@ public class Password {
 	 * aiuta una realizzazione di tipo qualitativo.
 	 */
 	
+	String hiddenPassword;
+	
+	public Password(String plainTextPassword) {
+		setHiddenPassword( 
+				getMd5(plainTextPassword)
+				);
+	}
+	
+	public String getHiddenPassword() {
+		return this.hiddenPassword;
+	}
+	
+	private void setHiddenPassword(String hiddenPass) {
+		this.hiddenPassword = hiddenPass;
+	}
+	
     public static String getMd5(String input)    {
         try {
             // Static getInstance method is called with hashing MD5
@@ -34,7 +50,7 @@ public class Password {
             while (hashtext.length() < 32) {
                 hashtext = "0" + hashtext;
             }
-            return hashtext;
+            return hashtext.toUpperCase();;
         } 
   
         // For specifying wrong message digest algorithms

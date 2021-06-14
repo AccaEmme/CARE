@@ -15,7 +15,7 @@ public class User {
 	 */
 	
 	public User(String username, String plainTextPassword){
-    	this.username 	= username;
+    	this.setUsername(username);
     	this.setPassword(plainTextPassword);
     	//this.session 	= MD5.getMd5(username).toUpperCase();
     }
@@ -38,7 +38,7 @@ public class User {
         return username;
     }
 
-    public void setUsername(String username) {
+    private void setUsername(String username) {
         this.username = username;
     }
 
@@ -46,7 +46,7 @@ public class User {
         return password;
     }
 
-    public void setPassword(String plainTextPassword) {
+    private void setPassword(String plainTextPassword) {
     	Password.validatePassword(plainTextPassword);
         this.password 				= Password.getMd5( plainTextPassword+Constants.USER_MD5_SALT ).toUpperCase();
         this.password_lastupdate 	= new Date();
@@ -61,7 +61,7 @@ public class User {
     	return residence;
     }
     
-    public void setResidence(Location residence) {
+    private void setResidence(Location residence) {
     	this.residence=residence;
     }
     
@@ -69,7 +69,7 @@ public class User {
     	return this.role;
     }
     
-    public void setRole(Role r) {
+    private void setRole(Role r) {
     	this.role = r;
     }
    

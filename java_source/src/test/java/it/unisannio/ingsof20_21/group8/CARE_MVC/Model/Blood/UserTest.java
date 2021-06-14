@@ -18,6 +18,8 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 
 
 public class UserTest {
+	Role segretaria = new Role();
+	
 	
 	@Test
 	public void test_set() {
