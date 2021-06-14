@@ -18,7 +18,7 @@ public class InitSettings {
 		initSerialXML( serialmatrix );
 	}
 	
-	public static void initSerialXML( String serialmatrix) {
+	public static void initSerialXML( String serialmatrix ) {
 		String filesettings = Constants.SERIAL_SETTINGS_FILENAME_RELATIVEPATH;
 
         File f = null;
@@ -80,7 +80,7 @@ public class InitSettings {
 	
 	/* FOR JUNIT TEST*/
 	/*----------------------------------------------------*/
-	public static void initXML(int x, String filesettings) {
+	public static void initXMLz(int x, String filesettings) {
         Scanner sc = new Scanner(System.in);
         String nationality, prov, codstr, codint, serialmatrix;
 

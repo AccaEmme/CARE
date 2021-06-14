@@ -14,11 +14,13 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencies>
+  	
+  	<!--  
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -27,16 +29,44 @@
     </dependency>
     
     <dependency>
+	  <groupId>pl.pragmatists</groupId>
+	  <artifactId>JUnitParams</artifactId>
+	  <version>1.1.0</version>
+	</dependency>
+	
+	    <dependency>
+	    <groupId>org.junit.jupiter</groupId>
+	    <artifactId>junit-jupiter-params</artifactId>
+	    <version>5.7.0</version>
+	    <scope>test</scope>
+	</dependency>
+     -->
+     
+    <!-- Start: JUnit 5 Maven Dependency -->
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.5.2</version>
+        <scope>test</scope>
+    </dependency>
+    <!-- End: JUnit 5 Maven Dependency -->
+    
+    
+    <!-- Start: MySQL database Maven Dependency -->
+    <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.23</version>
 	</dependency>
+    <!-- End: MySQL database Maven Dependency -->
 	
+    <!-- Start: MongoDB database Maven Dependency -->
 	<dependency>
  	  <groupId>org.mongodb</groupId>
  	  <artifactId>mongo-java-driver</artifactId>
 	  <version>3.12.8</version>
  	</dependency>
+ 	<!-- End: MongoDB database Maven Dependency -->
   </dependencies>
 
   <build>

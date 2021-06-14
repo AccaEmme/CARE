@@ -59,7 +59,7 @@ public class UserManager extends SystemManager {
 	}
 	
 	
-	public User checkLogin(String username, String plainTextPassword) {
+	public static User checkLogin(final String username, final String plainTextPassword) {
 		// User u = dataManager.getUser(username, MD5Password);
 		return new User("test", Role.Officer);
 	}

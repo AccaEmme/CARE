@@ -89,6 +89,7 @@ public class Password {
         Matcher matcher = pattern.matcher(givenPassword);
         //return matcher.matches();
         
+        /*
         try {
         	if( matcher.matches() ) return true;
         	else throw new IllegalArgumentException("Password pattern conformity not valid");
@@ -97,7 +98,8 @@ public class Password {
 
         }
         return false;
+        */
         
-        //if( matcher.matches() ) return true; else throw new IllegalArgumentException("Password pattern conformity not valid");
+        if( matcher.matches() ) return true; else throw new IllegalArgumentException("Password pattern conformity not valid");
     }
 }
