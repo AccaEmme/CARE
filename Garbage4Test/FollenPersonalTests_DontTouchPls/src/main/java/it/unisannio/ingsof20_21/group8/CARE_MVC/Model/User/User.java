@@ -2,9 +2,12 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User;
 
 import java.util.Date;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
+import org.bson.Document;
 
 public class User {
 	/*
@@ -13,12 +16,38 @@ public class User {
 	 * Quando l'amministratore crea un utente attribuendogli un ruolo, la password viene generata in automatico ed è visibile.
 	 * Al primo cambio password dell'utente, viene eliminata la password temporanea, impostata la password cifrata e viene segnato l'ultimo cambio password.
 	 */
-	
-	public User(String username, String password){
+
+    /**
+     * @param flag  @<code>flag = 1</code> if you want to encode the password
+     *              @<code>flag = 0</code> if you dont want to encode the password
+     *              OLD!*/
+    /*
+	public User(String username, String password, Boolean flag){
     	this.username 	= username;
-    	this.setPassword(password);
+    	if (flag)
+            this.setPassword(password);
+    	else this.password = password;
     	//this.session 	= MD5.getMd5(username).toUpperCase();
+    }*/
+    public User(String username, String password) throws UserException, NullPasswordException {
+        this.validateCredentials(username,password);
+	    this.username = username;
+	    this.setPassword(password);
     }
+    public User(String username, Password password) throws UserException, NullPasswordException {
+        this.validateCredentials(username,password.getPassword());
+	    this.username = username;
+	    this.password = password.getPassword();
+    }
+    private void validateCredentials(String username, String password) throws UserException, NullPasswordException {
+        if (username == null)
+            throw new UserException("The username cannot be null!");
+        if (password == null)
+            throw new NullPasswordException("The password cannot be null!");
+        if (username.length() < 5 || password.length() < 5)
+            throw new UserException("The username or the password cannot be shorter than 5 chars");
+    }
+
     
     @SuppressWarnings("deprecation")
 	public User(String username, Role role) {
@@ -70,6 +99,18 @@ public class User {
     
     public void setRole(Role r) {
     	this.role = r;
+    }
+    public Document getDocument(){
+        Document document = new Document("username",this.getUsername());
+        document.append("password",this.getPassword());
+        if (this.getResidence()!=null)
+            document.append("location",this.getResidence());
+        if (this.getRole()!=null)
+            document.append("location",this.getRole());
+        if (this.getPasswordLastUpdate()!=null)
+            document.append("location",this.getPasswordLastUpdate());
+
+        return document;
     }
    
    
