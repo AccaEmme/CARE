@@ -4,6 +4,10 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 
 public interface LoginInterface {
 	
-	public User checkLogin(String userName, String plainTextPassword);
+	/*
+	public static User checkLogin(String userName, String plainTextPassword) {
+		return null;
+	}
+	*/
 
 }
