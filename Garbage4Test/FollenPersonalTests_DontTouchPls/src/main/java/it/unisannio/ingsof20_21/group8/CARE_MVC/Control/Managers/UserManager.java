@@ -10,10 +10,26 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswo
 
 public class UserManager {
 
-	public UserManager(User user) {
+	private DataManager dataManager;
+	private User user;
+	private TreeSet<User> users;
+
+	public UserManager(User user) throws UserException {
 		
 		this.user = user;
-		this.dataManager = new MongoDataManager(); 
+
+
+		System.out.println(user.getRole().toString());
+		if (user.getRole() == Role.Administrator){
+			AdminInterface admin = new MongoDataManager();
+			this.dataManager = admin;
+		}else if (user.getRole() == Role.StoreManager){
+			WhareHouseWorkerInterface worker = new MongoDataManager();
+			this.dataManager = worker;
+		}else {
+			throw new UserException("The user does not have a role!");
+		}
+
 	}
 	
 	public static UserManager checkLogin(String userName, String password, DataManager dataManager) throws UserException, NullPasswordException {
@@ -69,9 +85,6 @@ public class UserManager {
 		return users.toString();
 	}
 	
-	
-	private DataManager dataManager;
-	private User user;
-	private TreeSet<User> users;
+
 
 }

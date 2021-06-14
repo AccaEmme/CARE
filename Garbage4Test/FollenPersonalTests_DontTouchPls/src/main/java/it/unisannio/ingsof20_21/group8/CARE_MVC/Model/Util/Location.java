@@ -32,6 +32,13 @@ public class Location {
         this.region = region;
         this.country = country;
     }
+    private String lazyLocation;
+    public Location(String lazyLocation){
+    	this.lazyLocation = lazyLocation;
+	}
+	public String getLocation(){
+    	return this.lazyLocation;
+	}
 
 
     

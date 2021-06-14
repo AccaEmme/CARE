@@ -11,18 +11,8 @@ import java.util.List;
 public interface DataManager {
 	void createDB();
 	void dropDB();
-	
-	// filling Working tables.
-	void setStateTable(/*short id_state, */String state);
-	
-	
-	void addBloodBag(BloodBag bloodbag);
-	List<BloodBag> getBloodBag(BloodBag blood);
-	
-	void updateExpirationDate(BloodBag b, Date newExpirationDate);
-	void writeLog(Date currentDate, User currentUser, String currentClass, String currentMethod, String currentResult);
-	
-	public void restoreDump(String filename);
-	public boolean createDump();
-	public User validateLogin(String username, String password) throws UserException, NullPasswordException;
+
+	User validateLogin(String username, String password) throws UserException, NullPasswordException;
+
+	void writeLog(Date now, User currentUser, String fromClass, String method, String result);
 }

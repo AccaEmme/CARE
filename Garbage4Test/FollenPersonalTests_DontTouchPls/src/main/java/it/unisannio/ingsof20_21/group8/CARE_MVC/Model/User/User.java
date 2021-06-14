@@ -106,9 +106,9 @@ public class User {
         if (this.getResidence()!=null)
             document.append("location",this.getResidence());
         if (this.getRole()!=null)
-            document.append("location",this.getRole());
+            document.append("role",this.getRole().toString());
         if (this.getPasswordLastUpdate()!=null)
-            document.append("location",this.getPasswordLastUpdate());
+            document.append("password_last_update",this.getPasswordLastUpdate());
 
         return document;
     }

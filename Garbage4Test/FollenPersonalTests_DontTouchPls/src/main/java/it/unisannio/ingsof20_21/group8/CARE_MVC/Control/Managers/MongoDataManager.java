@@ -5,11 +5,14 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.NullUserException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Role;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 import org.bson.Document;
 import org.json.simple.JSONObject;
@@ -18,15 +21,35 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public class MongoDataManager implements DataManager {
+public class MongoDataManager implements WhareHouseWorkerInterface,AdminInterface {
     private String connectionStringURI = "";
     private String db_name = "";
     private String collection_name = "";
+
+    private static final String TAG_DB = "db_mongo_name";
+    private static final String TAG_HOST = "db_mongo_host";
+    private static final String TAG_PORT = "db_mongo_port";
+
+
+    private static final String COLLECTION_USER= "users";
+    private static final String COLLECTION_BAG= "blood-bags";
+    private static final String ELEMENT_USERNAME = "username";
+    private static final String ELEMENT_PASSWORD = "password";
+    private static final String ELEMENT_ROLE = "role";
+    private static final String ELEMENT_GROUP = "BloodGroup";
+    private static final String ELEMENT_SERIAL = "serial";
+    private static final String ELEMENT_CREATIONDATE = "creationDate";
+    private static final String ELEMENT_EXPIRATIONDATE = "expirationDate";
+    private static final String ELEMENT_DONATORCF = "donatorCF";
+    private static final String ELEMENT_NODE = "node";
+    private static final String ELEMENT_BLOODBAGSTATE = "bloodBagState";
+    private static final String ELEMENT_NOTE = "note";
 /*
     private static String SERIALE = "SERIAL";
     private static String GRUPPO = "GROUP";
@@ -107,6 +130,34 @@ public class MongoDataManager implements DataManager {
         System.out.println("Added element: "+document);
         mongoClient.close();
     }
+
+    @Override
+    public void deleteUser(User u) throws ParseException {
+        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
+
+        if((mongoCollection.deleteOne((eq(ELEMENT_USERNAME,u.getUsername()))).getDeletedCount())==0) {
+            System.out.println("user not found");
+
+        }
+        else {
+            System.out.println("user deleted");
+        }
+
+
+
+
+        mongoClient.close();
+    }
+
+    @Override
+    public void editUser(User u) throws ParseException {
+
+    }
+
     private void validateUser(User user) throws UserException, NullUserException, NullPasswordException {
         if (user == null)
             throw new NullUserException("The user cannot be null!");
@@ -142,6 +193,11 @@ public class MongoDataManager implements DataManager {
         else throw new UserException("Wrong password!");
     }
 
+    @Override
+    public void writeLog(Date now, User currentUser, String fromClass, String method, String result) {
+
+    }
+
     public User getUser(String username){
         MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
@@ -153,9 +209,20 @@ public class MongoDataManager implements DataManager {
 
         Password password = new Password(document.getString("password"));   //already encoded
 
+
         try {
             try {
-                return new User(document.getString("username"), password);
+                User user = new User(document.getString("username"),password);
+                if (document.getString("role") != null){
+                    String role = document.getString("role");
+                    Role roleObj = Role.valueOf(role);
+                    user.setRole(roleObj);
+                }
+                if (document.getString("location")!=null){
+                    Location location = new Location(document.getString("location"));
+                    user.setResidence(location);
+                }
+                return user;
             } catch (NullPasswordException e) {
                 //silenzio l'eccezione perche non puo verificarsi
             }
@@ -172,41 +239,6 @@ public class MongoDataManager implements DataManager {
     @Override
     public void dropDB() {
 
-    }
-
-    @Override
-    public void setStateTable(String state) {
-
-    }
-
-    @Override
-    public void addBloodBag(BloodBag bloodbag) {
-
-    }
-
-    @Override
-    public List<BloodBag> getBloodBag(BloodBag blood) {
-        return null;
-    }
-
-    @Override
-    public void updateExpirationDate(BloodBag b, Date newExpirationDate) {
-
-    }
-
-    @Override
-    public void writeLog(Date currentDate, User currentUser, String currentClass, String currentMethod, String currentResult) {
-
-    }
-
-    @Override
-    public void restoreDump(String filename) {
-
-    }
-
-    @Override
-    public boolean createDump() {
-        return false;
     }
 
 
@@ -618,4 +650,8 @@ public class MongoDataManager implements DataManager {
         this.collection_name = collection_name;
     }
 
+    @Override
+    public void addBloodBag(BloodBagInterface bbi) throws ParseException {
+
+    }
 }
