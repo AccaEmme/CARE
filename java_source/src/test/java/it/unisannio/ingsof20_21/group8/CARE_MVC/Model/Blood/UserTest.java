@@ -4,9 +4,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 import org.junit.jupiter.api.Test;
+/*
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.MethodSource;*/
 
 import java.util.stream.Stream;
 
@@ -18,7 +21,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 
 
 public class UserTest {
-	Role segretaria = new Role();
+	Role segretaria; //= new Role();
 	
 	
 	@Test
@@ -27,7 +30,7 @@ public class UserTest {
 	}
 	
 	@Test
-	public void testMD5() {
+	public void testMD5() throws NullPasswordException, UserException {
 		User u=new User("Luca","AAAbbbccc@123");
 		String password="AAAbbbccc@123";
 		System.out.println(u.getPasswordLastUpdate());
@@ -68,14 +71,14 @@ public class UserTest {
 	
 	// PASSWORD TESTS.
     @ParameterizedTest(name = "#{index} - Run test with valid password complexity pattern = {0}")
-    @MethodSource("validPasswordProvider")
+    @MethodSource(string="validPasswordProvider")
     public void test_password_regex_valid(String password) {
         assertTrue( Password.validatePassword(password) );
     }	
 	
     
     @ParameterizedTest(name = "#{index} - Run test with wrong password complexity pattern = {0}")
-    @MethodSource("invalidPasswordProvider")
+    @MethodSource(string="invalidPasswordProvider")
     //@Test(expected = IllegalArgumentException.class)
     public void test_password_regex_invalid(String password) {
     	//ExceptionThrower exceptionThrower = new ExceptionThrower();

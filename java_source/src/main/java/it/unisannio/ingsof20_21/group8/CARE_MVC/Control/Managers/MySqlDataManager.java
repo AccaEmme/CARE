@@ -13,8 +13,11 @@ import java.util.List;
 import java.util.Properties;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
 // non eliminare questo commento. import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Serial; Non necessaria in quanto il costruttore della sacca richiama la generazione del seriale.
 
 
@@ -60,6 +63,11 @@ public class MySqlDataManager implements DataManager{
 	    this.username = loadProps.getProperty("username");
 	    this.password = loadProps.getProperty("password");
     }
+
+	@Override
+	public void writeLog(Logger logger) {
+
+	}
 
 	public void createDB () {
 		/**
@@ -123,7 +131,12 @@ public class MySqlDataManager implements DataManager{
 	    }
 		
 	}
-	
+
+	@Override
+	public User validateLogin(String username, String password) throws UserException, NullPasswordException {
+		return null;
+	}
+
 	public void addBloodBag (BloodBag s) { // in realtà aggiunge ciò che fornisce il manager, forse ***
         try (Connection conn = DriverManager.getConnection(url_db, username, password);
              PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_INSERT)) {
@@ -230,12 +243,11 @@ public class MySqlDataManager implements DataManager{
 	 */
 	/* *** da implementare */
 	
-	@Override
+
 	public boolean createDump() {
 		return false;
 	}
-	
-	@Override
+
 	public void restoreDump(String filename) {
 		/*
 		 * TODO: da rivedere perché potrebbe non essere presente mysqlsh o mysql
@@ -282,20 +294,20 @@ public class MySqlDataManager implements DataManager{
 		//return false;
 	}
 
-	@Override
+
 	public List<BloodBag> getBloodBag(BloodBag blood) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public void updateExpirationDate(BloodBag b, Date newExpirationDate) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	
-	@Override
+
 	public void setStateTable(/*short id_state, */String state) {
 		String INSERTTABLE_StateTable = "INSERT INTO `state_table` (id_state, state) VALUES (?,?)";
         try (Connection conn = DriverManager.getConnection(url_db, username, password);

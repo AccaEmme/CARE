@@ -4,9 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.stream.Stream;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFoundException;
 import org.junit.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.City;
@@ -14,7 +13,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Province;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
 
-public class LocationTest2 {
+public class LocationTest {
 	
 	
 	/* TEST PER INFORMAZIONI VALIDE DELLA CLASSE LOCATION.JAVA */
@@ -22,7 +21,7 @@ public class LocationTest2 {
 	
 	//Verifica del corretto funzionamento della classe Location
 	@Test
-	 public void VerifyCreateCountry()  {
+	 public void VerifyCreateCountry() throws StreetNotFoundException {
 		Location l = new Location(
 				Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"via 25 Aprile","5"
 				);
@@ -32,7 +31,7 @@ public class LocationTest2 {
 	/* ATTENZIONE VEDERE PROBLEMA TO STRING*/
 	//Verifica del corretto funzionamento del metodo ToString
 	@Test ()
-	 public void VerifyToString()  {
+	 public void VerifyToString() throws StreetNotFoundException {
 		Location l = new Location(
 			Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"via 25 Aprile","5"
 			);
@@ -41,8 +40,8 @@ public class LocationTest2 {
 	
 	//Verifica il corretto inserimento delle Nazioni
 	@ParameterizedTest(name = "#{index} - Run test with valid Coutry = {0}")
-	@MethodSource("ValidCoutry")
-	 public void test_ValidCoutry(String CoutryT) {
+	@MethodSource(string="ValidCoutry")
+	 public void test_ValidCoutry(String CoutryT) throws StreetNotFoundException {
 		Location l = new Location(
 				Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"via 25 Aprile","5"
 				);
@@ -51,8 +50,8 @@ public class LocationTest2 {
 	
 	//Verifica il corretto inserimento delle Regioni
 	@ParameterizedTest(name = "#{index} - Run test with valid Region = {0}") 
-    @MethodSource("ValidRegion")
-	 public void test_ValidRegion(String RegionT) {
+    @MethodSource(string="ValidRegion")
+	 public void test_ValidRegion(String RegionT) throws StreetNotFoundException {
 		Location l = new Location(
 				Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"via 25 Aprile","5"
 				);
@@ -61,8 +60,8 @@ public class LocationTest2 {
 	
 	//Verifica il corretto inserimento delle Province
 	@ParameterizedTest(name = "#{index} - Run test with valid Province = {0}")
-	@MethodSource("ValidProvince")
-	 public void test_ValidProvince(String ProvinceT) {
+	@MethodSource(string="ValidProvince")
+	 public void test_ValidProvince(String ProvinceT) throws StreetNotFoundException {
 		Location l = new Location(
 				Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"via 25 Aprile","5"
 				);
@@ -72,8 +71,8 @@ public class LocationTest2 {
 	
 	//Verifica il corretto inserimento delle Province
 	@ParameterizedTest(name = "#{index} - Run test with valid City = {0}")
-	@MethodSource("ValidCity")
-	 public void test_ValidCity(String CityT) {
+	@MethodSource(string="ValidCity")
+	 public void test_ValidCity(String CityT) throws StreetNotFoundException {
 		Location l = new Location(
 			Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"via 25 Aprile","5"
 			);
@@ -88,7 +87,7 @@ public class LocationTest2 {
 	
 	//Verifica il non corretto inserimento di una Nazione
 	@Test(expected = IllegalArgumentException.class)
-	 public void InvalidCoutry(){
+	 public void InvalidCoutry() throws StreetNotFoundException {
 		  Location l = new Location(
 				  Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"","5"
 				  );
@@ -97,7 +96,7 @@ public class LocationTest2 {
 	
 	//Verifica il non corretto inserimento di una Regione
 	@Test(expected = IllegalArgumentException.class)
-	 public void InvalidRegion(){
+	 public void InvalidRegion() throws StreetNotFoundException {
 		Location l = new Location(
 			Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"","5"
 			);
@@ -106,7 +105,7 @@ public class LocationTest2 {
 	
 	//Verifica il non corretto inserimento di una Provincia
 	@Test(expected = IllegalArgumentException.class)
-	 public void InvalidProvince(){
+	 public void InvalidProvince() throws StreetNotFoundException {
 		Location l = new Location(
 				Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"","5"
 				);
@@ -115,7 +114,7 @@ public class LocationTest2 {
 		
 	//Verifica il non corretto inserimento di una Città
 	@Test(expected = IllegalArgumentException.class)
-	public void InvalidCity(){
+	public void InvalidCity() throws StreetNotFoundException {
 		Location l = new Location(
 				Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"","5"
 				);
@@ -124,7 +123,7 @@ public class LocationTest2 {
 			
 	//Verifica dell'attivazione dell'eccezione in caso in cui non venga inserita una strada
 	@Test(expected = IllegalArgumentException.class)
-	 public void ContryStreetNotFound(){
+	 public void ContryStreetNotFound() throws StreetNotFoundException {
 		  Location l = new Location(
 				  Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"","5"
 				  );
@@ -132,7 +131,7 @@ public class LocationTest2 {
 	
 	//Verifica dell'attivazione dell'eccezione in caso in cui non venga inserita una strada
 	@Test(expected = IllegalArgumentException.class)
-	 public void CountryStreetNumberNotFound() {
+	 public void CountryStreetNumberNotFound() throws StreetNotFoundException {
 		  Location l = new Location(  
 				  Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"Via piane",""
 				  );

@@ -25,6 +25,7 @@ public class CARE {
  * 
  */
 	public static void main(String[] args) {
+		/*
 			DataManager userDB = new MongoDataManager(); 
 			// CareManager:
 
@@ -60,7 +61,7 @@ public class CARE {
 			userInterface.addUser( 
 								//...
 								 ); // funziona solo se è un amministratore
-*/
+
 			// potrebbe anche esistere un metodo del tipo userInterface.showGUI() che fa apparire la relativa schermata grafica interfaccia utente
 
 
@@ -69,7 +70,7 @@ public class CARE {
 
 			//Utente amministratore genera report 
 			userInterface3.
-
+			*/
 	}
 
 }

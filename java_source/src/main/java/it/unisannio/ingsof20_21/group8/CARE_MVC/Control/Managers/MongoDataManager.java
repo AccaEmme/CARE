@@ -193,20 +193,6 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     }
 
 
-    @Override
-    public void restoreDump(String filename) {
-
-    }
-
-    @Override
-    public boolean createDump() {
-        return false;
-    }
-
-    @Override
-    public void writeLog(Logger logger) {
-
-    }
 
     public User getUser(String username){
         MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
@@ -244,31 +230,16 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
         return null;
     }
 
+    @Override
+    public void writeLog(Logger logger) {
+
+    }
+
     //implementazione non necessaria
     public void createDB(){}
 
     @Override
     public void dropDB() {
-
-    }
-
-    @Override
-    public void setStateTable(String state) {
-
-    }
-
-    @Override
-    public void addBloodBag(BloodBag bloodbag) {
-
-    }
-
-    @Override
-    public List<BloodBag> getBloodBag(BloodBag blood) {
-        return null;
-    }
-
-    @Override
-    public void updateExpirationDate(BloodBag b, Date newExpirationDate) {
 
     }
 

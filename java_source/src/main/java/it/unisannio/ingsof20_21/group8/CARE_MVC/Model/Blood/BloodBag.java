@@ -139,7 +139,12 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 	}
 	
 	public Node getNode() { return node; }
-	
+
+	@Override
+	public BloodGroup getBloodType() {
+		return this.bloodGroup;
+	}
+
 	protected void setNode(Node node) {
 		if(node == null) throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"node is null ");
 		this.node = node;

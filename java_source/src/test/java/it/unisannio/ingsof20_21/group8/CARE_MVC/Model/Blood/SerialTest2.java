@@ -40,7 +40,7 @@ public class SerialTest2 {
 		String path2 = path+"serial_settings_temp.xml";
 		File to = new File(path2);
         Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		InitSettings.initXML(100,path1);
+		//InitSettings.initXML(100,path1);
 		BloodGroup g= BloodGroup.valueOf("ZEROneg") ;
 		Serial s=new Serial(g);
 		  Properties loadProps = new Properties();

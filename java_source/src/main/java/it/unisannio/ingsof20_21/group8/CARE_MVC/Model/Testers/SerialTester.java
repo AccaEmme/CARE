@@ -31,7 +31,7 @@ public class SerialTester {
 		// Tester2
 		String path2 = path+"serial_settings_test.xml";
 		Properties loadProps = new Properties();
-		InitSettings.initXML(22,path2);
+		//InitSettings.initXML(22,path2);
 		loadProps.loadFromXML(new FileInputStream(path2));
 		  
 		System.out.println("loadProps1 counter: " + Integer.valueOf(loadProps.getProperty("counter")));

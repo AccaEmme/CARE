@@ -1,8 +1,10 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.AdministratorInterface;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Role;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
 
 public class UserManager extends SystemManager {
@@ -21,7 +23,27 @@ public class UserManager extends SystemManager {
 		this.currentUser = currentUser;
 		this.dataManager = dataManager;
 	}
-	
+	public UserManager(User user) throws UserException {
+		super(user,null);
+
+		this.currentUser = user;
+
+
+
+		System.out.println(user.getRole().toString());
+		if (user.getRole() == Role.Administrator){
+			AdminInterface admin = new MongoDataManager();
+			this.dataManager = admin;
+		}else if (user.getRole() == Role.StoreManager){
+			WhareHouseWorkerInterface worker = new MongoDataManager();
+			this.dataManager = worker;
+		}else {
+			throw new UserException("The user does not have a role!");
+		}
+
+	}
+
+	/*
 	public void addUser(User u) {
 		UserManager um = new UserManager(u, dataManager);
 		um.addUser(u);
@@ -56,12 +78,15 @@ public class UserManager extends SystemManager {
 						new Logger(currentUser, "SystemManager", "setRole:"+u.toString(), "ok")
 						// currentUser(mario)+"ha aggiunto+"u(Francesco)
 				);
-	}
-	
-	
-	public static User checkLogin(final String username, final String plainTextPassword) {
-		// User u = dataManager.getUser(username, MD5Password);
-		return new User("test", Role.Officer);
+	}*/
+
+
+	public static UserManager checkLogin(String userName, String password, DataManager dataManager) throws UserException, NullPasswordException, NullPasswordException, UserException {
+		User user = dataManager.validateLogin(userName, password);
+		if(user != null) {
+			return new UserManager(user);
+		}
+		return null;
 	}
 	
 }

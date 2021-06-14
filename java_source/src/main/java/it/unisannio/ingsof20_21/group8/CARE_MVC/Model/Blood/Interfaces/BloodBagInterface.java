@@ -20,8 +20,10 @@ public interface BloodBagInterface {
 	public String 		getDonatorCF();
 	public String		getNote();
 	public Node			getNode();
-	
-	/*
+
+    BloodGroup getBloodType();
+
+    /*
 	 * @TODO: mettere protected tutti i metodi della classe.
 	 */
 }
