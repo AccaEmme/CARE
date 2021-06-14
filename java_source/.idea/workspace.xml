@@ -5,79 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/MethodSource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/ParameterizedTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/DataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MongoDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MongoDataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MySqlDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MySqlDataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/UserManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Interfaces/BloodBagInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Interfaces/BloodBagInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Node/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Node/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodBagManagerTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodBagManagerTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodBagTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodBagTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/CARE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/CARE.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/CARE2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/CARE2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/SerialTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/SerialTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/TestCreateAndPopulateSqlDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/TestCreateAndPopulateSqlDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/User/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/User/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBagTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBagTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/LocationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/LocationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/PasswordTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/PasswordTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/SerialTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/SerialTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/SerialTest2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/SerialTest2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/UserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Blood/BloodBagManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/DataManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MongoDataManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MySqlDataManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/SystemManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/UserManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/User/LoginInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Exceptions/BloodBagCloneException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Exceptions/NodeNotFoundException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Exceptions/StateException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Exceptions/StreetNotFoundException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBag$BloodBagState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBag.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodGroup$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodGroup$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodGroup.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Interfaces/AdministratorInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Interfaces/BloodBagInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Interfaces/LoginInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Interfaces/OfficerInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Interfaces/StoreManagerInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Serial.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Node/Node.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodBagManagerTester.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodBagTester.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/BloodGroupTester.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/CARE.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/CARE2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/SerialTester.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/TestCreateAndPopulateSqlDB.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Testers/UserTester.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/User/Role.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/User/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/User/UserException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Constants.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/InitSettings.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location$City.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location$Country.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location$Province.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location$Region.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Location.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Logger.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Password.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/AppTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/BloodBagTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/LocationJunitTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/PasswordTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/SerialTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/SerialTest2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/UserTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623681722553</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Major cleanup">
+      <created>1623683270039</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1623683270039</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -271,7 +207,8 @@
     <MESSAGE value="minor changes&#10;la connessione non funziona, ma devo accertarmene sull'altro computer." />
     <MESSAGE value="Integrazione nel codice principale della login con i ruoli" />
     <MESSAGE value="Integrazione nel codice principale della login con i ruoli e minor changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Integrazione nel codice principale della login con i ruoli e minor changes" />
+    <MESSAGE value="Major cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Major cleanup" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2685" y="201" key="#com.intellij.ide.util.MemberChooser" timestamp="1623682525084">
@@ -305,11 +242,11 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="272" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925549934" />
-    <state x="2327" y="0" key="CommitChangelistDialog2" timestamp="1623681721818">
+    <state x="2327" y="0" key="CommitChangelistDialog2" timestamp="1623683269399">
       <screen x="1920" y="0" width="1920" height="1050" />
     </state>
     <state x="407" y="6" key="CommitChangelistDialog2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1621450829841" />
-    <state x="2327" y="0" key="CommitChangelistDialog2/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623681721818" />
+    <state x="2327" y="0" key="CommitChangelistDialog2/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623683269399" />
     <state width="1877" height="392" key="GridCell.Tab.0.bottom" timestamp="1621272631414">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -334,16 +271,16 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="583" y="279" key="MultipleFileMergeDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620926016258" />
-    <state x="2472" y="254" key="Vcs.Push.Dialog.v2" timestamp="1623681743469">
+    <state x="2472" y="254" key="Vcs.Push.Dialog.v2" timestamp="1623683273716">
       <screen x="1920" y="0" width="1920" height="1050" />
     </state>
     <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1621450833319" />
-    <state x="2472" y="254" key="Vcs.Push.Dialog.v2/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623681743469" />
-    <state x="2697" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1623681735541">
+    <state x="2472" y="254" key="Vcs.Push.Dialog.v2/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623683273716" />
+    <state x="2697" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1623683247035">
       <screen x="1920" y="0" width="1920" height="1050" />
     </state>
     <state x="777" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925922176" />
-    <state x="2697" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623681735541" />
+    <state x="2697" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623683247035" />
     <state x="466" y="203" width="1530" height="1032" key="dock-window-1" timestamp="1621529501418">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

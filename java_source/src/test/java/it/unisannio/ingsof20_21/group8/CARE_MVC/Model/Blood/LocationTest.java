@@ -65,8 +65,9 @@ public class LocationTest {
 		Location l = new Location(
 				Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"via 25 Aprile","5"
 				);
+
 		l.setProvince(ProvinceT);
-	}	
+	}
 	
 	
 	//Verifica il corretto inserimento delle Province
