@@ -13,7 +13,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Province;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
 
-public class LocationTest {
+public class LocationTestPD {  
 	
 	
 	/* TEST PER INFORMAZIONI VALIDE DELLA CLASSE LOCATION.JAVA */
