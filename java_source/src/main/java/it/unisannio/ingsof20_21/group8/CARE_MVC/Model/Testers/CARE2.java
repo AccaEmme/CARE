@@ -37,10 +37,10 @@ public class CARE2 {
 			String username = "Gerardo";
 			String password = "MarkUs30Lode";
 
-			User currentUserSession = UserManager.checkLogin(username, password); // contiene solo metodi per verificare la login, se trovata restituisce lo UserManager
+			//User currentUserSession = UserManager.checkLogin(username, password); // contiene solo metodi per verificare la login, se trovata restituisce lo UserManager
 			// LoginInterface currentUserSession = UserManager.recoverPassword(username, email);
 			
-			AdministratorInterface sm = new UserManager(currentUserSession, userDB);
+			//AdministratorInterface sm = new UserManager(currentUserSession, userDB);
 			
 	}
 

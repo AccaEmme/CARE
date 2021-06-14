@@ -50,7 +50,7 @@ public class Password {
             while (hashtext.length() < 32) {
                 hashtext = "0" + hashtext;
             }
-            return hashtext.toUpperCase();;
+            return hashtext.toUpperCase();
         } 
   
         // For specifying wrong message digest algorithms

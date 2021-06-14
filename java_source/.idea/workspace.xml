@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/LocationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/LocationTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +18,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="AnnotationType" />
       </list>
     </option>
   </component>
@@ -39,7 +42,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Util/Exceptions" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
@@ -47,18 +50,15 @@
       <recent name="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood" />
       <recent name="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Tester" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood" />
+      <recent name="src/test/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Model/Blood/Annotations" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\giuli\Desktop\CARE\java_source\src\main\java\it\unisannio\ingsof20_21\group8\CARE_MVC\Model\Util\Exceptions" />
+      <recent name="C:\Users\giuli\Desktop\CARE\java_source\src\main\java\it\unisannio\ingsof20_21\group8\CARE_MVC\Model\User\Exceptions" />
+      <recent name="C:\Users\giuli\Desktop\CARE\java_source\src\main\java\it\unisannio\ingsof20_21\group8\CARE_MVC\Control\Managers" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.SimpleTest">
     <configuration name="BloodBagTester" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -139,7 +139,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -172,7 +172,21 @@
       <option name="project" value="LOCAL" />
       <updated>1621531692309</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Integrazione nel codice principale della login con i ruoli e minor changes">
+      <created>1623681722553</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1623681722553</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Major cleanup">
+      <created>1623683270039</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1623683270039</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -180,33 +194,46 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="MVC update" />
     <MESSAGE value="added user, logger" />
     <MESSAGE value="minor changes&#10;la connessione non funziona, ma devo accertarmene sull'altro computer." />
-    <option name="LAST_COMMIT_MESSAGE" value="minor changes&#10;la connessione non funziona, ma devo accertarmene sull'altro computer." />
+    <MESSAGE value="Integrazione nel codice principale della login con i ruoli" />
+    <MESSAGE value="Integrazione nel codice principale della login con i ruoli e minor changes" />
+    <MESSAGE value="Major cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Major cleanup" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="765" y="201" key="#com.intellij.ide.util.MemberChooser" timestamp="1621528319125">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="2685" y="201" key="#com.intellij.ide.util.MemberChooser" timestamp="1623682525084">
+      <screen x="1920" y="0" width="1920" height="1050" />
     </state>
     <state x="765" y="201" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1621528319125" />
-    <state x="691" y="301" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1620925347124">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="2685" y="201" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623682525084" />
+    <state x="2611" y="301" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1623682758258">
+      <screen x="1920" y="0" width="1920" height="1050" />
     </state>
     <state x="691" y="301" key="#com.intellij.ide.util.PackageChooserDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925347124" />
-    <state x="700" y="380" width="553" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1620925347734">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="2611" y="301" key="#com.intellij.ide.util.PackageChooserDialog/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623682758258" />
+    <state x="2390" y="441" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1623682794934">
+      <screen x="1920" y="0" width="1920" height="1050" />
+    </state>
+    <state x="2390" y="441" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623682794934" />
+    <state x="2620" y="380" width="560" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1623681637579">
+      <screen x="1920" y="0" width="1920" height="1050" />
     </state>
     <state x="700" y="380" width="553" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925347734" />
+    <state x="2620" y="380" width="560" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623681637579" />
+    <state x="2627" y="397" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1623682796115">
+      <screen x="1920" y="0" width="1920" height="1050" />
+    </state>
+    <state x="2627" y="397" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623682796115" />
     <state x="375" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1621529596953">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -215,10 +242,11 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="272" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925549934" />
-    <state x="407" y="6" key="CommitChangelistDialog2" timestamp="1621450829841">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="2327" y="0" key="CommitChangelistDialog2" timestamp="1623683269399">
+      <screen x="1920" y="0" width="1920" height="1050" />
     </state>
     <state x="407" y="6" key="CommitChangelistDialog2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1621450829841" />
+    <state x="2327" y="0" key="CommitChangelistDialog2/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623683269399" />
     <state width="1877" height="392" key="GridCell.Tab.0.bottom" timestamp="1621272631414">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -243,14 +271,16 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="583" y="279" key="MultipleFileMergeDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620926016258" />
-    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1621450833319">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="2472" y="254" key="Vcs.Push.Dialog.v2" timestamp="1623683273716">
+      <screen x="1920" y="0" width="1920" height="1050" />
     </state>
     <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1621450833319" />
-    <state x="777" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1620925922176">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="2472" y="254" key="Vcs.Push.Dialog.v2/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623683273716" />
+    <state x="2697" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1623683247035">
+      <screen x="1920" y="0" width="1920" height="1050" />
     </state>
     <state x="777" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925922176" />
+    <state x="2697" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623683247035" />
     <state x="466" y="203" width="1530" height="1032" key="dock-window-1" timestamp="1621529501418">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

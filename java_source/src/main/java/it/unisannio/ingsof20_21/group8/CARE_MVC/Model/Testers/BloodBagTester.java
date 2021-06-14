@@ -2,6 +2,7 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers;
 
 import java.text.ParseException;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFoundException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;						// Sebbene noi abbiamo importato il package, la visibilità protected fa sì che non possiamo utilizzare quei metodi, ma solo instanziare l'oggetto. Potente!
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
@@ -14,7 +15,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
 
 public class BloodBagTester {
 
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) throws ParseException, StreetNotFoundException {
 		String CF1="BNCMRA86A41A509Y", CF2="RSSMRA80A01A509I", CF3="MMCARN45B24A509I";
 		
 		Node n1 = new Node("206","Rummo",		new Location(Country.Italy, Region.Campania, Province.Benevento, City.Benevento, "via Roma", "44C"));

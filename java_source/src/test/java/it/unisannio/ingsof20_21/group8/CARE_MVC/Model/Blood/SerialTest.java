@@ -11,9 +11,10 @@ import java.util.stream.Stream;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+/*
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.NullSource;*/
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
@@ -52,8 +53,7 @@ public class SerialTest {
     	new Serial(g);
     }
    
-    @ParameterizedTest
-    @NullSource
+    @ParameterizedTest(name = "")
 	@Test(expected = NullPointerException.class)
     public void serialDefineNull(String bloodGroup) {
 	   BloodGroup g= BloodGroup.valueOf(bloodGroup);

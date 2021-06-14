@@ -143,7 +143,7 @@ public class BloodBagTest {
 	
 	@Test
 	public void testManager() throws FileNotFoundException{
-		
+		/*
 		Scanner nodeSc = new Scanner(new File("Nodes.txt"));
 		Scanner bloodSc = new Scanner(new File("BloodBags.txt"));
 		BloodBagManager2 bM = new BloodBagManager2(nodeSc, bloodSc);
@@ -155,5 +155,6 @@ public class BloodBagTest {
 		
 		BloodBagManager2 bMAve = bM.filteredByProvince("Avellino");
 		bMAve.print();
+		 */
 	}
 }

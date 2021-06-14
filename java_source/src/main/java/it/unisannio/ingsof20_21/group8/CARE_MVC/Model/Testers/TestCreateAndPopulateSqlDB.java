@@ -17,7 +17,7 @@ public class TestCreateAndPopulateSqlDB {
 		
 		//String filename = "./localsettings/mysqldump.sql";
 		//dm.restoreDump(filename);
-		
+		/*
 		dm.setStateTable("presente");
 		dm.setStateTable("trasferito");
 		dm.setStateTable("eliminato");
@@ -35,7 +35,7 @@ public class TestCreateAndPopulateSqlDB {
 									"CF"+i+""
 									,"provanota"
 								);
-				/* provare anche costruttore con nota */
+
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -43,13 +43,13 @@ public class TestCreateAndPopulateSqlDB {
 			dm.addBloodBag(s);
 			System.out.println("Added BloodBag: "+s);			
 		}
-		
+		*/
 	}
 }
+
+
 		/*
-		
-				
-		
+
 
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 		    public void run() {
