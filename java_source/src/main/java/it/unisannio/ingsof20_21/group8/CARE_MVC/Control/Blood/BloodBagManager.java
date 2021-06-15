@@ -12,6 +12,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.DataManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.UserManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.BloodBagCloneException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StateException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFoundException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag.BloodBagState;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
@@ -271,21 +272,24 @@ public class BloodBagManager implements OfficerInterface, StoreManagerInterface{
 		return 0;
 	}
 
-	@Override
 	public void addBloodBag(BloodBag b) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void useBloodBag(BloodBag b) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
 	public void transferBloodBag(BloodBag b, Node n) {
 		// TODO Auto-generated method stub
 		
 	}
-}	
+
+	@Override
+	public void getBloodBagExpiring(Date d, BloodGroup b) throws ParseException, StreetNotFoundException {
+
+	}
+}

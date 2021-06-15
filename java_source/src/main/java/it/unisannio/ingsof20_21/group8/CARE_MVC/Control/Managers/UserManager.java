@@ -19,6 +19,7 @@ public class UserManager extends SystemManager {
 	
 	private User 		currentUser;
 	private DataManager dataManager;
+
 	
 	public UserManager(User currentUser, DataManager dataManager) {
 		super(currentUser, dataManager);
@@ -94,6 +95,9 @@ public class UserManager extends SystemManager {
 	public void report() throws ParseException {
 		// TODO Auto-generated method stub
 		
+	}
+	public User getCurrentUser(){
+		return this.currentUser;
 	}
 	
 }

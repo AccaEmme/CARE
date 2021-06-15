@@ -35,11 +35,11 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswo
 public class UsrDbTest {
 public static void main(String[] args) throws ParseException, UserException, NullPasswordException, StreetNotFoundException {
 		
-		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver");
+	Logger mongoLogger = Logger.getLogger( "org.mongodb.driver");
 	mongoLogger.setLevel(Level.SEVERE);
 
-      AdminInterface dm = new MongoDataManager();
-      WhareHouseWorkerInterface mi=new MongoDataManager();
+	  AdminInterface dm = new MongoDataManager();
+	  WhareHouseWorkerInterface mi=new MongoDataManager();
 		dm.createDB();
 	
 		User u0=new User("giangi","12345Aa@21");
@@ -64,11 +64,13 @@ public static void main(String[] args) throws ParseException, UserException, Nul
 	//dm.updateUser(u);
 
 	/*	u0.setRole(Role.Officer);*/
-dm.addUser(u0);
-	dm.addUser(u1);
-mi.addBloodBag(bbi1);
-mi.addBloodBag(bbi2);
-mi.addBloodBag(bbi3);
+		dm.addUser(u0);
+		dm.addUser(u1);
+
+
+		mi.addBloodBag(bbi1);
+		mi.addBloodBag(bbi2);
+		mi.addBloodBag(bbi3);
 //dm.report();
 
 

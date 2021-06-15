@@ -18,13 +18,12 @@ public class Password {
 	 */
 	
 	String hiddenPassword;
+
 	
-	public Password(String plainTextPassword) {
-		setHiddenPassword( 
-				getMd5(plainTextPassword)
-				);
+	public Password(String hiddenPassword) {
+		this.hiddenPassword = hiddenPassword;
 	}
-	
+
 	public String getHiddenPassword() {
 		return this.hiddenPassword;
 	}

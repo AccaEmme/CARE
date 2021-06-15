@@ -103,7 +103,6 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
 
         username = properties.getProperty("username");      //reading username from xml (private, local)
         password = properties.getProperty("password");      //reading password from xml (private, local)
-
         return "mongodb+srv://"+username+":"+password+"@care.a1sy7.mongodb.net/test";
     }
 
@@ -188,11 +187,12 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
         MongoDataManager manager = new MongoDataManager();
 
         User dbUser = manager.getUser(username);
+
+        System.out.println(dbUser.getDocument());
         if (dbUser==null)   throw new UserException("User not found!");
 
         User inUser = null;
         inUser = new User(username,password);
-
 
         if (inUser.getPassword().equals(dbUser.getPassword())) {
             User user = new User(username, password);   //lascio lanciare l'eccezione perche non è il manager a doverla gestire
@@ -251,8 +251,8 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     	
     	MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
-        MongoDatabase mongoDatabase = mongoClient.getDatabase(COLLECTION_BAG);
-        MongoCollection<Document> collection = mongoDatabase.getCollection(this.collection_name);
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_BAG);
         
         
         for (Document current : collection.find()){
@@ -317,8 +317,8 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     	
     	MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
-        MongoDatabase mongoDatabase = mongoClient.getDatabase(COLLECTION_BAG);
-        MongoCollection<Document> collection = mongoDatabase.getCollection(this.collection_name);
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_BAG);
         
         
         
@@ -369,8 +369,9 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     	
     	MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
-        MongoDatabase mongoDatabase = mongoClient.getDatabase(COLLECTION_BAG);
-        MongoCollection<Document> collection = mongoDatabase.getCollection(this.collection_name);
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_BAG);
+
         Document unaSacca = new Document(ELEMENT_SERIAL, s.getSerial().toString())
         		.append(ELEMENT_GROUP, s.getBloodGroup().toString()) 
                 .append(ELEMENT_CREATIONDATE, s.getCreationDate().toString()) 
