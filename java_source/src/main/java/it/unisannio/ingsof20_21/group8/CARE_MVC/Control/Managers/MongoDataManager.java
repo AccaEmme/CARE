@@ -80,7 +80,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
         connectionStringURI = createURI();
         String[] db_collection_names = getDbProperties();
         this.db_name = db_collection_names[0];
-        this.collection_name = db_collection_names[1];
+
     }
     private String createURI(){
         String username = "";
@@ -89,9 +89,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
         Properties properties = new Properties();
 
         try {
-            if (System.getProperty("os.name").equals("Mac OS X"))
-                properties.loadFromXML(new FileInputStream("/Users/folly/Desktop/uri.xml"));  //mac
-            else properties.loadFromXML(new FileInputStream("C:/Users/giuli/Desktop/mongo_login.xml"));  //pc fisso
+        	properties.loadFromXML(new FileInputStream("./../../uri.xml"));
 
         } catch (InvalidPropertiesFormatException e) {
             e.printStackTrace();
@@ -141,7 +139,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
         MongoClient mongoClient = new MongoClient(clientURI);
 
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
-        MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
+        MongoCollection mongoCollection = mongoDatabase.getCollection(COLLECTION_USER);
 
         Document document = user.getDocument();
 
@@ -156,7 +154,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
         MongoClient mongoClient = new MongoClient(clientURI);
 
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
-        MongoCollection mongoCollection = mongoDatabase.getCollection(this.collection_name);
+        MongoCollection mongoCollection = mongoDatabase.getCollection(COLLECTION_USER);
 
         if((mongoCollection.deleteOne((eq(ELEMENT_USERNAME,u.getUsername()))).getDeletedCount())==0) {
             System.out.println("user not found");
@@ -215,7 +213,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
         MongoClient mongoClient = new MongoClient(clientURI);
 
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
-        MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(this.collection_name);
+        MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(COLLECTION_USER);
 
         Document document = mongoCollection.find(eq("username", username)).first();
 
