@@ -4,19 +4,30 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFoundException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Serial;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.StoreManagerInterface;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.NullUserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Role;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
+
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.City;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Province;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 import org.bson.Document;
-import org.json.simple.JSONObject;
+
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,12 +36,13 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
+import org.json.JSONObject;
+/*import org.json.simple.JSONObject;*/
 import static com.mongodb.client.model.Filters.eq;
 
-import static com.mongodb.client.model.Filters.eq;
 
-public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterface {
+
+public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterface,StoreManagerInterface {
     private String connectionStringURI = "";
     private String db_name = "";
     private String collection_name = "";
@@ -60,6 +72,10 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     private static String CREATION = "CREATION_DAY";
     private static String ORIGIN = "ORIGIN";*/
 
+    
+    /*il costruttore deve solo andarsi a prendere i parametri generali*/
+    // il costruttore decide quale collezione utilizzare senno devo fare un set collection name
+    
     public MongoDataManager(){
         connectionStringURI = createURI();
         String[] db_collection_names = getDbProperties();
@@ -229,6 +245,144 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
         }
         return null;
     }
+    
+    
+    public void getBloodBagExpiring(Date d,BloodGroup b) throws ParseException{
+    	
+    	List<BloodBag> sacche = new ArrayList<BloodBag>();
+    	
+    	MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(COLLECTION_BAG);
+        MongoCollection<Document> collection = mongoDatabase.getCollection(this.collection_name);
+        
+        
+        for (Document current : collection.find()){
+        	String serial =current.getString(ELEMENT_SERIAL);
+        	String BloodG =current.getString(ELEMENT_GROUP);
+        	String creationD =current.getString(ELEMENT_CREATIONDATE);
+        	String expirationD =current.getString(ELEMENT_EXPIRATIONDATE);
+        	String donatorCF =current.getString(ELEMENT_DONATORCF);
+        	String node =current.getString(ELEMENT_NODE);
+        	String BloodBagState =current.getString(ELEMENT_BLOODBAGSTATE);
+        	String note =current.getString(ELEMENT_NOTE);
+      
+        	
+       
+        	SimpleDateFormat format= new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", new Locale("us"));
+        	Date cd=format.parse(creationD);
+        	Date ed=format.parse(expirationD);
+        	
+        	JSONObject obj = new JSONObject(node);
+        	String cod = obj.getString( "codStr" );
+        	String name = obj.getString( "nodeName" );
+        	
+        	JSONObject obj2 =obj.getJSONObject( "wareHouse" );
+        	String street = obj2.getString( "street" );
+        	String sNumber = obj2.getString( "streetNumber" );
+        	String city = obj2.getString( "city" );
+        	String province = obj2.getString( "province" );
+        	String region=obj2.getString("region");
+        	String country = obj2.getString( "country" );
+        	
+        	
+        	Node n1;
+			try {
+				n1 = new Node(cod, name,	new Location(Country.valueOf(country), Region.valueOf(region), Province.valueOf(province), City.valueOf(city) , street, sNumber));	
+				BloodBag  bl=new  BloodBag(new Serial(serial),BloodGroup.valueOf(BloodG),cd,ed,donatorCF,n1,BloodBag.BloodBagState.valueOf(BloodBagState),note);
+				if(( bl.getExpirationDate().before(d))&&(bl.getBloodGroup()==b)) {
+        
+    	    sacche.add(bl);		
+    	    System.out.println("****************");
+    	    bl.print();
+    	    System.out.println("****************");
+    		}
+			} catch (StreetNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        
+    		
+        }
+        	
+        /*public BloodBag( Serial s,BloodGroup b, Date creationD,Date expirationD,String donator,Node n,BloodBagState BagState,String not) throws ParseException {*/
+        
+    	mongoClient.close();
+
+
+    }
+
+
+    public void report() throws ParseException {
+    	int count=0;
+    	
+    	
+    	MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(COLLECTION_BAG);
+        MongoCollection<Document> collection = mongoDatabase.getCollection(this.collection_name);
+        
+        
+        
+        for (Document current : collection.find()){
+        	
+        	String expirationD =current.getString(ELEMENT_EXPIRATIONDATE);
+     
+        	String bloodBagState =current.getString(ELEMENT_BLOODBAGSTATE);
+        	Calendar cal = Calendar.getInstance();
+    	    cal.set(Calendar.HOUR_OF_DAY, 0);
+    	    cal.set(Calendar.MINUTE, 0);
+    	    cal.set(Calendar.SECOND, 0);
+    	    cal.set(Calendar.MILLISECOND, 0);
+    		cal.add(Calendar.DAY_OF_MONTH, 1);
+             Date d1=cal.getTime();
+             
+          
+    		cal.add(Calendar.DAY_OF_MONTH, -9);
+
+    	    Date d2=cal.getTime();
+     	     // stato==dropped                   dataoogi-1 settimana    < expiration < dataoggi
+       
+        	SimpleDateFormat format= new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", new Locale("us"));
+      
+        	Date ed=format.parse(expirationD);
+        	
+
+        
+       
+        
+       		if(  (bloodBagState.equals("Dropped"))   && (ed.after(d2)) && (ed.before(d1))) {
+       		    
+       		count++;
+       			}
+       	
+        } 	System.out.println("****************");
+     	   System.out.println(count);
+     	   System.out.println("****************");
+        	
+        /*public BloodBag( Serial s,BloodGroup b, Date creationD,Date expirationD,String donator,Node n,BloodBagState BagState,String not) throws ParseException {*/
+        
+    	mongoClient.close();
+
+
+    }
+    
+    public void addBloodBag(BloodBagInterface s) throws ParseException {
+    	
+    	MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(COLLECTION_BAG);
+        MongoCollection<Document> collection = mongoDatabase.getCollection(this.collection_name);
+        Document unaSacca = new Document(ELEMENT_SERIAL, s.getSerial().toString())
+        		.append(ELEMENT_GROUP, s.getBloodGroup().toString()) 
+                .append(ELEMENT_CREATIONDATE, s.getCreationDate().toString()) 
+                .append(ELEMENT_EXPIRATIONDATE, s.getExpirationDate().toString())
+                .append(ELEMENT_DONATORCF, s.getDonatorCF().toString()) .append(ELEMENT_NODE, s.getNode().toString())
+                .append (ELEMENT_BLOODBAGSTATE, s.getBloodBagState().toString()) .append(ELEMENT_NOTE, s.getNote().toString());    
+        collection.insertOne(unaSacca); /*inserimento*/
+        mongoClient.close();
+    }
+
 
     @Override
     public void writeLog(Logger logger) {
@@ -599,7 +753,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
                 jsonObject.put(Constants.ORIGIN, bags.get(i).getNode().toString());
 
 
-                file.write(jsonObject.toJSONString());
+                file.write(jsonObject.toString());
                 file.write(",\n");
             }
             //adding last element withoud comma
@@ -614,7 +768,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
 
             jsonObject.put(Constants.ORIGIN, bags.get(bags.size()-1).getNode().toString());
 
-            file.write(jsonObject.toJSONString());  //writing last element
+            file.write(jsonObject.toString());  //writing last element
 
             file.write("]");                    //closing the array
         } catch (IOException e) {
@@ -657,8 +811,5 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
         this.collection_name = collection_name;
     }
 
-    @Override
-    public void addBloodBag(BloodBagInterface bbi) throws ParseException {
-
-    }
+    
 }

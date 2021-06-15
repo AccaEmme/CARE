@@ -1,5 +1,7 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers;
 
+import java.text.ParseException;
+
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.AdministratorInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Role;
@@ -87,6 +89,11 @@ public class UserManager extends SystemManager {
 			return new UserManager(user);
 		}
 		return null;
+	}
+	@Override
+	public void report() throws ParseException {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

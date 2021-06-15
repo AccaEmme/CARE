@@ -3,6 +3,7 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces;
 import java.text.ParseException;
 import java.util.Date;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag.BloodBagState;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Serial;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
@@ -22,6 +23,8 @@ public interface BloodBagInterface {
 	public Node			getNode();
 
     BloodGroup getBloodType();
+	public BloodBagState getBloodBagState();
+	
 
     /*
 	 * @TODO: mettere protected tutti i metodi della classe.

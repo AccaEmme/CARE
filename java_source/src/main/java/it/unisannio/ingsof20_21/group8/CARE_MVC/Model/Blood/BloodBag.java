@@ -38,6 +38,19 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 	}
 		
 	
+	public BloodBag(Serial serial, BloodGroup valueOf, Date cd, Date ed, String donatorCF2, Node n1,
+			BloodBagState valueOf2, String note2) {
+		this.serial 		= serial;
+		this.bloodGroup=valueOf;
+		this.creationDate =cd;
+		this.expirationDate=ed;
+		this.donatorCF=donatorCF2;
+		this.node=n1;
+		this.note=note2;		/* TODO: gestirlo con classe Optional per evitare NullPointerException */
+		this.bloodBagState=valueOf2;
+	}
+
+
 	public Serial 		getSerial() 							{ return 			this.serial; }
 	
 	
