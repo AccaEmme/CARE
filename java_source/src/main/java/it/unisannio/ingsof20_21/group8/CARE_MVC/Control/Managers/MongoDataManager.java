@@ -85,6 +85,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     private String createURI(){
         String username = "";
         String password = "";
+        String db_host = "";
 
         Properties properties = new Properties();
 
@@ -103,7 +104,8 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
 
         username = properties.getProperty("username");      //reading username from xml (private, local)
         password = properties.getProperty("password");      //reading password from xml (private, local)
-        return "mongodb+srv://"+username+":"+password+"@care.a1sy7.mongodb.net/test";
+        db_host = properties.getProperty("db_host");
+        return "mongodb+srv://"+username+":"+password+"@"+db_host;
     }
 
     private String[] getDbProperties(){
