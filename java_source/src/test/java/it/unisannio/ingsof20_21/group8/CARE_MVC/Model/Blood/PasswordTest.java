@@ -1,25 +1,50 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
+import org.junit.jupiter.api.Test;
+
+import org.junit.Ignore;
+import org.junit.jupiter.api.Test;
+/*
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;*/
+
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.Test;
-
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 
 public class PasswordTest {
+	@Test
+	// Controlla indirettamente anche getMd5
+	public void test_Constructor() {
+		String plainTextPassword = "LaConoscoSoloIo1.";
+		Password passObj = new Password( plainTextPassword );
+		assertNotNull( passObj );
+	}
+	
+	@Test
+	// controlla indirettamente anche setHiddenPassword() e 
+	public void testGetHiddenPassword() {
+		String plainTextPassword = "LaConoscoSoloIo1.";
+		String md5ExpectedPass	 = "646A452ED62B0929BC770DB4CA083468";
+		Password passObj 		 = new Password( plainTextPassword );
+		String hiddenPass 		 = passObj.getHiddenPassword();
+		assertTrue( hiddenPass.equals( md5ExpectedPass ) );
+	}
 
+	
     @ParameterizedTest(name = "#{index} - Run test with valid password complexity pattern = {0}")
-    //@MethodSource("validPasswordProvider")
+    @MethodSource("validPasswordProvider")
     public void test_password_regex_valid(String password) {
         assertTrue( Password.validatePassword(password) );
     }	
 	
     
     @ParameterizedTest(name = "#{index} - Run test with wrong password complexity pattern = {0}")
-    //@MethodSource("invalidPasswordProvider")
+    @MethodSource("invalidPasswordProvider")
     //@Test(expected = IllegalArgumentException.class)
     public void test_password_regex_invalid(String password) {
     	//ExceptionThrower exceptionThrower = new ExceptionThrower();
@@ -35,8 +60,9 @@ public class PasswordTest {
         	assertFalse(false);
         }
     }
-	
+
     /*
+    @Ignore
     @Test(expected = Exception.class)
     @Parameters(value = { "invalidInput1", "invalidInput2" })
     public void shouldThrowOnInvalidInput(String input) {
@@ -44,7 +70,8 @@ public class PasswordTest {
     	assertThat(1+1, 2);
     }
     */
-    static Stream<String> validPasswordProvider() {
+    
+    static Stream<String> validPasswordsProvider() {
     	/*
     	 *Requires
     	 	<properties>
@@ -63,7 +90,7 @@ public class PasswordTest {
         );
     }
     
-    static Stream<String> invalidPasswordProvider() {
+    static Stream<String> invalidPasswordsProvider() {
         return Stream.of(
                 "12345678",                 // invalid: only digit
                 "abcdefgh",                 // invalid: only lowercase

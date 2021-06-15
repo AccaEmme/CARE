@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
+
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 /*
 import org.junit.jupiter.params.ParameterizedTest;
@@ -29,9 +31,10 @@ public class UserTest {
 		
 	}
 	
+	
 	@Test
 	public void testMD5() throws NullPasswordException, UserException {
-		User u=new User("Luca","AAAbbbccc@123");
+		User u=new User("Luca.Minicozzi","AAAbbbccc@123");
 		String password="AAAbbbccc@123";
 		System.out.println(u.getPasswordLastUpdate());
 		assertTrue( 
@@ -45,7 +48,7 @@ public class UserTest {
 	@Test
 	public void testSetPasswordValid() {
 		Role r = Role.valueOf("Officer");
-		User u = new User("Luca", r );
+		User u = new User("Francesca.Minigazzi", r );
 		String password="AAAbbbccc@123";
 		u.setPassword(password);
 		assertTrue(
