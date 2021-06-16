@@ -99,8 +99,6 @@ public class UserTest {
 						)
 				);
 	}
-<<<<<<< HEAD
-=======
 
 	/**
 	 * Scusa hermann devo eseguire xD
@@ -113,7 +111,7 @@ public class UserTest {
 	Password.java givenPassword: null
 	Password.java givenPassword: [C@185a6e9
 	Password.java givenPassword: null*/
->>>>>>> 1b076140ccb88205cff2f47b59093b63335ee732
+
 	
 	@Test
 	public void testSetPasswordWrong() {

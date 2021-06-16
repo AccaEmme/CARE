@@ -26,7 +26,7 @@ public class Location {
 	 */
     public Location(
     				Country country, 	Region region, 			Province province,
-    				City city, 			String street,			String streetNumber
+    				City city, 			String street,			String streetNumber, String ZIPCode
     		) throws StreetNotFoundException  {
     	
     		if (street == "3")	/* TODO: *** Donato. */ 
@@ -38,6 +38,7 @@ public class Location {
         this.province = province;
         this.region = region;
         this.country = country;
+        this.ZIPCode = ZIPCode;
     }
     public Document getDocument(){
     	Document document = new Document();
@@ -73,7 +74,9 @@ public class Location {
     public Region getRegion() { return region; }
     
     public Country getCountry() { return country; }
-        
+    
+    public String getZipCode() { return ZIPCode; }
+    
     public void setStreet(String streetR) { street = streetR; }
     
     public void setStreetNumber(String streetNumberR) { streetNumber = streetNumberR; }
@@ -85,6 +88,8 @@ public class Location {
     public void setRegion(String regionR) { region = Region.valueOf(regionR); }
     
     public void setCountry(String countryR) { country = Country.valueOf(countryR); }
+    
+    public void setZipCode(String ZIPCode) {  }
     
 	public String toString() {
 		return  "{\"street\": \"" 	  		+ this.street   		+ "\""
@@ -116,7 +121,7 @@ public class Location {
 	
 	
 	
-	private String street, streetNumber;          
+	private String street, streetNumber, ZIPCode;          
     private City city;              
     private Province province;           
     private Region region;

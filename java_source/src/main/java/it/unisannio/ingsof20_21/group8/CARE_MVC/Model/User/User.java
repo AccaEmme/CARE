@@ -17,25 +17,16 @@ public class User {
 	 * Al primo cambio password dell'utente, viene eliminata la password temporanea, impostata la password cifrata e viene segnato l'ultimo cambio password.
 	 */
 
-    public User(String username, String password) throws UserException, NullPasswordException {
+    public User(String username, String plainTextPassword) throws UserException, NullPasswordException {
         this.validateCredentials(username,password);
         this.username = username;
-        this.setPassword(password);
+        this.setPassword(plainTextPassword);
     }
     
-    public User(String username, Password password) throws UserException, NullPasswordException {
-        this.validateCredentials(username,password.getHiddenPassword());    //il metodo per prendere la password è getHiddenPassword
+    public User(String username, Password hiddenPassword) throws UserException, NullPasswordException {
+        this.validateCredentials(username,hiddenPassword.getHiddenPassword());    //il metodo per prendere la password è getHiddenPassword
         this.username = username;
-        this.password = password.getHiddenPassword();
-    }
-    
-    private void validateCredentials(String username, String password) throws UserException, NullPasswordException {
-        if (username == null)
-            throw new UserException("The username cannot be null!");
-        if (password == null)
-            throw new NullPasswordException("The password cannot be null!");
-        if (username.length() < 5 || password.length() < 5)
-            throw new UserException("The username or the password cannot be shorter than 5 chars");
+        this.password = hiddenPassword.getHiddenPassword();
     }
     
     @SuppressWarnings("deprecation")
@@ -52,6 +43,15 @@ public class User {
     	this.password_lastupdate = new Date();
     }
 
+    private void validateCredentials(String username, String password) throws UserException, NullPasswordException {
+        if (username == null)
+            throw new UserException("The username cannot be null!");
+        if (password == null)
+            throw new NullPasswordException("The password cannot be null!");
+        if (username.length() < 5 || password.length() < 5)
+            throw new UserException("The username or the password cannot be shorter than 5 chars");
+    }
+    
     public String getUsername() {
         return username;
     }
