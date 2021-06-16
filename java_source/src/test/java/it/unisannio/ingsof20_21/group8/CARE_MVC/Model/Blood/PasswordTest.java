@@ -1,7 +1,8 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
 import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 /*
@@ -23,7 +24,7 @@ public class PasswordTest {
 		String plainTextPassword = "LaConoscoSoloIo1.";
 		String hiddenPassword	 = Password.getMd5(plainTextPassword);
 		Password passObj = new Password( hiddenPassword );
-		assertNotNull( passObj.getHiddenPassword().equals(hiddenPassword) );
+		assertNotNull( passObj.getHiddenPassword().equals(hiddenPassword) ); 
 	}
 	
 	@Test
@@ -42,14 +43,14 @@ public class PasswordTest {
 	}
 
 	
-    @ParameterizedTest(name = "#{index} - Run test with valid password complexity pattern = {0}")
+    @ParameterizedTest
     @MethodSource("validPasswordProvider")
     public void test_password_regex_valid(String password) {
         assertTrue( Password.validatePassword(password) );
     }	
 	
     
-    @ParameterizedTest(name = "#{index} - Run test with wrong password complexity pattern = {0}")
+    @ParameterizedTest
     @MethodSource("invalidPasswordProvider")
     //@Test(expected = IllegalArgumentException.class)
     public void test_password_regex_invalid(String password) {
