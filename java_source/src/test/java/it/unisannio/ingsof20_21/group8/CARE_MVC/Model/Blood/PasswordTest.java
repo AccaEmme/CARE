@@ -43,14 +43,14 @@ public class PasswordTest {
 
 	
     @ParameterizedTest(name = "#{index} - Run test with valid password complexity pattern = {0}")
-    @MethodSource("validPasswordProvider")
+    //@MethodSource("validPasswordProvider")
     public void test_password_regex_valid(String password) {
         assertTrue( Password.validatePassword(password) );
     }	
 	
     
     @ParameterizedTest(name = "#{index} - Run test with wrong password complexity pattern = {0}")
-    @MethodSource("invalidPasswordProvider")
+    //@MethodSource("invalidPasswordProvider")
     //@Test(expected = IllegalArgumentException.class)
     public void test_password_regex_invalid(String password) {
     	//ExceptionThrower exceptionThrower = new ExceptionThrower();

@@ -13,18 +13,12 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Province;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
 
-<<<<<<< Updated upstream
 public class LocationTest {
 
 
 	/* TEST PER INFORMAZIONI VALIDE DELLA CLASSE LOCATION.JAVA */
 
 
-=======
-public class LocationTest {  
-	/* TEST PER INFORMAZIONI VALIDE DELLA CLASSE LOCATION.JAVA */
-	
->>>>>>> Stashed changes
 	//Verifica del corretto funzionamento della classe Location
 	@Test
 	 public void VerifyCreateCountry() throws StreetNotFoundException {
