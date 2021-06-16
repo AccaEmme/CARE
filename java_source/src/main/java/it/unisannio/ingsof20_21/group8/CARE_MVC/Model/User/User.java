@@ -98,7 +98,7 @@ public class User {
         Document document = new Document("username",this.getUsername());
         document.append("password",this.getPassword());
         if (this.getResidence()!=null)
-            document.append("location",this.getResidence().getDocument());
+            document.append("location",this.getResidence());
         if (this.getRole()!=null)
             document.append("role",this.getRole().toString());
         if (this.getPasswordLastUpdate()!=null)

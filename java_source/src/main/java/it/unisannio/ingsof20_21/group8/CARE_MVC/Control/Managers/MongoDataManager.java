@@ -221,59 +221,25 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
 
         Password password = new Password(document.getString("password"));   //already encoded
 
-        User user;
-        Location location;
+
         try {
-            user = new User(document.getString("username"),password);
-            if (document.getString("role") != null){
-                String role = document.getString("role");
-                Role roleObj = Role.valueOf(role);
-                user.setRole(roleObj);
-            }
             try {
-
-                Document locationDoc = (Document) document.get("location");
-                if (locationDoc!=null){
-                    String test = locationDoc.getString("street");
-                    /**
-                     *                  Country country, 	Region region, 			Province province,
-                     *     				City city, 			String street,			String streetNumber*/
-
-                    /*
-                    some debug
-                    Country country = Country.valueOf(locationDoc.getString("country"));
-                    Region region = Region.valueOf(locationDoc.getString("region"));
-                    Province province = Province.valueOf(locationDoc.getString("province"));
-                    City city = City.valueOf(locationDoc.getString("city"));
-                    String street = locationDoc.getString("street");
-                    String streetNumber = locationDoc.getString("street_number");
-
-
-
-                    System.out.println("Country: "+country);
-                    System.out.println("region: "+region);
-                    System.out.println("province: "+province);
-                    System.out.println("city: "+city);
-                    System.out.println("street: "+street);
-                    System.out.println("streetNumber: "+streetNumber);
-                    */
-
-                    location = new Location(Country.valueOf(locationDoc.getString("country")),
-                            Region.valueOf(locationDoc.getString("region")),
-                            Province.valueOf(locationDoc.getString("province")),
-                            City.valueOf(locationDoc.getString("city")),
-                            locationDoc.getString("street"),
-                            locationDoc.getString("street_number"));
+                User user = new User(document.getString("username"),password);
+                if (document.getString("role") != null){
+                    String role = document.getString("role");
+                    Role roleObj = Role.valueOf(role);
+                    user.setRole(roleObj);
+                }
+                if (document.getString("location")!=null){
+                    /**@// TODO: 14/06/2021 prendere ogni pezzo di location e creare l'oggetto in modo adeguato */
+                    Location location = new Location(document.getString("location"));
                     user.setResidence(location);
                 }
-
-            } catch (StreetNotFoundException e) {
-                e.printStackTrace();
-                System.err.println("An error occurred during location reading.");
-                return  null;
+                return user;
+            } catch (NullPasswordException e) {
+                //silenzio l'eccezione perche non puo verificarsi
             }
-            return user;
-        } catch (UserException | NullPasswordException e) {
+        } catch (UserException e) {
             //preferisco silenziare l'eccezione perchè non puo verificarsi, in quanto i controlli vengono
             //effettuati al momento di inserimento nel database
         }
