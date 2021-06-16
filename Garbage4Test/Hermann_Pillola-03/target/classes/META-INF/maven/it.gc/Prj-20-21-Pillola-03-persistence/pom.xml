@@ -4,86 +4,36 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>it.unisannio.ingsof20_21.group8</groupId>
-  <artifactId>CARE_MVC</artifactId>
+  <groupId>it.gc</groupId>
+  <artifactId>Prj-20-21-Pillola-03-persistence</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>CARE_MVC</name>
+  <name>Prj-20-21-Pillola-03-persistence</name>
   <!-- FIXME change it to the project's website -->
-  <url>https://github.com/AccaEmme/CARE/</url>
+  <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
 
   <dependencies>
-  	
-  	<!--  
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-    
-    <dependency>
-	  <groupId>pl.pragmatists</groupId>
-	  <artifactId>JUnitParams</artifactId>
-	  <version>1.1.0</version>
-	</dependency>
-	
-	    <dependency>
-	    <groupId>org.junit.jupiter</groupId>
-	    <artifactId>junit-jupiter-params</artifactId>
-	    <version>5.7.0</version>
-	    <scope>test</scope>
-	</dependency>
-     -->
-     
-    <!-- Start: JUnit 5 Maven Dependency -->
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.5.2</version>
-        <scope>test</scope>
-    </dependency>
-    <!-- End: JUnit 5 Maven Dependency -->
-    
-    
-    	<dependency>
-    <groupId>org.json</groupId>
-    <artifactId>json</artifactId>
-    <version>20210307</version>
-</dependency>
-    
-    
-    
-    
-    
-    
-    
-    <!-- Start: MySQL database Maven Dependency -->
-    <dependency>
+  	<dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.23</version>
 	</dependency>
-    <!-- End: MySQL database Maven Dependency -->
-	
-    <!-- Start: MongoDB database Maven Dependency -->
 	<dependency>
  	  <groupId>org.mongodb</groupId>
  	  <artifactId>mongo-java-driver</artifactId>
 	  <version>3.12.8</version>
  	</dependency>
- 	<!-- End: MongoDB database Maven Dependency -->
-
     <dependency>
-      <groupId>com.googlecode.json-simple</groupId>
-      <artifactId>json-simple</artifactId>
-      <version>1.1.1</version>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
