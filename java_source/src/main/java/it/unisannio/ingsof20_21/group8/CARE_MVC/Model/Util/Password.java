@@ -99,33 +99,40 @@ public class Password {
            password[i] = combinedChars.charAt(random.nextInt(combinedChars.length()));
         }
         
-        if( validatePassword(password.toString()) ) return password.toString(); else generatePassword(length); // *** rischiamo loop?
-        return password.toString();
+        //if( validatePassword(password.toString()) ) return password.toString(); else generatePassword(length); // *** rischiamo loop?
+        //return password;
+        //System.out.println("Password.java generatePassword, password: "+password);
+        return String.valueOf(password);
      }
     
-    public static boolean validatePassword(String givenPassword) throws IllegalArgumentException {
+
+	/* Regex explaination of password secure requirements:
+	 * Password must contain at least one digit [0-9].
+	 * Password must contain at least one lowercase Latin character [a-z].
+	 * Password must contain at least one uppercase Latin character [A-Z].
+	 * Password must contain at least one special character like ! @ # & ( ).
+	 * Password must contain a length of at least 8 characters and a maximum of 20 characters.
+	  	^                                   # start of line
+			(?=.*[0-9])                       # positive lookahead, digit [0-9]
+			(?=.*[a-z])                       # positive lookahead, one lowercase character [a-z]
+			(?=.*[A-Z])                       # positive lookahead, one uppercase character [A-Z]
+			(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]) # positive lookahead, one of the special character in this [..]
+			.                                 # matches anything
+			{8,20}                            # length at least 8 characters and maximum of 20 characters
+		$                                   # end of line
+	 */    
+    public static boolean validatePassword(final String givenPassword) throws IllegalArgumentException {
     	final String PASSWORD_PATTERN =
                 "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
-
-    	/* Regex explaination of password secure requirements:
-    	 * Password must contain at least one digit [0-9].
-    	 * Password must contain at least one lowercase Latin character [a-z].
-    	 * Password must contain at least one uppercase Latin character [A-Z].
-    	 * Password must contain at least one special character like ! @ # & ( ).
-    	 * Password must contain a length of at least 8 characters and a maximum of 20 characters.
-    	  	^                                   # start of line
-  			(?=.*[0-9])                       # positive lookahead, digit [0-9]
-  			(?=.*[a-z])                       # positive lookahead, one lowercase character [a-z]
-  			(?=.*[A-Z])                       # positive lookahead, one uppercase character [A-Z]
-  			(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]) # positive lookahead, one of the special character in this [..]
-  			.                                 # matches anything
-  			{8,20}                            # length at least 8 characters and maximum of 20 characters
-			$                                   # end of line
-    	 */
-    	
+  	
         final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
-        System.out.println("Password.java givenPassword: " + givenPassword);
-        Matcher matcher = pattern.matcher(givenPassword);
+        //System.out.println("Password.java givenPassword: " + givenPassword);
+        Matcher matcher;
+        if(givenPassword != null)
+        	matcher = pattern.matcher(givenPassword);
+        else
+        	throw new IllegalArgumentException("Password.java validatePassword: givenPassword is null. Value: "+givenPassword);
+        	
         //return matcher.matches();
         
         /*
@@ -140,5 +147,6 @@ public class Password {
         */
         
         if( matcher.matches() ) return true; else throw new IllegalArgumentException("Password pattern conformity not valid");
+        //if( !matcher.matches() ) throw new IllegalArgumentException("Password pattern conformity not valid");
     }
 }

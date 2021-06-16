@@ -21,7 +21,7 @@ public class PasswordTest {
 	// Controlla indirettamente anche getMd5
 	public void test_Constructor() {
 		String plainTextPassword = "LaConoscoSoloIo1.";
-		String hiddenPassword	 = Password.getMd5(plainTextPassword);
+		String hiddenPassword	 = Password.getMd5(plainTextPassword+Constants.);
 		Password passObj = new Password( hiddenPassword );
 		assertNotNull( passObj.getHiddenPassword().equals(hiddenPassword) );
 	}

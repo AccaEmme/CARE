@@ -46,7 +46,7 @@ public class User {
     	this.temppass	= String.valueOf(
     								Password.generatePassword(Constants.USER_TEMPPASS_LENGTH)
     						);
-    	this.setPassword(password);
+    	this.setPassword(temppass);
     	this.role		= role;
     	
     	this.password_lastupdate = new Date();
@@ -67,9 +67,11 @@ public class User {
     public void setPassword(String plainTextPassword) {
     	Password.validatePassword(plainTextPassword);
         this.password 				= Password.getMd5( plainTextPassword + Constants.USER_MD5_SALT );
-		System.out.println("plainTextPassword: "+plainTextPassword
+		/*
+        System.out.println("plainTextPassword: "+plainTextPassword
 				+"\t Constants.USER_MD5_SALT: "+ Constants.USER_MD5_SALT
 				+"\t hiddenPassword:" + this.password);
+				*/
         this.password_lastupdate 	= new Date();		// *** nei JUnit test stampa a video la data corrente, perché?
         this.temppass				= "";
     }

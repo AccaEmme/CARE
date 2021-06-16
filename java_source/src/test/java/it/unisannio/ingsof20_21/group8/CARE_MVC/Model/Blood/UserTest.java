@@ -25,6 +25,42 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 public class UserTest {
 	Role segretaria; //= new Role();
 	
+	@Test
+	public void testValidConstructor1(/*String username, String plainTextPassword*/) throws UserException, NullPasswordException{
+		String username="AccaEmme";
+		String pass="Care4+Blood";
+		User u = new User(username, pass);
+		u.getUsername();
+		
+		u.getPassword().equals(
+   				Password.getMd5( pass + Constants.USER_MD5_SALT )
+   		);
+	}
+
+	@Test
+	public void testValidConstructor2(String username, Password hashedPassword){
+
+	}
+
+	@Test
+	public void testValidConstructor3(String username, Role role){
+
+	}
+	
+	@Test
+	public void testInvalidConstructor1(String username, String plainTextPassword){
+
+	}
+
+	@Test
+	public void testInvalidConstructor2(String username, Password hashedPassword){
+
+	}
+
+	@Test
+	public void testInvalidConstructor3(String username, Role role){
+
+	}
 	
 	@Test
 	public void test_set() {
@@ -36,10 +72,9 @@ public class UserTest {
 	public void testMD5() throws NullPasswordException, UserException {
 		User u=new User("Luca.Minicozzi","AAAbbbccc@123");
 		String password="AAAbbbccc@123";
-		System.out.println(u.getPasswordLastUpdate());
 		assertTrue( 
 				   		u.getPassword().equals(
-				   				Password.getMd5( password+Constants.USER_MD5_SALT ).toUpperCase()
+				   				Password.getMd5( password + Constants.USER_MD5_SALT )
 				   		)
 				   );
 	}
@@ -64,16 +99,6 @@ public class UserTest {
 						)
 				);
 	}
-	
-	errore. da Console:
-	Password.java givenPassword: AAAbbbccc@123
-	plainTextPassword: AAAbbbccc@123	 Constants.USER_MD5_SALT: CanforaMarkUs30L	 hiddenPassword:6800A4445909CC025ADCAD4243D9974C
-	Wed Jun 16 11:07:44 CEST 2021
-	Password.java givenPassword: AAAbbbccc@123
-	Password.java givenPassword: [C@6150c3ec
-	Password.java givenPassword: null
-	Password.java givenPassword: [C@185a6e9
-	Password.java givenPassword: null
 	
 	@Test
 	public void testSetPasswordWrong() {
