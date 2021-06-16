@@ -3,7 +3,6 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFoundException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import org.bson.Document;
 
@@ -27,19 +26,17 @@ public class Location {
     public Location(
     				Country country, 	Region region, 			Province province,
     				City city, 			String street,			String streetNumber, String ZIPCode
-    		) throws StreetNotFoundException  {
+    		){
     	
-    		if (street == "3")	/* TODO: *** Donato. */ 
-        			throw new StreetNotFoundException("La strada non è valida");
-    				
-    	this.street = street;
-        this.streetNumber = streetNumber;
+    	setStreet(street);
+    	setStreetNumber(streetNumber);
+    	setZipCode(ZIPCode);
         this.city = city;
         this.province = province;
         this.region = region;
         this.country = country;
-        this.ZIPCode = ZIPCode;
     }
+    
     public Document getDocument(){
     	Document document = new Document();
     		document.append("street",this.street.toString());
@@ -77,9 +74,21 @@ public class Location {
     
     public String getZipCode() { return ZIPCode; }
     
-    public void setStreet(String streetR) { street = streetR; }
-    
-    public void setStreetNumber(String streetNumberR) { streetNumber = streetNumberR; }
+    public void setStreet(String streetR) throws IllegalArgumentException{ 
+		if (streetR == "") {
+			throw new IllegalArgumentException("Il nome della strada non è stato inserito");
+		}
+		
+		street = streetR;
+	}
+
+    public void setStreetNumber(String streetNumberR) throws IllegalArgumentException{
+	
+		if (streetNumberR == "") {
+			throw new IllegalArgumentException("Il numero della strada non è stato inserito");
+		}
+	streetNumber = streetNumberR; 
+	}
     
     public void setCity(String cityR) { city = City.valueOf(cityR); }
     
@@ -89,7 +98,15 @@ public class Location {
     
     public void setCountry(String countryR) { country = Country.valueOf(countryR); }
     
-    public void setZipCode(String ZIPCode) {  }
+    public void setZipCode(String ZIPcode) { 
+
+    	if (ZIPcode == "") {
+			throw new IllegalArgumentException("Il numero zipcode non è valido");
+		}
+    	ZIPCode = ZIPcode; 
+    }
+    
+    
     
 	public String toString() {
 		return  "{\"street\": \"" 	  		+ this.street   		+ "\""
@@ -98,6 +115,7 @@ public class Location {
 				+", \"province\": \"" 		+ this.province 		+ "\""
 				+", \"region\": \"" 		+ this.region 			+ "\""
 				+", \"country\": \"" 		+ this.country 			+ "\""
+				+", \"ZIPCode\": \"" 		+ this.ZIPCode 			+ "\""
 				+ "}";
 	}
     
