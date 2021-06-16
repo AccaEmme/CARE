@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 /*
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;*/
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
@@ -128,15 +130,15 @@ public class UserTest {
 	
 	
 	// PASSWORD TESTS.
-    @ParameterizedTest(name = "#{index} - Run test with valid password complexity pattern = {0}")
-    @MethodSource(string="validPasswordProvider")
+    @ParameterizedTest
+    @MethodSource("validPasswordProvider")
     public void test_password_regex_valid(String password) {
         assertTrue( Password.validatePassword(password) );
     }	
 	
     
-    @ParameterizedTest(name = "#{index} - Run test with wrong password complexity pattern = {0}")
-    @MethodSource(string="invalidPasswordProvider")
+    @ParameterizedTest
+    @MethodSource("invalidPasswordProvider")
     //@Test(expected = IllegalArgumentException.class)
     public void test_password_regex_invalid(String password) {
     	//ExceptionThrower exceptionThrower = new ExceptionThrower();
