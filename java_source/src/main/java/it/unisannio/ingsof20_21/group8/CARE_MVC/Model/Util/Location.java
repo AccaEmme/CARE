@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFoundException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import org.bson.Document;
+
 
 /*
  * Hermann: no, questa classe che potrebbe anche essere astratta, definisce una locazione, può essere dov'è situata una sacca o la città di un utente.
@@ -37,6 +39,17 @@ public class Location {
         this.region = region;
         this.country = country;
     }
+    public Document getDocument(){
+    	Document document = new Document();
+    		document.append("street",this.street.toString());
+			document.append("street_number",this.streetNumber.toString());
+			document.append("city",this.city.toString());
+			document.append("province",this.province.toString());
+			document.append("region",this.region.toString());
+			document.append("country",this.country.toString());
+
+		return document;
+	}
 
     /**@// TODO: 14/06/2021 dobbiamo prendere dal documento mongo ogni pezzo di location e creare l'oggetto adeguato */
 	private String lazyLocation;

@@ -99,6 +99,21 @@ public class UserTest {
 						)
 				);
 	}
+<<<<<<< HEAD
+=======
+
+	/**
+	 * Scusa hermann devo eseguire xD
+	errore. da Console:
+	Password.java givenPassword: AAAbbbccc@123
+	plainTextPassword: AAAbbbccc@123	 Constants.USER_MD5_SALT: CanforaMarkUs30L	 hiddenPassword:6800A4445909CC025ADCAD4243D9974C
+	Wed Jun 16 11:07:44 CEST 2021
+	Password.java givenPassword: AAAbbbccc@123
+	Password.java givenPassword: [C@6150c3ec
+	Password.java givenPassword: null
+	Password.java givenPassword: [C@185a6e9
+	Password.java givenPassword: null*/
+>>>>>>> 1b076140ccb88205cff2f47b59093b63335ee732
 	
 	@Test
 	public void testSetPasswordWrong() {
