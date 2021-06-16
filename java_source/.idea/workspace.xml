@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="">
+    <list default="true" id="a3d40aff-d7ab-440e-a186-1183bedaf742" name="Default Changelist" comment="modifiche alla URI per MongoDB">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MongoDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MongoDataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MongoDataManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/unisannio/ingsof20_21/group8/CARE_MVC/Control/Managers/MongoDataManager.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +197,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623772354621</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="modifiche alla URI per MongoDB">
+      <created>1623774897418</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1623774897418</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -222,7 +228,8 @@
     <MESSAGE value="Major cleanup" />
     <MESSAGE value="realtive path per mongodb" />
     <MESSAGE value="Major changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Major changes" />
+    <MESSAGE value="modifiche alla URI per MongoDB" />
+    <option name="LAST_COMMIT_MESSAGE" value="modifiche alla URI per MongoDB" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2685" y="201" key="#com.intellij.ide.util.MemberChooser" timestamp="1623770470384">
@@ -256,11 +263,12 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="272" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925549934" />
-    <state x="2327" y="0" key="CommitChangelistDialog2" timestamp="1623772353955">
-      <screen x="1920" y="0" width="1920" height="1050" />
+    <state x="407" y="0" key="CommitChangelistDialog2" timestamp="1623834781622">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="407" y="6" key="CommitChangelistDialog2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1621450829841" />
-    <state x="2327" y="0" key="CommitChangelistDialog2/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623772353955" />
+    <state x="407" y="0" key="CommitChangelistDialog2/1920.0.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1623834781622" />
+    <state x="2327" y="0" key="CommitChangelistDialog2/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623774896918" />
     <state width="1877" height="183" key="GridCell.Tab.0.bottom" timestamp="1623774682391">
       <screen x="1920" y="0" width="1920" height="1050" />
     </state>
@@ -310,15 +318,16 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="583" y="279" key="MultipleFileMergeDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620926016258" />
-    <state x="2472" y="254" key="Vcs.Push.Dialog.v2" timestamp="1623772360079">
+    <state x="2472" y="254" key="Vcs.Push.Dialog.v2" timestamp="1623774901380">
       <screen x="1920" y="0" width="1920" height="1050" />
     </state>
     <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1621450833319" />
-    <state x="2472" y="254" key="Vcs.Push.Dialog.v2/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623772360079" />
-    <state x="2697" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1623770896394">
-      <screen x="1920" y="0" width="1920" height="1050" />
+    <state x="2472" y="254" key="Vcs.Push.Dialog.v2/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623774901380" />
+    <state x="777" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1623834662611">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="777" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1620925922176" />
+    <state x="777" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1623834662611" />
     <state x="2697" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1050/0.0.1920.1050@1920.0.1920.1050" timestamp="1623770896394" />
     <state x="466" y="203" width="1530" height="1032" key="dock-window-1" timestamp="1621529501418">
       <screen x="0" y="0" width="1920" height="1050" />
