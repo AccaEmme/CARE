@@ -11,7 +11,7 @@ import java.text.ParseException;
 public class DeleteUserTester {
     public static void main(String[] args) throws NullPasswordException, UserException, ParseException {
         AdminInterface manager = new MongoDataManager();
-        User user = new User("antonello","patente");
+        User user = new User("antonello","Patente1+");
         manager.deleteUser(user);
     }
 }
