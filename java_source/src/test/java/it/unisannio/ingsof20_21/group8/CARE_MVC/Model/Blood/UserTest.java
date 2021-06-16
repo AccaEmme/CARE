@@ -29,7 +29,7 @@ public class UserTest {
 	public void testValidConstructor1(/*String username, String plainTextPassword*/) throws UserException, NullPasswordException{
 		String username="AccaEmme";
 		String pass="Care4+Blood";
-		User u = new User(username, pass);
+		User u = new User(username, pass); 
 		u.getUsername();
 		
 		u.getPassword().equals(
