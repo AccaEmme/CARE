@@ -44,25 +44,42 @@ public class UserTest {
 				   );
 	}
 	
-	
 	@Test
-	public void testSetPasswordValid() {
-		Role r = Role.valueOf("Officer");
-		User u = new User("Francesca.Minigazzi", r );
+	public void testValidatePassword() {
 		String password="AAAbbbccc@123";
-		u.setPassword(password);
 		assertTrue(
-				u.getPassword().equals(
-						Password.getMd5( password+Constants.USER_MD5_SALT ).toUpperCase()
-						)
+				Password.validatePassword(password)
 				);
 	}
 	
 	@Test
+	public void testSetPasswordValid() {
+		Role r 			= Role.valueOf("Officer");
+		User u 			= new User("Francesca.Minigazzi", r );
+		String password = "AAAbbbccc@123";
+		u.setPassword(password);
+		assertTrue(
+				u.getPassword().equals(
+						Password.getMd5( password + Constants.USER_MD5_SALT )
+						)
+				);
+	}
+	
+	errore. da Console:
+	Password.java givenPassword: AAAbbbccc@123
+	plainTextPassword: AAAbbbccc@123	 Constants.USER_MD5_SALT: CanforaMarkUs30L	 hiddenPassword:6800A4445909CC025ADCAD4243D9974C
+	Wed Jun 16 11:07:44 CEST 2021
+	Password.java givenPassword: AAAbbbccc@123
+	Password.java givenPassword: [C@6150c3ec
+	Password.java givenPassword: null
+	Password.java givenPassword: [C@185a6e9
+	Password.java givenPassword: null
+	
+	@Test
 	public void testSetPasswordWrong() {
-		Role r = Role.valueOf("Officer");
-		User u = new User("Luca", r );
-		String password="AAAbbbccc@123";
+		Role r 			= Role.valueOf("Officer");
+		User u 			= new User("Luca", r );
+		String password = "AAAbbbccc@123";
 		u.setPassword(password);
 		assertTrue(
 				u.getPassword().equals(

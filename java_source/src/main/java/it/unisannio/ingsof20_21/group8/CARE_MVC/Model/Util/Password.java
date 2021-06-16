@@ -19,6 +19,15 @@ public class Password {
 	
 	String hiddenPassword;
 
+	/*
+	public Password() {
+		String temppass = this.generatePassword(15);
+		if(validatePassword(temppass)) {
+			
+		}
+		
+	}
+	*/
 	
 	public Password(String hiddenPassword) {
 		this.hiddenPassword = hiddenPassword;
@@ -28,9 +37,22 @@ public class Password {
 		return this.hiddenPassword;
 	}
 	
-	private void setHiddenPassword(String hiddenPass) {
+	public void setHiddenPassword(String hiddenPass) {
 		this.hiddenPassword = hiddenPass;
 	}
+	
+	/*
+	public void setPlainTextPassword(String plainTextPassword) {
+		if(	validatePassword(plainTextPassword) ) {
+			this.hiddenPassword = getMd5( 
+										plainTextPassword + Constants.USER_MD5_SALT
+										);
+		System.out.println("plainTextPassword: "+plainTextPassword
+							+"\t Constants.USER_MD5_SALT: "+ Constants.USER_MD5_SALT
+							+"\t hiddenPassword:" + this.hiddenPassword);
+		}
+	}
+	*/
 	
     public static String getMd5(String input)    {
         try {
@@ -58,7 +80,8 @@ public class Password {
         }
     }
     
-    public static char[] generatePassword(int length) {
+    //public static char[] generatePassword(int length) {
+    public static String generatePassword(int length) {
         String capitalCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
         String specialCharacters = "!@#$";
@@ -76,11 +99,11 @@ public class Password {
            password[i] = combinedChars.charAt(random.nextInt(combinedChars.length()));
         }
         
-        if( validatePassword(password.toString()) ) return password; else generatePassword(length); // *** rischiamo loop?
-        return password;
+        if( validatePassword(password.toString()) ) return password.toString(); else generatePassword(length); // *** rischiamo loop?
+        return password.toString();
      }
     
-    public static boolean validatePassword(final String givenPassword) throws IllegalArgumentException {
+    public static boolean validatePassword(String givenPassword) throws IllegalArgumentException {
     	final String PASSWORD_PATTERN =
                 "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
 
@@ -101,6 +124,7 @@ public class Password {
     	 */
     	
         final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+        System.out.println("Password.java givenPassword: " + givenPassword);
         Matcher matcher = pattern.matcher(givenPassword);
         //return matcher.matches();
         

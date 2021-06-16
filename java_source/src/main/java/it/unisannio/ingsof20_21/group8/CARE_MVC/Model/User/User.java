@@ -22,11 +22,13 @@ public class User {
         this.username = username;
         this.setPassword(password);
     }
+    
     public User(String username, Password password) throws UserException, NullPasswordException {
         this.validateCredentials(username,password.getHiddenPassword());    //il metodo per prendere la password è getHiddenPassword
         this.username = username;
         this.password = password.getHiddenPassword();
     }
+    
     private void validateCredentials(String username, String password) throws UserException, NullPasswordException {
         if (username == null)
             throw new UserException("The username cannot be null!");
@@ -64,8 +66,11 @@ public class User {
 
     public void setPassword(String plainTextPassword) {
     	Password.validatePassword(plainTextPassword);
-        this.password 				= Password.getMd5( plainTextPassword+Constants.USER_MD5_SALT ).toUpperCase();
-        this.password_lastupdate 	= new Date();
+        this.password 				= Password.getMd5( plainTextPassword + Constants.USER_MD5_SALT );
+		System.out.println("plainTextPassword: "+plainTextPassword
+				+"\t Constants.USER_MD5_SALT: "+ Constants.USER_MD5_SALT
+				+"\t hiddenPassword:" + this.password);
+        this.password_lastupdate 	= new Date();		// *** nei JUnit test stampa a video la data corrente, perché?
         this.temppass				= "";
     }
     

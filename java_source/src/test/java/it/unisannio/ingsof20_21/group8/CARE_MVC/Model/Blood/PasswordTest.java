@@ -21,16 +21,22 @@ public class PasswordTest {
 	// Controlla indirettamente anche getMd5
 	public void test_Constructor() {
 		String plainTextPassword = "LaConoscoSoloIo1.";
-		Password passObj = new Password( plainTextPassword );
-		assertNotNull( passObj );
+		String hiddenPassword	 = Password.getMd5(plainTextPassword);
+		Password passObj = new Password( hiddenPassword );
+		assertNotNull( passObj.getHiddenPassword().equals(hiddenPassword) );
 	}
 	
 	@Test
 	// controlla indirettamente anche setHiddenPassword() e 
 	public void testGetHiddenPassword() {
+		String	temp_pass		 = Password.generatePassword(15);
+		Password passObj 		 = new Password( Password.getMd5(temp_pass) );
+		
 		String plainTextPassword = "LaConoscoSoloIo1.";
 		String md5ExpectedPass	 = "646A452ED62B0929BC770DB4CA083468";
-		Password passObj 		 = new Password( plainTextPassword );
+		passObj.setHiddenPassword(
+					Password.getMd5(plainTextPassword)
+				);
 		String hiddenPass 		 = passObj.getHiddenPassword();
 		assertTrue( hiddenPass.equals( md5ExpectedPass ) );
 	}
