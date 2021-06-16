@@ -38,6 +38,17 @@ insert into `BloodBags` (serial, Rh, creation, expiring, id_state, note) values
     ('IT-NA206000-Apos-20210519-0004', 'Apos', '0', '1', 3, null ),
     ('IT-NA206000-Apos-20210510-0005', 'Aneg', '0', '1', 1, null );
 
+-- contiene le sacche eliminate, trasferite e usate.
+CREATE TABLE IF NOT EXISTS `OldBloodBags`(
+ serial char(32) NOT NULL PRIMARY KEY,
+ Rh char(7) NOT NULL,
+ creation int NOT NULL,
+ expiring int NOT NULL,
+ id_state smallint NOT NULL,
+ note TEXT,
+ foreign key (id_state) references `state_table`(id_state)-- referenzia la tabella degli stati
+);
+
 drop table IF EXISTS `Logger`;
 
 CREATE TABLE IF NOT EXISTS `Logger`(

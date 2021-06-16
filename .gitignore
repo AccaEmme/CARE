@@ -1,10 +1,10 @@
 target/
-*.class
-*.jar
-*.war
-*.ear
-*.logs
-*.iml
+.class
+.jar
+.war
+.ear
+.logs
+.iml
 .idea/
 .eclipse
 .idea
