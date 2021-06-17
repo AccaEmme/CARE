@@ -11,10 +11,12 @@ public class MongoDatamanagerAddUserTester {
     public static void main(String[] args) throws NullPasswordException, UserException {
         MongoDataManager manager = new MongoDataManager();
         //Country country, 	Region region, 			Province province,
-        //    				City city, 			String street,			String streetNumber
+        //    				City city, 			String street,			String streetNumber, String zipcode
         Location location = new Location(Location.Country.Italy, Location.Region.Campania, Location.Province.Benevento, Location.City.Benevento,"Via apice","n10","82018");
 
+        System.out.println(location.getDocument());
         User user = new User("antonello","Patente1+");
+
 
         user.setRole(Role.Administrator);
         user.setResidence(location);
