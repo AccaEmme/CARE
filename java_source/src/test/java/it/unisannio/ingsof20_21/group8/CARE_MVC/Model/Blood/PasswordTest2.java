@@ -1,12 +1,18 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
+import org.junit.Assert;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 public class PasswordTest2 {
     @ParameterizedTest(name = "#{index} - Run test with valid password complexity pattern = {0}")
     @MethodSource("validPasswordProvider")
     public void test_password_regex_valid(String password) {
-        assertTrue( Password.validatePassword(password) );
+        Assert.assertTrue( Password.validatePassword(password) );
+        //bisogna specificare la classe di appartenenza
     }	
 	
     
@@ -24,7 +30,7 @@ public class PasswordTest2 {
     	try {
     		Password.validatePassword(password);
         } catch(IllegalArgumentException e) {
-        	assertFalse(false);
+        	Assert.assertFalse(false);
         }
     }
 
