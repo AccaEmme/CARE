@@ -9,6 +9,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
+//import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
 // non eliminare questo commento. import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Serial; Non necessaria in quanto il costruttore della sacca richiama la generazione del seriale.
@@ -112,18 +113,23 @@ public class MySqlDataManager implements DataManager{
 
 			List<String> queries = readSQL("QueriesSQL/creation.sql");
 
-			s.addBatch("use care");
+			for (String str : queries){
+				if (!str.isEmpty())
+					s.addBatch(str);
+			}
 
-			for (String str : queries)
-				s.addBatch(str);
 
 			s.executeBatch();
 
 
 
 			conn.close();
-		} catch (SQLException | IOException throwables) {
+		} catch (BatchUpdateException database_not_found) {
+			System.err.println("The database was not found or the query was empty.\nThe query was skipped.");
+		}catch (SQLException throwables) {
 			throwables.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
