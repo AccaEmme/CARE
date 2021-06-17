@@ -14,7 +14,8 @@ public class Constants {
     public static final String DB_SETTINGS_PATH 			= "localsettings/db_settings.xml";
     public static final String SERIAL_SETTINGS_RELATIVEPATH = "localsettings/";
     public static final String SERIAL_SETTINGS_FILENAME 	= "serial_settings.xml";
-    public static final String SERIAL_SETTINGS_FILENAME_RELATIVEPATH = "localsettings/serial_settings.xml"; 
+    public static final String SERIAL_SETTINGS_FILENAME_RELATIVEPATH = "localsettings/serial_settings.xml";
+    public static final String MONGODB_CREDENTIALS          = "./../../uri.xml";
     //public static final String BLOODBAG_SETTINGS_FILENAME_RELATIVEPATH = "localsettings/bloodBag_settings.xml"; *** da eliminare
     //SERIAL_SETTINGS_RELATIVEPATH+SERIAL_SETTINGS_FILENAME;
     

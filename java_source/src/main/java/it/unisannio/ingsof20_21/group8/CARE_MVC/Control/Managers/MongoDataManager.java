@@ -89,7 +89,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
         Properties properties = new Properties();
 
         try {
-        	properties.loadFromXML(new FileInputStream("./../../uri.xml"));
+        	properties.loadFromXML(new FileInputStream(Constants.MONGODB_CREDENTIALS));
 
         } catch (InvalidPropertiesFormatException e) {
             e.printStackTrace();
