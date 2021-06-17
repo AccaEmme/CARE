@@ -26,12 +26,12 @@ tomcat
 target/
 
 # IntelliJ project files 
-*.iml
-*.iws
-*.ipr
-.idea/
+#*.iml
+#*.iws
+#*.ipr
+#.idea/
 
 # eclipse project file
-.settings/
-.classpath
-.project
+#.settings/
+#.classpath
+#.project
