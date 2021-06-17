@@ -1,37 +1,37 @@
-!.mvn/wrapper/maven-wrapper.jar
+#
+# Project specific excludes
+#
 
-### STS ###
-#.apt_generated
-#.classpath
-#.factorypath
-*.project
-#.settings
-#.springBeans
+tomcat
 
-### IntelliJ IDEA ###
-*.idea
-*.iws
-*.iml
-*.ipr
+#
+# Default excludes
+#
 
-### NetBeans ###
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
-target/
-bin/
-
-### Eclipse ###
-*.eclipse
-
-### Other ###
+# Binaries
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.war
+*.ear
+*.sar
 *.class
-.jar
-.war
-.ear
-.logs
-.iml
+
+# Maven 
+target/
+
+# IntelliJ project files 
+*.iml
+*.iws
+*.ipr
 .idea/
+
+# eclipse project file
+.settings/
+.classpath
+.project
