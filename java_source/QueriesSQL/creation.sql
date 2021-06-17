@@ -13,21 +13,21 @@ CREATE TABLE IF NOT EXISTS `role_table` (
 );
 
 CREATE TABLE IF NOT EXISTS `Location`(
- id_location	smallint NOT NULL PRIMARY KEY AUTO_INCREMENT,
- country		char(30)	NOT NULL,
- region			char(30)	NOT NULL,
- province 		char(30) 	NOT NULL,
- city 			char(30) 	NOT NULL,
- street 		char(150) 	NOT NULL,
- streetNumber	char(5),
- ZipCode		char(5)
+ id_location	smallint 	NOT NULL ,
+ country		char(30)	NOT NULL,		-- Location
+ region			char(30)	NOT NULL,		-- Location
+ province 		char(30) 	NOT NULL,		-- Location
+ city 			char(30) 	NOT NULL,		-- Location
+ street 		char(150) 	NOT NULL,		-- Location
+ streetNumber	char(5)		,				-- Location
+ ZipCode		char(5)		,				-- Location
+ PRIMARY KEY 	(`country`, `region`, `province`, `city`, `street`, `streetNumber`, `ZipCode`,`id_location` )
 );
 
 CREATE TABLE IF NOT EXISTS `nodes_table`(
  id_node 		int 		NOT NULL PRIMARY KEY AUTO_INCREMENT,
  codStr			char(30)	NOT NULL UNIQUE,
  nodeName 		char(30) 	NOT NULL,
-
  country		char(30)	NOT NULL UNIQUE,
  region			char(30)	NOT NULL UNIQUE,
  province 		char(30) 	NOT NULL UNIQUE,
@@ -35,24 +35,22 @@ CREATE TABLE IF NOT EXISTS `nodes_table`(
  street 		char(150) 	NOT NULL UNIQUE,
  streetNumber	char(5)		NOT NULL UNIQUE,
  ZipCode		char(5)		NOT NULL UNIQUE,
-
- Apos_min		smallint unsigned,	-- can be null
- Apos_max		smallint unsigned,	-- can be null
- Aneg_min		smallint unsigned,	-- can be null
- Aneg_max		smallint unsigned,	-- can be null
- Bpos_min		smallint unsigned,	-- can be null
- Bpos_max		smallint unsigned,	-- can be null
- Bneg_min		smallint unsigned,	-- can be null
- Bneg_max		smallint unsigned,	-- can be null
- ABpos_min		smallint unsigned,	-- can be null
- ABpos_max		smallint unsigned,	-- can be null
+ Apos_min		smallint unsigned,
+ Apos_max		smallint unsigned,
+ Aneg_min		smallint unsigned,
+ Aneg_max		smallint unsigned,
+ Bpos_min		smallint unsigned,
+ Bpos_max		smallint unsigned,
+ Bneg_min		smallint unsigned,
+ Bneg_max		smallint unsigned,
+ ABpos_min		smallint unsigned,
+ ABpos_max		smallint unsigned,
  ABneg_min		smallint unsigned,	-- can be null
  ABneg_max		smallint unsigned,	-- can be null
  ZEROpos_min	smallint unsigned,	-- can be null
  ZEROpos_max	smallint unsigned,	-- can be null
  ZEROneg_min	smallint unsigned,	-- can be null
  ZEROneg_max	smallint unsigned,	-- can be null
-
  endpoint	char(30)	NOT NULL,
  foreign key(`country`, `region`, `province`, `city`, `street`, `streetNumber`, `ZipCode`) references `Location`(`country`, `region`, `province`, `city`, `street`, `streetNumber`, `ZipCode`)
 );

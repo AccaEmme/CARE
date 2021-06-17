@@ -108,12 +108,14 @@ public class MySqlDataManager implements DataManager{
 
 	public void createDB () {
 		try {
+			System.out.println(url);
 			Connection conn = DriverManager.getConnection(url,username,password);
 			Statement s = conn.createStatement();
 
 			List<String> queries = readSQL("QueriesSQL/creation.sql");
 
 			for (String str : queries){
+				System.out.println(str);
 				if (!str.isEmpty())
 					s.addBatch(str);
 			}
@@ -126,6 +128,7 @@ public class MySqlDataManager implements DataManager{
 			conn.close();
 		} catch (BatchUpdateException database_not_found) {
 			System.err.println("The database was not found or the query was empty.\nThe query was skipped.");
+			database_not_found.printStackTrace();
 		}catch (SQLException throwables) {
 			throwables.printStackTrace();
 		} catch (IOException e) {
