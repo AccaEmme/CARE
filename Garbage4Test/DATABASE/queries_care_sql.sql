@@ -36,16 +36,19 @@ insert into `role_table` (id_role, usrRole) values
 select * from `role_table`;
 
 -- tabella di comodo per la verifica dati di Residenza e Magazzino
+-- drop table `Location`;
 CREATE TABLE IF NOT EXISTS `Location`(
- id_location	smallint NOT NULL PRIMARY KEY AUTO_INCREMENT,
+ id_location	smallint 	NOT NULL ,
  country		char(30)	NOT NULL,		-- Location
  region			char(30)	NOT NULL,		-- Location
  province 		char(30) 	NOT NULL,		-- Location
  city 			char(30) 	NOT NULL,		-- Location
  street 		char(150) 	NOT NULL,		-- Location
  streetNumber	char(5)		,				-- Location
- ZipCode		char(5)						-- Location
+ ZipCode		char(5)		,				-- Location
+ PRIMARY KEY 	(`country`, `region`, `province`, `city`, `street`, `streetNumber`, `ZipCode`,`id_location` )
 );
+-- foreign key(`country`, `region`, `province`, `city`, `street`, `streetNumber`, `ZipCode`) references `Location`(`country`, `region`, `province`, `city`, `street`, `streetNumber`, `ZipCode`)
 ALTER TABLE `Location` ADD PRIMARY KEY (`country`, `region`, `province`, `city`, `street`, `streetNumber`, `ZipCode`); -- The column referenced in a foreign key must be indexed.
 insert into `Location` (`country`, `region`, `province`, `city`, `street`, `streetNumber`, `ZipCode`) values
     (
@@ -58,18 +61,19 @@ insert into `Location` (`country`, `region`, `province`, `city`, `street`, `stre
       '83100'  					-- Location: ZipCode
       );
 
+-- drop table `nodes_table`;
 CREATE TABLE IF NOT EXISTS `nodes_table`(
  id_node 		int 		NOT NULL PRIMARY KEY AUTO_INCREMENT,
  codStr			char(30)	NOT NULL UNIQUE,
  nodeName 		char(30) 	NOT NULL,
  
- country		char(30)	NOT NULL,
- region			char(30)	NOT NULL,
- province 		char(30) 	NOT NULL,
- city 			char(30) 	NOT NULL,
- street 		char(150) 	NOT NULL,
- streetNumber	char(5)		,
- ZipCode		char(5)		,
+ country		char(30)	NOT NULL UNIQUE,
+ region			char(30)	NOT NULL UNIQUE,
+ province 		char(30) 	NOT NULL UNIQUE,
+ city 			char(30) 	NOT NULL UNIQUE,
+ street 		char(150) 	NOT NULL UNIQUE,
+ streetNumber	char(5)		NOT NULL UNIQUE,
+ ZipCode		char(5)		NOT NULL UNIQUE,
  
  Apos_min		smallint unsigned,	-- can be null
  Apos_max		smallint unsigned,	-- can be null
@@ -144,7 +148,7 @@ insert into `BloodBags` (idSerial, bloodGroup, creationDate, expiringDate, donat
     ('IT-NA206000-Apos-20210519-0004', 'Apos', '0', '1', 'MGLHMNxxxxxxxxx', 1, 3, null ),
     ('IT-NA206000-Apos-20210510-0005', 'Aneg', '0', '1', 'MGLHMNxxxxxxxxx', 1, 1, null );
 
-drop table IF EXISTS `oldBloodBags`;1111
+drop table IF EXISTS `oldBloodBags`;
 -- contiene le sacche eliminate, trasferite e usate.
 CREATE TABLE IF NOT EXISTS `oldBloodBags`(
  idSerial char(32) NOT NULL PRIMARY KEY,
@@ -189,7 +193,7 @@ insert into `Users` (iduser, username, password, lastaccess, idrole) values
     (NULL, 'Antonello', 'ea66ebb84ff0940dd72a35d12bcd8a72', 1620038944, 3),
     (NULL, 'Luigino',   'ea66ebb84ff0940dd72a35d12bcd8a72', 1620038945, 3);
 
-drop table IF EXISTS `Logger`;
+-- drop table IF EXISTS `Logger`;
 
 CREATE TABLE IF NOT EXISTS `Logger`(
  id_logger int NOT NULL PRIMARY KEY AUTO_INCREMENT,
