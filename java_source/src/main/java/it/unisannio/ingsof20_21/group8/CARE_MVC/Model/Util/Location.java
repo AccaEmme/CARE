@@ -45,6 +45,7 @@ public class Location {
 			document.append("province",this.province.toString());
 			document.append("region",this.region.toString());
 			document.append("country",this.country.toString());
+			document.append("zip_code",this.getZipCode());
 
 		return document;
 	}

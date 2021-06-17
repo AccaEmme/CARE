@@ -18,7 +18,7 @@ public class User {
 	 */
 
     public User(String username, String plainTextPassword) throws UserException, NullPasswordException {
-        this.validateCredentials(username,password);
+        this.validateCredentials(username,plainTextPassword);
         this.username = username;
         this.setPassword(plainTextPassword);
     }

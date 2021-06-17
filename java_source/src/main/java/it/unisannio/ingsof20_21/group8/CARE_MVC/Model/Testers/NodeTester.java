@@ -3,7 +3,6 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFoundException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
@@ -14,13 +13,13 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
 
 public class NodeTester {
 
-	public static void main(String[] args) throws StreetNotFoundException {
+	public static void main(String[] args)  {
 		// TODO Auto-generated method stub
 		Node n = new Node(
 				"206",
 				"Moscati",
 				new Location(
-						Country.Italy, Region.Campania,Province.Avellino,City.Avellino,"via Volpe", "55"
+						Country.Italy, Region.Campania,Province.Avellino,City.Avellino,"via Volpe", "55","82021"
 						)
 				);
 		/*

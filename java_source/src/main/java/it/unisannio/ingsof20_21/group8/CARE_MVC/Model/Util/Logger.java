@@ -14,6 +14,7 @@ public class Logger {
      * ESITO:   se l'azione è andata a buon fine (eccezione, errore, ecc.)
      * */
     public Logger(User currentUser, String c, String method, String result){
+    	this.now = new Date();
         this.currentUser = currentUser;
         this.fromClass = c;
         this.method = method;
@@ -25,7 +26,7 @@ public class Logger {
     }
 
 
-    private final Date now = new Date();
+    private final Date now;
     User currentUser;
     String fromClass;
     String method;

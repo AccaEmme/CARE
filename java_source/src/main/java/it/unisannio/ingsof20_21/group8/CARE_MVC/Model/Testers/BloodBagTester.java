@@ -2,7 +2,6 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Testers;
 
 import java.text.ParseException;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFoundException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;						// Sebbene noi abbiamo importato il package, la visibilità protected fa sì che non possiamo utilizzare quei metodi, ma solo instanziare l'oggetto. Potente!
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
@@ -15,12 +14,12 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
 
 public class BloodBagTester {
 
-	public static void main(String[] args) throws ParseException, StreetNotFoundException {
+	public static void main(String[] args) throws ParseException {
 		String CF1="BNCMRA86A41A509Y", CF2="RSSMRA80A01A509I", CF3="MMCARN45B24A509I";
 		
-		Node n1 = new Node("206","Rummo",		new Location(Country.Italy, Region.Campania, Province.Benevento, City.Benevento, "via Roma", "44C"));
-		Node n2 = new Node("204","Moscati",		new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via Europa", "33bis"));
-		Node n3 = new Node("201","Cardarelli",	new Location(Country.Italy, Region.Campania, Province.Napoli, City.Napoli, "via dei Mille", "80/81"));
+		Node n1 = new Node("206","Rummo",		new Location(Country.Italy, Region.Campania, Province.Benevento, City.Benevento, "via Roma", "44C","82018"));
+		Node n2 = new Node("204","Moscati",		new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via Europa", "33bis","82098"));
+		Node n3 = new Node("201","Cardarelli",	new Location(Country.Italy, Region.Campania, Province.Napoli, City.Napoli, "via dei Mille", "80/81","82132"));
 		
 		//BloodBag bb = new BloodBag(BloodGroup.Bpos, CF1);
 		BloodBagInterface bbi = new BloodBag(BloodGroup.Bpos, CF1, n1); 

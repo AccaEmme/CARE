@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.AdminInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.MongoDataManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.WhareHouseWorkerInterface;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFoundException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag.BloodBagState;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
@@ -33,7 +32,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswo
 
 
 public class UsrDbTest {
-public static void main(String[] args) throws ParseException, UserException, NullPasswordException, StreetNotFoundException {
+public static void main(String[] args) throws ParseException, UserException, NullPasswordException {
 		
 	Logger mongoLogger = Logger.getLogger( "org.mongodb.driver");
 	mongoLogger.setLevel(Level.SEVERE);
@@ -44,8 +43,8 @@ public static void main(String[] args) throws ParseException, UserException, Nul
 	
 		User u0=new User("giangi","12345Aa@21");
 		User u1=new User("lucalucone","12345Aa@11");
-	Node n1 = new Node("999","morte",		new Location(Country.Italy, Region.Campania, Province.Benevento, City.Benevento, "via Roma", "44C"));
-	String CF1="BNCMRA86A41A509Y";
+		Node n1 = new Node("999","morte",		new Location(Country.Italy, Region.Campania, Province.Benevento, City.Benevento, "via Roma", "44C","82023"));
+		String CF1="BNCMRA86A41A509Y";
 		//BloodBag bb = new BloodBag(BloodGroup.Bpos, CF1);
 		BloodBagInterface bbi = new BloodBag(BloodGroup.Bpos, CF1, n1); 
 		

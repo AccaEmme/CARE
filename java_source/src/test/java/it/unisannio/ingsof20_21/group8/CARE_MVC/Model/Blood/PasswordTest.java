@@ -1,5 +1,6 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import org.junit.jupiter.api.Test;
 
 import org.junit.Ignore;
@@ -15,13 +16,15 @@ import static org.junit.Assert.assertTrue;
 import java.util.stream.Stream;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
+import org.junit.jupiter.params.ParameterizedTest;
 
 public class PasswordTest {
 	@Test
 	// Controlla indirettamente anche getMd5
 	public void test_Constructor() {
 		String plainTextPassword = "LaConoscoSoloIo1.";
-		String hiddenPassword	 = Password.getMd5(plainTextPassword+Constants.);
+
+		String hiddenPassword	 = Password.getMd5(plainTextPassword);
 		Password passObj = new Password( hiddenPassword );
 		assertNotNull( passObj.getHiddenPassword().equals(hiddenPassword) );
 	}
@@ -41,7 +44,8 @@ public class PasswordTest {
 		assertTrue( hiddenPass.equals( md5ExpectedPass ) );
 	}
 
-	
+
+	//PER USARE I PARAMETRI BISOGNA IMPORTARE LA CLASSE org.junit.jupiter.api.Test
     @ParameterizedTest(name = "#{index} - Run test with valid password complexity pattern = {0}")
     //@MethodSource("validPasswordProvider")
     public void test_password_regex_valid(String password) {

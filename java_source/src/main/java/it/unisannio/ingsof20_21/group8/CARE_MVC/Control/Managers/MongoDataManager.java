@@ -5,7 +5,6 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StreetNotFoundException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Serial;
@@ -263,14 +262,13 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
                             Province.valueOf(locationDoc.getString("province")),
                             City.valueOf(locationDoc.getString("city")),
                             locationDoc.getString("street"),
-                            locationDoc.getString("street_number"));
+                            locationDoc.getString("street_number"),
+                            locationDoc.getString("zip_code"));
                     user.setResidence(location);
                 }
 
-            } catch (StreetNotFoundException e) {
+            } catch (IllegalArgumentException e) {
                 e.printStackTrace();
-                System.err.println("An error occurred during location reading.");
-                return  null;
             }
             return user;
         } catch (UserException | NullPasswordException e) {
@@ -318,25 +316,25 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
         	String province = obj2.getString( "province" );
         	String region=obj2.getString("region");
         	String country = obj2.getString( "country" );
+        	String zip_code = obj2.getString("zip_code");
         	
         	
         	Node n1;
 			try {
-				n1 = new Node(cod, name,	new Location(Country.valueOf(country), Region.valueOf(region), Province.valueOf(province), City.valueOf(city) , street, sNumber));	
+				n1 = new Node(cod, name,	new Location(Country.valueOf(country), Region.valueOf(region), Province.valueOf(province), City.valueOf(city) , street, sNumber,zip_code));
 				BloodBag  bl=new  BloodBag(new Serial(serial),BloodGroup.valueOf(BloodG),cd,ed,donatorCF,n1,BloodBag.BloodBagState.valueOf(BloodBagState),note);
 				if(( bl.getExpirationDate().before(d))&&(bl.getBloodGroup()==b)) {
         
-    	    sacche.add(bl);		
-    	    System.out.println("****************");
-    	    bl.print();
-    	    System.out.println("****************");
-    		}
-			} catch (StreetNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        
-    		
+                    sacche.add(bl);
+                    System.out.println("****************");
+                    bl.print();
+                    System.out.println("****************");
+    		    }
+			} catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+
+
         }
         	
         /*public BloodBag( Serial s,BloodGroup b, Date creationD,Date expirationD,String donator,Node n,BloodBagState BagState,String not) throws ParseException {*/
