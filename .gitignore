@@ -29,7 +29,7 @@ target/
 .eclipse
 
 ### Other ###
-.class
+*.class
 .jar
 .war
 .ear
