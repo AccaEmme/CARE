@@ -37,7 +37,7 @@ public class User {
     	this.temppass	= String.valueOf(
     								Password.generatePassword(Constants.USER_TEMPPASS_LENGTH)
     						);
-    	this.setPassword(temppass);
+    	this.setPassword(temppass);	
     	this.role		= role;
     	
     	this.password_lastupdate = new Date();
@@ -73,7 +73,7 @@ public class User {
 				+"\t hiddenPassword:" + this.password);
 				*/
         this.password_lastupdate 	= new Date();		// *** nei JUnit test stampa a video la data corrente, perché?
-        this.temppass				= "";
+        //this.temppass				= "";
     }
     
     public Date getPasswordLastUpdate() {
@@ -96,6 +96,14 @@ public class User {
     	this.role = r;
     }
 
+    public String getTempPass() {
+    	return this.temppass;
+    }
+    
+    private void setTempPass(String temppass) {
+    	this.temppass=temppass;
+    }
+    
     public Document getDocument(){
         Document document = new Document("username",this.getUsername());
         document.append("password",this.getPassword());

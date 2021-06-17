@@ -31,34 +31,83 @@ public class UserTest {
 		User u = new User(username, pass); 
 		u.getUsername();
 		
-		u.getPassword().equals(
-   				Password.getMd5( pass + Constants.USER_MD5_SALT )
-   		);
+		assertTrue(
+				u.getPassword().equals(
+   				  Password.getMd5( pass + Constants.USER_MD5_SALT )
+				)
+		);
 	}
 
 	@Test
-	public void testValidConstructor2(String username, Password hashedPassword){
-
+	public void testValidConstructor2(/*String username, Password hashedPassword*/) throws UserException, NullPasswordException{
+		String username="AccaEmme";
+		String pass="Care4+Blood";
+		String hiddenPass = Password.getMd5(pass + Constants.USER_MD5_SALT);
+		User u = new User(username, new Password(hiddenPass));
+		
+		assertTrue(
+				u.getPassword().equals(
+   				  Password.getMd5( pass + Constants.USER_MD5_SALT )
+				)
+		);
 	}
 
 	@Test
-	public void testValidConstructor3(String username, Role role){
-
+	public void testValidConstructor3(/*String username, Role role*/){
+		String 	username = "AccaEmme";
+		Role r 			 = Role.valueOf("Officer");
+		User u 			 = new User(username, r);
+		String temppass  = u.getTempPass();
+		
+		assertTrue(
+				u.getPassword().equals(
+   				  Password.getMd5( temppass + Constants.USER_MD5_SALT )
+				)
+		);
 	}
 	
 	@Test
-	public void testInvalidConstructor1(String username, String plainTextPassword){
-
+	public void testInvalidConstructor1(/*String username, String plainTextPassword*/) throws UserException, NullPasswordException{
+		String username="AccaEmme";
+		String pass="passwordsemplice";
+		
+    	try {
+    		User u = new User(username, pass); 
+    		u.getUsername();
+   			u.getPassword().equals(
+       			  Password.getMd5( pass + Constants.USER_MD5_SALT )
+    		);
+        } catch(Exception e) {
+        	assertFalse(false);
+        }
 	}
 
 	@Test
-	public void testInvalidConstructor2(String username, Password hashedPassword){
+	public void testInvalidConstructor2(/*String username, Password hashedPassword*/){
+		String username="AccaEmme";
+		String pass="simplepasswordpattern";
 
+    	try {
+    		String hiddenPass = Password.getMd5(pass + Constants.USER_MD5_SALT);
+    		User u = new User(username, new Password(hiddenPass));
+			u.getPassword().equals(  Password.getMd5( pass + Constants.USER_MD5_SALT )  );
+        } catch(Exception e) {
+        	assertFalse(false);
+        }
 	}
 
 	@Test
-	public void testInvalidConstructor3(String username, Role role){
-
+	public void testInvalidConstructor3(/*String username, Role role*/){
+		String 	username = "AccaEmme";
+		
+    	try {
+    		Role r 			 = Role.valueOf("Officer");
+    		User u 			 = new User(username, r);
+    		String temppass  = u.getTempPass();
+    		u.getPassword().equals(  Password.getMd5( temppass + Constants.USER_MD5_SALT ) );
+        } catch(Exception e) {
+        	assertFalse(false);
+        }
 	}
 	
 	@Test
@@ -98,19 +147,6 @@ public class UserTest {
 						)
 				);
 	}
-
-	/**
-	 * Scusa hermann devo eseguire xD
-	errore. da Console:
-	Password.java givenPassword: AAAbbbccc@123
-	plainTextPassword: AAAbbbccc@123	 Constants.USER_MD5_SALT: CanforaMarkUs30L	 hiddenPassword:6800A4445909CC025ADCAD4243D9974C
-	Wed Jun 16 11:07:44 CEST 2021
-	Password.java givenPassword: AAAbbbccc@123
-	Password.java givenPassword: [C@6150c3ec
-	Password.java givenPassword: null
-	Password.java givenPassword: [C@185a6e9
-	Password.java givenPassword: null*/
-
 	
 	@Test
 	public void testSetPasswordWrong() {
@@ -139,12 +175,7 @@ public class UserTest {
     //@Test(expected = IllegalArgumentException.class)
     public void test_password_regex_invalid(String password) {
     	//ExceptionThrower exceptionThrower = new ExceptionThrower();
-    	/*
-    	assertThrows(
-    			Password.validatePassword(password)
-    			);
-    			*/
-    	//assertFalse(Password.validatePassword(password));
+    	
     	try {
     		Password.validatePassword(password);
         } catch(IllegalArgumentException e) {
