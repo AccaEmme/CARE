@@ -1,16 +1,9 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.io.*;
+import java.sql.*;
+import java.util.*;
 import java.util.Date;
-import java.util.InvalidPropertiesFormatException;
-import java.util.List;
-import java.util.Properties;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
@@ -27,13 +20,15 @@ public class MySqlDataManager implements DataManager{
 	private String db;
 	private String url;
 	private String url_db;	//String url_db = "jdbc:mysql://127.0.0.1:3306/CARE";
-	
-    private String username;
-    private String password;
-	
-	public MySqlDataManager() {
+
+	private String username;
+	private String password;
+
+	/**
+	 * potremmo aggiungere anche la possibilita di inizializzarlo con un user*/
+	public MySqlDataManager(String username, String password) {
 		Properties loadProps = new Properties();
-	    try {
+		try {
 			loadProps.loadFromXML(new FileInputStream(Constants.DB_SETTINGS_PATH));
 		} catch (InvalidPropertiesFormatException e) {
 			e.printStackTrace();
@@ -42,27 +37,68 @@ public class MySqlDataManager implements DataManager{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	    host = loadProps.getProperty(Constants.TAG_HOST);
-	    port = loadProps.getProperty(Constants.TAG_PORT);
-	    db = loadProps.getProperty(Constants.TAG_DB);
-	    url = "jdbc:mysql://"+host+":"+port+"/";
+		host = loadProps.getProperty(Constants.TAG_HOST);
+		port = loadProps.getProperty(Constants.TAG_PORT);
+		db = loadProps.getProperty(Constants.TAG_DB);
+		url = "jdbc:mysql://"+host+":"+port+"/";
 		url_db = url+db;
 
-	    try {
-	    	//la password viene letta da un xml, modificare "Constants.MYSQL_LOGIN_SETTINGS_PATH" con il proprio path
-	        loadProps.loadFromXML(new FileInputStream(Constants.MYSQL_LOGIN_SETTINGS_PATH));
-			//loadProps.loadFromXML(new FileInputStream(Constants.MYSQL_LOGIN_SETTINGS_PATH_MAC));
-        } catch (InvalidPropertiesFormatException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		this.username = username;
+		this.password = password;
+	}
 
-	    this.username = loadProps.getProperty("username");
-	    this.password = loadProps.getProperty("password");
-    }
+	public MySqlDataManager() {
+		Properties loadProps = new Properties();
+		try {
+			loadProps.loadFromXML(new FileInputStream(Constants.DB_SETTINGS_PATH));
+		} catch (InvalidPropertiesFormatException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		host = loadProps.getProperty(Constants.TAG_HOST);
+		port = loadProps.getProperty(Constants.TAG_PORT);
+		db = loadProps.getProperty(Constants.TAG_DB);
+		url = "jdbc:mysql://"+host+":"+port+"/";
+		url_db = url+db;
+
+		try {
+			//la password viene letta da un xml, modificare "Constants.MYSQL_LOGIN_SETTINGS_PATH" con il proprio path
+			loadProps.loadFromXML(new FileInputStream(Constants.MYSQL_LOGIN_SETTINGS_PATH));
+			//loadProps.loadFromXML(new FileInputStream(Constants.MYSQL_LOGIN_SETTINGS_PATH_MAC));
+		} catch (InvalidPropertiesFormatException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		this.username = loadProps.getProperty("username");
+		this.password = loadProps.getProperty("password");
+	}
+
+	private List<String> readSQL(String fileName) throws IOException {
+		List<String> queries = new ArrayList<>();
+		BufferedReader reader = new BufferedReader(new FileReader(fileName));
+
+		StringBuilder builder = new StringBuilder();
+		String line;
+		while ((line = reader.readLine()) != null) {
+			if (line.equals("")){
+				queries.add(builder.toString());
+				builder = new StringBuilder();
+			}else {
+				builder.append(line + "\n");
+			}
+
+		}
+
+		System.out.println(builder.toString());
+		return queries;
+	}
 
 	@Override
 	public void writeLog(Logger logger) {
@@ -70,66 +106,38 @@ public class MySqlDataManager implements DataManager{
 	}
 
 	public void createDB () {
-		/**
-		 * @// TODO: 19/05/2021 modificare i metodi in modo tale che accettino dei argomenti. */
-		
-		String CREATETABLE_StateTable = ""
-				+ "   		 CREATE TABLE IF NOT EXISTS `state_table` (\r\n"
-				+ "    			id_state smallint NOT NULL PRIMARY KEY AUTO_INCREMENT,\r\n"
-				+ "    			state varchar(10) UNIQUE\r\n"
-				+ "			 );";
-		
-		
-        try (
-        		Connection conn = DriverManager.getConnection(url, username, password);
-        		PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_CREATE_DB+db)
-        	) {
-        	//System.out.println(Constants.SQL_CREATE_DB+db);
-        	preparedStatement.execute();
-        	preparedStatement.close();
-        } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        
-        try (
-     		   Connection conn = DriverManager.getConnection(url_db, username, password);
-     		   PreparedStatement preparedStatement = conn.prepareStatement(CREATETABLE_StateTable)
-             ) {
-        		preparedStatement.execute();
-        		preparedStatement.close();;
-         } catch (SQLException e) {
-             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-         } catch (Exception e) {
-             e.printStackTrace();
-         } 
-        
-       try (
-    		   Connection conn = DriverManager.getConnection(url_db, username, password);
-    		   PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_CREATE_TABLE)
-            ) {
-       		preparedStatement.execute();
-       		preparedStatement.close();;
-        } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }		
+		try {
+			Connection conn = DriverManager.getConnection(url,username,password);
+			Statement s = conn.createStatement();
+
+			List<String> queries = readSQL("QueriesSQL/creation.sql");
+
+			s.addBatch("use care");
+
+			for (String str : queries)
+				s.addBatch(str);
+
+			s.executeBatch();
+
+
+
+			conn.close();
+		} catch (SQLException | IOException throwables) {
+			throwables.printStackTrace();
+		}
 	}
-	
-	public void dropDB () {		
-	    try (Connection conn = DriverManager.getConnection(url, username, password);
-	    	PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_DROP_DB+db)) {
-	        preparedStatement.execute();
-	        preparedStatement.close();
-	    } catch (SQLException e) {
-	         System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-	    } catch (Exception e) {
-	         e.printStackTrace();
-	    }
-		
+
+	public void dropDB () {
+		try (Connection conn = DriverManager.getConnection(url, username, password);
+			 PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_DROP_DB+db)) {
+			preparedStatement.execute();
+			preparedStatement.close();
+		} catch (SQLException e) {
+			System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
@@ -138,9 +146,9 @@ public class MySqlDataManager implements DataManager{
 	}
 
 	public void addBloodBag (BloodBag s) { // in realtà aggiunge ciò che fornisce il manager, forse ***
-        try (Connection conn = DriverManager.getConnection(url_db, username, password);
-             PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_INSERT)) {
-        	/**
+		try (Connection conn = DriverManager.getConnection(url_db, username, password);
+			 PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_INSERT)) {
+			/**
 			 * private final Serial 	serial;
 			 * 	private final Blood 	blood;
 			 * 	private Date			creationDate;
@@ -149,28 +157,28 @@ public class MySqlDataManager implements DataManager{
 			 * 	private note
 			 * id_state
 			 * 	*/
-            preparedStatement.setString(1, s.getSerial().toString());
-            preparedStatement.setString(2, s.getBloodType().toString());
-            //System.out.println( (int)(s.getCreationDate().getTime()/1000L) );
-            preparedStatement.setInt(3, (int)(s.getCreationDate().getTime()/1000L) ); // unixtimestamp
-            preparedStatement.setInt(4, (int) ( s.getExpirationDate().getTime()/1000L) ); // unixtimestamp
-            //System.out.println( (int) ( s.getExpirationDate().getTime()/1000L) );
-            preparedStatement.setString(5, s.getDonatorCF().toString() );
-            preparedStatement.setString(6, s.getNote());
-            preparedStatement.setShort(7, (short) 1);
-            // TODO: *** by manager preparedStatement.setString(7, s.getState());
-            
-            System.out.println(s.getSerial().toString() + " - " + s.getBloodType().toString() + "creation: "+s.getCreationDate().getTime()/1000L + "expiration: "+s.getExpirationDate().getTime()/1000L );
-        	preparedStatement.execute();
-        	preparedStatement.close();
+			preparedStatement.setString(1, s.getSerial().toString());
+			preparedStatement.setString(2, s.getBloodType().toString());
+			//System.out.println( (int)(s.getCreationDate().getTime()/1000L) );
+			preparedStatement.setInt(3, (int)(s.getCreationDate().getTime()/1000L) ); // unixtimestamp
+			preparedStatement.setInt(4, (int) ( s.getExpirationDate().getTime()/1000L) ); // unixtimestamp
+			//System.out.println( (int) ( s.getExpirationDate().getTime()/1000L) );
+			preparedStatement.setString(5, s.getDonatorCF().toString() );
+			preparedStatement.setString(6, s.getNote());
+			preparedStatement.setShort(7, (short) 1);
+			// TODO: *** by manager preparedStatement.setString(7, s.getState());
 
-        } catch (SQLException e) {
-            System.err.format("[addBloodBag] SQL State: %s - %s", e.getSQLState(), e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } 
+			System.out.println(s.getSerial().toString() + " - " + s.getBloodType().toString() + "creation: "+s.getCreationDate().getTime()/1000L + "expiration: "+s.getExpirationDate().getTime()/1000L );
+			preparedStatement.execute();
+			preparedStatement.close();
 
-    }
+		} catch (SQLException e) {
+			System.err.format("[addBloodBag] SQL State: %s - %s", e.getSQLState(), e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 /*
 	@Override
 	public List<BloodBag> getBloodBag(BloodGroup bloodGroup) {
@@ -188,9 +196,9 @@ public class MySqlDataManager implements DataManager{
 				BloodGroup group = BloodGroup.valueOf(rs.getString(Constants.COL_GROUP));
 */
 
-				/*BloodBag s = new BloodBag(
-						BloodGroup.valueOf(rs.getString(Constants.COL_Serial) ,rs.getString(Constants.COL_GRUPPO) )
-				);*/
+	/*BloodBag s = new BloodBag(
+            BloodGroup.valueOf(rs.getString(Constants.COL_Serial) ,rs.getString(Constants.COL_GRUPPO) )
+    );*/
 	/*
 				sacche.add(new BloodBag(group));
 			}
@@ -212,13 +220,13 @@ public class MySqlDataManager implements DataManager{
 	public void writeLog(){
 
 	}
-	
+
     /*
 	public List<BloodBag> getBloodBag(Blood g) {
 		String url = "jdbc:mysql://"+host+":"+port+"/"+db;
-		
+
 		List<BloodBag> sacche = new ArrayList<BloodBag>();	// *** mettere un iterator
-		
+
 		try (Connection conn = DriverManager.getConnection(url, username, password);
 		      PreparedStatement preparedStatement = conn.prepareStatement(SQL_QUERY)){
 
@@ -239,10 +247,9 @@ public class MySqlDataManager implements DataManager{
         }
 		return sacche;
 	}
-	
+
 	 */
 	/* *** da implementare */
-	
 
 	public boolean createDump() {
 		return false;
@@ -261,7 +268,7 @@ public class MySqlDataManager implements DataManager{
 			e.printStackTrace();
 		}
 
-		
+
 		/*
 		 * implemento novità, non mostrata dal prof. ma fa schifo perché una riga potrebbe non avere un comando.
 		 */
@@ -269,7 +276,7 @@ public class MySqlDataManager implements DataManager{
 		String url = "jdbc:mysql://"+host+":"+port+"/";
 		try (Connection conn = DriverManager.getConnection(url, username, password);
 			      Statement stmt = conn.createStatement()){
-	
+
 	        int i = 0 ;
 	        String line = "";
 	        FileReader fr = new FileReader(filename) ;
@@ -294,37 +301,33 @@ public class MySqlDataManager implements DataManager{
 		//return false;
 	}
 
-
 	public List<BloodBag> getBloodBag(BloodBag blood) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	public void updateExpirationDate(BloodBag b, Date newExpirationDate) {
 		// TODO Auto-generated method stub
-		
-	}
 
-	
+	}
 
 	public void setStateTable(/*short id_state, */String state) {
 		String INSERTTABLE_StateTable = "INSERT INTO `state_table` (id_state, state) VALUES (?,?)";
-        try (Connection conn = DriverManager.getConnection(url_db, username, password);
-                PreparedStatement preparedStatement = conn.prepareStatement(INSERTTABLE_StateTable)) {
-            preparedStatement.setString(1, null);
-            preparedStatement.setString(2, state);
-               
-           	preparedStatement.execute();
-           	preparedStatement.close();
+		try (Connection conn = DriverManager.getConnection(url_db, username, password);
+			 PreparedStatement preparedStatement = conn.prepareStatement(INSERTTABLE_StateTable)) {
+			preparedStatement.setString(1, null);
+			preparedStatement.setString(2, state);
 
-           } catch (SQLException e) {
-               System.err.format("[setStateTable] SQL State: %s - %s", e.getSQLState(), e.getMessage());
-           } catch (Exception e) {
-               e.printStackTrace();
-           }  
+			preparedStatement.execute();
+			preparedStatement.close();
+
+		} catch (SQLException e) {
+			System.err.format("[setStateTable] SQL State: %s - %s", e.getSQLState(), e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 
 
 
