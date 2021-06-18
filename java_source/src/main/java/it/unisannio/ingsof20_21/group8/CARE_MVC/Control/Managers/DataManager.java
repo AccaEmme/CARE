@@ -1,5 +1,6 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
@@ -40,4 +41,6 @@ public interface DataManager {
 	void addRoles();
 
 	void addLocation(Location location);
+
+	void addNode(Node node);
 }

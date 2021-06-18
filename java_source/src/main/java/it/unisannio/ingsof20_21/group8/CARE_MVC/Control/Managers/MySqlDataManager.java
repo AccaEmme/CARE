@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.Date;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
@@ -155,6 +156,7 @@ public class MySqlDataManager implements DataManager{
 		return null;
 	}
 
+	@Override
 	public void addBloodBag (BloodBag s) { // in realtà aggiunge ciò che fornisce il manager, forse ***
 		try (Connection conn = DriverManager.getConnection(url_db, username, password);
 			 PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_INSERT_BLOODBAGS)) {
@@ -192,6 +194,7 @@ public class MySqlDataManager implements DataManager{
 
 	}
 
+	@Override
 	public void addStates(){
 		String query = "insert into `state_table` (id_state, state) values\n" +
 				"    (null, 'presente'),\n" +
@@ -210,6 +213,7 @@ public class MySqlDataManager implements DataManager{
 		}
 	}
 
+	@Override
 	public void addRoles(){
 		String query = "insert into `role_table` (id_role, usrRole) values\n" +
 				"    (null, 'Officer'),\n" +
@@ -242,6 +246,49 @@ public class MySqlDataManager implements DataManager{
 			preparedStatement.setString(6, location.getStreet());
 			preparedStatement.setString(7, location.getStreetNumber());
 			preparedStatement.setString(8, location.getZipCode());
+
+			preparedStatement.execute();
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+	}
+
+
+	public void addNode(Node node){
+		try {
+			Connection conn = DriverManager.getConnection(url_db, username, password);
+			PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_INSERT_LOCATION);
+
+			preparedStatement.setInt(1, 1);	/**@ TODO: 18/06/2021 non so come aggiungere l'auto increment*/
+			preparedStatement.setString(2, node.getCodStr().toString());
+			preparedStatement.setString(3, node.getNodeName().toString());
+
+			Location warehouse = node.getWarehouse();
+
+			preparedStatement.setString(4, warehouse.getCountry().toString());
+			preparedStatement.setString(5, warehouse.getRegion().toString());
+			preparedStatement.setString(6, warehouse.getProvince().toString());
+			preparedStatement.setString(7, warehouse.getCountry().toString());
+			preparedStatement.setString(8, warehouse.getStreet());
+			preparedStatement.setString(9, warehouse.getStreetNumber());
+			preparedStatement.setString(10, warehouse.getZipCode());
+
+
+			preparedStatement.setNull(11, Types.SMALLINT);
+			preparedStatement.setNull(12, Types.SMALLINT);
+			preparedStatement.setNull(13, Types.SMALLINT);
+			preparedStatement.setNull(14, Types.SMALLINT);
+			preparedStatement.setNull(15, Types.SMALLINT);
+			preparedStatement.setNull(16, Types.SMALLINT);
+			preparedStatement.setNull(17, Types.SMALLINT);
+			preparedStatement.setNull(18, Types.SMALLINT);
+			preparedStatement.setNull(19, Types.SMALLINT);
+			preparedStatement.setNull(20, Types.SMALLINT);
+			preparedStatement.setNull(21, Types.SMALLINT);
+			preparedStatement.setNull(22, Types.SMALLINT);
+			preparedStatement.setNull(23, Types.SMALLINT);
+			preparedStatement.setNull(24, Types.SMALLINT);
+			preparedStatement.setNull(25, Types.SMALLINT);
 
 			preparedStatement.execute();
 		} catch (SQLException throwables) {

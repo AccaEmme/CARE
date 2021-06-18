@@ -455,6 +455,11 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
 
     }
 
+    @Override
+    public void addNode(Node node) {
+
+    }
+
 
     /*
     public BloodBag searchBag(Seriale serial){

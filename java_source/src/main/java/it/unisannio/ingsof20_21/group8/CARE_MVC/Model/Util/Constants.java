@@ -56,6 +56,56 @@ public class Constants {
     private static final String COL_STREET = "street";
     private static final String COL_STREETNUMBER = "streetNumber";
     private static final String COL_ZIPCODE = "ZipCode";
+
+    //nodes table
+    public static final String DB_TABLE_NODE = "nodes_table";
+    private static final String COL_ID_NODE = "id_node";
+    private static final String COL_CODSTR = "codStr";
+    private static final String COL_NODENAME = "nodeName";
+    private static final String APOSMIN = "Apos_min";
+    private static final String APOSMAX = "Apos_max";
+    private static final String ANEGMIN = "Aneg_min";
+    private static final String ANEGMAX = "Aneg_max";
+    private static final String BPOSMIN = "Bpos_min";
+    private static final String BPOSMAX = "Bpos_max";
+    private static final String ABPOSMIN = "ABpos_min";
+    private static final String ABPOSMAX = "ABpos_max";
+    private static final String ABNEGMIN = "ABneg_min";
+    private static final String ABNEGMAX = "ABneg_max";
+    private static final String ZEROPOSMIN = "ZEROpos_min";
+    private static final String ZEROPOSMAX = "ZEROpos_max";
+    private static final String ZERONEGMIN = "ZEROneg_min";
+    private static final String ZERONEGMAX = "ZEROneg_max";
+
+    public static final String SQL_INSERT_NODE =
+            "INSERT INTO "+
+                    Constants.DB_TABLE_NODE +
+                    " ("+ Constants.COL_ID_NODE +
+                    ", "+ Constants.COL_CODSTR +
+                    ", "+ Constants.COL_NODENAME +
+                    ", "+ Constants.COL_COUNTRY +
+                    ", "+ Constants.COL_REGION +
+                    ", "+ Constants.COL_PROVINCE +
+                    ", "+ Constants.COL_CITY +
+                    ", "+ Constants.COL_STREET +
+                    ", "+ Constants.COL_STREETNUMBER +
+                    ", "+ Constants.COL_ZIPCODE +
+                    ", "+ Constants.APOSMIN +
+                    ", "+ Constants.APOSMAX +
+                    ", "+ Constants.ANEGMIN +
+                    ", "+ Constants.ANEGMAX +
+                    ", "+ Constants.BPOSMIN +
+                    ", "+ Constants.BPOSMAX +
+                    ", "+ Constants.ABPOSMIN +
+                    ", "+ Constants.ABPOSMAX +
+                    ", "+ Constants.ABNEGMIN +
+                    ", "+ Constants.ABNEGMAX +
+                    ", "+ Constants.ZEROPOSMIN +
+                    ", "+ Constants.ZEROPOSMAX +
+                    ", "+ Constants.ZERONEGMIN +
+                    ", "+ Constants.ZERONEGMAX +
+                    ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
     
     // *** TEMP
     public static final String MYSQL_LOGIN_SETTINGS_PATH = "../../login.xml";
@@ -105,8 +155,11 @@ public class Constants {
                     ", "+ Constants.COL_STREETNUMBER +
                     ", "+ Constants.COL_ZIPCODE +
                     ") VALUES (?,?,?,?,?,?,?,?)";
-    
-	public static final String SQL_QUERY = 
+
+
+
+
+	public static final String SQL_SELECT_BLOODBAGS =
 						"SELECT * FROM " + 
 						Constants.DB_TABLE_BLOODBAGS +  
 						" WHERE "+ 
