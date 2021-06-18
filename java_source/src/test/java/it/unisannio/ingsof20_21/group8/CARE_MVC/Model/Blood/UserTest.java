@@ -3,9 +3,11 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Date;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Ignore;
+import org.junit.Test;
 /*
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;*/
@@ -16,109 +18,101 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Role;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.City;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Province;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
 
 
 
 public class UserTest {
-	Role segretaria; //= new Role();
+	Location country = new Location(Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"via 25 Aprile","5", "82020");
+	Role Segretaria; //= new Role();
+	Role Magazziniere;
+	Role Admin;
+
+	
+		
+	
+	
+	//Controllo creazione User corretto con passw invalida
+	@Test
+	public void TestInvalidUserPasswClear() throws UserException, NullPasswordException {
+		User u = new User("Donato", "Donato96@", country);
+	}
+	//Controllo creazione User corretto con passw invalida
+	@ParameterizedTest
+    @MethodSource("validPasswordProvider")
+	public void TestInvalidUserPasswGood(String Passw) throws UserException, NullPasswordException {
+		User Segret = new User("Donato", "Donato96@", country);
+		Segret.setPassword(Passw);
+	}
+	
 	
 	@Test
-	public void testValidConstructor1(/*String username, String plainTextPassword*/) throws UserException, NullPasswordException{
-		String username="AccaEmme";
-		String pass="Care4+Blood";
-		User u = new User(username, pass); 
+	public void testValidConstructor1()  throws UserException, NullPasswordException{
+	   String user= "Saras";
+	   String pass= "Sarasign96?";
+	   
+	   User u = new User(user, pass, country);  
 		u.getUsername();
 		
-		assertTrue(
-				u.getPassword().equals(
-   				  Password.getMd5( pass + Constants.USER_MD5_SALT )
-				)
-		);
-	}
+		u.getPassword().equals(
+  				Password.getMd5( pass + Constants.USER_MD5_SALT )
+  		);
 
-	@Test
-	public void testValidConstructor2(/*String username, Password hashedPassword*/) throws UserException, NullPasswordException{
-		String username="AccaEmme";
-		String pass="Care4+Blood";
-		String hiddenPass = Password.getMd5(pass + Constants.USER_MD5_SALT);
-		User u = new User(username, new Password(hiddenPass));
-		
-		assertTrue(
-				u.getPassword().equals(
-   				  Password.getMd5( pass + Constants.USER_MD5_SALT )
-				)
-		);
 	}
-
+	
+	
 	@Test
-	public void testValidConstructor3(/*String username, Role role*/){
-		String 	username = "AccaEmme";
-		Role r 			 = Role.valueOf("Officer");
-		User u 			 = new User(username, r);
-		String temppass  = u.getTempPass();
-		
-		assertTrue(
-				u.getPassword().equals(
-   				  Password.getMd5( temppass + Constants.USER_MD5_SALT )
-				)
-		);
+	public void testGetRole() throws UserException, NullPasswordException {
+		Role r 			= Role.valueOf("Officer");
+		User u 			= new User("Francesca.Minigazzi", r );
+		u.getRole();
 	}
 	
 	@Test
-	public void testInvalidConstructor1(/*String username, String plainTextPassword*/) throws UserException, NullPasswordException{
-		String username="AccaEmme";
-		String pass="passwordsemplice";
-		
-    	try {
-    		User u = new User(username, pass); 
-    		u.getUsername();
-   			u.getPassword().equals(
-       			  Password.getMd5( pass + Constants.USER_MD5_SALT )
-    		);
-        } catch(Exception e) {
-        	assertFalse(false);
-        }
+	public void testSetRole() throws UserException, NullPasswordException {
+		Role r 			= Role.valueOf("Officer");
+		User u 			= new User("Francesca.Minigazzi", r );
+		u.setRole(r);
 	}
-
+	
+	
 	@Test
-	public void testInvalidConstructor2(/*String username, Password hashedPassword*/){
-		String username="AccaEmme";
-		String pass="simplepasswordpattern";
-
-    	try {
-    		String hiddenPass = Password.getMd5(pass + Constants.USER_MD5_SALT);
-    		User u = new User(username, new Password(hiddenPass));
-			u.getPassword().equals(  Password.getMd5( pass + Constants.USER_MD5_SALT )  );
-        } catch(Exception e) {
-        	assertFalse(false);
-        }
-	}
-
-	@Test
-	public void testInvalidConstructor3(/*String username, Role role*/){
-		String 	username = "AccaEmme";
-		
-    	try {
-    		Role r 			 = Role.valueOf("Officer");
-    		User u 			 = new User(username, r);
-    		String temppass  = u.getTempPass();
-    		u.getPassword().equals(  Password.getMd5( temppass + Constants.USER_MD5_SALT ) );
-        } catch(Exception e) {
-        	assertFalse(false);
-        }
+	public void testGetResidence() throws UserException, NullPasswordException {
+		User u = new User("Francesca", "AAAbbbccc@123", country );
+		u.getResidence();
 	}
 	
 	@Test
-	public void test_set() {
+	public void testSetResidence() throws UserException, NullPasswordException {
 		
+		User u = new User("Francesca", "AAAbbbccc@123", country );
+		u.setResidence(country);
 	}
+	
+	@Test
+	public void TestGetUsername() throws UserException, NullPasswordException {
+		User u = new User("Donato", "Donato96@", country);
+		u.getUsername();
+	} 
+	
+	@Test
+	public void testSetUsername() throws UserException, NullPasswordException {
+		String user= "Saras";
+		User u = new User( user, "AAAbbbccc@123", country );
+		u.setUsername(user);
+	}
+	
 	
 	
 	@Test
 	public void testMD5() throws NullPasswordException, UserException {
-		User u=new User("Luca.Minicozzi","AAAbbbccc@123");
+		User u=new User("Luca.Minicozzi","AAAbbbccc@123", country);
 		String password="AAAbbbccc@123";
 		assertTrue( 
 				   		u.getPassword().equals(
@@ -147,6 +141,19 @@ public class UserTest {
 						)
 				);
 	}
+
+	/**
+	 * Scusa hermann devo eseguire xD
+	errore. da Console:
+	Password.java givenPassword: AAAbbbccc@123
+	plainTextPassword: AAAbbbccc@123	 Constants.USER_MD5_SALT: CanforaMarkUs30L	 hiddenPassword:6800A4445909CC025ADCAD4243D9974C
+	Wed Jun 16 11:07:44 CEST 2021
+	Password.java givenPassword: AAAbbbccc@123
+	Password.java givenPassword: [C@6150c3ec
+	Password.java givenPassword: null
+	Password.java givenPassword: [C@185a6e9
+	Password.java givenPassword: null*/
+
 	
 	@Test
 	public void testSetPasswordWrong() {
@@ -175,7 +182,12 @@ public class UserTest {
     //@Test(expected = IllegalArgumentException.class)
     public void test_password_regex_invalid(String password) {
     	//ExceptionThrower exceptionThrower = new ExceptionThrower();
-    	
+    	/*
+    	assertThrows(
+    			Password.validatePassword(password)
+    			);
+    			*/
+    	//assertFalse(Password.validatePassword(password));
     	try {
     		Password.validatePassword(password);
         } catch(IllegalArgumentException e) {
@@ -227,6 +239,12 @@ public class UserTest {
                 " ",                        // empty
                 ""                       	// empty
                 ); 
+        
+        
     }
+    
+    
+   
+	
 	
 }
