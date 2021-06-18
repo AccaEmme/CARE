@@ -99,8 +99,6 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
             e.printStackTrace();
         }
 
-
-
         username = properties.getProperty("username");      //reading username from xml (private, local)
         password = properties.getProperty("password");      //reading password from xml (private, local)
         db_host = properties.getProperty("db_host");
@@ -116,7 +114,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
         Properties properties = new Properties();
 
         try {
-            properties.loadFromXML(new FileInputStream("localsettings/mongo_settings.xml"));
+            properties.loadFromXML(new FileInputStream(Constants.MONGODBL_SETTINGS_PATH));
         } catch (InvalidPropertiesFormatException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {

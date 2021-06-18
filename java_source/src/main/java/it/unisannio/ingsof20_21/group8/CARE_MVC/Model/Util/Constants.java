@@ -35,7 +35,6 @@ public class Constants {
     public static final String TAG_PORT 					= "db_mysql_port";
     public static final String TAG_DB 						= "db_mysql_dbname";
 
-<<<<<<< HEAD
     public static final String DB_TABLE_BLOODBAGS 			= "BloodBags";
     private static final String COL_Serial 					= "serial";
     private static final String COL_GROUP 					= "Rh";
@@ -48,48 +47,47 @@ public class Constants {
     //#################################################### MySQL DATABASE STRINGS ####################################################
     public static final String MYSQL_LOGIN_SETTINGS_PATH 	= "../../login.xml";		// Credentials are not shared, file should be outside github sync path.
     public static final String MYSQL_SETTINGS_PATH 			= "localsettings/db_settings.xml";
-=======
-    //bloodbags
-    public static final String DB_TABLE_BLOODBAGS = "BloodBags";
-    private static final String COL_SERIAL = "idSerial";
-    private static final String COL_GROUP = "bloodgroup";
-    private static final String COL_CREATION = "creationDate";
-    private static final String COL_EXPIRING = "expiringDate";
-    private static final String COL_DONATOR_CF = "donatorCF";
-    private static final String COL_NOTE = "note";
-    private static final String COL_IDSTATE = "id_state";
-    private static final String COL_IDNODE = "id_node";
+    public static final String MYSQL_INITDB_PATH 			= "QueriesSQL/creation.sql";
+    
+    			// BloodBags attributes columns
+    private static final String COL_SERIAL 					= "idSerial";
+    private static final String COL_CREATION 				= "creationDate";
+    private static final String COL_EXPIRING 				= "expiringDate";
+    private static final String COL_DONATOR_CF 				= "donatorCF";
+    private static final String COL_NOTE 					= "note";
+    private static final String COL_IDSTATE 				= "id_state";
+    private static final String COL_IDNODE 					= "id_node";
 
-    //location
-    public static final String DB_TABLE_LOCATION = "location";
-    private static final String COL_IDLOCATION = "id_location";
-    private static final String COL_COUNTRY = "country";
-    private static final String COL_REGION = "region";
-    private static final String COL_PROVINCE = "province";
-    private static final String COL_CITY = "city";
-    private static final String COL_STREET = "street";
-    private static final String COL_STREETNUMBER = "streetNumber";
-    private static final String COL_ZIPCODE = "ZipCode";
+    			// Location attributes columns
+    public static final String DB_TABLE_LOCATION 			= "location";
+    private static final String COL_IDLOCATION 				= "id_location";
+    private static final String COL_COUNTRY 				= "country";
+    private static final String COL_REGION 					= "region";
+    private static final String COL_PROVINCE 				= "province";
+    private static final String COL_CITY 					= "city";
+    private static final String COL_STREET 					= "street";
+    private static final String COL_STREETNUMBER 			= "streetNumber";
+    private static final String COL_ZIPCODE 				= "ZipCode";
 
-    //nodes table
-    public static final String DB_TABLE_NODE = "nodes_table";
-    private static final String COL_ID_NODE = "id_node";
-    private static final String COL_CODSTR = "codStr";
-    private static final String COL_NODENAME = "nodeName";
-    private static final String APOSMIN = "Apos_min";
-    private static final String APOSMAX = "Apos_max";
-    private static final String ANEGMIN = "Aneg_min";
-    private static final String ANEGMAX = "Aneg_max";
-    private static final String BPOSMIN = "Bpos_min";
-    private static final String BPOSMAX = "Bpos_max";
-    private static final String ABPOSMIN = "ABpos_min";
-    private static final String ABPOSMAX = "ABpos_max";
-    private static final String ABNEGMIN = "ABneg_min";
-    private static final String ABNEGMAX = "ABneg_max";
-    private static final String ZEROPOSMIN = "ZEROpos_min";
-    private static final String ZEROPOSMAX = "ZEROpos_max";
-    private static final String ZERONEGMIN = "ZEROneg_min";
-    private static final String ZERONEGMAX = "ZEROneg_max";
+    			// Nodes attributes columns
+    public static final String DB_TABLE_NODE 				= "nodes_table";
+    private static final String COL_ID_NODE 				= "id_node";
+    private static final String COL_CODSTR 					= "codStr";
+    private static final String COL_NODENAME 				= "nodeName";
+    private static final String APOSMIN 					= BloodGroup.valueOf("Apos")+"_min";
+    private static final String APOSMAX 					= BloodGroup.valueOf("Apos")+"_max";
+    private static final String ANEGMIN 					= BloodGroup.valueOf("Aneg")+"_min";
+    private static final String ANEGMAX 					= BloodGroup.valueOf("Aneg")+"_max";
+    private static final String BPOSMIN 					= BloodGroup.valueOf("Bpos")+"_min";
+    private static final String BPOSMAX 					= BloodGroup.valueOf("Bpos")+"_max";
+    private static final String ABPOSMIN 					= BloodGroup.valueOf("ABpos")+"_min";
+    private static final String ABPOSMAX 					= BloodGroup.valueOf("ABpos")+"_max";
+    private static final String ABNEGMIN 					= BloodGroup.valueOf("ABneg")+"_min";
+    private static final String ABNEGMAX 					= BloodGroup.valueOf("ABneg")+"_max";
+    private static final String ZEROPOSMIN 					= BloodGroup.valueOf("ZEROpos")+"_min";
+    private static final String ZEROPOSMAX 					= BloodGroup.valueOf("ZEROpos")+"_max";
+    private static final String ZERONEGMIN 					= BloodGroup.valueOf("ZEROneg")+"_min";
+    private static final String ZERONEGMAX 					= BloodGroup.valueOf("ZEROneg")+"_max";
 
     public static final String SQL_INSERT_NODE =
             "INSERT INTO "+
@@ -119,29 +117,28 @@ public class Constants {
                     ", "+ Constants.ZERONEGMIN +
                     ", "+ Constants.ZERONEGMAX +
                     ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
->>>>>>> 52514764ac1318675c8d8d8dd1d6fc0a87e788b2
-    
-    public static final String MYSQL_INITDB_PATH 			= "QueriesSQL/creation.sql";
     
     //#################################################### MySQL DATABASE STRINGS ####################################################
-    public static final String MONGODB_CREDENTIALS          = "./../../uri.xml";		// Credentials are not shared, file should be outside github sync path.
+    public static final String MONGODB_CREDENTIALS          = "./../../uri.xml";		// Credentials are not shared, file should be outside github sync path. So we use relative parents path
+    public static final String MONGODBL_SETTINGS_PATH       = "localsettings/mongo_settings.xml";
+    
     
     //#################################################### MySQL DATABASE QUERIES ####################################################
     public static final String SQL_CREATE_DB 				= "CREATE DATABASE IF NOT EXISTS ";
     public static final String SQL_DROP_DB 					= "DROP DATABASE IF EXISTS ";
     public static final String SQL_CREATE_TABLE 			= "CREATE TABLE IF NOT EXISTS " + Constants.DB_TABLE_BLOODBAGS
-            + "("
-            + Constants.COL_SERIAL + " varchar(33) NOT NULL,"
-            + Constants.COL_GROUP 		+ " varchar(7) NOT NULL,"
-            + Constants.COL_CREATION + " int NOT NULL,"
-            + Constants.COL_EXPIRING + " int NOT NULL,"
-            + Constants.COL_DONATOR_CF + " char(16) NOT NULL,"
-            + Constants.COL_NOTE + " TEXT,"
-            + Constants.COL_IDSTATE + " smallint NOT NULL,"
-            + " PRIMARY KEY (Serial)"
-            + "foreign key ("+ COL_IDSTATE +") references `state_table`(id_state) -- referenzia la tabella degli stati"
-            + ")";
+			            + "("
+			            + Constants.COL_SERIAL + " varchar(33) NOT NULL,"
+			            + Constants.COL_GROUP 		+ " varchar(7) NOT NULL,"
+			            + Constants.COL_CREATION + " int NOT NULL,"
+			            + Constants.COL_EXPIRING + " int NOT NULL,"
+			            + Constants.COL_DONATOR_CF + " char(16) NOT NULL,"
+			            + Constants.COL_NOTE + " TEXT,"
+			            + Constants.COL_IDSTATE + " smallint NOT NULL,"
+			            + " PRIMARY KEY ("+Constants.COL_SERIAL+")"
+			            + "foreign key ("+ COL_IDSTATE +") references"
+			            + "`state_table`(id_state) -- referenzia la tabella degli stati"
+			            + ")";
     public static final String SQL_INSERT_BLOODBAGS =
     					"INSERT INTO "+
     					Constants.DB_TABLE_BLOODBAGS +
@@ -155,8 +152,6 @@ public class Constants {
     					", "+ Constants.COL_NOTE +
     					") VALUES (?,?,?,?,?,?,?,?)";
 
-
-
     public static final String SQL_INSERT_LOCATION =
             "INSERT INTO "+
                     Constants.DB_TABLE_LOCATION +
@@ -169,9 +164,6 @@ public class Constants {
                     ", "+ Constants.COL_STREETNUMBER +
                     ", "+ Constants.COL_ZIPCODE +
                     ") VALUES (?,?,?,?,?,?,?,?)";
-
-
-
 
 	public static final String SQL_SELECT_BLOODBAGS =
 						"SELECT * FROM " + 

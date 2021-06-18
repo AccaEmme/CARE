@@ -15,6 +15,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswo
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
 // non eliminare questo commento. import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Serial; Non necessaria in quanto il costruttore della sacca richiama la generazione del seriale.
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.XMLHelper;
 
 
 public class MySqlDataManager implements DataManager{
@@ -33,7 +34,7 @@ public class MySqlDataManager implements DataManager{
 	 * potremmo aggiungere anche la possibilita di inizializzarlo con un user*/
 	public MySqlDataManager(String username, String password) {
 	
-		Properties loadProps=MySqlDataManager.getProps(mysql_settings_path);
+		Properties loadProps = XMLHelper.getProps(mysql_settings_path);
 		host 	= loadProps.getProperty(Constants.TAG_HOST);
 		port 	= loadProps.getProperty(Constants.TAG_PORT);
 		db 		= loadProps.getProperty(Constants.TAG_DB);
@@ -45,33 +46,18 @@ public class MySqlDataManager implements DataManager{
 	}
 
 	public MySqlDataManager() {
-		Properties loadProps=MySqlDataManager.getProps(mysql_settings_path);
+		Properties loadProps = XMLHelper.getProps(mysql_settings_path);
 		host 	= loadProps.getProperty(Constants.TAG_HOST);
 		port 	= loadProps.getProperty(Constants.TAG_PORT);
 		db 		= loadProps.getProperty(Constants.TAG_DB);
 		url 	= "jdbc:mysql://"+host+":"+port+"/";
 		url_db 	= url+db;
 
-		Properties loadProps1=MySqlDataManager.getProps(Constants.MYSQL_LOGIN_SETTINGS_PATH);
+		Properties loadProps1 = XMLHelper.getProps(Constants.MYSQL_LOGIN_SETTINGS_PATH);
 		this.username = loadProps1.getProperty("username");
 		this.password = loadProps1.getProperty("password");
 	}
 
-	private static Properties getProps(String xmlfilepath) {
-		Properties loadProps = new Properties();
-		try {
-			loadProps.loadFromXML(new FileInputStream(xmlfilepath));
-			return loadProps;
-		} catch (InvalidPropertiesFormatException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
 	private List<String> readSQL(String fileName) throws IOException {
 		List<String> queries = new ArrayList<>();
 		BufferedReader reader = new BufferedReader(new FileReader(fileName));

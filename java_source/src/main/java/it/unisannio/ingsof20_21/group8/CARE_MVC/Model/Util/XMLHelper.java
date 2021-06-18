@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 
-public class InitSettings {
+public class XMLHelper {
 	public static void main(String[] args) {
 		String nationality="", prov="", codstr="", codint="", serialmatrix="";
 		nationality ="IT";
@@ -16,6 +18,21 @@ public class InitSettings {
         codint = "000";
         serialmatrix = nationality+"-"+prov+codstr+codint;
 		initSerialXML( serialmatrix );
+	}
+	
+	public static Properties getProps(String xmlfilepath) {
+		Properties loadProps = new Properties();
+		try {
+			loadProps.loadFromXML(new FileInputStream(xmlfilepath));
+			return loadProps;
+		} catch (InvalidPropertiesFormatException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static void initSerialXML( String serialmatrix ) {

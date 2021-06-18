@@ -13,7 +13,7 @@ import java.util.Properties;
 import java.util.Scanner;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.InitSettings;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.XMLHelper;
 
 /*
  * Ogni seriale deve identificare univocamente una sacca di sangue BloodBag.
@@ -78,7 +78,7 @@ public class Serial{
             sc.close();
             initserialmatrix = nationality+"-"+prov+codstr+codint;
             
-        	InitSettings.initSerialXML( initserialmatrix );
+        	XMLHelper.initSerialXML( initserialmatrix );
         }
         	
         try {
