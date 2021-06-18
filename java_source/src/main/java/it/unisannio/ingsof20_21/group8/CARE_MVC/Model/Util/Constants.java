@@ -35,14 +35,27 @@ public class Constants {
     public static final String TAG_PORT = "db_mysql_port";
     public static final String TAG_DB = "db_mysql_dbname";
 
+    //bloodbags
     public static final String DB_TABLE_BLOODBAGS = "BloodBags";
-    private static final String COL_Serial = "serial";
-    private static final String COL_GROUP = "Rh";
-    private static final String COL_creation = "creation";
-    private static final String COL_expiring = "expiring";
-    private static final String COL_donatorCF = "donatorCF";
-    private static final String COL_note = "note";
-    private static final String COL_idstate = "id_state";
+    private static final String COL_SERIAL = "idSerial";
+    private static final String COL_GROUP = "bloodgroup";
+    private static final String COL_CREATION = "creationDate";
+    private static final String COL_EXPIRING = "expiringDate";
+    private static final String COL_DONATOR_CF = "donatorCF";
+    private static final String COL_NOTE = "note";
+    private static final String COL_IDSTATE = "id_state";
+    private static final String COL_IDNODE = "id_node";
+
+    //location
+    public static final String DB_TABLE_LOCATION = "location";
+    private static final String COL_IDLOCATION = "id_location";
+    private static final String COL_COUNTRY = "country";
+    private static final String COL_REGION = "region";
+    private static final String COL_PROVINCE = "province";
+    private static final String COL_CITY = "city";
+    private static final String COL_STREET = "street";
+    private static final String COL_STREETNUMBER = "streetNumber";
+    private static final String COL_ZIPCODE = "ZipCode";
     
     // *** TEMP
     public static final String MYSQL_LOGIN_SETTINGS_PATH = "../../login.xml";
@@ -55,27 +68,43 @@ public class Constants {
     public static final String SQL_DROP_DB 			= "DROP DATABASE IF EXISTS ";
     public static final String SQL_CREATE_TABLE 	= "CREATE TABLE IF NOT EXISTS " + Constants.DB_TABLE_BLOODBAGS
             + "("
-            + Constants.COL_Serial 		+ " varchar(33) NOT NULL,"
+            + Constants.COL_SERIAL + " varchar(33) NOT NULL,"
             + Constants.COL_GROUP 		+ " varchar(7) NOT NULL,"
-            + Constants.COL_creation 	+ " int NOT NULL,"
-            + Constants.COL_expiring	+ " int NOT NULL,"
-            + Constants.COL_donatorCF	+ " char(16) NOT NULL,"
-            + Constants.COL_note		+ " TEXT,"
-            + Constants.COL_idstate		+ " smallint NOT NULL,"
+            + Constants.COL_CREATION + " int NOT NULL,"
+            + Constants.COL_EXPIRING + " int NOT NULL,"
+            + Constants.COL_DONATOR_CF + " char(16) NOT NULL,"
+            + Constants.COL_NOTE + " TEXT,"
+            + Constants.COL_IDSTATE + " smallint NOT NULL,"
             + " PRIMARY KEY (Serial)"
-            + "foreign key ("+COL_idstate+") references `state_table`(id_state) -- referenzia la tabella degli stati"
+            + "foreign key ("+ COL_IDSTATE +") references `state_table`(id_state) -- referenzia la tabella degli stati"
             + ")";
-    public static final String SQL_INSERT = 
+    public static final String SQL_INSERT_BLOODBAGS =
     					"INSERT INTO "+
     					Constants.DB_TABLE_BLOODBAGS +
-    					" ("+ Constants.COL_Serial+
+    					" ("+ Constants.COL_SERIAL +
     					", "+ Constants.COL_GROUP +
-    					", "+ Constants.COL_creation +
-    					", "+ Constants.COL_expiring +
-    					", "+ Constants.COL_donatorCF +
-    					", "+ Constants.COL_note +
-    					", "+ Constants.COL_idstate +
-    					") VALUES (?,?,?,?,?,?,?)";
+    					", "+ Constants.COL_CREATION +
+    					", "+ Constants.COL_EXPIRING +
+    					", "+ Constants.COL_DONATOR_CF +
+                        ", "+ Constants.COL_IDNODE +
+    					", "+ Constants.COL_IDSTATE +
+    					", "+ Constants.COL_NOTE +
+    					") VALUES (?,?,?,?,?,?,?,?)";
+
+
+
+    public static final String SQL_INSERT_LOCATION =
+            "INSERT INTO "+
+                    Constants.DB_TABLE_LOCATION +
+                    " ("+ Constants.COL_IDLOCATION +
+                    ", "+ Constants.COL_COUNTRY +
+                    ", "+ Constants.COL_REGION +
+                    ", "+ Constants.COL_PROVINCE +
+                    ", "+ Constants.COL_CITY +
+                    ", "+ Constants.COL_STREET +
+                    ", "+ Constants.COL_STREETNUMBER +
+                    ", "+ Constants.COL_ZIPCODE +
+                    ") VALUES (?,?,?,?,?,?,?,?)";
     
 	public static final String SQL_QUERY = 
 						"SELECT * FROM " + 
