@@ -10,7 +10,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 
 public interface AdminInterface extends DataManager {
 	void addUser(User u0) throws ParseException;
-	public void deleteUser(User  u) throws ParseException;
+	public void deleteUser(User  u) throws ParseException, Exception;
 	public void editUser(User  u) throws ParseException;
 	public void report() throws ParseException;
 }

@@ -25,6 +25,8 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Province;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.XMLHelper;
+
 import org.bson.Document;
 
 
@@ -46,24 +48,24 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     private String db_name = "";
     private String collection_name = "";
 
-    private static final String TAG_DB = "db_mongo_name";
-    private static final String TAG_HOST = "db_mongo_host";
-    private static final String TAG_PORT = "db_mongo_port";
+    private static final String TAG_DB 					= "db_mongo_name";
+    private static final String TAG_HOST 				= "db_mongo_host";
+    private static final String TAG_PORT 				= "db_mongo_port";
 
 
-    private static final String COLLECTION_USER= "users";
-    private static final String COLLECTION_BAG= "blood-bags";
-    private static final String ELEMENT_USERNAME = "username";
-    private static final String ELEMENT_PASSWORD = "password";
-    private static final String ELEMENT_ROLE = "role";
-    private static final String ELEMENT_GROUP = "BloodGroup";
-    private static final String ELEMENT_SERIAL = "serial";
-    private static final String ELEMENT_CREATIONDATE = "creationDate";
-    private static final String ELEMENT_EXPIRATIONDATE = "expirationDate";
-    private static final String ELEMENT_DONATORCF = "donatorCF";
-    private static final String ELEMENT_NODE = "node";
-    private static final String ELEMENT_BLOODBAGSTATE = "bloodBagState";
-    private static final String ELEMENT_NOTE = "note";
+    private static final String COLLECTION_USER			= "users";
+    private static final String COLLECTION_BAG			= "blood-bags";
+    private static final String ELEMENT_USERNAME 		= "username";
+    private static final String ELEMENT_PASSWORD 		= "password";
+    private static final String ELEMENT_ROLE 			= "role";
+    private static final String ELEMENT_GROUP 			= "BloodGroup";
+    private static final String ELEMENT_SERIAL 			= "serial";
+    private static final String ELEMENT_CREATIONDATE 	= "creationDate";
+    private static final String ELEMENT_EXPIRATIONDATE 	= "expirationDate";
+    private static final String ELEMENT_DONATORCF 		= "donatorCF";
+    private static final String ELEMENT_NODE 			= "node";
+    private static final String ELEMENT_BLOODBAGSTATE 	= "bloodBagState";
+    private static final String ELEMENT_NOTE 			= "note";
 /*
     private static String SERIALE = "SERIAL";
     private static String GRUPPO = "GROUP";
@@ -76,32 +78,23 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     // il costruttore decide quale collezione utilizzare senno devo fare un set collection name
     
     public MongoDataManager(){
-        connectionStringURI = createURI();
-        String[] db_collection_names = getDbProperties();
-        this.db_name = db_collection_names[0];
-
+        connectionStringURI 			= createURI();
+        String[] db_collection_names 	= getDbProperties();
+        this.db_name 					= db_collection_names[0];
     }
+    
     private String createURI(){
-        String username = "";
-        String password = "";
-        String db_host = "";
-
-        Properties properties = new Properties();
-
-        try {
-        	properties.loadFromXML(new FileInputStream(Constants.MONGODB_CREDENTIALS));
-
-        } catch (InvalidPropertiesFormatException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        Properties properties = XMLHelper.getProps(Constants.MONGODB_CREDENTIALS);
+        String username, password, db_host;
+        
         username = properties.getProperty("username");      //reading username from xml (private, local)
         password = properties.getProperty("password");      //reading password from xml (private, local)
-        db_host = properties.getProperty("db_host");
+        db_host  = properties.getProperty("db_host");
+        
+        assert username!=null;
+        assert password!=null;
+        assert db_host !=null;
+        
         return "mongodb+srv://"+username+":"+password+"@"+db_host;
     }
 
@@ -110,18 +103,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
          * reading database name and collection name from xml
          * */
         String[] db_collection_names = new String[2];
-
-        Properties properties = new Properties();
-
-        try {
-            properties.loadFromXML(new FileInputStream(Constants.MONGODBL_SETTINGS_PATH));
-        } catch (InvalidPropertiesFormatException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Properties properties = XMLHelper.getProps(Constants.MONGODBL_SETTINGS_PATH);
 
         /**
          * reading from an array, so i can return multiple values insted of only one
@@ -133,37 +115,27 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     }
 
     public void addUser(User user){
-        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
-        MongoClient mongoClient = new MongoClient(clientURI);
-
-        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoClientURI clientURI 		= new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient 		= new MongoClient(clientURI);
+        MongoDatabase mongoDatabase 	= mongoClient.getDatabase(this.db_name);
         MongoCollection mongoCollection = mongoDatabase.getCollection(COLLECTION_USER);
 
         Document document = user.getDocument();
-
         mongoCollection.insertOne(document);
+        
         System.out.println("Added element: "+document);
         mongoClient.close();
     }
 
     @Override
-    public void deleteUser(User u) throws ParseException {
-        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
-        MongoClient mongoClient = new MongoClient(clientURI);
-
-        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+    public void deleteUser(User u) throws Exception {
+    	MongoClientURI clientURI 		= new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient 		= new MongoClient(clientURI);
+        MongoDatabase mongoDatabase 	= mongoClient.getDatabase(this.db_name);
         MongoCollection mongoCollection = mongoDatabase.getCollection(COLLECTION_USER);
-
-        if((mongoCollection.deleteOne((eq(ELEMENT_USERNAME,u.getUsername()))).getDeletedCount())==0) {
-            System.out.println("user not found");
-
-        }
-        else {
-            System.out.println("user deleted");
-        }
-
-
-
+        
+        if((mongoCollection.deleteOne((eq(ELEMENT_USERNAME,u.getUsername()))).getDeletedCount())==0) 
+            throw new Exception("MongoDataManager - deleteUser: User "+u.getUsername()+" not found");
 
         mongoClient.close();
     }
@@ -228,7 +200,6 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
                 user.setRole(roleObj);
             }
             try {
-
                 Document locationDoc = (Document) document.get("location");
                 if (locationDoc!=null){
                     String test = locationDoc.getString("street");
@@ -278,42 +249,38 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     
     
     public void getBloodBagExpiring(Date d,BloodGroup b) throws ParseException{
-    	
     	List<BloodBag> sacche = new ArrayList<BloodBag>();
     	
-    	MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
-        MongoClient mongoClient = new MongoClient(clientURI);
-        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
-        MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_BAG);
-        
+    	MongoClientURI clientURI 				= new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient 				= new MongoClient(clientURI);
+        MongoDatabase mongoDatabase 			= mongoClient.getDatabase(this.db_name);
+        MongoCollection<Document> collection 	= mongoDatabase.getCollection(COLLECTION_BAG);
         
         for (Document current : collection.find()){
-        	String serial =current.getString(ELEMENT_SERIAL);
-        	String BloodG =current.getString(ELEMENT_GROUP);
-        	String creationD =current.getString(ELEMENT_CREATIONDATE);
-        	String expirationD =current.getString(ELEMENT_EXPIRATIONDATE);
-        	String donatorCF =current.getString(ELEMENT_DONATORCF);
-        	String node =current.getString(ELEMENT_NODE);
-        	String BloodBagState =current.getString(ELEMENT_BLOODBAGSTATE);
-        	String note =current.getString(ELEMENT_NOTE);
+        	String serial 			= current.getString(ELEMENT_SERIAL);
+        	String BloodG 			= current.getString(ELEMENT_GROUP);
+        	String creationD 		= current.getString(ELEMENT_CREATIONDATE);
+        	String expirationD 		= current.getString(ELEMENT_EXPIRATIONDATE);
+        	String donatorCF 		= current.getString(ELEMENT_DONATORCF);
+        	String node 			= current.getString(ELEMENT_NODE);
+        	String BloodBagState 	= current.getString(ELEMENT_BLOODBAGSTATE);
+        	String note 			= current.getString(ELEMENT_NOTE);
       
-        	
-       
         	SimpleDateFormat format= new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", new Locale("us"));
         	Date cd=format.parse(creationD);
         	Date ed=format.parse(expirationD);
         	
-        	JSONObject obj = new JSONObject(node);
-        	String cod = obj.getString( "codStr" );
-        	String name = obj.getString( "nodeName" );
+        	JSONObject obj 	= new JSONObject(node);
+        	String cod 		= obj.getString( "codStr" );
+        	String name 	= obj.getString( "nodeName" );
         	
-        	JSONObject obj2 =obj.getJSONObject( "wareHouse" );
-        	String street = obj2.getString( "street" );
-        	String sNumber = obj2.getString( "streetNumber" );
-        	String city = obj2.getString( "city" );
+        	JSONObject obj2 = obj.getJSONObject( "wareHouse" );
+        	String street 	= obj2.getString( "street" );
+        	String sNumber 	= obj2.getString( "streetNumber" );
+        	String city 	= obj2.getString( "city" );
         	String province = obj2.getString( "province" );
-        	String region=obj2.getString("region");
-        	String country = obj2.getString( "country" );
+        	String region 	= obj2.getString("region");
+        	String country 	= obj2.getString( "country" );
         	String zip_code = obj2.getString("zip_code");
         	
         	
@@ -331,41 +298,30 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
 			} catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
-
-
         }
-        	
         /*public BloodBag( Serial s,BloodGroup b, Date creationD,Date expirationD,String donator,Node n,BloodBagState BagState,String not) throws ParseException {*/
-        
     	mongoClient.close();
-
-
     }
 
 
     public void report() throws ParseException {
     	int count=0;
-    	
-    	
     	MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
         MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_BAG);
         
-        
-        
         for (Document current : collection.find()){
-        	
         	String expirationD =current.getString(ELEMENT_EXPIRATIONDATE);
-     
         	String bloodBagState =current.getString(ELEMENT_BLOODBAGSTATE);
+        	
         	Calendar cal = Calendar.getInstance();
     	    cal.set(Calendar.HOUR_OF_DAY, 0);
     	    cal.set(Calendar.MINUTE, 0);
     	    cal.set(Calendar.SECOND, 0);
     	    cal.set(Calendar.MILLISECOND, 0);
     		cal.add(Calendar.DAY_OF_MONTH, 1);
-             Date d1=cal.getTime();
+            Date d1=cal.getTime();
              
           
     		cal.add(Calendar.DAY_OF_MONTH, -9);
@@ -373,22 +329,15 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     	    Date d2=cal.getTime();
      	     // stato==dropped                   dataoogi-1 settimana    < expiration < dataoggi
        
-        	SimpleDateFormat format= new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", new Locale("us"));
-      
+        	SimpleDateFormat format= new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", new Locale("us"));      
         	Date ed=format.parse(expirationD);
-        	
 
-        
-       
-        
-       		if(  (bloodBagState.equals("Dropped"))   && (ed.after(d2)) && (ed.before(d1))) {
-       		    
-       		count++;
-       			}
-       	
-        } 	System.out.println("****************");
-     	   System.out.println(count);
-     	   System.out.println("****************");
+       		if(  (bloodBagState.equals("Dropped"))   && (ed.after(d2)) && (ed.before(d1))) 
+       			count++;
+        }
+        System.out.println("****************");
+     	System.out.println(count);
+     	System.out.println("****************");
         	
         /*public BloodBag( Serial s,BloodGroup b, Date creationD,Date expirationD,String donator,Node n,BloodBagState BagState,String not) throws ParseException {*/
         
@@ -397,8 +346,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
 
     }
     
-    public void addBloodBag(BloodBagInterface s) throws ParseException {
-    	
+    public void addBloodBag(BloodBagInterface s) throws ParseException {   
     	MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);

@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-public class PasswordTest2 {
+public class PasswordTest {
     @ParameterizedTest(name = "#{index} - Run test with valid password complexity pattern = {0}")
     @MethodSource("validPasswordProvider")
     public void test_password_regex_valid(String password) {
