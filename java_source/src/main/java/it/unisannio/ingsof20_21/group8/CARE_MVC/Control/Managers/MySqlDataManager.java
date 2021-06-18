@@ -16,6 +16,8 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
 
 
 public class MySqlDataManager implements DataManager{
+	private final String mysql_settings_path = Constants.MYSQL_SETTINGS_PATH;
+	
 	private String host;
 	private String port;
 	private String db;
@@ -28,59 +30,46 @@ public class MySqlDataManager implements DataManager{
 	/**
 	 * potremmo aggiungere anche la possibilita di inizializzarlo con un user*/
 	public MySqlDataManager(String username, String password) {
-		Properties loadProps = new Properties();
-		try {
-			loadProps.loadFromXML(new FileInputStream(Constants.DB_SETTINGS_PATH));
-		} catch (InvalidPropertiesFormatException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		host = loadProps.getProperty(Constants.TAG_HOST);
-		port = loadProps.getProperty(Constants.TAG_PORT);
-		db = loadProps.getProperty(Constants.TAG_DB);
-		url = "jdbc:mysql://"+host+":"+port+"/";
-		url_db = url+db;
+	
+		Properties loadProps=MySqlDataManager.getProps(mysql_settings_path);
+		host 	= loadProps.getProperty(Constants.TAG_HOST);
+		port 	= loadProps.getProperty(Constants.TAG_PORT);
+		db 		= loadProps.getProperty(Constants.TAG_DB);
+		url 	= "jdbc:mysql://"+host+":"+port+"/";
+		url_db 	= url+db;
 
 		this.username = username;
 		this.password = password;
 	}
 
 	public MySqlDataManager() {
-		Properties loadProps = new Properties();
-		try {
-			loadProps.loadFromXML(new FileInputStream(Constants.DB_SETTINGS_PATH));
-		} catch (InvalidPropertiesFormatException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		host = loadProps.getProperty(Constants.TAG_HOST);
-		port = loadProps.getProperty(Constants.TAG_PORT);
-		db = loadProps.getProperty(Constants.TAG_DB);
-		url = "jdbc:mysql://"+host+":"+port+"/";
-		url_db = url+db;
+		Properties loadProps=MySqlDataManager.getProps(mysql_settings_path);
+		host 	= loadProps.getProperty(Constants.TAG_HOST);
+		port 	= loadProps.getProperty(Constants.TAG_PORT);
+		db 		= loadProps.getProperty(Constants.TAG_DB);
+		url 	= "jdbc:mysql://"+host+":"+port+"/";
+		url_db 	= url+db;
 
-		try {
-			//la password viene letta da un xml, modificare "Constants.MYSQL_LOGIN_SETTINGS_PATH" con il proprio path
-			loadProps.loadFromXML(new FileInputStream(Constants.MYSQL_LOGIN_SETTINGS_PATH));
-			//loadProps.loadFromXML(new FileInputStream(Constants.MYSQL_LOGIN_SETTINGS_PATH_MAC));
-		} catch (InvalidPropertiesFormatException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		this.username = loadProps.getProperty("username");
-		this.password = loadProps.getProperty("password");
+		Properties loadProps1=MySqlDataManager.getProps(Constants.MYSQL_LOGIN_SETTINGS_PATH);
+		this.username = loadProps1.getProperty("username");
+		this.password = loadProps1.getProperty("password");
 	}
 
+	private static Properties getProps(String xmlfilepath) {
+		Properties loadProps = new Properties();
+		try {
+			loadProps.loadFromXML(new FileInputStream(xmlfilepath));
+			return loadProps;
+		} catch (InvalidPropertiesFormatException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	private List<String> readSQL(String fileName) throws IOException {
 		List<String> queries = new ArrayList<>();
 		BufferedReader reader = new BufferedReader(new FileReader(fileName));
@@ -112,7 +101,7 @@ public class MySqlDataManager implements DataManager{
 			Connection conn = DriverManager.getConnection(url,username,password);
 			Statement s = conn.createStatement();
 
-			List<String> queries = readSQL("QueriesSQL/creation.sql");
+			List<String> queries = readSQL(Constants.MYSQL_INITDB_PATH);
 
 			for (String str : queries){
 				System.out.println(str);
@@ -120,11 +109,7 @@ public class MySqlDataManager implements DataManager{
 					s.addBatch(str);
 			}
 
-
 			s.executeBatch();
-
-
-
 			conn.close();
 		} catch (BatchUpdateException database_not_found) {
 			System.err.println("The database was not found or the query was empty.\nThe query was skipped.");
