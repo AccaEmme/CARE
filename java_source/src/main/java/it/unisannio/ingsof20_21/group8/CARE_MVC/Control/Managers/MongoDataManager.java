@@ -55,9 +55,11 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
 
 
     private static final String COLLECTION_USER			= "users";
+    
     private static final String ELEMENT_USERNAME 		= "username";
     private static final String ELEMENT_PASSWORD 		= "password";
     private static final String ELEMENT_ROLE 			= "role"; 
+    
     
     private static final String COLLECTION_BAG			= "blood-bags";
     private static final String ELEMENT_GROUP 			= "BloodGroup";
@@ -69,11 +71,23 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     private static final String ELEMENT_BLOODBAGSTATE 	= "bloodBagState";
     private static final String ELEMENT_NOTE 			= "note";
     
+    
+    
     private static final String COLLECTION_REQUEST		= "request";
+    
     private static final String ELEMENT_SERIALBAG 		= "serial_Bag";
     private static final String ELEMENT_REQUESTEDDATE 		= "requested_Date";
     private static final String ELEMENT_STATE			= "state"; 
     private static final String ELEMENT_USERREQUESTING			= "user-requesting";
+    
+    private static final String COLLECTION_NODE		= "node";
+    
+    private static final String ELEMENT_CODSTR 		= "cod_str";
+    private static final String ELEMENT_NODENAME 		= "Node_Name";
+    private static final String ELEMENT_WAREHOUSE		= "Warehouse"; 
+  
+    
+    
 /*
     private static String SERIALE = "SERIAL";
     private static String GRUPPO = "GROUP";
@@ -416,9 +430,19 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
   
 
     @Override
-    public void addNode(Node node) {
-
+    public void addNode(Node n) {
+    	MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_NODE);
+        
+        Document node = new Document(ELEMENT_CODSTR,n.getCodStr()).append(ELEMENT_NODENAME, n.getNodeName())
+        		.append(ELEMENT_WAREHOUSE, n.getWarehouse());
+        collection.insertOne(node);
+        mongoClient.close();
     }
+    
+    
  public void dump() throws Exception{
         JSONObject jsonObject;
         FileWriter file = null;
@@ -837,60 +861,8 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     }*/
 
 
-    /*
-    private String[] getDbProperties(){
+  
 
-        String[] db_collection_names = new String[2];
-
-        Properties properties = new Properties();
-
-        try {
-            properties.loadFromXML(new FileInputStream("settings.xml"));
-        } catch (InvalidPropertiesFormatException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        db_collection_names[0] = properties.getProperty("db_name");
-        db_collection_names[1] = properties.getProperty("collection_name");
-
-        return db_collection_names;
-    }*/
-
-    /*
-    private String createURI(){
-        String username = "";
-        String password = "";
-
-        Properties properties = new Properties();
-
-        try {
-            //properties.loadFromXML(new FileInputStream("C:/Users/giuli/Desktop/uri.xml"));  //pc fisso
-            properties.loadFromXML(new FileInputStream("/Users/folly/Desktop/uri.xml"));  //mac
-        } catch (InvalidPropertiesFormatException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-
-        username = properties.getProperty("username");      //reading username from xml (private, local)
-        password = properties.getProperty("password");      //reading password from xml (private, local)
-
-        return "mongodb+srv://"+username+":"+password+"@care.a1sy7.mongodb.net/test";
-    }*/
-    /** ################################ ADVANCED ################################*/
-
-    /**
-     * eccezione da personalizzare in futuro
-     * */
-
+ 
 
    
