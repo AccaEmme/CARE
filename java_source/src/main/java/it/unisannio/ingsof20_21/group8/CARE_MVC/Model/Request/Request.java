@@ -24,6 +24,14 @@ public class Request {
 
 	
 
+	public String getSerialBloodBag() {
+		return serialBloodBag;
+	}
+
+	public Date getRequestedDate() {
+		return requestedDate;
+	}
+
 	public State getState() {
 		return state;
 	}

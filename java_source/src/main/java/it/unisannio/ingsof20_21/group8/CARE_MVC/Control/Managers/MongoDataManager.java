@@ -482,18 +482,25 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
             }
         }
     }	
- 
+
+
  
  @Override
-	public void acceptRequest(Request request) {
+	public void acceptRequest(Request r) {
 	 MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
      MongoClient mongoClient = new MongoClient(clientURI);
      MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
      MongoCollection<Document> collection = mongoDatabase.getCollection("Request_List");
-     
+     Document request = new Document(ELEMENT_USERREQUESTING,r.getUserRequesting()).append(ELEMENT_SERIALBAG,r.getSerial())
+    		 .append(ELEMENT_REQUESTEDDATE ,r.getRequestedDate()).append(ELEMENT_STATE, "accepted");
+    		
+	
+			
      for (Document current : collection.find()){
-    	 if((current.get(ELEMENT_USERREQUESTING)==request.getSerial())&&(current.get(ELEMENT_USERREQUESTING)==request.getUserRequesting())) {
+    	 if((current.get(ELEMENT_USERREQUESTING)==r.getSerial())&&(current.get(ELEMENT_USERREQUESTING)==r.getUserRequesting())) {
     		 current.replace(ELEMENT_STATE, "accepted");
+    		 
+    		 collection.replaceOne(current,request);
     	 }
     	 
      }
