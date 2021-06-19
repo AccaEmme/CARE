@@ -12,6 +12,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagI
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.StoreManagerInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Request.Request;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Request.State;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.NullUserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Role;
@@ -53,15 +54,16 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     private static final String TAG_HOST 				= "db_mongo_host";
     private static final String TAG_PORT 				= "db_mongo_port";
 
-
+//#######################################################
     private static final String COLLECTION_USER			= "users";
     
     private static final String ELEMENT_USERNAME 		= "username";
     private static final String ELEMENT_PASSWORD 		= "password";
     private static final String ELEMENT_ROLE 			= "role"; 
     
-    
+  //#######################################################
     private static final String COLLECTION_BAG			= "blood-bags";
+    
     private static final String ELEMENT_GROUP 			= "BloodGroup";
     private static final String ELEMENT_SERIAL 			= "serial";
     private static final String ELEMENT_CREATIONDATE 	= "creationDate";
@@ -70,9 +72,8 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     private static final String ELEMENT_NODE 			= "node";
     private static final String ELEMENT_BLOODBAGSTATE 	= "bloodBagState";
     private static final String ELEMENT_NOTE 			= "note";
-    
-    
-    
+  
+  //#######################################################
     private static final String COLLECTION_REQUEST		= "request";
     
     private static final String ELEMENT_SERIALBAG 		= "serial_Bag";
@@ -80,14 +81,29 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     private static final String ELEMENT_STATE			= "state"; 
     private static final String ELEMENT_USERREQUESTING			= "user-requesting";
     
+  //#######################################################
     private static final String COLLECTION_NODE		= "node";
     
     private static final String ELEMENT_CODSTR 		= "cod_str";
     private static final String ELEMENT_NODENAME 		= "Node_Name";
     private static final String ELEMENT_WAREHOUSE		= "Warehouse"; 
   
+  //#######################################################
+    private static final String COLLECTION_LOCATION		= "location";
+    
+    private static final String ELEMENT_COUNTRY 		= "country";
+    private static final String ELEMENT_REGION 		= "region";
+    private static final String ELEMENT_PROVINCE		= "province"; 
+    private static final String ELEMENT_CITY		= "city"; 
+    private static final String ELEMENT_STREET		= "street"; 
+    private static final String ELEMENT_STREEETNUMBER		= "streetNumber"; 
+    private static final String ELEMENT_ZIPCODE		= "ZIPCodee"; 
+    
+  
     
     
+    
+
 /*
     private static String SERIALE = "SERIAL";
     private static String GRUPPO = "GROUP";
@@ -530,10 +546,34 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
      }
      
 	}
- 
-	public void addBloodBagRequest(BloodBag bloodBag) {
-		
-	}
+
+	public void addBloodBagRequest(Request r) {
+		MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_LOCATION);
+        
+        Document request = new Document(ELEMENT_SERIALBAG,r.getSerial()).append(ELEMENT_REQUESTEDDATE, r.getRequestedDate())
+        		.append(ELEMENT_STATE, r.getState()).append(ELEMENT_USERREQUESTING, r.getUserRequesting());
+        collection.insertOne(request);
+        mongoClient.close();
+	}    
+	
+	
+	@Override
+    public void addLocation(Location l) {
+    	MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_LOCATION);
+        
+        Document location = new Document(ELEMENT_COUNTRY,l.getCountry()).append(ELEMENT_REGION, l.getRegion())
+        		.append(ELEMENT_PROVINCE, l.getProvince()).append(ELEMENT_CITY,l.getCity()).append(ELEMENT_STREET, l.getStreet())
+        		.append(ELEMENT_STATE, l.getStreetNumber()).append(ELEMENT_ZIPCODE, l.getZipCode());
+        collection.insertOne(location);
+        mongoClient.close();
+
+    }
 
   @Override
     public void writeLog(Logger logger) {
@@ -556,10 +596,8 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
 
     }
 
-    @Override
-    public void addLocation(Location location) {
+    
 
-    }
     public String getConnectionStringURI() {
         return connectionStringURI;
     }
