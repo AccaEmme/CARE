@@ -11,6 +11,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Serial;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.StoreManagerInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Request.Request;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.NullUserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Role;
@@ -43,7 +44,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 
 
-public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterface,StoreManagerInterface {
+public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterface,StoreManagerInterface,SecretaryInterface {
     private String connectionStringURI = "";
     private String db_name = "";
     private String collection_name = "";
@@ -405,7 +406,88 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     }
 
 
+  
+
     @Override
+    public void addNode(Node node) {
+
+    }
+ public void dump() throws Exception{
+        JSONObject jsonObject;
+        FileWriter file = null;
+
+        List<BloodBag> bags =    null;   //this.getBloodBags();
+
+        Date date = new Date();
+
+        SimpleDateFormat sdfDate = new SimpleDateFormat(Constants.DATE_FORMAT);
+        Date now = new Date();  //time of the dump
+        String dumpName = sdfDate.format(now);
+
+        try {
+            //new filewriter in append mode
+            file = new FileWriter("dumps/"+"dump_"+dumpName+".json",true);
+            file.write("[");//array of objects
+
+            //adding every element to the dump
+            String expirationString;
+            String creationString;
+            for (int i = 0; i < bags.size()-1; i++){
+                jsonObject = new JSONObject();
+                jsonObject.put(Constants.SERIAL, bags.get(i).getSerial().toString());
+                jsonObject.put(Constants.GROUP, bags.get(i).getBloodGroup().toString());
+
+                expirationString = sdfDate.format(bags.get(i).getExpirationDate());
+                creationString = sdfDate.format(bags.get(i).getCreationDate());
+
+                jsonObject.put(Constants.EXPIRATION, expirationString);
+                jsonObject.put(Constants.CREATION, creationString);
+
+                jsonObject.put(Constants.ORIGIN, bags.get(i).getNode().toString());
+
+
+                file.write(jsonObject.toString());
+                file.write(",\n");
+            }
+            //adding last element withoud comma
+            jsonObject = new JSONObject();
+            jsonObject.put(Constants.SERIAL, bags.get(bags.size()-1).getSerial().toString());
+            jsonObject.put(Constants.GROUP, bags.get(bags.size()-1).getBloodGroup().toString());
+            expirationString = sdfDate.format(bags.get(bags.size()-1).getExpirationDate());
+            creationString = sdfDate.format(bags.get(bags.size()-1).getCreationDate());
+
+            jsonObject.put(Constants.EXPIRATION, expirationString);
+            jsonObject.put(Constants.CREATION, creationString);
+
+            jsonObject.put(Constants.ORIGIN, bags.get(bags.size()-1).getNode().toString());
+
+            file.write(jsonObject.toString());  //writing last element
+
+            file.write("]");                    //closing the array
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                file.flush();
+                file.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }	
+ 
+ 
+ @Override
+	public void acceptRequest(Request request) {
+		// TODO Auto-generated method stub
+		
+	}
+ 
+	public void addBloodBagRequest(BloodBag bloodBag) {
+		
+	}
+
+  @Override
     public void writeLog(Logger logger) {
 
     }
@@ -420,15 +502,6 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
 
     }
 
-    @Override
-    public void addBloodBag(BloodBag bag) {
-
-    }
-
-    @Override
-    public void addStates() {
-
-    }
 
     @Override
     public void addRoles() {
@@ -439,11 +512,45 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     public void addLocation(Location location) {
 
     }
-
-    @Override
-    public void addNode(Node node) {
-
+    public String getConnectionStringURI() {
+        return connectionStringURI;
     }
+
+    public String getDb_name() {
+        return db_name;
+    }
+
+    public String getCollection_name() {
+        return collection_name;
+    }
+
+    public static String getDateFormat() {
+        return Constants.DATE_FORMAT;
+    }
+
+    public void setConnectionStringURI(String connectionStringURI) {
+        this.connectionStringURI = connectionStringURI;
+    }
+
+    public void setDb_name(String db_name) {
+        this.db_name = db_name;
+    }
+
+    public void setCollection_name(String collection_name) {
+        this.collection_name = collection_name;
+    }
+
+
+	@Override
+	public void addStates() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+    
+}
 
 
     /*
@@ -762,99 +869,4 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
      * */
 
 
-    public void dump() throws Exception{
-        JSONObject jsonObject;
-        FileWriter file = null;
-
-        List<BloodBag> bags =    null;   //this.getBloodBags();
-
-        Date date = new Date();
-
-        SimpleDateFormat sdfDate = new SimpleDateFormat(Constants.DATE_FORMAT);
-        Date now = new Date();  //time of the dump
-        String dumpName = sdfDate.format(now);
-
-        try {
-            //new filewriter in append mode
-            file = new FileWriter("dumps/"+"dump_"+dumpName+".json",true);
-            file.write("[");//array of objects
-
-            //adding every element to the dump
-            String expirationString;
-            String creationString;
-            for (int i = 0; i < bags.size()-1; i++){
-                jsonObject = new JSONObject();
-                jsonObject.put(Constants.SERIAL, bags.get(i).getSerial().toString());
-                jsonObject.put(Constants.GROUP, bags.get(i).getBloodGroup().toString());
-
-                expirationString = sdfDate.format(bags.get(i).getExpirationDate());
-                creationString = sdfDate.format(bags.get(i).getCreationDate());
-
-                jsonObject.put(Constants.EXPIRATION, expirationString);
-                jsonObject.put(Constants.CREATION, creationString);
-
-                jsonObject.put(Constants.ORIGIN, bags.get(i).getNode().toString());
-
-
-                file.write(jsonObject.toString());
-                file.write(",\n");
-            }
-            //adding last element withoud comma
-            jsonObject = new JSONObject();
-            jsonObject.put(Constants.SERIAL, bags.get(bags.size()-1).getSerial().toString());
-            jsonObject.put(Constants.GROUP, bags.get(bags.size()-1).getBloodGroup().toString());
-            expirationString = sdfDate.format(bags.get(bags.size()-1).getExpirationDate());
-            creationString = sdfDate.format(bags.get(bags.size()-1).getCreationDate());
-
-            jsonObject.put(Constants.EXPIRATION, expirationString);
-            jsonObject.put(Constants.CREATION, creationString);
-
-            jsonObject.put(Constants.ORIGIN, bags.get(bags.size()-1).getNode().toString());
-
-            file.write(jsonObject.toString());  //writing last element
-
-            file.write("]");                    //closing the array
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                file.flush();
-                file.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public String getConnectionStringURI() {
-        return connectionStringURI;
-    }
-
-    public String getDb_name() {
-        return db_name;
-    }
-
-    public String getCollection_name() {
-        return collection_name;
-    }
-
-    public static String getDateFormat() {
-        return Constants.DATE_FORMAT;
-    }
-
-    public void setConnectionStringURI(String connectionStringURI) {
-        this.connectionStringURI = connectionStringURI;
-    }
-
-    public void setDb_name(String db_name) {
-        this.db_name = db_name;
-    }
-
-    public void setCollection_name(String collection_name) {
-        this.collection_name = collection_name;
-    }
-
-
-
-    
-}
+   
