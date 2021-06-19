@@ -76,7 +76,26 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     
     /*il costruttore deve solo andarsi a prendere i parametri generali*/
     // il costruttore decide quale collezione utilizzare senno devo fare un set collection name
-    
+      public void dropDB()
+      {
+      	MongoClientURI clientURI 		= new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient 		= new MongoClient(clientURI);
+        MongoDatabase mongoDatabase 	= mongoClient.getDatabase(this.db_name);
+        mongoDatabase.drop();
+
+      }
+      
+      public void dropUserCollection()
+      {
+      	MongoClientURI clientURI 		= new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient 		= new MongoClient(clientURI);
+        MongoDatabase mongoDatabase 	= mongoClient.getDatabase(this.db_name);
+        MongoCollection mongoCollection = mongoDatabase.getCollection(COLLECTION_USER);
+        mongoCollection.drop();
+      }
+      
+      
+      
     public MongoDataManager(){
         connectionStringURI 			= createURI();
         String[] db_collection_names 	= getDbProperties();
@@ -142,7 +161,30 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
 
     @Override
     public void editUser(User u) throws ParseException {
+        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
 
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+    
+
+		MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_USER);
+
+   
+		
+		Document user = new Document(ELEMENT_USERNAME, u.getUsername())
+          .append(ELEMENT_PASSWORD, u.getPassword()); 
+		
+		if((collection.replaceOne((eq(ELEMENT_USERNAME,u.getUsername())), user).getMatchedCount())==0) {
+			System.out.println("user not found");
+
+		}
+		else {
+			System.out.println("user uptated");
+		}
+		
+	
+	
+		mongoClient.close();
     }
 
     private void validateUser(User user) throws UserException, NullUserException, NullPasswordException {
@@ -371,10 +413,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     //implementazione non necessaria
     public void createDB(){}
 
-    @Override
-    public void dropDB() {
 
-    }
 
     @Override
     public void writeLog(Date currentDate, User currentUser, String currentClass, String currentMethod, String currentResult) {
@@ -814,6 +853,8 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     public void setCollection_name(String collection_name) {
         this.collection_name = collection_name;
     }
+
+
 
     
 }
