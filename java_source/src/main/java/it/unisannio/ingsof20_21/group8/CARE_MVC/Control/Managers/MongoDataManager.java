@@ -55,10 +55,11 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
 
 
     private static final String COLLECTION_USER			= "users";
-    private static final String COLLECTION_BAG			= "blood-bags";
     private static final String ELEMENT_USERNAME 		= "username";
     private static final String ELEMENT_PASSWORD 		= "password";
-    private static final String ELEMENT_ROLE 			= "role";
+    private static final String ELEMENT_ROLE 			= "role"; 
+    
+    private static final String COLLECTION_BAG			= "blood-bags";
     private static final String ELEMENT_GROUP 			= "BloodGroup";
     private static final String ELEMENT_SERIAL 			= "serial";
     private static final String ELEMENT_CREATIONDATE 	= "creationDate";
@@ -67,6 +68,12 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     private static final String ELEMENT_NODE 			= "node";
     private static final String ELEMENT_BLOODBAGSTATE 	= "bloodBagState";
     private static final String ELEMENT_NOTE 			= "note";
+    
+    private static final String COLLECTION_REQUEST		= "request";
+    private static final String ELEMENT_SERIALBAG 		= "serial_Bag";
+    private static final String ELEMENT_REQUESTEDDATE 		= "requested_Date";
+    private static final String ELEMENT_STATE			= "state"; 
+    private static final String ELEMENT_USERREQUESTING			= "user-requesting";
 /*
     private static String SERIALE = "SERIAL";
     private static String GRUPPO = "GROUP";
@@ -479,8 +486,18 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
  
  @Override
 	public void acceptRequest(Request request) {
-		// TODO Auto-generated method stub
-		
+	 MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+     MongoClient mongoClient = new MongoClient(clientURI);
+     MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+     MongoCollection<Document> collection = mongoDatabase.getCollection("Request_List");
+     
+     for (Document current : collection.find()){
+    	 if((current.get(ELEMENT_USERREQUESTING)==request.getSerial())&&(current.get(ELEMENT_USERREQUESTING)==request.getUserRequesting())) {
+    		 current.replace(ELEMENT_STATE, "accepted");
+    	 }
+    	 
+     }
+     
 	}
  
 	public void addBloodBagRequest(BloodBag bloodBag) {
