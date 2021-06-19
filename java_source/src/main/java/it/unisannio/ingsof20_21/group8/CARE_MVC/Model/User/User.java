@@ -17,10 +17,11 @@ public class User {
 	 * Al primo cambio password dell'utente, viene eliminata la password temporanea, impostata la password cifrata e viene segnato l'ultimo cambio password.
 	 */
 
-    public User(String username, String plainTextPassword) throws UserException, NullPasswordException {
+    public User(String username, String plainTextPassword, Location lu) throws UserException, NullPasswordException {
         this.validateCredentials(username,plainTextPassword);
         this.username = username;
-        this.setPassword(plainTextPassword);
+        this.setPassword(plainTextPassword); 
+        this.setResidence(lu);
     }
     
     public User(String username, Password hiddenPassword) throws UserException, NullPasswordException {
@@ -37,16 +38,16 @@ public class User {
     	this.temppass	= String.valueOf(
     								Password.generatePassword(Constants.USER_TEMPPASS_LENGTH)
     						);
-    	this.setPassword(temppass);	
+    	this.setPassword(temppass);
     	this.role		= role;
     	
     	this.password_lastupdate = new Date();
     }
 
-    private void validateCredentials(String username, String password) throws UserException, NullPasswordException {
+    public void validateCredentials(String username, String password) throws UserException, NullPasswordException {
         if (username == null)
-            throw new UserException("The username cannot be null!");
-        if (password == null)
+            throw new UserException("The username cannot be null!");  
+        if (password == null || password ==  " ")
             throw new NullPasswordException("The password cannot be null!");
         if (username.length() < 5 || password.length() < 5)
             throw new UserException("The username or the password cannot be shorter than 5 chars");
@@ -56,9 +57,9 @@ public class User {
         return username;
     }
 
-    private void setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
-    }
+    } 
 
     public String getPassword() {
         return password;
@@ -73,11 +74,11 @@ public class User {
 				+"\t hiddenPassword:" + this.password);
 				*/
         this.password_lastupdate 	= new Date();		// *** nei JUnit test stampa a video la data corrente, perché?
-        //this.temppass				= "";
+        this.temppass				= "";
     }
     
     public Date getPasswordLastUpdate() {
-    	return this.password_lastupdate;
+    	return password_lastupdate;
     }
     
     public Location getResidence() {
@@ -89,21 +90,13 @@ public class User {
     }
     
     public Role getRole() {
-    	return this.role;
+    	return role;
     }
     
     public void setRole(Role r) {
     	this.role = r;
     }
 
-    public String getTempPass() {
-    	return this.temppass;
-    }
-    
-    private void setTempPass(String temppass) {
-    	this.temppass=temppass;
-    }
-    
     public Document getDocument(){
         Document document = new Document("username",this.getUsername());
         document.append("password",this.getPassword());
@@ -113,9 +106,13 @@ public class User {
             document.append("role",this.getRole().toString());
         if (this.getPasswordLastUpdate()!=null)
             document.append("password_last_update",this.getPasswordLastUpdate());
-
+ 
         return document;
     }
+    
+    public boolean exists() {
+		return true;
+	}
    
    
     private String 		username, password, temppass;
