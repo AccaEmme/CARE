@@ -1,5 +1,6 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
@@ -7,6 +8,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswo
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public interface DataManager {
 
 	void writeLog(Date now, User currentUser, String fromClass, String method, String result);
 
-    void addBloodBag(BloodBag bag);
+    void addBloodBag(BloodBagInterface bag) throws ParseException;
 
 	void addStates();
 

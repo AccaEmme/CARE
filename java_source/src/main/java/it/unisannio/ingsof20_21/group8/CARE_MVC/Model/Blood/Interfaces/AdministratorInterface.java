@@ -13,7 +13,7 @@ public interface AdministratorInterface {
 	public void setRole(User u, Role r);
 	
 	public boolean setRoutingTable();
-
+	public void dropUserCollection();
 	public boolean reportGiacenza();
 	
 	public void report()throws ParseException;

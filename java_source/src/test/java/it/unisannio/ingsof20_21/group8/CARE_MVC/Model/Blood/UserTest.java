@@ -38,24 +38,48 @@ public class UserTest {
 		
 	
 	
-	//Controllo creazione User corretto con passw invalida
-	@Test
-	public void TestInvalidUserPasswClear() throws UserException, NullPasswordException {
-		User u = new User("Donato", "Donato96@", country);
-	}
-	//Controllo creazione User corretto con passw invalida
-	@ParameterizedTest
-    @MethodSource("validPasswordProvider")
-	public void TestInvalidUserPasswGood(String Passw) throws UserException, NullPasswordException {
-		User Segret = new User("Donato", "Donato96@", country);
-		Segret.setPassword(Passw);
-	}
-	
+	//Controllo creazione User corretto con passw in chiaro
+		@Test
+		public void TestValidUserPasswClear() throws UserException, NullPasswordException {
+			User Segret = new User("Donato", "Donato96@", country);
+			assertTrue(Segret.exists());
+		}
+		
+		//Controllo creazione User corretto con passw invalida
+		@Test
+		public void TestInvalidUserPasswClear() throws UserException, NullPasswordException {
+			User Segret = new User("Donato", "Donato96@", country);
+		}
+		
+		@Test(expected = NullPasswordException.class)
+		public void TestInvalidUserPasswSpace() throws UserException, NullPasswordException { 
+			User Segret = new User("Donato", " ", country);
+		}
+		
+		@Test(expected = UserException.class)
+		public void TestInvalidUserPasswNull() throws UserException, NullPasswordException {
+			User s = new User( " ", "Donato96@", country);
+		}
+		
+		@Test(expected = UserException.class)
+		public void TestInvalidUserWrong() throws UserException, NullPasswordException {
+			User Segret = new User("Don", "Donato96@", country);
+		}
+		
+		//Controllo creazione User corretto con passw invalida
+		@ParameterizedTest
+	    @MethodSource("validPasswordProvider")
+		public void TestInvalidUserPasswGood(String Passw) throws UserException, NullPasswordException {
+			User Segret = new User("Donato", "Donato96@", country);
+			Segret.setPassword(Passw);
+		}
+		
+		
 	
 	@Test
 	public void testValidConstructor1()  throws UserException, NullPasswordException{
-	   String user= "Saras";
-	   String pass= "Sarasign96?";
+	   String user= "Marioverdi";
+	   String pass= "Marioverdi96?";
 	   
 	   User u = new User(user, pass, country);  
 		u.getUsername();
@@ -97,13 +121,13 @@ public class UserTest {
 	
 	@Test
 	public void TestGetUsername() throws UserException, NullPasswordException {
-		User u = new User("Donato", "Donato96@", country);
+		User u = new User("Mariano", "Mariano96@", country);
 		u.getUsername();
 	} 
 	
 	@Test
 	public void testSetUsername() throws UserException, NullPasswordException {
-		String user= "Saras";
+		String user= "Mariano";
 		User u = new User( user, "AAAbbbccc@123", country );
 		u.setUsername(user);
 	}
