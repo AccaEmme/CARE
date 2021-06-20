@@ -17,7 +17,7 @@ public class MongoDataManagerTest {
 	MongoDataManager mdm;
 	
 	@Test
-	public void testConstructor() {
+	public void ValidityTest_Constructor() {
 		try {
 			mdm = new MongoDataManager();
 			mdm.createDB(); // useless Method for MongoDB
@@ -102,6 +102,7 @@ public class MongoDataManagerTest {
 	@Test
 	public void InvalidityTest_getUser_UserNotFound() throws UserException, NullPasswordException {
 		//assertThrows(Exception.class, () -> {
+		
 			String username		 = "Bob.Alice";
 			String validPassword = "Test4ll.+";
 			mdm = new MongoDataManager();
