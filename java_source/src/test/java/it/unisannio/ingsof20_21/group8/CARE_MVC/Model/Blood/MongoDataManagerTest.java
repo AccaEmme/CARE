@@ -17,7 +17,7 @@ public class MongoDataManagerTest {
 	MongoDataManager mdm;
 	
 	@Test
-	public void ValidityTest_Constructor() {
+	public void r() {
 		try {
 			mdm = new MongoDataManager();
 			mdm.createDB(); // useless Method for MongoDB

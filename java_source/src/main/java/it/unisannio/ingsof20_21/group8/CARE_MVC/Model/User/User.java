@@ -17,11 +17,10 @@ public class User {
 	 * Al primo cambio password dell'utente, viene eliminata la password temporanea, impostata la password cifrata e viene segnato l'ultimo cambio password.
 	 */
 
-    public User(String username, String plainTextPassword, Location lu) throws UserException, NullPasswordException {
+    public User(String username, String plainTextPassword) throws UserException, NullPasswordException {
         this.validateCredentials(username,plainTextPassword);
         this.username = username;
         this.setPassword(plainTextPassword); 
-        this.setResidence(lu);
     }
     
     public User(String username, Password hiddenPassword) throws UserException, NullPasswordException {

@@ -55,6 +55,7 @@ public class Password {
 	*/
 	
     public static String getMd5(String input)    {
+    	input+=Constants.USER_MD5_SALT;
         try {
             // Static getInstance method is called with hashing MD5
             MessageDigest md = MessageDigest.getInstance("MD5");
