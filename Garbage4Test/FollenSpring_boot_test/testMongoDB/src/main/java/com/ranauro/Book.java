@@ -1,5 +1,7 @@
 package com.ranauro;
 
+import javax.persistence.GeneratedValue;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,17 +11,12 @@ import lombok.*;
 
 @Document(collection="Book")
 public class Book {
-	@Id
-	private int id;
 	
-	private String title;
+	
+	private  String title  ;
 	private String author;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
+
 	public String getTitle() {
 		return title;
 	}
@@ -34,7 +31,7 @@ public class Book {
 	}
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + "]";
+		return "Book [ title=" + title + ", author=" + author + "]";
 	}
 	
 	
