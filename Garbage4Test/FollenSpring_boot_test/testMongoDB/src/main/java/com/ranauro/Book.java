@@ -1,7 +1,6 @@
 package com.ranauro;
 
-import javax.persistence.*;
-
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.*;
@@ -10,7 +9,7 @@ import lombok.*;
 
 @Document(collection="Book")
 public class Book {
-	@Id @GeneratedValue
+	@Id
 	private int id;
 	
 	private String title;
