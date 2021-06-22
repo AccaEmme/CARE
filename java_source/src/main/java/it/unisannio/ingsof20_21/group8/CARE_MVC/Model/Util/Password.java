@@ -30,6 +30,7 @@ public class Password {
 	*/
 	
 	public Password(String hiddenPassword) {
+		assert hiddenPassword != null;
 		this.hiddenPassword = hiddenPassword;
 	}
 
@@ -38,6 +39,7 @@ public class Password {
 	}
 	
 	public void setHiddenPassword(String hiddenPass) {
+		assert hiddenPass != null;
 		this.hiddenPassword = hiddenPass;
 	}
 	

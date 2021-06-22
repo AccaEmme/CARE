@@ -14,7 +14,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Request.Request;
 //aggiungere user e operazioni coorelate
 
 
-public interface WhareHouseWorkerInterface extends DataManager {
+public interface WareHouseWorkerInterface extends DataManager {
 	public void addBloodBag(BloodBagInterface bbi) throws ParseException;
 	
 	public void acceptRequest(Request request);

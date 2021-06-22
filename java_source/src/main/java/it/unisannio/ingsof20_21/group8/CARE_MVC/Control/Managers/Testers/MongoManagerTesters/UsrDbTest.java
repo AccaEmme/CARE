@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.AdminInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.MongoDataManager;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.WhareHouseWorkerInterface;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.WareHouseWorkerInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag.BloodBagState;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
@@ -38,7 +38,7 @@ public static void main(String[] args) throws ParseException, UserException, Nul
 	mongoLogger.setLevel(Level.SEVERE);
 
 	  AdminInterface dm = new MongoDataManager();
-	  WhareHouseWorkerInterface mi=new MongoDataManager();
+	  WareHouseWorkerInterface mi=new MongoDataManager();
 		dm.createDB();
 	
 		User u0=new User("giangi","12345Aa@21");

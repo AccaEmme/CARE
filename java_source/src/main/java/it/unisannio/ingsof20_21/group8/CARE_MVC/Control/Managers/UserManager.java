@@ -38,7 +38,7 @@ public class UserManager extends SystemManager {
 			AdminInterface admin = new MongoDataManager();
 			this.dataManager = admin;
 		}else if (user.getRole() == Role.StoreManager){
-			WhareHouseWorkerInterface worker = new MongoDataManager();
+			WareHouseWorkerInterface worker = new MongoDataManager();
 			this.dataManager = worker;
 		}else {
 			throw new UserException("The user does not have a role!");

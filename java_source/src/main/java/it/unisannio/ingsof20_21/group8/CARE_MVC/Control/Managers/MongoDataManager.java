@@ -12,7 +12,6 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagI
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.StoreManagerInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Request.Request;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Request.State;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.NullUserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Role;
@@ -32,8 +31,6 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.XMLHelper;
 import org.bson.Document;
 
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
@@ -45,7 +42,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 
 
-public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterface,StoreManagerInterface,SecretaryInterface {
+public class MongoDataManager implements AdminInterface, WareHouseWorkerInterface,StoreManagerInterface,SecretaryInterface {
     private String connectionStringURI = "";
     private String db_name = "";
     private String collection_name = "";
@@ -79,12 +76,12 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     private static final String ELEMENT_SERIALBAG 		= "serial_Bag";
     private static final String ELEMENT_REQUESTEDDATE 		= "requested_Date";
     private static final String ELEMENT_STATE			= "state"; 
-    private static final String ELEMENT_USERREQUESTING			= "user-requesting";
+    private static final String ELEMENT_USERREQUESTING	= "user-requesting";
     
   //#######################################################
-    private static final String COLLECTION_NODE		= "node";
+    private static final String COLLECTION_NODE			= "node";
     
-    private static final String ELEMENT_CODSTR 		= "cod_str";
+    private static final String ELEMENT_CODSTR 			= "cod_str";
     private static final String ELEMENT_NODENAME 		= "Node_Name";
     private static final String ELEMENT_WAREHOUSE		= "Warehouse"; 
   
@@ -92,16 +89,12 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     private static final String COLLECTION_LOCATION		= "location";
     
     private static final String ELEMENT_COUNTRY 		= "country";
-    private static final String ELEMENT_REGION 		= "region";
+    private static final String ELEMENT_REGION 			= "region";
     private static final String ELEMENT_PROVINCE		= "province"; 
-    private static final String ELEMENT_CITY		= "city"; 
-    private static final String ELEMENT_STREET		= "street"; 
-    private static final String ELEMENT_STREEETNUMBER		= "streetNumber"; 
-    private static final String ELEMENT_ZIPCODE		= "ZIPCodee"; 
-    
-  
-    
-    
+    private static final String ELEMENT_CITY			= "city"; 
+    private static final String ELEMENT_STREET			= "street"; 
+    private static final String ELEMENT_STREEETNUMBER	= "streetNumber"; 
+    private static final String ELEMENT_ZIPCODE			= "ZIPCodee"; 
     
 
 /*
@@ -114,8 +107,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
     
     /*il costruttore deve solo andarsi a prendere i parametri generali*/
     // il costruttore decide quale collezione utilizzare senno devo fare un set collection name
-      public void dropDB()
-      {
+      public void dropDB()   {
       	MongoClientURI clientURI 		= new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient 		= new MongoClient(clientURI);
         MongoDatabase mongoDatabase 	= mongoClient.getDatabase(this.db_name);
@@ -123,8 +115,7 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
 
       }
       
-      public void dropUserCollection()
-      {
+      public void dropUserCollection() {
       	MongoClientURI clientURI 		= new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient 		= new MongoClient(clientURI);
         MongoDatabase mongoDatabase 	= mongoClient.getDatabase(this.db_name);
@@ -203,25 +194,16 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
         MongoClient mongoClient = new MongoClient(clientURI);
 
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
-    
-
 		MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_USER);
 
-   
-		
-		Document user = new Document(ELEMENT_USERNAME, u.getUsername())
-          .append(ELEMENT_PASSWORD, u.getPassword()); 
+		Document user = new Document(ELEMENT_USERNAME, u.getUsername()).append(ELEMENT_PASSWORD, u.getPassword()); 
 		
 		if((collection.replaceOne((eq(ELEMENT_USERNAME,u.getUsername())), user).getMatchedCount())==0) {
 			System.out.println("user not found");
-
-		}
-		else {
+		} else {
 			System.out.println("user uptated");
 		}
-		
-	
-	
+
 		mongoClient.close();
     }
 
