@@ -2,16 +2,26 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers;
 
 import java.io.*;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Serial;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag.BloodBagState;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 //import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.City;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Province;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
 // non eliminare questo commento. import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Serial; Non necessaria in quanto il costruttore della sacca richiama la generazione del seriale.
@@ -29,6 +39,9 @@ public class MySqlDataManager implements DataManager{
 
 	private String username;
 	private String password;
+	
+	private static final String select_blood_bag = "SELECT* FROM BLOODBAGS"
+												+ "WHERE BLOODGROUP = ?";		
 
 	/**
 	 * potremmo aggiungere anche la possibilita di inizializzarlo con un user*/
@@ -127,19 +140,10 @@ public class MySqlDataManager implements DataManager{
 		return null;
 	}
 
-	@Override
 	public void addBloodBag (BloodBag s) { // in realtà aggiunge ciò che fornisce il manager, forse ***
 		try (Connection conn = DriverManager.getConnection(url_db, username, password);
 			 PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_INSERT_BLOODBAGS)) {
-			/**
-			 * private final Serial 	serial;
-			 * 	private final Blood 	blood;
-			 * 	private Date			creationDate;
-			 * 	private Date 			expirationDate;
-			 * 	private String			donatorCF; //=null;	 *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
-			 * 	private note
-			 * id_state
-			 * 	*/
+
 			preparedStatement.setString(1, s.getSerial().toString());
 			preparedStatement.setString(2, s.getBloodType().toString());
 			//System.out.println( (int)(s.getCreationDate().getTime()/1000L) );
@@ -165,6 +169,7 @@ public class MySqlDataManager implements DataManager{
 
 	}
 
+	/**@Todo aggiornare*/
 	@Override
 	public void addStates(){
 		String query = "insert into `state_table` (id_state, state) values\n" +
@@ -228,9 +233,9 @@ public class MySqlDataManager implements DataManager{
 	public void addNode(Node node){
 		try {
 			Connection conn = DriverManager.getConnection(url_db, username, password);
-			PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_INSERT_LOCATION);
+			PreparedStatement preparedStatement = conn.prepareStatement(Constants.SQL_INSERT_NODE);
 
-			preparedStatement.setInt(1, 1);	/**@ TODO: 18/06/2021 non so come aggiungere l'auto increment*/
+			preparedStatement.setNull(1, Types.NULL);	/**@ TODO: 18/06/2021 non so come aggiungere l'auto increment*/
 			preparedStatement.setString(2, node.getCodStr().toString());
 			preparedStatement.setString(3, node.getNodeName().toString());
 
@@ -268,28 +273,50 @@ public class MySqlDataManager implements DataManager{
 	}
 
 
-/*
+
 	@Override
 	public List<BloodBag> getBloodBag(BloodGroup bloodGroup) {
 		String url = "jdbc:mysql://"+host+":"+port+"/"+db;
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+		
 
-		List<BloodBag> sacche = new ArrayList<BloodBag>();	// *** mettere un iterator
+		List<BloodBag> bags = new ArrayList<BloodBag>();	// *** mettere un iterator
 
 		try (Connection conn = DriverManager.getConnection(url, username, password);
-			 PreparedStatement preparedStatement = conn.prepareStatement(SQL_QUERY)){
+			 PreparedStatement preparedStatement = conn.prepareStatement(this.select_blood_bag)){
 
 			preparedStatement.setString(1, bloodGroup.toString());
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()){
-				//BloodBag bag = new BloodBag();
-				BloodGroup group = BloodGroup.valueOf(rs.getString(Constants.COL_GROUP));
-*/
+				/**this.serial 		= serial;
+				this.bloodGroup=group;
+				this.creationDate =cd;
+				this.expirationDate=ed;
+				this.donatorCF=donatorCF2;
+				this.node=n1;
+				this.note=note2;		
+				this.bloodBagState=valueOf2;*/
+				
+				Serial serial = new Serial("test");
+				BloodGroup group = BloodGroup.valueOf(rs.getString("bloodgroup"));
+				
+				int creation = rs.getInt("creationDate");
+				
+				
+				int expiring = rs.getInt("expiringDate");
+				
+				
+				String donatorCF = rs.getString("donatorCF");
+				//da modificare
+				Node node = new Node("206","Rummo",		new Location(Country.Italy, Region.Campania, Province.Benevento, City.Benevento, "via Roma", "44C","82018"));
+				String note = rs.getString("note");
+				
+				String stateSTR = rs.getString("state");
 
-	/*BloodBag s = new BloodBag(
-            BloodGroup.valueOf(rs.getString(Constants.COL_Serial) ,rs.getString(Constants.COL_GRUPPO) )
-    );*/
-	/*
-				sacche.add(new BloodBag(group));
+				BloodBagState bbs = BloodBagState.valueOf(stateSTR);
+				
+				//Serial serial, BloodGroup valueOf, Date cd, Date ed, String donatorCF2, Node n1,BloodBagState valueOf2, String note2
+				BloodBag bag = new BloodBag(serial, group, new Date(), new Date(),donatorCF,node,bbs,note);
 			}
 			rs.close();
 			preparedStatement.close();
@@ -298,9 +325,9 @@ public class MySqlDataManager implements DataManager{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return sacche;
+		return bags;
 	}
-*/
+
 	@Override
 	public void writeLog(Date currentDate, User currentUser, String currentClass, String currentMethod, String currentResult) {
 
@@ -416,6 +443,8 @@ public class MySqlDataManager implements DataManager{
 			e.printStackTrace();
 		}
 	}
+
+
 
 
 

@@ -1,5 +1,6 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
@@ -36,8 +37,6 @@ public interface DataManager {
 
 	void writeLog(Date now, User currentUser, String fromClass, String method, String result);
 
-    void addBloodBag(BloodBagInterface bag) throws ParseException;
-
 	void addStates();
 
 	void addRoles();
@@ -45,4 +44,6 @@ public interface DataManager {
 	void addLocation(Location location);
 
 	void addNode(Node node);
+	void addBloodBag(BloodBag s);
+	List<BloodBag> getBloodBag(BloodGroup bloodGroup);
 }

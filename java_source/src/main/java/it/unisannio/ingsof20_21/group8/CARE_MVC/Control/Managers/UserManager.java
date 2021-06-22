@@ -99,5 +99,10 @@ public class UserManager extends SystemManager {
 	public User getCurrentUser(){
 		return this.currentUser;
 	}
+	@Override
+	public void dropUserCollection() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

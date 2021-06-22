@@ -35,9 +35,9 @@ public class Constants {
     public static final String TAG_PORT 					= "db_mysql_port";
     public static final String TAG_DB 						= "db_mysql_dbname";
 
-    public static final String DB_TABLE_BLOODBAGS 			= "BloodBags";
+    public static final String DB_TABLE_BLOODBAGS 			= "Bloodbags";
     private static final String COL_Serial 					= "serial";
-    private static final String COL_GROUP 					= "Rh";
+    private static final String COL_GROUP 					= "bloodgroup";
     private static final String COL_creation 				= "creation";
     private static final String COL_expiring 				= "expiring";
     private static final String COL_donatorCF 				= "donatorCF";
@@ -116,7 +116,7 @@ public class Constants {
                     ", "+ Constants.ZEROPOSMAX +
                     ", "+ Constants.ZERONEGMIN +
                     ", "+ Constants.ZERONEGMAX +
-                    ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     
     //#################################################### MySQL DATABASE STRINGS ####################################################
     public static final String MONGODB_CREDENTIALS          = "./../../uri.xml";		// Credentials are not shared, file should be outside github sync path. So we use relative parents path
@@ -171,6 +171,11 @@ public class Constants {
 						" WHERE "+ 
 						Constants.COL_GROUP + 
 						" = ?";
+	
+	//#################################################### InitSettings Strings ####################################################
+	
+	
+	
 	
 	//#################################################### InitSettings Strings ####################################################
 	public static final String InitSettings_askNationality 					= "Nazionalita' [IT]:";
