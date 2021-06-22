@@ -10,9 +10,9 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 
 public class Node {
 	public Node(String codStr, String nodeName, Location warehouse) {
-		this.codStr 	= codStr;
-		this.nodeName 	= nodeName;
-		this.warehouse 	= warehouse;
+		this.setCodStr(codStr);
+		this.setNodeName(nodeName);
+		this.setWarehouse(warehouse);
 		
 		this.quantities		 = new TreeMap<BloodGroup, ArrayList<Integer>>();
 		this.temp_quantities = new TreeMap<BloodGroup, ArrayList<Integer>>(); 
@@ -22,7 +22,8 @@ public class Node {
 		return codStr;
 	}
 	
-	public void setCodStr(String codStr) {
+	private void setCodStr(String codStr) {
+		if( codStr.length()>3 )	throw new IllegalArgumentException("Node.java - codStr length can't be over three chars");
 		this.codStr = codStr;
 	}
 
@@ -30,7 +31,7 @@ public class Node {
 		return nodeName;
 	}	
 
-	public void setNodeName(String nodeName) {
+	private void setNodeName(String nodeName) {
 		this.nodeName = nodeName;
 	}
 
@@ -39,7 +40,7 @@ public class Node {
 		return warehouse;
 	}
 
-	public void setWarehouse(Location warehouse) {
+	private void setWarehouse(Location warehouse) {
 		this.warehouse = warehouse;
 	}
 	

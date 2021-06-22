@@ -30,7 +30,9 @@ public class Password {
 	*/
 	
 	public Password(String hiddenPassword) {
-		assert hiddenPassword != null;
+		//assert hiddenPassword != null;
+		if( (hiddenPassword == null) || (hiddenPassword.equals("")) )
+			throw new IllegalArgumentException("Password.java constructor: hiddenPassword is null");
 		this.hiddenPassword = hiddenPassword;
 	}
 
@@ -124,7 +126,7 @@ public class Password {
 			{8,20}                            # length at least 8 characters and maximum of 20 characters
 		$                                   # end of line
 	 */    
-    public static boolean validatePassword(final String givenPassword) throws IllegalArgumentException {
+    public static boolean validatePlaintextPasswordPattern(final String givenPassword) throws IllegalArgumentException {
     	final String PASSWORD_PATTERN =
                 "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
   	
@@ -134,7 +136,7 @@ public class Password {
         if(givenPassword != null)
         	matcher = pattern.matcher(givenPassword);
         else
-        	throw new IllegalArgumentException("Password.java validatePassword: givenPassword is null. Value: "+givenPassword);
+        	throw new IllegalArgumentException("Password.java validatePlaintextPasswordPattern: givenPassword is null. Value: "+givenPassword);
         	
         //return matcher.matches();
         

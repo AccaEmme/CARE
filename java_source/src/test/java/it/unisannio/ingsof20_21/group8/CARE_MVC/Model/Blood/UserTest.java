@@ -240,7 +240,7 @@ public class UserTest {
 	public void testValidatePassword() {
 		String password="AAAbbbccc@123";
 		assertTrue(
-				Password.validatePassword(password)
+				Password.validatePlaintextPasswordPattern(password)
 				);
 	}
 	
@@ -288,7 +288,7 @@ public class UserTest {
     @ParameterizedTest
     @MethodSource("validPasswordProvider")
     public void test_password_regex_valid(String password) {
-        assertTrue( Password.validatePassword(password) );
+        assertTrue( Password.validatePlaintextPasswordPattern(password) );
     }	
 	
     
@@ -299,12 +299,12 @@ public class UserTest {
     	//ExceptionThrower exceptionThrower = new ExceptionThrower();
     	/*
     	assertThrows(
-    			Password.validatePassword(password)
+    			Password.validatePlaintextPasswordPattern(password)
     			);
     			*/
-    	//assertFalse(Password.validatePassword(password));
+    	//assertFalse(Password.validatePlaintextPasswordPattern(password));
     	try {
-    		Password.validatePassword(password);
+    		Password.validatePlaintextPasswordPattern(password);
         } catch(IllegalArgumentException e) {
         	assertFalse(false);
         }
@@ -314,7 +314,7 @@ public class UserTest {
     @Test(expected = Exception.class)
     @Parameters(value = { "invalidInput1", "invalidInput2" })
     public void shouldThrowOnInvalidInput(String input) {
-    	Password.validatePassword(input);
+    	Password.validatePlaintextPasswordPattern(input);
     	assertThat(1+1, 2);
     }
     */

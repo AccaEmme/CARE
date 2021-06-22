@@ -13,6 +13,12 @@ import org.bson.Document;
 
 public class Location {
 
+	private String street, streetNumber, ZIPCode;          
+    private City city;              
+    private Province province;           
+    private Region region;
+    private Country country;
+	
 	/*
 	 * Costruttore della classe 'Location'.
 	 * 
@@ -39,25 +45,27 @@ public class Location {
     
     public Document getDocument(){
     	Document document = new Document();
-    		document.append("street",this.street.toString());
+    		document.append("street",		this.street.toString());
 			document.append("street_number",this.streetNumber.toString());
-			document.append("city",this.city.toString());
-			document.append("province",this.province.toString());
-			document.append("region",this.region.toString());
-			document.append("country",this.country.toString());
-			document.append("zip_code",this.getZipCode());
+			document.append("city",			this.city.toString());
+			document.append("province",		this.province.toString());
+			document.append("region",		this.region.toString());
+			document.append("country",		this.country.toString());
+			document.append("zip_code",		this.getZipCode());
 
 		return document;
 	}
 
     /**@// TODO: 14/06/2021 dobbiamo prendere dal documento mongo ogni pezzo di location e creare l'oggetto adeguato */
-	private String lazyLocation;
+	/* @TODO DELETE ME PLEASE!!!
+    private String lazyLocation;
 	public Location(String lazyLocation){
 		this.lazyLocation = lazyLocation;
 	}
 	public String getLocation(){
 		return this.lazyLocation;
 	}
+	*/
 
 
     
@@ -76,19 +84,15 @@ public class Location {
     public String getZipCode() { return ZIPCode; }
     
     public void setStreet(String streetR) throws IllegalArgumentException{ 
-		if (streetR == "") {
+		if( streetR.equals("") )
 			throw new IllegalArgumentException("Il nome della strada non è stato inserito");
-		}
-		
-		street = streetR;
+		this.street = streetR;
 	}
 
     public void setStreetNumber(String streetNumberR) throws IllegalArgumentException{
-	
-		if (streetNumberR == "") {
+		if( streetNumberR.equals("") ) 
 			throw new IllegalArgumentException("Il numero della strada non è stato inserito");
-		}
-	streetNumber = streetNumberR; 
+		this.streetNumber  = streetNumberR; 
 	}
     
     public void setCity(String cityR) { city = City.valueOf(cityR); }
@@ -100,13 +104,10 @@ public class Location {
     public void setCountry(String countryR) { country = Country.valueOf(countryR); }
     
     public void setZipCode(String ZIPcode) { 
-
-    	if (ZIPcode == "") {
+    	if( ZIPcode.equals("") ) 
 			throw new IllegalArgumentException("Il numero zipcode non è valido");
-		}
-    	ZIPCode = ZIPcode; 
+    	this.ZIPCode = ZIPcode; 
     }
-    
     
     
 	public String toString() {
@@ -136,13 +137,5 @@ public class Location {
 		Chieti, Potenza, Bolzano, Catanzaro, Napoli, Bologna, Udine, Roma, Genova, Varese, Ancona, Campobasso, Torino, Bari, Cagliari, Palermo, Firenze, Trento, Perugia, Aosta, Padova, Benevento, Avellino, Salerno, Caserta;
 	}
     
-	public boolean exists() {return true;}
-	
-	
-	
-	private String street, streetNumber, ZIPCode;          
-    private City city;              
-    private Province province;           
-    private Region region;
-    private Country country;
+	public boolean exists() { return true; }
 }
