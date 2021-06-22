@@ -15,22 +15,21 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagI
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 //import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.City;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Province;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
-// non eliminare questo commento. import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Serial; Non necessaria in quanto il costruttore della sacca richiama la generazione del seriale.
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.XMLHelper;
 
 
 public class MySqlDataManager implements DataManager{
 	private final String mysql_settings_path = Constants.MYSQL_SETTINGS_PATH;
-	
+
 	private String host;
 	private String port;
 	private String db;
@@ -39,14 +38,14 @@ public class MySqlDataManager implements DataManager{
 
 	private String username;
 	private String password;
-	
+
 	private static final String select_blood_bag = "SELECT* FROM BLOODBAGS"
-												+ "WHERE BLOODGROUP = ?";		
+												+ "WHERE BLOODGROUP = ?";
 
 	/**
 	 * potremmo aggiungere anche la possibilita di inizializzarlo con un user*/
 	public MySqlDataManager(String username, String password) {
-	
+
 		Properties loadProps = XMLHelper.getProps(mysql_settings_path);
 		host 	= loadProps.getProperty(Constants.TAG_HOST);
 		port 	= loadProps.getProperty(Constants.TAG_PORT);
@@ -272,6 +271,31 @@ public class MySqlDataManager implements DataManager{
 		}
 	}
 
+	public List<String> getComuniFromProvincia(String provincia){
+		List<String> comuni = new ArrayList<>();
+		String query = 	"select c.nome \n" +
+				"from comuni c join province p join regioni r\n" +
+				"on c.id_provincia = p.id and p.id_regione = r.id\n" +
+				"where p.nome = ?";
+
+		try {
+			Connection connection = DriverManager.getConnection(url+"locations",username,password);
+
+			PreparedStatement pr = connection.prepareStatement(query);
+			pr.setString(1,provincia);
+
+			ResultSet rs = pr.executeQuery();
+			while (rs.next()){
+				System.out.println(rs.getString("nome"));
+			}
+			rs.close();
+			return comuni;
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+		//throw exception
+		return null;
+	}
 
 
 	@Override
