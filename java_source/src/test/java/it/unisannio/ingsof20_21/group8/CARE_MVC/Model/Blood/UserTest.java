@@ -207,7 +207,7 @@ public class UserTest {
 	public void testSetResidence() throws UserException, NullPasswordException {
 		
 		User u = new User("Francesca", "AAAbbbccc@123");
-		u.setResidence(country);
+		//u.setResidence(country);
 	}
 	
 	@Test

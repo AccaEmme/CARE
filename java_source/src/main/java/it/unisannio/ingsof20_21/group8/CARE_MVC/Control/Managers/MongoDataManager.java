@@ -633,6 +633,18 @@ public class MongoDataManager implements AdminInterface, WhareHouseWorkerInterfa
 		
 	}
 
+	@Override
+	public void addBloodBag(BloodBag s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<BloodBag> getBloodBag(BloodGroup bloodGroup) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
     
