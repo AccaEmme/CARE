@@ -243,7 +243,7 @@ public class UserTest {
 				Password.validatePlaintextPasswordPattern(password)
 				);
 	}
-	
+
 	@Test
 	public void testSetPasswordValid() {
 		Role r 			= Role.valueOf("Officer");
