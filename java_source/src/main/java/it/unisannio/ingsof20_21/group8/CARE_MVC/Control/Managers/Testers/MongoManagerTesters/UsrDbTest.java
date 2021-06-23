@@ -55,16 +55,16 @@ public static void main(String[] args) throws ParseException, UserException, Nul
 		Date d3=format.parse("2021-06-06");
 		Date d4=format.parse("1999-06-06");
 		
-		BloodBagInterface bbi1 = new BloodBag(s,BloodGroup.Apos,d4,d1,CF1,n1,BloodBagState.Dropped,"");
-		BloodBagInterface bbi2 = new BloodBag(s,BloodGroup.Apos,d4,d2,CF1,n1,BloodBagState.Dropped,"");
-		BloodBagInterface bbi3 = new BloodBag(s,BloodGroup.Apos,d4,d3,CF1,n1,BloodBagState.Dropped,"");
+		BloodBag bbi1 = new BloodBag(s,BloodGroup.Apos,d4,d1,CF1,n1,BloodBagState.Dropped,"");
+		BloodBag  bbi2 = new BloodBag(s,BloodGroup.Apos,d4,d2,CF1,n1,BloodBagState.Dropped,"");
+		BloodBag bbi3 = new BloodBag(s,BloodGroup.Apos,d4,d3,CF1,n1,BloodBagState.Dropped,"");
 		
 	//	public BloodBag( Serial s,BloodGroup b, Date creationD,Date expirationD,String donator,Node n,BloodBagState BagState,String not) 
 	//dm.updateUser(u);
 
 	/*	u0.setRole(Role.Officer);*/
-		dm.addUser(u0);
-		dm.addUser(u1);
+		/*dm.addUser(u0);
+		dm.addUser(u1);*/
 
 
 		mi.addBloodBag(bbi1);

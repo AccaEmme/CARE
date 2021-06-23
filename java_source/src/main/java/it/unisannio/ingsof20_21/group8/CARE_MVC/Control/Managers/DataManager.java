@@ -44,6 +44,6 @@ public interface DataManager {
 	void addLocation(Location location);
 
 	void addNode(Node node);
-	void addBloodBag(BloodBag s);
+	void addBloodBag(BloodBag s) throws ParseException;
 	List<BloodBag> getBloodBag(BloodGroup bloodGroup);
 }

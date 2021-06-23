@@ -2,8 +2,13 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+
+import org.bson.Document;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.StateException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
@@ -137,7 +142,14 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 	public Date getExpirationDate() {
 		return this.expirationDate;
 	}
-	
+	public String getExpirationDateS() {
+		DateTimeFormatter format1 = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+		return format1.format( (TemporalAccessor) this.expirationDate);
+	}
+	public String getCreationDateS() {
+		DateTimeFormatter format1 = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+		return format1.format( (TemporalAccessor) this.creationDate);
+	}
 	private void 		setExpirationDate(Date expirationDate) { 
 		if(!expirationDate.after(creationDate)) throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"expirationDate "+expirationDate+" not > creationDate "+creationDate );
 		this.expirationDate = expirationDate;
@@ -235,6 +247,22 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 		return false;
 	}
 	
+	 private static final String ELEMENT_GROUP 			= "BloodGroup";
+	    private static final String ELEMENT_SERIAL 			= "serial";
+	    private static final String ELEMENT_CREATIONDATE 	= "creationDate";
+	    private static final String ELEMENT_EXPIRATIONDATE 	= "expirationDate";
+	    private static final String ELEMENT_DONATORCF 		= "donatorCF";
+	    private static final String ELEMENT_NODE 			= "node";
+	    private static final String ELEMENT_BLOODBAGSTATE 	= "bloodBagState";
+	    private static final String ELEMENT_NOTE 			= "note";
+	 public Document getDocument(){
+	        Document document = new Document("BloodGroup",this.getBloodGroup()).append("serial", this.getSerial())
+	        		.append("creationDate",this.getCreationDateS()).append("expirationDate", this.getExpirationDateS())
+	        		.append("donatorCF", this.getDonatorCF()).append("node", this.getNode().toString()).append("bloodBagSate", this.bloodBagState)
+	        		.append("note",this.getNote());
+	 
+	        return document;
+	    }
 	public int compareTo(BloodBag bloodBag) {
 		return this.creationDate.compareTo(bloodBag.creationDate);
 	}

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Request.Request;
 
@@ -15,7 +16,7 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Request.Request;
 
 
 public interface WareHouseWorkerInterface extends DataManager {
-	public void addBloodBag(BloodBagInterface bbi) throws ParseException;
+	public void addBloodBag(BloodBag bbi) throws ParseException;
 	
 	public void acceptRequest(Request request);
 	

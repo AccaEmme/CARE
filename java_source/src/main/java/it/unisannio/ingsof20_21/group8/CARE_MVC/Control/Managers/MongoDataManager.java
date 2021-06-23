@@ -61,14 +61,7 @@ public class MongoDataManager implements AdminInterface, WareHouseWorkerInterfac
   //#######################################################
     private static final String COLLECTION_BAG			= "blood-bags";
     
-    private static final String ELEMENT_GROUP 			= "BloodGroup";
-    private static final String ELEMENT_SERIAL 			= "serial";
-    private static final String ELEMENT_CREATIONDATE 	= "creationDate";
-    private static final String ELEMENT_EXPIRATIONDATE 	= "expirationDate";
-    private static final String ELEMENT_DONATORCF 		= "donatorCF";
-    private static final String ELEMENT_NODE 			= "node";
-    private static final String ELEMENT_BLOODBAGSTATE 	= "bloodBagState";
-    private static final String ELEMENT_NOTE 			= "note";
+  
   
   //#######################################################
     private static final String COLLECTION_REQUEST		= "request";
@@ -161,7 +154,11 @@ public class MongoDataManager implements AdminInterface, WareHouseWorkerInterfac
 
         return db_collection_names;
     }
-
+/*    ###############             inzio a sistemare i metodi     ###############    */
+    
+    
+    
+    
     public void addUser(User user){
         MongoClientURI clientURI 		= new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient 		= new MongoClient(clientURI);
@@ -175,7 +172,8 @@ public class MongoDataManager implements AdminInterface, WareHouseWorkerInterfac
         mongoClient.close();
     }
 
-    @Override
+    
+	@Override
     public void deleteUser(User u) throws Exception {
     	MongoClientURI clientURI 		= new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient 		= new MongoClient(clientURI);
@@ -183,7 +181,7 @@ public class MongoDataManager implements AdminInterface, WareHouseWorkerInterfac
         MongoCollection mongoCollection = mongoDatabase.getCollection(COLLECTION_USER);
         
         if((mongoCollection.deleteOne((eq(ELEMENT_USERNAME,u.getUsername()))).getDeletedCount())==0) 
-            throw new Exception("MongoDataManager - deleteUser: User "+u.getUsername()+" not found");
+            new Exception("MongoDataManager - deleteUser: User "+u.getUsername()+" not found");
 
         mongoClient.close();
     }
@@ -195,10 +193,9 @@ public class MongoDataManager implements AdminInterface, WareHouseWorkerInterfac
 
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
 		MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_USER);
+        Document userD=u.getDocument();
 
-		Document user = new Document(ELEMENT_USERNAME, u.getUsername()).append(ELEMENT_PASSWORD, u.getPassword()); 
-		
-		if((collection.replaceOne((eq(ELEMENT_USERNAME,u.getUsername())), user).getMatchedCount())==0) {
+		if((collection.replaceOne((eq(ELEMENT_USERNAME,u.getUsername())), userD).getMatchedCount())==0) {
 			System.out.println("user not found");
 		} else {
 			System.out.println("user uptated");
@@ -207,109 +204,20 @@ public class MongoDataManager implements AdminInterface, WareHouseWorkerInterfac
 		mongoClient.close();
     }
 
-    private void validateUser(User user) throws UserException, NullUserException, NullPasswordException {
-        if (user == null)
-            throw new NullUserException("The user cannot be null!");
-        if (user.getPassword() == null)
-            throw new NullPasswordException("The password cannot be null");
-        if (user.getUsername() == null)
-            throw new UserException("The username cannot be null");
-    }
-
-    public User validateLogin(String username, String password) throws UserException, NullPasswordException {
-        MongoDataManager manager = new MongoDataManager();
-
-        User dbUser = manager.getUser(username);
-
-        System.out.println(dbUser.getDocument());
-        if (dbUser==null)   throw new UserException("User not found!");
-
-        User inUser = null;
-        inUser = new User(username,password);
-
-        if (inUser.getPassword().equals(dbUser.getPassword())) {
-            User user = new User(username, password);   //lascio lanciare l'eccezione perche non è il manager a doverla gestire
-            if (dbUser.getRole()!=null)
-                user.setRole(dbUser.getRole());
-            if (dbUser.getResidence()!=null)
-                user.setResidence(dbUser.getResidence());
-
-            return user;
-        }
-        else throw new UserException("Wrong password!");
-    }
-
-
-
-    public User getUser(String username){
-        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+    public void addBloodBag(BloodBag s) throws ParseException {   
+    	MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
-
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
-        MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(COLLECTION_USER);
+        MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_BAG);
 
-        Document document = mongoCollection.find(eq("username", username)).first();
-
-        Password password = new Password(document.getString("password"));   //already encoded
-
-        User user;
-        Location location;
-        try {
-            user = new User(document.getString("username"),password);
-            if (document.getString("role") != null){
-                String role = document.getString("role");
-                Role roleObj = Role.valueOf(role);
-                user.setRole(roleObj);
-            }
-            try {
-                Document locationDoc = (Document) document.get("location");
-                if (locationDoc!=null){
-                    String test = locationDoc.getString("street");
-                    /**
-                     *                  Country country, 	Region region, 			Province province,
-                     *     				City city, 			String street,			String streetNumber*/
-
-                    /*
-                    some debug
-                    Country country = Country.valueOf(locationDoc.getString("country"));
-                    Region region = Region.valueOf(locationDoc.getString("region"));
-                    Province province = Province.valueOf(locationDoc.getString("province"));
-                    City city = City.valueOf(locationDoc.getString("city"));
-                    String street = locationDoc.getString("street");
-                    String streetNumber = locationDoc.getString("street_number");
-
-
-
-                    System.out.println("Country: "+country);
-                    System.out.println("region: "+region);
-                    System.out.println("province: "+province);
-                    System.out.println("city: "+city);
-                    System.out.println("street: "+street);
-                    System.out.println("streetNumber: "+streetNumber);
-                    */
-
-                    location = new Location(Country.valueOf(locationDoc.getString("country")),
-                            Region.valueOf(locationDoc.getString("region")),
-                            Province.valueOf(locationDoc.getString("province")),
-                            City.valueOf(locationDoc.getString("city")),
-                            locationDoc.getString("street"),
-                            locationDoc.getString("street_number"),
-                            locationDoc.getString("zip_code"));
-                    user.setResidence(location);
-                }
-
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            return user;
-        } catch (UserException | NullPasswordException e) {
-            //preferisco silenziare l'eccezione perchè non puo verificarsi, in quanto i controlli vengono
-            //effettuati al momento di inserimento nel database
-        }
-        return null;
+        Document unaSacca = s.getDocument();
+        collection.insertOne(unaSacca); /*inserimento*/
+        mongoClient.close();
     }
-    
-    
+
+
+
+    /*
     public void getBloodBagExpiring(Date d,BloodGroup b) throws ParseException{
     	List<BloodBag> sacche = new ArrayList<BloodBag>();
     	
@@ -362,7 +270,7 @@ public class MongoDataManager implements AdminInterface, WareHouseWorkerInterfac
             }
         }
         /*public BloodBag( Serial s,BloodGroup b, Date creationD,Date expirationD,String donator,Node n,BloodBagState BagState,String not) throws ParseException {*/
-    	mongoClient.close();
+   /*	mongoClient.close();
     }
 
 
@@ -402,28 +310,26 @@ public class MongoDataManager implements AdminInterface, WareHouseWorkerInterfac
      	System.out.println("****************");
         	
         /*public BloodBag( Serial s,BloodGroup b, Date creationD,Date expirationD,String donator,Node n,BloodBagState BagState,String not) throws ParseException {*/
-        
+/*        
     	mongoClient.close();
 
 
-    }
+    }*/
     
-    public void addBloodBag(BloodBagInterface s) throws ParseException {   
+	@Override
+    public void addLocation(Location l) {
     	MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
         MongoClient mongoClient = new MongoClient(clientURI);
         MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
-        MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_BAG);
-
-        Document unaSacca = new Document(ELEMENT_SERIAL, s.getSerial().toString())
-        		.append(ELEMENT_GROUP, s.getBloodGroup().toString()) 
-                .append(ELEMENT_CREATIONDATE, s.getCreationDate().toString()) 
-                .append(ELEMENT_EXPIRATIONDATE, s.getExpirationDate().toString())
-                .append(ELEMENT_DONATORCF, s.getDonatorCF().toString()) .append(ELEMENT_NODE, s.getNode().toString())
-                .append (ELEMENT_BLOODBAGSTATE, s.getBloodBagState().toString()) .append(ELEMENT_NOTE, s.getNote().toString());    
-        collection.insertOne(unaSacca); /*inserimento*/
+        MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_LOCATION);
+        
+        Document location = new Document(ELEMENT_COUNTRY,l.getCountry()).append(ELEMENT_REGION, l.getRegion())
+        		.append(ELEMENT_PROVINCE, l.getProvince()).append(ELEMENT_CITY,l.getCity()).append(ELEMENT_STREET, l.getStreet())
+        		.append(ELEMENT_STATE, l.getStreetNumber()).append(ELEMENT_ZIPCODE, l.getZipCode());
+        collection.insertOne(location);
         mongoClient.close();
-    }
 
+    }
 
   
 
@@ -505,8 +411,105 @@ public class MongoDataManager implements AdminInterface, WareHouseWorkerInterfac
         }
     }	
 
+   private void validateUser(User user) throws UserException, NullUserException, NullPasswordException {
+        if (user == null)
+            throw new NullUserException("The user cannot be null!");
+        if (user.getPassword() == null)
+            throw new NullPasswordException("The password cannot be null");
+        if (user.getUsername() == null)
+            throw new UserException("The username cannot be null");
+    }
+ public User getUser(String username){
+        MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
+        MongoClient mongoClient = new MongoClient(clientURI);
 
- 
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
+        MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(COLLECTION_USER);
+
+        Document document = mongoCollection.find(eq("username", username)).first();
+
+        Password password = new Password(document.getString("password"));   //already encoded
+
+        User user;
+        Location location;
+        try {
+            user = new User(document.getString("username"),password);
+            if (document.getString("role") != null){
+                String role = document.getString("role");
+                Role roleObj = Role.valueOf(role);
+                user.setRole(roleObj);
+            }
+            try {
+                Document locationDoc = (Document) document.get("location");
+                if (locationDoc!=null){
+                    String test = locationDoc.getString("street");
+                    /**
+                     *                  Country country, 	Region region, 			Province province,
+                     *     				City city, 			String street,			String streetNumber*/
+
+                    /*
+                    some debug
+                    Country country = Country.valueOf(locationDoc.getString("country"));
+                    Region region = Region.valueOf(locationDoc.getString("region"));
+                    Province province = Province.valueOf(locationDoc.getString("province"));
+                    City city = City.valueOf(locationDoc.getString("city"));
+                    String street = locationDoc.getString("street");
+                    String streetNumber = locationDoc.getString("street_number");
+
+
+
+                    System.out.println("Country: "+country);
+                    System.out.println("region: "+region);
+                    System.out.println("province: "+province);
+                    System.out.println("city: "+city);
+                    System.out.println("street: "+street);
+                    System.out.println("streetNumber: "+streetNumber);
+                    */
+
+                    location = new Location(Country.valueOf(locationDoc.getString("country")),
+                            Region.valueOf(locationDoc.getString("region")),
+                            Province.valueOf(locationDoc.getString("province")),
+                            City.valueOf(locationDoc.getString("city")),
+                            locationDoc.getString("street"),
+                            locationDoc.getString("street_number"),
+                            locationDoc.getString("zip_code"));
+                    user.setResidence(location);
+                }
+
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+            return user;
+        } catch (UserException | NullPasswordException e) {
+            //preferisco silenziare l'eccezione perchè non puo verificarsi, in quanto i controlli vengono
+            //effettuati al momento di inserimento nel database
+        }
+        return null;
+    }
+     
+    public User validateLogin(String username, String password) throws UserException, NullPasswordException {
+        MongoDataManager manager = new MongoDataManager();
+
+        User dbUser = manager.getUser(username);
+
+        System.out.println(dbUser.getDocument());
+        if (dbUser==null)   throw new UserException("User not found!");
+
+        User inUser = null;
+        inUser = new User(username,password);
+
+        if (inUser.getPassword().equals(dbUser.getPassword())) {
+            User user = new User(username, password);   //lascio lanciare l'eccezione perche non è il manager a doverla gestire
+            if (dbUser.getRole()!=null)
+                user.setRole(dbUser.getRole());
+            if (dbUser.getResidence()!=null)
+                user.setResidence(dbUser.getResidence());
+
+            return user;
+        }
+        else throw new UserException("Wrong password!");
+    }
+ /*
  @Override
 	public void acceptRequest(Request r) {
 	 MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
@@ -540,22 +543,9 @@ public class MongoDataManager implements AdminInterface, WareHouseWorkerInterfac
         collection.insertOne(request);
         mongoClient.close();
 	}    
+	*/
 	
-	
-	@Override
-    public void addLocation(Location l) {
-    	MongoClientURI clientURI = new MongoClientURI(this.connectionStringURI);
-        MongoClient mongoClient = new MongoClient(clientURI);
-        MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db_name);
-        MongoCollection<Document> collection = mongoDatabase.getCollection(COLLECTION_LOCATION);
-        
-        Document location = new Document(ELEMENT_COUNTRY,l.getCountry()).append(ELEMENT_REGION, l.getRegion())
-        		.append(ELEMENT_PROVINCE, l.getProvince()).append(ELEMENT_CITY,l.getCity()).append(ELEMENT_STREET, l.getStreet())
-        		.append(ELEMENT_STATE, l.getStreetNumber()).append(ELEMENT_ZIPCODE, l.getZipCode());
-        collection.insertOne(location);
-        mongoClient.close();
 
-    }
 
   @Override
     public void writeLog(Logger logger) {
@@ -615,16 +605,35 @@ public class MongoDataManager implements AdminInterface, WareHouseWorkerInterfac
 		
 	}
 
-	@Override
-	public void addBloodBag(BloodBag s) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public List<BloodBag> getBloodBag(BloodGroup bloodGroup) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void addBloodBagRequest(Request r) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getBloodBagExpiring(Date d, BloodGroup b) throws ParseException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void acceptRequest(Request request) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void report() throws ParseException {
+		// TODO Auto-generated method stub
+		
 	}
 
 

@@ -95,7 +95,7 @@ public class User {
     public void setRole(Role r) {
     	this.role = r;
     }
-
+   
     public Document getDocument(){
         Document document = new Document("username",this.getUsername());
         document.append("password",this.getPassword());
