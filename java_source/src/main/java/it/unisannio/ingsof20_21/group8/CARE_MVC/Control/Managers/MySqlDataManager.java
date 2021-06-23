@@ -287,6 +287,7 @@ public class MySqlDataManager implements DataManager{
 			ResultSet rs = pr.executeQuery();
 			while (rs.next()){
 				System.out.println(rs.getString("nome"));
+				comuni.add(rs.getString("nome"));
 			}
 			rs.close();
 			return comuni;
@@ -295,6 +296,42 @@ public class MySqlDataManager implements DataManager{
 		}
 		//throw exception
 		return null;
+	}
+
+	public boolean checkLocation(Location location){
+		String region = location.getRegion().toString();
+		String province = location.getProvince().toString();
+		String city = location.getCity().toString();
+
+		String query = "select count(*) as \"check\" \n" +
+				"from regioni r join province p join comuni c\n" +
+				"on c.id_provincia = p.id and p.id_regione = r.id\n" +
+				"where \tr.nome = ? and\n" +
+				"p.nome = ? and\n" +
+				"c.nome = ?";
+
+
+		try {
+			Connection connection = DriverManager.getConnection(url+"locations",username,password);
+			PreparedStatement statement = connection.prepareStatement(query);
+
+			statement.setString(1,region);
+			statement.setString(2,province);
+			statement.setString(3,city);
+			//set strings
+
+			ResultSet result = statement.executeQuery();
+			while (result.next()){
+				//System.out.println(result.getInt("check"));
+				if (result.getInt("check") == 1)
+					return true;
+			}
+
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+
+		return false;
 	}
 
 
