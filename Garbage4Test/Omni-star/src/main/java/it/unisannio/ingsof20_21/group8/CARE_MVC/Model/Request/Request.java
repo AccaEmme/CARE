@@ -3,15 +3,22 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Request;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.bson.BsonReader;
+import org.bson.BsonWriter;
+import org.bson.Document;
+import org.bson.codecs.Codec;
+import org.bson.codecs.DecoderContext;
+import org.bson.codecs.EncoderContext;
+
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 
 public class Request {
 	
-	// codice Hermannnnnnnn
 	private User			UserRequester;
-	private	BloodBag		requestedBloodBag;
+	private BloodBag		requestedBloodBag;
 	private	Date			requestDate;
 	private	RequestState	requestState;
 	
@@ -21,8 +28,6 @@ public class Request {
 		this.requestDate 		= requestDate;
 		this.requestState 		= RequestState.pending;
 	}
-	
-	
 	
 	public User getUserRequester() {
 		return UserRequester;
@@ -80,46 +85,4 @@ public class Request {
 				+ "\"state\": \""+this.requestState.toString()+"\"}";
 	}
 
-
-
-
-	// codice Luigi
-	/*
-	private String userRequesting;
-	private String serialBloodBag;
-	private Date requestedDate;
-	private RequestState state;
-	public Request(String userRequesting, String SerialBloodBag, Date requestedDate, RequestState state) {
-		this.userRequesting=userRequesting;
-		this.serialBloodBag=serialBloodBag;
-		this.requestedDate=requestedDate;
-		this.state=state;
-	}
-
-	public String getUserRequesting() {
-		return userRequesting;
-	}
-
-	
-
-	public String getSerialBloodBag() {
-		return serialBloodBag;
-	}
-
-	public Date getRequestedDate() {
-		return requestedDate;
-	}
-
-	public RequestState getState() {
-		return state;
-	}
-
-	public void setState(RequestState state) {
-		this.state = state;
-	}
-	
-	public String getSerial() {
-		return serialBloodBag;
-	}
-	*/
 }

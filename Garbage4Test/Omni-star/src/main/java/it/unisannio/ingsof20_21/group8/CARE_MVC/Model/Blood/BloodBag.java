@@ -84,7 +84,7 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 		return this.creationDate;
 	}
 	
-	private void 		setCreationDate(Date creationDate) throws ParseException 		{
+	private void setCreationDate(Date creationDate) throws ParseException 		{
 		Calendar cal = Calendar.getInstance();
 		cal.setTime( this.creationDate );
 		cal.add(Calendar.DAY_OF_MONTH, -7);
@@ -195,18 +195,18 @@ public class BloodBag implements BloodBagInterface, Cloneable, Comparable<BloodB
 		this.bloodBagState = s;
 	}
 	
-	public void transferBag() throws StateException { 
-		if( !checkBloodBagState() )		throw new StateException("Stato della sacca non compatibile con l'operazione da eseguire. La sacca potrebbe essere stata trasferita o cestinata precedentemente.");	
+	public void transferBag() { 
+			
 		setBloodBagState(BloodBagState.Transfered);
 	}
 	
-	public void useBag() throws StateException {
-		if( !checkBloodBagState() )		throw new StateException("Stato della sacca non compatibile con l'operazione da eseguire. La sacca potrebbe essere stata trasferita o cestinata precedentemente.");
+	public void useBag() {
+		
 		setBloodBagState(BloodBagState.Used);
 	}
 	
-	public void dropBag() throws StateException {
-		if( !checkBloodBagState() )		throw new StateException("Stato della sacca non compatibile con l'operazione da eseguire. La sacca potrebbe essere stata trasferita o cestinata precedentemente.");
+	public void dropBag() {
+		
 		bloodBagState = BloodBagState.Dropped;
 	}
 
