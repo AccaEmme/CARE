@@ -79,8 +79,9 @@ public class Password {
 	
 	/**
 	**************************************************************************
-	 * Descrizione metodo
+	 * Metodo per il ritorno dell'hashcode con algoritmo MD5 del valore in ingresso inclundento il SALT
 	 * @param String input
+	 * @return hashtext.toUpperCase()
 	 **************************************************************************
     */
     public static String getMd5(String input)    {

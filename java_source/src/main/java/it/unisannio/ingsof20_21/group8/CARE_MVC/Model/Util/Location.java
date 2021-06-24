@@ -40,9 +40,8 @@ public class Location {
     
      /**
      **************************************************************************
-     * Descrizione del metodo
-     * @param 
-     * @return 
+     * Metodo per il return della location come document xml
+     * @return document
      **************************************************************************
      */
     public Document getDocument(){
