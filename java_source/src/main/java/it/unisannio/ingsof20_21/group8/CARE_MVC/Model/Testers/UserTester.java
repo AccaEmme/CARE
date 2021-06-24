@@ -42,14 +42,14 @@ public class UserTester {
 		String validpasswordcriteria 	= "PasswordBuona1@";
 
 		if (
-				Password.validatePassword(validpasswordcriteria)==true
+				Password.validatePlaintextPasswordPattern(validpasswordcriteria)==true
 			)
 				System.out.println("3");
 		else
 				System.out.println("not 3");
 	
 		if (
-			Password.validatePassword(notvalidpasswordcriteria)==true
+			Password.validatePlaintextPasswordPattern(notvalidpasswordcriteria)==true
 			)
 			System.out.println("4");
 		else

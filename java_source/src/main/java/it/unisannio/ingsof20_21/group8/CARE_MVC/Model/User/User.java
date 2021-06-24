@@ -65,7 +65,7 @@ public class User {
     }
 
     public void setPassword(String plainTextPassword) {
-    	Password.validatePassword(plainTextPassword);
+    	Password.validatePlaintextPasswordPattern(plainTextPassword);
         this.password 				= Password.getMd5( plainTextPassword + Constants.USER_MD5_SALT );
 		/*
         System.out.println("plainTextPassword: "+plainTextPassword
