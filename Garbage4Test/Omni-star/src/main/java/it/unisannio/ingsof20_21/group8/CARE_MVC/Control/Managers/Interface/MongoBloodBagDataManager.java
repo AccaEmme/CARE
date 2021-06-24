@@ -44,6 +44,12 @@ public class MongoBloodBagDataManager implements BloodBagDataManagerInterface {
 	+ "}";
 	*/
 
+	
+	/*aggiunge sacche già esistenti perche provengono da nodi esterni
+	 * al magazino centrale, le sacche dei magazzini periferici invece vengono gestite con SQL
+	 * (quindi solo il magazziniere centrale lo può fare)
+	 */
+	
 	@Override
 	public void addBloodBag(BloodBag bloodBag) {
 		
@@ -63,7 +69,7 @@ public class MongoBloodBagDataManager implements BloodBagDataManagerInterface {
    }
 
 	}
-
+// metodi per modificare le saccche che usa il magazziniere centrale
 	@Override
 	public void useBloodBag(BloodBag bloodBag) {
 		

@@ -6,5 +6,7 @@ public interface UserDataManagerInterface {
 
 	void addUser(User user);
 	
-	void editUser(User user);
+	void deleteUser(User user);
+	
+	void assignRole(User user);
 }

@@ -17,6 +17,8 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 
 public class Request {
 	
+	private String idNodeRequester,idNodeRequired;
+	
 	private User			UserRequester;
 	private BloodBag		requestedBloodBag;
 	private	Date			requestDate;
@@ -27,6 +29,8 @@ public class Request {
 		this.requestedBloodBag 	= requestedBloodBag;
 		this.requestDate 		= requestDate;
 		this.requestState 		= RequestState.pending;
+		/*this.idNodeRequester = userRequester.getResidence()./* get id location o posso prendermelo da un xml*/
+		this.idNodeRequired = requestedBloodBag.getNode().getCodStr();
 	}
 	
 	public User getUserRequester() {
