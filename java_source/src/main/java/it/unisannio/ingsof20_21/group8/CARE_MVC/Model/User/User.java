@@ -1,5 +1,6 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User;
 
+import java.io.IOException;
 import java.util.Date;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
@@ -17,18 +18,39 @@ public class User {
 	 * Al primo cambio password dell'utente, viene eliminata la password temporanea, impostata la password cifrata e viene segnato l'ultimo cambio password.
 	 */
 
+	
+	/**
+	**************************************************************************
+	 * Metodo per la creazione dell'utente con una passw in chiaro
+	 * @param String username, String plainTextPassword
+	 * @exception UserException, NullPasswordException
+	 **************************************************************************
+    */
     public User(String username, String plainTextPassword) throws UserException, NullPasswordException {
         this.validateCredentials(username,plainTextPassword);
         this.username = username;
         this.setPassword(plainTextPassword); 
     }
     
+    /**
+	**************************************************************************
+	 * Metodo per la creazione dell'utente con una passw criptata
+	 * @param String username, String hiddenPassword
+	 * @exception UserException, NullPasswordException
+	 **************************************************************************
+    */
     public User(String username, Password hiddenPassword) throws UserException, NullPasswordException {
         this.validateCredentials(username,hiddenPassword.getHiddenPassword());    //il metodo per prendere la password è getHiddenPassword
         this.username = username;
         this.password = hiddenPassword.getHiddenPassword();
     }
     
+    /**
+	**************************************************************************
+	 * Metodo per la creazione dell'utente con il nome dell'utente ed il ruolo
+	 * @param String username, Role role
+	 **************************************************************************
+    */
     @SuppressWarnings("deprecation")
 	public User(String username, Role role) {
     	// This constructor can be invoked by Administrator creates users.
@@ -43,6 +65,13 @@ public class User {
     	this.password_lastupdate = new Date();
     }
 
+    /**
+	**************************************************************************
+	 * Metodo per la validazione delle credenziali dell'utente
+	 * @param String username, String password
+	 * @exception UserException, NullPasswordException
+	 **************************************************************************
+    */
     public void validateCredentials(String username, String password) throws UserException, NullPasswordException {
         if (username == null)
             throw new UserException("The username cannot be null!");  
@@ -52,6 +81,13 @@ public class User {
             throw new UserException("The username or the password cannot be shorter than 5 chars");
     }
     
+    /**
+	**************************************************************************
+	 * Metodo per la validazione delle credenziali dell'utente
+	 * @param String username, String password
+	 * @exception UserException, NullPasswordException
+	 **************************************************************************
+    */
     public String getUsername() {
         return username;
     }
