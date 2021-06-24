@@ -1,6 +1,6 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User;
 
-import java.io.IOException;
+
 import java.util.Date;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
@@ -11,6 +11,12 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 import org.bson.Document;
 
 public class User {
+
+	   private String 		username, password, temppass;
+	   private Location 	residence;
+	   private Role 		role;
+	   private Date		password_lastupdate;
+	   
 	/*
 	 * Il costruttore genera una sessione utente.
 	 * Il costruttore genera l'MD5 della password data in input, per confrontarla.
@@ -83,23 +89,40 @@ public class User {
     
     /**
 	**************************************************************************
-	 * Metodo per la validazione delle credenziali dell'utente
-	 * @param String username, String password
-	 * @exception UserException, NullPasswordException
+	 * Metodo GET per ottenere lo username 
+	 * @return username
 	 **************************************************************************
     */
     public String getUsername() {
         return username;
     }
 
+    /**
+	**************************************************************************
+	 * Metodo SET per modificare lo username 
+	 * @param String username 
+	 **************************************************************************
+    */
     public void setUsername(String username) {
         this.username = username;
     } 
 
+    /**
+	**************************************************************************
+	 * Metodo GET per ottenere la password
+	 * @return password
+	 **************************************************************************
+    */
     public String getPassword() {
         return password;
     }
 
+    /**
+   	**************************************************************************
+   	 * Metodo SET per il moodificare la password
+   	 * @param String plainTextPassword
+   	 **************************************************************************
+       */
     public void setPassword(String plainTextPassword) {
     	Password.validatePlaintextPasswordPattern(plainTextPassword);
         this.password 				= Password.getMd5( plainTextPassword + Constants.USER_MD5_SALT );
@@ -112,26 +135,61 @@ public class User {
         this.temppass				= "";
     }
     
+    /**
+	**************************************************************************
+	 * Metodo GET per ottenere l'ultima password registrata
+	 * @return password_lastupdate
+	 **************************************************************************
+    */
     public Date getPasswordLastUpdate() {
     	return password_lastupdate;
     }
     
+    /**
+	**************************************************************************
+	 * Metodo GET per ottenere la residenza dell'utente
+	 * @return residence
+	 **************************************************************************
+    */
     public Location getResidence() {
     	return residence;
     }
     
+    /**
+	**************************************************************************
+	 * Metodo SET per modificare la residenza
+	 **************************************************************************
+    */
     public void setResidence(Location residence) {
     	this.residence=residence;
     }
     
+    /**
+	**************************************************************************
+	 * Metodo GET per ottenere il ruolo dell'utente
+	 * @return role
+	 **************************************************************************
+    */
     public Role getRole() {
     	return role;
     }
     
+    /**
+	**************************************************************************
+	 * Metodo SET per modificare il Ruolo
+	 * @param Role r
+	 **************************************************************************
+    */
     public void setRole(Role r) {
     	this.role = r;
     }
    
+    /**
+	**************************************************************************
+	 * Metodo per il return dell'utente come document xml
+	 * @return document
+	 **************************************************************************
+    */
     public Document getDocument(){
         Document document = new Document("username",this.getUsername());
         document.append("password",this.getPassword());
@@ -145,13 +203,13 @@ public class User {
         return document;
     }
     
+    /**
+	 **************************************************************************
+	 * Metodo per il tester Junit per verificare l'esistenza dell'oggetto USER
+	 * @return true
+	 **************************************************************************
+	 */
     public boolean exists() {
 		return true;
 	}
-   
-   
-    private String 		username, password, temppass;
-    private Location 	residence;
-    private Role 		role;
-    private Date		password_lastupdate;
 }
