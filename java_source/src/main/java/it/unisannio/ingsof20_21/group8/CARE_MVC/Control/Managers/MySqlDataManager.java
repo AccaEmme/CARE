@@ -398,6 +398,10 @@ public class MySqlDataManager implements DataManager{
 
 	}
 
+	public void getReport(){
+		
+	}
+
     /*
 	public List<BloodBag> getBloodBag(Blood g) {
 		String url = "jdbc:mysql://"+host+":"+port+"/"+db;
