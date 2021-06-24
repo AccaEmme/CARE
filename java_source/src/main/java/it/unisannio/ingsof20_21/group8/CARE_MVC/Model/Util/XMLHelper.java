@@ -10,6 +10,7 @@ import java.io.*;
 
 
 public class XMLHelper {
+	
 	public static void main(String[] args) {
 		String nationality="", prov="", codstr="", codint="", serialmatrix="";
 		nationality ="IT";
@@ -19,7 +20,15 @@ public class XMLHelper {
         serialmatrix = nationality+"-"+prov+codstr+codint;
 		initSerialXML( serialmatrix );
 	}
-	
+
+	/**
+	**************************************************************************
+	 * Descrizione metodo mancante
+	 * @param String xmlfilepath
+	 * @return null
+	 * @exception InvalidPropertiesFormatException, FileNotFoundException, IOException
+	 **************************************************************************
+    */
 	public static Properties getProps(String xmlfilepath) {
 		Properties loadProps = new Properties();
 		try {
@@ -35,6 +44,13 @@ public class XMLHelper {
 		return null;
 	}
 	
+	/**
+	**************************************************************************
+	 * Descrizione metodo mancante
+	 * @param String serialmatrix 
+	 * @exception IllegalArgumentException, IOException
+	 **************************************************************************
+    */
 	public static void initSerialXML( String serialmatrix ) {
 		String filesettings = Constants.SERIAL_SETTINGS_FILENAME_RELATIVEPATH;
 
@@ -97,6 +113,13 @@ public class XMLHelper {
 	
 	/* FOR JUNIT TEST*/
 	/*----------------------------------------------------*/
+	/**
+	**************************************************************************
+	 * Descrizione metodo mancante
+	 * @param Int x, String filesettings
+	 * @exception IOException
+	 **************************************************************************
+    */
 	public static void initXMLz(int x, String filesettings) {
         Scanner sc = new Scanner(System.in);
         String nationality, prov, codstr, codint, serialmatrix;
