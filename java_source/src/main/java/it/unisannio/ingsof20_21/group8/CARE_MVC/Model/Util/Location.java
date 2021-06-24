@@ -132,7 +132,8 @@ public class Location {
     /**
      **************************************************************************
      * Metodo Set per inserire una nuova strada
-     * @param streetR
+     * @param String streetR
+     * @exception IllegalArgumentException
      **************************************************************************
      */
     public void setStreet(String streetR) throws IllegalArgumentException{ 
@@ -144,7 +145,8 @@ public class Location {
     /**
      **************************************************************************
      * Metodo Set per inserire un nuovo numero della strada
-     * @param streetNumberR
+     * @param String streetNumberR
+     * @exception IllegalArgumentException
      **************************************************************************
      */
     public void setStreetNumber(String streetNumberR) throws IllegalArgumentException{
@@ -156,7 +158,7 @@ public class Location {
     /**
      **************************************************************************
      * Metodo Set per inserire una nuova città
-     * @param city
+     * @param String city
      **************************************************************************
      */
     public void setCity(String cityR) { city = City.valueOf(cityR); }
@@ -164,7 +166,7 @@ public class Location {
     /**
      **************************************************************************
      * Metodo Set per inserire una nuova provincia
-     * @param provinceR
+     * @param String provinceR
      **************************************************************************
      */
     public void setProvince(String provinceR) { province = Province.valueOf(provinceR); }
@@ -172,7 +174,7 @@ public class Location {
     /**
      **************************************************************************
      * Metodo Set per inserire una nuova regione
-     * @param regionR
+     * @param String regionR
      **************************************************************************
      */
     public void setRegion(String regionR) { region = Region.valueOf(regionR); }
@@ -180,7 +182,7 @@ public class Location {
     /**
      **************************************************************************
      * Metodo Set per inserire una nuova nazione
-     * @param countryR
+     * @param String countryR
      **************************************************************************
      */
     public void setCountry(String countryR) { country = Country.valueOf(countryR); }
@@ -188,7 +190,7 @@ public class Location {
     /**
      **************************************************************************
      * Metodo Set per inserire un nuovo zipcode
-     * @param ZIPcode
+     * @param String ZIPcode
      **************************************************************************
      */
     public void setZipCode(String ZIPcode) { 

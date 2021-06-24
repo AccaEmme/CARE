@@ -29,6 +29,13 @@ public class Password {
 	}
 	*/
 	
+	/**
+	**************************************************************************
+	 * Metodo che controlla se la passw è cripta
+	 * @param String hiddenPassword
+	 * @exception IllegalArgumentException
+	 **************************************************************************
+    */
 	public Password(String hiddenPassword) {
 		//assert hiddenPassword != null;
 		if( (hiddenPassword == null) || (hiddenPassword.equals("")) )
@@ -36,10 +43,22 @@ public class Password {
 		this.hiddenPassword = hiddenPassword;
 	}
 
+	/**
+     **************************************************************************
+     * Metodo per il GET della passw criptata
+     * @return hiddenPassword
+     **************************************************************************
+    */
 	public String getHiddenPassword() {
 		return this.hiddenPassword;
 	}
 	
+	/**
+     **************************************************************************
+     * Metodo per il Set della pasw Criptata
+     * @param String hiddenPass
+     **************************************************************************
+    */
 	public void setHiddenPassword(String hiddenPass) {
 		assert hiddenPass != null;
 		this.hiddenPassword = hiddenPass;
@@ -58,6 +77,12 @@ public class Password {
 	}
 	*/
 	
+	/**
+	**************************************************************************
+	 * Descrizione metodo
+	 * @param String input
+	 **************************************************************************
+    */
     public static String getMd5(String input)    {
     	input+=Constants.USER_MD5_SALT;
         try {
@@ -85,6 +110,13 @@ public class Password {
         }
     }
     
+    
+    /**
+	**************************************************************************
+	 * metodo per generare la passw dell'utente
+	 * @param int lenght
+	 **************************************************************************
+    */
     //public static char[] generatePassword(int length) {
     public static String generatePassword(int length) {
         String capitalCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -125,7 +157,15 @@ public class Password {
 			.                                 # matches anything
 			{8,20}                            # length at least 8 characters and maximum of 20 characters
 		$                                   # end of line
-	 */    
+	 */
+    
+    /**
+	**************************************************************************
+	 * Metodo che controlla se il Pattern della passw è giusto
+	 * @param final String givenPassword
+	 * @exception IllegalArgumentException
+	 **************************************************************************
+    */
     public static boolean validatePlaintextPasswordPattern(final String givenPassword) throws IllegalArgumentException {
     	final String PASSWORD_PATTERN =
                 "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";

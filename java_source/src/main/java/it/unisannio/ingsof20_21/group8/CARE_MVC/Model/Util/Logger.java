@@ -20,7 +20,14 @@ public class Logger {
         this.method = method;
         this.result = result;
     }
-
+    
+    /**
+     **************************************************************************
+     * Descrizione del metodo
+     * @param 
+     * @return 
+     **************************************************************************
+     */
     public void addLog(DataManager manager){
         manager.writeLog(this.now, this.currentUser, this.fromClass, this.method, this.result);
     }
