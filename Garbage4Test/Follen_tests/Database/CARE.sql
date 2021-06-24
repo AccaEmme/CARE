@@ -1,4 +1,4 @@
--- drop database care;
+-- drop database care_f;
 
 CREATE DATABASE IF NOT EXISTS  `CARE_F` 
 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -21,6 +21,8 @@ CREATE TABLE IF NOT EXISTS `role_table` (
     -- 3 : Administrator
 );
 
+
+
 CREATE TABLE IF NOT EXISTS `locations_table`(
  id_location	int		 	PRIMARY KEY,
  country		char(30)	NOT NULL,
@@ -30,6 +32,26 @@ CREATE TABLE IF NOT EXISTS `locations_table`(
  street 		char(150) 	NOT NULL,
  streetNumber	char(5)	,
  ZipCode		char(5)
+);
+
+CREATE TABLE IF NOT EXISTS `users_table`(
+	id_user 				int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	username 				char(30) NOT NULL,
+	hiddenpassword			char(32) NOT NULL,
+	temppass				char(32),
+	password_lastupdate	int NOT NULL,
+	lastaccess				int NOT NULL,
+
+	id_role					smallint	NOT NULL,
+
+	location				int,
+
+	FOREIGN KEY 	(location)
+		REFERENCES 	`locations_table` (id_location),
+        
+	FOREIGN KEY		(id_role) 
+		REFERENCES `role_table`(id_role) 	-- referenzia la tabella dei ruoli applicando un vincolo di chiave esterna
+	-- Es. 1 | GCanfora | ea66ebb84ff0940dd72a35d12bcd8a72 | TempPassword@1 | 1620038942 | 1
 );
 
 
