@@ -2,8 +2,8 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.Testers.MongoM
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.MongoDataManager;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.UserManager;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.NullPasswordException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.UserException;
 
 import java.util.Scanner;
 

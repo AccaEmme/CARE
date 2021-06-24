@@ -16,13 +16,13 @@ import org.junit.jupiter.params.provider.MethodSource;*/
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.NullPasswordException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Role;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.City;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Province;

@@ -5,6 +5,9 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.NullPasswordException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.NullUserException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Serial;
@@ -12,13 +15,9 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.BloodBagI
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Interfaces.StoreManagerInterface;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Request.Request;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.NullUserException;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Role;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
-
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.City;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;

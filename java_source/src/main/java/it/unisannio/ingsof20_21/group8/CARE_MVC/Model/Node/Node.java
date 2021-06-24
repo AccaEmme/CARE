@@ -9,6 +9,11 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 
 public class Node {
+	private String codStr, nodeName;
+	private Location warehouse;
+	private TreeMap<BloodGroup, ArrayList<Integer>> quantities;
+	private TreeMap<BloodGroup, ArrayList<Integer>> temp_quantities;
+	
 	public Node(String codStr, String nodeName, Location warehouse) {
 		this.setCodStr(codStr);
 		this.setNodeName(nodeName);
@@ -100,9 +105,4 @@ public class Node {
 		  }
 		output.println("]");
 	}
-	
-	private String codStr, nodeName;
-	private Location warehouse;
-	private TreeMap<BloodGroup, ArrayList<Integer>> quantities;
-	private TreeMap<BloodGroup, ArrayList<Integer>> temp_quantities;
 }

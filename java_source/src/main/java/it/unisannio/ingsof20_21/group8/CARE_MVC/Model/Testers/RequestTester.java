@@ -4,18 +4,18 @@ import java.text.ParseException;
 import java.util.Date;
 
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Control.Managers.RequestManager;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.NullPasswordException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Request.Request;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.City;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Province;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 
 public class RequestTester {
 

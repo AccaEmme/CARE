@@ -3,9 +3,9 @@ package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User;
 
 import java.util.Date;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.Exceptions.UserException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.NullPasswordException;
+import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Exceptions.NullPasswordException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 import org.bson.Document;
