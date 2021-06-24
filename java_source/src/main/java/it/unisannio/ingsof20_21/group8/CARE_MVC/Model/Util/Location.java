@@ -127,7 +127,6 @@ public class Location {
     public String getZipCode() { return ZIPCode; }
     
     
-    
     /**
      **************************************************************************
      * Metodo Set per inserire una nuova strada
