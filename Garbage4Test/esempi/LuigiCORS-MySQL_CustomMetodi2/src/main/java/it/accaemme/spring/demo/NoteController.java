@@ -50,8 +50,14 @@ public class NoteController implements ContainerResponseFilter {
 	@GetMapping("/notes/{title}")
 	public Iterable<Note> getNotesbytitle(@PathVariable String title){
 		return noteRepository.findByTitle(title);   /*.orElseThrow();*/
-}
+	}
 
+	@PostMapping("/note")
+	public Note createSingleNote(@RequestBody Note noteJustTitle) {
+		//Note n = new Note(noteTitle, "HoVogliaDiThe");
+		noteJustTitle.setContent("HoVogliaDiGelato");
+		return noteRepository.save(noteJustTitle);
+	}
 	
 	@PostMapping("/notes")
 	public Note createNote(@RequestBody Note newNote) {

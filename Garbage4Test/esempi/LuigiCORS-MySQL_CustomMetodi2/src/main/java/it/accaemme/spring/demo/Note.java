@@ -6,7 +6,6 @@ import javax.persistence.Id;
 
 //import lombok.Data;
 
-
 //@Data
 @Entity
 public class Note{
@@ -14,8 +13,10 @@ public class Note{
 	 @Id private String title;
 	 private String content;
 
+	 
 	 Note(){}
-
+	 
+	 
 	 public Note(String title, String content){
 	  super();
 	  this.title = title;
