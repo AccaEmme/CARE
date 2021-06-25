@@ -11,7 +11,11 @@ import java.util.stream.Collectors;
 public enum BloodGroup {
 	Apos, Aneg, Bpos, Bneg, ZEROpos, ZEROneg, ABpos, ABneg;
 	
-	
+	/**
+	 **************************************************************************
+	 * Metodo privato per la creazione della HASMAP con tutti i tipi di sacche di chi può donare
+	 **************************************************************************
+	 */
 	private static  HashMap<BloodGroup, List<BloodGroup>> canDonateTo = new HashMap() {
 		{
 			put(Apos, new ArrayList<BloodGroup>(Arrays.asList(Apos, ABpos)));
@@ -25,6 +29,11 @@ public enum BloodGroup {
 		}
 	};
 	
+	/**
+	 **************************************************************************
+	 * Metodo privato per la creazione della HASMAP con tutti i tipi di sacche di chi può ricevere
+	 **************************************************************************
+	 */
 	private static HashMap<BloodGroup, List<BloodGroup>> canReceiveFrom = new HashMap() {
 		{
 			put (Apos, new ArrayList<BloodGroup>(Arrays.asList(Apos, Aneg, ZEROpos, ZEROneg)));
@@ -38,15 +47,32 @@ public enum BloodGroup {
 		}
 	};
 	
-	/* To preserve data we use Iterator to deny to remove items */
+	/**
+	 **************************************************************************
+	 * Metodo per preservare i dati e per negare la rimozione di elemnti da chi dona
+	 * @param BloodGroup b
+	 **************************************************************************
+	 */
 	public static Iterator<BloodGroup> canDonateTo(BloodGroup b){
 		return canDonateTo.get(b).iterator();
 	}
 	
+	/**
+	 **************************************************************************
+	 * Metodo per preservare i dati e per negare la rimozione di elemnti da chi riceve
+	 * * @param BloodGroup b
+	 **************************************************************************
+	 */
 	public static Iterator<BloodGroup> canReceiveFrom(BloodGroup b){
 		return canReceiveFrom.get(b).iterator();
 	}
 	
+	/**
+	 **************************************************************************
+	 * Metodo per delimitare i valori inseribili
+	 * * @param String delimiter
+	 **************************************************************************
+	 */
 	public static String delimitedValues(String delimiter) {
 		/*
 		 * suggested delimitator: pipeline "|"		comma ","		semicolon ";"		tab "\t"		dash "-"	space " "
