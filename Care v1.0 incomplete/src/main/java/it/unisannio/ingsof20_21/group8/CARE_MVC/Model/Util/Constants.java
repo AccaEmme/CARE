@@ -8,9 +8,9 @@ public class Constants {
 
     //#################################################### General Strings ####################################################	
 	public static final String DATE_FORMAT 					= "yyyyMMdd";
-	public static final SimpleDateFormat dateFormat 		= new SimpleDateFormat(DATE_FORMAT);
+	//public static final SimpleDateFormat dateFormat 		= new SimpleDateFormat(DATE_FORMAT);
     public static final String DATE_FORMAT_STRING 			= "yyyy-MM-dd";
-    public static final SimpleDateFormat dateFormatString 	= new SimpleDateFormat(DATE_FORMAT_STRING);
+    //public static final SimpleDateFormat dateFormatString = new SimpleDateFormat(DATE_FORMAT_STRING);
     
     //#################################################### Serial Strings ####################################################
     public static final String SERIAL_SETTINGS_RELATIVEPATH = "localsettings/";
