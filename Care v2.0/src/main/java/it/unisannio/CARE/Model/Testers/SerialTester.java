@@ -10,8 +10,8 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 import java.util.Scanner;
 
-import it.unisannio.CARE.Model.Classes.Serial;
-import it.unisannio.CARE.Model.Util.BloodGroup;
+import it.unisannio.CARE.Model.BloodBag.BloodGroup;
+import it.unisannio.CARE.Model.BloodBag.Serial;
 import it.unisannio.CARE.Model.Util.Constants;
 
 public class SerialTester {

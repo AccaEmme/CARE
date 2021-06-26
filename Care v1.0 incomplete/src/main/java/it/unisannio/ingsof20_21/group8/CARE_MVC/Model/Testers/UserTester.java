@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import it.unisannio.CARE.Model.Util.Password;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 
 public class UserTester {
 

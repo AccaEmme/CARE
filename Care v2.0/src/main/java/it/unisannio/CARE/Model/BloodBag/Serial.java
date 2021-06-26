@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Model.Classes;
+package it.unisannio.CARE.Model.BloodBag;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.Scanner;
 
-import it.unisannio.CARE.Model.Util.BloodGroup;
 import it.unisannio.CARE.Model.Util.Constants;
 import it.unisannio.CARE.Model.Util.XMLHelper;
 

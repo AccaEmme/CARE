@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Control.Classes;
+package it.unisannio.CARE.Control.BloodBags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
-import it.unisannio.CARE.Exceptions.RequestCloneNotSupportedException;
-import it.unisannio.CARE.Exceptions.RequestNotFoundException;
-import it.unisannio.CARE.Model.Classes.Request;
-import it.unisannio.CARE.Model.Util.RequestState;
+import it.unisannio.CARE.Model.BloodBag.Request;
+import it.unisannio.CARE.Model.Exceptions.RequestCloneNotSupportedException;
+import it.unisannio.CARE.Model.Exceptions.RequestNotFoundException;
 
 public class RequestManager {
 /*

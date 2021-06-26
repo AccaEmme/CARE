@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Exceptions;
+package it.unisannio.CARE.Model.Exceptions;
 
 public class BloodBagCloneException extends Exception {
 

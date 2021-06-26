@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Model.Classes;
+package it.unisannio.CARE.Model.BloodBag;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,10 +10,9 @@ import java.util.Locale;
 
 import org.bson.Document;
 
-import it.unisannio.CARE.Model.Util.BloodGroup;
-import it.unisannio.CARE.Exceptions.StateException;
+import it.unisannio.CARE.Model.BloodBag.*;
+import it.unisannio.CARE.Model.Exceptions.StateException;
 import it.unisannio.CARE.Model.Util.Constants;
-import it.unisannio.CARE.Model.Classes.*;
 
 
 

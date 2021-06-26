@@ -2,6 +2,8 @@ package it.unisannio.CARE.Model.Util;
 
 import java.text.SimpleDateFormat;
 
+import it.unisannio.CARE.Model.BloodBag.BloodGroup;
+
 
 
 public class Constants {

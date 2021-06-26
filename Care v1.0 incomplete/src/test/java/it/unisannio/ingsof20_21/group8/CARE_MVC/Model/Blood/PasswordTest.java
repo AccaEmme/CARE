@@ -1,9 +1,9 @@
 package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
 
+import it.unisannio.CARE.Model.Util.Password;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.NullPasswordException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.UserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

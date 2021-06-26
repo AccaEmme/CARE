@@ -1,4 +1,4 @@
-package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util;
+package it.unisannio.CARE.Model.Util;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 public class Password {
 	/*

@@ -5,6 +5,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import it.unisannio.CARE.Model.Util.Password;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.NullPasswordException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.NullUserException;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.UserException;
@@ -24,7 +25,6 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Province;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Logger;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Password;
 import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.XMLHelper;
 
 import org.bson.Document;

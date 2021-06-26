@@ -3,15 +3,12 @@ package it.unisannio.CARE.Model.Testers;
 import java.text.ParseException;
 import java.util.Date;
 
-import it.unisannio.CARE.Control.Classes.RequestManager;
-import it.unisannio.CARE.Model.Classes.*;
-import it.unisannio.CARE.Model.Classes.BloodBag.BloodBagState;
-import it.unisannio.CARE.Model.Classes.Request.RequestPriority;
-import it.unisannio.CARE.Model.Classes.Request.RequestState;
-import it.unisannio.CARE.Model.Util.BloodGroup;
-import it.unisannio.CARE.Model.Util.Serial;
+import it.unisannio.CARE.Control.BloodBags.RequestManager;
+import it.unisannio.CARE.Model.BloodBag.*;
+import it.unisannio.CARE.Model.BloodBag.Request.RequestPriority;
+import it.unisannio.CARE.Model.BloodBag.Request.RequestState;
 
-public class RequestMAnagerTester {
+public class RequestManagerTester {
 
 	public static void main(String[] args) throws ParseException {
 

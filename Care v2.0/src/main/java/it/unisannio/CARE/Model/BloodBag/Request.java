@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Model.Classes;
+package it.unisannio.CARE.Model.BloodBag;
 
 
 import java.util.Date;

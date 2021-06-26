@@ -1,20 +1,19 @@
-package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User;
+package it.unisannio.CARE.Model.User;
 
 
 import java.util.Date;
 
-import it.unisannio.CARE.Model.Util.Password;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.NullPasswordException;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Exceptions.UserException;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
-
 import org.bson.Document;
+
+import it.unisannio.CARE.Model.Exceptions.NullPasswordException;
+import it.unisannio.CARE.Model.Exceptions.UserException;
+import it.unisannio.CARE.Model.Util.Constants;
+import it.unisannio.CARE.Model.Util.Password;
 
 public class User {
 
 	   private String 		username, password, temppass;
-	   private Location 	residence;
+	   //private Location 	residence;
 	   private Role 		role;
 	   private Date		password_lastupdate;
 	   
@@ -146,24 +145,8 @@ public class User {
     	return password_lastupdate;
     }
     
-    /**
-	**************************************************************************
-	 * Metodo GET per ottenere la residenza dell'utente
-	 * @return residence
-	 **************************************************************************
-    */
-    public Location getResidence() {
-    	return residence;
-    }
-    
-    /**
-	**************************************************************************
-	 * Metodo SET per modificare la residenza
-	 **************************************************************************
-    */
-    public void setResidence(Location residence) {
-    	this.residence=residence;
-    }
+   
+   
     
     /**
 	**************************************************************************
@@ -194,8 +177,6 @@ public class User {
     public Document getDocument(){
         Document document = new Document("username",this.getUsername());
         document.append("password",this.getPassword());
-        if (this.getResidence()!=null)
-            document.append("location",this.getResidence().getDocument());
         if (this.getRole()!=null)
             document.append("role",this.getRole().toString());
         if (this.getPasswordLastUpdate()!=null)
