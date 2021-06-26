@@ -13,7 +13,7 @@ import org.bson.Document;
 import it.unisannio.CARE.Model.Util.BloodGroup;
 import it.unisannio.CARE.Exceptions.StateException;
 import it.unisannio.CARE.Model.Util.Constants;
-import it.unisannio.CARE.Model.Util.Serial;
+import it.unisannio.CARE.Model.Classes.*;
 
 
 
