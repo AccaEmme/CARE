@@ -36,22 +36,29 @@ public class UserBean { // *** UserDAO ???
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int 		idUser;
 	
+	// ============USER Attributes
     @Column(unique = true, nullable = false)
 	private String  	username;
     private String		hiddenPassword;
-    private	int			loginAttempts;
+    //private String		plainTextPassword;
     
     //private Password	hiddenPasswordObj;
-	//private String		plainTextPassword;
+	
 	// temp password gestita sempre attraverso hiddenPassword
 	
 	@Column(unique = true, nullable = false)
 	private String		email;
-		
+
+	// ============ROLE Attributes
+	private String		userRole;
+	
+	// ============Access Attributes
+	
 	private Date		creationDate;
 	private Date		lastAccess;
-	
+    private	int			loginAttempts;
 	private boolean		activeUser;
+	
 	
 	public UserBean() {}
 	
@@ -142,6 +149,24 @@ public class UserBean { // *** UserDAO ???
 	}
 
 	/**
+	 * @return the userRole
+	 */
+	public String getUserRole() {
+		return userRole;
+	}
+
+
+
+	/**
+	 * @param userRole the userRole to set
+	 */
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
+	}
+
+
+
+	/**
 	 * @return the creationDate
 	 */
 	public String getCreationDate() {
@@ -176,7 +201,7 @@ public class UserBean { // *** UserDAO ???
 	/**
 	 * @return the activeUser
 	 */
-	public boolean isActiveUser() {
+	public boolean isActiveUser() {	
 		return activeUser;
 	}
 

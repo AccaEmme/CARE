@@ -55,6 +55,7 @@ public class NoteController implements ContainerResponseFilter {
 	
 	@PostMapping("/notes")
 	public Note createNote(@RequestBody Note newNote) {
+		BloodBag b = new BloodBag ( newNote.getX, newNote.getY );
 		return noteRepository.save(newNote);
 	}
 	

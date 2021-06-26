@@ -5,17 +5,30 @@ import java.util.Date;
 
 import org.bson.Document;
 
+import it.unisannio.CARE.Model.Beans.UserBean;
 import it.unisannio.CARE.Model.Exceptions.NullPasswordException;
 import it.unisannio.CARE.Model.Exceptions.UserException;
 import it.unisannio.CARE.Model.Util.Constants;
 import it.unisannio.CARE.Model.Util.Password;
 
 public class User {
+	private String 		username, hiddenPassword, temppass, plainTextPassword, email;
+	//private Location 	residence;
+	private Role 		role;
+	private Date			password_lastupdate;
+	
+	
+	// Costruttore creazione utente
+	public User(String username, String plainTextPassword, Role role) {
+		this.username 		= username;
+		this.hiddenPassword	= Password.getMd5(plainTextPassword);
+		this.role = role;
+		//this.password_lastupdate = password_lastupdate;
+		//this.temppass = temppass;
+	}
 
-	   private String 		username, password, temppass;
-	   //private Location 	residence;
-	   private Role 		role;
-	   private Date		password_lastupdate;
+	
+	
 	   
 	/*
 	 * Il costruttore genera una sessione utente.
@@ -24,6 +37,8 @@ public class User {
 	 * Al primo cambio password dell'utente, viene eliminata la password temporanea, impostata la password cifrata e viene segnato l'ultimo cambio password.
 	 */
 
+	   
+	   
 	
 	/**
 	**************************************************************************
@@ -32,11 +47,12 @@ public class User {
 	 * @exception UserException, NullPasswordException
 	 **************************************************************************
     */
+	   /*
     public User(String username, String plainTextPassword) throws UserException, NullPasswordException {
         this.validateCredentials(username,plainTextPassword);
         this.username = username;
         this.setPassword(plainTextPassword); 
-    }
+    }*/
     
     /**
 	**************************************************************************
@@ -45,31 +61,33 @@ public class User {
 	 * @exception UserException, NullPasswordException
 	 **************************************************************************
     */
+	   /*
     public User(String username, Password hiddenPassword) throws UserException, NullPasswordException {
         this.validateCredentials(username,hiddenPassword.getHiddenPassword());    //il metodo per prendere la password è getHiddenPassword
         this.username = username;
         this.password = hiddenPassword.getHiddenPassword();
     }
-    
+    */
     /**
 	**************************************************************************
 	 * Metodo per la creazione dell'utente con il nome dell'utente ed il ruolo
 	 * @param String username, Role role
 	 **************************************************************************
     */
+	   /*
     @SuppressWarnings("deprecation")
 	public User(String username, Role role) {
     	// This constructor can be invoked by Administrator creates users.
     	
     	this.username	= username;
-    	this.temppass	= String.valueOf(
-    								Password.generatePassword(Constants.USER_TEMPPASS_LENGTH)
-    						);
+    	this.temppass	= Password.generatePassword(Constants.USER_TEMPPASS_LENGTH);
     	this.setPassword(temppass);
     	this.role		= role;
     	
     	this.password_lastupdate = new Date();
     }
+    */
+	   
 
     /**
 	**************************************************************************
@@ -87,7 +105,8 @@ public class User {
             throw new UserException("The username or the password cannot be shorter than 5 chars");
     }
     
-    /**
+
+	/**
 	**************************************************************************
 	 * Metodo GET per ottenere lo username 
 	 * @return username
@@ -109,12 +128,12 @@ public class User {
 
     /**
 	**************************************************************************
-	 * Metodo GET per ottenere la password
+	 * Metodo GET per ottenere la hidden password
 	 * @return password
 	 **************************************************************************
     */
     public String getPassword() {
-        return password;
+        return hiddenPassword;
     }
 
     /**
@@ -125,7 +144,7 @@ public class User {
        */
     public void setPassword(String plainTextPassword) {
     	Password.validatePlaintextPasswordPattern(plainTextPassword);
-        this.password 				= Password.getMd5( plainTextPassword + Constants.USER_MD5_SALT );
+        this.hiddenPassword			= Password.getMd5( plainTextPassword + Constants.USER_MD5_SALT );
 		/*
         System.out.println("plainTextPassword: "+plainTextPassword
 				+"\t Constants.USER_MD5_SALT: "+ Constants.USER_MD5_SALT
@@ -183,6 +202,16 @@ public class User {
             document.append("password_last_update",this.getPasswordLastUpdate());
  
         return document;
+    }
+    
+    public UserBean	getUserBean() {
+    	UserBean ub = new UserBean();
+    	ub.setUsername(this.username);
+    	ub.setHiddenPassword(this.hiddenPassword);
+    	ub.setEmail(this.email);
+    	ub.setUserRole( this.role.toString() );
+    	
+		return ub;
     }
     
     /**

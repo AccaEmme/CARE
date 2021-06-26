@@ -22,8 +22,9 @@ public class BloodBagController implements BloodBagRepository {
         this.bagRepository = bagRepository;
     }
 
-
     @Override
+    //@GetMapping("/getBloodbags/{serial}") => cerca in base al seriale
+    //@GetMapping("/getBloodbags/") 		=> stampa tutte
     @GetMapping("/bloodbags_byserial/{serial}")
     public Iterable<BloodBagBean> findBySerial(@PathVariable String serial) {
         return this.bagRepository.findBySerial(serial);
