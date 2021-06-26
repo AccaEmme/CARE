@@ -59,6 +59,13 @@ public class NoteController implements ContainerResponseFilter {
 		return noteRepository.save(noteJustTitle);
 	}
 	
+	@PostMapping("/note2")
+	public Note createSingleNote2(@RequestBody Note noteJustContent) {
+		//Note n = new Note(noteTitle, "HoVogliaDiThe");
+		noteJustContent.setTitle("HoVogliaDiNutella");
+		return noteRepository.save(noteJustContent);
+	}
+	
 	@PostMapping("/notes")
 	public Note createNote(@RequestBody Note newNote) {
 		return noteRepository.save(newNote);

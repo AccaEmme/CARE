@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User"}];updateSearchResults();
