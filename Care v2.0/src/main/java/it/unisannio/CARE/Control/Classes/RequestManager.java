@@ -18,7 +18,7 @@ import it.unisannio.CARE.Model.Classes.Request;
 import it.unisannio.CARE.Model.Util.RequestState;
 
 public class RequestManager {
-
+/*
     private static final String TAG_DB 					= "db_mongo_name";
     private static final String TAG_HOST 				= "db_mongo_host";
     private static final String TAG_PORT 				= "db_mongo_port";
@@ -67,42 +67,25 @@ public class RequestManager {
     private static final String ELEMENT_STREET			= "street"; 
     private static final String ELEMENT_STREEETNUMBER	= "streetNumber"; 
     private static final String ELEMENT_ZIPCODE			= "ZIPCodee"; 
-
+*/
     
 	private MongoClient mongoClient;
 	private MongoDatabase mongoDatabase;
-	private MongoCollection<Document> collection;
+	private MongoCollection  collection;
     
-	public RequestManager(String URI, String mongoDatabaseName) {
+	public RequestManager(String URI, String mongoDatabaseName,String collectionName) {
 		
 		this.mongoClient = new MongoClient(new MongoClientURI(URI));
 		this.mongoDatabase = mongoClient.getDatabase(mongoDatabaseName);
-		collection = getCollection();
+		this.collection =mongoDatabase.getCollection(collectionName);;
 	}
 	
-	@Override
 	public void addRequest(Request request) {
-		
-        Bson condition = new Document("$eq", request.getRequestedBloodBag().getSerial().toString());
-        Bson filter = new Document("bloodbag", condition);
-        
-        try {
-	        if(collection.find().filter(filter).iterator().hasNext())
-	        	
-	        	throw new RequestCloneNotSupportedException("Richiesta già esistente");
-	        else {
-	        	
 	        	Document requestD = Document.parse(request.toString());
-	        	collection.insertOne(requestD);
-	        }
-        }catch(RequestCloneNotSupportedException e) {
-        	
-        	System.err.println(e.getMessage());
-        	System.err.println("La richiesta "+ request +" non può essere effettuata su una stessa sacca...");
-        	e.printStackTrace();
-        }
+	        	this.collection.insertOne(requestD);
+	        	this.mongoClient.close();
 	}
-
+/*
 	@Override
 	public void acceptRequest(Request request) {
 		
@@ -228,5 +211,5 @@ public class RequestManager {
         	return mongoDatabase.getCollection("requestes");
         mongoDatabase.createCollection("requestes");
         return mongoDatabase.getCollection("requestes");
-	}
+	}*/
 }
