@@ -12,13 +12,12 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
-import it.unisannio.CARE.Control.Interfaces.RequestDataManagerInterface;
 import it.unisannio.CARE.Exceptions.RequestCloneNotSupportedException;
 import it.unisannio.CARE.Exceptions.RequestNotFoundException;
 import it.unisannio.CARE.Model.Classes.Request;
 import it.unisannio.CARE.Model.Util.RequestState;
 
-public class MongoRequestDataManager implements RequestDataManagerInterface {
+public class RequestManager {
 
     private static final String TAG_DB 					= "db_mongo_name";
     private static final String TAG_HOST 				= "db_mongo_host";
@@ -74,7 +73,7 @@ public class MongoRequestDataManager implements RequestDataManagerInterface {
 	private MongoDatabase mongoDatabase;
 	private MongoCollection<Document> collection;
     
-	public MongoRequestDataManager(String URI, String mongoDatabaseName) {
+	public RequestManager(String URI, String mongoDatabaseName) {
 		
 		this.mongoClient = new MongoClient(new MongoClientURI(URI));
 		this.mongoDatabase = mongoClient.getDatabase(mongoDatabaseName);
