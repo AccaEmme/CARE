@@ -12,8 +12,6 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.Scanner;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.XMLHelper;
 
 /*
  * Ogni seriale deve identificare univocamente una sacca di sangue BloodBag.

@@ -12,7 +12,6 @@ import org.bson.Document;
 
 import it.unisannio.CARE.Model.Util.BloodGroup;
 import it.unisannio.CARE.Exceptions.StateException;
-import it.unisannio.CARE.Model.Node.Node;
 import it.unisannio.CARE.Model.Util.Constants;
 import it.unisannio.CARE.Model.Util.Serial;
 
@@ -24,7 +23,6 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	private Date				creationDate;
 	private Date 				expirationDate;
 	private String				donatorCF; //=null;	 TODO: *** Attenzione al rischio di null pointer exception se richiamato il donatorCF
-	private Node				node;
 	private BloodBagState 		bloodBagState;
 	private String 				note;
 	
@@ -34,19 +32,17 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
     private static final String ELEMENT_CREATIONDATE 	= "creationDate";
     private static final String ELEMENT_EXPIRATIONDATE 	= "expirationDate";
     private static final String ELEMENT_DONATORCF 		= "donatorCF";
-    private static final String ELEMENT_NODE 			= "node";
     private static final String ELEMENT_BLOODBAGSTATE 	= "bloodBagState";
     private static final String ELEMENT_NOTE 			= "note";
 
 
-	public BloodBag(BloodGroup bloodGroup, String donatorCF, Node node) throws ParseException {
+	public BloodBag(BloodGroup bloodGroup, String donatorCF) throws ParseException {
 		/* Attenzione: new BloodBag() va usato solo per creare sacche perché incrementa il seriale. */ 
 		this.serial 		= new Serial(bloodGroup);
 		this.setBloodGroup	  ( bloodGroup );
 		this.setCreationDate  ( this.generateCreationDate() );
 		this.setExpirationDate( this.generateExpirationDate() );
 		this.setDonatorCF(donatorCF);
-		this.setNode(node);
 		this.setNote("");		/* TODO: gestirlo con classe Optional per evitare NullPointerException */
 		this.setBloodBagState( BloodBagState.Available );
 	}
@@ -58,14 +54,13 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 			BloodBagState valueOf2, String note2
      **************************************************************************
      */
-	public BloodBag(Serial serial, BloodGroup valueOf, Date cd, Date ed, String donatorCF2, Node n1,
+	public BloodBag(Serial serial, BloodGroup valueOf, Date cd, Date ed, String donatorCF2, 
 			BloodBagState valueOf2, String note2) {
 		this.serial 		= serial;
 		this.bloodGroup=valueOf;
 		this.creationDate =cd;
 		this.expirationDate=ed;
 		this.donatorCF=donatorCF2;
-		this.node=n1;
 		this.note=note2;		/* TODO: gestirlo con classe Optional per evitare NullPointerException */
 		this.bloodBagState=valueOf2;
 	}
@@ -279,37 +274,13 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 		this.donatorCF = fisCode;
 	}
 	
-	/**
-     **************************************************************************
-     * Metodo GET per ottere il nodo dove è contenuta la sacca
-     * @return nome
-     **************************************************************************
-     */
-	public Node getNode() { return node; }
-
 	
-	/**
-     **************************************************************************
-     * Metodo GET per ottenere il tipo di sacca
-     * @return bloodGroup
-     **************************************************************************
-     */
-	@Override
+	
 	public BloodGroup getBloodType() {
 		return this.bloodGroup;
 	}
 
-	/**
-     **************************************************************************
-     * Metodo protetto per cambiare il nodo di riferimento della sacca
-     * @param Node node
-     * @exception IllegalArgumentException
-     **************************************************************************
-     */
-	protected void setNode(Node node) {
-		if(node == null) throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"node is null ");
-		this.node = node;
-	}
+
 	
 	/**
      **************************************************************************
@@ -421,7 +392,6 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 				+", \"creationDate\": \"" 		+ new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(creationDate) 	+ "\""
 				+", \"expireDate\": \"" 		+ new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate) + "\""
 				+", \"donatorCF\": \"" 			+ this.donatorCF 		+ "\""
-				+", \"node\": " 				+ this.node.toString()	+ ""
 				+", \"bloodBagState\": \"" 		+ this.bloodBagState 	+ "\""
 				+", \"note\": \"" + this.note 	+ "\""
 				+ "}";
@@ -441,8 +411,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 			return (
 					serial.equals(bBag.getSerial()) 		&& 
 					bloodGroup.equals(bBag.getBloodGroup()) && 
-					donatorCF.equals(bBag.getDonatorCF()) 	&& 
-					node.equals(bBag.getNode())
+					donatorCF.equals(bBag.getDonatorCF()) 
 					);
 		}
 		return false;
@@ -457,7 +426,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	 public Document getDocument(){
 	        Document document = new Document("BloodGroup",this.getBloodGroup()).append("serial", this.getSerial())
 	        		.append("creationDate",this.getCreationDateS()).append("expirationDate", this.getExpirationDateS())
-	        		.append("donatorCF", this.getDonatorCF()).append("node", this.getNode().toString()).append("bloodBagSate", this.bloodBagState)
+	        		.append("donatorCF", this.getDonatorCF()).append("bloodBagSate", this.bloodBagState)
 	        		.append("note",this.getNote());
 	 
 	        return document;
@@ -479,7 +448,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	 **************************************************************************
 	 */
 	public void print() {		
-		System.out.println("Seriale: " +serial.toString()+ ";\nGruppo: " +bloodGroup+ ";\nData Creazione: " +new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(creationDate)+ ";\nData scadenza: " +new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate)+ ";\nCodice fiscale donatore: " +donatorCF+ ";\nCodice nodo: " +node.getCodStr()+ ";\nStato: " +bloodBagState+ ";\nNote: " +note+ ".\n");
+		System.out.println("Seriale: " +serial.toString()+ ";\nGruppo: " +bloodGroup+ ";\nData Creazione: " +new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(creationDate)+ ";\nData scadenza: " +new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate)+ ";\nCodice fiscale donatore: " +donatorCF+ ";\nStato: " +bloodBagState+ ";\nNote: " +note+ ".\n");
 	}
 
 

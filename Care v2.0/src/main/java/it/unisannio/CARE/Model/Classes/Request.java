@@ -2,8 +2,7 @@ package it.unisannio.CARE.Model.Classes;
 
 
 import java.util.Date;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User.User;
+
 
 public class Request {
 	
@@ -132,12 +131,18 @@ public class Request {
      * @return Username, requestedBloodBag, requestDate, requestState
      **************************************************************************
      */
+	
+
+	
 	public String	toString() {
 		return "{"
-				+ "\"username\": \""+this.UserRequester.getUsername()+"\","
-				+ "\"bloodbag\": \""+this.requestedBloodBag.getSerial()+"\","
-				+ "\"bloodbag\": \""+this.requestDate.toString()+"\","
-				+ "\"bloodbag\": \""+this.requestState.toString()+"\"}";
+				+ "\"idLocation\": \""+this.idLocation+"\","
+				+ "\"idRequest\": \""+this.idRequest+"\","
+				+ "\"requestedBag\": \""+this.requestedBag.getSerial()+"\","
+				+ "\"requestDate\": \""+this.requestDate.toString()+"\"}"
+				+ "\"note\": \""+this.note+"\","
+				+ "\"state\": \""+this.state.toString()+"\","
+				+ "\"priority\": \""+this.priority.toString()+"\",";
 	}
 	
 	/**

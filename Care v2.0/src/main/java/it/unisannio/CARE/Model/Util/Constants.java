@@ -2,7 +2,7 @@ package it.unisannio.CARE.Model.Util;
 
 import java.text.SimpleDateFormat;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
+
 
 public class Constants {
 
