@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagBean;
 import org.bson.Document;
 
 import it.unisannio.CARE.Model.BloodBag.*;
@@ -456,5 +457,18 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 		Transfered,	// Sacca trasferita a un altro nodo, viene comunque lasciata l'informazione nel database del nodo trasferente nello stato "trasferita"
 		Used,		// Sacca adoperata. Non utilizzabile, non trasferibile, non eliminabile
 		Dropped;	// Sacca eliminata (es. per scadenza o altre motivazioni)
+	}
+
+	public BloodBagBean getBean(){
+		BloodBagBean bean = new BloodBagBean();
+		bean.setSerial(this.serial.toString());
+		bean.setGroup(this.bloodGroup.toString());
+		bean.setDonator(this.donatorCF.toString());
+		bean.setCreationDate(this.creationDate.toString());
+		bean.setExpirationDate(this.expirationDate.toString());
+		bean.setState(this.bloodBagState.toString());
+		bean.setNotes(this.note.toString());
+
+		return bean;
 	}
 }

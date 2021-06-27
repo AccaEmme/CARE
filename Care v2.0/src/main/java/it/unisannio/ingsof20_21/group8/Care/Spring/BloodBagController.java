@@ -1,38 +1,34 @@
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import it.unisannio.CARE.Model.BloodBag.BloodBag;
+import it.unisannio.CARE.Model.BloodBag.BloodGroup;
+import it.unisannio.CARE.Model.BloodBag.Serial;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
-@CrossOrigin("*")
+
 @RestController
 @Consumes("application/json")
 @Produces("application/json")
 public class BloodBagController implements ContainerResponseFilter {
     private final BloodBagRepository bagRepository;
-
-    public BloodBagController(BloodBagRepository bagRepository){
-        this.bagRepository = bagRepository;
+    public BloodBagController(BloodBagRepository repository){
+        this.bagRepository = repository;
     }
+
 
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
-        // TODO Auto-generated method stub
         responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
         responseContext.getHeaders().add("Access-Control-Allow-Headers",
                 "CSRF-Token, X-Requested-By, Authorization, Content-Type");
@@ -40,196 +36,60 @@ public class BloodBagController implements ContainerResponseFilter {
         responseContext.getHeaders().add("Access-Control-Allow-Methods",
                 "GET, POST, PUT, DELETE, OPTIONS, HEAD");
     }
-    
-    //===============GET METHODS
-    @GetMapping(" dir")
-	public BloodBagBean/*Iterable<BloodBagBean>*/ testGetBloodBags() {
-    	BloodBagBean ub = new BloodBagBean();
-    	//ub.setUsername("ciccioGiuliano");
-    	//ub.setHiddenPassword("ciaccioLuigi");
-    	//Iterable<UserBean> i = new Iterable<UserBean>();
-    	//i.add(ub);
-    	//return i;
-    	
-    	return ub;
-	}
-	
-}
 
 
-/*
-public class BloodBagController implements ContainerResponseFilter {
-    private final BloodBagRepository bagRepository;
+    //############# GET #############
 
-    public BloodBagController(BloodBagRepository bagRepository){
-        this.bagRepository = bagRepository;
+    @GetMapping("/bloodbag")
+    public BloodBagBean /*Iterable<BloodBagBean> ritornerà un iterable*/ getBloodBag(){
+        BloodBagBean bagBean = new BloodBagBean();
+
+        bagBean.setSerial("SERIALE_DI_PROVA_TEST");
+        bagBean.setGroup("ABp");
+        bagBean.setDonator("CODF_DEL_DONATORE");
+        bagBean.setCreationDate("08091999");
+        bagBean.setCreationDate("08092020");
+        bagBean.setState("Transfered");
+        bagBean.setNotes("niente da dichairare");
+
+        return bagBean;
     }
 
-    @Override
-    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
-        // TODO Auto-generated method stub
-        responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
-        responseContext.getHeaders().add("Access-Control-Allow-Headers",
-                "CSRF-Token, X-Requested-By, Authorization, Content-Type");
-        responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
-        responseContext.getHeaders().add("Access-Control-Allow-Methods",
-                "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-    }
-    
-    
-    //@GetMapping("/getBloodbags/{serial}") => cerca in base al seriale
-    //@GetMapping("/getBloodbags/") 		=> stampa tutte
-    @GetMapping("/bloodbags_byserial/{serial}")
-    public Iterable<BloodBagBean> findBySerial(@PathVariable String serial) {
-        return this.bagRepository.findBySerial(serial);
-    }
-	
-    
-    
-    @GetMapping("/bloodbags_all")
-    public List<BloodBagBean> findAll() {
-        return bagRepository.findAll();
-    }
-	
+    //############# POST #############
+    @PostMapping("/addBloodBag")
+    public BloodBagBean createBloodBag(@RequestBody BloodBagBean bagBean) throws ParseException {
+        /**
+         * Serial serial, BloodGroup valueOf, Date cd, Date ed, String donatorCF2,
+         * 			BloodBagState valueOf2, String note2*/
 
-    
-    @GetMapping("bloodbags_all_byserial/{serial}")
-    public List<BloodBagBean> findAllById(Iterable<String> serials) {
-        List<BloodBagBean> bags = new ArrayList<>();
-        for (String serial : serials){
-            Iterable<BloodBagBean> beans = null;
-            beans = this.findBySerial(serial);
+        Serial serial = new Serial(bagBean.getSerial());
+        BloodGroup group = BloodGroup.valueOf(bagBean.getGroup());
 
-            //if something's found...
-            if (beans != null){
-                bags.addAll((Collection<? extends BloodBagBean>) beans);
-            }
-        }
+        Date creation = new SimpleDateFormat("ddMMyyyy").parse(bagBean.getCreationDate());
+        Date expiration = new SimpleDateFormat("ddMMyyyy").parse(bagBean.getExpirationDate());
 
-        //if nothing is found, return null.
-        if (bags.size()!=0)
-            return bags;
-        return null;
+        String donatorCF = bagBean.getDonator();
+        BloodBag.BloodBagState state = BloodBag.BloodBagState.valueOf(bagBean.getState());
+        String note = bagBean.getState();
+
+
+        BloodBag tempBloodBagObj = new BloodBag(
+                serial,
+                group,
+                creation,
+                expiration,
+                donatorCF,
+                state,
+                note
+        );
+
+        BloodBagBean saveBean = tempBloodBagObj.getBean();
+        return bagRepository.save(saveBean);
     }
 
-    
-    public long count() {
-        return this.bagRepository.count();
-    }
-
-
-
-    @DeleteMapping("/bloodbags/{serial}")
-    public void deleteById(@PathVariable String serial) {
-        try {
-            bagRepository.delete((BloodBagBean) bagRepository.findBySerial(serial));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-   
-    @DeleteMapping("bloodbags/{entity}")
-    public void delete(@PathVariable BloodBagBean entity) {
-        bagRepository.delete(entity);
-    }
-
-
-
-  
-    @DeleteMapping("bloodbags/{entities}")
-    public void deleteAll(Iterable<? extends BloodBagBean> entities) {
-        bagRepository.deleteAll(entities);
-    }
-
-  
-    public void deleteAll() {
-        bagRepository.deleteAll();
-    }
-
-  
-    public <S extends BloodBagBean> S save(S entity) {
-        return null;
-    }
-
-  
-    public <S extends BloodBagBean> List<S> saveAll(Iterable<S> entities) {
-        return null;
-    }
-
-  
-    public Optional<BloodBagBean> findById(String s) {
-        return Optional.empty();
-    }
-
-  
-    public boolean existsById(String s) {
-        return (BloodBagBean) bagRepository.findBySerial(s) != null;
-    }
-
-  
-    public void flush() {
-
-    }
-
-  
-    public <S extends BloodBagBean> S saveAndFlush(S entity) {
-        return null;
-    }
-
-  
-    public void deleteInBatch(Iterable<BloodBagBean> entities) {
-
-    }
-
-  
-    public void deleteAllInBatch() {
-
-    }
-
-  
-    public BloodBagBean getOne(String s) {
-        return null;
-    }
-
-  
-    public <S extends BloodBagBean> Optional<S> findOne(Example<S> example) {
-        return Optional.empty();
-    }
-
-   
-    public <S extends BloodBagBean> List<S> findAll(Example<S> example) {
-        return null;
-    }
-
-   
-    public <S extends BloodBagBean> List<S> findAll(Example<S> example, Sort sort) {
-        return null;
-    }
-
-   
-    public <S extends BloodBagBean> Page<S> findAll(Example<S> example, Pageable pageable) {
-        return null;
-    }
-
-   
-    public <S extends BloodBagBean> long count(Example<S> example) {
-        return 0;
-    }
-
-    
-    public <S extends BloodBagBean> boolean exists(Example<S> example) {
-        return false;
-    }
-
-    
-    public List<BloodBagBean> findAll(Sort sort) {
-        return null;
-    }
-
-    
-    public Page<BloodBagBean> findAll(Pageable pageable) {
-        return null;
+    @DeleteMapping("/deleteBloodBag")
+    public void deleteBloodBag(@RequestBody BloodBagBean deleteBloodBag){
+        //should change bloodbag state!
     }
 }
-*/
+
