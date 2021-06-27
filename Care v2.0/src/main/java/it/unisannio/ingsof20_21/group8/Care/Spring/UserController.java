@@ -16,6 +16,7 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -68,6 +69,13 @@ public class UserController implements ContainerResponseFilter {
     	return ub;
 	}
     
+    
+    
+	@GetMapping("/user/{username}")
+	public Iterable<UserBean> getNotesbytitle(@PathVariable String username){
+		return userRepo.findByUsername(username); /*.orElseThrow();*/
+}
+    
     //===============POST METHODS
     @PostMapping("/addUser")
 	public UserBean createUser(@RequestBody UserBean newUser) {
@@ -76,27 +84,40 @@ public class UserController implements ContainerResponseFilter {
 				newUser.getHiddenPassword(),		// HTTP plainTextPassword
 				Role.valueOf(newUser.getUserRole()) // HTTP Role
 				);
-	
+	     
 		UserBean saveBean = tempUserObj.getUserBean();
 		//saveBean.setCreationDate(null);
-		
+		saveBean.setCreationDate(new Date());
+		saveBean.setEmail("ricciuto45@gmail.com");
+		saveBean.setLastAccess(new Date());
 		return userRepo.save(saveBean);
 	}
     
     //===============PUT METHODS
-    @PutMapping("/editUser")
+  /*  @PutMapping("/editUser")
 	public UserBean editUser(@RequestBody UserBean newUser) {
-		User tempUserObj = new User(
+	/*	User tempUserObj = new User(
 				newUser.getUsername(),				// HTTP username
 				newUser.getHiddenPassword(),		// HTTP plainTextPassword
 				Role.valueOf(newUser.getUserRole()) // HTTP Role
 				);
-	
+
+	   tempUserObj.setEmail(newUser.getEmail());
 		UserBean saveBean = tempUserObj.getUserBean();
 		//saveBean.setCreationDate(null);
-		
-		return userRepo.save(saveBean);
-	}
+		saveBean.setCreationDate(new Date());
+		saveBean.setEmail("ricciuto99@gamail.com");
+		System.out.println("#############################");
+		System.out.println("#############################");
+		System.out.println("#############################");
+		System.out.println("#############################");
+		System.out.println(saveBean.getEmail());
+		System.out.println("#############################");
+		System.out.println("#############################");
+		System.out.println("#############################");
+		System.out.println("#############################");
+		return userRepo.save(newUser);
+	}*/
     
     //===============DELETE METHODS
     @DeleteMapping("/deleteUser")

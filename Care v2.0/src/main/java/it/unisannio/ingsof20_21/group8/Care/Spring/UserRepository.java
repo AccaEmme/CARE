@@ -17,10 +17,10 @@ import it.unisannio.CARE.Model.Util.Password;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserBean, Long>{
-	/*
-	@Query("FROM users u  WHERE u.username =:username")
-	Iterable<UserBean> findByUsername(@Param("username") String username);
 	
+	@Query("FROM UserBean u  WHERE u.username =:username")
+	Iterable<UserBean> findByUsername(@Param("username") String username);
+	/*
 	@Query("FROM users u  WHERE u.hiddenpass =:hiddenpass")	
 	Iterable<UserBean> findByHiddenPassword(@Param("password") String password);
 	

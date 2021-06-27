@@ -164,10 +164,17 @@ public class User {
     	return password_lastupdate;
     }
     
-   
+    
    
     
-    /**
+    public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
+
+	/**
 	**************************************************************************
 	 * Metodo GET per ottenere il ruolo dell'utente
 	 * @return role

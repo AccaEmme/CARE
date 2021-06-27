@@ -46,7 +46,7 @@ public class UserBean { // *** UserDAO ???
 	
 	// temp password gestita sempre attraverso hiddenPassword
 	
-	@Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = true)
 	private String		email;
 
 	// ============ROLE Attributes
