@@ -44,22 +44,22 @@ public class BloodBagController implements ContainerResponseFilter {
 
     //############# GET #############
 
-    @GetMapping("/bloodbag")
+    @GetMapping("/bloodBag")
     public Iterable<BloodBagBean> getBloodBag(){
         return bagRepository.findAll();
     }
 
-    @GetMapping("/bloodbag/state/{state}")
+    @GetMapping("/bloodBag/state/{state}")
     public Iterable<BloodBagBean> filterBloodBagsByState(@PathVariable String state){
         return bagRepository.filterByState(state);
     }
     
-    @GetMapping("/bloodbag/group/{group}")
+    @GetMapping("/bloodBag/group/{group}")
     public Iterable<BloodBagBean> getBloodBagByGroup(@PathVariable String group){
 		return bagRepository.findByGroup(group); /*.orElseThrow();*/
     }
     
-    @GetMapping("/bloodbag/serial/{serial}")
+    @GetMapping("/bloodBag/serial/{serial}")
     public Iterable<BloodBagBean> getBloodBagBySerial(@PathVariable String serial){
     	return bagRepository.findBySerial(serial); /*.orElseThrow();*/
     }
@@ -110,9 +110,31 @@ public class BloodBagController implements ContainerResponseFilter {
         return bagRepository.save(saveBean);
     }
 
-    @DeleteMapping("/deleteBloodBag")
-    public void deleteBloodBag(@RequestBody BloodBagBean deleteBloodBag){
+
+
+    @DeleteMapping("/bloodBag/use/{serial}")
+    public BloodBagBean useBloodBag(@PathVariable("serial") String serial){
+        System.err.println("ENTROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         //should change bloodbag state!
+        //find blood bag
+        //delete the blood bag
+        //modify the blood bag state
+        //save the new bloood bag
+
+        Iterable<BloodBagBean> beans = this.getBloodBagBySerial(serial);
+        BloodBagBean beanToChange = null;
+
+        System.err.println(beans);
+        for (BloodBagBean bean : beans){
+            System.err.println(bean.toString());
+            beanToChange = bean;
+
+            bagRepository.delete(beanToChange);
+            beanToChange.setState(BloodBag.BloodBagState.Used.toString());
+
+            bagRepository.save(beanToChange);
+        }
+        return beanToChange;
     }
 }
 
