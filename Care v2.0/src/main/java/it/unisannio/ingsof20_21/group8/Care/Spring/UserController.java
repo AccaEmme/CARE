@@ -7,20 +7,20 @@ import java.io.IOException;
 import java.util.Date;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import it.unisannio.CARE.Model.User.Role;
 import it.unisannio.CARE.Model.User.User;
@@ -71,29 +71,36 @@ public class UserController implements ContainerResponseFilter {
 	}
     
     
+    /*
+      login():attempts
+     */
     
 	@GetMapping("/user/{username}")
 	public Iterable<UserBean> getNotesbytitle(@PathVariable String username){
 		return userRepo.findByUsername(username); /*.orElseThrow();*/
-}
+	}
     
     //===============POST METHODS
-    @PostMapping("/user/addUser/")
+    @PostMapping("/user/adduser")
     // {username}/plainTextPassword/{plainTextPassword}/role/{role}
 	public UserBean createUser(@RequestBody UserBean newUser) {
-    	if(newUser.getPassword().equals("")) newUser.setPassword( Password.generatePassword(12) );  
-		User tempUserObj = new User(
-				newUser.getUsername(),				// HTTP username
-				newUser.getPassword(),				// HTTP plainTextPassword
-				Role.valueOf(newUser.getUserRole()) // HTTP Role
-				);
-	     
-		UserBean saveBean = tempUserObj.getUserBean();
-		//saveBean.setCreationDate(null);
-		saveBean.setCreationDate(new Date());
-		saveBean.setEmail("ricciuto45@gmail.com");
-		saveBean.setLastAccess(new Date());
-		return userRepo.save(saveBean);
+    	try {
+	    	if(newUser.getPassword().equals("")) newUser.setPassword( Password.generatePassword(12) );  
+			User tempUserObj = new User(
+					newUser.getUsername(),				// HTTP username
+					newUser.getPassword(),				// HTTP plainTextPassword
+					Role.valueOf(newUser.getUserRole()) // HTTP Role
+					);
+		     
+			UserBean saveBean = tempUserObj.getUserBean();
+			//saveBean.setCreationDate(null);
+			saveBean.setCreationDate(new Date());
+			saveBean.setEmail("ricciuto45@gmail.com");
+			saveBean.setLastAccess(new Date());
+			return userRepo.save(saveBean);
+    	} catch(Exception e) {
+    		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "adduser Error x Luigi", e);
+    	}
 	}
     
     //===============PUT METHODS

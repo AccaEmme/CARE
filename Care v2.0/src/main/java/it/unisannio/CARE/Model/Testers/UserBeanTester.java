@@ -3,6 +3,8 @@
  */
 package it.unisannio.CARE.Model.Testers;
 
+import java.util.Date;
+
 import it.unisannio.ingsof20_21.group8.Care.Spring.UserBean;
 
 /**
@@ -18,6 +20,8 @@ public class UserBeanTester {
 		// TODO Auto-generated method stub
 		UserBean ub = new UserBean();
 		ub.setUsername(null);
+		ub.setCreationDate(new Date());
+		ub.setLastAccess(new Date());
 	}
 
 }

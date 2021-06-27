@@ -56,10 +56,10 @@ public class UserBean { // *** UserDAO ???
 	
 	// ============Access Attributes
 	@Column(nullable = false)
-	private Date		creationDate;
+	private long		creationDate;	// timestamp
 	
 	@Column(nullable = false)
-	private Date		lastAccess;
+	private long		lastAccess;
 	
 	@Column(nullable = false)
     private	int			loginAttempts;
@@ -170,6 +170,11 @@ public class UserBean { // *** UserDAO ???
 	 * @param creationDate the creationDate to set
 	 */
 	public void setCreationDate(Date creationDate) {
+		//Timestamp creationDateTimestamp = new Timestamp(  );
+		setCreationDate( creationDate.getTime() );
+	}
+	
+	private void setCreationDate(long creationDate) {
 		this.creationDate = creationDate;
 	}
 
@@ -185,9 +190,12 @@ public class UserBean { // *** UserDAO ???
 	 * @param lastAccess the lastAccess to set
 	 */
 	public void setLastAccess(Date lastAccess) {
-		this.lastAccess = lastAccess;
+		setLastAccess( lastAccess.getTime() );
 	}
 
+	private void setLastAccess(long lastAccess) {
+		this.lastAccess = lastAccess;
+	}
 
 
 	/**

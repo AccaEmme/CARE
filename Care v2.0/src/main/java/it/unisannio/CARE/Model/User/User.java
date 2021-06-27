@@ -96,6 +96,7 @@ public class User {
 	 * @exception UserException, NullPasswordException
 	 **************************************************************************
     */
+	/*
     public void validateCredentials(String username, String password) throws UserException, NullPasswordException {
         if (username == null)
             throw new UserException("The username cannot be null!");  
@@ -104,6 +105,7 @@ public class User {
         if (username.length() < 5 || password.length() < 5)
             throw new UserException("The username or the password cannot be shorter than 5 chars");
     }
+    */
     
 
 	/**
