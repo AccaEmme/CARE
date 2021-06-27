@@ -1,14 +1,13 @@
 /**
  * 
  */
-package it.unisannio.CARE.Control.Interfaces;
+package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import it.unisannio.CARE.Model.Beans.UserBean;
 import it.unisannio.CARE.Model.Util.Password;
 
 /**
@@ -17,7 +16,8 @@ import it.unisannio.CARE.Model.Util.Password;
  */
 
 @Repository
-public interface UserRepository extends JpaRepository<UserBean, Long>{		
+public interface UserRepository extends JpaRepository<UserBean, Long>{
+	/*
 	@Query("FROM users u  WHERE u.username =:username")
 	Iterable<UserBean> findByUsername(@Param("username") String username);
 	
@@ -41,5 +41,5 @@ public interface UserRepository extends JpaRepository<UserBean, Long>{
 	
 	@Query("FROM users u  WHERE u.username =:username")
 	Iterable<UserBean> findByIsActiveUser(@Param("username") String username);
-	
+	*/
 }

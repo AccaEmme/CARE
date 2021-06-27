@@ -1,10 +1,14 @@
 /**
  * 
  */
-package it.unisannio.CARE.Control.Controllers;
+package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 import java.io.IOException;
+import java.util.Date;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
@@ -17,8 +21,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.unisannio.CARE.Control.Interfaces.UserRepository;
-import it.unisannio.CARE.Model.Beans.UserBean;
 import it.unisannio.CARE.Model.User.Role;
 import it.unisannio.CARE.Model.User.User;
 
@@ -30,6 +32,9 @@ import it.unisannio.CARE.Model.User.User;
 
 @CrossOrigin("*")
 @RestController
+@Consumes("application/json")
+@Produces("application/json")
+//@Path("rest")
 public class UserController implements ContainerResponseFilter {
     private final UserRepository userRepo;
     
@@ -51,10 +56,15 @@ public class UserController implements ContainerResponseFilter {
 
     //===============GET METHODS
     @GetMapping("/user")
-	public UserBean testGetUser() {
+	public UserBean/*Iterable<UserBean>*/ testGetUser() {
     	UserBean ub = new UserBean();
-    	ub.setUsername("ciccio");
-    	ub.setHiddenPassword("ciaccio");
+    	ub.setUsername("ciccioGiuliano");
+    	ub.setHiddenPassword("ciaccioLuigi");
+    	//Iterable<UserBean> i = new Iterable<UserBean>();
+    	//i.add(ub);
+    	//return i;
+    	ub.setCreationDate(new Date());
+    	ub.setLastAccess(new Date());
     	return ub;
 	}
     
@@ -91,7 +101,9 @@ public class UserController implements ContainerResponseFilter {
     //===============DELETE METHODS
     @DeleteMapping("/deleteUser")
 	public void deleteUser(@RequestBody UserBean deleteUser) {
-		userRepo.delete(deleteUser); /* TODO: sarebbe utile una cancellazione logica e non fisica dal DB */
+		//userRepo.logicalDelete(deleteUser); /* TODO: sarebbe utile una cancellazione logica e non fisica dal DB */
+    	deleteUser.setActiveUser(false);
+    	userRepo.save(deleteUser);
 	}
     
 }

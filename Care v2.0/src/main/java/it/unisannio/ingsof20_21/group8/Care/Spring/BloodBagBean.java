@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Model.Beans;
+package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 
 import javax.persistence.*;

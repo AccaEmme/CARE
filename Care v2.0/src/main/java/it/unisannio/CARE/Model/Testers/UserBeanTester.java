@@ -3,7 +3,7 @@
  */
 package it.unisannio.CARE.Model.Testers;
 
-import it.unisannio.CARE.Model.Beans.UserBean;
+import it.unisannio.ingsof20_21.group8.Care.Spring.UserBean;
 
 /**
  * @author Acca

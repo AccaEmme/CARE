@@ -1,7 +1,5 @@
-package it.unisannio.CARE.Control.Controllers;
+package it.unisannio.ingsof20_21.group8.Care.Spring;
 
-import it.unisannio.CARE.Control.Beans.BloodBagBean;
-import it.unisannio.CARE.Control.Interfaces.BloodBagRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,15 +9,55 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 
 @CrossOrigin("*")
 @RestController
+@Consumes("application/json")
+@Produces("application/json")
+public class BloodBagController implements ContainerResponseFilter {
+    private final BloodBagRepository bagRepository;
+
+    public BloodBagController(BloodBagRepository bagRepository){
+        this.bagRepository = bagRepository;
+    }
+
+    @Override
+    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
+        // TODO Auto-generated method stub
+        responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
+        responseContext.getHeaders().add("Access-Control-Allow-Headers",
+                "CSRF-Token, X-Requested-By, Authorization, Content-Type");
+        responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
+        responseContext.getHeaders().add("Access-Control-Allow-Methods",
+                "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+    }
+    
+    //===============GET METHODS
+    @GetMapping(" dir")
+	public BloodBagBean/*Iterable<BloodBagBean>*/ testGetBloodBags() {
+    	BloodBagBean ub = new BloodBagBean();
+    	//ub.setUsername("ciccioGiuliano");
+    	//ub.setHiddenPassword("ciaccioLuigi");
+    	//Iterable<UserBean> i = new Iterable<UserBean>();
+    	//i.add(ub);
+    	//return i;
+    	
+    	return ub;
+	}
+	
+}
+
+
+/*
 public class BloodBagController implements ContainerResponseFilter {
     private final BloodBagRepository bagRepository;
 
@@ -194,3 +232,4 @@ public class BloodBagController implements ContainerResponseFilter {
         return null;
     }
 }
+*/

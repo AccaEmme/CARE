@@ -5,11 +5,11 @@ import java.util.Date;
 
 import org.bson.Document;
 
-import it.unisannio.CARE.Model.Beans.UserBean;
 import it.unisannio.CARE.Model.Exceptions.NullPasswordException;
 import it.unisannio.CARE.Model.Exceptions.UserException;
 import it.unisannio.CARE.Model.Util.Constants;
 import it.unisannio.CARE.Model.Util.Password;
+import it.unisannio.ingsof20_21.group8.Care.Spring.UserBean;
 
 public class User {
 	private String 		username, hiddenPassword, temppass, plainTextPassword, email;
@@ -203,7 +203,14 @@ public class User {
  
         return document;
     }
+
     
+    /**
+	 **************************************************************************
+	 * Metodo per eseguire il parsing da User in UserBean
+	 * @return UserBean
+	 **************************************************************************
+	 */
     public UserBean	getUserBean() {
     	UserBean ub = new UserBean();
     	ub.setUsername(this.username);
