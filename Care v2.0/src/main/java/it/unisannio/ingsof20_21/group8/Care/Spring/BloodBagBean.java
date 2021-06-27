@@ -1,7 +1,12 @@
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 
+import it.unisannio.CARE.Model.BloodBag.BloodBag;
+import it.unisannio.CARE.Model.BloodBag.BloodGroup;
+import it.unisannio.CARE.Model.BloodBag.Serial;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table (name = "BloodBag")
@@ -86,4 +91,18 @@ public class BloodBagBean {
                 ", notes='" + notes + '\'' +
                 '}';
     }
+
+    /*
+    public BloodBag getBloodBag(){
+
+        Serial serial = new Serial(this.serial);
+        BloodGroup group = BloodGroup.valueOf(this.group);
+        Date creationDate = new Date(this.creationDate);
+        Date expirationdate = new Date(this.expirationDate);
+
+        BloodBag.BloodBagState state = BloodBag.BloodBagState.valueOf(this.state);
+
+
+        return new BloodBag(serial,group,creationDate,expirationdate,this.donator,state,this.notes);
+    }*/
 }

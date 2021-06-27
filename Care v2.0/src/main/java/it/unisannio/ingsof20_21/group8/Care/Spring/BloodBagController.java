@@ -45,21 +45,13 @@ public class BloodBagController implements ContainerResponseFilter {
     //############# GET #############
 
     @GetMapping("/bloodbag")
-    public BloodBagBean /*Iterable<BloodBagBean> ritornerà un iterable*/ getBloodBag(){
-        BloodBagBean bagBean = new BloodBagBean();
+    public Iterable<BloodBagBean> getBloodBag(){
+        return bagRepository.findAll();
+    }
 
-        bagBean.setSerial("SERIALE_DI_PROVA_TEST");
-        bagBean.setGroup("ABp");
-        bagBean.setDonator("CODF_DEL_DONATORE");
-        long creation = 934215560L;
-        long expiration = 934215560L;
-        bagBean.setCreationDate(creation);
-        bagBean.setExpirationDate(expiration);
-        bagBean.setState("Transfered");
-        bagBean.setNotes("niente da dichairare");
-        
-       
-        return bagBean;
+    @GetMapping("/bloodbag/state/{state}")
+    public Iterable<BloodBagBean> filterBloodBagsByState(@PathVariable String state){
+        return bagRepository.filterByState(state);
     }
     
     @GetMapping("/bloodbag/group/{group}")
@@ -71,6 +63,7 @@ public class BloodBagController implements ContainerResponseFilter {
     public Iterable<BloodBagBean> getBloodBagBySerial(@PathVariable String serial){
     	return bagRepository.findBySerial(serial); /*.orElseThrow();*/
     }
+
 
     //############# POST #############
     @PostMapping("/addBloodBag")

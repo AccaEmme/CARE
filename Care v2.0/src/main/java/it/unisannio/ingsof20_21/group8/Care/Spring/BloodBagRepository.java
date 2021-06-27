@@ -16,5 +16,7 @@ public interface BloodBagRepository extends JpaRepository<BloodBagBean, String> 
 	/**FINDS A LIST OF ELEMENTS WITH THE GIVEN SERIAL*/
 	@Query("from BloodBagBean b where b.serial =:serial")
 	Iterable<BloodBagBean> findBySerial(@Param("serial") String serial);
-	
+
+	@Query("from BloodBagBean b where b.state =:state")
+	Iterable<BloodBagBean> filterByState(@Param("state") String state);
 }
