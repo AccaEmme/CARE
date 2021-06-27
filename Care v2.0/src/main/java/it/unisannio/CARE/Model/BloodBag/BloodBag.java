@@ -471,7 +471,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 		bean.setCreationDate(tsCreation.getTime());		//qui abbiamo i millisecondi
 		bean.setExpirationDate(tsExpiration.getTime());
 		bean.setState(this.bloodBagState.toString());
-		bean.setNotes(this.note.toString());
+		bean.setNotes(this.note);
 
 		return bean;
 	}
