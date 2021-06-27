@@ -11,6 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
+
 
 import it.unisannio.CARE.Model.Util.Constants;
 
@@ -31,6 +34,7 @@ import it.unisannio.CARE.Model.Util.Constants;
 */
 
 @Entity
+@Table(name="users")
 public class UserBean { // *** UserDAO ???
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,44 +43,32 @@ public class UserBean { // *** UserDAO ???
 	// ============USER Attributes
     @Column(unique = true, nullable = false)
 	private String  	username;
-    private String		hiddenPassword;
-    //private String		plainTextPassword;
     
-    //private Password	hiddenPasswordObj;
-	
-	// temp password gestita sempre attraverso hiddenPassword
+    //@Column(nullable = false)				// If null, will be generated
+    private String		password;			// when used in REST is plaintextpassword, when used in DB is hiddenpassword
 	
 	@Column(unique = true, nullable = true)
 	private String		email;
 
 	// ============ROLE Attributes
+	@Column(nullable = false)
 	private String		userRole;
 	
 	// ============Access Attributes
-	
+	@Column(nullable = false)
 	private Date		creationDate;
+	
+	@Column(nullable = false)
 	private Date		lastAccess;
+	
+	@Column(nullable = false)
     private	int			loginAttempts;
+	
+	@Column(nullable = false)
 	private boolean		activeUser;
 	
 	
 	public UserBean() {}
-	
-	
-
-	/*
-	public UserBean(int idUser, String username, String hiddenPassword, int loginAttempts, String email,
-			Date creationDate, Date lastAccess) {
-		this.idUser = idUser;
-		this.username = username;
-		this.hiddenPassword = hiddenPassword;
-		this.loginAttempts = loginAttempts;
-		this.email = email;
-		this.creationDate = creationDate;
-		this.lastAccess = lastAccess;
-	}
-	 */
-
 
 	/**
 	 * @return the idUser
@@ -107,17 +99,17 @@ public class UserBean { // *** UserDAO ???
 	}
 
 	/**
-	 * @return the hiddenPassword
+	 * @return the password:				when used in REST is plaintextpassword, when used in DB is hiddenpassword
 	 */
-	public String getHiddenPassword() {
-		return hiddenPassword;
+	public String getPassword() {
+		return password;
 	}
 
 	/**
-	 * @param hiddenPassword the hiddenPassword to set
+	 * @param password the password to set: when used in REST is plaintextpassword, when used in DB is hiddenpassword
 	 */
-	public void setHiddenPassword(String hiddenPassword) {
-		this.hiddenPassword = hiddenPassword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	/**

@@ -23,7 +23,7 @@ public class User {
 		this.username 		= username;
 		this.hiddenPassword	= Password.getMd5(plainTextPassword);
 		this.role = role;
-		//this.password_lastupdate = password_lastupdate;
+		this.password_lastupdate = null;
 		//this.temppass = temppass;
 	}
 
@@ -221,7 +221,7 @@ public class User {
     public UserBean	getUserBean() {
     	UserBean ub = new UserBean();
     	ub.setUsername(this.username);
-    	ub.setHiddenPassword(this.hiddenPassword);
+    	ub.setPassword(this.hiddenPassword);
     	ub.setEmail(this.email);
     	ub.setUserRole( this.role.toString() );
     	

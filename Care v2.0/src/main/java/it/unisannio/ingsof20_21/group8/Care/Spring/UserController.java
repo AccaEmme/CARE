@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.unisannio.CARE.Model.User.Role;
 import it.unisannio.CARE.Model.User.User;
+import it.unisannio.CARE.Model.Util.Password;
 
 
 /**
@@ -60,7 +61,7 @@ public class UserController implements ContainerResponseFilter {
 	public UserBean/*Iterable<UserBean>*/ testGetUser() {
     	UserBean ub = new UserBean();
     	ub.setUsername("ciccioGiuliano");
-    	ub.setHiddenPassword("ciaccioLuigi");
+    	ub.setPassword("ciaccioLuigi");
     	//Iterable<UserBean> i = new Iterable<UserBean>();
     	//i.add(ub);
     	//return i;
@@ -77,11 +78,13 @@ public class UserController implements ContainerResponseFilter {
 }
     
     //===============POST METHODS
-    @PostMapping("/addUser")
+    @PostMapping("/user/addUser/")
+    // {username}/plainTextPassword/{plainTextPassword}/role/{role}
 	public UserBean createUser(@RequestBody UserBean newUser) {
+    	if(newUser.getPassword().equals("")) newUser.setPassword( Password.generatePassword(12) );  
 		User tempUserObj = new User(
 				newUser.getUsername(),				// HTTP username
-				newUser.getHiddenPassword(),		// HTTP plainTextPassword
+				newUser.getPassword(),				// HTTP plainTextPassword
 				Role.valueOf(newUser.getUserRole()) // HTTP Role
 				);
 	     
