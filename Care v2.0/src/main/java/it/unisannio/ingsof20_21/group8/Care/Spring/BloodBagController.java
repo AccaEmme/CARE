@@ -3,8 +3,10 @@ package it.unisannio.ingsof20_21.group8.Care.Spring;
 import it.unisannio.CARE.Model.BloodBag.BloodBag;
 import it.unisannio.CARE.Model.BloodBag.BloodGroup;
 import it.unisannio.CARE.Model.BloodBag.Serial;
+import it.unisannio.CARE.Model.Util.Constants;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.plaf.synth.SynthUI;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -49,13 +51,25 @@ public class BloodBagController implements ContainerResponseFilter {
         bagBean.setSerial("SERIALE_DI_PROVA_TEST");
         bagBean.setGroup("ABp");
         bagBean.setDonator("CODF_DEL_DONATORE");
-        bagBean.setCreationDate("08091999");
-        bagBean.setCreationDate("08092020");
+        long creation = 934215560L;
+        long expiration = 934215560L;
+        bagBean.setCreationDate(creation);
+        bagBean.setExpirationDate(expiration);
         bagBean.setState("Transfered");
         bagBean.setNotes("niente da dichairare");
         
        
         return bagBean;
+    }
+    
+    @GetMapping("/bloodbag/group/{group}")
+    public Iterable<BloodBagBean> getBloodBagByGroup(@PathVariable String group){
+		return bagRepository.findByGroup(group); /*.orElseThrow();*/
+    }
+    
+    @GetMapping("/bloodbag/serial/{serial}")
+    public Iterable<BloodBagBean> getBloodBagBySerial(@PathVariable String serial){
+    	return bagRepository.findBySerial(serial); /*.orElseThrow();*/
     }
 
     //############# POST #############
@@ -68,19 +82,30 @@ public class BloodBagController implements ContainerResponseFilter {
         Serial serial = new Serial(bagBean.getSerial());
         BloodGroup group = BloodGroup.valueOf(bagBean.getGroup());
 
-        Date creation = new SimpleDateFormat("dd/MM/yyyy").parse(bagBean.getCreationDate());
-        Date expiration = new SimpleDateFormat("dd/MM/yyyy").parse(bagBean.getExpirationDate());
+        /*
+        String creationStr = String.valueOf(bagBean.getCreationDate());
+        String expirationStr = String.valueOf(bagBean.getExpirationDate());
+
+        Date creationDate = new SimpleDateFormat(Constants.DATE_FORMAT_STRING).parse(creationStr);
+        Date expirationDate = new SimpleDateFormat(Constants.DATE_FORMAT_STRING).parse(expirationStr);*/
+
+        long creationTS = bagBean.getCreationDate();
+        long expirationTS = bagBean.getExpirationDate();
+
+        Date creationDate = new Date(creationTS);
+        Date expirationDate = new Date(expirationTS);
 
         String donatorCF = bagBean.getDonator();
         BloodBag.BloodBagState state = BloodBag.BloodBagState.valueOf(bagBean.getState());
-        String note = bagBean.getState();
+        String note = bagBean.getNotes();
+
 
 
         BloodBag tempBloodBagObj = new BloodBag(
                 serial,
                 group,
-                creation,
-                expiration,
+                creationDate,
+                expirationDate,
                 donatorCF,
                 state,
                 note

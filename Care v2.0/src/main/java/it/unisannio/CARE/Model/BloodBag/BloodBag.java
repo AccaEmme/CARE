@@ -1,5 +1,6 @@
 package it.unisannio.CARE.Model.BloodBag;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
@@ -464,8 +465,11 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 		bean.setSerial(this.serial.toString());
 		bean.setGroup(this.bloodGroup.toString());
 		bean.setDonator(this.donatorCF.toString());
-		bean.setCreationDate(this.creationDate.toString());
-		bean.setExpirationDate(this.expirationDate.toString());
+
+		Timestamp tsCreation = new Timestamp(this.creationDate.getTime());
+		Timestamp tsExpiration = new Timestamp(this.expirationDate.getTime());
+		bean.setCreationDate(tsCreation.getTime());		//qui abbiamo i millisecondi
+		bean.setExpirationDate(tsExpiration.getTime());
 		bean.setState(this.bloodBagState.toString());
 		bean.setNotes(this.note.toString());
 

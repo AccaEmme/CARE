@@ -8,8 +8,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BloodBagRepository extends JpaRepository<BloodBagBean, String> {
-	/*
-    @Query("from bloodbag b where b.serial =:serial")
-    Iterable<BloodBagBean> findBySerial(@Param("serial") String serial);
-    */
+	
+	/**FINDS A LIST OF ELEMENTS WITH THE GIVEN BLOOD GROUP*/
+	@Query("from BloodBagBean b where b.group =:group")
+	Iterable<BloodBagBean> findByGroup(@Param("group") String group);
+	
+	/**FINDS A LIST OF ELEMENTS WITH THE GIVEN SERIAL*/
+	@Query("from BloodBagBean b where b.serial =:serial")
+	Iterable<BloodBagBean> findBySerial(@Param("serial") String serial);
+	
 }

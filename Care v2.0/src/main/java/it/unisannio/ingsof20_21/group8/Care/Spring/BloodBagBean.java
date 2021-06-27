@@ -4,14 +4,15 @@ package it.unisannio.ingsof20_21.group8.Care.Spring;
 import javax.persistence.*;
 
 @Entity
+@Table (name = "BloodBag")
 public class BloodBagBean {
     @Id
     private String serial;
 
     private String group;
     private String donator;
-    private String creationDate;
-    private String expirationDate;
+    private long creationDate;
+    private long expirationDate;
     private String state;
     private String notes;
 
@@ -41,19 +42,19 @@ public class BloodBagBean {
         this.donator = donator;
     }
 
-    public String getCreationDate() {
+    public long getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(long creationDate) {
         this.creationDate = creationDate;
     }
 
-    public String getExpirationDate() {
+    public long getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(String expirationDate) {
+    public void setExpirationDate(long expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -79,8 +80,8 @@ public class BloodBagBean {
                 "serial='" + serial + '\'' +
                 ", group='" + group + '\'' +
                 ", donator='" + donator + '\'' +
-                ", creationDate='" + creationDate + '\'' +
-                ", expirationDate='" + expirationDate + '\'' +
+                ", creationDate=" + creationDate +
+                ", expirationDate=" + expirationDate +
                 ", state='" + state + '\'' +
                 ", notes='" + notes + '\'' +
                 '}';
