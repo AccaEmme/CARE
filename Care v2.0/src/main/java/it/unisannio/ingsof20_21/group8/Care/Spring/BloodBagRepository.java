@@ -19,4 +19,5 @@ public interface BloodBagRepository extends JpaRepository<BloodBagBean, String> 
 
 	@Query("from BloodBagBean b where b.state =:state")
 	Iterable<BloodBagBean> filterByState(@Param("state") String state);
+
 }
