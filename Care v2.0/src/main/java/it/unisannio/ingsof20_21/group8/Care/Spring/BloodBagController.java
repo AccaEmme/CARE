@@ -17,11 +17,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
+@CrossOrigin("*")
 @RestController
 @Consumes("application/json")
 @Produces("application/json")
 public class BloodBagController implements ContainerResponseFilter {
     private final BloodBagRepository bagRepository;
+    
     public BloodBagController(BloodBagRepository repository){
         this.bagRepository = repository;
     }
@@ -51,7 +53,8 @@ public class BloodBagController implements ContainerResponseFilter {
         bagBean.setCreationDate("08092020");
         bagBean.setState("Transfered");
         bagBean.setNotes("niente da dichairare");
-
+        
+       
         return bagBean;
     }
 
@@ -65,8 +68,8 @@ public class BloodBagController implements ContainerResponseFilter {
         Serial serial = new Serial(bagBean.getSerial());
         BloodGroup group = BloodGroup.valueOf(bagBean.getGroup());
 
-        Date creation = new SimpleDateFormat("ddMMyyyy").parse(bagBean.getCreationDate());
-        Date expiration = new SimpleDateFormat("ddMMyyyy").parse(bagBean.getExpirationDate());
+        Date creation = new SimpleDateFormat("dd/MM/yyyy").parse(bagBean.getCreationDate());
+        Date expiration = new SimpleDateFormat("dd/MM/yyyy").parse(bagBean.getExpirationDate());
 
         String donatorCF = bagBean.getDonator();
         BloodBag.BloodBagState state = BloodBag.BloodBagState.valueOf(bagBean.getState());
@@ -84,6 +87,8 @@ public class BloodBagController implements ContainerResponseFilter {
         );
 
         BloodBagBean saveBean = tempBloodBagObj.getBean();
+        
+        
         return bagRepository.save(saveBean);
     }
 
