@@ -23,7 +23,7 @@ public class User {
 		this.username 		= username;
 		this.hiddenPassword	= Password.getMd5(plainTextPassword);
 		this.role = role;
-		this.password_lastupdate = null;
+		//this.password_lastupdate = null;
 		//this.temppass = temppass;
 	}
 
