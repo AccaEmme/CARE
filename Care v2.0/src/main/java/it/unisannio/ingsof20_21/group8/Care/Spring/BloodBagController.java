@@ -85,30 +85,30 @@ public class BloodBagController implements ContainerResponseFilter {
         return bagRepository.countByState(state);
     }
 
-    /*
+
     @GetMapping("bloodBag/report")
     public BloodBagReport getReport(){
-        int total;
-        int available;
-        int used;
-        int transfered;
-        int dropped;
+        long total = this.getAllBagsCount();
+        long available = this.getCountByState(BloodBag.BloodBagState.Available.toString());
+        long used = this.getCountByState(BloodBag.BloodBagState.Used.toString());
+        long transfered = this.getCountByState(BloodBag.BloodBagState.Transfered.toString());
+        long dropped = this.getCountByState(BloodBag.BloodBagState.Dropped.toString());
 
 
         //Apos, Aneg, Bpos, Bneg, ZEROpos, ZEROneg, ABpos, ABneg;
-        int Apos;
-        int Aneg;
-        int Bpos;
-        int Bneg;
-        int ZEROpos;
-        int ZEROneg;
-        int ABpos;
-        int ABneg;
+        long Apos = this.getCountByGroup(BloodGroup.ABpos.toString());
+        long Aneg = this.getCountByGroup(BloodGroup.Aneg.toString());
+        long Bpos = this.getCountByGroup(BloodGroup.Bpos.toString());
+        long Bneg = this.getCountByGroup(BloodGroup.Bneg.toString());
+        long ZEROpos = this.getCountByGroup(BloodGroup.ZEROpos.toString());
+        long ZEROneg = this.getCountByGroup(BloodGroup.ZEROneg.toString());
+        long ABpos = this.getCountByGroup(BloodGroup.ABpos.toString());
+        long ABneg = this.getCountByGroup(BloodGroup.ABneg.toString());
 
-        BloodBagReport report = new BloodBagReport();
+        BloodBagReport report = new BloodBagReport(total,available,used,transfered,dropped,Apos,Aneg,Bpos,Bneg,ZEROpos,ZEROneg,ABpos,ABneg);
 
         return report;
-    }*/
+    }
 
 
     //############# POST #############

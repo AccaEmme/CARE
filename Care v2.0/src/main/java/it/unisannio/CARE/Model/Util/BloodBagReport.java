@@ -1,31 +1,28 @@
 package it.unisannio.CARE.Model.Util;
 
-import it.unisannio.CARE.Model.BloodBag.BloodBag;
-import it.unisannio.CARE.Model.BloodBag.BloodGroup;
-import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagBean;
-
-import java.util.List;
+import java.util.Date;
 
 public class BloodBagReport {
-    private int total;
-    private int available;
-    private int used;
-    private int transfered;
-    private int dropped;
+    private long total;
+    private long available;
+    private long used;
+    private long transfered;
+    private long dropped;
 
 
     //Apos, Aneg, Bpos, Bneg, ZEROpos, ZEROneg, ABpos, ABneg;
-    private int Apos;
-    private int Aneg;
-    private int Bpos;
-    private int Bneg;
-    private int ZEROpos;
-    private int ZEROneg;
-    private int ABpos;
-    private int ABneg;
+    private long Apos;
+    private long Aneg;
+    private long Bpos;
+    private long Bneg;
+    private long ZEROpos;
+    private long ZEROneg;
+    private long ABpos;
+    private long ABneg;
 
+    private long timestamp;
 
-    public BloodBagReport(int total, int available, int used, int transfered, int dropped, int apos, int aneg, int bpos, int bneg, int ZEROpos, int ZEROneg, int ABpos, int ABneg) {
+    public BloodBagReport(long total, long available, long used, long transfered, long dropped, long apos, long aneg, long bpos, long bneg, long ZEROpos, long ZEROneg, long ABpos, long ABneg) {
         this.total = total;
         this.available = available;
         this.used = used;
@@ -39,50 +36,53 @@ public class BloodBagReport {
         this.ZEROneg = ZEROneg;
         this.ABpos = ABpos;
         this.ABneg = ABneg;
+
+        this.timestamp = new Date().getTime();
     }
+
     public BloodBagReport(){}
 
-    public int getTotal() {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 
-    public int getAvailable() {
+    public long getAvailable() {
         return available;
     }
 
-    public void setAvailable(int available) {
+    public void setAvailable(long available) {
         this.available = available;
     }
 
-    public int getUsed() {
+    public long getUsed() {
         return used;
     }
 
-    public void setUsed(int used) {
+    public void setUsed(long used) {
         this.used = used;
     }
 
-    public int getTransfered() {
+    public long getTransfered() {
         return transfered;
     }
 
-    public void setTransfered(int transfered) {
+    public void setTransfered(long transfered) {
         this.transfered = transfered;
     }
 
-    public int getDropped() {
+    public long getDropped() {
         return dropped;
     }
 
-    public void setDropped(int dropped) {
+    public void setDropped(long dropped) {
         this.dropped = dropped;
     }
 
-    public int getApos() {
+    public long getApos() {
         return Apos;
     }
 
@@ -90,7 +90,7 @@ public class BloodBagReport {
         Apos = apos;
     }
 
-    public int getAneg() {
+    public long getAneg() {
         return Aneg;
     }
 
@@ -98,7 +98,7 @@ public class BloodBagReport {
         Aneg = aneg;
     }
 
-    public int getBpos() {
+    public long getBpos() {
         return Bpos;
     }
 
@@ -106,7 +106,7 @@ public class BloodBagReport {
         Bpos = bpos;
     }
 
-    public int getBneg() {
+    public long getBneg() {
         return Bneg;
     }
 
@@ -114,35 +114,63 @@ public class BloodBagReport {
         Bneg = bneg;
     }
 
-    public int getZEROpos() {
+    public long getZEROpos() {
         return ZEROpos;
     }
 
-    public void setZEROpos(int ZEROpos) {
+    public void setZEROpos(long ZEROpos) {
         this.ZEROpos = ZEROpos;
     }
 
-    public int getZEROneg() {
+    public long getZEROneg() {
         return ZEROneg;
     }
 
-    public void setZEROneg(int ZEROneg) {
+    public void setZEROneg(long ZEROneg) {
         this.ZEROneg = ZEROneg;
     }
 
-    public int getABpos() {
+    public long getABpos() {
         return ABpos;
     }
 
-    public void setABpos(int ABpos) {
+    public void setABpos(long ABpos) {
         this.ABpos = ABpos;
     }
 
-    public int getABneg() {
+    public long getABneg() {
         return ABneg;
     }
 
-    public void setABneg(int ABneg) {
+    public void setABneg(long ABneg) {
         this.ABneg = ABneg;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return "BloodBagReport{" +
+                "total=" + total +
+                ", available=" + available +
+                ", used=" + used +
+                ", transfered=" + transfered +
+                ", dropped=" + dropped +
+                ", Apos=" + Apos +
+                ", Aneg=" + Aneg +
+                ", Bpos=" + Bpos +
+                ", Bneg=" + Bneg +
+                ", ZEROpos=" + ZEROpos +
+                ", ZEROneg=" + ZEROneg +
+                ", ABpos=" + ABpos +
+                ", ABneg=" + ABneg +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }
