@@ -21,10 +21,18 @@ public class User {
 	// Costruttore creazione utente
 	public User(String username, String plainTextPassword, Role role) {
 		this.username 		= username;
-		this.hiddenPassword	= Password.getMd5(plainTextPassword);
-		this.role = role;
+		if(plainTextPassword.equals("")) {
+			this.temppass 		= Password.generatePassword(10);
+			this.hiddenPassword	= Password.getMd5(this.temppass);
+		} else {
+			this.temppass 		= "";
+			this.hiddenPassword	= Password.getMd5(plainTextPassword);
+		}
+		System.out.println("temppass:" + this.temppass + " hiddenPass: " + this.hiddenPassword);
+		this.role 			= role;
+		
 		//this.password_lastupdate = null;
-		//this.temppass = temppass;
+		//
 	}
 
 	
@@ -56,18 +64,18 @@ public class User {
     
     /**
 	**************************************************************************
-	 * Metodo per la creazione dell'utente con una passw criptata
+	 * Metodo per la gestione dell'utente con una passw criptata
 	 * @param String username, String hiddenPassword
 	 * @exception UserException, NullPasswordException
 	 **************************************************************************
     */
-	   /*
+	 
     public User(String username, Password hiddenPassword) throws UserException, NullPasswordException {
-        this.validateCredentials(username,hiddenPassword.getHiddenPassword());    //il metodo per prendere la password è getHiddenPassword
-        this.username = username;
-        this.password = hiddenPassword.getHiddenPassword();
+        //this.validateCredentials(username,hiddenPassword.getHiddenPassword());    //il metodo per prendere la password è getHiddenPassword
+        this.username 		= username;
+        this.hiddenPassword = hiddenPassword.getHiddenPassword();
     }
-    */
+   
     /**
 	**************************************************************************
 	 * Metodo per la creazione dell'utente con il nome dell'utente ed il ruolo
@@ -224,6 +232,7 @@ public class User {
     	UserBean ub = new UserBean();
     	ub.setUsername(this.username);
     	ub.setPassword(this.hiddenPassword);
+    	ub.setTemppass(this.temppass);
     	ub.setEmail(this.email);
     	ub.setUserRole( this.role.toString() );
     	

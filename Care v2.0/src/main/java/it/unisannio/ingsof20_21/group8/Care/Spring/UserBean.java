@@ -13,8 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-
+import it.unisannio.CARE.Model.User.Role;
+import it.unisannio.CARE.Model.User.User;
 import it.unisannio.CARE.Model.Util.Constants;
 
 /**
@@ -44,8 +44,10 @@ public class UserBean { // *** UserDAO ???
     @Column(unique = true, nullable = false)
 	private String  	username;
     
-    //@Column(nullable = false)				// If null, will be generated
+    @Column(nullable = false)				// If null, will be generated
     private String		password;			// when used in REST is plaintextpassword, when used in DB is hiddenpassword
+    
+    private String 		temppass;
 	
 	@Column(unique = true, nullable = true)
 	private String		email;
@@ -59,7 +61,7 @@ public class UserBean { // *** UserDAO ???
 	private long		creationDate;	// timestamp
 	
 	@Column(nullable = false)
-	private long		lastAccess;
+	private long		lastAccess;		// timestamp
 	
 	@Column(nullable = false)
     private	int			loginAttempts;
@@ -69,6 +71,7 @@ public class UserBean { // *** UserDAO ???
 	
 	
 	public UserBean() {}
+	
 
 	/**
 	 * @return the idUser
@@ -110,6 +113,20 @@ public class UserBean { // *** UserDAO ???
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * @return the temppass
+	 */
+	public String getTemppass() {
+		return temppass;
+	}
+
+	/**
+	 * @param temppass the temppass to set
+	 */
+	public void setTemppass(String temppass) {
+		this.temppass = temppass;
 	}
 
 	/**
@@ -193,7 +210,7 @@ public class UserBean { // *** UserDAO ???
 		setLastAccess( lastAccess.getTime() );
 	}
 
-	private void setLastAccess(long lastAccess) {
+	public void setLastAccess(long lastAccess) {
 		this.lastAccess = lastAccess;
 	}
 

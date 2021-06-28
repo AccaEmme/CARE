@@ -12,19 +12,17 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import it.unisannio.CARE.Model.User.Role;
 import it.unisannio.CARE.Model.User.User;
-import it.unisannio.CARE.Model.Util.Password;
 
 
 /**
@@ -82,33 +80,90 @@ public class UserController implements ContainerResponseFilter {
     
     //===============POST METHODS
     @PostMapping("/user/adduser")
+    /**
+     * createUser
+     * 
+     * Method for add a new user
+     * Example1: empty password, so will be generated automatically
+     * Request:
+      	{
+	  		"username": "Hermann",
+	  		"password": "",
+	  		"email": "hermann@care.it",
+	  		"userRole": "Administrator"
+		}
+     * 
+     * Response:
+     	{
+			"idUser": 21,
+			"username": "Hermann",
+			"password": "25B9BC299D79C547B92D6D576B2CE15F",
+			"temppass": "nA#9VqaE0R",
+			"email": "hermann@care.it",
+			"userRole": "Administrator",
+			"creationDate": "2021-06-28",
+			"lastAccess": "1900-01-01",
+			"loginAttempts": 0,
+			"activeUser": false
+		}
+     * 
+     * Example2: giving a password as input
+     * 
+     * Request:
+     * {
+	  		"username": "Luigi",
+	  		"password": "Luigi4@",
+	  		"email": "gigi@care.it",
+	  		"userRole": "Administrator"
+		}
+     * Response:
+		{
+			"idUser": 22,
+			"username": "Luigi",
+			"password": "E008FF4282CDEF5A4BE6CB40AB73A5C8",
+			"temppass": "",
+			"email": "gigi@care.it",
+			"userRole": "Administrator",
+			"creationDate": "2021-06-28",
+			"lastAccess": "1900-01-01",
+			"loginAttempts": 0,
+			"activeUser": false
+		}
+     * @param newUser   - UserBean object from HTTP request data
+     * @return UserBean - UserBean object after User parsing that returns a valid checked UserBean to store in database.
+     */
     // {username}/plainTextPassword/{plainTextPassword}/role/{role}
 	public UserBean createUser(@RequestBody UserBean newUser) {
-    	try {
-	    	if(newUser.getPassword().equals("")) newUser.setPassword( Password.generatePassword(12) );  
+        	
+    	//try {
 			User tempUserObj = new User(
 					newUser.getUsername(),				// HTTP username
 					newUser.getPassword(),				// HTTP plainTextPassword
 					Role.valueOf(newUser.getUserRole()) // HTTP Role
 					);
-		     
+		    
 			UserBean saveBean = tempUserObj.getUserBean();
-			//saveBean.setCreationDate(null);
 			saveBean.setCreationDate(new Date());
-			saveBean.setEmail("ricciuto45@gmail.com");
-			saveBean.setLastAccess(new Date());
+			saveBean.setEmail(newUser.getEmail());
+			saveBean.setLastAccess( -2_208_988_800_000L );
 			return userRepo.save(saveBean);
-    	} catch(Exception e) {
-    		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "adduser Error x Luigi", e);
-    	}
+    	 //} catch(/*UserControllerNotValidValueException*/ Exception e) {
+    	//	System.err.println("UserController.java: "+e);
+    	//	throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "adduser Error x Luigi", e);
+    	//	 throw new Exception("Verify sent datas");
+    	//}
 	}
     
     //===============PUT METHODS
-  /*  @PutMapping("/editUser")
+    /*
+    @PutMapping("/editUser")
 	public UserBean editUser(@RequestBody UserBean newUser) {
-	/*	User tempUserObj = new User(
+    	// controlla se l'utente esiste
+    	// controlla i dati inseriti mediante la classe User
+    	// salva nel database
+		User tempUserObj = new User(
 				newUser.getUsername(),				// HTTP username
-				newUser.getHiddenPassword(),		// HTTP plainTextPassword
+				newUser.getPassword(),		// HTTP plainTextPassword
 				Role.valueOf(newUser.getUserRole()) // HTTP Role
 				);
 
@@ -127,7 +182,8 @@ public class UserController implements ContainerResponseFilter {
 		System.out.println("#############################");
 		System.out.println("#############################");
 		return userRepo.save(newUser);
-	}*/
+	}
+	*/
     
     //===============DELETE METHODS
     @DeleteMapping("/deleteUser")

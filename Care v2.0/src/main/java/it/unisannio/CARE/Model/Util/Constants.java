@@ -27,7 +27,7 @@ public class Constants {
     
     //#################################################### User Strings ####################################################
     public static final String USER_MD5_SALT 				= "CanforaMarkUs30L";
-    public static final String USER_DEFAULT_TEMP_PASS 		= "CARE:changemenow";
+    //public static final String USER_DEFAULT_TEMP_PASS 		= "CARE:changemenow";
     public static final int USER_TEMPPASS_LENGTH 			= 10;
     public static final int USER_DAYS_EXPIRATION_PASS 		= 60;
 
