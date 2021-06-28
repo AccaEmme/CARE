@@ -112,6 +112,17 @@ public class BloodBagController implements ContainerResponseFilter {
 
 
     //############# POST #############
+
+    /**
+     * {
+     *     "serial":"IT-NA205101-Aneg-20210615-0037",
+     *     "group":"Bneg",
+     *     "creationDate":965837967,
+     *     "expirationDate":965837968,
+     *     "donator":"CRSDLCER86BH0919",
+     *     "state":"Available",
+     *     "notes":"test note"
+     * }*/
     @PostMapping("/addBloodBag")
     public BloodBagBean createBloodBag(@RequestBody BloodBagBean bagBean) throws ParseException {
         /**
