@@ -14,9 +14,10 @@ public class RequestManagerTester {
 
 		BloodBag bb=new BloodBag(BloodGroup.ABpos,"RSSMRA80A01A509I");
 		
-		RequestManager rm=new RequestManager("mongodb+srv://ricciuto99:desk9123@cluster0.ksjti.mongodb.net/test","CARE","richieste");
+		/*RequestManager rm=new RequestManager("mongodb+srv://ricciuto99:desk9123@cluster0.ksjti.mongodb.net/test","CARE","richieste");
   Request r=new Request("idlocatonprova","idrichiestaprova", bb, new Date(), "notaProva", RequestState.pending, RequestPriority.red);
   rm.addRequest(r);
+  */
 	}
 	
 }

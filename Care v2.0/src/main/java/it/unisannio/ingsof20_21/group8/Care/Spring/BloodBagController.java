@@ -3,7 +3,10 @@ package it.unisannio.ingsof20_21.group8.Care.Spring;
 import it.unisannio.CARE.Model.BloodBag.BloodBag;
 import it.unisannio.CARE.Model.BloodBag.BloodGroup;
 import it.unisannio.CARE.Model.BloodBag.Serial;
+import it.unisannio.CARE.Model.Util.BloodBagReport;
 import it.unisannio.CARE.Model.Util.Constants;
+import org.glassfish.jersey.internal.guava.Iterators;
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.plaf.synth.SynthUI;
@@ -21,9 +24,9 @@ import java.util.Date;
 
 @CrossOrigin("*")
 @RestController
-/*
+
 @Consumes("application/json")
-@Produces("application/json")*/
+@Produces("application/json")
 public class BloodBagController implements ContainerResponseFilter {
     private final BloodBagRepository bagRepository;
     
@@ -64,6 +67,48 @@ public class BloodBagController implements ContainerResponseFilter {
     public Iterable<BloodBagBean> getBloodBagBySerial(@PathVariable String serial){
     	return bagRepository.findBySerial(serial); /*.orElseThrow();*/
     }
+
+
+    //working
+    @GetMapping("bloodBag/count/all")
+    public long getAllBagsCount(){
+        return bagRepository.countAll();
+    }
+    //working
+    @GetMapping("bloodBag/count/group/{group}")
+    public long getCountByGroup(@PathVariable String group){
+        return bagRepository.countByGroup(group);
+    }
+    //working
+    @GetMapping("bloodBag/count/state/{state}")
+    public long getCountByState(@PathVariable String state){
+        return bagRepository.countByState(state);
+    }
+
+    /*
+    @GetMapping("bloodBag/report")
+    public BloodBagReport getReport(){
+        int total;
+        int available;
+        int used;
+        int transfered;
+        int dropped;
+
+
+        //Apos, Aneg, Bpos, Bneg, ZEROpos, ZEROneg, ABpos, ABneg;
+        int Apos;
+        int Aneg;
+        int Bpos;
+        int Bneg;
+        int ZEROpos;
+        int ZEROneg;
+        int ABpos;
+        int ABneg;
+
+        BloodBagReport report = new BloodBagReport();
+
+        return report;
+    }*/
 
 
     //############# POST #############
@@ -137,5 +182,7 @@ public class BloodBagController implements ContainerResponseFilter {
         }
         return beanToChange;
     }
+
+
 }
 

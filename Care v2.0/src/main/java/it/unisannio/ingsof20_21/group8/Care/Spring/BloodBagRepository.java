@@ -20,4 +20,16 @@ public interface BloodBagRepository extends JpaRepository<BloodBagBean, String> 
 	@Query("from BloodBagBean b where b.state =:state")
 	Iterable<BloodBagBean> filterByState(@Param("state") String state);
 
+	// counts all the bloodbags
+	@Query("SELECT COUNT(*) FROM BloodBagBean")
+	long countAll();
+
+	// counts by group
+	@Query("SELECT COUNT(*) FROM BloodBagBean b where b.group =:group")
+	long countByGroup(@Param("group") String group);
+
+	// counts by state
+	@Query("SELECT COUNT(*) FROM BloodBagBean b where b.state =:state")
+	long countByState(@Param("state") String state);
+
 }
