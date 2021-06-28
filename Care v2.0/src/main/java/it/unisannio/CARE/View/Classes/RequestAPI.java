@@ -1,6 +1,7 @@
 package it.unisannio.CARE.View.Classes;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +29,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.unisannio.CARE.Control.BloodBags.RequestManager;
+import it.unisannio.CARE.Model.BloodBag.BloodBag;
 import it.unisannio.CARE.Model.BloodBag.Request;
+import it.unisannio.CARE.Model.BloodBag.Request.RequestPriority;
 import it.unisannio.CARE.Model.BloodBag.Request.RequestState;
 
 
@@ -61,7 +64,7 @@ public class RequestAPI implements ContainerResponseFilter {
 			
 		ArrayList<RequestBean> result = new ArrayList<RequestBean>();
 		
-		List<Document> l = (new RequestManager("mongodb+srv://ricciuto99:desk9123@cluster0.ksjti.mongodb.net/test","CARE","richieste").getRequestesByState(state));
+		List<Document> l = (new RequestManager("richieste").getRequestesByState(state));
 		
 		for (Document s : l)
 			result.add(new RequestBean(s.getString("id_requester"), 
@@ -76,14 +79,18 @@ public class RequestAPI implements ContainerResponseFilter {
 
 	}
 	
+/*	public Request(String idLocation, String idRequest, BloodBag requestedBag, 
+			Date requestDate, String note, RequestState state, RequestPriority priority) {*/
+	
 	@PostMapping("request/add")	
-	public void addRequest(@RequestBody RequestBean requestB){		
+	public void addRequest(@RequestBody RequestBean requestB) throws ParseException{		
 
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 		
-		Request request = new Request(requestB.getId_requester(), requestB.getId_request(), requestB.getSerial(), new SimpleDateFormat().parse(requestB.getDate()), requestB.getNote(), requestB.getState(), requestB.getPriority());		
-		(new RequestManager("mongodb+srv://ricciuto99:desk9123@cluster0.ksjti.mongodb.net/test","CARE","richieste")).addRequest(request);
+		Request request = new Request(requestB.getId_requester(), requestB.getId_request(), requestB.getSerial(), 
+				new SimpleDateFormat().parse(requestB.getDate()), requestB.getNote(),RequestState.valueOf(requestB.getState()),RequestPriority.valueOf(requestB.getPriority()));		
+		(new RequestManager("richieste")).addRequest(request);
 			
 	}
 	
@@ -92,24 +99,26 @@ public class RequestAPI implements ContainerResponseFilter {
 	 */
 	
 	@PutMapping("request/accept")	
-	public void acceptRequest(@RequestBody RequestBean requestB){		
+	public void acceptRequest(@RequestBody RequestBean requestB) throws ParseException{		
 
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 		
-		Request request = new Request(requestB.getId_requester(), requestB.getId_request(), requestB.getSerial(), new SimpleDateFormat().parse(requestB.getDate()), requestB.getNote(), requestB.getState(), requestB.getPriority());
-		(new RequestManager("mongodb+srv://ricciuto99:desk9123@cluster0.ksjti.mongodb.net/test","CARE","richieste")).acceptRequest(request);
+		Request request = new Request(requestB.getId_requester(), requestB.getId_request(), requestB.getSerial(), 
+				new SimpleDateFormat().parse(requestB.getDate()), requestB.getNote(),RequestState.valueOf(requestB.getState()),RequestPriority.valueOf(requestB.getPriority()));		
+		(new RequestManager("richieste")).acceptRequest(request);
 			
 	}
 
 	@PutMapping("request/refuse")	
-	public void refuseRequest(@RequestBody RequestBean requestB){		
+	public void refuseRequest(@RequestBody RequestBean requestB) throws ParseException{		
 
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 		
-		Request request = new Request(requestB.getId_requester(), requestB.getId_request(), requestB.getSerial(), new SimpleDateFormat().parse(requestB.getDate()), requestB.getNote(), requestB.getState(), requestB.getPriority());
-		(new RequestManager("mongodb+srv://ricciuto99:desk9123@cluster0.ksjti.mongodb.net/test","CARE","richieste")).refuseRequest(request);
+		Request request = new Request(requestB.getId_requester(), requestB.getId_request(), requestB.getSerial(), 
+				new SimpleDateFormat().parse(requestB.getDate()), requestB.getNote(),RequestState.valueOf(requestB.getState()),RequestPriority.valueOf(requestB.getPriority()));		
+		(new RequestManager("richieste")).refuseRequest(request);
 			
 	}
 

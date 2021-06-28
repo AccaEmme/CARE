@@ -73,11 +73,11 @@ public class RequestManager {
 	private MongoDatabase mongoDatabase;
 	private MongoCollection<Document> collection;
     
-	public RequestManager(String URI, String mongoDatabaseName,String collectionName) {
+	public RequestManager( String collectionName) {
 		
-		this.mongoClient = new MongoClient(new MongoClientURI(URI));
-		this.mongoDatabase = mongoClient.getDatabase(mongoDatabaseName);
-		this.collection =mongoDatabase.getCollection(collectionName);;
+		this.mongoClient = new MongoClient(new MongoClientURI("mongodb+srv://ricciuto99:desk9123@cluster0.ksjti.mongodb.net/test"));
+		this.mongoDatabase = mongoClient.getDatabase("CARE");
+		this.collection =mongoDatabase.getCollection(collectionName);
 	}
 	
 	public void addRequest(Request request) {
@@ -110,14 +110,14 @@ public class RequestManager {
 		
 		request.setState(RequestState.accepted);
 
-	    Bson condition = new Document("$eq", request.getRequestedBag().getSerial().toString());
+	    Bson condition = new Document("$eq", request.getRequestedBag());
 	    Bson condition2 = new Document("$eq", RequestState.pending.toString());
         Bson filter = new Document("bloodbag", condition).append("state", condition2);
         
         Document editedRequest = Document.parse(request.toString()); 
 		
         try {
-			if(collection.replaceOne(filter, editedRequest).getMatchedCount()==0) {
+			if(collection.deleteOne(filter).getDeletedCount()==0) {
 				
 				throw new RequestNotFoundException("Richiesta non trovata o inesistente...");
 			} 
@@ -139,7 +139,7 @@ public class RequestManager {
 		
 		request.setState(RequestState.refused);
 
-	    Bson condition = new Document("$eq", request.getRequestedBag().getSerial().toString());
+	    Bson condition = new Document("$eq", request.getRequestedBag());
         Bson condition2 = new Document("$eq", RequestState.pending.toString());
         Bson filter = new Document("bloodbag", condition).append("state", condition2);
         
@@ -151,7 +151,8 @@ public class RequestManager {
 				throw new RequestNotFoundException("Richiesta non trovata o inesistente...");
 			} 
 			else {
-				
+				MongoCollection<Document> collection2=this.mongoDatabase.getCollection("accepted-requests");
+				collection2.insertOne(editedRequest);
 				System.out.println("Richiesta aggiornata.");
 			}
         }catch(RequestNotFoundException e) {

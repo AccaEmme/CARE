@@ -8,7 +8,7 @@ public class Request {
 	
 	private String			idLocation;
 	private String			idRequest;
-	private	BloodBag		requestedBag;
+	private	String		requestedBag;
 	private	Date			requestDate;
 	private String			note;
 	private	RequestState	state;
@@ -21,7 +21,7 @@ public class Request {
      **************************************************************************
      */
 
-	public Request(String idLocation, String idRequest, BloodBag requestedBag, 
+	public Request(String idLocation, String idRequest, String requestedBag, 
 			Date requestDate, String note, RequestState state, RequestPriority priority) {
 		
 		this.idLocation = idLocation;
@@ -55,7 +55,7 @@ public class Request {
      * @return requestedBloodBag
      **************************************************************************
      */
-	public BloodBag getRequestedBag() {
+	public String getRequestedBag() {
 		return requestedBag;
 	}
 
@@ -65,7 +65,7 @@ public class Request {
      * @param BloodBag requestedBloodBag
      **************************************************************************
      */
-	public void setRequestedBag(BloodBag requestedBag) {
+	public void setRequestedBag(String requestedBag) {
 		this.requestedBag = requestedBag;
 	}
 	
@@ -138,7 +138,7 @@ public class Request {
 		return "{"
 				+ "\"idLocation\": \""+this.idLocation+"\","
 				+ "\"idRequest\": \""+this.idRequest+"\","
-				+ "\"requestedBag\": \""+this.requestedBag.getSerial()+"\","
+				+ "\"requestedBag\": \""+this.requestedBag+"\","
 				+ "\"requestDate\": \""+this.requestDate.toString()+"\"}"
 				+ "\"note\": \""+this.note+"\","
 				+ "\"state\": \""+this.state.toString()+"\","
