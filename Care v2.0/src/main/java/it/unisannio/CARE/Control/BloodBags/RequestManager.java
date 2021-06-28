@@ -83,7 +83,7 @@ public class RequestManager {
 	public void addRequest(Request request) {
 		
 	    Bson condition = new Document("$eq", request.getRequestedBag());
-	    Bson condition2 = new Document("&ne", RequestState.pending);
+	    Bson condition2 = new Document("&ne", RequestState.pending.toString());
         Bson filter = new Document("bloodbag", condition).append("state", condition2);
 		
         MongoCursor<Document> iterator = this.collection.find().filter(filter).iterator();

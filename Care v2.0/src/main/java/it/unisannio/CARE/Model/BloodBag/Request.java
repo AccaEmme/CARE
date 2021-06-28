@@ -139,10 +139,10 @@ public class Request {
 				+ "\"id_requester\": \""+this.idLocation+"\","
 				+ "\"id_request\": \""+this.idRequest+"\","
 				+ "\"serial\": \""+this.requestedBag+"\","
-				+ "\"date\": \""+this.requestDate.toString()+"\"}"
+				+ "\"date\": \""+this.requestDate.toString()+"\","
 				+ "\"note\": \""+this.note+"\","
 				+ "\"state\": \""+this.state.toString()+"\","
-				+ "\"priority\": \""+this.priority.toString()+"\",";
+				+ "\"priority\": \""+this.priority.toString()+"\"}";
 	}
 	
 	/**
