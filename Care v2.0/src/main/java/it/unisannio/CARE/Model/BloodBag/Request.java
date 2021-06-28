@@ -136,10 +136,10 @@ public class Request {
 	
 	public String	toString() {
 		return "{"
-				+ "\"idLocation\": \""+this.idLocation+"\","
-				+ "\"idRequest\": \""+this.idRequest+"\","
-				+ "\"requestedBag\": \""+this.requestedBag+"\","
-				+ "\"requestDate\": \""+this.requestDate.toString()+"\"}"
+				+ "\"id_requester\": \""+this.idLocation+"\","
+				+ "\"id_request\": \""+this.idRequest+"\","
+				+ "\"serial\": \""+this.requestedBag+"\","
+				+ "\"date\": \""+this.requestDate.toString()+"\"}"
 				+ "\"note\": \""+this.note+"\","
 				+ "\"state\": \""+this.state.toString()+"\","
 				+ "\"priority\": \""+this.priority.toString()+"\",";

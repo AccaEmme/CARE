@@ -37,8 +37,6 @@ import it.unisannio.CARE.Model.BloodBag.Request.RequestState;
 
 @CrossOrigin("*")
 @RestController
-@Consumes("application/json")
-@Produces("application/json")
 public class RequestAPI implements ContainerResponseFilter {
 
 

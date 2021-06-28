@@ -139,6 +139,8 @@ public class RequestManager {
 		
 		request.setState(RequestState.refused);
 
+		request.setState(RequestState.refused);
+
 	    Bson condition = new Document("$eq", request.getRequestedBag());
         Bson condition2 = new Document("$eq", RequestState.pending.toString());
         Bson filter = new Document("bloodbag", condition).append("state", condition2);
