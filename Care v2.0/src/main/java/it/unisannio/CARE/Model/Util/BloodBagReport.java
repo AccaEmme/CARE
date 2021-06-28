@@ -1,5 +1,8 @@
 package it.unisannio.CARE.Model.Util;
 
+
+import org.json.simple.JSONObject;
+
 import java.util.Date;
 
 public class BloodBagReport {
@@ -173,4 +176,25 @@ public class BloodBagReport {
                 ", timestamp=" + timestamp +
                 '}';
     }
+
+    /*
+    public org.json.simple.JSONObject getJsonObject(){
+        JSONObject report = new JSONObject();
+        report.put("total",total);
+        report.put("available",available);
+        report.put("used",used);
+        report.put("transfered",transfered);
+        report.put("dropped",dropped);
+        report.put("Apos",Apos);
+        report.put("Aneg",Aneg);
+        report.put("Bpos",Bpos);
+        report.put("Bneg",Bneg);
+        report.put("ZEROpos",ZEROpos);
+        report.put("ZEROneg",ZEROneg);
+        report.put("ABpos",ABpos);
+        report.put("ABneg",ABneg);
+        report.put("timestamp",timestamp);
+
+        return report;
+    }*/
 }

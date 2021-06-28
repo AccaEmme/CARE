@@ -4,9 +4,8 @@ import it.unisannio.CARE.Model.BloodBag.BloodBag;
 import it.unisannio.CARE.Model.BloodBag.BloodGroup;
 import it.unisannio.CARE.Model.BloodBag.Serial;
 import it.unisannio.CARE.Model.Util.BloodBagReport;
-import it.unisannio.CARE.Model.Util.Constants;
-import org.glassfish.jersey.internal.guava.Iterators;
-import org.json.JSONObject;
+
+import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.plaf.synth.SynthUI;
@@ -15,6 +14,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -68,7 +69,7 @@ public class BloodBagController implements ContainerResponseFilter {
     	return bagRepository.findBySerial(serial); /*.orElseThrow();*/
     }
 
-
+    //############# get count ###############
     //working
     @GetMapping("bloodBag/count/all")
     public long getAllBagsCount(){
@@ -107,7 +108,17 @@ public class BloodBagController implements ContainerResponseFilter {
 
         BloodBagReport report = new BloodBagReport(total,available,used,transfered,dropped,Apos,Aneg,Bpos,Bneg,ZEROpos,ZEROneg,ABpos,ABneg);
 
+        //writeReport(report.getJsonObject());
         return report;
+    }
+    //not working
+    private void writeReport(JSONObject report){
+        try {
+            FileWriter reportFile = new FileWriter("localsettings/BloodBagReports.txt");
+            reportFile.write(report.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -171,7 +182,6 @@ public class BloodBagController implements ContainerResponseFilter {
 
     @DeleteMapping("/bloodBag/use/{serial}")
     public BloodBagBean useBloodBag(@PathVariable("serial") String serial){
-        System.err.println("ENTROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         //should change bloodbag state!
         //find blood bag
         //delete the blood bag
