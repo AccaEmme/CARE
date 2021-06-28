@@ -1,4 +1,4 @@
-package it.unisannio.CARE.View.Classes;
+package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -33,6 +33,7 @@ import it.unisannio.CARE.Model.BloodBag.BloodBag;
 import it.unisannio.CARE.Model.BloodBag.Request;
 import it.unisannio.CARE.Model.BloodBag.Request.RequestPriority;
 import it.unisannio.CARE.Model.BloodBag.Request.RequestState;
+import it.unisannio.CARE.View.Classes.RequestBean;
 
 
 @CrossOrigin("*")
@@ -87,7 +88,7 @@ public class RequestAPI implements ContainerResponseFilter {
 		mongoLogger.setLevel(Level.SEVERE);
 		
 		Request request = new Request(requestB.getId_requester(), requestB.getId_request(), requestB.getSerial(), 
-				new SimpleDateFormat().parse(requestB.getDate()), requestB.getNote(),RequestState.valueOf(requestB.getState()),RequestPriority.valueOf(requestB.getPriority()));		
+				new Date(), requestB.getNote(),RequestState.valueOf(requestB.getState()),RequestPriority.valueOf(requestB.getPriority()));		
 		(new RequestManager("richieste")).addRequest(request);
 			
 	}
