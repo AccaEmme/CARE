@@ -21,8 +21,9 @@ import java.util.Date;
 
 @CrossOrigin("*")
 @RestController
+/*
 @Consumes("application/json")
-@Produces("application/json")
+@Produces("application/json")*/
 public class BloodBagController implements ContainerResponseFilter {
     private final BloodBagRepository bagRepository;
     
