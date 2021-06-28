@@ -89,26 +89,20 @@ public class BloodBagController implements ContainerResponseFilter {
 
     @GetMapping("bloodBag/report")
     public BloodBagReport getReport(){
-        long total = this.getAllBagsCount();
-        long available = this.getCountByState(BloodBag.BloodBagState.Available.toString());
-        long used = this.getCountByState(BloodBag.BloodBagState.Used.toString());
-        long transfered = this.getCountByState(BloodBag.BloodBagState.Transfered.toString());
-        long dropped = this.getCountByState(BloodBag.BloodBagState.Dropped.toString());
+        BloodBagReport report = new BloodBagReport(this.getAllBagsCount(),
+                this.getCountByState(BloodBag.BloodBagState.Available.toString()),
+                this.getCountByState(BloodBag.BloodBagState.Used.toString()),
+                this.getCountByState(BloodBag.BloodBagState.Transfered.toString()),
+                this.getCountByState(BloodBag.BloodBagState.Dropped.toString()),
 
-
-        //Apos, Aneg, Bpos, Bneg, ZEROpos, ZEROneg, ABpos, ABneg;
-        long Apos = this.getCountByGroup(BloodGroup.ABpos.toString());
-        long Aneg = this.getCountByGroup(BloodGroup.Aneg.toString());
-        long Bpos = this.getCountByGroup(BloodGroup.Bpos.toString());
-        long Bneg = this.getCountByGroup(BloodGroup.Bneg.toString());
-        long ZEROpos = this.getCountByGroup(BloodGroup.ZEROpos.toString());
-        long ZEROneg = this.getCountByGroup(BloodGroup.ZEROneg.toString());
-        long ABpos = this.getCountByGroup(BloodGroup.ABpos.toString());
-        long ABneg = this.getCountByGroup(BloodGroup.ABneg.toString());
-
-        BloodBagReport report = new BloodBagReport(total,available,used,transfered,dropped,Apos,Aneg,Bpos,Bneg,ZEROpos,ZEROneg,ABpos,ABneg);
-
-        //writeReport(report.getJsonObject());
+                this.getCountByGroup(BloodGroup.ABpos.toString()),
+                this.getCountByGroup(BloodGroup.Aneg.toString()),
+                this.getCountByGroup(BloodGroup.Bpos.toString()),
+                this.getCountByGroup(BloodGroup.Bneg.toString()),
+                this.getCountByGroup(BloodGroup.ZEROpos.toString()),
+                this.getCountByGroup(BloodGroup.ZEROneg.toString()),
+                this.getCountByGroup(BloodGroup.ABpos.toString()),
+                this.getCountByGroup(BloodGroup.ABneg.toString()));
         return report;
     }
     //not working
@@ -136,46 +130,17 @@ public class BloodBagController implements ContainerResponseFilter {
      * }*/
     @PostMapping("/addBloodBag")
     public BloodBagBean createBloodBag(@RequestBody BloodBagBean bagBean) throws ParseException {
-        /**
-         * Serial serial, BloodGroup valueOf, Date cd, Date ed, String donatorCF2,
-         * 			BloodBagState valueOf2, String note2*/
-
-        Serial serial = new Serial(bagBean.getSerial());
-        BloodGroup group = BloodGroup.valueOf(bagBean.getGroup());
-
-        /*
-        String creationStr = String.valueOf(bagBean.getCreationDate());
-        String expirationStr = String.valueOf(bagBean.getExpirationDate());
-
-        Date creationDate = new SimpleDateFormat(Constants.DATE_FORMAT_STRING).parse(creationStr);
-        Date expirationDate = new SimpleDateFormat(Constants.DATE_FORMAT_STRING).parse(expirationStr);*/
-
-        long creationTS = bagBean.getCreationDate();
-        long expirationTS = bagBean.getExpirationDate();
-
-        Date creationDate = new Date(creationTS);
-        Date expirationDate = new Date(expirationTS);
-
-        String donatorCF = bagBean.getDonator();
-        BloodBag.BloodBagState state = BloodBag.BloodBagState.valueOf(bagBean.getState());
-        String note = bagBean.getNotes();
-
-
-
         BloodBag tempBloodBagObj = new BloodBag(
-                serial,
-                group,
-                creationDate,
-                expirationDate,
-                donatorCF,
-                state,
-                note
+                new Serial(bagBean.getSerial()),
+                BloodGroup.valueOf(bagBean.getGroup()),
+                new Date(bagBean.getCreationDate()),
+                new Date(bagBean.getExpirationDate()),
+                bagBean.getDonator(),
+                BloodBag.BloodBagState.valueOf(bagBean.getState()),
+                bagBean.getNotes()
         );
 
-        BloodBagBean saveBean = tempBloodBagObj.getBean();
-        
-        
-        return bagRepository.save(saveBean);
+        return bagRepository.save(tempBloodBagObj.getBean());
     }
 
 
