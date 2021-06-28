@@ -13,6 +13,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
 import it.unisannio.CARE.Model.BloodBag.Request;
+import it.unisannio.CARE.Model.BloodBag.Request.RequestState;
 import it.unisannio.CARE.Model.Exceptions.RequestCloneNotSupportedException;
 import it.unisannio.CARE.Model.Exceptions.RequestNotFoundException;
 
@@ -70,7 +71,7 @@ public class RequestManager {
     
 	private MongoClient mongoClient;
 	private MongoDatabase mongoDatabase;
-	private MongoCollection  collection;
+	private MongoCollection<Document> collection;
     
 	public RequestManager(String URI, String mongoDatabaseName,String collectionName) {
 		
@@ -80,17 +81,36 @@ public class RequestManager {
 	}
 	
 	public void addRequest(Request request) {
-	        	Document requestD = Document.parse(request.toString());
-	        	this.collection.insertOne(requestD);
-	        	this.mongoClient.close();
+		
+	    Bson condition = new Document("$eq", request.getRequestedBag());
+	    Bson condition2 = new Document("&ne", RequestState.pending);
+        Bson filter = new Document("bloodbag", condition).append("state", condition2);
+		
+        MongoCursor<Document> iterator = this.collection.find().filter(filter).iterator();
+        try {
+        	
+	            if(iterator.tryNext() == null) {
+	
+	        		Document requestD = Document.parse(request.toString());	
+	        		this.collection.insertOne(requestD);
+	            }
+	            else
+	            	throw new RequestCloneNotSupportedException("La richiesta che si vuole inserire è stata già accettata o rifiutata...");
+	            
+        }catch(RequestCloneNotSupportedException e) {
+        	
+        	System.err.println(e.getMessage());
+        	System.err.println("La richiesta "+ request +" può essere già stata elaborata...");
+        	e.printStackTrace();
+        }
+			
 	}
-/*
-	@Override
+
 	public void acceptRequest(Request request) {
 		
-		request.setRequestState(RequestState.accepted);
+		request.setState(RequestState.accepted);
 
-	    Bson condition = new Document("$eq", request.getRequestedBloodBag().getSerial().toString());
+	    Bson condition = new Document("$eq", request.getRequestedBag().getSerial().toString());
 	    Bson condition2 = new Document("$eq", RequestState.pending.toString());
         Bson filter = new Document("bloodbag", condition).append("state", condition2);
         
@@ -103,7 +123,7 @@ public class RequestManager {
 			} 
 			else {
 				
-				System.out.println("Richiesta aggiornata.");
+				System.out.println("Richiesta accettata con successo.");
 			}
         }catch(RequestNotFoundException e) {
         	
@@ -114,13 +134,12 @@ public class RequestManager {
         }
         
 	}
-	
-	@Override
+
 	public void refuseRequest(Request request) {
 		
-		request.setRequestState(RequestState.refused);
+		request.setState(RequestState.refused);
 
-	    Bson condition = new Document("$eq", request.getRequestedBloodBag().getSerial().toString());
+	    Bson condition = new Document("$eq", request.getRequestedBag().getSerial().toString());
         Bson condition2 = new Document("$eq", RequestState.pending.toString());
         Bson filter = new Document("bloodbag", condition).append("state", condition2);
         
@@ -144,12 +163,11 @@ public class RequestManager {
         }
 	}
 	
-	@Override
-	public List<Document> getRequestesInPendling() {
+	public List<Document> getRequestesByState(RequestState state) {
 		
 		List<Document> requestes = new ArrayList<>();
 		
-        Bson condition = new Document("$eq", RequestState.pending.toString());
+        Bson condition = new Document("$eq", state.toString());
         Bson filter = new Document("state", condition);
         
         MongoCursor<Document> iterator= collection.find().filter(filter).iterator();
@@ -161,43 +179,7 @@ public class RequestManager {
 		
 		return requestes;
 	}
-
-	@Override
-	public List<Document> getRequestesAccepted() {
-		
-		List<Document> requestes = new ArrayList<>();
-
-        Bson condition = new Document("$eq", RequestState.accepted.toString());
-        Bson filter = new Document("state", condition);
-        
-        MongoCursor<Document> iterator= collection.find().filter(filter).iterator();
-        
-        while(iterator.hasNext()) {
-        	
-        	requestes.add(iterator.next());
-        }
-		
-		return requestes;
-	}
-
-	@Override
-	public List<Document> getRequestesRefused() {
-		
-		List<Document> requestes = new ArrayList<>();
-		
-        Bson condition = new Document("$eq", RequestState.refused.toString());
-        Bson filter = new Document("state", condition);
-        
-        MongoCursor<Document> iterator= collection.find().filter(filter).iterator();
-        
-        while(iterator.hasNext()) {
-        	
-        	requestes.add(iterator.next());
-        }
-		
-		return requestes;
-	}
-
+/*
 	private MongoCollection<Document> getCollection() {
 		
 		boolean exists = false;
@@ -210,5 +192,6 @@ public class RequestManager {
         	return mongoDatabase.getCollection("requestes");
         mongoDatabase.createCollection("requestes");
         return mongoDatabase.getCollection("requestes");
-	}*/
+	}
+*/
 }
