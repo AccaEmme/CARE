@@ -86,6 +86,31 @@ public class BloodBagController implements ContainerResponseFilter {
         return bagRepository.countByState(state);
     }
 
+    //########### GET EXPIRING BEFORE/AFTER
+    @GetMapping("bloodBag/expiring/before/{timestamp}")
+    public Iterable<BloodBagBean> getBloodBagsExpiringBeforeDate(@PathVariable long timestamp){
+        return bagRepository.findExpirationBeforeDate(timestamp);
+    }
+    @GetMapping("bloodBag/expiring/after/{timestamp}")
+    public Iterable<BloodBagBean> getBloodBagsExpiringAfterDate(@PathVariable long timestamp){
+        return bagRepository.findExpirationAfterDate(timestamp);
+    }
+    @GetMapping("bloodBag/expiring/between/{firstdate}/{seconddate}")
+    public Iterable<BloodBagBean> getBloodBagsExpiringBetweenDate(@PathVariable long firstdate,@PathVariable long seconddate){
+        //test: localhost:8087/bloodBag/expiring/between/965837960/965837970
+        //example swaps the dates.
+        if (firstdate>seconddate){
+            return bagRepository.findExpirationBetweenDate(seconddate,firstdate);
+        }
+        return bagRepository.findExpirationBetweenDate(firstdate,seconddate);
+    }
+
+    @GetMapping("bloodBag/expiring/between/{firstdate}/{seconddate}/{bloodgroup}")
+    public Iterable<BloodBagBean> getBloodBagsExpiringBetweenDateWithGroup(@PathVariable long firstdate, @PathVariable long seconddate, @PathVariable String bloodgroup){
+        return bagRepository.findExpirationBetweenDate_bloodGroup(firstdate,seconddate,bloodgroup);
+    }
+
+
 
     @GetMapping("bloodBag/report")
     public BloodBagReport getReport(){
