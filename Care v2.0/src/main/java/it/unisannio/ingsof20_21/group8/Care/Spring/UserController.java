@@ -67,14 +67,23 @@ public class UserController implements ContainerResponseFilter {
     	ub.setLastAccess(new Date());
     	return ub;
 	}
-    
+
+	@GetMapping("/user/getall")
+	public Iterable<UserBean> getAllUsers() {
+		return userRepo.findAll();
+	}
+
+	@GetMapping("/user/get/email/{email}")
+	public UserBean getUserByEmail(@PathVariable String email){
+		return userRepo.findByEmail(email);
+	}
     
     /*
       login():attempts
      */
     
-	@GetMapping("/user/{username}")
-	public Iterable<UserBean> getNotesbytitle(@PathVariable String username){
+	@GetMapping("/user/get/username/{username}")
+	public Iterable<UserBean> getUserByUsername(@PathVariable String username){
 		return userRepo.findByUsername(username); /*.orElseThrow();*/
 	}
     

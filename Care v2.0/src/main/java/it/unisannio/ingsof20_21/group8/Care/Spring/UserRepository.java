@@ -20,6 +20,20 @@ public interface UserRepository extends JpaRepository<UserBean, Long>{
 	
 	@Query("FROM UserBean u  WHERE u.username =:username")
 	Iterable<UserBean> findByUsername(@Param("username") String username);
+
+	@Query("FROM UserBean u WHERE u.userRole =:role")
+	Iterable<UserBean> filterByRole(@Param("role") String role);
+
+	@Query("FROM UserBean u WHERE u.creationDate >:timestamp")
+	Iterable<UserBean> findCreatedAfter(@Param("timestamp") String timestamp);
+
+	@Query("FROM UserBean u WHERE u.creationDate <:timestamp")
+	Iterable<UserBean> findCreatedBefore(@Param("timestamp") String timestamp);
+
+
+	@Query("FROM UserBean u WHERE u.email =:email")
+	UserBean findByEmail(@Param("email") String email);
+
 	/*
 	@Query("FROM users u  WHERE u.hiddenpass =:hiddenpass")	
 	Iterable<UserBean> findByHiddenPassword(@Param("password") String password);

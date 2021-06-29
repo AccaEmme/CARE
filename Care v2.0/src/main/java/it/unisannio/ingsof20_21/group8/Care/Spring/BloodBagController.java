@@ -137,6 +137,7 @@ public class BloodBagController implements ContainerResponseFilter {
      * @param secondDate the second date
      * @return the count of the bags expiring between the two dates
      */
+
     public long getCountExpiringBetweenDates(@PathVariable long firstDate, @PathVariable long secondDate){
         return bagRepository.countUsedBetweenDates(firstDate,secondDate);
     }
