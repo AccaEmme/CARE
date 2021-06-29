@@ -25,7 +25,8 @@ import it.unisannio.CARE.Model.Exceptions.RequestCloneNotSupportedException;
 import it.unisannio.CARE.Model.Exceptions.RequestNotFoundException;
 
 
-/**Questa classe implementa i metodi che eseguono i vari inserimenti e le varie query, per gestire le richieste inviate dai nodi locali.
+/**
+ * Questa classe implementa i metodi che eseguono i vari inserimenti e le varie query, per gestire le richieste inviate dai nodi locali.
  */
 public class RequestManager {
 	
@@ -40,7 +41,7 @@ public class RequestManager {
      * Metodo costruttore per creare il Request Manager 
      * @param URI Uniform Resource Identifie
      * @param databaseName  Deve essere fornito il nome del database
-     * @param collectionName 
+     * @param collectionName il nome della collezione presentenel database mongoDB
      **************************************************************************
      */
 	public RequestManager(String URI, String databaseName, String collectionName) {
@@ -157,7 +158,7 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * 
+     * Metodo per liberare dalla collection le richieste scadute, avviene una cancellazione logica ma non fisica
      **************************************************************************
      */
 	public void emptyTrash() {
@@ -180,7 +181,7 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo per ottenere la richiesta dallo stato
+     * Metodo per ottenere la richiesta in base allo stato
      * @param state  Oggetto che contiene le informazioni della richiesta di stato
      **************************************************************************
      */

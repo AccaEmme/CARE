@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *Classe per la definzione dei vari tipi di gruppi sanguinei ed anche di quelli compatibili per le donazioni
+ *Enumeratore per la definzione dei vari tipi di gruppi sanguinei ed anche di quelli compatibili per le donazioni
  */
 public enum BloodGroup {
 	Apos, Aneg, Bpos, Bneg, ZEROpos, ZEROneg, ABpos, ABneg;
@@ -71,8 +71,9 @@ public enum BloodGroup {
 	
 	/**
 	 **************************************************************************
-	 * Metodo per delimitare i valori inseribili
-	 * @param delimiter indica il delimitatore che serve per questa classe
+	 * Metodo che ritorna la stringa di tutti i valori dell'enumeratore BloodGroup separati dal delimitatore specificato come argomento
+	 * @param delimiter indica il delimitatore per separare i valori
+	 * @return Ritorna una stringa con tutti i valori richiesti
 	 **************************************************************************
 	 */
 	public static String delimitedValues(String delimiter) {

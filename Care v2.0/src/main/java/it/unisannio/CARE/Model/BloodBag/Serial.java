@@ -99,8 +99,8 @@ public class Serial{
 
     /**
 	 **************************************************************************
-	 * Metodo 
-	 * @param BloodGroup indica il gruppo della sacca
+	 * Costruttore che protocolla ogni sacca con un valore univoco identificativo
+	 * @param bloodgroup indica il gruppo della sacca
 	 **************************************************************************
 	 */
     public Serial(BloodGroup bloodgroup) {
@@ -137,7 +137,6 @@ public class Serial{
     	return this.serial;
     }
     
-    private void setSerial() {}
     
     /**
 	 **************************************************************************

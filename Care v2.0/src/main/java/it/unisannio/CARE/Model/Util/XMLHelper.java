@@ -115,8 +115,8 @@ public class XMLHelper {
 	/**
 	**************************************************************************
 	 * Metodo che inizializza l'XML del seriale dato un percorso specifico (Utiel anche per Junit Test)
-	 * @param Int x
-	 * @param String filesetting
+	 * @param x specifica il contatore da cui deve iniziare 
+	 * @param filesetting specifica il percorso dove salvare il file di setting
 	 * @exception IOException
 	 **************************************************************************
     */

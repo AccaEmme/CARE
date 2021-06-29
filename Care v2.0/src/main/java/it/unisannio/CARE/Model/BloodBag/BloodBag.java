@@ -64,11 +64,11 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      * Metodo costruttore per la creazione della sacca
      * @param serial  E' il Seriale che riconosce in modo univoco la sacca
-     * @param valueOf   Indica il gruppo della sacca?-------------
+     * @param valueOf   Enumeratore: specifica il gruppo sanguinio tra i gruppi definiti
      * @param cd  Data di creazione della sacca
      * @param ed  Data di scadenza della sacca
      * @param donatorCF2  Codice fiscale del donatore
-     * @param valueOf2   Indica lo stato della BloodBag
+     * @param valueOf2   Enumeratore: specifica lo stato di una sacca
      * @param note2  note riguardo la sacca
      **************************************************************************
      */
@@ -239,7 +239,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	
 	/**
      **************************************************************************
-     * Metodo per creare la data di scadenza S?
+     * Metodo per ottenere la data di scadenza di una sacca
      * @return format1.format( (TemporalAccessor) this.expirationDate)
      **************************************************************************
      */
@@ -250,7 +250,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	
 	/**
      **************************************************************************
-     * Metodo per ottenere la data di scadenza S?
+     * Metodo per ottenere la data di creazione di una sacca
      * @return expirationDate
      **************************************************************************
      */
@@ -486,6 +486,13 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 		Dropped;	// Sacca eliminata (es. per scadenza o altre motivazioni)
 	}
 
+	
+	/**
+	 **************************************************************************
+	 * Metodo per ottenere un bean
+	 * @return ritorna un bean ovvero un'oggetto contentente dei tipi di dato primitivi
+	 **************************************************************************
+	 */
 	public BloodBagBean getBean(){
 		BloodBagBean bean = new BloodBagBean();
 		bean.setSerial(this.serial.toString());
