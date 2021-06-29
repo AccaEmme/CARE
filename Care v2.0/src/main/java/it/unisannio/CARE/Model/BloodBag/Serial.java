@@ -97,7 +97,12 @@ public class Serial{
         lastdate 		= 	Integer.valueOf(loadProps.getProperty("lastdate"));
     }
 
-    
+    /**
+	 **************************************************************************
+	 * Metodo 
+	 * @param BloodGroup indica il gruppo della sacca
+	 **************************************************************************
+	 */
     public Serial(BloodGroup bloodgroup) {
         Serial.counter = (Integer.parseInt(currentDate_aaaaMMdd) > lastdate)? 0 : counter ;	//if today > lastdate -> counter = 0 else counter++
 
@@ -110,19 +115,36 @@ public class Serial{
         Serial.updateSerial();
     }
     
+    /**
+	 **************************************************************************
+	 * Metodo usato sia dal JUnit Test, ma viene adoperato anche per 
+	 * generare un oggetto Serial da ricercare, in questo caso non deve aggiornare il seriale
+	 * @param String nuovo seriale 
+	 **************************************************************************
+	 */
     public Serial(String s) {
-		// viene usato sia dal JUnit Test, ma viene adoperato anche per generare un oggetto Serial da ricercare, ma in questo caso non deve aggiornare il seriale
     	validateSerial(s);
     	this.serial = s;
 	}
 
-
+    /**
+	 **************************************************************************
+	 * Metodo GET per ottenere il seriale
+	 * @return ritorna il seriale della sacca
+	 **************************************************************************
+	 */
     public String getSerial() {
     	return this.serial;
     }
     
     private void setSerial() {}
     
+    /**
+	 **************************************************************************
+	 * Metodo UPDATE per inserire un nuovo seriale
+	 * @exception IOException
+	 **************************************************************************
+	 */
 	private static void updateSerial() {
         Properties saveProps = new Properties();
         saveProps.setProperty("serialmatrix", serialmatrix);
@@ -139,6 +161,13 @@ public class Serial{
         }
     }
     
+	/**
+	 **************************************************************************
+	 * Metodo per constatare la validita' del seriale
+	 * @String indica il seriale da controllare
+	 * @exception IllegalArgumentException
+	 **************************************************************************
+	 */
     public static boolean validateSerial(String s) {
     	if( !s.matches( Constants.RegexSerial ) ) 
     		throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_SerialNotValid+s ); // return false; 
@@ -146,10 +175,23 @@ public class Serial{
     	// *** Hermann: In questo caso ho chiesto un parere anche alla community Java su telegram, c'è forte diatriba se preferibile lanciare una eccezione o gestire il booleano. Entrambi non sembra una scelta condivisa. https://softwareengineering.stackexchange.com/questions/330824/function-returning-true-false-vs-void-when-succeeding-and-throwing-an-exception
     }
     
+    /**
+	 **************************************************************************
+	 * Metodo TOSTRING per le informazioni sulla sacca
+	 * @return ritorna le informazioni sulla sacca
+	 **************************************************************************
+	 */
     public String toString() {
         return serial;
     }
     
+    /**
+	 **************************************************************************
+	 * Metodo per confrontare due oggetti
+	 * @param Object viene passato come paramentro l'oggetto da paragonare
+	 * @return ritorna una variabile booleana (true/false) per il paragone 
+	 **************************************************************************
+	 */
     public boolean equals(Object o) {
     	if(o.getClass() != Serial.class) return false;
     	

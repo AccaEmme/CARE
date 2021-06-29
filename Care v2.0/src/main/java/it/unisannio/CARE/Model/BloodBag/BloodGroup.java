@@ -62,7 +62,7 @@ public enum BloodGroup {
 	/**
 	 **************************************************************************
 	 * Metodo per preservare i dati e per negare la rimozione di elemnti da chi riceve
-	 * * @param BloodGroup Viene passato un oggetto BloodGroup
+	 * @param BloodGroup Viene passato un oggetto BloodGroup
 	 **************************************************************************
 	 */
 	public static Iterator<BloodGroup> canReceiveFrom(BloodGroup b){
@@ -72,7 +72,7 @@ public enum BloodGroup {
 	/**
 	 **************************************************************************
 	 * Metodo per delimitare i valori inseribili
-	 * * @param String indica il delimitatore che serve per questa classe
+	 * @param String indica il delimitatore che serve per questa classe
 	 **************************************************************************
 	 */
 	public static String delimitedValues(String delimiter) {
