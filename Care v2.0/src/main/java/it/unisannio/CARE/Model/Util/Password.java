@@ -33,7 +33,7 @@ public class Password {
 	/**
 	**************************************************************************
 	 * Metodo che controlla se la passw è cripta
-	 * @param String stringa con la passw cifrata in MD5
+	 * @param String spassw cifrata in MD5
 	 * @exception IllegalArgumentException
 	 **************************************************************************
     */

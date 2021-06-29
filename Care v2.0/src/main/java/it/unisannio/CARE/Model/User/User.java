@@ -26,9 +26,9 @@ public class User {
 	/**
 	**************************************************************************
 	 * Metodo per la creazione dell'utente con una passw in chiaro
-	 * @param String Username Utente
-	 * @param String Password in chiaro
-	 * @param Role ruolo utente
+	 * @param username - Nome dell'utente
+	 * @param plainTextPassword - Passw dell'utente
+	 * @param role - Ruolo dell'utente
 	 **************************************************************************
     */
 	public User(String username, String plainTextPassword, Role role) {

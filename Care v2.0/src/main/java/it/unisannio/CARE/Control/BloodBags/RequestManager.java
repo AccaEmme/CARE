@@ -38,9 +38,9 @@ public class RequestManager {
 	/**
      **************************************************************************
      * Metodo costruttore per creare il Request Manager 
-     * @param String Uniform Resource Identifie
-     * @param String Deve essere fornito il nome del database
-     * @param 
+     * @param URI Uniform Resource Identifie
+     * @param databaseName  Deve essere fornito il nome del database
+     * @param collectionName 
      **************************************************************************
      */
 	public RequestManager(String URI, String databaseName, String collectionName) {
@@ -55,7 +55,7 @@ public class RequestManager {
 	/**
      **************************************************************************
      * Metodo per aggiungere una richiesta 
-     * @param Request Oggetto Richista per le informazioni sulla richiesta
+     * @param request  Oggetto Richista per le informazioni sulla richiesta
      * @throws RequestCloneNotSupportedException
      **************************************************************************
      */
@@ -91,7 +91,7 @@ public class RequestManager {
 	/**
      **************************************************************************
      * Metodo per accettare le richieste inoltrate
-     * @param Request Oggetto Richista per le informazioni sulla richiesta
+     * @param request  Oggetto Richista per le informazioni sulla richiesta
      * @throws RequestCloneNotSupportedException
      **************************************************************************
      */
@@ -131,7 +131,7 @@ public class RequestManager {
 	/**
      **************************************************************************
      * Metodo per declinare una richiesta
-     * @param Request Oggetto Richista per le informazioni sulla richiesta
+     * @param request  Oggetto Richista per le informazioni sulla richiesta
      * @throws RequestCloneNotSupportedException
      **************************************************************************
      */
@@ -181,7 +181,7 @@ public class RequestManager {
 	/**
      **************************************************************************
      * Metodo per ottenere la richiesta dallo stato
-     * @param Requeststate Oggetto che contiene le informazioni della richiesta di stato
+     * @param state  Oggetto che contiene le informazioni della richiesta di stato
      **************************************************************************
      */
 	public List<Document> getRequestesByState(RequestState state) {

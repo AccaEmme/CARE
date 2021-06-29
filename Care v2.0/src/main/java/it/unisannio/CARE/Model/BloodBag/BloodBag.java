@@ -44,8 +44,8 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
     /**
      **************************************************************************
      * Metodo costruttore per la creazione della sacca
-     * @param BloodGroup Oggetto che viene passato come paramentro per indicare a quale gruppo sanguigno appartiene 
-     * @param String coodice fiscale del donatore
+     * @param bloodGroup  Oggetto che viene passato come paramentro per indicare a quale gruppo sanguigno appartiene 
+     * @param donatorCF  coodice fiscale del donatore
      * @exception ParseException
      **************************************************************************
      */
@@ -63,13 +63,13 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo costruttore per la creazione della sacca
-     * @param String E' il Seriale che riconosce in modo univoco la sacca
-     * @param BloodGroup Indica il gruppo della sacca?-------------
-     * @param Date Data di creazione della sacca
-     * @param Date Data di scadenza della sacca
-     * @param String Codice fiscale del donatore
-     * @param BloodBagState Indica lo stato della BloodBag
-     * @param String note riguardo la sacca
+     * @param serial  E' il Seriale che riconosce in modo univoco la sacca
+     * @param valueOf   Indica il gruppo della sacca?-------------
+     * @param cd  Data di creazione della sacca
+     * @param ed  Data di scadenza della sacca
+     * @param donatorCF2  Codice fiscale del donatore
+     * @param valueOf2   Indica lo stato della BloodBag
+     * @param note2  note riguardo la sacca
      **************************************************************************
      */
 	public BloodBag(Serial serial, BloodGroup valueOf, Date cd, Date ed, String donatorCF2, 
@@ -96,7 +96,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo SET per modificare il seriale di una sacca
-     * @param Serial Nuovo seriale della sacca
+     * @param serial  Nuovo seriale della sacca
      **************************************************************************
      */
 	private void setSerial(Serial serial){
@@ -118,7 +118,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo privato per modificare il gruppo della sacca di sangue 
-     * @param BloodGroup nuovo gruppo sanguineo della sacca
+     * @param bloodGroup  nuovo gruppo sanguineo della sacca
      * @exception IllegalArgumentException
      **************************************************************************
      */
@@ -164,7 +164,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      * Metodo privato per creare una data 
      * @exception ParseException
-     * @param Date nuova data di creazione della sacca
+     * @param creationDate  nuova data di creazione della sacca
      **************************************************************************
      */
 	private void setCreationDate(Date creationDate) throws ParseException 		{
@@ -263,7 +263,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      * Metodo privato per modificare la data di scadenza
      * @exception IllegalArgumentException
-     * @param Date nuova data di scadenza
+     * @param expirationDate  nuova data di scadenza
      **************************************************************************
      */
 	private void setExpirationDate(Date expirationDate) { 
@@ -283,7 +283,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      * Metodo privato per modificare il codice fiscale
      * @exception IllegalArgumentException
-     * @param String codice fiscale del donatore
+     * @param fisCode  codice fiscale del donatore
      **************************************************************************
      */
 	private void setDonatorCF(String fisCode) {
@@ -317,7 +317,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo protetto per modificare le note della sacca
-     * @param String Note riguardo informazioni aggiuntive sulla sacca di sangue
+     * @param note  Note riguardo informazioni aggiuntive sulla sacca di sangue
      **************************************************************************
      */
 	protected void setNote(String note) {
@@ -327,7 +327,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo per aggiungere le note alla sacca
-     * @param String Note riguardo informazioni aggiuntive sulla sacca di sangue
+     * @param note Note riguardo informazioni aggiuntive sulla sacca di sangue
      **************************************************************************
      */
 	public void appendNote(String note) {
@@ -423,7 +423,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo EQUALS per verificare che due sacche siano uguali
-     * @param Object Viene passata come oggetto la sacca da paragonare
+     * @param obj Viene passata come oggetto la sacca da paragonare
      * @return ritorna falso in caso in cui le sacche paragonate non sono uguali 
      **************************************************************************
      */
@@ -474,7 +474,11 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 		System.out.println("Seriale: " +serial.toString()+ ";\nGruppo: " +bloodGroup+ ";\nData Creazione: " +new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(creationDate)+ ";\nData scadenza: " +new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate)+ ";\nCodice fiscale donatore: " +donatorCF+ ";\nStato: " +bloodBagState+ ";\nNote: " +note+ ".\n");
 	}
 
-
+	/**
+	 **************************************************************************
+	 * ENUM con tutte i prossimi stati delle sacche
+	 **************************************************************************
+	 */
 	public enum BloodBagState{ 
 		Available,	// Sacca disponibile per essere usata o trasferita o eliminata
 		Transfered,	// Sacca trasferita a un altro nodo, viene comunque lasciata l'informazione nel database del nodo trasferente nello stato "trasferita"
