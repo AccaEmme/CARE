@@ -48,82 +48,143 @@ public class BloodBagController implements ContainerResponseFilter {
 
     //############# GET #############
 
-    @GetMapping("/bloodBag")
+    /**
+     * @return all the blood bags in the database
+     */
+    @GetMapping("/bloodbag/get/all")
     public Iterable<BloodBagBean> getBloodBag(){
         return bagRepository.findAll();
     }
 
-    @GetMapping("/bloodBag/state/{state}")
+
+    /**
+     * @param state the bloodbag state : {Available,Transfered,Used,Dropped}
+     * @return all the blood bags with the given state
+     */
+    @GetMapping("/bloodbag/get/state/{state}")
     public Iterable<BloodBagBean> filterBloodBagsByState(@PathVariable String state){
         return bagRepository.filterByState(state);
     }
-    
-    @GetMapping("/bloodBag/group/{group}")
+
+    /**
+     * @param group the bloodbag blood group : {Apos, Aneg, Bpos, Bneg, ZEROpos, ZEROneg, ABpos, ABneg}
+     * @return all the blood bags with the given group
+     */
+    @GetMapping("/bloodbag/get/group/{group}")
     public Iterable<BloodBagBean> getBloodBagByGroup(@PathVariable String group){
 		return bagRepository.findByGroup(group); /*.orElseThrow();*/
     }
-    
-    @GetMapping("/bloodBag/serial/{serial}")
+
+    /**
+     * @param serial the bloodbag serial
+     * @return all the bloodbags with the given state (probably just one)
+     */
+    @GetMapping("/bloodbag/get/serial/{serial}")
     public Iterable<BloodBagBean> getBloodBagBySerial(@PathVariable String serial){
     	return bagRepository.findBySerial(serial); /*.orElseThrow();*/
     }
 
+
     //############# get count ###############
-    //working
-    @GetMapping("bloodBag/count/all")
+
+    /**
+     * @return the count of all bags
+     */
+    @GetMapping("bloodbag/count/all")
     public long getAllBagsCount(){
         return bagRepository.countAll();
     }
-    //working
-    @GetMapping("bloodBag/count/group/{group}")
+
+    /**
+     * @return the count of all bags having the given blood group
+     * @param group the blood group
+     */
+    @GetMapping("bloodbag/count/group/{group}")
     public long getCountByGroup(@PathVariable String group){
         return bagRepository.countByGroup(group);
     }
-    //working
-    @GetMapping("bloodBag/count/state/{state}")
+
+    /**
+     * @return the count of all bags having the given state
+     * @param state the given state
+     */
+    @GetMapping("bloodbag/count/state/{state}")
     public long getCountByState(@PathVariable String state){
         return bagRepository.countByState(state);
     }
-    @GetMapping("bloodBag/count/expiring/after/{timestamp}")
-    //working
+
+
+    /**
+     * @return the count of all bags expired after the given date
+     * @param timestamp the given time
+     */
+    @GetMapping("bloodbag/count/expiring/after/{timestamp}")
     public long getCountExpiringAfterDate(@PathVariable long timestamp){
         return bagRepository.countExpirationAfterDate(timestamp);
     }
+
+    /**
+     * @return the count of all bags used after the given date
+     * @param timestamp the given time
+     */
     public long getCountUsedAfterDate(@PathVariable long timestamp){
         return bagRepository.countUsedAfterDate(timestamp);
     }
 
 
     //########### GET EXPIRING BEFORE/AFTER
-    @GetMapping("bloodBag/expiring/before/{timestamp}")
+
+
+    /**
+     * @param timestamp the given date
+     * @return all blood bags expired before a given date
+     */
+    @GetMapping("bloodbag/expiring/before/{timestamp}")
     public Iterable<BloodBagBean> getBloodBagsExpiringBeforeDate(@PathVariable long timestamp){
         return bagRepository.findExpirationBeforeDate(timestamp);
     }
-    @GetMapping("bloodBag/expiring/after/{timestamp}")
+
+    /**
+     * @param timestamp the given date
+     * @return all blood bags expired after a given date
+     */
+    @GetMapping("bloodbag/expiring/after/{timestamp}")
     public Iterable<BloodBagBean> getBloodBagsExpiringAfterDate(@PathVariable long timestamp){
         return bagRepository.findExpirationAfterDate(timestamp);
     }
 
-    @GetMapping("bloodBag/expiring/between/{firstdate}/{seconddate}")
+
+    /**
+     * @param firstdate the first date
+     * @param seconddate the second date
+     * @return all blood bags expired between the two dates
+     */
+    @GetMapping("bloodbag/expiring/between/{firstdate}/{seconddate}")
     public Iterable<BloodBagBean> getBloodBagsExpiringBetweenDate(@PathVariable long firstdate,@PathVariable long seconddate){
-        //test: localhost:8087/bloodBag/expiring/between/965837960/965837970
-        //example swaps the dates.
         if (firstdate>seconddate){
             return bagRepository.findExpirationBetweenDate(seconddate,firstdate);
         }
         return bagRepository.findExpirationBetweenDate(firstdate,seconddate);
     }
 
-    @GetMapping("bloodBag/expiring/between/{firstdate}/{seconddate}/{bloodgroup}")
+    /**
+     * @param firstdate the first date
+     * @param seconddate the second date
+     * @param bloodgroup the blood group
+     * @return all blood bags expired between two dates of a specific blood group
+     */
+    @GetMapping("bloodbag/expiring/between/{firstdate}/{seconddate}/{bloodgroup}")
     public Iterable<BloodBagBean> getBloodBagsExpiringBetweenDateWithGroup(@PathVariable long firstdate, @PathVariable long seconddate, @PathVariable String bloodgroup){
         return bagRepository.findExpirationBetweenDate_bloodGroup(firstdate,seconddate,bloodgroup);
     }
 
 
-
-    @GetMapping("bloodBag/report")
+    /**
+     * @return report the blood bag report having all stats
+     */
+    @GetMapping("bloodbag/report")
     public BloodBagReport getReport(){
-        BloodBagReport report = new BloodBagReport(this.getAllBagsCount(),
+        return new BloodBagReport(this.getAllBagsCount(),
                 this.getCountByState(BloodBag.BloodBagState.Available.toString()),
                 this.getCountByState(BloodBag.BloodBagState.Used.toString()),
                 this.getCountByState(BloodBag.BloodBagState.Transfered.toString()),
@@ -139,7 +200,6 @@ public class BloodBagController implements ContainerResponseFilter {
                 this.getCountByGroup(BloodGroup.ABneg.toString()),
                 this.getCountExpiringAfterDate(new Date().getTime()-Constants.SEVEN_DAYS_MILLIS),
                 this.getCountUsedAfterDate(new Date().getTime()-Constants.SEVEN_DAYS_MILLIS));
-        return report;
     }
     //not working
     private void writeReport(JSONObject report){
@@ -155,16 +215,17 @@ public class BloodBagController implements ContainerResponseFilter {
     //############# POST #############
 
     /**
-     * {
-     *     "serial":"IT-NA205101-Aneg-20210615-0037",
-     *     "group":"Bneg",
-     *     "creationDate":965837967,
-     *     "expirationDate":965837968,
-     *     "donator":"CRSDLCER86BH0919",
-     *     "state":"Available",
-     *     "notes":"test note"
-     * }*/
-    @PostMapping("/addBloodBag")
+      {
+          "serial":"IT-NA205101-Aneg-20210615-0037",
+          "group":"Bneg",
+          "creationDate":965837967,
+          "expirationDate":965837968,
+          "donator":"CRSDLCER86BH0919",
+          "state":"Available",
+          "notes":"test note"
+      }*/
+
+    @PostMapping("/bloodbag/add")
     public BloodBagBean createBloodBag(@RequestBody BloodBagBean bagBean) throws ParseException {
         BloodBag tempBloodBagObj = new BloodBag(
                 new Serial(bagBean.getSerial()),
@@ -184,15 +245,17 @@ public class BloodBagController implements ContainerResponseFilter {
     }
 
 
-
-    @DeleteMapping("/bloodBag/use/{serial}")
+    /**
+     * this method is called to USE a blood bag, it changes the blood bag state to "Used"
+     * 1) find blood bag
+     * 2) delete the blood bag
+     * 3) modify the blood bag state
+     * 4) save the new bloood bag
+     * @param serial the blood bag serial
+     * @return blood bag
+     */
+    @DeleteMapping("/bloodbag/use/{serial}")
     public BloodBagBean useBloodBag(@PathVariable("serial") String serial){
-        //should change bloodbag state!
-        //find blood bag
-        //delete the blood bag
-        //modify the blood bag state
-        //save the new bloood bag
-
         Iterable<BloodBagBean> beans = this.getBloodBagBySerial(serial);
         BloodBagBean beanToChange = null;
 
@@ -209,7 +272,12 @@ public class BloodBagController implements ContainerResponseFilter {
         }
         return beanToChange;
     }
-    @GetMapping("/export/bloodBag/json")
+
+
+    /**
+     * this method exports a json containing all the blood bags
+     */
+    @GetMapping("/export/bloodbag/json")
     public void exportToJson(){
         JSONArray sqlDatabase = new JSONArray();
         Iterable<BloodBagBean> beans = this.getBloodBag();
@@ -228,25 +296,12 @@ public class BloodBagController implements ContainerResponseFilter {
         }
     }
 
+
+    /**
+     * @param bean the bean used to generate the json object
+     * @return jsonObject the object generated from the bean
+     */
     private JSONObject getJsonObjectFromBean(BloodBagBean bean){
-        /**
-         * @Id
-         *     private String serial;
-         *
-         *     @Column(unique = false, nullable = false)
-         *     private String group;
-         *     @Column(unique = false, nullable = false)
-         *     private String donator;
-         *     @Column(unique = false, nullable = false)
-         *     private long creationDate;
-         *     @Column(unique = false, nullable = false)
-         *     private long expirationDate;
-         *     @Column(unique = false, nullable = true)
-         *     private String state;
-         *     private String notes;
-         *
-         *     @Column(unique = false, nullable = true)
-         *     private long usedTimeStamp;*/
         JSONObject object = new JSONObject();
             object.put("serial",bean.getSerial());
             object.put("group",bean.getGroup());
