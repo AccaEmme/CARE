@@ -82,7 +82,7 @@ public class UserController implements ContainerResponseFilter {
       login():attempts
      */
     
-	@GetMapping("/user/get/username/{username}")
+	@GetMapping("/user/get/ù/{username}")
 	public Iterable<UserBean> getUserByUsername(@PathVariable String username){
 		return userRepo.findByUsername(username); /*.orElseThrow();*/
 	}

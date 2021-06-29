@@ -1,6 +1,6 @@
-package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
+package it.unisannio.CARE.spring;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
+
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -23,9 +23,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodGroup;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.Serial;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
 
 /*
  *  JUnit test for BloodBag class.

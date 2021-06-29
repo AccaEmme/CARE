@@ -1,4 +1,4 @@
-package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
+package it.unisannio.CARE.spring;
 
 import static org.junit.Assert.assertTrue;
 
@@ -8,6 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
+import it.unisannio.CARE.Model.BloodBag.BloodGroup;
+import it.unisannio.CARE.Model.BloodBag.Serial;
+import it.unisannio.CARE.Model.Util.Constants;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -17,7 +20,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullSource;*/
 
 import it.unisannio.CARE.Model.Util.Password;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
 
 import org.junit.jupiter.params.ParameterizedTest;
 

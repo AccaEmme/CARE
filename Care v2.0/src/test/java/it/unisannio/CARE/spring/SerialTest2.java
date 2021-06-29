@@ -1,4 +1,4 @@
-package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
+package it.unisannio.CARE.spring;
 
 import static org.junit.Assert.assertTrue;
 
@@ -14,12 +14,14 @@ import java.util.Date;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import it.unisannio.CARE.Model.BloodBag.BloodGroup;
+import it.unisannio.CARE.Model.BloodBag.Serial;
+import it.unisannio.CARE.Model.Util.Constants;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Constants;
-import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.XMLHelper;
+
 
 /*
  * Si preferisce generare due SerialTest in quanto entrambi hanno un @BeforeClass che porta in due stati differenti.
