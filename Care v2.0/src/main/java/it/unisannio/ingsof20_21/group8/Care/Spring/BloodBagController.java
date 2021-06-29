@@ -83,10 +83,14 @@ public class BloodBagController implements ContainerResponseFilter {
         return bagRepository.countByState(state);
     }
     @GetMapping("bloodBag/count/expiring/after/{timestamp}")
-
+    //working
     public long getCountExpiringAfterDate(@PathVariable long timestamp){
         return bagRepository.countExpirationAfterDate(timestamp);
     }
+    public long getCountUsedAfterDate(@PathVariable long timestamp){
+        return bagRepository.countUsedAfterDate(timestamp);
+    }
+
 
     //########### GET EXPIRING BEFORE/AFTER
     @GetMapping("bloodBag/expiring/before/{timestamp}")
@@ -132,7 +136,7 @@ public class BloodBagController implements ContainerResponseFilter {
                 this.getCountByGroup(BloodGroup.ABpos.toString()),
                 this.getCountByGroup(BloodGroup.ABneg.toString()),
                 this.getCountExpiringAfterDate(new Date().getTime()-Constants.SEVEN_DAYS_MILLIS),
-                this.getCountExpiringAfterDate(new Date().getTime()));
+                this.getCountUsedAfterDate(new Date().getTime()-Constants.SEVEN_DAYS_MILLIS));
         return report;
     }
     //not working
@@ -170,7 +174,11 @@ public class BloodBagController implements ContainerResponseFilter {
                 bagBean.getNotes()
         );
 
-        return bagRepository.save(tempBloodBagObj.getBean());
+        BloodBagBean beanToSave = tempBloodBagObj.getBean();
+        //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
+        if (beanToSave.getUsedTimeStamp() == 0)
+            beanToSave.setUsedTimeStamp(new Date().getTime());
+        return bagRepository.save(beanToSave);
     }
 
 
@@ -193,6 +201,7 @@ public class BloodBagController implements ContainerResponseFilter {
 
             bagRepository.delete(beanToChange);
             beanToChange.setState(BloodBag.BloodBagState.Used.toString());
+            beanToChange.setUsedTimeStamp(new Date().getTime());
 
             bagRepository.save(beanToChange);
         }

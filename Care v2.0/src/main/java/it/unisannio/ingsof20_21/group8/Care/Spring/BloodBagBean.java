@@ -21,6 +21,8 @@ public class BloodBagBean {
     private String state;
     private String notes;
 
+    private long usedTimeStamp;
+
     public BloodBagBean(){}
 
     public String getSerial() {
@@ -89,7 +91,16 @@ public class BloodBagBean {
                 ", expirationDate=" + expirationDate +
                 ", state='" + state + '\'' +
                 ", notes='" + notes + '\'' +
+                ", usedTimeStamp=" + usedTimeStamp +
                 '}';
+    }
+
+    public long getUsedTimeStamp() {
+        return usedTimeStamp;
+    }
+
+    public void setUsedTimeStamp(long usedTimeStamp) {
+        this.usedTimeStamp = usedTimeStamp;
     }
 
     /*
