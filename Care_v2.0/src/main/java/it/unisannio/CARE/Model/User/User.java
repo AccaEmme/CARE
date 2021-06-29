@@ -178,16 +178,6 @@ public class User {
         this.temppass				= "";
     }
     
-    /**
-	**************************************************************************
-	 * Metodo GET per ottenere l'ultima password registrata
-	 * @return ritorna la data dell'utltimo update
-	 **************************************************************************
-    */
-    public Date getPasswordLastUpdate() {
-    	return password_lastupdate;
-    }
-    
     
    
     /**
@@ -221,28 +211,11 @@ public class User {
     	this.role = r;
     }
    
-    /**
-	**************************************************************************
-	 * Metodo per il return dell'utente come document xml
-	 * @return le informazioni per la creazione del documento XML
-	 **************************************************************************
-    */
-    public Document getDocument(){
-        Document document = new Document("username",this.getUsername());
-        document.append("password",this.getPassword());
-        if (this.getRole()!=null)
-            document.append("role",this.getRole().toString());
-        if (this.getPasswordLastUpdate()!=null)
-            document.append("password_last_update",this.getPasswordLastUpdate());
- 
-        return document;
-    }
-
     
     /**
 	 **************************************************************************
-	 * Metodo per eseguire il parsing da User in UserBean
-	 * @return UserBean
+	 * Metodo per ottenere un bean
+	 * @return ritorna un bean ovvero un'oggetto contentente dei tipi di dato primitivi
 	 **************************************************************************
 	 */
     public UserBean	getUserBean() {

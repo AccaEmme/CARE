@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,10 +25,6 @@ import it.unisannio.CARE.Model.User.Role;
 import it.unisannio.CARE.Model.User.User;
 
 
-/**
- * @author AccaEmme on 2021-06-26
- *
- */
 
 @CrossOrigin("*")
 @RestController
@@ -67,15 +63,49 @@ public class UserController implements ContainerResponseFilter {
     	ub.setLastAccess(new Date());
     	return ub;
 	}
-    
+
+	/**
+	 * 127.0.0.1:8087/user/get/all
+	 * */
+	@GetMapping("/user/get/all")
+	public Iterable<UserBean> getAllUsers() {
+		return userRepo.findAll();
+	}
+
+	/**
+	 * 127.0.0.1:8087/user/get/email/dtarver6@simplemachines.org
+	 * */
+	@GetMapping("/user/get/email/{email}")
+	public UserBean getUserByEmail(@PathVariable String email){
+		return userRepo.findByEmail(email);
+	}
     
     /*
       login():attempts
      */
-    
-	@GetMapping("/user/{username}")
-	public Iterable<UserBean> getNotesbytitle(@PathVariable String username){
-		return userRepo.findByUsername(username); /*.orElseThrow();*/
+
+    /**
+	 * 127.0.0.1:8087/user/get/username/dedland7
+	 * */
+	@GetMapping("/user/get/username/{username}")
+	public UserBean getUserByUsername(@PathVariable String username){
+		return userRepo.findByUsername(username);
+	}
+
+	/**
+	 * 127.0.0.1:8087/user/get/role/Administrator
+	 * */
+	@GetMapping("/user/get/role/{role}")
+	public Iterable<UserBean> getUserByRole(@PathVariable String role){
+		return userRepo.findUserByRole(role);
+	}
+
+	/**
+	 * 127.0.0.1:8087/user/get/created/1624217670000/1624995270000
+	 * */
+	@GetMapping("user/get/created/{firstdate}/{seconddate}")
+	public Iterable<UserBean> getUserCreatedBetween(@PathVariable long firstdate, @PathVariable long seconddate){
+		return userRepo.findCreatedBetween(firstdate,seconddate);
 	}
     
     //===============POST METHODS

@@ -34,7 +34,7 @@ public class RequestBean implements Serializable{
 	 * @param String Id della richiesta
 	 * @param String Seriale della richiesta
 	 * @param String data della richiesta
-	 * @param String note sulla richiesta
+	 * @param String note sulla richiesta 
 	 * @param String Stato della richiesta
 	 * @param String priorita' della richiesta
 	 **************************************************************************

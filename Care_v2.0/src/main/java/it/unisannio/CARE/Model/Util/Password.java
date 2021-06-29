@@ -115,9 +115,9 @@ public class Password {
     
     /**
 	**************************************************************************
-	 * Metodo per generare la passw dell'utente
+	 * Metodo per generare la passw in chiaro casuale
 	 * @param Int grandezza in numero della passw
-	 * @return ritorna in valore int la grandezza della passw?
+	 * @return ritorna la passw casuale 
 	 **************************************************************************
     */
     //public static char[] generatePassword(int length) {
@@ -164,7 +164,7 @@ public class Password {
     
     /**
 	**************************************************************************
-	 * Metodo che controlla se il Pattern della passw è giusto
+	 * Metodo per il controllo del pattern della password in chiaro inserito
 	 * @param final String givenPassword
 	 * @exception IllegalArgumentException
 	 **************************************************************************
