@@ -33,7 +33,7 @@ public class Password {
 	/**
 	**************************************************************************
 	 * Metodo che controlla se la passw è cripta
-	 * @param String hiddenPassword
+	 * @param String stringa con la passw cifrata in MD5
 	 * @exception IllegalArgumentException
 	 **************************************************************************
     */
@@ -47,7 +47,7 @@ public class Password {
 	/**
      **************************************************************************
      * Metodo per il GET della passw criptata
-     * @return hiddenPassword
+     * @return ritorna la passw cifrata in MD5
      **************************************************************************
     */
 	public String getHiddenPassword() {
@@ -57,7 +57,7 @@ public class Password {
 	/**
      **************************************************************************
      * Metodo per il Set della pasw Criptata
-     * @param String hiddenPass
+     * @param String passw cifrata in MD5
      **************************************************************************
     */
 	public void setHiddenPassword(String hiddenPass) {
@@ -81,8 +81,8 @@ public class Password {
 	/**
 	**************************************************************************
 	 * Metodo per il ritorno dell'hashcode con algoritmo MD5 del valore in ingresso inclundento il SALT
-	 * @param String input
-	 * @return hashtext.toUpperCase()
+	 * @param String password che si vuole cifrare
+	 * @return ritorna la passw crifrata in MD5
 	 **************************************************************************
     */
     public static String getMd5(String input)    {
@@ -115,8 +115,9 @@ public class Password {
     
     /**
 	**************************************************************************
-	 * metodo per generare la passw dell'utente
-	 * @param int lenght
+	 * Metodo per generare la passw dell'utente
+	 * @param Int grandezza in numero della passw
+	 * @return ritorna in valore int la grandezza della passw?
 	 **************************************************************************
     */
     //public static char[] generatePassword(int length) {

@@ -11,6 +11,11 @@ import it.unisannio.CARE.Model.Util.Constants;
 import it.unisannio.CARE.Model.Util.Password;
 import it.unisannio.ingsof20_21.group8.Care.Spring.UserBean;
 
+
+/**
+ * Classe utilizzata per la creazione di un utente del programma CARE
+ */
+
 public class User {
 	private String 		username, hiddenPassword, temppass, plainTextPassword, email;
 	//private Location 	residence;
@@ -18,7 +23,14 @@ public class User {
 	private Date			password_lastupdate;
 	
 	
-	// Costruttore creazione utente
+	/**
+	**************************************************************************
+	 * Metodo per la creazione dell'utente con una passw in chiaro
+	 * @param String Username Utente
+	 * @param String Password in chiaro
+	 * @param Role ruolo utente
+	 **************************************************************************
+    */
 	public User(String username, String plainTextPassword, Role role) {
 		this.setUsername(username);
 		if(plainTextPassword.equals("")) {
@@ -65,7 +77,8 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo per la gestione dell'utente con una passw criptata
-	 * @param String username, String hiddenPassword
+	 * @param String nome utente
+	 * @param String Passw criptata in MD5
 	 * @exception UserException, NullPasswordException
 	 **************************************************************************
     */
@@ -119,7 +132,7 @@ public class User {
 	/**
 	**************************************************************************
 	 * Metodo GET per ottenere lo username 
-	 * @return username
+	 * @return ritorna l'username dell'utente 
 	 **************************************************************************
     */
     public String getUsername() {
@@ -129,7 +142,7 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo SET per modificare lo username 
-	 * @param String username 
+	 * @param String Nome utente che si vuole inserire
 	 **************************************************************************
     */
     public void setUsername(String username) {
@@ -140,7 +153,7 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo GET per ottenere la hidden password
-	 * @return password
+	 * @return ritorna la passw dell'utente
 	 **************************************************************************
     */
     public String getPassword() {
@@ -150,7 +163,7 @@ public class User {
     /**
    	**************************************************************************
    	 * Metodo SET per il moodificare la password
-   	 * @param String plainTextPassword
+   	 * @param String password che si vuole inserire nuova
    	 **************************************************************************
        */
     public void setPassword(String plainTextPassword) {
@@ -168,7 +181,7 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo GET per ottenere l'ultima password registrata
-	 * @return password_lastupdate
+	 * @return ritorna la data dell'utltimo update
 	 **************************************************************************
     */
     public Date getPasswordLastUpdate() {
@@ -177,18 +190,21 @@ public class User {
     
     
    
-    
+    /**
+	**************************************************************************
+	 * Metodo SET per inserire una nuova email
+	 * @param String nuova Email da inserire 
+	 **************************************************************************
+    */
     public void setEmail(String email) {
 		this.email = email;
 	}
 
 
-
-
 	/**
 	**************************************************************************
 	 * Metodo GET per ottenere il ruolo dell'utente
-	 * @return role
+	 * @return ritorna il ruolo dell'utente
 	 **************************************************************************
     */
     public Role getRole() {
@@ -198,7 +214,7 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo SET per modificare il Ruolo
-	 * @param Role r
+	 * @param Role ruolo da inserire tra quelli disponibili (Administrator, StoreManager, Officer)
 	 **************************************************************************
     */
     public void setRole(Role r) {
@@ -208,7 +224,7 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo per il return dell'utente come document xml
-	 * @return document
+	 * @return le informazioni per la creazione del documento XML
 	 **************************************************************************
     */
     public Document getDocument(){
@@ -243,7 +259,7 @@ public class User {
     /**
 	 **************************************************************************
 	 * Metodo per il tester Junit per verificare l'esistenza dell'oggetto USER
-	 * @return true
+	 * @return ritorna vero se esiste l'utente
 	 **************************************************************************
 	 */
     public boolean exists() {

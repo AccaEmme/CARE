@@ -24,8 +24,8 @@ public class XMLHelper {
 	/**
 	**************************************************************************
 	 * Metodo per ottenere le proprietà da un file xml
-	 * @param String xmlfilepath
-	 * @return loadProps
+	 * @param String Percorso del file XML
+	 * @return ritorna NULL se non trova il percorso
 	 * @exception InvalidPropertiesFormatException, FileNotFoundException, IOException
 	 **************************************************************************
     */
@@ -47,8 +47,9 @@ public class XMLHelper {
 	/**
 	**************************************************************************
 	 * Metodo che inizializza l'XML del seriale 
-	 * @param String serialmatrix 
-	 * @exception IllegalArgumentException, IOException
+	 * @param String seriale del file XML 
+	 * @exception IOException
+	 * @exception IllegalArgumentException
 	 **************************************************************************
     */
 	public static void initSerialXML( String serialmatrix ) {
@@ -114,7 +115,8 @@ public class XMLHelper {
 	/**
 	**************************************************************************
 	 * Metodo che inizializza l'XML del seriale dato un percorso specifico (Utiel anche per Junit Test)
-	 * @param Int x, String filesettings
+	 * @param Int x
+	 * @param String filesetting
 	 * @exception IOException
 	 **************************************************************************
     */
