@@ -6,6 +6,7 @@ import it.unisannio.CARE.Model.BloodBag.Serial;
 import it.unisannio.CARE.Model.Report.BloodBagReport;
 
 import it.unisannio.CARE.Model.Util.Constants;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
@@ -207,7 +208,54 @@ public class BloodBagController implements ContainerResponseFilter {
         }
         return beanToChange;
     }
+    @GetMapping("/export/bloodBag/json")
+    public void exportToJson(){
+        JSONArray sqlDatabase = new JSONArray();
+        Iterable<BloodBagBean> beans = this.getBloodBag();
 
+        for (BloodBagBean bean : beans){
+            sqlDatabase.add(this.getJsonObjectFromBean(bean));
+        }
+
+        try {
+            FileWriter fileWriter = new FileWriter("exports/jsonExport.json");
+            fileWriter.write(sqlDatabase.toJSONString());
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private JSONObject getJsonObjectFromBean(BloodBagBean bean){
+        /**
+         * @Id
+         *     private String serial;
+         *
+         *     @Column(unique = false, nullable = false)
+         *     private String group;
+         *     @Column(unique = false, nullable = false)
+         *     private String donator;
+         *     @Column(unique = false, nullable = false)
+         *     private long creationDate;
+         *     @Column(unique = false, nullable = false)
+         *     private long expirationDate;
+         *     @Column(unique = false, nullable = true)
+         *     private String state;
+         *     private String notes;
+         *
+         *     @Column(unique = false, nullable = true)
+         *     private long usedTimeStamp;*/
+        JSONObject object = new JSONObject();
+            object.put("serial",bean.getSerial());
+            object.put("group",bean.getGroup());
+            object.put("donator",bean.getDonator());
+            object.put("creationDate",bean.getCreationDate());
+            object.put("expirationDate",bean.getExpirationDate());
+            object.put("state",bean.getState());
+            object.put("notes",bean.getNotes());
+            object.put("usedTimeStamp",bean.getUsedTimeStamp());
+        return object;
+    }
 
 }
 

@@ -14,13 +14,19 @@ public class BloodBagBean {
     @Id
     private String serial;
 
+    @Column(unique = false, nullable = false)
     private String group;
+    @Column(unique = false, nullable = false)
     private String donator;
+    @Column(unique = false, nullable = false)
     private long creationDate;
+    @Column(unique = false, nullable = false)
     private long expirationDate;
+    @Column(unique = false, nullable = true)
     private String state;
     private String notes;
 
+    @Column(unique = false, nullable = true)
     private long usedTimeStamp;
 
     public BloodBagBean(){}
