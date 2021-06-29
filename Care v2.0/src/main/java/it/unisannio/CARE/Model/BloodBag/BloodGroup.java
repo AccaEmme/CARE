@@ -7,13 +7,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+/**
+ *Classe per la definzione dei vari tipi di gruppi sanguinei ed anche di quelli compatibili per le donazioni
+ */
 public enum BloodGroup {
 	Apos, Aneg, Bpos, Bneg, ZEROpos, ZEROneg, ABpos, ABneg;
 	
 	/**
 	 **************************************************************************
-	 * Metodo privato per la creazione della HASMAP con tutti i tipi di sacche di chi può donare
+	 * Metodo privato per la creazione della HASHMAP con tutti i tipi di sacche di chi può donare
 	 **************************************************************************
 	 */
 	private static  HashMap<BloodGroup, List<BloodGroup>> canDonateTo = new HashMap() {
@@ -31,7 +33,7 @@ public enum BloodGroup {
 	
 	/**
 	 **************************************************************************
-	 * Metodo privato per la creazione della HASMAP con tutti i tipi di sacche di chi può ricevere
+	 * Metodo privato per la creazione della HASHMAP con tutti i tipi di sacche di chi può ricevere
 	 **************************************************************************
 	 */
 	private static HashMap<BloodGroup, List<BloodGroup>> canReceiveFrom = new HashMap() {
@@ -50,7 +52,7 @@ public enum BloodGroup {
 	/**
 	 **************************************************************************
 	 * Metodo per preservare i dati e per negare la rimozione di elemnti da chi dona
-	 * @param BloodGroup b
+	 * @param BloodGroup Viene passato un oggetto BloodGroup
 	 **************************************************************************
 	 */
 	public static Iterator<BloodGroup> canDonateTo(BloodGroup b){
@@ -60,7 +62,7 @@ public enum BloodGroup {
 	/**
 	 **************************************************************************
 	 * Metodo per preservare i dati e per negare la rimozione di elemnti da chi riceve
-	 * * @param BloodGroup b
+	 * @param BloodGroup Viene passato un oggetto BloodGroup
 	 **************************************************************************
 	 */
 	public static Iterator<BloodGroup> canReceiveFrom(BloodGroup b){
@@ -70,7 +72,7 @@ public enum BloodGroup {
 	/**
 	 **************************************************************************
 	 * Metodo per delimitare i valori inseribili
-	 * * @param String delimiter
+	 * @param String indica il delimitatore che serve per questa classe
 	 **************************************************************************
 	 */
 	public static String delimitedValues(String delimiter) {
