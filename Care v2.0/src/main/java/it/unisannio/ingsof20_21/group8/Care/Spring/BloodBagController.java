@@ -18,6 +18,7 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -217,8 +218,9 @@ public class BloodBagController implements ContainerResponseFilter {
             sqlDatabase.add(this.getJsonObjectFromBean(bean));
         }
 
+
         try {
-            FileWriter fileWriter = new FileWriter("exports/jsonExport.json");
+            FileWriter fileWriter = new FileWriter("exports/jsonExport"+Constants.dateFormatString.format(new Date())+".json");
             fileWriter.write(sqlDatabase.toJSONString());
             fileWriter.close();
         } catch (IOException e) {
