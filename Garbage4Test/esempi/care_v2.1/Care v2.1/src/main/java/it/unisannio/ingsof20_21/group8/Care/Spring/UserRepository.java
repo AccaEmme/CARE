@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+
+
 import it.unisannio.CARE.Model.Util.Password;
 
 /**
@@ -19,21 +21,10 @@ import it.unisannio.CARE.Model.Util.Password;
 public interface UserRepository extends JpaRepository<UserBean, Long>{
 	
 	@Query("FROM UserBean u  WHERE u.username =:username")
-	Iterable<UserBean> findByUsername(@Param("username") String username);
-
-	@Query("FROM UserBean u WHERE u.userRole =:role")
-	Iterable<UserBean> filterByRole(@Param("role") String role);
-
-	@Query("FROM UserBean u WHERE u.creationDate >:timestamp")
-	Iterable<UserBean> findCreatedAfter(@Param("timestamp") String timestamp);
-
-	@Query("FROM UserBean u WHERE u.creationDate <:timestamp")
-	Iterable<UserBean> findCreatedBefore(@Param("timestamp") String timestamp);
-
-
-	@Query("FROM UserBean u WHERE u.email =:email")
-	UserBean findByEmail(@Param("email") String email);
-
+	Iterable<UserBean> findByUsername2(@Param("username") String username);
+	
+	
+	UserBean findByUsername(String username);
 	/*
 	@Query("FROM users u  WHERE u.hiddenpass =:hiddenpass")	
 	Iterable<UserBean> findByHiddenPassword(@Param("password") String password);

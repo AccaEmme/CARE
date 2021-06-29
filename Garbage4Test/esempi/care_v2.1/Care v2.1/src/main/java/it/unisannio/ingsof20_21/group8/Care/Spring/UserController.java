@@ -67,28 +67,19 @@ public class UserController implements ContainerResponseFilter {
     	ub.setLastAccess(new Date());
     	return ub;
 	}
-
-	@GetMapping("/user/getall")
-	public Iterable<UserBean> getAllUsers() {
-		return userRepo.findAll();
-	}
-
-	@GetMapping("/user/get/email/{email}")
-	public UserBean getUserByEmail(@PathVariable String email){
-		return userRepo.findByEmail(email);
-	}
+    
     
     /*
       login():attempts
      */
     
-	@GetMapping("/user/get/username/{username}")
-	public Iterable<UserBean> getUserByUsername(@PathVariable String username){
-		return userRepo.findByUsername(username); /*.orElseThrow();*/
+	@GetMapping("/user/{username}")
+	public Iterable<UserBean> getNotesbytitle(@PathVariable String username){
+		return userRepo.findByUsername2(username); /*.orElseThrow();*/
 	}
     
     //===============POST METHODS
-    @PostMapping("/user/adduser")
+ 
     /**
      * createUser
      * 
@@ -142,8 +133,9 @@ public class UserController implements ContainerResponseFilter {
      * @return UserBean - UserBean object after User parsing that returns a valid checked UserBean to store in database.
      */
     // {username}/plainTextPassword/{plainTextPassword}/role/{role}
+    @PostMapping("/register")
 	public UserBean createUser(@RequestBody UserBean newUser) {
-        	
+
     	//try {
 			User tempUserObj = new User(
 					newUser.getUsername(),				// HTTP username
