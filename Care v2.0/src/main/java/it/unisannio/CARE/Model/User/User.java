@@ -20,7 +20,7 @@ public class User {
 	
 	// Costruttore creazione utente
 	public User(String username, String plainTextPassword, Role role) {
-		this.username 		= username;
+		this.setUsername(username);
 		if(plainTextPassword.equals("")) {
 			this.temppass 		= Password.generatePassword(10);
 			this.hiddenPassword	= Password.getMd5(this.temppass);
@@ -133,6 +133,7 @@ public class User {
 	 **************************************************************************
     */
     public void setUsername(String username) {
+    	if(username.length()<3) throw new IllegalArgumentException("Username size too short, should be greater than 3 chars.");
         this.username = username;
     } 
 
