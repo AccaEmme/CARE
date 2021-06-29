@@ -20,4 +20,5 @@ public class FollenTests {
         String dateStr = format.format(new Date());
         System.out.println(dateStr);
     }
+
 }

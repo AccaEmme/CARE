@@ -63,7 +63,8 @@ public class SerialTest {
 	   BloodGroup g= BloodGroup.valueOf(bloodGroup);
    	   new Serial(g);
     }   
-   
+
+
 	/*
     @Test
     public void serialBloodGroupWellDefinedApos() {

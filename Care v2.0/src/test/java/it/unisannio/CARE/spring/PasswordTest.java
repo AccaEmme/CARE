@@ -34,7 +34,8 @@ import junitparams.naming.TestCaseName;
 
 public class PasswordTest {
 	
-	
+
+
 	// =====================Constructor1 tests: Password(String hiddenPassword)
 	@Test // Test Constructor1 works propertly with valid hiddenPassword
 	public void ValidityTest_Constructor1_notNullObject() {

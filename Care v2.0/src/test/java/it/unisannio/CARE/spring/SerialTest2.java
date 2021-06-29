@@ -49,6 +49,7 @@ public class SerialTest2 {
 		/*uso direttamente serial_setting_temp*/
 		
 	}
+
 		@Test
 	public void testCounter() throws InvalidPropertiesFormatException, FileNotFoundException, IOException {
 		String path3 = path+"serial_settings.xml";

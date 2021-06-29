@@ -306,6 +306,7 @@ public class UserTest {
         assertTrue( Password.validatePlaintextPasswordPattern(password) );
     }	
 	
+
     
     @ParameterizedTest
     @MethodSource("invalidPasswordProvider")
