@@ -20,7 +20,6 @@ import static com.mongodb.client.model.Filters.ne;
 
 import it.unisannio.CARE.Model.BloodBag.Request;
 import it.unisannio.CARE.Model.BloodBag.Request.RequestState;
-import it.unisannio.CARE.Model.Exceptions.NullCredentialException;
 import it.unisannio.CARE.Model.Exceptions.RequestCloneNotSupportedException;
 import it.unisannio.CARE.Model.Exceptions.RequestNotFoundException;
 import it.unisannio.CARE.Model.Util.Constants;
@@ -49,56 +48,28 @@ public class RequestManager {
 		
 		this.mongoClient = new MongoClient(new MongoClientURI(URI));
 		this.mongoDatabase = mongoClient.getDatabase(databaseName);
-		this.collection =mongoDatabase.getCollection(collectionName);
+		this.collection = mongoDatabase.getCollection(collectionName);
 	}
+	
 	
 	
 	public RequestManager() {
 		
-		this.mongoClient = new MongoClient(new MongoClientURI(createURI()));
-		this.mongoDatabase = mongoClient.getDatabase(createDatabaseName());
-		this.collection =mongoDatabase.getCollection(createCollectionName());
-	}
-	
-	
-    private static String createURI(){
+		Properties properties = XMLHelper.getProps(Constants.MONGODB_CREDENTIALS);
     	
-        Properties properties = XMLHelper.getProps(Constants.MONGODB_CREDENTIALS);
-        String username, password, db_host;
-        
-        username = properties.getProperty("username");
-        password = properties.getProperty("password");
-        db_host  = properties.getProperty("db_host");
-        
-        if(username!=null && password!=null && db_host!=null)
-        	return "mongodb+srv://"+username+":"+password+"@cluster0"+db_host;
-        else
-        	throw new NullCredentialException("Credenziali assenti");
-    }
-    
-    
-    
-    private static String createDatabaseName() {
-    	
-    	Properties properties = XMLHelper.getProps(Constants.MONGODB_CREDENTIALS);
+        String username = properties.getProperty("username");
+        String password = properties.getProperty("password");
+        String db_host = properties.getProperty("db_host");
         String databaseName = properties.getProperty("db_name");
-        
-        if(databaseName != null)
-    	return databaseName;
-    else
-    	throw new NullCredentialException("Credenziali assenti");
-    }
-    
-    private static String createCollectionName() {
-    	
-    	Properties properties = XMLHelper.getProps(Constants.MONGODB_CREDENTIALS);
         String collectionName = properties.getProperty("requests");
         
-        if(collectionName != null)
-    	return collectionName;
-    else
-    	throw new NullCredentialException("Credenziali assenti");
-    }
+		this.mongoClient = new MongoClient(new MongoClientURI("mongodb+srv://"+username+":"+password+"@cluster0"+db_host));
+		this.mongoDatabase = mongoClient.getDatabase(databaseName);
+		this.collection = mongoDatabase.getCollection(collectionName);
+	}
+
+	
+	
 	
 	/**
      **************************************************************************
