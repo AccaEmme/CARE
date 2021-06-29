@@ -112,13 +112,13 @@ public class BloodBagController implements ContainerResponseFilter {
 
 
     // ############### CAN RECIVE FROM ###############
-    @GetMapping("/bloodbag/canrecivefrom/group/{group}")
+    @GetMapping("/bloodbag/canreceivefrom/group/{group}")
     public Iterator<BloodGroup> canReciveFromByGroup(@PathVariable String group){
         System.out.println(BloodGroup.valueOf(group));
         return BloodGroup.canReceiveFrom(BloodGroup.valueOf(group));
     }
 
-    @GetMapping("/bloodbag/canrecivefrom/bloodbag/serial/{serial}")
+    @GetMapping("/bloodbag/canreceivefrom/bloodbag/serial/{serial}")
     public Iterator<BloodGroup> canReciveFromByBagSerial(@PathVariable String serial){
         Iterable<BloodBagBean> beanIterator = this.getBloodBagBySerial(serial);
         for (BloodBagBean bean : beanIterator){
