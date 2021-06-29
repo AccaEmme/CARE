@@ -19,20 +19,21 @@ import it.unisannio.CARE.Model.Util.Password;
 public interface UserRepository extends JpaRepository<UserBean, Long>{
 	
 	@Query("FROM UserBean u  WHERE u.username =:username")
-	Iterable<UserBean> findByUsername(@Param("username") String username);
+	UserBean findByUsername(@Param("username") String username);
 
 	@Query("FROM UserBean u WHERE u.userRole =:role")
-	Iterable<UserBean> filterByRole(@Param("role") String role);
-
-	@Query("FROM UserBean u WHERE u.creationDate >:timestamp")
-	Iterable<UserBean> findCreatedAfter(@Param("timestamp") String timestamp);
-
-	@Query("FROM UserBean u WHERE u.creationDate <:timestamp")
-	Iterable<UserBean> findCreatedBefore(@Param("timestamp") String timestamp);
-
+	Iterable<UserBean> findUserByRole(@Param("role") String role);
 
 	@Query("FROM UserBean u WHERE u.email =:email")
 	UserBean findByEmail(@Param("email") String email);
+
+	@Query("FROM UserBean u WHERE u.creationDate >:firstdate AND u.creationDate <:seconddate")
+	Iterable<UserBean> findCreatedBetween(@Param("firstdate") long firstdate, @Param("seconddate") long seconddate);
+
+
+
+
+
 
 	/*
 	@Query("FROM users u  WHERE u.hiddenpass =:hiddenpass")	
