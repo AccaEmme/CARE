@@ -25,11 +25,7 @@ import it.unisannio.CARE.Model.Exceptions.RequestCloneNotSupportedException;
 import it.unisannio.CARE.Model.Exceptions.RequestNotFoundException;
 
 
-
-/**
- * Questa classe implementa i metodi che eseguono i vari inserimenti e le varie query, per gestire le richieste inviate dai nodi locali.
- * @author Omni-star
- *
+/**Questa classe implementa i metodi che eseguono i vari inserimenti e le varie query, per gestire le richieste inviate dai nodi locali.
  */
 public class RequestManager {
 	
@@ -40,11 +36,13 @@ public class RequestManager {
 	
 	
 	/**
-	 * 
-	 * @param URI
-	 * @param databaseName
-	 * @param collectionName
-	 */
+     **************************************************************************
+     * Metodo costruttore per creare il Request Manager 
+     * @param String Uniform Resource Identifie
+     * @param String Deve essere fornito il nome del database
+     * @param 
+     **************************************************************************
+     */
 	public RequestManager(String URI, String databaseName, String collectionName) {
 		
 		this.mongoClient = new MongoClient(new MongoClientURI(URI));
@@ -54,6 +52,13 @@ public class RequestManager {
 	
 	
 	
+	/**
+     **************************************************************************
+     * Metodo per aggiungere una richiesta 
+     * @param Request Oggetto Richista per le informazioni sulla richiesta
+     * @throws RequestCloneNotSupportedException
+     **************************************************************************
+     */
 	public void addRequest(Request request) {
 		
 	    Bson condition = and(
@@ -83,6 +88,13 @@ public class RequestManager {
 
 	
 	
+	/**
+     **************************************************************************
+     * Metodo per accettare le richieste inoltrate
+     * @param Request Oggetto Richista per le informazioni sulla richiesta
+     * @throws RequestCloneNotSupportedException
+     **************************************************************************
+     */
 	public void acceptRequest(Request request) {
 		
 		request.setState(RequestState.accepted);
@@ -116,7 +128,13 @@ public class RequestManager {
 	}
 
 	
-	
+	/**
+     **************************************************************************
+     * Metodo per declinare una richiesta
+     * @param Request Oggetto Richista per le informazioni sulla richiesta
+     * @throws RequestCloneNotSupportedException
+     **************************************************************************
+     */
 	public void refuseRequest(Request request) {
 		
 		request.setState(RequestState.refused);
@@ -137,7 +155,11 @@ public class RequestManager {
 	}
 	
 	
-	
+	/**
+     **************************************************************************
+     * 
+     **************************************************************************
+     */
 	public void emptyTrash() {
 		
 	    Bson filter = and(
@@ -156,7 +178,12 @@ public class RequestManager {
 	}
 	
 	
-	
+	/**
+     **************************************************************************
+     * Metodo per ottenere la richiesta dallo stato
+     * @param Requeststate Oggetto che contiene le informazioni della richiesta di stato
+     **************************************************************************
+     */
 	public List<Document> getRequestesByState(RequestState state) {
 		
 		List<Document> requestes = new ArrayList<>();
@@ -177,7 +204,11 @@ public class RequestManager {
 	
 	
 	
-	
+	/**
+     **************************************************************************
+     * Metodo per la chiusura del client di mongoDB
+     **************************************************************************
+     */
 	public void close() {
 		
 		mongoClient.close();

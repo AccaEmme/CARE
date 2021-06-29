@@ -48,13 +48,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 		this.setBloodBagState( BloodBagState.Available );
 	}
 		
-	/**
-     **************************************************************************
-     * Metodo costruttore per creare la sacca di sangue 
-     * @param Serial serial, BloodGroup valueOf, Date cd, Date ed, String donatorCF2, Node n1,
-			BloodBagState valueOf2, String note2
-     **************************************************************************
-     */
+	c
 	public BloodBag(Serial serial, BloodGroup valueOf, Date cd, Date ed, String donatorCF2, 
 			BloodBagState valueOf2, String note2) {
 		this.serial 		= serial;
