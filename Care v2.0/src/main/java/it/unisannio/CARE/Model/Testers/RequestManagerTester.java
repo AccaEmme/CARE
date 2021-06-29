@@ -18,10 +18,10 @@ public class RequestManagerTester {
 		
 		RequestManager rm=new RequestManager("mongodb+srv://ricciuto99:desk9123@cluster0.ksjti.mongodb.net/test","CARE","requestes");
   
-		Request r = new Request("3","1", bb.getSerial().toString(), new Date(), "notaProva", RequestState.pending, RequestPriority.red);
+		//Request r = new Request("3","1", bb.getSerial().toString(), new Date(), "notaProva", RequestState.pending, RequestPriority.red);
   
  
-		rm.addRequest(r);
+		//rm.addRequest(r);
 	}
 	
 }
