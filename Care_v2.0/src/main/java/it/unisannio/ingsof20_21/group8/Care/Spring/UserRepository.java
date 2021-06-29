@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import it.unisannio.CARE.Model.Util.Password;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Acca
@@ -30,6 +31,9 @@ public interface UserRepository extends JpaRepository<UserBean, Long>{
 	@Query("FROM UserBean u WHERE u.creationDate >:firstdate AND u.creationDate <:seconddate")
 	Iterable<UserBean> findCreatedBetween(@Param("firstdate") long firstdate, @Param("seconddate") long seconddate);
 
+	@Transactional
+	@Query("UPDATE UserBean u SET u.loginAttempts =:attempts where u.username =:username")
+	void updateUserLoginAttempts(@Param("attempts") int attempts, @Param("username") String username);
 
 
 

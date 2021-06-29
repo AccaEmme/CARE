@@ -13,13 +13,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import it.unisannio.CARE.Model.User.Role;
 import it.unisannio.CARE.Model.User.User;
@@ -107,7 +101,57 @@ public class UserController implements ContainerResponseFilter {
 	public Iterable<UserBean> getUserCreatedBetween(@PathVariable long firstdate, @PathVariable long seconddate){
 		return userRepo.findCreatedBetween(firstdate,seconddate);
 	}
-    
+
+	//############## ALTER METHODS ###############
+	/*
+	non riesco a far funzionare la query di UPDATE
+	@PatchMapping("/user/patch/loginattempts/{attempts}/{username}")
+    public void changeUserAttempts(@PathVariable int attempts, @PathVariable String username){
+		userRepo.updateUserLoginAttempts(attempts,username);
+	}*/
+
+	@PatchMapping("/user/patch/loginattempts/set/{attempts}/{username}")
+	public void changeUserAttempts(@PathVariable int attempts, @PathVariable String username){
+		UserBean user = userRepo.findByUsername(username);
+
+		userRepo.delete(user);
+		user.setLoginAttempts(attempts);
+		userRepo.save(user);
+	}
+
+	@PatchMapping("/user/patch/loginattempts/increaseone/{username}")
+	public String increaseUserAttempts(@PathVariable String username){
+		UserBean user = userRepo.findByUsername(username);
+
+		userRepo.delete(user);
+		user.setLoginAttempts(user.getLoginAttempts()+1);
+
+		if (user.getLoginAttempts()==4){
+			//deactivate user
+			user.setActiveUser(false);
+
+			userRepo.save(user);
+			return "user deactivated: too may login attempts.";
+		}
+
+		userRepo.save(user);
+
+		return "user login attempts increased.\nuser login attempts: "+user.getLoginAttempts();
+	}
+
+	@PatchMapping("/user/patch/restoreuser/{username}")
+	public UserBean restoreUser(@PathVariable String username){
+		UserBean user = userRepo.findByUsername(username);
+
+		userRepo.delete(user);
+		user.setActiveUser(true);
+		user.setLoginAttempts(0);
+		userRepo.save(user);
+
+		return user;
+	}
+
+
     //===============POST METHODS
     @PostMapping("/user/adduser")
     /**
