@@ -67,4 +67,5 @@ public interface BloodBagRepository extends JpaRepository<BloodBagBean, String> 
 																@Param("bloodgroup") String bloodgroup);
 
 
+
 }

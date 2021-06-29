@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 
 @CrossOrigin("*")
@@ -75,6 +77,7 @@ public class BloodBagController implements ContainerResponseFilter {
 		return bagRepository.findByGroup(group); /*.orElseThrow();*/
     }
 
+
     /**
      * @param serial the bloodbag serial
      * @return all the bloodbags with the given state (probably just one)
@@ -84,6 +87,45 @@ public class BloodBagController implements ContainerResponseFilter {
     	return bagRepository.findBySerial(serial); /*.orElseThrow();*/
     }
 
+    // ############### CAN DONATE TO ###############
+    @GetMapping("/bloodbag/candonateto/group/{group}")
+    public Iterator<BloodGroup> canDonateToByGroup(@PathVariable String group){
+        System.out.println(BloodGroup.valueOf(group));
+        return BloodGroup.canDonateTo(BloodGroup.valueOf(group));
+    }
+
+
+    /**
+     * this method returns a list of bloodgroups from the blood bag serial
+     * 127.0.0.1:8087/bloodbag/get/candonateto/bloodbag/serial/IT-NA200009-Aneg-20210615-8056
+     * @param serial
+     * @return
+     */
+    @GetMapping("/bloodbag/candonateto/bloodbag/serial/{serial}")
+    public Iterator<BloodGroup> canDonateToByBagSerial(@PathVariable String serial){
+        Iterable<BloodBagBean> beanIterator = this.getBloodBagBySerial(serial);
+        for (BloodBagBean bean : beanIterator){
+            return BloodGroup.canDonateTo(BloodGroup.valueOf(bean.getGroup()));
+        }
+        return null;
+    }
+
+
+    // ############### CAN RECIVE FROM ###############
+    @GetMapping("/bloodbag/canrecivefrom/group/{group}")
+    public Iterator<BloodGroup> canReciveFromByGroup(@PathVariable String group){
+        System.out.println(BloodGroup.valueOf(group));
+        return BloodGroup.canReceiveFrom(BloodGroup.valueOf(group));
+    }
+
+    @GetMapping("/bloodbag/canrecivefrom/bloodbag/serial/{serial}")
+    public Iterator<BloodGroup> canReciveFromByBagSerial(@PathVariable String serial){
+        Iterable<BloodBagBean> beanIterator = this.getBloodBagBySerial(serial);
+        for (BloodBagBean bean : beanIterator){
+            return BloodGroup.canReceiveFrom(BloodGroup.valueOf(bean.getGroup()));
+        }
+        return null;
+    }
 
     //############# get count ###############
 
