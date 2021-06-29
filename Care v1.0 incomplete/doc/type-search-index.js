@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"it.unisannio.ingsof20_21.group8.CARE_MVC.Model.User","l":"User"}];updateSearchResults();
