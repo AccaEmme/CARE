@@ -17,3 +17,7 @@ Checkout the documentation on the [Wiki page](https://github.com/AccaEmme/CARE/w
  - [2. Project Members](https://github.com/AccaEmme/CARE/wiki/2.-Assignment-Request)
  - [3. Assignment request/](https://github.com/AccaEmme/CARE/wiki/2.-Assignment-Request)
  - [4. ¿who knows?](https://www.google.it)
+
+# Installation
+Prerequisites:
+ - MySQL >= 8.0 on localhost:3306
