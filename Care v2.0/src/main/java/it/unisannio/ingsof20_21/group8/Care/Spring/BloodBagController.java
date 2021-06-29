@@ -169,6 +169,7 @@ public class BloodBagController implements ContainerResponseFilter {
      * @return the count of all bags used after the given date
      * @param timestamp the given time
      */
+    @GetMapping("/bloodvag/count/used/after/{timestamp}")
     public long getCountUsedAfterDate(@PathVariable long timestamp){
         return bagRepository.countUsedAfterDate(timestamp);
     }
@@ -180,6 +181,7 @@ public class BloodBagController implements ContainerResponseFilter {
      * @return the count of the bags expiring between the two dates
      */
 
+    @GetMapping("/bloodbag/get/expiring/between/{firstdate}/{seconddate}")
     public long getCountExpiringBetweenDates(@PathVariable long firstDate, @PathVariable long secondDate){
         return bagRepository.countUsedBetweenDates(firstDate,secondDate);
     }
