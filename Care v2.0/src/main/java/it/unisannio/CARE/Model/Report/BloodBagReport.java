@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Model.Util;
+package it.unisannio.CARE.Model.Report;
 
 
 import org.json.simple.JSONObject;
@@ -25,7 +25,10 @@ public class BloodBagReport {
 
     private long timestamp;
 
-    public BloodBagReport(long total, long available, long used, long transfered, long dropped, long apos, long aneg, long bpos, long bneg, long ZEROpos, long ZEROneg, long ABpos, long ABneg) {
+    private long usedThisWeek;
+    private long expiredThisWeek;
+
+    public BloodBagReport(long total, long available, long used, long transfered, long dropped, long apos, long aneg, long bpos, long bneg, long ZEROpos, long ZEROneg, long ABpos, long ABneg, long usedThisWeek, long expiredThisWeek) {
         this.total = total;
         this.available = available;
         this.used = used;
@@ -39,11 +42,10 @@ public class BloodBagReport {
         this.ZEROneg = ZEROneg;
         this.ABpos = ABpos;
         this.ABneg = ABneg;
-
         this.timestamp = new Date().getTime();
+        this.usedThisWeek = usedThisWeek;
+        this.expiredThisWeek = expiredThisWeek;
     }
-
-    public BloodBagReport(){}
 
     public long getTotal() {
         return total;
@@ -89,7 +91,7 @@ public class BloodBagReport {
         return Apos;
     }
 
-    public void setApos(int apos) {
+    public void setApos(long apos) {
         Apos = apos;
     }
 
@@ -97,7 +99,7 @@ public class BloodBagReport {
         return Aneg;
     }
 
-    public void setAneg(int aneg) {
+    public void setAneg(long aneg) {
         Aneg = aneg;
     }
 
@@ -105,7 +107,7 @@ public class BloodBagReport {
         return Bpos;
     }
 
-    public void setBpos(int bpos) {
+    public void setBpos(long bpos) {
         Bpos = bpos;
     }
 
@@ -113,7 +115,7 @@ public class BloodBagReport {
         return Bneg;
     }
 
-    public void setBneg(int bneg) {
+    public void setBneg(long bneg) {
         Bneg = bneg;
     }
 
@@ -157,6 +159,22 @@ public class BloodBagReport {
         this.timestamp = timestamp;
     }
 
+    public long getUsedThisWeek() {
+        return usedThisWeek;
+    }
+
+    public void setUsedThisWeek(long usedThisWeek) {
+        this.usedThisWeek = usedThisWeek;
+    }
+
+    public long getExpiredThisWeek() {
+        return expiredThisWeek;
+    }
+
+    public void setExpiredThisWeek(long expiredThisWeek) {
+        this.expiredThisWeek = expiredThisWeek;
+    }
+
     @Override
     public String toString() {
         return "BloodBagReport{" +
@@ -174,6 +192,8 @@ public class BloodBagReport {
                 ", ABpos=" + ABpos +
                 ", ABneg=" + ABneg +
                 ", timestamp=" + timestamp +
+                ", usedThisWeek=" + usedThisWeek +
+                ", expiredThisWeek=" + expiredThisWeek +
                 '}';
     }
 

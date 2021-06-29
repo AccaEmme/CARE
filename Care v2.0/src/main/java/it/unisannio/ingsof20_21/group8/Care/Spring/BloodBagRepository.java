@@ -32,6 +32,10 @@ public interface BloodBagRepository extends JpaRepository<BloodBagBean, String> 
 	@Query("SELECT COUNT(*) FROM BloodBagBean b where b.state =:state")
 	long countByState(@Param("state") String state);
 
+	//gets the count of all bags that expire after the date...
+	@Query("SELECT COUNT(*) FROM BloodBagBean b where b.expirationDate >:timestamp")
+	long countExpirationAfterDate(@Param("timestamp") long timestamp);
+
 	//gets all bags that expire before the date...
 	@Query("from BloodBagBean b where b.expirationDate <:timestamp")
 	Iterable<BloodBagBean> findExpirationBeforeDate(@Param("timestamp") long timestamp);
@@ -39,6 +43,8 @@ public interface BloodBagRepository extends JpaRepository<BloodBagBean, String> 
 	//gets all bags that expire after the date...
 	@Query("from BloodBagBean b where b.expirationDate >:timestamp")
 	Iterable<BloodBagBean> findExpirationAfterDate(@Param("timestamp") long timestamp);
+
+
 
 	//gets all bags that expire between two dates...
 	@Query("from BloodBagBean b where b.expirationDate >:firstdate AND b.expirationDate <:seconddate")
@@ -50,5 +56,6 @@ public interface BloodBagRepository extends JpaRepository<BloodBagBean, String> 
 	Iterable<BloodBagBean> findExpirationBetweenDate_bloodGroup(@Param("firstdate") long firstdate,
 																@Param("seconddate") long seconddate,
 																@Param("bloodgroup") String bloodgroup);
+
 
 }

@@ -3,23 +3,20 @@ package it.unisannio.ingsof20_21.group8.Care.Spring;
 import it.unisannio.CARE.Model.BloodBag.BloodBag;
 import it.unisannio.CARE.Model.BloodBag.BloodGroup;
 import it.unisannio.CARE.Model.BloodBag.Serial;
-import it.unisannio.CARE.Model.Util.BloodBagReport;
+import it.unisannio.CARE.Model.Report.BloodBagReport;
 
+import it.unisannio.CARE.Model.Util.Constants;
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.plaf.synth.SynthUI;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -85,6 +82,11 @@ public class BloodBagController implements ContainerResponseFilter {
     public long getCountByState(@PathVariable String state){
         return bagRepository.countByState(state);
     }
+    @GetMapping("bloodBag/count/expiring/after/{timestamp}")
+
+    public long getCountExpiringAfterDate(@PathVariable long timestamp){
+        return bagRepository.countExpirationAfterDate(timestamp);
+    }
 
     //########### GET EXPIRING BEFORE/AFTER
     @GetMapping("bloodBag/expiring/before/{timestamp}")
@@ -95,6 +97,7 @@ public class BloodBagController implements ContainerResponseFilter {
     public Iterable<BloodBagBean> getBloodBagsExpiringAfterDate(@PathVariable long timestamp){
         return bagRepository.findExpirationAfterDate(timestamp);
     }
+
     @GetMapping("bloodBag/expiring/between/{firstdate}/{seconddate}")
     public Iterable<BloodBagBean> getBloodBagsExpiringBetweenDate(@PathVariable long firstdate,@PathVariable long seconddate){
         //test: localhost:8087/bloodBag/expiring/between/965837960/965837970
@@ -127,7 +130,9 @@ public class BloodBagController implements ContainerResponseFilter {
                 this.getCountByGroup(BloodGroup.ZEROpos.toString()),
                 this.getCountByGroup(BloodGroup.ZEROneg.toString()),
                 this.getCountByGroup(BloodGroup.ABpos.toString()),
-                this.getCountByGroup(BloodGroup.ABneg.toString()));
+                this.getCountByGroup(BloodGroup.ABneg.toString()),
+                this.getCountExpiringAfterDate(new Date().getTime()-Constants.SEVEN_DAYS_MILLIS),
+                this.getCountExpiringAfterDate(new Date().getTime()));
         return report;
     }
     //not working
