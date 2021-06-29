@@ -132,6 +132,16 @@ public class BloodBagController implements ContainerResponseFilter {
     }
 
 
+    /**
+     * @param firstDate the first date
+     * @param secondDate the second date
+     * @return the count of the bags expiring between the two dates
+     */
+    public long getCountExpiringBetweenDates(@PathVariable long firstDate, @PathVariable long secondDate){
+        return bagRepository.countUsedBetweenDates(firstDate,secondDate);
+    }
+
+
     //########### GET EXPIRING BEFORE/AFTER
 
 
@@ -198,7 +208,7 @@ public class BloodBagController implements ContainerResponseFilter {
                 this.getCountByGroup(BloodGroup.ZEROneg.toString()),
                 this.getCountByGroup(BloodGroup.ABpos.toString()),
                 this.getCountByGroup(BloodGroup.ABneg.toString()),
-                this.getCountExpiringAfterDate(new Date().getTime()-Constants.SEVEN_DAYS_MILLIS),
+                this.getCountExpiringBetweenDates(new Date().getTime()-Constants.SEVEN_DAYS_MILLIS, new Date().getTime()),
                 this.getCountUsedAfterDate(new Date().getTime()-Constants.SEVEN_DAYS_MILLIS));
     }
     //not working
