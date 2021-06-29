@@ -31,7 +31,162 @@ import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood.BloodBag;
  *  JUnit test for BloodBag class.
  */
 public class BloodBagTest {
-/*	
+	package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
+
+	import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
+	import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
+	import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.City;
+	import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;
+	import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Province;
+	import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
+
+	import static org.junit.Assert.assertNotNull;
+	import static org.junit.Assert.assertThrows;
+
+	import java.text.ParseException;
+
+	import org.junit.Test;
+
+	/*
+	 *  JUnit test for BloodBag class.
+	 */
+
+		//JUnit test per il primo Costruttore presente nella classe BloodBag
+		@Test
+		public void  ValidityTest_Constructor1_BagAneg() throws ParseException {
+			
+				BloodGroup bg = BloodGroup.Aneg;
+				String codiceFiscale = "PRTGCM45F28P678L";
+				Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
+				Node node = new Node("123", "Ospedale Frangipane", location);
+			
+				BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
+				assertNotNull(bloodBag);
+			
+		}
+		
+		@Test
+		public void  InvalidityCFTest_Constructor1_BagAneg() throws ParseException {
+			
+				BloodGroup bg = BloodGroup.Aneg;
+				String codiceFiscale = "PTGCM45F28P678L";
+				Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
+				Node node = new Node("123", "Ospedale Frangipane", location);
+				
+				
+				assertThrows(IllegalArgumentException.class, () -> {
+					BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
+				}
+				);
+		}
+		
+		@Test
+		public void  ValidityTest_Constructor1_BagApos() throws ParseException {
+			
+			BloodGroup bg = BloodGroup.Apos;
+			String codiceFiscale = "PRTGCM45F28P678L";
+			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
+			Node node = new Node("123", "Ospedale Frangipane", location);
+		
+			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
+			assertNotNull(bloodBag);
+			
+		}
+		
+		@Test
+		public void  ValidityTest_Constructor1_BagBneg() throws ParseException {
+			
+			BloodGroup bg = BloodGroup.Bneg;
+			String codiceFiscale = "PRTGCM45F28P678L";
+			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
+			Node node = new Node("123", "Ospedale Frangipane", location);
+		
+			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
+			assertNotNull(bloodBag);
+			
+		}
+		
+		@Test
+		public void  ValidityTest_Constructor1_BagBpos() throws ParseException {
+			
+			BloodGroup bg = BloodGroup.Bpos;
+			String codiceFiscale = "PRTGCM45F28P678L";
+			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
+			Node node = new Node("123", "Ospedale Frangipane", location);
+		
+			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
+			assertNotNull(bloodBag);
+			
+		}
+		
+		@Test
+		public void  ValidityTest_Constructor1_BagABneg() throws ParseException {
+			
+			BloodGroup bg = BloodGroup.ABneg;
+			String codiceFiscale = "PRTGCM45F28P678L";
+			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
+			Node node = new Node("123", "Ospedale Frangipane", location);
+			
+			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
+			assertNotNull(bloodBag);
+		
+		}
+		@Test
+		public void  ValidityTest_Constructor1_BagABpos() throws ParseException {
+			
+			BloodGroup bg = BloodGroup.ABpos;
+			String codiceFiscale = "PRTGCM45F28P678L";
+			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
+			Node node = new Node("123", "Ospedale Frangipane", location);
+		
+			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
+			assertNotNull(bloodBag);
+		}
+		@Test
+		public void  ValidityTest_Constructor1_BagZeroneg() throws ParseException {
+			
+			BloodGroup bg = BloodGroup.ZEROneg;
+			String codiceFiscale = "PRTGCM45F28P678L";
+			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
+			Node node = new Node("123", "Ospedale Frangipane", location);
+		
+			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
+			assertNotNull(bloodBag);
+		}
+		@Test
+		public void  ValidityTest_Constructor1_BagZeropos() throws ParseException {
+			
+			BloodGroup bg = BloodGroup.ZEROpos;
+			String codiceFiscale = "PRTGCM45F28P678L";
+			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
+			Node node = new Node("123", "Ospedale Frangipane", location);
+		
+			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
+			assertNotNull(bloodBag);
+			
+		}
+
+		
+		//JUnit test per il secondo Costruttore presente nella classe BloodBag
+		
+		
+		@Test
+		public void  ValidityTest_Constructor2_BagZeropos() throws ParseException {
+			
+			BloodGroup bg = BloodGroup.ZEROpos;
+			String codiceFiscale = "PRTGCM45F28P678L";
+			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
+			Node node = new Node("123", "Ospedale Frangipane", location);
+		
+			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
+			assertNotNull(bloodBag);
+			
+		}
+	
+	
+	
+	
+	/*	
 
 	@Test (expected = NullPointerException.class)
 	public void donatorCFNULL() throws ParseException {
