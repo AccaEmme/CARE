@@ -16,7 +16,10 @@ import it.unisannio.CARE.Model.BloodBag.*;
 import it.unisannio.CARE.Model.Exceptions.StateException;
 import it.unisannio.CARE.Model.Util.Constants;
 
-
+/**
+ * La classe BloodBag contiene tutte le informazioni sulla sacca di sangue registrata, come il seriale, la data di creazione e scadenza
+ * ed il codice donatore.
+ */
 
 public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	private Serial				serial;
@@ -37,6 +40,15 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
     private static final String ELEMENT_NOTE 			= "note";
 
 
+    
+    /**
+     **************************************************************************
+     * Metodo costruttore per la creazione della sacca
+     * @param BloodGroup Oggetto che viene passato come paramentro per indicare a quale gruppo sanguigno appartiene 
+     * @param String coodice fiscale del donatore
+     * @exception ParseException
+     **************************************************************************
+     */
 	public BloodBag(BloodGroup bloodGroup, String donatorCF) throws ParseException {
 		/* Attenzione: new BloodBag() va usato solo per creare sacche perché incrementa il seriale. */ 
 		this.serial 		= new Serial(bloodGroup);
@@ -48,7 +60,18 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 		this.setBloodBagState( BloodBagState.Available );
 	}
 		
-	c
+	/**
+     **************************************************************************
+     * Metodo costruttore per la creazione della sacca
+     * @param String E' il Seriale che riconosce in modo univoco la sacca
+     * @param BloodGroup Indica il gruppo della sacca?-------------
+     * @param Date Data di creazione della sacca
+     * @param Date Data di scadenza della sacca
+     * @param String Codice fiscale del donatore
+     * @param BloodBagState Indica lo stato della BloodBag
+     * @param String note riguardo la sacca
+     **************************************************************************
+     */
 	public BloodBag(Serial serial, BloodGroup valueOf, Date cd, Date ed, String donatorCF2, 
 			BloodBagState valueOf2, String note2) {
 		this.serial 		= serial;
@@ -63,7 +86,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo GET per ottenere il seriale 
-     * @return serial
+     * @return String ritorna il seriale della sacca
      **************************************************************************
      */
 	public Serial getSerial(){ 
@@ -73,7 +96,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo SET per modificare il seriale di una sacca
-     * @param Serial serial
+     * @param Serial Nuovo seriale della sacca
      **************************************************************************
      */
 	private void setSerial(Serial serial){
@@ -85,7 +108,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo GET per ottenere il gruppo della sacca di sangue
-     * @return bloodGruop
+     * @return bloodGruop ritorno dell gruppo sanguineo della sacca selezionata
      **************************************************************************
      */
 	public BloodGroup getBloodGroup(){ 
@@ -95,7 +118,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo privato per modificare il gruppo della sacca di sangue 
-     * @param BloodGroup bloodGroup
+     * @param BloodGroup nuovo gruppo sanguineo della sacca
      * @exception IllegalArgumentException
      **************************************************************************
      */
@@ -109,7 +132,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      * Metodo privato per creare una data 
      * @exception ParseException
-     * @return creationDate
+     * @return viene ritornata la nuova data di creazione
      **************************************************************************
      */
 	private Date generateCreationDate() throws ParseException {
@@ -128,7 +151,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo GET per ottenere la creazione delle date
-     * @return creationDate
+     * @return ritorna la data di creazione della sacca registrata
      **************************************************************************
      */
 	public Date getCreationDate() {
@@ -141,7 +164,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      * Metodo privato per creare una data 
      * @exception ParseException
-     * @return creationDate
+     * @param Date nuova data di creazione della sacca
      **************************************************************************
      */
 	private void setCreationDate(Date creationDate) throws ParseException 		{
@@ -187,7 +210,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      * Metodo privato per creare una data di scadenza
      * @exception ParseException
-     * @return expirationDate
+     * @return ritorna la nuova data di scadenza 
      **************************************************************************
      */
 	private Date generateExpirationDate() throws ParseException {
@@ -206,7 +229,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo GET per ottenere la data di scadenza
-     * @return expirationDate
+     * @return ritorna la data di scadenza della sacca selezionata
      **************************************************************************
      */
 	public Date getExpirationDate() {
@@ -240,7 +263,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      * Metodo privato per modificare la data di scadenza
      * @exception IllegalArgumentException
-     * @param Date expirationDate
+     * @param Date nuova data di scadenza
      **************************************************************************
      */
 	private void setExpirationDate(Date expirationDate) { 
@@ -251,7 +274,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo per ottere il codice fiscale del donatore
-     * @return donatorCF
+     * @return ritorna il codice fiscalde del donatore della sacca di sangue
      **************************************************************************
      */
 	public String getDonatorCF() { return this.donatorCF; }
@@ -260,7 +283,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      * Metodo privato per modificare il codice fiscale
      * @exception IllegalArgumentException
-     * @param String fisCode
+     * @param String codice fiscale del donatore
      **************************************************************************
      */
 	private void setDonatorCF(String fisCode) {
@@ -270,7 +293,12 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	}
 	
 	
-	
+	/**
+     **************************************************************************
+     * Metodo GET per ottenere il tipo di sangue
+     * @return ritorna l'oggetto bloodGroup che si riferisce al tipo di sacca di sangue slezionato
+     **************************************************************************
+     */
 	public BloodGroup getBloodType() {
 		return this.bloodGroup;
 	}
@@ -280,7 +308,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo GET per ottenere le note riguardo la sacca 
-     * @return note
+     * @return ritorna le note scritte per quanto riguarda la sacca di sangue
      **************************************************************************
      */
 	public String getNote() { return note;}	
@@ -289,7 +317,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo protetto per modificare le note della sacca
-     * @param String note
+     * @param String Note riguardo informazioni aggiuntive sulla sacca di sangue
      **************************************************************************
      */
 	protected void setNote(String note) {
@@ -299,7 +327,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo per aggiungere le note alla sacca
-     * @param String note
+     * @param String Note riguardo informazioni aggiuntive sulla sacca di sangue
      **************************************************************************
      */
 	public void appendNote(String note) {
@@ -313,7 +341,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo GET per ottenere lo stato della sacca
-     * @return bloodBagState
+     * @return ritorna la stato della sacca di sangue
      **************************************************************************
      */
 	public BloodBagState getBloodBagState() {
@@ -377,7 +405,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo TO String per ottenere tutte le informazioni della sacca 
-     * @return serial, bloodGroup, creationDate, expirationDate, donatorCT, node, bloodbagstate, note
+     * @return ritorna il formato di stringa tutte le informazioni della sacca selezionata
      **************************************************************************
      */
 	@Override
@@ -395,8 +423,8 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo EQUALS per verificare che due sacche siano uguali
-     * @param Object obj
-     * @return serial, bloodGroup, donatorCF, Node
+     * @param Object Viene passata come oggetto la sacca da paragonare
+     * @return ritorna falso in caso in cui le sacche paragonate non sono uguali 
      **************************************************************************
      */
 	@Override
@@ -415,7 +443,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	 /**
      **************************************************************************
      * Metodo per il return della sacca come document xml
-     * @return document
+     * @return ritorna le informazioni della sacca in formato xml
      **************************************************************************
      */
 	 public Document getDocument(){
@@ -430,7 +458,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	 /**
 	 **************************************************************************
 	 * Metodo per comaprare due sacche 
-	 * @param BloodBag bloodBag
+	 * @param BloodBag Viene passato come oggetto una sacca di dangue
 	 **************************************************************************
 	 */
 	public int compareTo(BloodBag bloodBag) {
