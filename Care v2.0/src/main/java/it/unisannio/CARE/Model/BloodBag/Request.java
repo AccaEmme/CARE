@@ -4,6 +4,9 @@ package it.unisannio.CARE.Model.BloodBag;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Classe che si occupa delle richieste effettuate o da fare per le sacche di sangue 
+ */
 
 public class Request {
 	
@@ -21,7 +24,12 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo costruttore per la creazione di una richiesta
-     * @param User userRequester, BloodBag requestedBloodBag, Date requestDate
+     * @param String ID della richeista
+     * @param String ID della sacca richiesta
+     * @param Date Data della richiesta
+     * @param String Note per la richiesta
+     * @param RequestState stato della richiesta
+     * @param RequestPriority priorità della richiesta
      **************************************************************************
      */
 	public Request( String idRequester, String requestedBagSerial, 
@@ -40,7 +48,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo GET ottenere l'id della locazione della richiesta
-     * @return idRequester
+     * @return ritorna l'ID della richiesta selezionata
      **************************************************************************
      */
 	public String getIdRequester() {
@@ -52,7 +60,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo SET inserire l'id della locazione della richiesta
-     * @param idRequester
+     * @param String nuovo ID della richiesta
      **************************************************************************
      */
 	public void setIdRequester(String idRequester) {
@@ -64,7 +72,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo GET ottenere il seriale della sacca richiesta
-     * @return requestedBagSerial
+     * @return ritorna il seriale della sacca 
      **************************************************************************
      */
 	public String getRequestedBagSerial() {
@@ -76,7 +84,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo SET inserire il seriale della sacca richiesta
-     * @param String requestedBagSerial
+     * @param String Nuovo seriale della sacca 
      **************************************************************************
      */
 	public void setRequestedBagSerial(String requestedBagSerial) {
@@ -88,7 +96,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo GET ottenere la data della richiesta
-     * @return requestDate
+     * @return ritorna la data di richiesta
      **************************************************************************
      */
 	public Date getRequestDate() {
@@ -100,7 +108,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo SET inserire la data della richiesta
-     * @param Date requestDate
+     * @param Date nuova data di richiesta 
      **************************************************************************
      */
 	public void setRequestDate(Date requestDate) {
@@ -108,13 +116,23 @@ public class Request {
 	}
 
 	
-	
+	/**
+     **************************************************************************
+     * Metodo GET per ottenere le note
+     * @return ritorna le note scritte nella richiesta 
+     **************************************************************************
+     */
 	public String getNote() {
 		return note;
 	}
 
 	
-	
+	/**
+     **************************************************************************
+     * Metodo SET per inserire le note
+     * @param String nuove note da inserire 
+     **************************************************************************
+     */
 	public void setNote(String note) {
 		this.note = note;
 	}
@@ -124,7 +142,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo GET ottenere lo stato della richiesta
-     * @return requestState
+     * @return ritorna lo stato della richista
      **************************************************************************
      */
 	public RequestState getState() {
@@ -136,7 +154,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo SET inserire lo stato della richiesta
-     * @param RequestState requestState
+     * @param RequestState Oggetto per identificare lo stato della richiesta
      **************************************************************************
      */
 	public void setState(RequestState state) {
@@ -144,13 +162,23 @@ public class Request {
 	}
 
 	
-	
+	/**
+     **************************************************************************
+     * Metodo GET per ottenere la priorita'
+     * @return ritorna la priorita' della richiesta
+     **************************************************************************
+     */
 	public RequestPriority getPriority() {
 		return priority;
 	}
 
 	
-	
+	/**
+     **************************************************************************
+     * Metodo SET per inserire la priorita'
+     * @param RequestPriority Oggetto per inserire la priorita' della richiesta
+     **************************************************************************
+     */
 	public void setPriority(RequestPriority priority) {
 		this.priority = priority;
 	}
@@ -160,7 +188,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo ToString per ottenere tutte le informazioni della classe Request
-     * @return Username, requestedBloodBag, requestDate, requestState
+     * @return ritorna in formato di stringa tutte le informazioni della classe richiesta
      **************************************************************************
      */
 	public String toString() {
