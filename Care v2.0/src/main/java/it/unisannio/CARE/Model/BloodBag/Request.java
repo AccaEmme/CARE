@@ -1,18 +1,22 @@
 package it.unisannio.CARE.Model.BloodBag;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
 public class Request {
 	
-	private String			idLocation;
-	private String			idRequest;
-	private	String		requestedBag;
+	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+	
+	private String			idRequester;
+	private	String			requestedBagSerial;
 	private	Date			requestDate;
 	private String			note;
 	private	RequestState	state;
 	private RequestPriority	priority;
+	
+	
 	
 	/**
      **************************************************************************
@@ -20,58 +24,70 @@ public class Request {
      * @param User userRequester, BloodBag requestedBloodBag, Date requestDate
      **************************************************************************
      */
-
-	public Request(String idLocation, String idRequest, String requestedBag, 
+	public Request( String idRequester, String requestedBagSerial, 
 			Date requestDate, String note, RequestState state, RequestPriority priority) {
 		
-		this.idLocation = idLocation;
-		this.idRequest = idRequest;
-		this.requestedBag = requestedBag;
+		this.idRequester = idRequester;
+		this.requestedBagSerial = requestedBagSerial;
 		this.requestDate = requestDate;
 		this.note = note;
 		this.state = state;
 		this.priority = priority;
 	}
+
+
+
+	/**
+     **************************************************************************
+     * Metodo GET ottenere l'id della locazione della richiesta
+     * @return idRequester
+     **************************************************************************
+     */
+	public String getIdRequester() {
+		return idRequester;
+	}
+
 	
-	public String getIdLocation() {
-		return idLocation;
-	}
-
-	public void setIdLocation(String idLocation) {
-		this.idLocation = idLocation;
-	}
-
-	public String getIdRequest() {
-		return idRequest;
-	}
-
-	public void setIdRequest(String idRequest) {
-		this.idRequest = idRequest;
-	}
-
-	/**
-     **************************************************************************
-     * Metodo GET ottenere la richiesta delle sacche di sangue 
-     * @return requestedBloodBag
-     **************************************************************************
-     */
-	public String getRequestedBag() {
-		return requestedBag;
-	}
-
-	/**
-     **************************************************************************
-     * Metodo SET inserire la richiesta delle sacche di sangue 
-     * @param BloodBag requestedBloodBag
-     **************************************************************************
-     */
-	public void setRequestedBag(String requestedBag) {
-		this.requestedBag = requestedBag;
-	}
 	
 	/**
      **************************************************************************
-     * Metodo GET ottenere la richiesta della data
+     * Metodo SET inserire l'id della locazione della richiesta
+     * @param idRequester
+     **************************************************************************
+     */
+	public void setIdRequester(String idRequester) {
+		this.idRequester = idRequester;
+	}
+
+	
+
+	/**
+     **************************************************************************
+     * Metodo GET ottenere il seriale della sacca richiesta
+     * @return requestedBagSerial
+     **************************************************************************
+     */
+	public String getRequestedBagSerial() {
+		return requestedBagSerial;
+	}
+
+	
+	
+	/**
+     **************************************************************************
+     * Metodo SET inserire il seriale della sacca richiesta
+     * @param String requestedBagSerial
+     **************************************************************************
+     */
+	public void setRequestedBagSerial(String requestedBagSerial) {
+		this.requestedBagSerial = requestedBagSerial;
+	}
+	
+	
+	
+	/**
+     **************************************************************************
+     * Metodo GET ottenere la data della richiesta
      * @return requestDate
      **************************************************************************
      */
@@ -79,9 +95,11 @@ public class Request {
 		return requestDate;
 	}
 
+	
+	
 	/**
      **************************************************************************
-     * Metodo SET inserire la richiesta della data
+     * Metodo SET inserire la data della richiesta
      * @param Date requestDate
      **************************************************************************
      */
@@ -89,14 +107,20 @@ public class Request {
 		this.requestDate = requestDate;
 	}
 
+	
+	
 	public String getNote() {
 		return note;
 	}
 
+	
+	
 	public void setNote(String note) {
 		this.note = note;
 	}
 
+	
+	
 	/**
      **************************************************************************
      * Metodo GET ottenere lo stato della richiesta
@@ -107,6 +131,8 @@ public class Request {
 		return state;
 	}
 
+	
+	
 	/**
      **************************************************************************
      * Metodo SET inserire lo stato della richiesta
@@ -117,33 +143,37 @@ public class Request {
 		this.state = state;
 	}
 
+	
+	
 	public RequestPriority getPriority() {
 		return priority;
 	}
 
+	
+	
 	public void setPriority(RequestPriority priority) {
 		this.priority = priority;
 	}
 
+	
+	
 	/**
      **************************************************************************
      * Metodo ToString per ottenere tutte le informazioni della classe Request
      * @return Username, requestedBloodBag, requestDate, requestState
      **************************************************************************
      */
-	
-
-	
-	public String	toString() {
+	public String toString() {
 		return "{"
-				+ "\"id_requester\": \""+this.idLocation+"\","
-				+ "\"id_request\": \""+this.idRequest+"\","
-				+ "\"serial\": \""+this.requestedBag+"\","
-				+ "\"date\": \""+this.requestDate.toString()+"\","
+				+ "\"id_requester\": \""+this.idRequester+"\","
+				+ "\"serial\": \""+this.requestedBagSerial+"\","
+				+ "\"date\": \""+DATE_FORMAT.format(this.requestDate)+"\","
 				+ "\"note\": \""+this.note+"\","
 				+ "\"state\": \""+this.state.toString()+"\","
 				+ "\"priority\": \""+this.priority.toString()+"\"}";
 	}
+	
+	
 	
 	/**
 	 **************************************************************************
@@ -155,6 +185,8 @@ public class Request {
 		accepted, refused, pending;
 	}
 
+	
+	
 	/**
 	 **************************************************************************
 	 * Metodo ENUM per le varie priorità della richiesta

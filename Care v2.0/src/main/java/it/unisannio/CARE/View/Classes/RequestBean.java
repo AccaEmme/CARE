@@ -1,35 +1,38 @@
 package it.unisannio.CARE.View.Classes;
 
-public class RequestBean {
+import java.io.Serializable;
 
-	String 	id_requester, 
-			id_request,
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@SuppressWarnings("serial")
+@Entity
+public class RequestBean implements Serializable{
+
+
+	private String 	id_requester,
 			serial,
 			date,
 			note,
 			state,
 			priority;
 	
-	public RequestBean() {
-		// TODO Auto-generated constructor stub
-		
-		
-	}
+	public RequestBean() {}
 
 	
 	
-	public RequestBean(String id_requester, String id_request, String serial, String date, String note, String state, String priority) {
+	public RequestBean( String id_requester, String serial, String date, String note, String state, String priority) {
 		
 		this.id_requester = id_requester;
-		this.id_request = id_request;
 		this.serial = serial;
 		this.date = date;
 		this.note = note;
 		this.state = state;
 		this.priority = priority;
 	}
-
 	
+
 	
 	public String getId_requester() {
 		return id_requester;
@@ -40,20 +43,8 @@ public class RequestBean {
 	public void setId_requester(String id_requester) {
 		this.id_requester = id_requester;
 	}
-
-
-
-	public String getId_request() {
-		return id_request;
-	}
-
-
-
-	public void setId_request(String id_request) {
-		this.id_request = id_request;
-	}
-
-
+	
+	
 
 	public String getSerial() {
 		return serial;
