@@ -12,6 +12,8 @@ import it.unisannio.CARE.Model.Util.Password;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Date;
+
 /**
  * @author Acca
  *
@@ -36,17 +38,32 @@ public interface UserRepository extends JpaRepository<UserBean, Long>{
 	@Query("UPDATE UserBean u SET u.loginAttempts =:attempts where u.username =:username")
 	void updateUserLoginAttempts(@Param("attempts") int attempts, @Param("username") String username);
 
+	@Query("FROM UserBean u WHERE u.activeUser =:isactive ")
+	Iterable<UserBean> filterUsersByState(@Param("isactive") boolean isactive);
+
+
+	@Query("FROM UserBean u WHERE u.lastAccess >:timestamp AND u.lastAccess <:currenttime ")
+	Iterable<UserBean> filterUsersByLastLogin(@Param("timestamp") long timestamp, @Param("currenttime") long currenttime);
+
+
+
+
+	// count queries
+
 	@Query("SELECT COUNT(*) FROM UserBean ")
 	long countAllUsers();
 
 	@Query("SELECT COUNT(*) FROM UserBean u WHERE u.activeUser =:isactive ")
-	long filterUsersByState(@Param("isactive") boolean isactive);
+	long countUsersByState(@Param("isactive") boolean isactive);
 
-	@Query("SELECT COUNT(*) FROM UserBean u WHERE u.lastAccess >:timestamp ")
-	long filterUsersByLastLogin(@Param("timestamp") long timestamp);
+	@Query("SELECT COUNT(*) FROM UserBean u WHERE u.lastAccess >:timestamp AND u.lastAccess <:currenttime ")
+	long countUsersByLastLogin(@Param("timestamp") long timestamp, @Param("currenttime") long currenttime);
 
 	@Query("SELECT COUNT(*) FROM UserBean u WHERE u.userRole =:role ")
-	long filterUsersByRole(@Param("role") String role);
+	long countUsersByRole(@Param("role") String role);
+
+
+
 
 
 

@@ -199,4 +199,5 @@ public class Constants {
 
 
 	public static final long SEVEN_DAYS_MILLIS = 604800000;
+    public static final long ONE_DAY_MILLIS = 86400000;
 }

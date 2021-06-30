@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Date;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import it.unisannio.CARE.Model.User.Role;
 import it.unisannio.CARE.Model.User.User;
-import org.yaml.snakeyaml.scanner.Constant;
 
 
 @CrossOrigin("*")
@@ -104,6 +102,17 @@ public class UserController implements ContainerResponseFilter {
 		return userRepo.findCreatedBetween(firstdate,seconddate);
 	}
 
+	@GetMapping("user/get/active")
+	public Iterable<UserBean> getActiveUsers(){
+		return userRepo.filterUsersByState(true);
+	}
+	@GetMapping("user/get/inactive")
+	public Iterable<UserBean> getInactiveUsers(){
+		return userRepo.filterUsersByState(false);
+	}
+
+
+
 
 	/**
 	 * HTTP request: 127.0.0.1:8087/user/report
@@ -111,7 +120,7 @@ public class UserController implements ContainerResponseFilter {
 	 {
 	      "total": 1000,
 	      "activeUsers": 482,
-	      "loggedLast24Hours": 492,
+	      "loggedLast24Hours": 2,
 	      "administrators": 482,
 	      "storeManagers": 322,
 	      "officers": 340,
@@ -119,23 +128,13 @@ public class UserController implements ContainerResponseFilter {
 	  }*/
 	@GetMapping("user/report")
 	public UserReport getUserReport(){
-		/**
-		 * private long total;
-		 *     private long activeUsers;
-		 *     private long deactivatedUsers;
-		 *     private long loggedLast24Hours;
-		 *
-		 *     private long administrators;
-		 *     private long storeManagers;
-		 *     private long officers;*/
-
 		long total = userRepo.countAllUsers();
-		long activeUsers = userRepo.filterUsersByState(true);
-		long inactiveUsers = userRepo.filterUsersByState(false);
-		long loggedLast24H = userRepo.filterUsersByLastLogin(new Date().getTime()- Constants.ONE_DAY_MILLIS);
-		long admins = userRepo.filterUsersByRole(Role.Administrator.toString());
-		long storeManagers = userRepo.filterUsersByRole(Role.StoreManager.toString());
-		long officers = userRepo.filterUsersByRole(Role.Officer.toString());
+		long activeUsers = userRepo.countUsersByState(true);
+		long inactiveUsers = userRepo.countUsersByState(false);
+		long loggedLast24H = userRepo.countUsersByLastLogin(new Date().getTime()- Constants.ONE_DAY_MILLIS, new Date().getTime());
+		long admins = userRepo.countUsersByRole(Role.Administrator.toString());
+		long storeManagers = userRepo.countUsersByRole(Role.StoreManager.toString());
+		long officers = userRepo.countUsersByRole(Role.Officer.toString());
 
 
 
