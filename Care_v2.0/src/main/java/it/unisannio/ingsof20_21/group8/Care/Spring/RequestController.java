@@ -92,7 +92,7 @@ public class RequestController implements ContainerResponseFilter {
 	
 	
 	
-	@GetMapping("request/state/{state}")	
+	@GetMapping("request/priority/{priority}")	
 	public List<RequestBean> getRequestesByPriority(@PathVariable String priority){
 		
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
