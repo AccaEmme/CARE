@@ -1,4 +1,4 @@
-package it.unisannio.CARE.model.bloodBag;
+package it.unisannio.CARE.Model.BloodBag;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,8 +12,8 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.Scanner;
 
-import it.unisannio.CARE.model.util.Constants;
-import it.unisannio.CARE.model.util.XMLHelper;
+import it.unisannio.CARE.Model.Util.Constants;
+import it.unisannio.CARE.Model.Util.XMLHelper;
 
 
 
@@ -46,7 +46,7 @@ import it.unisannio.CARE.model.util.XMLHelper;
 
 
 public class Serial{
-    private static int lastdate; /** Variale privata per l'ultimo update*/
+    private static int lastdate;
     private static int counter;
     private static Date dNow = new Date();
     //private static SimpleDateFormat ft = new SimpleDateFormat(Constants.DATE_FORMAT);
@@ -119,7 +119,7 @@ public class Serial{
 	 **************************************************************************
 	 * Metodo usato sia dal JUnit Test, ma viene adoperato anche per 
 	 * generare un oggetto Serial da ricercare, in questo caso non deve aggiornare il seriale
-	 * @param s nuovo seriale 
+	 * @param String nuovo seriale 
 	 **************************************************************************
 	 */
     public Serial(String s) {
@@ -141,6 +141,7 @@ public class Serial{
     /**
 	 **************************************************************************
 	 * Metodo UPDATE per inserire un nuovo seriale
+	 * @exception IOException
 	 **************************************************************************
 	 */
 	private static void updateSerial() {
@@ -162,9 +163,8 @@ public class Serial{
 	/**
 	 **************************************************************************
 	 * Metodo per constatare la validita' del seriale
-	 * @param s indica il seriale da controllare
-	 * @return ritorna true quando il seriale è giusto
-	 * @exception IllegalArgumentException viene chiamata questa eccezione quando il seriale è sbagliato
+	 * @String indica il seriale da controllare
+	 * @exception IllegalArgumentException
 	 **************************************************************************
 	 */
     public static boolean validateSerial(String s) {
@@ -187,7 +187,7 @@ public class Serial{
     /**
 	 **************************************************************************
 	 * Metodo per confrontare due oggetti
-	 * @param o viene passato come paramentro l'oggetto da paragonare
+	 * @param Object viene passato come paramentro l'oggetto da paragonare
 	 * @return ritorna una variabile booleana (true/false) per il paragone 
 	 **************************************************************************
 	 */

@@ -1,15 +1,15 @@
-package it.unisannio.CARE.model.user;
+package it.unisannio.CARE.Model.User;
 
 
 import java.util.Date;
 
 import org.bson.Document;
 
-import it.unisannio.CARE.model.util.Constants;
-import it.unisannio.CARE.model.util.Password;
-import it.unisannio.CARE.model.z.exceptions.NullPasswordException;
-import it.unisannio.CARE.model.z.exceptions.UserException;
-import it.unisannio.CARE.spring.UserBean;
+import it.unisannio.CARE.Model.Exceptions.NullPasswordException;
+import it.unisannio.CARE.Model.Exceptions.UserException;
+import it.unisannio.CARE.Model.Util.Constants;
+import it.unisannio.CARE.Model.Util.Password;
+import it.unisannio.ingsof20_21.group8.Care.Spring.UserBean;
 
 
 /**
@@ -26,9 +26,9 @@ public class User {
 	/**
 	**************************************************************************
 	 * Metodo per la creazione dell'utente con una passw in chiaro
-	 * @param username Nome dell'utente
-	 * @param plainTextPassword Passw dell'utente
-	 * @param role Ruolo dell'utente
+	 * @param username - Nome dell'utente
+	 * @param plainTextPassword - Passw dell'utente
+	 * @param role - Ruolo dell'utente
 	 **************************************************************************
     */
 	public User(String username, String plainTextPassword, Role role) {
@@ -77,10 +77,9 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo per la gestione dell'utente con una passw criptata
-	 * @param username nome utente
-	 * @param hiddenPassword Passw criptata in MD5
-	 * @exception NullPasswordException
-	 * @exception UserException
+	 * @param String nome utente
+	 * @param String Passw criptata in MD5
+	 * @exception UserException, NullPasswordException
 	 **************************************************************************
     */
 	 
@@ -143,7 +142,7 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo SET per modificare lo username 
-	 * @param username Nome utente che si vuole inserire
+	 * @param String Nome utente che si vuole inserire
 	 **************************************************************************
     */
     public void setUsername(String username) {
@@ -164,7 +163,7 @@ public class User {
     /**
    	**************************************************************************
    	 * Metodo SET per il moodificare la password
-   	 * @param plainTextPassword password che si vuole inserire nuova
+   	 * @param String password che si vuole inserire nuova
    	 **************************************************************************
        */
     public void setPassword(String plainTextPassword) {
@@ -184,7 +183,7 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo SET per inserire una nuova email
-	 * @param email nuova Email da inserire 
+	 * @param String nuova Email da inserire 
 	 **************************************************************************
     */
     public void setEmail(String email) {
@@ -205,7 +204,7 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo SET per modificare il Ruolo
-	 * @param r ruolo da inserire tra quelli disponibili (Administrator, StoreManager, Officer)
+	 * @param Role ruolo da inserire tra quelli disponibili (Administrator, StoreManager, Officer)
 	 **************************************************************************
     */
     public void setRole(Role r) {

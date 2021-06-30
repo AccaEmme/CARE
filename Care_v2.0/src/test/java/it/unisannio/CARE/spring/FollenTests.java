@@ -1,8 +1,7 @@
 package it.unisannio.CARE.spring;
 
-import it.unisannio.CARE.model.util.Constants;
-import it.unisannio.CARE.spring.BloodBagController;
-
+import it.unisannio.CARE.Model.Util.Constants;
+import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagController;
 import org.junit.Test;
 
 import java.text.ParseException;

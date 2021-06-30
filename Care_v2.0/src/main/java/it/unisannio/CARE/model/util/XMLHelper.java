@@ -1,4 +1,4 @@
-package it.unisannio.CARE.model.util;
+package it.unisannio.CARE.Model.Util;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -24,8 +24,9 @@ public class XMLHelper {
 	/**
 	**************************************************************************
 	 * Metodo per ottenere le proprietà da un file xml
-	 * @param xmlfilepath Percorso del file XML
+	 * @param String Percorso del file XML
 	 * @return ritorna NULL se non trova il percorso
+	 * @exception InvalidPropertiesFormatException, FileNotFoundException, IOException
 	 **************************************************************************
     */
 	public static Properties getProps(String xmlfilepath) {
@@ -46,7 +47,9 @@ public class XMLHelper {
 	/**
 	**************************************************************************
 	 * Metodo che inizializza l'XML del seriale 
-	 * @param serialmatrix seriale del file XML 
+	 * @param String seriale del file XML 
+	 * @exception IOException
+	 * @exception IllegalArgumentException
 	 **************************************************************************
     */
 	public static void initSerialXML( String serialmatrix ) {
@@ -113,10 +116,11 @@ public class XMLHelper {
 	**************************************************************************
 	 * Metodo che inizializza l'XML del seriale dato un percorso specifico (Utiel anche per Junit Test)
 	 * @param x specifica il contatore da cui deve iniziare 
-	 * @param filesettings specifica il percorso dove salvare il file di setting
+	 * @param filesetting specifica il percorso dove salvare il file di setting
+	 * @exception IOException
 	 **************************************************************************
     */
-	public static void initXMLz(int x, String filesettings){
+	public static void initXMLz(int x, String filesettings) {
         Scanner sc = new Scanner(System.in);
         String nationality, prov, codstr, codint, serialmatrix;
 
@@ -163,7 +167,7 @@ public class XMLHelper {
             fos.close();
             System.out.println("Data written to file "+filesettings+" successfully.");
         } catch (IOException e) {
-            // TODO Auto-generated catch block 
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 	}	

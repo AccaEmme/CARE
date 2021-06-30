@@ -3,8 +3,6 @@ package it.unisannio.CARE.spring;
 
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
@@ -25,156 +23,13 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import it.unisannio.CARE.model.bloodBag.BloodBag;
-import it.unisannio.CARE.model.bloodBag.BloodGroup;
-
 
 /*
  *  JUnit test for BloodBag class.
  */
 
 public class BloodBagTest {
-
-	/*
-	 *  JUnit test for BloodBag class.
-	 */
-
-		//JUnit test per il primo Costruttore presente nella classe BloodBag
-		@Test
-		public void  ValidityTest_Constructor1_BagAneg() throws ParseException {
-			
-				BloodGroup bg = BloodGroup.Aneg;
-				String codiceFiscale = "PRTGCM45F28P678L";
-				Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
-				Node node = new Node("123", "Ospedale Frangipane", location);
-			
-				BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
-				assertNotNull(bloodBag);
-			
-		}
-		
-		@Test
-		public void  InvalidityCFTest_Constructor1_BagAneg() throws ParseException {
-			
-				BloodGroup bg = BloodGroup.Aneg;
-				String codiceFiscale = "PTGCM45F28P678L";
-				Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
-				Node node = new Node("123", "Ospedale Frangipane", location);
-				
-				
-				assertThrows(IllegalArgumentException.class, () -> {
-					BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
-				}
-				);
-		}
-		
-		@Test
-		public void  ValidityTest_Constructor1_BagApos() throws ParseException {
-			
-			BloodGroup bg = BloodGroup.Apos;
-			String codiceFiscale = "PRTGCM45F28P678L";
-			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
-			Node node = new Node("123", "Ospedale Frangipane", location);
-		
-			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
-			assertNotNull(bloodBag);
-			
-		}
-		
-		@Test
-		public void  ValidityTest_Constructor1_BagBneg() throws ParseException {
-			
-			BloodGroup bg = BloodGroup.Bneg;
-			String codiceFiscale = "PRTGCM45F28P678L";
-			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
-			Node node = new Node("123", "Ospedale Frangipane", location);
-		
-			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
-			assertNotNull(bloodBag);
-			
-		}
-		
-		@Test
-		public void  ValidityTest_Constructor1_BagBpos() throws ParseException {
-			
-			BloodGroup bg = BloodGroup.Bpos;
-			String codiceFiscale = "PRTGCM45F28P678L";
-			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
-			Node node = new Node("123", "Ospedale Frangipane", location);
-		
-			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
-			assertNotNull(bloodBag);
-			
-		}
-		
-		@Test
-		public void  ValidityTest_Constructor1_BagABneg() throws ParseException {
-			
-			BloodGroup bg = BloodGroup.ABneg;
-			String codiceFiscale = "PRTGCM45F28P678L";
-			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
-			Node node = new Node("123", "Ospedale Frangipane", location);
-			
-			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
-			assertNotNull(bloodBag);
-		
-		}
-		@Test
-		public void  ValidityTest_Constructor1_BagABpos() throws ParseException {
-			
-			BloodGroup bg = BloodGroup.ABpos;
-			String codiceFiscale = "PRTGCM45F28P678L";
-			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
-			Node node = new Node("123", "Ospedale Frangipane", location);
-		
-			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
-			assertNotNull(bloodBag);
-		}
-		@Test
-		public void  ValidityTest_Constructor1_BagZeroneg() throws ParseException {
-			
-			BloodGroup bg = BloodGroup.ZEROneg;
-			String codiceFiscale = "PRTGCM45F28P678L";
-			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
-			Node node = new Node("123", "Ospedale Frangipane", location);
-		
-			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
-			assertNotNull(bloodBag);
-		}
-		@Test
-		public void  ValidityTest_Constructor1_BagZeropos() throws ParseException {
-			
-			BloodGroup bg = BloodGroup.ZEROpos;
-			String codiceFiscale = "PRTGCM45F28P678L";
-			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
-			Node node = new Node("123", "Ospedale Frangipane", location);
-		
-			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
-			assertNotNull(bloodBag);
-			
-		}
-
-		
-		//JUnit test per il secondo Costruttore presente nella classe BloodBag
-		
-		
-		@Test
-		public void  ValidityTest_Constructor2_BagZeropos() throws ParseException {
-			
-			BloodGroup bg = BloodGroup.ZEROpos;
-			String codiceFiscale = "PRTGCM45F28P678L";
-			Location location = new Location(Country.Italy, Region.Campania, Province.Avellino, City.Avellino, "via 25 Aprile", "5","82020");
-			Node node = new Node("123", "Ospedale Frangipane", location);
-		
-			BloodBag bloodBag   = new BloodBag(bg, codiceFiscale, node );
-			assertNotNull(bloodBag);
-			
-		}
-	
-	
-	
-	
-	/*	
+/*	
 
 	@Test (expected = NullPointerException.class)
 	public void donatorCFNULL() throws ParseException {

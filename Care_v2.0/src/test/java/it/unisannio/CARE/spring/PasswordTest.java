@@ -1,6 +1,6 @@
 package it.unisannio.CARE.spring;
 
-import it.unisannio.CARE.model.util.Password;
+import it.unisannio.CARE.Model.Util.Password;
 
 
 import static org.junit.Assert.assertEquals;

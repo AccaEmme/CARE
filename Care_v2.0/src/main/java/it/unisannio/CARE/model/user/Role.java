@@ -1,4 +1,4 @@
-package it.unisannio.CARE.model.user;
+package it.unisannio.CARE.Model.User;
 
 /*
  * https://github.com/AccaEmme/CARE/wiki/5.3-User-authentication-privileges-and-accesses-to-resources

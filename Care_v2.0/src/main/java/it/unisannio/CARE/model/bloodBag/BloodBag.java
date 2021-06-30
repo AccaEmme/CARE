@@ -1,4 +1,4 @@
-package it.unisannio.CARE.model.bloodBag;
+package it.unisannio.CARE.Model.BloodBag;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -9,11 +9,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagBean;
 import org.bson.Document;
 
-import it.unisannio.CARE.model.util.Constants;
-import it.unisannio.CARE.model.z.exceptions.StateException;
-import it.unisannio.CARE.spring.BloodBagBean;
+import it.unisannio.CARE.Model.BloodBag.*;
+import it.unisannio.CARE.Model.Exceptions.StateException;
+import it.unisannio.CARE.Model.Util.Constants;
 
 /**
  * La classe BloodBag contiene tutte le informazioni sulla sacca di sangue registrata, come il seriale, la data di creazione e scadenza
@@ -282,11 +283,11 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      * Metodo privato per modificare il codice fiscale
      * @exception IllegalArgumentException
-     * @param fisCode codice fiscale del donatore
+     * @param fisCode  codice fiscale del donatore
      **************************************************************************
      */
 	private void setDonatorCF(String fisCode) {
-		if( !fisCode.matches(Constants.RegexDonatorCF) )
+		if( !fisCode.matches(it.unisannio.CARE.Model.Util.Constants.RegexDonatorCF) )
 			throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"donatorCF "+donatorCF+" do not match pattern "+Constants.RegexDonatorCF );
 		this.donatorCF = fisCode;
 	}
@@ -316,7 +317,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo protetto per modificare le note della sacca
-     * @param note Note riguardo informazioni aggiuntive sulla sacca di sangue
+     * @param note  Note riguardo informazioni aggiuntive sulla sacca di sangue
      **************************************************************************
      */
 	protected void setNote(String note) {
@@ -361,7 +362,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo per modificare lo stato delle sacche 
-     * @param s nuovo stato della sacca
+     * @return false se la sacca di sangue non è disponibile: è stata usata, trasferita o eliminata.
      **************************************************************************
      */
 	private void setBloodBagState(BloodBagState s) {
@@ -457,7 +458,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	 /**
 	 **************************************************************************
 	 * Metodo per comaprare due sacche 
-	 * @param bloodBag Viene passato come oggetto una sacca di dangue
+	 * @param BloodBag Viene passato come oggetto una sacca di dangue
 	 **************************************************************************
 	 */
 	public int compareTo(BloodBag bloodBag) {
