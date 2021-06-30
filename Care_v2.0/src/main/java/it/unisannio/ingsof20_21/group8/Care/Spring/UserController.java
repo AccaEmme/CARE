@@ -13,11 +13,13 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 
+import it.unisannio.CARE.Model.Report.UserReport;
+import it.unisannio.CARE.Model.Util.Constants;
 import org.springframework.web.bind.annotation.*;
 
 import it.unisannio.CARE.Model.User.Role;
 import it.unisannio.CARE.Model.User.User;
-
+import org.yaml.snakeyaml.scanner.Constant;
 
 
 @CrossOrigin("*")
@@ -102,6 +104,45 @@ public class UserController implements ContainerResponseFilter {
 		return userRepo.findCreatedBetween(firstdate,seconddate);
 	}
 
+
+	/**
+	 * HTTP request: 127.0.0.1:8087/user/report
+	 * Output:
+	 {
+	      "total": 1000,
+	      "activeUsers": 482,
+	      "loggedLast24Hours": 492,
+	      "administrators": 482,
+	      "storeManagers": 322,
+	      "officers": 340,
+	      "deactivatedUsers": 518
+	  }*/
+	@GetMapping("user/report")
+	public UserReport getUserReport(){
+		/**
+		 * private long total;
+		 *     private long activeUsers;
+		 *     private long deactivatedUsers;
+		 *     private long loggedLast24Hours;
+		 *
+		 *     private long administrators;
+		 *     private long storeManagers;
+		 *     private long officers;*/
+
+		long total = userRepo.countAllUsers();
+		long activeUsers = userRepo.filterUsersByState(true);
+		long inactiveUsers = userRepo.filterUsersByState(false);
+		long loggedLast24H = userRepo.filterUsersByLastLogin(new Date().getTime()- Constants.ONE_DAY_MILLIS);
+		long admins = userRepo.filterUsersByRole(Role.Administrator.toString());
+		long storeManagers = userRepo.filterUsersByRole(Role.StoreManager.toString());
+		long officers = userRepo.filterUsersByRole(Role.Officer.toString());
+
+
+
+		UserReport report = new UserReport(total,activeUsers,inactiveUsers,loggedLast24H,activeUsers,storeManagers,officers);
+
+		return report;
+	}
 	//############## ALTER METHODS ###############
 	/*
 	non riesco a far funzionare la query di UPDATE
