@@ -46,7 +46,7 @@ import it.unisannio.CARE.model.util.XMLHelper;
 
 
 public class Serial{
-    private static int lastdate;
+    private static int lastdate; /** Variale privata per l'ultimo update*/
     private static int counter;
     private static Date dNow = new Date();
     //private static SimpleDateFormat ft = new SimpleDateFormat(Constants.DATE_FORMAT);
@@ -141,7 +141,6 @@ public class Serial{
     /**
 	 **************************************************************************
 	 * Metodo UPDATE per inserire un nuovo seriale
-	 * @exception IOException
 	 **************************************************************************
 	 */
 	private static void updateSerial() {
@@ -164,7 +163,8 @@ public class Serial{
 	 **************************************************************************
 	 * Metodo per constatare la validita' del seriale
 	 * @param s indica il seriale da controllare
-	 * @exception IllegalArgumentException
+	 * @return ritorna true quando il seriale è giusto
+	 * @exception IllegalArgumentException viene chiamata questa eccezione quando il seriale è sbagliato
 	 **************************************************************************
 	 */
     public static boolean validateSerial(String s) {

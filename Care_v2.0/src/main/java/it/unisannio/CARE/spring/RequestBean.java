@@ -31,12 +31,12 @@ public class RequestBean implements Serializable{
 	/**
 	**************************************************************************
 	 * Metodo per la creazione della classe RequestBean
-	 * @param String Id della richiesta
-	 * @param String Seriale della richiesta
-	 * @param String data della richiesta
-	 * @param String note sulla richiesta 
-	 * @param String Stato della richiesta
-	 * @param String priorita' della richiesta
+	 * @param id_requester Id della richiesta
+	 * @param serial Seriale della richiesta
+	 * @param date data della richiesta
+	 * @param note note sulla richiesta 
+	 * @param state Stato della richiesta
+	 * @param priority priorita' della richiesta
 	 **************************************************************************
     */
 	public RequestBean( String id_requester, String serial, String date, String note, String state, String priority) {
@@ -64,7 +64,7 @@ public class RequestBean implements Serializable{
 	/**
      **************************************************************************
      * Metodo SET per inserire il nuovo ID della richiesta
-     * @param String ID della richiesta
+     * @param id_requester ID della richiesta
      **************************************************************************
     */
 	public void setId_requester(String id_requester) {
@@ -86,7 +86,7 @@ public class RequestBean implements Serializable{
 	/**
      **************************************************************************
      * Metodo SET per inserire il seriale
-     * @param String nuovo seriale da inserire 
+     * @param serial nuovo seriale da inserire 
      **************************************************************************
     */
 	public void setSerial(String serial) {
@@ -108,7 +108,7 @@ public class RequestBean implements Serializable{
 	/**
      **************************************************************************
      * Metodo SET per inserire una nuova data
-     * @param String nuova data da inserire
+     * @param date nuova data da inserire
      **************************************************************************
     */
 	public void setDate(String date) {
@@ -131,7 +131,7 @@ public class RequestBean implements Serializable{
 	/**
      **************************************************************************
      * Metodo SET per inserire le note della richiesta
-     * @param String nuove note da inserire 
+     * @param note nuove note da inserire 
      **************************************************************************
     */
 	public void setNote(String note) {
@@ -153,7 +153,7 @@ public class RequestBean implements Serializable{
 	/**
      **************************************************************************
      * Metodo SET per inserire una nuova richiesta
-     * @param String nuovo stato della richiesta
+     * @param state nuovo stato della richiesta
      **************************************************************************
     */
 	public void setState(String state) {
@@ -175,7 +175,7 @@ public class RequestBean implements Serializable{
 	/**
      **************************************************************************
      * Metodo SET inserire una nuova priorita'
-     * @param String nuovo valore della priorita'
+     * @param priority nuovo valore della priorita'
      **************************************************************************
     */
 	public void setPriority(String priority) {

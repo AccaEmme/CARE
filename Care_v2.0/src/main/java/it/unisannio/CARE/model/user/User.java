@@ -79,7 +79,8 @@ public class User {
 	 * Metodo per la gestione dell'utente con una passw criptata
 	 * @param username nome utente
 	 * @param hiddenPassword Passw criptata in MD5
-	 * @exception UserException, NullPasswordException
+	 * @exception NullPasswordException
+	 * @exception UserException
 	 **************************************************************************
     */
 	 
@@ -204,7 +205,7 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo SET per modificare il Ruolo
-	 * @param Role ruolo da inserire tra quelli disponibili (Administrator, StoreManager, Officer)
+	 * @param r ruolo da inserire tra quelli disponibili (Administrator, StoreManager, Officer)
 	 **************************************************************************
     */
     public void setRole(Role r) {

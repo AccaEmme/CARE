@@ -63,6 +63,7 @@ public enum BloodGroup {
 	 **************************************************************************
 	 * Metodo per preservare i dati e per negare la rimozione di elemnti da chi riceve
 	 * @param b Viene passato un oggetto BloodGroup
+	 * 
 	 **************************************************************************
 	 */
 	public static Iterator<BloodGroup> canReceiveFrom(BloodGroup b){

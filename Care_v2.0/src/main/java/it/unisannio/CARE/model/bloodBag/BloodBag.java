@@ -361,7 +361,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo per modificare lo stato delle sacche 
-     * @return false se la sacca di sangue non è disponibile: è stata usata, trasferita o eliminata.
+     * @param s nuovo stato della sacca
      **************************************************************************
      */
 	private void setBloodBagState(BloodBagState s) {
@@ -457,7 +457,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	 /**
 	 **************************************************************************
 	 * Metodo per comaprare due sacche 
-	 * @param BloodBag Viene passato come oggetto una sacca di dangue
+	 * @param bloodBag Viene passato come oggetto una sacca di dangue
 	 **************************************************************************
 	 */
 	public int compareTo(BloodBag bloodBag) {
