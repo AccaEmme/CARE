@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.unisannio.CARE.Model.Testers;
+package it.unisannio.CARE.model.Testers;
 
 import java.util.Date;
 

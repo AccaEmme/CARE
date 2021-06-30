@@ -1,11 +1,11 @@
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
-import it.unisannio.CARE.Model.BloodBag.BloodBag;
-import it.unisannio.CARE.Model.BloodBag.BloodGroup;
-import it.unisannio.CARE.Model.BloodBag.Serial;
-import it.unisannio.CARE.Model.Report.BloodBagReport;
+import it.unisannio.CARE.model.bloodBag.BloodBag;
+import it.unisannio.CARE.model.bloodBag.BloodGroup;
+import it.unisannio.CARE.model.bloodBag.Serial;
+import it.unisannio.CARE.model.report.BloodBagReport;
 
-import it.unisannio.CARE.Model.Util.Constants;
+import it.unisannio.CARE.model.util.Constants;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;

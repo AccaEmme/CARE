@@ -18,13 +18,13 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.or;
 import static com.mongodb.client.model.Filters.ne;
 
-import it.unisannio.CARE.Model.BloodBag.Request;
-import it.unisannio.CARE.Model.BloodBag.Request.RequestState;
-import it.unisannio.CARE.Model.Exceptions.NullCredentialException;
-import it.unisannio.CARE.Model.Exceptions.RequestCloneNotSupportedException;
-import it.unisannio.CARE.Model.Exceptions.RequestNotFoundException;
-import it.unisannio.CARE.Model.Util.Constants;
-import it.unisannio.CARE.Model.Util.XMLHelper;
+import it.unisannio.CARE.model.bloodBag.Request;
+import it.unisannio.CARE.model.bloodBag.RequestPriority;
+import it.unisannio.CARE.model.bloodBag.RequestState;
+import it.unisannio.CARE.model.util.Constants;
+import it.unisannio.CARE.model.util.XMLHelper;
+import it.unisannio.CARE.model.Exceptions.RequestCloneNotSupportedException;
+import it.unisannio.CARE.model.Exceptions.RequestNotFoundException;
 
 
 /**Questa classe implementa i metodi che eseguono i vari inserimenti e le varie query, per gestire le richieste inviate dai nodi locali.
@@ -49,56 +49,28 @@ public class RequestManager {
 		
 		this.mongoClient = new MongoClient(new MongoClientURI(URI));
 		this.mongoDatabase = mongoClient.getDatabase(databaseName);
-		this.collection =mongoDatabase.getCollection(collectionName);
+		this.collection = mongoDatabase.getCollection(collectionName);
 	}
+	
 	
 	
 	public RequestManager() {
 		
-		this.mongoClient = new MongoClient(new MongoClientURI(createURI()));
-		this.mongoDatabase = mongoClient.getDatabase(createDatabaseName());
-		this.collection =mongoDatabase.getCollection(createCollectionName());
-	}
-	
-	
-    private static String createURI(){
+		Properties properties = XMLHelper.getProps(Constants.MONGODB_CREDENTIALS);
     	
-        Properties properties = XMLHelper.getProps(Constants.MONGODB_CREDENTIALS);
-        String username, password, db_host;
-        
-        username = properties.getProperty("username");
-        password = properties.getProperty("password");
-        db_host  = properties.getProperty("db_host");
-        
-        if(username!=null && password!=null && db_host!=null)
-        	return "mongodb+srv://"+username+":"+password+"@cluster0"+db_host;
-        else
-        	throw new NullCredentialException("Credenziali assenti");
-    }
-    
-    
-    
-    private static String createDatabaseName() {
-    	
-    	Properties properties = XMLHelper.getProps(Constants.MONGODB_CREDENTIALS);
+        String username = properties.getProperty("username");
+        String password = properties.getProperty("password");
+        String db_host = properties.getProperty("db_host");
         String databaseName = properties.getProperty("db_name");
-        
-        if(databaseName != null)
-    	return databaseName;
-    else
-    	throw new NullCredentialException("Credenziali assenti");
-    }
-    
-    private static String createCollectionName() {
-    	
-    	Properties properties = XMLHelper.getProps(Constants.MONGODB_CREDENTIALS);
         String collectionName = properties.getProperty("requests");
         
-        if(collectionName != null)
-    	return collectionName;
-    else
-    	throw new NullCredentialException("Credenziali assenti");
-    }
+		this.mongoClient = new MongoClient(new MongoClientURI("mongodb+srv://"+username+":"+password+"@cluster0"+db_host));
+		this.mongoDatabase = mongoClient.getDatabase(databaseName);
+		this.collection = mongoDatabase.getCollection(collectionName);
+	}
+
+	
+	
 	
 	/**
      **************************************************************************
@@ -227,7 +199,7 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo per ottenere la richiesta dallo stato
+     * Metodo per ottenere la richieste dallo stato
      * @param state  Oggetto che contiene le informazioni della richiesta di stato
      **************************************************************************
      */
@@ -237,6 +209,32 @@ public class RequestManager {
 		
 	    Bson filter = and(
 					    		eq("state", state.toString())
+						);
+        
+        MongoCursor<Document> iterator= collection.find().filter(filter).iterator();
+        
+        while(iterator.hasNext()) {
+        	
+        	requestes.add(iterator.next());
+        }
+		
+		return requestes;
+	}
+	
+	
+	
+	/**
+     **************************************************************************
+     * Metodo per ottenere le richieste dalla priorità
+     * @param state  Oggetto che contiene le informazioni della priorità della richiesta
+     **************************************************************************
+     */
+	public List<Document> getRequestesByPriority(RequestPriority priority) {
+		
+		List<Document> requestes = new ArrayList<>();
+		
+	    Bson filter = and(
+					    		eq("priority", priority.toString())
 						);
         
         MongoCursor<Document> iterator= collection.find().filter(filter).iterator();

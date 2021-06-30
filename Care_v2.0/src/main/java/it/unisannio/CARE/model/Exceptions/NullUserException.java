@@ -5,7 +5,7 @@
  * JDK: 1.8
  * @version 1.0
  */
-package it.unisannio.CARE.Model.Exceptions;
+package it.unisannio.CARE.model.Exceptions;
 
 public class NullUserException extends Exception {
     public NullUserException() {

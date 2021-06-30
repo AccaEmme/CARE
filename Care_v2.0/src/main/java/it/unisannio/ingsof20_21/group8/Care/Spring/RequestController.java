@@ -5,17 +5,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -31,15 +26,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.unisannio.CARE.Control.BloodBags.RequestManager;
-import it.unisannio.CARE.Model.BloodBag.BloodBag;
-import it.unisannio.CARE.Model.BloodBag.Request;
-import it.unisannio.CARE.Model.BloodBag.Request.RequestPriority;
-import it.unisannio.CARE.Model.BloodBag.Request.RequestState;
-import it.unisannio.CARE.Model.Exceptions.RequestCloneNotSupportedException;
-import it.unisannio.CARE.Model.Exceptions.RequestNotFoundException;
-import it.unisannio.CARE.Model.Util.Constants;
-import it.unisannio.CARE.Model.Util.XMLHelper;
 import it.unisannio.CARE.View.Classes.RequestBean;
+import it.unisannio.CARE.model.bloodBag.Request;
+import it.unisannio.CARE.model.bloodBag.RequestPriority;
+import it.unisannio.CARE.model.bloodBag.RequestState;
+import it.unisannio.CARE.model.util.Constants;
+import it.unisannio.CARE.model.util.XMLHelper;
+import it.unisannio.CARE.model.Exceptions.RequestCloneNotSupportedException;
+import it.unisannio.CARE.model.Exceptions.RequestNotFoundException;
 
 
 @CrossOrigin("*")
@@ -98,6 +92,42 @@ public class RequestController implements ContainerResponseFilter {
 	
 	
 	
+	@GetMapping("request/state/{state}")	
+	public List<RequestBean> getRequestesByPriority(@PathVariable String priority){
+		
+		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+		mongoLogger.setLevel(Level.SEVERE);
+			
+		List<RequestBean> result = new ArrayList<RequestBean>();
+		
+		RequestManager manager = new RequestManager();
+		List<Document> l = (manager.getRequestesByPriority(RequestPriority.valueOf(priority)));
+		
+		for (Document s : l)
+			result.add(new RequestBean(s.getString("id_requester"),
+				s.getString("serial"),
+				s.getString("date"),
+				s.getString("note"),
+				s.getString("state"),
+				s.getString("priority")));
+					
+		manager.close();
+		
+		return result;
+
+	}
+	
+	
+	/*
+	 * json pronto per un test
+	{
+		"serial":"IT-NA205101-ABpos-20210628-0010",
+		"date":"1941-06-30",
+		"note":"niente da dichiarare",
+		"state":"pending",
+		"priority":"green"
+	}
+	 */
 	@PostMapping("request/add")	
 	public String addRequest(@RequestBody RequestBean requestB) throws ParseException{
 
@@ -139,6 +169,17 @@ public class RequestController implements ContainerResponseFilter {
 	
 	
 	
+	/*
+	 * json pronto per un test
+	{
+		"id_requester":"BN205",
+		"serial":"IT-NA205101-ABpos-20210628-0010",
+		"date":"1941-06-30",
+		"note":"niente da dichiarare",
+		"state":"pending",
+		"priority":"green"
+	}
+	*/
 	@PostMapping("request/accept")
 	public String acceptRequest(@RequestBody RequestBean requestB) throws ParseException{		
 
@@ -174,6 +215,17 @@ public class RequestController implements ContainerResponseFilter {
 
 	
 	
+	/*
+	 * json pronto per un test
+	{
+		"id_requester":"BN205",
+		"serial":"IT-NA205101-ABpos-20210628-0010",
+		"date":"1941-06-30",
+		"note":"niente da dichiarare",
+		"state":"pending",
+		"priority":"green"
+	}
+	*/
 	@PostMapping("request/refuse")	
 	public String refuseRequest(@RequestBody RequestBean requestB) throws ParseException{		
 
@@ -209,6 +261,17 @@ public class RequestController implements ContainerResponseFilter {
 
 	
 	
+	/*
+	 * json pronto per un test
+	{
+		"id_requester":"BN205",
+		"serial":"IT-NA205101-ABpos-20210628-0010",
+		"date":"1941-06-30",
+		"note":"niente da dichiarare",
+		"state":"pending",
+		"priority":"green"
+	}
+	*/
 	@PutMapping("request/empty-trash")	
 	public void emptyTrash() throws ParseException{		
 

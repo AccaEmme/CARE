@@ -13,9 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import it.unisannio.CARE.Model.User.Role;
-import it.unisannio.CARE.Model.User.User;
-import it.unisannio.CARE.Model.Util.Constants;
+import it.unisannio.CARE.model.user.Role;
+import it.unisannio.CARE.model.user.User;
+import it.unisannio.CARE.model.util.Constants;
 
 /**
 * DAO: User class JPA

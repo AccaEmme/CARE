@@ -1,12 +1,13 @@
-package it.unisannio.CARE.Model.Testers;
+package it.unisannio.CARE.model.Testers;
 
 import java.text.ParseException;
 import java.util.Date;
 
 import it.unisannio.CARE.Control.BloodBags.RequestManager;
-import it.unisannio.CARE.Model.BloodBag.*;
-import it.unisannio.CARE.Model.BloodBag.Request.RequestPriority;
-import it.unisannio.CARE.Model.BloodBag.Request.RequestState;
+import it.unisannio.CARE.model.bloodBag.BloodBag;
+import it.unisannio.CARE.model.bloodBag.BloodGroup;
+import it.unisannio.CARE.model.bloodBag.RequestPriority;
+import it.unisannio.CARE.model.bloodBag.RequestState;
 
 public class RequestManagerTester {
 

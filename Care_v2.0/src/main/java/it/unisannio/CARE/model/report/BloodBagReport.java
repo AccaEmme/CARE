@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Model.Report;
+package it.unisannio.CARE.model.report;
 
 
 import org.json.simple.JSONObject;

@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Model.BloodBag;
+package it.unisannio.CARE.model.bloodBag;
 
 
 import java.text.SimpleDateFormat;
@@ -24,7 +24,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo costruttore per la creazione di una richiesta
-     * @param String ID della richeista
+     * @param String ID del nodo richiedente
      * @param String ID della sacca richiesta
      * @param Date Data della richiesta
      * @param String Note per la richiesta
@@ -200,28 +200,5 @@ public class Request {
 				+ "\"state\": \""+this.state.toString()+"\","
 				+ "\"priority\": \""+this.priority.toString()+"\"}";
 	}
-	
-	
-	
-	/**
-	 **************************************************************************
-	 * Metodo ENUM per i vari stati della richiesta
-	 **************************************************************************
-	 */
-	public enum RequestState {
-		
-		accepted, refused, pending;
-	}
 
-	
-	
-	/**
-	 **************************************************************************
-	 * Metodo ENUM per le varie priorità della richiesta
-	 **************************************************************************
-	 */
-	public enum RequestPriority {
-		
-		red, yellow, green;
-	}
 }

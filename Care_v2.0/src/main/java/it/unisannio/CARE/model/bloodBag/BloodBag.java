@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Model.BloodBag;
+package it.unisannio.CARE.model.bloodBag;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -12,9 +12,8 @@ import java.util.Locale;
 import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagBean;
 import org.bson.Document;
 
-import it.unisannio.CARE.Model.BloodBag.*;
-import it.unisannio.CARE.Model.Exceptions.StateException;
-import it.unisannio.CARE.Model.Util.Constants;
+import it.unisannio.CARE.model.Exceptions.StateException;
+import it.unisannio.CARE.model.util.Constants;
 
 /**
  * La classe BloodBag contiene tutte le informazioni sulla sacca di sangue registrata, come il seriale, la data di creazione e scadenza
@@ -287,7 +286,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      */
 	private void setDonatorCF(String fisCode) {
-		if( !fisCode.matches(it.unisannio.CARE.Model.Util.Constants.RegexDonatorCF) )
+		if( !fisCode.matches(Constants.RegexDonatorCF) )
 			throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"donatorCF "+donatorCF+" do not match pattern "+Constants.RegexDonatorCF );
 		this.donatorCF = fisCode;
 	}

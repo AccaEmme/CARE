@@ -1,14 +1,14 @@
-package it.unisannio.CARE.Model.User;
+package it.unisannio.CARE.model.user;
 
 
 import java.util.Date;
 
 import org.bson.Document;
 
-import it.unisannio.CARE.Model.Exceptions.NullPasswordException;
-import it.unisannio.CARE.Model.Exceptions.UserException;
-import it.unisannio.CARE.Model.Util.Constants;
-import it.unisannio.CARE.Model.Util.Password;
+import it.unisannio.CARE.model.Exceptions.NullPasswordException;
+import it.unisannio.CARE.model.Exceptions.UserException;
+import it.unisannio.CARE.model.util.Constants;
+import it.unisannio.CARE.model.util.Password;
 import it.unisannio.ingsof20_21.group8.Care.Spring.UserBean;
 
 

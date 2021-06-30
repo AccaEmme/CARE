@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Model.Exceptions;
+package it.unisannio.CARE.model.Exceptions;
 
 public class RequestCloneNotSupportedException extends RuntimeException {
 

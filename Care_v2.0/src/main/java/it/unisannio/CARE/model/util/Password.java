@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Model.Util;
+package it.unisannio.CARE.model.util;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

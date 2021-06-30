@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Model.Exceptions;
+package it.unisannio.CARE.model.Exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

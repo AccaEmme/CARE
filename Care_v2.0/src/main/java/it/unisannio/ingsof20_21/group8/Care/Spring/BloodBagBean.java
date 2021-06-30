@@ -1,9 +1,9 @@
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 
-import it.unisannio.CARE.Model.BloodBag.BloodBag;
-import it.unisannio.CARE.Model.BloodBag.BloodGroup;
-import it.unisannio.CARE.Model.BloodBag.Serial;
+import it.unisannio.CARE.model.bloodBag.BloodBag;
+import it.unisannio.CARE.model.bloodBag.BloodGroup;
+import it.unisannio.CARE.model.bloodBag.Serial;
 
 import javax.persistence.*;
 import java.util.Date;

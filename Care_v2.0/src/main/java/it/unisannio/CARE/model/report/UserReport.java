@@ -5,7 +5,7 @@
  * JDK: 1.8
  * @version 1.0
  */
-package it.unisannio.CARE.Model.Report;
+package it.unisannio.CARE.model.report;
 
 public class UserReport {
     private long total;

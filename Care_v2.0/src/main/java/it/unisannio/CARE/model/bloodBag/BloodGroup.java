@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Model.BloodBag;
+package it.unisannio.CARE.model.bloodBag;
 
 import java.util.ArrayList;
 import java.util.Arrays;

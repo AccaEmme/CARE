@@ -1,8 +1,8 @@
-package it.unisannio.CARE.Model.Util;
+package it.unisannio.CARE.model.util;
 
 import java.text.SimpleDateFormat;
 
-import it.unisannio.CARE.Model.BloodBag.BloodGroup;
+import it.unisannio.CARE.model.bloodBag.BloodGroup;
 
 
 

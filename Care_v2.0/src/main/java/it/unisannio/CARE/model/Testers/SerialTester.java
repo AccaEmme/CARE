@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Model.Testers;
+package it.unisannio.CARE.model.Testers;
 
 
 
@@ -10,9 +10,9 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 import java.util.Scanner;
 
-import it.unisannio.CARE.Model.BloodBag.BloodGroup;
-import it.unisannio.CARE.Model.BloodBag.Serial;
-import it.unisannio.CARE.Model.Util.Constants;
+import it.unisannio.CARE.model.bloodBag.BloodGroup;
+import it.unisannio.CARE.model.bloodBag.Serial;
+import it.unisannio.CARE.model.util.Constants;
 
 public class SerialTester {
 	public static String path = Constants.SERIAL_SETTINGS_RELATIVEPATH;

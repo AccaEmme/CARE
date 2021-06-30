@@ -12,12 +12,12 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 
-import it.unisannio.CARE.Model.Report.UserReport;
-import it.unisannio.CARE.Model.Util.Constants;
+import it.unisannio.CARE.model.report.UserReport;
+import it.unisannio.CARE.model.util.Constants;
 import org.springframework.web.bind.annotation.*;
 
-import it.unisannio.CARE.Model.User.Role;
-import it.unisannio.CARE.Model.User.User;
+import it.unisannio.CARE.model.user.Role;
+import it.unisannio.CARE.model.user.User;
 
 
 @CrossOrigin("*")
