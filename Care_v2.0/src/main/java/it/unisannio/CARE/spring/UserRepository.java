@@ -7,7 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+<<<<<<< HEAD:Care_v2.0/src/main/java/it/unisannio/CARE/spring/UserRepository.java
 import org.springframework.transaction.annotation.Transactional;
+=======
+
+import it.unisannio.CARE.Model.Util.Password;
+>>>>>>> parent of b511b0c (user restore / deactivate methods STABLE):Care_v2.0/src/main/java/it/unisannio/ingsof20_21/group8/Care/Spring/UserRepository.java
 
 import it.unisannio.CARE.model.util.Password;
 
@@ -31,9 +36,6 @@ public interface UserRepository extends JpaRepository<UserBean, Long>{
 	@Query("FROM UserBean u WHERE u.creationDate >:firstdate AND u.creationDate <:seconddate")
 	Iterable<UserBean> findCreatedBetween(@Param("firstdate") long firstdate, @Param("seconddate") long seconddate);
 
-	@Transactional
-	@Query("UPDATE UserBean u SET u.loginAttempts =:attempts where u.username =:username")
-	void updateUserLoginAttempts(@Param("attempts") int attempts, @Param("username") String username);
 
 
 
