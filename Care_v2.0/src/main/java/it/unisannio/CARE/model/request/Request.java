@@ -4,6 +4,8 @@ package it.unisannio.CARE.model.request;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+
 /**
  * Classe che si occupa delle richieste effettuate o da fare per le sacche di sangue 
  */
