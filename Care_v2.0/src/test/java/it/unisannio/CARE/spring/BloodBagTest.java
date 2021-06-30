@@ -3,6 +3,8 @@ package it.unisannio.CARE.spring;
 
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
@@ -23,27 +25,15 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import it.unisannio.CARE.model.bloodBag.BloodBag;
+import it.unisannio.CARE.model.bloodBag.BloodGroup;
+
 
 /*
  *  JUnit test for BloodBag class.
  */
 
 public class BloodBagTest {
-	package it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Blood;
-
-	import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Node.Node;
-	import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location;
-	import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.City;
-	import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Country;
-	import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Province;
-	import it.unisannio.ingsof20_21.group8.CARE_MVC.Model.Util.Location.Region;
-
-	import static org.junit.Assert.assertNotNull;
-	import static org.junit.Assert.assertThrows;
-
-	import java.text.ParseException;
-
-	import org.junit.Test;
 
 	/*
 	 *  JUnit test for BloodBag class.

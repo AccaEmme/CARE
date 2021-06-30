@@ -8,11 +8,11 @@ import static org.junit.Assert.assertTrue;
 import java.util.Date;
 import java.util.stream.Stream;
 
-import it.unisannio.CARE.Model.Exceptions.NullPasswordException;
-import it.unisannio.CARE.Model.Exceptions.UserException;
-import it.unisannio.CARE.Model.User.Role;
-import it.unisannio.CARE.Model.User.User;
-import it.unisannio.CARE.Model.Util.Constants;
+import it.unisannio.CARE.model.z.exceptions.NullPasswordException;
+import it.unisannio.CARE.model.z.exceptions.UserException;
+import it.unisannio.CARE.model.user.Role;
+import it.unisannio.CARE.model.user.User;
+import it.unisannio.CARE.model.util.Constants;
 import org.junit.Ignore;
 import org.junit.Test;
 /*
@@ -21,7 +21,7 @@ import org.junit.jupiter.params.provider.MethodSource;*/
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import it.unisannio.CARE.Model.Util.Password;
+import it.unisannio.CARE.model.util.Password;
 
 
 

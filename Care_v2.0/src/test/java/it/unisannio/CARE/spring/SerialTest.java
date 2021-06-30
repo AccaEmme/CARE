@@ -8,9 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
-import it.unisannio.CARE.Model.BloodBag.BloodGroup;
-import it.unisannio.CARE.Model.BloodBag.Serial;
-import it.unisannio.CARE.Model.Util.Constants;
+import it.unisannio.CARE.model.bloodBag.BloodGroup;
+import it.unisannio.CARE.model.bloodBag.Serial;
+import it.unisannio.CARE.model.util.Constants;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,7 +19,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullSource;*/
 
-import it.unisannio.CARE.Model.Util.Password;
+import it.unisannio.CARE.model.util.Password;
 
 import org.junit.jupiter.params.ParameterizedTest;
 

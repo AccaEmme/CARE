@@ -14,9 +14,9 @@ import java.util.Date;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import it.unisannio.CARE.Model.BloodBag.BloodGroup;
-import it.unisannio.CARE.Model.BloodBag.Serial;
-import it.unisannio.CARE.Model.Util.Constants;
+import it.unisannio.CARE.model.bloodBag.BloodGroup;
+import it.unisannio.CARE.model.bloodBag.Serial;
+import it.unisannio.CARE.model.util.Constants;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
