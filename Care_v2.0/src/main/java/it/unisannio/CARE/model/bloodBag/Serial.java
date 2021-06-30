@@ -119,7 +119,7 @@ public class Serial{
 	 **************************************************************************
 	 * Metodo usato sia dal JUnit Test, ma viene adoperato anche per 
 	 * generare un oggetto Serial da ricercare, in questo caso non deve aggiornare il seriale
-	 * @param String nuovo seriale 
+	 * @param s nuovo seriale 
 	 **************************************************************************
 	 */
     public Serial(String s) {
@@ -163,7 +163,7 @@ public class Serial{
 	/**
 	 **************************************************************************
 	 * Metodo per constatare la validita' del seriale
-	 * @String indica il seriale da controllare
+	 * @param s indica il seriale da controllare
 	 * @exception IllegalArgumentException
 	 **************************************************************************
 	 */
@@ -187,7 +187,7 @@ public class Serial{
     /**
 	 **************************************************************************
 	 * Metodo per confrontare due oggetti
-	 * @param Object viene passato come paramentro l'oggetto da paragonare
+	 * @param o viene passato come paramentro l'oggetto da paragonare
 	 * @return ritorna una variabile booleana (true/false) per il paragone 
 	 **************************************************************************
 	 */

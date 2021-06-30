@@ -282,7 +282,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      * Metodo privato per modificare il codice fiscale
      * @exception IllegalArgumentException
-     * @param fisCode  codice fiscale del donatore
+     * @param fisCode codice fiscale del donatore
      **************************************************************************
      */
 	private void setDonatorCF(String fisCode) {
@@ -316,7 +316,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
      * Metodo protetto per modificare le note della sacca
-     * @param note  Note riguardo informazioni aggiuntive sulla sacca di sangue
+     * @param note Note riguardo informazioni aggiuntive sulla sacca di sangue
      **************************************************************************
      */
 	protected void setNote(String note) {

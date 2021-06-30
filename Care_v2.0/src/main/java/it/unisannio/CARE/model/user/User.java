@@ -26,9 +26,9 @@ public class User {
 	/**
 	**************************************************************************
 	 * Metodo per la creazione dell'utente con una passw in chiaro
-	 * @param username - Nome dell'utente
-	 * @param plainTextPassword - Passw dell'utente
-	 * @param role - Ruolo dell'utente
+	 * @param username Nome dell'utente
+	 * @param plainTextPassword Passw dell'utente
+	 * @param role Ruolo dell'utente
 	 **************************************************************************
     */
 	public User(String username, String plainTextPassword, Role role) {
@@ -77,8 +77,8 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo per la gestione dell'utente con una passw criptata
-	 * @param String nome utente
-	 * @param String Passw criptata in MD5
+	 * @param username nome utente
+	 * @param hiddenPassword Passw criptata in MD5
 	 * @exception UserException, NullPasswordException
 	 **************************************************************************
     */
@@ -142,7 +142,7 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo SET per modificare lo username 
-	 * @param String Nome utente che si vuole inserire
+	 * @param username Nome utente che si vuole inserire
 	 **************************************************************************
     */
     public void setUsername(String username) {
@@ -163,7 +163,7 @@ public class User {
     /**
    	**************************************************************************
    	 * Metodo SET per il moodificare la password
-   	 * @param String password che si vuole inserire nuova
+   	 * @param plainTextPassword password che si vuole inserire nuova
    	 **************************************************************************
        */
     public void setPassword(String plainTextPassword) {
@@ -183,7 +183,7 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo SET per inserire una nuova email
-	 * @param String nuova Email da inserire 
+	 * @param email nuova Email da inserire 
 	 **************************************************************************
     */
     public void setEmail(String email) {

@@ -33,7 +33,7 @@ public class Password {
 	/**
 	**************************************************************************
 	 * Metodo che controlla se la passw è cripta
-	 * @param String spassw cifrata in MD5
+	 * @param hiddenPassword spassw cifrata in MD5
 	 * @exception IllegalArgumentException
 	 **************************************************************************
     */
@@ -57,7 +57,7 @@ public class Password {
 	/**
      **************************************************************************
      * Metodo per il Set della pasw Criptata
-     * @param String passw cifrata in MD5
+     * @param hiddenPass passw cifrata in MD5
      **************************************************************************
     */
 	public void setHiddenPassword(String hiddenPass) {
@@ -81,7 +81,7 @@ public class Password {
 	/**
 	**************************************************************************
 	 * Metodo per il ritorno dell'hashcode con algoritmo MD5 del valore in ingresso inclundento il SALT
-	 * @param String password che si vuole cifrare
+	 * @param input password che si vuole cifrare
 	 * @return ritorna la passw crifrata in MD5
 	 **************************************************************************
     */
@@ -116,7 +116,7 @@ public class Password {
     /**
 	**************************************************************************
 	 * Metodo per generare la passw in chiaro casuale
-	 * @param Int grandezza in numero della passw
+	 * @param length grandezza in numero della passw
 	 * @return ritorna la passw casuale 
 	 **************************************************************************
     */
@@ -165,7 +165,7 @@ public class Password {
     /**
 	**************************************************************************
 	 * Metodo per il controllo del pattern della password in chiaro inserito
-	 * @param final String givenPassword
+	 * @param givenPassword passw inserita 
 	 * @exception IllegalArgumentException
 	 **************************************************************************
     */

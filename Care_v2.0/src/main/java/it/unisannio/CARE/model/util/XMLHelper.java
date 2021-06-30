@@ -24,7 +24,7 @@ public class XMLHelper {
 	/**
 	**************************************************************************
 	 * Metodo per ottenere le proprietà da un file xml
-	 * @param String Percorso del file XML
+	 * @param xmlfilepath Percorso del file XML
 	 * @return ritorna NULL se non trova il percorso
 	 * @exception InvalidPropertiesFormatException, FileNotFoundException, IOException
 	 **************************************************************************
@@ -47,7 +47,7 @@ public class XMLHelper {
 	/**
 	**************************************************************************
 	 * Metodo che inizializza l'XML del seriale 
-	 * @param String seriale del file XML 
+	 * @param serialmatrix seriale del file XML 
 	 * @exception IOException
 	 * @exception IllegalArgumentException
 	 **************************************************************************
@@ -116,7 +116,7 @@ public class XMLHelper {
 	**************************************************************************
 	 * Metodo che inizializza l'XML del seriale dato un percorso specifico (Utiel anche per Junit Test)
 	 * @param x specifica il contatore da cui deve iniziare 
-	 * @param filesetting specifica il percorso dove salvare il file di setting
+	 * @param filesettings specifica il percorso dove salvare il file di setting
 	 * @exception IOException
 	 **************************************************************************
     */
@@ -167,7 +167,7 @@ public class XMLHelper {
             fos.close();
             System.out.println("Data written to file "+filesettings+" successfully.");
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            // TODO Auto-generated catch block 
             e.printStackTrace();
         }
 	}	
