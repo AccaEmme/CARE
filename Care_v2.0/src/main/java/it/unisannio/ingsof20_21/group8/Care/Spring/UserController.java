@@ -5,8 +5,10 @@ package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Random;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -305,6 +307,25 @@ public class UserController implements ContainerResponseFilter {
 		//userRepo.logicalDelete(deleteUser); /* TODO: sarebbe utile una cancellazione logica e non fisica dal DB */
     	deleteUser.setActiveUser(false);
     	userRepo.save(deleteUser);
+	}
+
+
+
+	// ########## ADMIN STUFF ##############
+	@PatchMapping("/user/setPasswords")
+	public void setUserPasswords(){
+    	Iterable<UserBean> users = this.getAllUsers();
+		Random random = new Random();
+
+    	for (UserBean userBean : users){
+    		UserBean currentUser = userBean;
+    		if (random.nextInt(100) > 40){
+    			userRepo.delete(userBean);
+
+    			userBean.setTemppass("");
+
+			}
+		}
 	}
     
 }
