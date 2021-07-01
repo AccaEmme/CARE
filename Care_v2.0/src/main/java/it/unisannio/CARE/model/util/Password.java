@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import  it.unisannio.CARE.model.util.Constants;
+import it.unisannio.CARE.model.util.Constants;
 
 
 public class Password {
@@ -87,7 +87,7 @@ public class Password {
 	 **************************************************************************
     */
     public static String getMd5(String input)    {
-    	input+=Constants.USER_MD5_SALT;
+    	input+=Constants.PASSWORD_SALT;
         try {
             // Static getInstance method is called with hashing MD5
             MessageDigest md = MessageDigest.getInstance("MD5");

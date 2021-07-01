@@ -3,14 +3,11 @@ package it.unisannio.CARE.model.user;
 
 import java.util.Date;
 
-import org.bson.Document;
-
 import it.unisannio.CARE.model.Exceptions.NullPasswordException;
 import it.unisannio.CARE.model.Exceptions.UserException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.Password;
 import it.unisannio.ingsof20_21.group8.Care.Spring.UserBean;
-import it.unisannio.CARE.model.user.Role;
 
 
 /**
@@ -169,7 +166,7 @@ public class User {
        */
     public void setPassword(String plainTextPassword) {
     	Password.validatePlaintextPasswordPattern(plainTextPassword);
-        this.hiddenPassword			= Password.getMd5( plainTextPassword + Constants.USER_MD5_SALT );
+        this.hiddenPassword			= Password.getMd5( plainTextPassword + Constants.PASSWORD_SALT);
 		/*
         System.out.println("plainTextPassword: "+plainTextPassword
 				+"\t Constants.USER_MD5_SALT: "+ Constants.USER_MD5_SALT

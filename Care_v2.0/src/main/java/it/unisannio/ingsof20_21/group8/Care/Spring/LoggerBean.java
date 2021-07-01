@@ -23,12 +23,24 @@ public class LoggerBean {
     private String fromClass;           //the calling class
     private String result;              //the response of the op
 
-    public LoggerBean(String currentUserEmail, String currentUserUsername, String fromClass, String result) {
+    /*
+    public LoggerBean(long idLog,String currentUserEmail, String currentUserUsername, String fromClass, String result) {
+        this.idLog = idLog;
         this.currentTimeStamp = new Date().getTime();
         this.currentUserEmail = currentUserEmail;
         this.currentUserUsername = currentUserUsername;
         this.fromClass = fromClass;
         this.result = result;
+    }*/
+
+    public LoggerBean(){}
+
+    public long getIdLog() {
+        return idLog;
+    }
+
+    public void setIdLog(long idLog) {
+        this.idLog = idLog;
     }
 
     public long getCurrentTimeStamp() {

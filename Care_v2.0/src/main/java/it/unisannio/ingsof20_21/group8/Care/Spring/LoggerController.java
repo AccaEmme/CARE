@@ -8,10 +8,7 @@
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -43,6 +40,11 @@ public class LoggerController implements ContainerResponseFilter {
     @PostMapping("logger/add")
     public void addLog(@RequestBody LoggerBean loggerBean){
         loggerRepository.save(loggerBean);
+    }
+
+    @GetMapping("logger/get/all")
+    public Iterable<LoggerBean> getAllLogs(){
+        return loggerRepository.findAll();
     }
 
 }
