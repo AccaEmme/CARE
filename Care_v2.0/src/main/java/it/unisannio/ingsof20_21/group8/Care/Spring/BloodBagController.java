@@ -1,5 +1,8 @@
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
+
+import it.unisannio.CARE.model.Exceptions.BloodBagCloneNotSupportedException;
+import it.unisannio.CARE.model.Exceptions.BloodBagStateException;
 import it.unisannio.CARE.model.bloodBag.BloodBag;
 import it.unisannio.CARE.model.bloodBag.BloodGroup;
 import it.unisannio.CARE.model.bloodBag.Serial;
@@ -284,6 +287,10 @@ public class BloodBagController implements ContainerResponseFilter {
 
     @PostMapping("/bloodbag/add")
     public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
+    	
+    	if  (!bagRepository.existsById(bagBean.getSerial()))
+    		throw new BloodBagCloneNotSupportedException("la sacca già esiste");
+    	
         BloodBag tempBloodBagObj = new BloodBag(
                 new Serial(bagBean.getSerial()),
                 BloodGroup.valueOf(bagBean.getGroup()),
@@ -316,6 +323,13 @@ public class BloodBagController implements ContainerResponseFilter {
         Iterable<BloodBagDAO> beans = this.getBloodBagBySerial(serial);
         BloodBagDAO beanToChange = null;
 
+        
+      	if  (!(bagRepository.existsById(serial)))
+        throw new BloodBagStateException("la sacca non esiste");
+        
+  	if(bagRepository.getById(serial).getState().equals("Used"))
+      		throw new BloodBagStateException("la sacca è stata già usata");
+      	
         System.err.println(beans);
         for (BloodBagDAO bean : beans){
             System.err.println(bean.toString());
