@@ -29,4 +29,8 @@ public interface LoggerRepository extends JpaRepository<LoggerBean, Long> {
      */
     @Query("FROM LoggerBean l WHERE l.idLog =:id")
     LoggerBean findLogById(@Param("id") long id);
+
+
+    @Query("FROM LoggerBean l WHERE l.currentTimeStamp >:first AND l.currentTimeStamp <:second")
+    Iterable<LoggerBean> filterLogsByDate(@Param("first") long first, @Param("second") long second);
 }

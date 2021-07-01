@@ -8,12 +8,14 @@
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 
+import it.unisannio.CARE.model.util.Constants;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import java.io.IOException;
+import java.util.Date;
 
 @CrossOrigin("*")
 @RestController
@@ -60,5 +62,14 @@ public class LoggerController implements ContainerResponseFilter {
     @GetMapping("logger/get/id/{id}")
     public LoggerBean getLogById(@PathVariable long id){
         return loggerRepository.findLogById(id);
+    }
+
+    @GetMapping("logger/get/lastday")
+    public Iterable<LoggerBean> getLast24HLogs(){
+        return loggerRepository.filterLogsByDate(new Date().getTime()- Constants.ONE_DAY_MILLIS, new Date().getTime());
+    }
+    @GetMapping("logger/get/lastweek")
+    public Iterable<LoggerBean> getLastWeekLogs(){
+        return loggerRepository.filterLogsByDate(new Date().getTime()- Constants.SEVEN_DAYS_MILLIS, new Date().getTime());
     }
 }

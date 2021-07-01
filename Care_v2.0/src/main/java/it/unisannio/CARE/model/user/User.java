@@ -9,7 +9,6 @@ import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.Password;
 import it.unisannio.ingsof20_21.group8.Care.Spring.UserBean;
 
-
 /**
  * Classe utilizzata per la creazione di un utente del programma CARE
  */
@@ -17,7 +16,7 @@ import it.unisannio.ingsof20_21.group8.Care.Spring.UserBean;
 public class User {
 	private String 		username, hiddenPassword, temppass, plainTextPassword, email;
 	//private Location 	residence;
-	private Role 		role;
+	private it.unisannio.CARE.model.user.Role role;
 	private Date			password_lastupdate;
 	
 	
@@ -29,7 +28,7 @@ public class User {
 	 * @param role - Ruolo dell'utente
 	 **************************************************************************
     */
-	public User(String username, String plainTextPassword, Role role) {
+	public User(String username, String plainTextPassword, it.unisannio.CARE.model.user.Role role) {
 		this.setUsername(username);
 		if(plainTextPassword.equals("")) {
 			this.temppass 		= Password.generatePassword(10);
@@ -195,17 +194,17 @@ public class User {
 	 * @return ritorna il ruolo dell'utente
 	 **************************************************************************
     */
-    public Role getRole() {
+    public it.unisannio.CARE.model.user.Role getRole() {
     	return role;
     }
-    
+
     /**
 	**************************************************************************
 	 * Metodo SET per modificare il Ruolo
 	 * @param r ruolo da inserire tra quelli disponibili (Administrator, StoreManager, Officer)
 	 **************************************************************************
     */
-    public void setRole(Role r) {
+    public void setRole(it.unisannio.CARE.model.user.Role r) {
     	this.role = r;
     }
    
