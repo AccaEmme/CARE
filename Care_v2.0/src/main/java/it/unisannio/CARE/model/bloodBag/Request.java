@@ -3,6 +3,8 @@ package it.unisannio.CARE.model.bloodBag;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import it.unisannio.CARE.model.bloodBag.RequestState;
+import it.unisannio.CARE.model.bloodBag.RequestPriority;
 
 /**
  * Classe che si occupa delle richieste effettuate o da fare per le sacche di sangue 
@@ -16,8 +18,8 @@ public class Request {
 	private	String			requestedBagSerial;
 	private	Date			requestDate;
 	private String			note;
-	private	RequestState	state;
-	private RequestPriority	priority;
+	private it.unisannio.CARE.model.bloodBag.RequestState state;
+	private it.unisannio.CARE.model.bloodBag.RequestPriority priority;
 	
 	
 	
@@ -33,7 +35,7 @@ public class Request {
      **************************************************************************
      */
 	public Request( String idRequester, String requestedBagSerial, 
-			Date requestDate, String note, RequestState state, RequestPriority priority) {
+			Date requestDate, String note, RequestState state, it.unisannio.CARE.model.bloodBag.RequestPriority priority) {
 		
 		this.idRequester = idRequester;
 		this.requestedBagSerial = requestedBagSerial;
@@ -60,7 +62,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo SET inserire l'id della locazione della richiesta
-     * @param String nuovo ID della richiesta
+     * @param idRequester nuovo ID della richiesta
      **************************************************************************
      */
 	public void setIdRequester(String idRequester) {
@@ -84,7 +86,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo SET inserire il seriale della sacca richiesta
-     * @param String Nuovo seriale della sacca 
+     * @param requestedBagSerial Nuovo seriale della sacca
      **************************************************************************
      */
 	public void setRequestedBagSerial(String requestedBagSerial) {
@@ -108,7 +110,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo SET inserire la data della richiesta
-     * @param Date nuova data di richiesta 
+     * @param requestDate nuova data di richiesta
      **************************************************************************
      */
 	public void setRequestDate(Date requestDate) {
@@ -130,7 +132,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo SET per inserire le note
-     * @param String nuove note da inserire 
+     * @param note nuove note da inserire
      **************************************************************************
      */
 	public void setNote(String note) {
@@ -154,7 +156,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo SET inserire lo stato della richiesta
-     * @param RequestState Oggetto per identificare lo stato della richiesta
+     * @param state Oggetto per identificare lo stato della richiesta
      **************************************************************************
      */
 	public void setState(RequestState state) {
@@ -176,7 +178,7 @@ public class Request {
 	/**
      **************************************************************************
      * Metodo SET per inserire la priorita'
-     * @param RequestPriority Oggetto per inserire la priorita' della richiesta
+     * @param priority Oggetto per inserire la priorita' della richiesta
      **************************************************************************
      */
 	public void setPriority(RequestPriority priority) {
