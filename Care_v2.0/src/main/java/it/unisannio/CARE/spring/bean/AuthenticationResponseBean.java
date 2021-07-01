@@ -1,6 +1,6 @@
-package it.unisannio.ingsof20_21.group8.Care.Spring;
+package it.unisannio.CARE.spring.bean;
 
-public class AuthenticationResponse {
+public class AuthenticationResponseBean {
 
 	private String token;
 	
@@ -8,12 +8,12 @@ public class AuthenticationResponse {
 	 * bean del Token
 	 */
 	
-	public AuthenticationResponse()
+	public AuthenticationResponseBean()
 	{
 		
 	}
 
-	public AuthenticationResponse(String token) {
+	public AuthenticationResponseBean(String token) {
 		super();
 		this.token = token;
 	}

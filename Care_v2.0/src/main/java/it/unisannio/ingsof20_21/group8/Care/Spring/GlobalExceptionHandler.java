@@ -1,12 +1,14 @@
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
+import java.util.Date;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
 
 import it.unisannio.CARE.model.Exceptions.RegisterException;
+import it.unisannio.CARE.spring.bean.ErrorBean;
 
 @ControllerAdvice
 public class  GlobalExceptionHandler {
@@ -14,12 +16,12 @@ public class  GlobalExceptionHandler {
     // handling specific exception
     @ExceptionHandler(RegisterException.class)
     
-    public ResponseEntity<?> autenticazioneErrorHandling(RegisterException exception, WebRequest request){
-        
-    	ErrorBean errorBean = new ErrorBean( exception.getMessage());
+    public ResponseEntity<?> registerExceptionHandling(RegisterException exception){
+      
+    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "-1", exception.getClass().getName(), exception.getMessage(), "/register");
     	
         return new ResponseEntity<>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
+        
     }
-
 
 }

@@ -1,6 +1,6 @@
-package it.unisannio.ingsof20_21.group8.Care.Spring;
+package it.unisannio.CARE.spring.bean;
 
-public class AuthenticationRequest {
+public class AuthenticationRequestBean {
 	
 	private String username;
 	private String password;
@@ -10,13 +10,13 @@ public class AuthenticationRequest {
 	 * che permettono di autenticarsi
 	 */
 	
-	public AuthenticationRequest(String username, String password) {
+	public AuthenticationRequestBean(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
 	}
 	
-	public AuthenticationRequest()
+	public AuthenticationRequestBean()
 	{
 		
 	}

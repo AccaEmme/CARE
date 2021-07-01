@@ -21,7 +21,15 @@ import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.Password;
 
 import org.json.simple.JSONObject;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
 
 import it.unisannio.CARE.model.user.Role;
 import it.unisannio.CARE.model.user.User;
@@ -32,7 +40,7 @@ import it.unisannio.CARE.model.user.User;
 @Consumes("application/json")
 @Produces("application/json")
 //@Path("rest")
-public class UserController implements ContainerResponseFilter {
+public  class UserController implements ContainerResponseFilter {
     private final UserRepository userRepo;
     
     public UserController(UserRepository userRepo) {
@@ -201,36 +209,37 @@ public class UserController implements ContainerResponseFilter {
 
     //===============POST METHODS
 	@PostMapping("/register")
-    public UserDAO createUser(@RequestBody UserDAO newUser) throws Exception {
-
-   try {
-            User tempUserObj = new User(
-                    newUser.getUsername(),                // HTTP username
-                    newUser.getPassword(),                // HTTP plainTextPassword
-                    Role.valueOf(newUser.getUserRole()) // HTTP Role
-                    );
-
-            UserDAO saveBean = tempUserObj.getUserBean();
-            saveBean.setCreationDate(new Date());
-            saveBean.setEmail(newUser.getEmail());
-            saveBean.setLastAccess( -2_208_988_800_000L );
-            return userRepo.save(saveBean);
-
-     }    catch (IllegalPatternException e) {
-
-
-        throw new RegisterException("Password pattern conformity not valid  " 
-                + "  1) Your password must be between 8 and 30 characters."
-                + "  2) Your password must contain at least one uppercase, or capital, letter (ex: A, B, etc.)"
-                + "  3) Your password must contain at least one lowercase letter."
-                + "  4) Your password must contain at least one number digit (ex: 0, 1, 2, 3, etc.)"
-                + "  5) Your password must contain at least one special character -for example: $, #, @, !,%,^,&,*");
-    }catch (IllegalArgumentException e) {
-
-
-             throw new RegisterException("Role not valid");
-        }
-
+    public UserDAO createUser(@RequestBody UserDAO newUser) {
+	
+	   try {
+	            User tempUserObj = new User(
+	                    newUser.getUsername(),                // HTTP username
+	                    newUser.getPassword(),                // HTTP plainTextPassword
+	                    Role.valueOf(newUser.getUserRole()) // HTTP Role
+	                    );
+	
+	            UserDAO saveBean = tempUserObj.getUserBean();
+	            saveBean.setCreationDate(new Date());
+	            saveBean.setEmail(newUser.getEmail());
+	            saveBean.setLastAccess( -2_208_988_800_000L );
+	            return userRepo.save(saveBean);
+	
+		}catch (IllegalPatternException e) {
+	
+	
+	        throw new RegisterException(e.getMessage()
+	        		+ "1) Your password must be between 8 and 30 characters."
+	        		+ "2) Your password must contain at least one uppercase, or capital, letter (ex: A, B, etc.)"
+	                + "3) Your password must contain at least one lowercase letter."
+	                + "4) Your password must contain at least one number digit (ex: 0, 1, 2, 3, etc.)"
+	                + "5) Your password must contain at least one special character -for example: $, #, @, !,%,^,&,*");
+	    
+		}catch (IllegalArgumentException e) {
+	
+	
+	        throw new RegisterException("Role not valid");
+	    }
+	        
     }
     
     //===============PUT METHODS

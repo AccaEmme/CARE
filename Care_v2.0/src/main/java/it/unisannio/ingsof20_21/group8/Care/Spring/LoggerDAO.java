@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "logs")
-public class LoggerBean {
+public class LoggerDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long idLog;
@@ -33,7 +33,7 @@ public class LoggerBean {
         this.result = result;
     }*/
 
-    public LoggerBean(){}
+    public LoggerDAO(){}
 
     public long getIdLog() {
         return idLog;

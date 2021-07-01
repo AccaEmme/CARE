@@ -1,5 +1,6 @@
 package it.unisannio.CARE.model.Exceptions;
 
+
 public class IllegalPatternException extends RuntimeException {
 
 	public IllegalPatternException() {

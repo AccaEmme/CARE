@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.unisannio.CARE.model.util.Constants;
+import it.unisannio.CARE.spring.bean.AuthenticationRequestBean;
+import it.unisannio.CARE.spring.bean.AuthenticationResponseBean;
 
 
 
@@ -31,7 +33,7 @@ public class AuthenticationController {
 	private JwtUtil jwtUtil;
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequestBean authenticationRequest)
 			throws Exception {
 	try {
 		
@@ -50,7 +52,7 @@ public class AuthenticationController {
 		}
 		UserDetails userdetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		String token = jwtUtil.generateToken(userdetails);
-		return ResponseEntity.ok(new AuthenticationResponse(token));
+		return ResponseEntity.ok(new AuthenticationResponseBean(token));
 	}
 	/*
 @RequestMapping(value = "/register", method = RequestMethod.POST)

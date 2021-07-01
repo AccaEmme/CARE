@@ -31,6 +31,8 @@ import it.unisannio.CARE.model.bloodBag.RequestPriority;
 import it.unisannio.CARE.model.bloodBag.RequestState;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.XMLHelper;
+import it.unisannio.CARE.spring.bean.ErrorBean;
+import it.unisannio.CARE.spring.bean.RequestBean;
 import it.unisannio.CARE.model.Exceptions.RequestCloneNotSupportedException;
 import it.unisannio.CARE.model.Exceptions.RequestNotFoundException;
 
@@ -154,7 +156,8 @@ public class RequestController implements ContainerResponseFilter {
 		}catch(RequestCloneNotSupportedException e){
 			
 			manager.close();
-			return "{"
+			return 
+					"{"
 					+ "\n\"timestamp\": \""+ new Date() +"\","
 					+ "\n\"status\": \" -1 \","
 					+ "\n\"error\": \"RequestCloneNotSupportedException\","

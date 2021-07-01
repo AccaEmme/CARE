@@ -178,7 +178,7 @@ public class Password {
 	 * @exception IllegalArgumentException
 	 **************************************************************************
     */
-    public static boolean validatePlaintextPasswordPattern(final String givenPassword) throws IllegalPatternException {
+    public static boolean validatePlaintextPasswordPattern(final String givenPassword) {
     	final String PASSWORD_PATTERN =
                 "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
   	
@@ -203,7 +203,10 @@ public class Password {
         return false;
         */
         
-        if( matcher.matches() ) return true; else throw new IllegalPatternException("Password pattern conformity not valid");
+        if( matcher.matches() ) 
+        	return true; 
+        else 
+        	throw new IllegalPatternException("Password pattern conformity not valid");
         //if( !matcher.matches() ) throw new IllegalArgumentException("Password pattern conformity not valid");
     }
 }

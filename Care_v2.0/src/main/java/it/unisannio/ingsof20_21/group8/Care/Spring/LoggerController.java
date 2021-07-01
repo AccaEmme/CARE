@@ -41,36 +41,36 @@ public class LoggerController implements ContainerResponseFilter {
 
     // ########## POST METHODS ###########
     @PostMapping("logger/add")
-    public void addLog(@RequestBody LoggerBean loggerBean){
+    public void addLog(@RequestBody LoggerDAO loggerBean){
         loggerRepository.save(loggerBean);
     }
 
     @GetMapping("logger/get/all")
-    public Iterable<LoggerBean> getAllLogs(){
+    public Iterable<LoggerDAO> getAllLogs(){
         return loggerRepository.findAll();
     }
 
     @GetMapping("logger/get/user/usermail/{mail}")
-    public Iterable<LoggerBean> getLogsByUserMail(@PathVariable String mail){
+    public Iterable<LoggerDAO> getLogsByUserMail(@PathVariable String mail){
         return loggerRepository.filterLogsByEmail(mail);
     }
 
     @GetMapping("logger/get/user/username/{username}")
-    public Iterable<LoggerBean> getLogsByUsername(@PathVariable String username){
+    public Iterable<LoggerDAO> getLogsByUsername(@PathVariable String username){
         return loggerRepository.filterLogsByUsername(username);
     }
 
     @GetMapping("logger/get/id/{id}")
-    public LoggerBean getLogById(@PathVariable long id){
+    public LoggerDAO getLogById(@PathVariable long id){
         return loggerRepository.findLogById(id);
     }
 
     @GetMapping("logger/get/lastday")
-    public Iterable<LoggerBean> getLast24HLogs(){
+    public Iterable<LoggerDAO> getLast24HLogs(){
         return loggerRepository.filterLogsByDate(new Date().getTime()- Constants.ONE_DAY_MILLIS, new Date().getTime());
     }
     @GetMapping("logger/get/lastweek")
-    public Iterable<LoggerBean> getLastWeekLogs(){
+    public Iterable<LoggerDAO> getLastWeekLogs(){
         return loggerRepository.filterLogsByDate(new Date().getTime()- Constants.SEVEN_DAYS_MILLIS, new Date().getTime());
     }
 }

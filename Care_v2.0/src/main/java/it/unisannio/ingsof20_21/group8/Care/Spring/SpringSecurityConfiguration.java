@@ -52,10 +52,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
-		.authorizeRequests().antMatchers("/helloadmin", "/register").hasRole("ADMINISTRATOR")
+		.authorizeRequests().antMatchers("/register").hasRole("ADMINISTRATOR")
 		.antMatchers("/request/add").hasAnyRole("OFFICER")
 		.antMatchers("/bloodbag/add").hasAnyRole("STOREMANAGER")
-		.antMatchers("/authenticate").permitAll().anyRequest().authenticated()
+		.antMatchers("/authenticate", "logger/add").permitAll().anyRequest().authenticated()
 		.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
 		and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
 		and().addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

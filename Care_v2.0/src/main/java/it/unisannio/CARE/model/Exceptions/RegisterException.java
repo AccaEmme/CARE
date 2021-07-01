@@ -12,5 +12,11 @@ public  class RegisterException extends RuntimeException{
         
     	super(mess);
     }
+
+	public RegisterException() {
+
+		super();
+	}
+	
 }
 
