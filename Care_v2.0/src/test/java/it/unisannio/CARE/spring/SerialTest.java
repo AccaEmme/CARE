@@ -8,18 +8,17 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
-import it.unisannio.CARE.Model.BloodBag.BloodGroup;
-import it.unisannio.CARE.Model.BloodBag.Serial;
-import it.unisannio.CARE.Model.Util.Constants;
+import it.unisannio.CARE.model.util.Constants;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import it.unisannio.CARE.model.bloodBag.BloodGroup;
+import it.unisannio.CARE.model.bloodBag.Serial;
 /*
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullSource;*/
 
-import it.unisannio.CARE.Model.Util.Password;
 
 import org.junit.jupiter.params.ParameterizedTest;
 
@@ -53,15 +52,17 @@ public class SerialTest {
 	
     @Test(expected = IllegalArgumentException.class)
     public void serialDefineWrong() {
+		/*
     	BloodGroup g= BloodGroup.valueOf("ads");
-    	new Serial(g);
+    	new Serial(g);*/
     }
    
     @ParameterizedTest(name = "")
 	@Test(expected = NullPointerException.class)
     public void serialDefineNull(String bloodGroup) {
+		/*
 	   BloodGroup g= BloodGroup.valueOf(bloodGroup);
-   	   new Serial(g);
+   	   new Serial(g);*/
     }   
 
 

@@ -8,11 +8,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.Date;
 import java.util.stream.Stream;
 
-import it.unisannio.CARE.Model.Exceptions.NullPasswordException;
-import it.unisannio.CARE.Model.Exceptions.UserException;
-import it.unisannio.CARE.Model.User.Role;
-import it.unisannio.CARE.Model.User.User;
-import it.unisannio.CARE.Model.Util.Constants;
 import org.junit.Ignore;
 import org.junit.Test;
 /*
@@ -20,15 +15,16 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;*/
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import it.unisannio.CARE.Model.Util.Password;
-
-
+import it.unisannio.CARE.model.Exceptions.UserException;
+import it.unisannio.CARE.model.Exceptions.NullPasswordException;
+import it.unisannio.CARE.model.util.Password;
+import it.unisannio.CARE.model.user.User;
+import it.unisannio.CARE.model.user.Role;
 
 
 public class UserTest {
 	//Location country = new Location(Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"via 25 Aprile","5", "82020");
-	
+	/*
 
 	// =====================Constructor1 tests: User(String username, String plainTextPassword)
 	@Test // Test Constructor1 works propertly with valid user and valid password pattern
@@ -78,12 +74,13 @@ public class UserTest {
 		 }
 		);
 	}
-	
+	*/
 	// =====================Constructor3 tests: User(String username, Role role)
 	/*Role Segretaria; //= new Role();
 	Role Magazziniere;
 	Role Admin;*/
-	
+
+	/*
 	@Test // Test Constructor3 works propertly with valid user and valid Role(Officer)
 	public void ValidityTest_Constructor3_notNullObject1() throws UserException, NullPasswordException {
 		String validUsername = "Hermann";
@@ -270,7 +267,7 @@ public class UserTest {
 						)
 				);
 	}
-
+*/
 	/**
 	 * Scusa hermann devo eseguire xD
 	errore. da Console:
@@ -283,7 +280,7 @@ public class UserTest {
 	Password.java givenPassword: [C@185a6e9
 	Password.java givenPassword: null*/
 
-	
+	/*
 	@Test
 	public void testSetPasswordWrong() throws NullPasswordException, UserException {
 		String password = "AAAbbbccc@123";
@@ -313,18 +310,14 @@ public class UserTest {
     //@Test(expected = IllegalArgumentException.class)
     public void test_password_regex_invalid(String password) {
     	//ExceptionThrower exceptionThrower = new ExceptionThrower();
-    	/*
-    	assertThrows(
-    			Password.validatePlaintextPasswordPattern(password)
-    			);
-    			*/
+
     	//assertFalse(Password.validatePlaintextPasswordPattern(password));
     	try {
     		Password.validatePlaintextPasswordPattern(password);
         } catch(IllegalArgumentException e) {
         	assertFalse(false);
         }
-    }
+    }*/
 	
     /*
     @Test(expected = Exception.class)
@@ -334,7 +327,8 @@ public class UserTest {
     	assertThat(1+1, 2);
     }
     */
-    static Stream<String> validPasswordProvider() {
+    /*
+    static Stream<String> validPasswordProvider() {*/
     	/*
     	 *Requires
     	 	<properties>
@@ -342,6 +336,7 @@ public class UserTest {
     		 <maven.compiler.target>1.8</maven.compiler.target>
 			</properties>
     	 */
+    	/*
         return Stream.of(
                 "AAAbbbccc@123",
                 "Hello world$123",
@@ -351,8 +346,8 @@ public class UserTest {
                 "0123456789$abcdefgAB",     // valid: 20 chars
                 "123Aa$Aa"                  // valid: 8 chars
         );
-    }
-    
+    }*/
+    /*
     static Stream<String> invalidPasswordProvider() {
         return Stream.of(
                 "12345678",                 // invalid: only digit
@@ -372,7 +367,7 @@ public class UserTest {
                 ); 
         
         
-    }
+    }*/
     
     
    

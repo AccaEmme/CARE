@@ -1,6 +1,5 @@
 package it.unisannio.CARE.spring;
 
-import it.unisannio.CARE.Model.Util.Password;
 
 
 import static org.junit.Assert.assertEquals;
@@ -20,7 +19,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-
+import it.unisannio.CARE.model.util.Password;
 
 
 import static org.junit.Assert.assertThrows;

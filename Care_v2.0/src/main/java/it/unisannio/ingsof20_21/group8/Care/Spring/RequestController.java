@@ -144,6 +144,7 @@ public class RequestController implements ContainerResponseFilter {
 				requestB.getNote(),
 				RequestState.valueOf(requestB.getState()),
 				RequestPriority.valueOf(requestB.getPriority()));
+
 		
 		RequestManager manager = new RequestManager();
 		try {

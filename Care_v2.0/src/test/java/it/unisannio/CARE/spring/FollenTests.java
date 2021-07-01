@@ -1,12 +1,12 @@
 package it.unisannio.CARE.spring;
 
-import it.unisannio.CARE.Model.Util.Constants;
 import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagController;
 import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import it.unisannio.CARE.model.util.Constants;
 
 public class FollenTests {
     @Test
