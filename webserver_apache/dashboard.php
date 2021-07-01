@@ -1,176 +1,58 @@
+<?php
+//?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnaXVsaWFubzgwIiwiaXNST0xFX0FETUlOSVNUUkFUT1IiOnRydWUsImV4cCI6MTYyNTA4MTQ1MCwiaWF0IjoxNjI1MDc2NDUwfQ.jJJT9s-opT_R7gl0sSZr3MRpdlCxCPoQ97-nAkB1YKjGgzfu_bBz8PLjaltoQQZr1sOBx5Fs_SdZBMlnVh9cbw
+
+@$token = $_GET['token'];
+if(!isset($token)) {
+    //header('WWW-Authenticate: Basic realm="My Realm"');
+    header('HTTP/1.0 401 Unauthorized');
+    echo 'HTTP/1.0 401 Unauthorized';
+    exit;
+}
+?>
+
 <!DOCTYPE HTML> 
 <html>
  <head>
    <title>CARE - Centro Accoglienza Regionale Ematica</title>
-   <style>
-
-
-        .sidenav {
-            height: 80%;
-            width: 160px;
-            position: fixed;
-            z-index: 1;
-            top: 8.5%;
-            left: 0;
-            background-color: rgb(207, 72, 72);
-            overflow-x: hidden;
-            padding-top: 20px;
-            border-radius: 20px;
-            text-align: left;
-        }
-
-        .sidenav #logo{
-            text-align: center !important;
-            /*position: absolute;*/
-        }
-
-        .sidenav a {
-            padding: 6px 8px 6px 16px;
-            text-decoration: none;
-            font-size: 18px;
-            color: #d3c877;
-            /*display: block;*/
-        }
-
-        .sidenav a:hover {
-            color: #f1f1f1;
-        }
-
-        .sidenav p, li {
-           --padding: 6px 8px 6px 16px;
-            text-decoration: none;
-            color: #aca9a9;
-            
-        }
-       
-        .main {
-            margin-left: 160px; /* Same as the width of the sidenav */
-            font-size: 28px; /* Increased text to enable scrolling */
-            padding: 0px 10px;
-            align-content: left;
-            align-items: left;
-            text-align: left;
-            padding-top: 20px;
-            
-        }  
-
-        @media screen and (max-height: 450px) {
-            .sidenav {padding-top: 15px;}
-            .sidenav a {font-size: 18px;}
-        }
-
-        -plusminus{
-            height: 10%;
-        }
-    
-       p{
-            font-weight: bold;
-            font-style: italic;
-       }
-       p.error{
-            color:  #ff0033;
-       }
-
-       p.warning{
-            color:  #cccc00;
-       }
-
-       p.correct{
-            color:  #2149cc;
-       }
-       .alert {
-  padding: 10px;
-  background-color: #f44336;
-  color: white;
-  opacity: 1;
-  transition: opacity 0.6s;
-  margin-bottom: 15px;
-}
-
-.alert.success  { background-color: #04AA6D;}
-.alert.info     { background-color: #2196F3;}
-.alert.warningg {background-color: #ff9800;}
-
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.closebtn:hover {
-  color: black;
-}
-
-       body{
-           background-color: rgba(253, 253, 253, 0.808);
-       }
-       #BloodBags-table{
-           width: 100%;
-           border: 5;
-       }
-       #Bloodbags-td{
-           height: 70px;
-           border-radius: 25px;
-           border: 2px solid #73AD21;
-           padding: 10px;
-       }
-
-        fieldset {
-            border-width: 5px;
-            /*color: black;*/
-            /*border-color: green;*/
-            color: black;
-            border-color: #ffffcc;
-            border-radius: 50px;
-            margin-top: 83px;
-        }
-        
-        legend {
-            position:relative;
-            left:1px;
-            margin-top: 100px;
-            margin-left: 1px;
-            padding: 2px;
-            /*border: 1px solid green;*/
-            border: 1px solid #ffffcc;
-            background-color: rgba(14, 13, 13, 0.616);
-            color: #000000;
-            opacity: 0.6;
-            border: 1px solid thin;
-            border-radius: 50px;
-            padding: 10px 10px;
-            width: 30%; 
-        }
-
-        textarea#textarea_chatbroadcast_msgs{
-            overflow-y: scroll;
-            height: 250px;
-            width: 100%;
-            resize: none;
-        }
-
-        textarea#textarea_chatbroadcast_msg{
-            width:                  90%;
-            resize:                 none;
-            margin-left:            5%
-        }
-
-       body{
-           align-items:             center;
-           align-content:           center;
-           text-align:              center;
-           align-tracks:            center;
-           -ms-grid-column-align:   center;
-       }
-   </style>
+   <script src="./XMLHTTPRequest.js"></script>
+   <link rel="stylesheet" href="./css/dashboard.css">
   </head>
 
   <body onload="javascript:document.getElementById('textarea_chatbroadcast_msgs').scrollTop=document.getElementById('textarea_chatbroadcast_msgs').scrollHeight">
+
+<?php
+// $jwt = str_replace('Bearer ', '', $jwt['HTTP_AUTHORIZATION'][0]);
+//$decoded = JWT::decode($jwt, $key, ['HS256']);
+//$key = 'javainuse';
+$arrayToken = explode(".", $token);
+$subtoken   = $arrayToken['1'];
+$decodedToken = base64_decode($subtoken);
+echo("subtoken:".$decodedToken);
+
+$arrayTokenDecoded = (array) json_decode($decodedToken, true);
+$username 	= $arrayTokenDecoded['sub'];
+$role		= array_keys($arrayTokenDecoded)[1];
+$roleValue	= $arrayTokenDecoded[				// value of role
+			array_keys($arrayTokenDecoded)[1]	// role
+		  ];
+
+
+echo("<br>");
+echo("Ciao " . $username . "<br>");
+if( $roleValue == 1  ) { echo("il tuo ruolo è: " . $role ); }
+echo("<br>");
+switch($role){
+ case "isROLE_ADMINISTRATOR": 
+	echo("Faccio quello che voglio");
+	break;
+ case "isBoh":
+	echo("chitisape");
+	break;
+ default:
+	echo("Unauthorized");
+}
+?>
+
 
     <div class="sidenav">
         <div id="logo">
