@@ -62,10 +62,10 @@ public class PasswordTest {
 	
 	@Test // Test getMd5 works propertly compairing hidden password with valid plaintext password.
 	public void ValidityTest_getMd5_withGoodPlaintextpassword() {
-		String	validPlainTextPassword 	= "P4ssword+";		
+		String	validPlainTextPassword 	= "P4ssword+";
 		String 	validHiddenPassword 	= "972CEC7EC77482D87966789BC1E5A038"; // include SALT
 		Password p = new Password( validHiddenPassword );
-		assertEquals( p.getHiddenPassword(), Password.getMd5(validPlainTextPassword) );
+		assertEquals( p.getHiddenPassword(), Password.getBCrypt(validPlainTextPassword) );
 	}
 	
 	@Ignore // Questo test non ha senso di esistere, purtroppo non possiamo validare una password MD5 in quanto hidden non sappiamo se il suo plaintext rispetta il pattern previsto.
@@ -74,7 +74,7 @@ public class PasswordTest {
 		String	invalidPlainTextPassword 	= "password";		
 		String 	validHiddenPassword 		= "97283B8AA415245169B8C33904026FAE"; // include SALT
 		Password p = new Password( validHiddenPassword );
-		assertThrows( Exception.class, () -> Password.getMd5(invalidPlainTextPassword).equals(p.getHiddenPassword()) );
+		assertThrows( Exception.class, () -> Password.getBCrypt(invalidPlainTextPassword).equals(p.getHiddenPassword()) );
 	}
 	
 	@Test // Test String generatePassword(int length) 
@@ -93,7 +93,7 @@ public class PasswordTest {
 		Password p = new Password( validHiddenPassword+"_old" );
 		p.setHiddenPassword(validHiddenPassword);
 		
-		assertEquals( p.getHiddenPassword(), Password.getMd5(validPlainTextPassword) );
+		assertEquals( p.getHiddenPassword(), Password.getBCrypt(validPlainTextPassword) );
 	}
 
 	// In realtà questo test dovrebbe validare tutte le password valide
