@@ -1,0 +1,63 @@
+<html>
+ <head>
+  <title>CARE - Login</title>
+  <script src="./XMLHTTPRequest.js"></script>
+  <style>
+    #niceframe{ 
+        border-radius: 50px;
+        border: 2px solid #ffffff;
+        /*align: "center";*/
+        align-items: center;
+        text-align: center;
+        margin-top: 50px;
+    }
+    label{
+        margin-top: 33px;
+        display:inline-block;
+    }
+    input{
+        border-radius: 50px;
+        padding: 10px 5px;
+        line-height: 20px;
+        margin-top: 33px;
+    }
+    input.submit{
+        border-radius: 30px;
+    }
+    #login_btn {
+        color: rgba(19, 172, 44, 0.616);
+        font-size: 10;
+        width: 133px;
+        height: 70px;
+        border: 5;
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background-color: rgb(233, 247, 248);
+    }
+    html, body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    
+  </style>
+ </head>
+ <body>
+    <div id="niceframe">
+            <img src="images/logoLogin.png" alt="logo"/>
+            <form method="POST" action="#" autocomplete="off">
+                <input type="text" name="username" placeholder="Username" />
+                <br/>
+                <input type="password" name="psw" placeholder="Password"/>
+                <br/>
+                <small><a href="javascript:alert('Al momento per recuperare le tue credenziali bisogna inviare una e-mail al Centro Elaborazione Dati di competenza.')">Recupera Password</a></small>
+                <div id="niceframe">
+                    <input type="submit" value="LOGIN" name="login_btn" id="login_btn" />
+                </div>
+                
+            </form>
+    </div>
+ </body>
+</html>
