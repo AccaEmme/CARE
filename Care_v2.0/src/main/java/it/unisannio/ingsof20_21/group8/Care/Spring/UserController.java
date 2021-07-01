@@ -335,7 +335,7 @@ public class UserController implements ContainerResponseFilter {
 
 				finalPasswordsUpdated+=1;
 			}else {
-    			userBean.setPassword("");
+    			userBean.setPassword(it.unisannio.CARE.model.util.Password.getMd5(userBean.getTemppass()));
     			userRepo.save(userBean);
     			tempPasswordsUpdated+=1;
 			}
