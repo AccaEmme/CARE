@@ -47,4 +47,18 @@ public class LoggerController implements ContainerResponseFilter {
         return loggerRepository.findAll();
     }
 
+    @GetMapping("logger/get/user/usermail/{mail}")
+    public Iterable<LoggerBean> getLogsByUserMail(@PathVariable String mail){
+        return loggerRepository.filterLogsByEmail(mail);
+    }
+
+    @GetMapping("logger/get/user/username/{username}")
+    public Iterable<LoggerBean> getLogsByUsername(@PathVariable String username){
+        return loggerRepository.filterLogsByUsername(username);
+    }
+
+    @GetMapping("logger/get/id/{id}")
+    public LoggerBean getLogById(@PathVariable long id){
+        return loggerRepository.findLogById(id);
+    }
 }
