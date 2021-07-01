@@ -14,8 +14,12 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 
+import it.unisannio.CARE.model.Exceptions.IllegalPatternException;
+import it.unisannio.CARE.model.Exceptions.RegisterException;
 import it.unisannio.CARE.model.report.UserReport;
 import it.unisannio.CARE.model.util.Constants;
+import it.unisannio.CARE.model.util.Password;
+
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
@@ -135,9 +139,9 @@ public class UserController implements ContainerResponseFilter {
 		long activeUsers = userRepo.countUsersByState(true);
 		long inactiveUsers = userRepo.countUsersByState(false);
 		long loggedLast24H = userRepo.countUsersByLastLogin(new Date().getTime()- Constants.ONE_DAY_MILLIS, new Date().getTime());
-		long admins = userRepo.countUsersByRole(Role.Administrator.toString());
-		long storeManagers = userRepo.countUsersByRole(Role.StoreManager.toString());
-		long officers = userRepo.countUsersByRole(Role.Officer.toString());
+		long admins = userRepo.countUsersByRole(Role.ROLE_ADMINISTRATOR.toString());
+		long storeManagers = userRepo.countUsersByRole(Role.ROLE_STOREMANAGER.toString());
+		long officers = userRepo.countUsersByRole(Role.ROLE_OFFICER.toString());
 
 
 
@@ -196,80 +200,38 @@ public class UserController implements ContainerResponseFilter {
 
 
     //===============POST METHODS
-    @PostMapping("/user/adduser")
-    /**
-     * createUser
-     * 
-     * Method for add a new user
-     * Example1: empty password, so will be generated automatically
-     * Request:
-      	{
-	  		"username": "Hermann",
-	  		"password": "",
-	  		"email": "hermann@care.it",
-	  		"userRole": "Administrator"
-		}
-     * 
-     * Response:
-     	{
-			"idUser": 21,
-			"username": "Hermann",
-			"password": "25B9BC299D79C547B92D6D576B2CE15F",
-			"temppass": "nA#9VqaE0R",
-			"email": "hermann@care.it",
-			"userRole": "Administrator",
-			"creationDate": "2021-06-28",
-			"lastAccess": "1900-01-01",
-			"loginAttempts": 0,
-			"activeUser": false
-		}
-     * 
-     * Example2: giving a password as input
-     * 
-     * Request:
-     * {
-	  		"username": "Luigi",
-	  		"password": "Luigi4@",
-	  		"email": "gigi@care.it",
-	  		"userRole": "Administrator"
-		}
-     * Response:
-		{
-			"idUser": 22,
-			"username": "Luigi",
-			"password": "E008FF4282CDEF5A4BE6CB40AB73A5C8",
-			"temppass": "",
-			"email": "gigi@care.it",
-			"userRole": "Administrator",
-			"creationDate": "2021-06-28",
-			"lastAccess": "1900-01-01",
-			"loginAttempts": 0,
-			"activeUser": false
-		}
-     * @param newUser   - UserBean object from HTTP request data
-     * @return UserBean - UserBean object after User parsing that returns a valid checked UserBean to store in database.
-     */
-    // {username}/plainTextPassword/{plainTextPassword}/role/{role}
-	public UserBean createUser(@RequestBody UserBean newUser) {
-        	
-    	//try {
-			User tempUserObj = new User(
-					newUser.getUsername(),				// HTTP username
-					newUser.getPassword(),				// HTTP plainTextPassword
-					Role.valueOf(newUser.getUserRole()) // HTTP Role
-					);
-		    
-			UserBean saveBean = tempUserObj.getUserBean();
-			saveBean.setCreationDate(new Date());
-			saveBean.setEmail(newUser.getEmail());
-			saveBean.setLastAccess( -2_208_988_800_000L );
-			return userRepo.save(saveBean);
-    	 //} catch(/*UserControllerNotValidValueException*/ Exception e) {
-    	//	System.err.println("UserController.java: "+e);
-    	//	throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "adduser Error x Luigi", e);
-    	//	 throw new Exception("Verify sent datas");
-    	//}
-	}
+	@PostMapping("/register")
+    public UserBean createUser(@RequestBody UserBean newUser) throws Exception {
+
+   try {
+            User tempUserObj = new User(
+                    newUser.getUsername(),                // HTTP username
+                    newUser.getPassword(),                // HTTP plainTextPassword
+                    Role.valueOf(newUser.getUserRole()) // HTTP Role
+                    );
+
+            UserBean saveBean = tempUserObj.getUserBean();
+            saveBean.setCreationDate(new Date());
+            saveBean.setEmail(newUser.getEmail());
+            saveBean.setLastAccess( -2_208_988_800_000L );
+            return userRepo.save(saveBean);
+
+     }    catch (IllegalPatternException e) {
+
+
+        throw new RegisterException("Password pattern conformity not valid  " 
+                + "  1) Your password must be between 8 and 30 characters."
+                + "  2) Your password must contain at least one uppercase, or capital, letter (ex: A, B, etc.)"
+                + "  3) Your password must contain at least one lowercase letter."
+                + "  4) Your password must contain at least one number digit (ex: 0, 1, 2, 3, etc.)"
+                + "  5) Your password must contain at least one special character -for example: $, #, @, !,%,^,&,*");
+    }catch (IllegalArgumentException e) {
+
+
+             throw new RegisterException("Role not valid");
+        }
+
+    }
     
     //===============PUT METHODS
     /*
@@ -330,12 +292,12 @@ public class UserController implements ContainerResponseFilter {
 
     		if (random.nextInt(100) > 40){
     			userBean.setTemppass("");
-				userBean.setPassword(it.unisannio.CARE.model.util.Password.getMd5(userBean.getPassword()));
+				userBean.setPassword(Password.getBCrypt(userBean.getPassword()));
 				userRepo.save(userBean);
 
 				finalPasswordsUpdated+=1;
 			}else {
-    			userBean.setPassword(it.unisannio.CARE.model.util.Password.getMd5(userBean.getTemppass()));
+    			userBean.setPassword(Password.getBCrypt(userBean.getTemppass()));
     			userRepo.save(userBean);
     			tempPasswordsUpdated+=1;
 			}

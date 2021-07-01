@@ -1,4 +1,4 @@
-package it.unisannio.CARE.View.Classes;
+package it.unisannio.CARE.spring.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -7,9 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-/*
- * 
- */
+
 
 @SuppressWarnings("serial")
 public class RequestBean implements Serializable{

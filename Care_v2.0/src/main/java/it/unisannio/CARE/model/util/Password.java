@@ -6,7 +6,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import it.unisannio.CARE.model.util.Constants;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import it.unisannio.CARE.model.Exceptions.IllegalPatternException;
 
 
 public class Password {
@@ -34,21 +38,22 @@ public class Password {
 	/**
 	**************************************************************************
 	 * Metodo che controlla se la passw è cripta
-	 * @param hiddenPassword spassw cifrata in MD5
+	 * @param String hiddenPassword
+	 * @throws IllegalPatternException 
 	 * @exception IllegalArgumentException
 	 **************************************************************************
     */
-	public Password(String hiddenPassword) {
+	public Password(String hiddenPassword) throws IllegalPatternException {
 		//assert hiddenPassword != null;
 		if( (hiddenPassword == null) || (hiddenPassword.equals("")) )
-			throw new IllegalArgumentException("Password.java constructor: hiddenPassword is null");
+			throw new IllegalPatternException("Password.java constructor: hiddenPassword is null");
 		this.hiddenPassword = hiddenPassword;
 	}
 
 	/**
      **************************************************************************
      * Metodo per il GET della passw criptata
-     * @return ritorna la passw cifrata in MD5
+     * @return hiddenPassword
      **************************************************************************
     */
 	public String getHiddenPassword() {
@@ -58,7 +63,7 @@ public class Password {
 	/**
      **************************************************************************
      * Metodo per il Set della pasw Criptata
-     * @param hiddenPass passw cifrata in MD5
+     * @param String hiddenPass
      **************************************************************************
     */
 	public void setHiddenPassword(String hiddenPass) {
@@ -82,12 +87,16 @@ public class Password {
 	/**
 	**************************************************************************
 	 * Metodo per il ritorno dell'hashcode con algoritmo MD5 del valore in ingresso inclundento il SALT
-	 * @param input password che si vuole cifrare
-	 * @return ritorna la passw crifrata in MD5
+	 * @param String input
+	 * @return hashtext.toUpperCase()
 	 **************************************************************************
     */
-    public static String getMd5(String input)    {
+    public static String getBCrypt(String input)    {
+    	
+    	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     	input+=Constants.PASSWORD_SALT;
+	    return    passwordEncoder.encode(input);
+ /*
         try {
             // Static getInstance method is called with hashing MD5
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -110,15 +119,14 @@ public class Password {
         // For specifying wrong message digest algorithms
         catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
     
     
     /**
 	**************************************************************************
-	 * Metodo per generare la passw in chiaro casuale
-	 * @param length grandezza in numero della passw
-	 * @return ritorna la passw casuale 
+	 * metodo per generare la passw dell'utente
+	 * @param int lenght
 	 **************************************************************************
     */
     //public static char[] generatePassword(int length) {
@@ -165,12 +173,12 @@ public class Password {
     
     /**
 	**************************************************************************
-	 * Metodo per il controllo del pattern della password in chiaro inserito
-	 * @param givenPassword String givenPassword
+	 * Metodo che controlla se il Pattern della passw è giusto
+	 * @param final String givenPassword
 	 * @exception IllegalArgumentException
 	 **************************************************************************
     */
-    public static boolean validatePlaintextPasswordPattern(final String givenPassword) throws IllegalArgumentException {
+    public static boolean validatePlaintextPasswordPattern(final String givenPassword) throws IllegalPatternException {
     	final String PASSWORD_PATTERN =
                 "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
   	
@@ -180,7 +188,7 @@ public class Password {
         if(givenPassword != null)
         	matcher = pattern.matcher(givenPassword);
         else
-        	throw new IllegalArgumentException("Password.java validatePlaintextPasswordPattern: givenPassword is null. Value: "+givenPassword);
+        	throw new IllegalPatternException("Password.java validatePlaintextPasswordPattern: givenPassword is null. Value: "+givenPassword);
         	
         //return matcher.matches();
         
@@ -195,7 +203,7 @@ public class Password {
         return false;
         */
         
-        if( matcher.matches() ) return true; else throw new IllegalArgumentException("Password pattern conformity not valid");
+        if( matcher.matches() ) return true; else throw new IllegalPatternException("Password pattern conformity not valid");
         //if( !matcher.matches() ) throw new IllegalArgumentException("Password pattern conformity not valid");
     }
 }

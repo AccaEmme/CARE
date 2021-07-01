@@ -22,8 +22,9 @@ import java.util.Date;
 @Repository
 public interface UserRepository extends JpaRepository<UserBean, Long>{
 	
-	@Query("FROM UserBean u  WHERE u.username =:username")
-	UserBean findByUsername(@Param("username") String username);
+	//@Query("FROM UserBean u  WHERE u.username =:username")         #non serve con il metodo di Luigi
+	//UserBean findByUsername(@Param("username") String username);
+	UserBean findByUsername(String username);
 
 	@Query("FROM UserBean u WHERE u.userRole =:role")
 	Iterable<UserBean> findUserByRole(@Param("role") String role);

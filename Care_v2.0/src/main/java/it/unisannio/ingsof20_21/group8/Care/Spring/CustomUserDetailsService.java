@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import it.unisannio.CARE.Model.Util.Password;
+import it.unisannio.CARE.model.util.Password;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {

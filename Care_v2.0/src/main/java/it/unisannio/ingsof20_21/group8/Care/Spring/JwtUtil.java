@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +22,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
-import it.unisannio.CARE.Model.User.Role;
+import it.unisannio.CARE.model.user.Role;
 
 
 /*serve a settare il token, tempo sessione e ruolo*/

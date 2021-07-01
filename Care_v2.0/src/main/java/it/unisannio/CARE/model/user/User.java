@@ -1,41 +1,40 @@
 package it.unisannio.CARE.model.user;
-
-
 import java.util.Date;
 
+import org.bson.Document;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import it.unisannio.CARE.model.Exceptions.IllegalPatternException;
 import it.unisannio.CARE.model.Exceptions.NullPasswordException;
 import it.unisannio.CARE.model.Exceptions.UserException;
-import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.Password;
 import it.unisannio.ingsof20_21.group8.Care.Spring.UserBean;
-
-/**
- * Classe utilizzata per la creazione di un utente del programma CARE
- */
 
 public class User {
 	private String 		username, hiddenPassword, temppass, plainTextPassword, email;
 	//private Location 	residence;
-	private it.unisannio.CARE.model.user.Role role;
+	private Role 		role;
 	private Date			password_lastupdate;
 	
 	
-	/**
-	**************************************************************************
-	 * Metodo per la creazione dell'utente con una passw in chiaro
-	 * @param username - Nome dell'utente
-	 * @param plainTextPassword - Passw dell'utente
-	 * @param role - Ruolo dell'utente
-	 **************************************************************************
-    */
-	public User(String username, String plainTextPassword, it.unisannio.CARE.model.user.Role role) {
+
+	
+	// Costruttore creazione utente
+	public User(String username, String plainTextPassword, Role role)throws IllegalPatternException {
+		
+
 		this.setUsername(username);
 		if(plainTextPassword.equals("")) {
 			this.temppass 		= Password.generatePassword(10);
-			this.hiddenPassword	= Password.getMd5(this.temppass);
+		
+			this.hiddenPassword	=Password.getBCrypt(this.temppass);
 		} else {
 			this.temppass 		= "";
-			this.hiddenPassword	= Password.getMd5(plainTextPassword);
+
+		Password.validatePlaintextPasswordPattern(plainTextPassword);
+			this.hiddenPassword	=Password.getBCrypt(/*this.temppass*/plainTextPassword);
+			
 		}
 		System.out.println("temppass:" + this.temppass + " hiddenPass: " + this.hiddenPassword);
 		this.role 			= role;
@@ -74,8 +73,7 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo per la gestione dell'utente con una passw criptata
-	 * @param username nome utente
-	 * @param hiddenPassword Passw criptata in MD5
+	 * @param String username, String hiddenPassword
 	 * @exception UserException, NullPasswordException
 	 **************************************************************************
     */
@@ -129,7 +127,7 @@ public class User {
 	/**
 	**************************************************************************
 	 * Metodo GET per ottenere lo username 
-	 * @return ritorna l'username dell'utente 
+	 * @return username
 	 **************************************************************************
     */
     public String getUsername() {
@@ -139,7 +137,7 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo SET per modificare lo username 
-	 * @param username Nome utente che si vuole inserire
+	 * @param String username 
 	 **************************************************************************
     */
     public void setUsername(String username) {
@@ -150,7 +148,7 @@ public class User {
     /**
 	**************************************************************************
 	 * Metodo GET per ottenere la hidden password
-	 * @return ritorna la passw dell'utente
+	 * @return password
 	 **************************************************************************
     */
     public String getPassword() {
@@ -160,12 +158,18 @@ public class User {
     /**
    	**************************************************************************
    	 * Metodo SET per il moodificare la password
-   	 * @param plainTextPassword password che si vuole inserire nuova
+   	 * @param String plainTextPassword
+     * @throws IllegalPatternException 
    	 **************************************************************************
        */
-    public void setPassword(String plainTextPassword) {
+    
+    
+    public void setPassword(String plainTextPassword) throws IllegalPatternException {
     	Password.validatePlaintextPasswordPattern(plainTextPassword);
-        this.hiddenPassword			= Password.getMd5( plainTextPassword + Constants.PASSWORD_SALT);
+
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		this.hiddenPassword	=Password.getBCrypt(this.temppass);
+     
 		/*
         System.out.println("plainTextPassword: "+plainTextPassword
 				+"\t Constants.USER_MD5_SALT: "+ Constants.USER_MD5_SALT
@@ -175,44 +179,68 @@ public class User {
         this.temppass				= "";
     }
     
-    
-   
     /**
 	**************************************************************************
-	 * Metodo SET per inserire una nuova email
-	 * @param email nuova Email da inserire
+	 * Metodo GET per ottenere l'ultima password registrata
+	 * @return password_lastupdate
 	 **************************************************************************
     */
+    public Date getPasswordLastUpdate() {
+    	return password_lastupdate;
+    }
+    
+    
+   
+    
     public void setEmail(String email) {
 		this.email = email;
 	}
 
 
+
+
 	/**
 	**************************************************************************
 	 * Metodo GET per ottenere il ruolo dell'utente
-	 * @return ritorna il ruolo dell'utente
+	 * @return role
 	 **************************************************************************
     */
-    public it.unisannio.CARE.model.user.Role getRole() {
+    public Role getRole() {
     	return role;
     }
-
+    
     /**
 	**************************************************************************
 	 * Metodo SET per modificare il Ruolo
-	 * @param r ruolo da inserire tra quelli disponibili (Administrator, StoreManager, Officer)
+	 * @param Role r
 	 **************************************************************************
     */
-    public void setRole(it.unisannio.CARE.model.user.Role r) {
+    public void setRole(Role r) {
     	this.role = r;
     }
    
+    /**
+	**************************************************************************
+	 * Metodo per il return dell'utente come document xml
+	 * @return document
+	 **************************************************************************
+    */
+    public Document getDocument(){
+        Document document = new Document("username",this.getUsername());
+        document.append("password",this.getPassword());
+        if (this.getRole()!=null)
+            document.append("role",this.getRole().toString());
+        if (this.getPasswordLastUpdate()!=null)
+            document.append("password_last_update",this.getPasswordLastUpdate());
+ 
+        return document;
+    }
+
     
     /**
 	 **************************************************************************
-	 * Metodo per ottenere un bean
-	 * @return ritorna un bean ovvero un'oggetto contentente dei tipi di dato primitivi
+	 * Metodo per eseguire il parsing da User in UserBean
+	 * @return UserBean
 	 **************************************************************************
 	 */
     public UserBean	getUserBean() {
@@ -229,7 +257,7 @@ public class User {
     /**
 	 **************************************************************************
 	 * Metodo per il tester Junit per verificare l'esistenza dell'oggetto USER
-	 * @return ritorna vero se esiste l'utente
+	 * @return true
 	 **************************************************************************
 	 */
     public boolean exists() {

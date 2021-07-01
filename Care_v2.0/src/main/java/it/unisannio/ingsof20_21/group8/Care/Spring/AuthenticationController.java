@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.unisannio.CARE.Model.Util.Constants;
+import it.unisannio.CARE.model.util.Constants;
+import it.unisannio.CARE.spring.bean.AuthenticationRequest;
+import it.unisannio.CARE.spring.bean.AuthenticationResponse;
 
 
 
@@ -36,7 +38,7 @@ public class AuthenticationController {
 	try {
 		
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-					authenticationRequest.getUsername(), authenticationRequest.getPassword()+Constants.USER_MD5_SALT));
+					authenticationRequest.getUsername(), authenticationRequest.getPassword()+Constants.PASSWORD_SALT));
 	}
 			
 		 /*}catch (DisabledException e) {
