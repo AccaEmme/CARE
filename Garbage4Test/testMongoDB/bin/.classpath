@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry
-		excluding="target/|target/classes/com/ranauro/persistence/|target/classes/com/ranauro/sangue/|target/classes/org/example/"
-		kind="src" path="" />
-	<classpathentry kind="con"
-		path="org.eclipse.jdt.launching.JRE_CONTAINER" />
-	<classpathentry kind="output" path="bin" />
-</classpath>
