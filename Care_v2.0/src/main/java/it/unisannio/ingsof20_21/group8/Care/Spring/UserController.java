@@ -16,6 +16,7 @@ import javax.ws.rs.container.ContainerResponseFilter;
 
 import it.unisannio.CARE.model.report.UserReport;
 import it.unisannio.CARE.model.util.Constants;
+import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import it.unisannio.CARE.model.user.Role;
@@ -312,20 +313,39 @@ public class UserController implements ContainerResponseFilter {
 
 
 	// ########## ADMIN STUFF ##############
+	/**
+	 * this method is very dangerous!
+	 * it should be deleted from the final version.*/
 	@PatchMapping("/user/setPasswords")
-	public void setUserPasswords(){
+	public JSONObject setUserPasswords(){
     	Iterable<UserBean> users = this.getAllUsers();
 		Random random = new Random();
 
+		long finalPasswordsUpdated = 0;
+		long tempPasswordsUpdated = 0;
+
     	for (UserBean userBean : users){
     		UserBean currentUser = userBean;
+			userRepo.delete(userBean);
+
     		if (random.nextInt(100) > 40){
-    			userRepo.delete(userBean);
-
     			userBean.setTemppass("");
+				userBean.setPassword(it.unisannio.CARE.model.util.Password.getMd5(userBean.getPassword()));
+				userRepo.save(userBean);
 
+				finalPasswordsUpdated+=1;
+			}else {
+    			userBean.setPassword("");
+    			userRepo.save(userBean);
+    			tempPasswordsUpdated+=1;
 			}
 		}
+
+		JSONObject report = new JSONObject();
+    	report.put("encrypted passwords" , finalPasswordsUpdated);
+		report.put("temp passowrds" , tempPasswordsUpdated);
+
+		return report;
 	}
     
 }
