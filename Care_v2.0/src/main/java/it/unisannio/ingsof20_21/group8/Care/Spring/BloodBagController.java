@@ -4,6 +4,7 @@ package it.unisannio.ingsof20_21.group8.Care.Spring;
 import it.unisannio.CARE.model.Exceptions.BloodBagCloneNotSupportedException;
 import it.unisannio.CARE.model.Exceptions.BloodBagStateException;
 import it.unisannio.CARE.model.bloodBag.BloodBag;
+import it.unisannio.CARE.model.bloodBag.BloodBagState;
 import it.unisannio.CARE.model.bloodBag.BloodGroup;
 import it.unisannio.CARE.model.bloodBag.Serial;
 import it.unisannio.CARE.model.report.BloodBagReport;
@@ -192,8 +193,6 @@ public class BloodBagController implements ContainerResponseFilter {
 
 
     //########### GET EXPIRING BEFORE/AFTER
-
-
     /**
      * @param timestamp the given date
      * @return all blood bags expired before a given date
@@ -244,10 +243,10 @@ public class BloodBagController implements ContainerResponseFilter {
     @GetMapping("bloodbag/report")
     public BloodBagReport getReport(){
         return new BloodBagReport(this.getAllBagsCount(),
-                this.getCountByState(BloodBag.BloodBagState.Available.toString()),
-                this.getCountByState(BloodBag.BloodBagState.Used.toString()),
-                this.getCountByState(BloodBag.BloodBagState.Transfered.toString()),
-                this.getCountByState(BloodBag.BloodBagState.Dropped.toString()),
+                this.getCountByState(BloodBagState.Available.toString()),
+                this.getCountByState(BloodBagState.Used.toString()),
+                this.getCountByState(BloodBagState.Transfered.toString()),
+                this.getCountByState(BloodBagState.Dropped.toString()),
 
                 this.getCountByGroup(BloodGroup.ABpos.toString()),
                 this.getCountByGroup(BloodGroup.Aneg.toString()),
@@ -288,8 +287,11 @@ public class BloodBagController implements ContainerResponseFilter {
     @PostMapping("/bloodbag/add")
     public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
     	
-    	if  (!bagRepository.existsById(bagBean.getSerial()))
-    		throw new BloodBagCloneNotSupportedException("la sacca già esiste");
+    	if (bagRepository.existsById(bagBean.getSerial()))
+    		throw new BloodBagCloneNotSupportedException("La sacca che si vuole aggiungere è già esistente.", "/bloodbag/add");
+    	
+    	else if (!bagBean.getState().equals(BloodBagState.Available.toString()))
+    		throw new BloodBagStateException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
     	
         BloodBag tempBloodBagObj = new BloodBag(
                 new Serial(bagBean.getSerial()),
@@ -297,9 +299,10 @@ public class BloodBagController implements ContainerResponseFilter {
                 new Date(bagBean.getCreationDate()),
                 new Date(bagBean.getExpirationDate()),
                 bagBean.getDonator(),
-                BloodBag.BloodBagState.valueOf(bagBean.getState()),
+                BloodBagState.valueOf(bagBean.getState()),
                 bagBean.getNotes()
         );
+        
 
         BloodBagDAO beanToSave = tempBloodBagObj.getBean();
         //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
@@ -336,7 +339,7 @@ public class BloodBagController implements ContainerResponseFilter {
             beanToChange = bean;
 
             bagRepository.delete(beanToChange);
-            beanToChange.setState(BloodBag.BloodBagState.Used.toString());
+            beanToChange.setState(BloodBagState.Used.toString());
             beanToChange.setUsedTimeStamp(new Date().getTime());
 
             bagRepository.save(beanToChange);

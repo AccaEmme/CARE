@@ -11,6 +11,8 @@ import java.util.Locale;
 
 import org.bson.Document;
 
+import it.unisannio.CARE.model.Exceptions.IllegalDateException;
+import it.unisannio.CARE.model.Exceptions.IllegalFiscalCodeException;
 import it.unisannio.CARE.model.Exceptions.StateException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagDAO;
@@ -186,20 +188,20 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 
 		/* Si definisce il tempo limite di setCreationDate: non oltre -7gg prima, non futura a oggi. */
 		if( creationDate.before(dateLimitBeforeCreationDate) )
-			throw new IllegalArgumentException( 
+			throw new IllegalDateException( 
 					Constants.ExceptionIllegalArgument_BloodBagNotValid
 					+"creationDate "
 					+creationDate
 					+" can't be < -7days "
-					+dateLimitBeforeCreationDate );
+					+dateLimitBeforeCreationDate, "/bloodbag/setdate" );
 		
 		if( creationDate.after(dateLimitAfterCreationDate)	)
-			throw new IllegalArgumentException( 
+			throw new IllegalDateException( 
 					Constants.ExceptionIllegalArgument_BloodBagNotValid
 					+"creationDate "
 					+creationDate
 					+" can't be > today "
-					+dateLimitAfterCreationDate );
+					+dateLimitAfterCreationDate, "/bloodbag/setdate" );
 		
 		this.creationDate = creationDate;
 	}
@@ -287,7 +289,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      */
 	private void setDonatorCF(String fisCode) {
 		if( !fisCode.matches(Constants.RegexDonatorCF) )
-			throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"donatorCF "+donatorCF+" do not match pattern "+Constants.RegexDonatorCF );
+			throw new IllegalFiscalCodeException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"donatorCF "+donatorCF+" do not match pattern "+Constants.RegexDonatorCF, "/bloodbag/add" );
 		this.donatorCF = fisCode;
 	}
 	
@@ -347,16 +349,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 		return this.bloodBagState;
 	}
 	
-
-	/**
-     **************************************************************************
-     * Metodo per verificare lo stato della sacca
-     * @return false se la sacca di sangue non è disponibile: è stata usata, trasferita o eliminata.
-     **************************************************************************
-     */
-	public boolean checkBloodBagState() {
-		return (bloodBagState == BloodBagState.Available); //return !(bloodBagState == BloodBagState.Used || bloodBagState == BloodBagState.Transfered || bloodBagState == BloodBagState.Dropped);
-	}
+	
 	
 	/**
      **************************************************************************
@@ -367,40 +360,9 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	private void setBloodBagState(BloodBagState s) {
 		this.bloodBagState = s;
 	}
-	
-	/**
-     **************************************************************************
-     * Metodo per il traferimento di una sacca di sangue
-     * @exception StateException
-     **************************************************************************
-     */
-	public void transferBag() throws StateException { 
-		if( !checkBloodBagState() )		throw new StateException("Stato della sacca non compatibile con l'operazione da eseguire. La sacca potrebbe essere stata trasferita o cestinata precedentemente.");	
-		setBloodBagState(BloodBagState.Transfered);
-	}
-	
-	/**
-     **************************************************************************
-     * Metodo per identificare una sacca usata
-     * @exception StateException
-     **************************************************************************
-     */
-	public void useBag() throws StateException {
-		if( !checkBloodBagState() )		throw new StateException("Stato della sacca non compatibile con l'operazione da eseguire. La sacca potrebbe essere stata trasferita o cestinata precedentemente.");
-		setBloodBagState(BloodBagState.Used);
-	}
-	
-	/**
-     **************************************************************************
-     * Metodo per identificare una sacca cestinata
-     * @exception StateException
-     **************************************************************************
-     */
-	public void dropBag() throws StateException {
-		if( !checkBloodBagState() )		throw new StateException("Stato della sacca non compatibile con l'operazione da eseguire. La sacca potrebbe essere stata trasferita o cestinata precedentemente.");
-		bloodBagState = BloodBagState.Dropped;
-	}
 
+	
+	
 	/**
      **************************************************************************
      * Metodo TO String per ottenere tutte le informazioni della sacca 
@@ -472,18 +434,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	public void print() {		
 		System.out.println("Seriale: " +serial.toString()+ ";\nGruppo: " +bloodGroup+ ";\nData Creazione: " +new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(creationDate)+ ";\nData scadenza: " +new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate)+ ";\nCodice fiscale donatore: " +donatorCF+ ";\nStato: " +bloodBagState+ ";\nNote: " +note+ ".\n");
 	}
-
-	/**
-	 **************************************************************************
-	 * ENUM con tutte i prossimi stati delle sacche
-	 **************************************************************************
-	 */
-	public enum BloodBagState{ 
-		Available,	// Sacca disponibile per essere usata o trasferita o eliminata
-		Transfered,	// Sacca trasferita a un altro nodo, viene comunque lasciata l'informazione nel database del nodo trasferente nello stato "trasferita"
-		Used,		// Sacca adoperata. Non utilizzabile, non trasferibile, non eliminabile
-		Dropped;	// Sacca eliminata (es. per scadenza o altre motivazioni)
-	}
+	
 
 	
 	/**

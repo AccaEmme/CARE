@@ -19,37 +19,76 @@ public class  GlobalExceptionHandler {
     
     public ResponseEntity<?> registerExceptionHandling(RegisterException exception){
       
-    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "-1", exception.getClass().getName(), exception.getMessage(), "/register");
+    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "500", exception.getClass().getName(), exception.getMessage(), "/register");
+    	
+        return new ResponseEntity<>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
+        
+    }
+    
+
+    
+    @ExceptionHandler(BloodBagCloneNotSupportedException.class)
+    
+    public ResponseEntity<?> BloodBagCloneNotSupportedHandling( BloodBagCloneNotSupportedException exception){
+      
+    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "500", exception.getClass().getName(), exception.getMessage(), exception.getPath());
+    	
+        return new ResponseEntity<>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
+        
+    }
+    
+    @ExceptionHandler(BloodBagNotFoundException.class)
+    
+    public ResponseEntity<?>  BloodBagAlredyExistsHandling(BloodBagNotFoundException exception){
+      
+    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "500", exception.getClass().getName(), exception.getMessage(), exception.getPath());
     	
         return new ResponseEntity<>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
         
     }
     
     
-    @ExceptionHandler(BloodBagCloneNotSupportedException.class)
-    
-    public ResponseEntity<?> BloodBagCloneNotSupportedHandling( BloodBagCloneNotSupportedException exception){
-      
-    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "-1", exception.getClass().getName(), exception.getMessage(), "/bloodbag/add");
-    	
-        return new ResponseEntity<>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
-        
-    }  /*
-    @ExceptionHandler(BloodBagNotFoundException.class)
-    
-    public ResponseEntity<?>  BloodBagAlredyExistsHandling(BloodBagNotFoundException exception){
-      
-    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "-1", exception.getClass().getName(), exception.getMessage(),"/bloodbag/use/{serial}");
-    	
-        return new ResponseEntity<>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
-        
-    }*/
   
     @ExceptionHandler(BloodBagStateException.class)
     
     public ResponseEntity<?>  BloodBagStateHandler(BloodBagStateException exception){
       
-    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "-1", exception.getClass().getName(), exception.getMessage(), "/bloodbag/use/{serial}");
+    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "500", exception.getClass().getName(), exception.getMessage(), exception.getPath());
+    	
+        return new ResponseEntity<>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
+        
+    }
+    
+    
+    
+    @ExceptionHandler(IllegalSerialException.class)
+    
+    public ResponseEntity<?>  IllegalSerialExceptionHandler(IllegalSerialException exception){
+      
+    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "500", exception.getClass().getName(), exception.getMessage(), exception.getPath());
+    	
+        return new ResponseEntity<>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
+        
+    }
+    
+    
+    
+    @ExceptionHandler(IllegalDateException.class)
+    
+    public ResponseEntity<?>  IllegalDateExceptionHandler(IllegalDateException exception){
+      
+    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "500", exception.getClass().getName(), exception.getMessage(), exception.getPath());
+    	
+        return new ResponseEntity<>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
+        
+    }
+    
+    
+    @ExceptionHandler(IllegalFiscalCodeException.class)
+    
+    public ResponseEntity<?>  IllegalFiscalCodeExceptionHandler(IllegalFiscalCodeException exception){
+      
+    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "500", exception.getClass().getName(), exception.getMessage(), exception.getPath());
     	
         return new ResponseEntity<>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
         

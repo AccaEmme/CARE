@@ -11,6 +11,23 @@ public class BloodBagStateException extends RuntimeException {
 		
 		super(m);
 	}
+
+    public  BloodBagStateException(String message, String path) {
+        
+    	super(message);
+    	this.path = path;
+    }
+    
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	String path;
+	
 }
 
 
