@@ -11,9 +11,9 @@ import java.util.Locale;
 
 import org.bson.Document;
 
-import it.unisannio.CARE.model.Exceptions.IllegalDateException;
-import it.unisannio.CARE.model.Exceptions.IllegalFiscalCodeException;
-import it.unisannio.CARE.model.Exceptions.StateException;
+import it.unisannio.CARE.model.exceptions.IllegalDateException;
+import it.unisannio.CARE.model.exceptions.IllegalFiscalCodeException;
+import it.unisannio.CARE.model.exceptions.StateException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagDAO;
 

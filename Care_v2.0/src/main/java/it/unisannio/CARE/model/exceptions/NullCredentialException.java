@@ -1,4 +1,4 @@
-package it.unisannio.CARE.model.Exceptions;
+package it.unisannio.CARE.model.exceptions;
 
 public class NullCredentialException extends RuntimeException {
 

@@ -15,10 +15,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;*/
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import it.unisannio.CARE.model.Exceptions.UserException;
-import it.unisannio.CARE.model.Exceptions.NullPasswordException;
+
 import it.unisannio.CARE.model.util.Password;
 import it.unisannio.CARE.model.user.User;
+import it.unisannio.CARE.model.exceptions.NullPasswordException;
+import it.unisannio.CARE.model.exceptions.UserException;
 import it.unisannio.CARE.model.user.Role;
 
 

@@ -1,4 +1,4 @@
-package it.unisannio.CARE.model.Testers;
+package it.unisannio.CARE.model.testers;
 
 
 

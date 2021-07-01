@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import it.unisannio.CARE.model.Exceptions.IllegalPatternException;
+import it.unisannio.CARE.model.exceptions.IllegalPatternException;
 
 
 public class Password {

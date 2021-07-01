@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.Scanner;
 
-import it.unisannio.CARE.model.Exceptions.IllegalSerialException;
+import it.unisannio.CARE.model.exceptions.IllegalSerialException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.XMLHelper;
 

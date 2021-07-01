@@ -14,8 +14,8 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 
-import it.unisannio.CARE.model.Exceptions.IllegalPatternException;
-import it.unisannio.CARE.model.Exceptions.RegisterException;
+import it.unisannio.CARE.model.exceptions.IllegalPatternException;
+import it.unisannio.CARE.model.exceptions.RegisterException;
 import it.unisannio.CARE.model.report.UserReport;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.Password;

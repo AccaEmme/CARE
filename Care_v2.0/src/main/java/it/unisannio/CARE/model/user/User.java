@@ -5,9 +5,9 @@ import org.bson.Document;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import it.unisannio.CARE.model.Exceptions.IllegalPatternException;
-import it.unisannio.CARE.model.Exceptions.NullPasswordException;
-import it.unisannio.CARE.model.Exceptions.UserException;
+import it.unisannio.CARE.model.exceptions.IllegalPatternException;
+import it.unisannio.CARE.model.exceptions.NullPasswordException;
+import it.unisannio.CARE.model.exceptions.UserException;
 import it.unisannio.CARE.model.util.Password;
 import it.unisannio.ingsof20_21.group8.Care.Spring.UserDAO;
 

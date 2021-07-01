@@ -1,4 +1,4 @@
-package it.unisannio.ingsof20_21.group8.Care.Spring;
+package it.unisannio.CARE.model.exceptions;
 
 public class BloodBagNotFoundException extends RuntimeException {
 

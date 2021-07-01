@@ -1,4 +1,4 @@
-package it.unisannio.CARE.Control.BloodBags;
+package it.unisannio.CARE.Control.request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +21,10 @@ import static com.mongodb.client.model.Filters.ne;
 import it.unisannio.CARE.model.bloodBag.Request;
 import it.unisannio.CARE.model.bloodBag.RequestPriority;
 import it.unisannio.CARE.model.bloodBag.RequestState;
+import it.unisannio.CARE.model.exceptions.RequestCloneNotSupportedException;
+import it.unisannio.CARE.model.exceptions.RequestNotFoundException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.XMLHelper;
-import it.unisannio.CARE.model.Exceptions.RequestCloneNotSupportedException;
-import it.unisannio.CARE.model.Exceptions.RequestNotFoundException;
 
 
 /**Questa classe implementa i metodi che eseguono i vari inserimenti e le varie query, per gestire le richieste inviate dai nodi locali.

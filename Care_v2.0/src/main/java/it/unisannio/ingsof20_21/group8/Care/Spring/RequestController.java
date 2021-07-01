@@ -25,16 +25,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.unisannio.CARE.Control.BloodBags.RequestManager;
+import it.unisannio.CARE.Control.request.RequestManager;
 import it.unisannio.CARE.model.bloodBag.Request;
 import it.unisannio.CARE.model.bloodBag.RequestPriority;
 import it.unisannio.CARE.model.bloodBag.RequestState;
+import it.unisannio.CARE.model.exceptions.RequestCloneNotSupportedException;
+import it.unisannio.CARE.model.exceptions.RequestNotFoundException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.XMLHelper;
 import it.unisannio.CARE.spring.bean.ErrorBean;
 import it.unisannio.CARE.spring.bean.RequestBean;
-import it.unisannio.CARE.model.Exceptions.RequestCloneNotSupportedException;
-import it.unisannio.CARE.model.Exceptions.RequestNotFoundException;
 
 
 @CrossOrigin("*")

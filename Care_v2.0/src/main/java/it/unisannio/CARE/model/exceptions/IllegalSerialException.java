@@ -1,17 +1,17 @@
-package it.unisannio.CARE.model.Exceptions;
+package it.unisannio.CARE.model.exceptions;
 
-public class IllegalDateException extends RuntimeException {
+public class IllegalSerialException extends RuntimeException {
 
-	public IllegalDateException() {
+	public IllegalSerialException() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public IllegalDateException(String message) {
+	public IllegalSerialException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
-    public  IllegalDateException(String message, String path) {
+    public  IllegalSerialException(String message, String path) {
         
     	super(message);
     	this.path = path;
