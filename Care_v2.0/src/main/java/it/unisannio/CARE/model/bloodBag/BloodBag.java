@@ -9,11 +9,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagBean;
 import org.bson.Document;
 
 import it.unisannio.CARE.model.Exceptions.StateException;
 import it.unisannio.CARE.model.util.Constants;
+import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagDAO;
 
 /**
  * La classe BloodBag contiene tutte le informazioni sulla sacca di sangue registrata, come il seriale, la data di creazione e scadenza
@@ -492,8 +492,8 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	 * @return ritorna un bean ovvero un'oggetto contentente dei tipi di dato primitivi
 	 **************************************************************************
 	 */
-	public BloodBagBean getBean(){
-		BloodBagBean bean = new BloodBagBean();
+	public BloodBagDAO getBean(){
+		BloodBagDAO bean = new BloodBagDAO();
 		bean.setSerial(this.serial.toString());
 		bean.setGroup(this.bloodGroup.toString());
 		bean.setDonator(this.donatorCF.toString());

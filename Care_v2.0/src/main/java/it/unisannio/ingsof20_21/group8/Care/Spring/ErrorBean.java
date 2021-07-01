@@ -1,4 +1,4 @@
-package it.unisannio.CARE.spring.bean;
+package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 public class ErrorBean {
 

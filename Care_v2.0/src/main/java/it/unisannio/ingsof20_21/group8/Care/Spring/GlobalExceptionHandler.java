@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
 import it.unisannio.CARE.model.Exceptions.RegisterException;
-import it.unisannio.CARE.spring.bean.ErrorBean;
 
 @ControllerAdvice
 public class  GlobalExceptionHandler {

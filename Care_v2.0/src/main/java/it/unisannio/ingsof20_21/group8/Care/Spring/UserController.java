@@ -53,8 +53,8 @@ public class UserController implements ContainerResponseFilter {
 
     //===============GET METHODS
     @GetMapping("/user")
-	public UserBean/*Iterable<UserBean>*/ testGetUser() {
-    	UserBean ub = new UserBean();
+	public UserDAO/*Iterable<UserBean>*/ testGetUser() {
+    	UserDAO ub = new UserDAO();
     	ub.setUsername("ciccioGiuliano");
     	ub.setPassword("ciaccioLuigi");
     	//Iterable<UserBean> i = new Iterable<UserBean>();
@@ -69,7 +69,7 @@ public class UserController implements ContainerResponseFilter {
 	 * 127.0.0.1:8087/user/get/all
 	 * */
 	@GetMapping("/user/get/all")
-	public Iterable<UserBean> getAllUsers() {
+	public Iterable<UserDAO> getAllUsers() {
 		return userRepo.findAll();
 	}
 
@@ -77,7 +77,7 @@ public class UserController implements ContainerResponseFilter {
 	 * 127.0.0.1:8087/user/get/email/dtarver6@simplemachines.org
 	 * */
 	@GetMapping("/user/get/email/{email}")
-	public UserBean getUserByEmail(@PathVariable String email){
+	public UserDAO getUserByEmail(@PathVariable String email){
 		return userRepo.findByEmail(email);
 	}
     
@@ -89,7 +89,7 @@ public class UserController implements ContainerResponseFilter {
 	 * 127.0.0.1:8087/user/get/username/dedland7
 	 * */
 	@GetMapping("/user/get/username/{username}")
-	public UserBean getUserByUsername(@PathVariable String username){
+	public UserDAO getUserByUsername(@PathVariable String username){
 		return userRepo.findByUsername(username);
 	}
 
@@ -97,7 +97,7 @@ public class UserController implements ContainerResponseFilter {
 	 * 127.0.0.1:8087/user/get/role/Administrator
 	 * */
 	@GetMapping("/user/get/role/{role}")
-	public Iterable<UserBean> getUserByRole(@PathVariable String role){
+	public Iterable<UserDAO> getUserByRole(@PathVariable String role){
 		return userRepo.findUserByRole(role);
 	}
 
@@ -105,16 +105,16 @@ public class UserController implements ContainerResponseFilter {
 	 * 127.0.0.1:8087/user/get/created/1624217670000/1624995270000
 	 * */
 	@GetMapping("user/get/created/{firstdate}/{seconddate}")
-	public Iterable<UserBean> getUserCreatedBetween(@PathVariable long firstdate, @PathVariable long seconddate){
+	public Iterable<UserDAO> getUserCreatedBetween(@PathVariable long firstdate, @PathVariable long seconddate){
 		return userRepo.findCreatedBetween(firstdate,seconddate);
 	}
 
 	@GetMapping("user/get/active")
-	public Iterable<UserBean> getActiveUsers(){
+	public Iterable<UserDAO> getActiveUsers(){
 		return userRepo.filterUsersByState(true);
 	}
 	@GetMapping("user/get/inactive")
-	public Iterable<UserBean> getInactiveUsers(){
+	public Iterable<UserDAO> getInactiveUsers(){
 		return userRepo.filterUsersByState(false);
 	}
 
@@ -159,7 +159,7 @@ public class UserController implements ContainerResponseFilter {
 
 	@PatchMapping("/user/patch/loginattempts/set/{attempts}/{username}")
 	public void changeUserAttempts(@PathVariable int attempts, @PathVariable String username){
-		UserBean user = userRepo.findByUsername(username);
+		UserDAO user = userRepo.findByUsername(username);
 
 		userRepo.delete(user);
 		user.setLoginAttempts(attempts);
@@ -168,7 +168,7 @@ public class UserController implements ContainerResponseFilter {
 
 	@PatchMapping("/user/patch/loginattempts/increaseone/{username}")
 	public String increaseUserAttempts(@PathVariable String username){
-		UserBean user = userRepo.findByUsername(username);
+		UserDAO user = userRepo.findByUsername(username);
 
 		userRepo.delete(user);
 		user.setLoginAttempts(user.getLoginAttempts()+1);
@@ -187,8 +187,8 @@ public class UserController implements ContainerResponseFilter {
 	}
 
 	@PatchMapping("/user/patch/restoreuser/{username}")
-	public UserBean restoreUser(@PathVariable String username){
-		UserBean user = userRepo.findByUsername(username);
+	public UserDAO restoreUser(@PathVariable String username){
+		UserDAO user = userRepo.findByUsername(username);
 
 		userRepo.delete(user);
 		user.setActiveUser(true);
@@ -201,7 +201,7 @@ public class UserController implements ContainerResponseFilter {
 
     //===============POST METHODS
 	@PostMapping("/register")
-    public UserBean createUser(@RequestBody UserBean newUser) throws Exception {
+    public UserDAO createUser(@RequestBody UserDAO newUser) throws Exception {
 
    try {
             User tempUserObj = new User(
@@ -210,7 +210,7 @@ public class UserController implements ContainerResponseFilter {
                     Role.valueOf(newUser.getUserRole()) // HTTP Role
                     );
 
-            UserBean saveBean = tempUserObj.getUserBean();
+            UserDAO saveBean = tempUserObj.getUserBean();
             saveBean.setCreationDate(new Date());
             saveBean.setEmail(newUser.getEmail());
             saveBean.setLastAccess( -2_208_988_800_000L );
@@ -266,7 +266,7 @@ public class UserController implements ContainerResponseFilter {
     
     //===============DELETE METHODS
     @DeleteMapping("/deleteUser")
-	public void deleteUser(@RequestBody UserBean deleteUser) {
+	public void deleteUser(@RequestBody UserDAO deleteUser) {
 		//userRepo.logicalDelete(deleteUser); /* TODO: sarebbe utile una cancellazione logica e non fisica dal DB */
     	deleteUser.setActiveUser(false);
     	userRepo.save(deleteUser);
@@ -280,14 +280,14 @@ public class UserController implements ContainerResponseFilter {
 	 * it should be deleted from the final version.*/
 	@PatchMapping("/user/setPasswords")
 	public JSONObject setUserPasswords(){
-    	Iterable<UserBean> users = this.getAllUsers();
+    	Iterable<UserDAO> users = this.getAllUsers();
 		Random random = new Random();
 
 		long finalPasswordsUpdated = 0;
 		long tempPasswordsUpdated = 0;
 
-    	for (UserBean userBean : users){
-    		UserBean currentUser = userBean;
+    	for (UserDAO userBean : users){
+    		UserDAO currentUser = userBean;
 			userRepo.delete(userBean);
 
     		if (random.nextInt(100) > 40){

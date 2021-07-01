@@ -9,7 +9,7 @@ import it.unisannio.CARE.model.Exceptions.IllegalPatternException;
 import it.unisannio.CARE.model.Exceptions.NullPasswordException;
 import it.unisannio.CARE.model.Exceptions.UserException;
 import it.unisannio.CARE.model.util.Password;
-import it.unisannio.ingsof20_21.group8.Care.Spring.UserBean;
+import it.unisannio.ingsof20_21.group8.Care.Spring.UserDAO;
 
 public class User {
 	private String 		username, hiddenPassword, temppass, plainTextPassword, email;
@@ -243,8 +243,8 @@ public class User {
 	 * @return UserBean
 	 **************************************************************************
 	 */
-    public UserBean	getUserBean() {
-    	UserBean ub = new UserBean();
+    public UserDAO	getUserBean() {
+    	UserDAO ub = new UserDAO();
     	ub.setUsername(this.username);
     	ub.setPassword(this.hiddenPassword);
     	ub.setTemppass(this.temppass);

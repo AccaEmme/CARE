@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table (name = "Bloodbag")
-public class BloodBagBean {
+public class BloodBagDAO {
     @Id
     private String serial;
 
@@ -29,7 +29,7 @@ public class BloodBagBean {
     @Column(unique = false, nullable = true)
     private long usedTimeStamp;
 
-    public BloodBagBean(){}
+    public BloodBagDAO(){}
 
     public String getSerial() {
         return serial;

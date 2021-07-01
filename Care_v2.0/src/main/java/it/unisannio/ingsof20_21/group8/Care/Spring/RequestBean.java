@@ -1,4 +1,4 @@
-package it.unisannio.CARE.spring.bean;
+package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 import java.io.IOException;
 import java.io.Serializable;

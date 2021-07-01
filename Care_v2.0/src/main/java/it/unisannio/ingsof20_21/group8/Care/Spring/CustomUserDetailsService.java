@@ -29,15 +29,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 		List<SimpleGrantedAuthority> roles = null;
 		
 			
-		UserBean user =userDao.findByUsername(username);
+		UserDAO user =userDao.findByUsername(username);
 		if (user != null) {
 			roles = Arrays.asList(new SimpleGrantedAuthority(user.getUserRole()));
 			return new User(user.getUsername(), user.getPassword(), roles);
 		}
 		throw new UsernameNotFoundException("User not found with the name " + username);	}
 	
-	public UserBean save(UserDTO user) {
-		UserBean newUser = new UserBean();
+	public UserDAO save(UserBean user) {
+		UserDAO newUser = new UserDAO();
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		newUser.setUserRole(user.getRole());

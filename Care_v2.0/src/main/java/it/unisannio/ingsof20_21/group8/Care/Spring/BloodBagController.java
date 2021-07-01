@@ -6,6 +6,7 @@ import it.unisannio.CARE.model.bloodBag.Serial;
 import it.unisannio.CARE.model.report.BloodBagReport;
 
 import it.unisannio.CARE.model.util.Constants;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +55,7 @@ public class BloodBagController implements ContainerResponseFilter {
      * @return all the blood bags in the database
      */
     @GetMapping("/bloodbag/get/all")
-    public Iterable<BloodBagBean> getBloodBag(){
+    public Iterable<BloodBagDAO> getBloodBag(){
         return bagRepository.findAll();
     }
 
@@ -64,7 +65,7 @@ public class BloodBagController implements ContainerResponseFilter {
      * @return all the blood bags with the given state
      */
     @GetMapping("/bloodbag/get/state/{state}")
-    public Iterable<BloodBagBean> filterBloodBagsByState(@PathVariable String state){
+    public Iterable<BloodBagDAO> filterBloodBagsByState(@PathVariable String state){
         return bagRepository.filterByState(state);
     }
 
@@ -73,7 +74,7 @@ public class BloodBagController implements ContainerResponseFilter {
      * @return all the blood bags with the given group
      */
     @GetMapping("/bloodbag/get/group/{group}")
-    public Iterable<BloodBagBean> getBloodBagByGroup(@PathVariable String group){
+    public Iterable<BloodBagDAO> getBloodBagByGroup(@PathVariable String group){
 		return bagRepository.findByGroup(group); /*.orElseThrow();*/
     }
 
@@ -83,7 +84,7 @@ public class BloodBagController implements ContainerResponseFilter {
      * @return all the bloodbags with the given state (probably just one)
      */
     @GetMapping("/bloodbag/get/serial/{serial}")
-    public Iterable<BloodBagBean> getBloodBagBySerial(@PathVariable String serial){
+    public Iterable<BloodBagDAO> getBloodBagBySerial(@PathVariable String serial){
     	return bagRepository.findBySerial(serial); /*.orElseThrow();*/
     }
 
@@ -103,8 +104,8 @@ public class BloodBagController implements ContainerResponseFilter {
      */
     @GetMapping("/bloodbag/candonateto/bloodbag/serial/{serial}")
     public Iterator<BloodGroup> canDonateToByBagSerial(@PathVariable String serial){
-        Iterable<BloodBagBean> beanIterator = this.getBloodBagBySerial(serial);
-        for (BloodBagBean bean : beanIterator){
+        Iterable<BloodBagDAO> beanIterator = this.getBloodBagBySerial(serial);
+        for (BloodBagDAO bean : beanIterator){
             return BloodGroup.canDonateTo(BloodGroup.valueOf(bean.getGroup()));
         }
         return null;
@@ -120,8 +121,8 @@ public class BloodBagController implements ContainerResponseFilter {
 
     @GetMapping("/bloodbag/canreceivefrom/bloodbag/serial/{serial}")
     public Iterator<BloodGroup> canReciveFromByBagSerial(@PathVariable String serial){
-        Iterable<BloodBagBean> beanIterator = this.getBloodBagBySerial(serial);
-        for (BloodBagBean bean : beanIterator){
+        Iterable<BloodBagDAO> beanIterator = this.getBloodBagBySerial(serial);
+        for (BloodBagDAO bean : beanIterator){
             return BloodGroup.canReceiveFrom(BloodGroup.valueOf(bean.getGroup()));
         }
         return null;
@@ -195,7 +196,7 @@ public class BloodBagController implements ContainerResponseFilter {
      * @return all blood bags expired before a given date
      */
     @GetMapping("bloodbag/expiring/before/{timestamp}")
-    public Iterable<BloodBagBean> getBloodBagsExpiringBeforeDate(@PathVariable long timestamp){
+    public Iterable<BloodBagDAO> getBloodBagsExpiringBeforeDate(@PathVariable long timestamp){
         return bagRepository.findExpirationBeforeDate(timestamp);
     }
 
@@ -204,7 +205,7 @@ public class BloodBagController implements ContainerResponseFilter {
      * @return all blood bags expired after a given date
      */
     @GetMapping("bloodbag/expiring/after/{timestamp}")
-    public Iterable<BloodBagBean> getBloodBagsExpiringAfterDate(@PathVariable long timestamp){
+    public Iterable<BloodBagDAO> getBloodBagsExpiringAfterDate(@PathVariable long timestamp){
         return bagRepository.findExpirationAfterDate(timestamp);
     }
 
@@ -215,7 +216,7 @@ public class BloodBagController implements ContainerResponseFilter {
      * @return all blood bags expired between the two dates
      */
     @GetMapping("bloodbag/expiring/between/{firstdate}/{seconddate}")
-    public Iterable<BloodBagBean> getBloodBagsExpiringBetweenDate(@PathVariable long firstdate,@PathVariable long seconddate){
+    public Iterable<BloodBagDAO> getBloodBagsExpiringBetweenDate(@PathVariable long firstdate,@PathVariable long seconddate){
         if (firstdate>seconddate){
             return bagRepository.findExpirationBetweenDate(seconddate,firstdate);
         }
@@ -229,7 +230,7 @@ public class BloodBagController implements ContainerResponseFilter {
      * @return all blood bags expired between two dates of a specific blood group
      */
     @GetMapping("bloodbag/expiring/between/{firstdate}/{seconddate}/{bloodgroup}")
-    public Iterable<BloodBagBean> getBloodBagsExpiringBetweenDateWithGroup(@PathVariable long firstdate, @PathVariable long seconddate, @PathVariable String bloodgroup){
+    public Iterable<BloodBagDAO> getBloodBagsExpiringBetweenDateWithGroup(@PathVariable long firstdate, @PathVariable long seconddate, @PathVariable String bloodgroup){
         return bagRepository.findExpirationBetweenDate_bloodGroup(firstdate,seconddate,bloodgroup);
     }
 
@@ -281,7 +282,7 @@ public class BloodBagController implements ContainerResponseFilter {
       }*/
 
     @PostMapping("/bloodbag/add")
-    public BloodBagBean createBloodBag(@RequestBody BloodBagBean bagBean) throws ParseException {
+    public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
         BloodBag tempBloodBagObj = new BloodBag(
                 new Serial(bagBean.getSerial()),
                 BloodGroup.valueOf(bagBean.getGroup()),
@@ -292,7 +293,7 @@ public class BloodBagController implements ContainerResponseFilter {
                 bagBean.getNotes()
         );
 
-        BloodBagBean beanToSave = tempBloodBagObj.getBean();
+        BloodBagDAO beanToSave = tempBloodBagObj.getBean();
         //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
         if (beanToSave.getUsedTimeStamp() == 0)
             beanToSave.setUsedTimeStamp(new Date().getTime());
@@ -310,12 +311,12 @@ public class BloodBagController implements ContainerResponseFilter {
      * @return blood bag
      */
     @DeleteMapping("/bloodbag/use/{serial}")
-    public BloodBagBean useBloodBag(@PathVariable("serial") String serial){
-        Iterable<BloodBagBean> beans = this.getBloodBagBySerial(serial);
-        BloodBagBean beanToChange = null;
+    public BloodBagDAO useBloodBag(@PathVariable("serial") String serial){
+        Iterable<BloodBagDAO> beans = this.getBloodBagBySerial(serial);
+        BloodBagDAO beanToChange = null;
 
         System.err.println(beans);
-        for (BloodBagBean bean : beans){
+        for (BloodBagDAO bean : beans){
             System.err.println(bean.toString());
             beanToChange = bean;
 
@@ -335,9 +336,9 @@ public class BloodBagController implements ContainerResponseFilter {
     @GetMapping("/export/bloodbag/json")
     public void exportToJson(){
         JSONArray sqlDatabase = new JSONArray();
-        Iterable<BloodBagBean> beans = this.getBloodBag();
+        Iterable<BloodBagDAO> beans = this.getBloodBag();
 
-        for (BloodBagBean bean : beans){
+        for (BloodBagDAO bean : beans){
             sqlDatabase.add(this.getJsonObjectFromBean(bean));
         }
 
@@ -356,7 +357,7 @@ public class BloodBagController implements ContainerResponseFilter {
      * @param bean the bean used to generate the json object
      * @return jsonObject the object generated from the bean
      */
-    private JSONObject getJsonObjectFromBean(BloodBagBean bean){
+    private JSONObject getJsonObjectFromBean(BloodBagDAO bean){
         JSONObject object = new JSONObject();
             object.put("serial",bean.getSerial());
             object.put("group",bean.getGroup());

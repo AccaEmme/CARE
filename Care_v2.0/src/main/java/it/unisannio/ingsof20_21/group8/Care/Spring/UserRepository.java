@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import it.unisannio.CARE.model.util.Password;
+
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -20,47 +21,47 @@ import java.util.Date;
  */
 
 @Repository
-public interface UserRepository extends JpaRepository<UserBean, Long>{
+public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	
 	//@Query("FROM UserBean u  WHERE u.username =:username")         #non serve con il metodo di Luigi
 	//UserBean findByUsername(@Param("username") String username);
-	UserBean findByUsername(String username);
+	UserDAO findByUsername(String username);
 
-	@Query("FROM UserBean u WHERE u.userRole =:role")
-	Iterable<UserBean> findUserByRole(@Param("role") String role);
+	@Query("FROM UserDAO u WHERE u.userRole =:role")
+	Iterable<UserDAO> findUserByRole(@Param("role") String role);
 
-	@Query("FROM UserBean u WHERE u.email =:email")
-	UserBean findByEmail(@Param("email") String email);
+	@Query("FROM UserDAO u WHERE u.email =:email")
+	UserDAO findByEmail(@Param("email") String email);
 
-	@Query("FROM UserBean u WHERE u.creationDate >:firstdate AND u.creationDate <:seconddate")
-	Iterable<UserBean> findCreatedBetween(@Param("firstdate") long firstdate, @Param("seconddate") long seconddate);
+	@Query("FROM UserDAO u WHERE u.creationDate >:firstdate AND u.creationDate <:seconddate")
+	Iterable<UserDAO> findCreatedBetween(@Param("firstdate") long firstdate, @Param("seconddate") long seconddate);
 
 	@Transactional
-	@Query("UPDATE UserBean u SET u.loginAttempts =:attempts where u.username =:username")
+	@Query("UPDATE UserDAO u SET u.loginAttempts =:attempts where u.username =:username")
 	void updateUserLoginAttempts(@Param("attempts") int attempts, @Param("username") String username);
 
-	@Query("FROM UserBean u WHERE u.activeUser =:isactive ")
-	Iterable<UserBean> filterUsersByState(@Param("isactive") boolean isactive);
+	@Query("FROM UserDAO u WHERE u.activeUser =:isactive ")
+	Iterable<UserDAO> filterUsersByState(@Param("isactive") boolean isactive);
 
 
-	@Query("FROM UserBean u WHERE u.lastAccess >:timestamp AND u.lastAccess <:currenttime ")
-	Iterable<UserBean> filterUsersByLastLogin(@Param("timestamp") long timestamp, @Param("currenttime") long currenttime);
+	@Query("FROM UserDAO u WHERE u.lastAccess >:timestamp AND u.lastAccess <:currenttime ")
+	Iterable<UserDAO> filterUsersByLastLogin(@Param("timestamp") long timestamp, @Param("currenttime") long currenttime);
 
 
 
 
 	// count queries
 
-	@Query("SELECT COUNT(*) FROM UserBean ")
+	@Query("SELECT COUNT(*) FROM UserDAO ")
 	long countAllUsers();
 
-	@Query("SELECT COUNT(*) FROM UserBean u WHERE u.activeUser =:isactive ")
+	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.activeUser =:isactive ")
 	long countUsersByState(@Param("isactive") boolean isactive);
 
-	@Query("SELECT COUNT(*) FROM UserBean u WHERE u.lastAccess >:timestamp AND u.lastAccess <:currenttime ")
+	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.lastAccess >:timestamp AND u.lastAccess <:currenttime ")
 	long countUsersByLastLogin(@Param("timestamp") long timestamp, @Param("currenttime") long currenttime);
 
-	@Query("SELECT COUNT(*) FROM UserBean u WHERE u.userRole =:role ")
+	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.userRole =:role ")
 	long countUsersByRole(@Param("role") String role);
 
 

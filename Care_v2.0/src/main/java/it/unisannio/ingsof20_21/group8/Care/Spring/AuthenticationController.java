@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.unisannio.CARE.model.util.Constants;
-import it.unisannio.CARE.spring.bean.AuthenticationRequest;
-import it.unisannio.CARE.spring.bean.AuthenticationResponse;
 
 
 
