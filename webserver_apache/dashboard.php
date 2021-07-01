@@ -35,11 +35,19 @@ $role		= array_keys($arrayTokenDecoded)[1];
 $roleValue	= $arrayTokenDecoded[				// value of role
 			array_keys($arrayTokenDecoded)[1]	// role
 		  ];
+$exp 		= $arrayTokenDecoded['exp'];
+$iat 		= $arrayTokenDecoded['iat'];
 
 
 echo("<br>");
 echo("Ciao " . $username . "<br>");
 if( $roleValue == 1  ) { echo("il tuo ruolo è: " . $role ); }
+echo("<br>");
+echo("Hai creato il token: ");
+echo date('l dS \o\f F Y h:i:s A', $iat);
+echo("<br>");
+echo("Scadenza token: ");
+echo date('l dS \o\f F Y h:i:s A', $exp);
 echo("<br>");
 switch($role){
  case "isROLE_ADMINISTRATOR": 
