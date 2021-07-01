@@ -44,7 +44,7 @@ public class SerialTest2 {
         Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		//InitSettings.initXML(100,path1);
 		BloodGroup g= BloodGroup.valueOf("ZEROneg") ;
-		Serial s=new Serial(g);
+		Serial s=new Serial(g.toString());
 		  Properties loadProps = new Properties();
 		/*uso direttamente serial_setting_temp*/
 		
