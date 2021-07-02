@@ -1,29 +1,37 @@
-function login(){  
-    event.preventDefault()  
+function hello(){
+ alert("ciao");
+}
 
-       let url;
-       url = 'http://localhost:8093/rest/user/authentication'
-       let request = new XMLHttpRequest();   // new HttpRequest instance
+function login(){
+	event.preventDefault();
+	let url;
+        //var ok=0;
 
-       let username = document.getElementById("us").value
-       let password  = document.getElementById("pd").value
-                  
-       request.open("POST", url, true);
-       request.setRequestHeader("content-type", "application/json");
-       request.send(JSON.stringify({"username": username, "password": password}));
-       request.onreadystatechange = function() {
-         if (this.readyState === 4 &&  this.status === 200 ) {
-  	  console.log(this.responseText)
-          let results = JSON.parse(this.responseText);
-  	  alert(results.role + "provola" ); 
+	url = 'http://localhost:8087/authenticate';
+	let request = new XMLHttpRequest();   // new HttpRequest instance
+
+	let username = document.getElementById("username").value;
+	let password = document.getElementById("psw").value;
+
+	request.open("POST", url, true);
+	request.setRequestHeader("content-type", "application/json");
+	request.send(JSON.stringify({"username": username, "password": password}));
+	request.onreadystatechange = function() {
+	 if (this.readyState === 4 &&  this.status === 200 ) {
+	  //ok=1;
+	  console.log("token:"+ this.responseText);
+	  let results = JSON.parse(this.responseText);
+  	  alert(" provola " + results.token ); 
+	  window.open("dashboard.php?token="+results.token);
          }
        };
+       //if(ok==0) alert("===Login failed==="+ok);
 }
           
      
         
 
-         
+/*
         function create() {
        
             event.preventDefault()
@@ -117,3 +125,4 @@ function login(){
                 role.disabled = false
 		
         }
+*/
