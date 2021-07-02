@@ -3,7 +3,7 @@ package it.unisannio.CARE.model.testers;
 import java.text.ParseException;
 import java.util.Date;
 
-import it.unisannio.CARE.Control.request.RequestManager;
+import it.unisannio.CARE.controll.request.RequestManager;
 import it.unisannio.CARE.model.bloodBag.BloodBag;
 import it.unisannio.CARE.model.bloodBag.BloodGroup;
 import it.unisannio.CARE.model.bloodBag.RequestPriority;

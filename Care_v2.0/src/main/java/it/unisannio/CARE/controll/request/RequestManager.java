@@ -1,6 +1,7 @@
-package it.unisannio.CARE.Control.request;
+package it.unisannio.CARE.controll.request;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -181,9 +182,7 @@ public class RequestManager {
      */
 	public void emptyTrash() {
 		
-	    Bson filter = and(
-		    					eq("state", RequestState.refused.toString())
-	    					);
+	    Bson filter = eq("state", RequestState.refused.toString());
         
         MongoCursor<Document> iterator= collection.find().filter(filter).iterator();
         
@@ -207,9 +206,7 @@ public class RequestManager {
 		
 		List<Document> requestes = new ArrayList<>();
 		
-	    Bson filter = and(
-					    		eq("state", state.toString())
-						);
+	    Bson filter = eq("state", state.toString());
         
         MongoCursor<Document> iterator= collection.find().filter(filter).iterator();
         
@@ -229,22 +226,30 @@ public class RequestManager {
      * @param state  Oggetto che contiene le informazioni della priorità della richiesta
      **************************************************************************
      */
-	public List<Document> getRequestesByPriority(RequestPriority priority) {
+	public Iterable<Document> getRequestesByPriority(RequestPriority priority) {
 		
-		List<Document> requestes = new ArrayList<>();
-		
-	    Bson filter = and(
-					    		eq("priority", priority.toString())
-						);
+	    Bson filter = eq("priority", priority.toString());
         
-        MongoCursor<Document> iterator= collection.find().filter(filter).iterator();
+         return collection.find().filter(filter);
+	}
+	
+	
+	
+	public Iterable<Document> getAllRequestes() {
         
-        while(iterator.hasNext()) {
-        	
-        	requestes.add(iterator.next());
-        }
+         return collection.find();
+	}
+	
+	
+	
+	public Iterable<Document> getOurRequestes() {
+        
+		Properties prop = XMLHelper.getProps(Constants.NODE_PROPERTIES);
+		String id_requester = prop.getProperty("province") + prop.getProperty("structureCode");
 		
-		return requestes;
+	    Bson filter = eq("id_requester", id_requester);
+		
+        return collection.find().filter(filter);
 	}
 	
 	

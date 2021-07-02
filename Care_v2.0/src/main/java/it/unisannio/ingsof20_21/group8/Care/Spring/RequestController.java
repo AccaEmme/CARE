@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.unisannio.CARE.Control.request.RequestManager;
+import it.unisannio.CARE.controll.request.RequestManager;
 import it.unisannio.CARE.model.bloodBag.Request;
 import it.unisannio.CARE.model.bloodBag.RequestPriority;
 import it.unisannio.CARE.model.bloodBag.RequestState;
