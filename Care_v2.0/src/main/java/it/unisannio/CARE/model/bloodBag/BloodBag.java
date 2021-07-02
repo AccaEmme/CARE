@@ -288,8 +288,8 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      */
 	private void setDonatorCF(String fisCode) {
-		if( !fisCode.matches(Constants.RegexDonatorCF) )
-			throw new IllegalFiscalCodeException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"donatorCF "+donatorCF+" do not match pattern "+Constants.RegexDonatorCF, "/bloodbag/add" );
+	/*	if( !fisCode.matches(Constants.RegexDonatorCF) )
+			throw new IllegalFiscalCodeException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"donatorCF "+donatorCF+" do not match pattern "+Constants.RegexDonatorCF, "/bloodbag/add" );*/
 		this.donatorCF = fisCode;
 	}
 	
