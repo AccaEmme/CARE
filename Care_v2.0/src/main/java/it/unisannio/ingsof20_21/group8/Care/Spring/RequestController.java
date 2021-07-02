@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.unisannio.CARE.controll.bloodBag.BloodBagManager;
 import it.unisannio.CARE.controll.request.RequestManager;
 import it.unisannio.CARE.model.bloodBag.Request;
 import it.unisannio.CARE.model.bloodBag.RequestPriority;
@@ -40,7 +41,7 @@ import it.unisannio.CARE.spring.bean.RequestBean;
 
 
 @RestController
-@RequestMapping("request")
+@RequestMapping("/request")
 
 @Consumes("application/json")
 @Produces("application/json")
@@ -212,7 +213,7 @@ public class RequestController implements ContainerResponseFilter {
 	
 	
 	//################################################### POST METHOD ####################################################
-	@PostMapping("add")	
+	@PostMapping("/add")	
 	public String addRequest(@RequestBody RequestBean requestB) throws ParseException{
 
 		Properties props = XMLHelper.getProps(Constants.NODE_PROPERTIES);
@@ -224,6 +225,14 @@ public class RequestController implements ContainerResponseFilter {
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 		
+		/* non esiste il controlo se la sacca è presente nel database posso fare richieste
+		 * anche per sacche inesistenti
+		 */
+		BloodBagManager bbm=new BloodBagManager();
+		if(bbm.BloodBagRequestable(requestB.getSerial())) {
+			System.out.println("qua devo lanciare la eccezione");
+
+		}
 		Request request = new Request(
 				requestB.getId_requester(),
 				requestB.getSerial(),
