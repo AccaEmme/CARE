@@ -14,7 +14,8 @@ if(!isset($token)) {
 <html>
  <head>
    <title>CARE - Centro Accoglienza Regionale Ematica</title>
-   <script src="./XMLHTTPRequest.js"></script>
+   <script src="./js/XMLHTTPRequest.js"></script>
+   <script src="./js/countdown.js"></script>
    <link rel="stylesheet" href="./css/dashboard.css">
   </head>
 
@@ -61,6 +62,16 @@ switch($role){
 }
 ?>
 
+<div align="right">
+Token countdown:
+<script>
+// Set the date we're counting down to
+//var countDownDate = new Date("Jul 12, 2021 15:37:25").getTime();
+//var countDownDate =new Date(1625215858 * 1000).getTime();
+var countDownDate =new Date(<?php echo($exp); ?> * 1000).getTime();
+</script>
+<p id="countdown"></p>
+</div>
 
     <div class="sidenav">
         <div id="logo">
