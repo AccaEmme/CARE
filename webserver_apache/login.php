@@ -1,7 +1,7 @@
 <html>
  <head>
   <title>CARE - Login</title>
-  <script src="./XMLHTTPRequest.js"></script>
+  <script src="./js/XMLHTTPRequest.js"></script>
   <link rel="stylesheet" href="./css/login.css">
  </head>
  <body>

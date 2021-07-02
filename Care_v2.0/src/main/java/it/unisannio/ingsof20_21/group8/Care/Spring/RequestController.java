@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -37,8 +38,8 @@ import it.unisannio.CARE.spring.bean.ErrorBean;
 import it.unisannio.CARE.spring.bean.RequestBean;
 
 
-@CrossOrigin("*")
 @RestController
+@RestMapping("request")
 
 @Consumes("application/json")
 @Produces("application/json")
@@ -65,71 +66,125 @@ public class RequestController implements ContainerResponseFilter {
 	
 	
 	
-	@GetMapping("request/state/{state}")	
-	public List<RequestBean> getRequestesByState(@PathVariable String state){
+	@GetMapping("state/{state}")	
+	public Iterable<RequestBean> getRequestsByState(@PathVariable String state){
 		
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 			
-		List<RequestBean> result = new ArrayList<RequestBean>();
-		
+		ArrayList<RequestBean> array = new ArrayList<>();
+		Iterable<RequestBean> result;
 		
 		RequestManager manager = new RequestManager();
-		List<Document> l = (manager.getRequestesByState(RequestState.valueOf(state)));
+		Iterator<Document> l = (manager.getRequestsByState(RequestState.valueOf(state)).iterator());
 		
-		for (Document s : l)
-			result.add(new RequestBean(s.getString("id_requester"),
-				s.getString("serial"),
-				s.getString("date"),
-				s.getString("note"),
-				s.getString("state"),
-				s.getString("priority")));
+		while (l.hasNext())
+			array.add(new RequestBean(
+				l.next().getString("id_requester"), 
+				l.next().getString("serial"),
+				l.next().getString("date"),
+				l.next().getString("note"),
+				l.next().getString("state"),
+				l.next().getString("priority")));
 					
 		manager.close();
 		
-		return result;
+		return result = array;
 
 	}
 	
 	
 	
-	@GetMapping("request/priority/{priority}")	
-	public List<RequestBean> getRequestesByPriority(@PathVariable String priority){
+	@GetMapping("priority/{priority}")	
+	public Iterable<RequestBean> getRequestsByPriority(@PathVariable String priority){
 		
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 			
-		List<RequestBean> result = new ArrayList<RequestBean>();
+		ArrayList<RequestBean> array = new ArrayList<>();
+		Iterable<RequestBean> result;
 		
 		RequestManager manager = new RequestManager();
-		List<Document> l = (manager.getRequestesByPriority(RequestPriority.valueOf(priority)));
+		Iterator<Document> l = (manager.getRequestsByPriority(RequestPriority.valueOf(priority)).iterator());
 		
-		for (Document s : l)
-			result.add(new RequestBean(s.getString("id_requester"),
-				s.getString("serial"),
-				s.getString("date"),
-				s.getString("note"),
-				s.getString("state"),
-				s.getString("priority")));
+		while (l.hasNext())
+			array.add(new RequestBean(
+				l.next().getString("id_requester"), 
+				l.next().getString("serial"),
+				l.next().getString("date"),
+				l.next().getString("note"),
+				l.next().getString("state"),
+				l.next().getString("priority")));
 					
 		manager.close();
 		
-		return result;
+		return result = array;
 
 	}
 	
 	
-	/*
-	 * json pronto per un test
-	{
-		"serial":"IT-NA205101-ABpos-20210628-0010",
-		"date":"1941-06-30",
-		"note":"niente da dichiarare",
-		"state":"pending",
-		"priority":"green"
+	
+	@GetMapping("all")	
+	public Iterable<RequestBean> getAllRequests(@PathVariable String state){
+		
+		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+		mongoLogger.setLevel(Level.SEVERE);
+			
+		ArrayList<RequestBean> array = new ArrayList<>();
+		Iterable<RequestBean> result;
+		
+		RequestManager manager = new RequestManager();
+		Iterator<Document> l = (manager.getAllRequests().iterator());
+		
+		while (l.hasNext())
+			array.add(new RequestBean(
+				l.next().getString("id_requester"), 
+				l.next().getString("serial"),
+				l.next().getString("date"),
+				l.next().getString("note"),
+				l.next().getString("state"),
+				l.next().getString("priority")));
+					
+		manager.close();
+		
+		return result = array;
+
+
 	}
-	 */
-	@PostMapping("request/add")	
+	
+	
+	
+	@GetMapping("all")	
+	public Iterable<RequestBean> getAllRequests(@PathVariable String state){
+		
+		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+		mongoLogger.setLevel(Level.SEVERE);
+			
+		ArrayList<RequestBean> array = new ArrayList<>();
+		Iterable<RequestBean> result;
+		
+		RequestManager manager = new RequestManager();
+		Iterator<Document> l = (manager.getAllRequests().iterator());
+		
+		while (l.hasNext())
+			array.add(new RequestBean(
+				l.next().getString("id_requester"), 
+				l.next().getString("serial"),
+				l.next().getString("date"),
+				l.next().getString("note"),
+				l.next().getString("state"),
+				l.next().getString("priority")));
+					
+		manager.close();
+		
+		return result = array;
+
+
+	}
+	
+	
+	
+	@PostMapping("add")	
 	public String addRequest(@RequestBody RequestBean requestB) throws ParseException{
 
 		Properties props = XMLHelper.getProps(Constants.NODE_PROPERTIES);
@@ -172,18 +227,7 @@ public class RequestController implements ContainerResponseFilter {
 	
 	
 	
-	/*
-	 * json pronto per un test
-	{
-		"id_requester":"BN205",
-		"serial":"IT-NA205101-ABpos-20210628-0010",
-		"date":"1941-06-30",
-		"note":"niente da dichiarare",
-		"state":"pending",
-		"priority":"green"
-	}
-	*/
-	@PostMapping("request/accept")
+	@PostMapping("accept")
 	public String acceptRequest(@RequestBody RequestBean requestB) throws ParseException{		
 
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
@@ -216,20 +260,9 @@ public class RequestController implements ContainerResponseFilter {
 		}
 	}
 
+
 	
-	
-	/*
-	 * json pronto per un test
-	{
-		"id_requester":"BN205",
-		"serial":"IT-NA205101-ABpos-20210628-0010",
-		"date":"1941-06-30",
-		"note":"niente da dichiarare",
-		"state":"pending",
-		"priority":"green"
-	}
-	*/
-	@PostMapping("request/refuse")	
+	@PostMapping("refuse")	
 	public String refuseRequest(@RequestBody RequestBean requestB) throws ParseException{		
 
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
@@ -275,7 +308,7 @@ public class RequestController implements ContainerResponseFilter {
 		"priority":"green"
 	}
 	*/
-	@PutMapping("request/empty-trash")	
+	@PutMapping("emptytrash")	
 	public void emptyTrash() throws ParseException{		
 
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );

@@ -202,7 +202,7 @@ public class RequestManager {
      * @param state  Oggetto che contiene le informazioni della richiesta di stato
      **************************************************************************
      */
-	public List<Document> getRequestesByState(RequestState state) {
+	public List<Document> getRequestsByState(RequestState state) {
 		
 		List<Document> requestes = new ArrayList<>();
 		
@@ -226,7 +226,7 @@ public class RequestManager {
      * @param state  Oggetto che contiene le informazioni della priorità della richiesta
      **************************************************************************
      */
-	public Iterable<Document> getRequestesByPriority(RequestPriority priority) {
+	public Iterable<Document> getRequestsByPriority(RequestPriority priority) {
 		
 	    Bson filter = eq("priority", priority.toString());
         
@@ -235,14 +235,15 @@ public class RequestManager {
 	
 	
 	
-	public Iterable<Document> getAllRequestes() {
+	public Iterable<Document> getAllRequests() {
         
+		
          return collection.find();
 	}
 	
 	
 	
-	public Iterable<Document> getOurRequestes() {
+	public Iterable<Document> getOurRequests() {
         
 		Properties prop = XMLHelper.getProps(Constants.NODE_PROPERTIES);
 		String id_requester = prop.getProperty("province") + prop.getProperty("structureCode");
@@ -252,6 +253,17 @@ public class RequestManager {
         return collection.find().filter(filter);
 	}
 	
+	
+	
+	public Iterable<Document> getOtherRequests() {
+        
+		Properties prop = XMLHelper.getProps(Constants.NODE_PROPERTIES);
+		String id_requester = prop.getProperty("province") + prop.getProperty("structureCode");
+		
+	    Bson filter = ne("id_requester", id_requester);
+		
+        return collection.find().filter(filter);
+	}
 	
 	
 	/**
