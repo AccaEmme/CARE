@@ -93,7 +93,7 @@ public class RequestManager {
 					    		);
 	    Bson filter = or(condition, condition2);
 		
-	    MongoCursor<Document> iterator = this.collection.find(filter).iterator();
+	    MongoCursor<Document> iterator = this.collection.find().filter(filter).iterator();
         	
         if(!iterator.hasNext()) {
 
@@ -132,6 +132,7 @@ public class RequestManager {
 		if(collection.replaceOne(filter, editedRequest) != null) {
 			
 			filter = and(
+							ne("id_requester", request.getIdRequester()),
 				    		eq("serial", request.getRequestedBagSerial()),
 				    		eq("state", RequestState.pending.toString())
 						);
@@ -226,43 +227,79 @@ public class RequestManager {
      * @param state  Oggetto che contiene le informazioni della priorità della richiesta
      **************************************************************************
      */
-	public Iterable<Document> getRequestsByPriority(RequestPriority priority) {
+	public List<Document> getRequestsByPriority(RequestPriority priority) {
 		
-	    Bson filter = eq("priority", priority.toString());
-        
-         return collection.find().filter(filter);
+		
+		List<Document> requestes = new ArrayList<>();
+		
+		Bson filter = eq("priority", priority.toString());
+		        
+	    MongoCursor<Document> iterator= collection.find().filter(filter).iterator();
+    
+	    while(iterator.hasNext()) {
+	    	
+	    	requestes.add(iterator.next());
+    	}
+			
+	    return requestes;
 	}
 	
 	
 	
-	public Iterable<Document> getAllRequests() {
+	public List<Document> getAllRequests() {
         
+		List<Document> requestes = new ArrayList<>();
 		
-         return collection.find();
+        MongoCursor<Document> iterator= collection.find().iterator();
+         
+	    while(iterator.hasNext()) {
+	    	
+	    	requestes.add(iterator.next());
+    	}
+			
+	    return requestes;
 	}
 	
 	
 	
-	public Iterable<Document> getOurRequests() {
+	public List<Document> getOurRequests() {
         
 		Properties prop = XMLHelper.getProps(Constants.NODE_PROPERTIES);
 		String id_requester = prop.getProperty("province") + prop.getProperty("structureCode");
+		
+		List<Document> requestes = new ArrayList<>();
 		
 	    Bson filter = eq("id_requester", id_requester);
 		
-        return collection.find().filter(filter);
+        MongoCursor<Document> iterator= collection.find().filter(filter).iterator();
+		
+	    while(iterator.hasNext()) {
+	    	
+	    	requestes.add(iterator.next());
+    	}
+			
+	    return requestes;
 	}
 	
 	
 	
-	public Iterable<Document> getOtherRequests() {
+	public List<Document> getOtherRequests() {
         
 		Properties prop = XMLHelper.getProps(Constants.NODE_PROPERTIES);
 		String id_requester = prop.getProperty("province") + prop.getProperty("structureCode");
 		
+		List<Document> requestes = new ArrayList<>();
+		
 	    Bson filter = ne("id_requester", id_requester);
 		
-        return collection.find().filter(filter);
+        MongoCursor<Document> iterator= collection.find().filter(filter).iterator();
+		
+	    while(iterator.hasNext()) {
+	    	
+	    	requestes.add(iterator.next());
+    	}
+			
+	    return requestes;
 	}
 	
 	

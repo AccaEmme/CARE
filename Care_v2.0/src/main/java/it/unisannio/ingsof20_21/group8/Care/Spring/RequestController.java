@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.unisannio.CARE.controll.request.RequestManager;
@@ -39,7 +40,7 @@ import it.unisannio.CARE.spring.bean.RequestBean;
 
 
 @RestController
-@RestMapping("request")
+@RequestMapping("request")
 
 @Consumes("application/json")
 @Produces("application/json")
@@ -65,130 +66,160 @@ public class RequestController implements ContainerResponseFilter {
 	}
 	
 	
-	
-	@GetMapping("state/{state}")	
+	//################################################### GET METHOD ####################################################	
+	@GetMapping("get/state/{state}")	
 	public Iterable<RequestBean> getRequestsByState(@PathVariable String state){
+		
+		ArrayList<RequestBean> array = new ArrayList<>();
 		
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 			
-		ArrayList<RequestBean> array = new ArrayList<>();
-		Iterable<RequestBean> result;
-		
 		RequestManager manager = new RequestManager();
-		Iterator<Document> l = (manager.getRequestsByState(RequestState.valueOf(state)).iterator());
+		Iterable<Document> iterable = (manager.getRequestsByState(RequestState.valueOf(state)));
 		
-		while (l.hasNext())
+		for (Document requestD : iterable)
 			array.add(new RequestBean(
-				l.next().getString("id_requester"), 
-				l.next().getString("serial"),
-				l.next().getString("date"),
-				l.next().getString("note"),
-				l.next().getString("state"),
-				l.next().getString("priority")));
+				requestD.getString("id_requester"), 
+				requestD.getString("serial"),
+				requestD.getString("date"),
+				requestD.getString("note"),
+				requestD.getString("state"),
+				requestD.getString("priority")));
 					
 		manager.close();
 		
-		return result = array;
+		return array;
 
 	}
 	
 	
 	
-	@GetMapping("priority/{priority}")	
+	@GetMapping("get/priority/{priority}")	
 	public Iterable<RequestBean> getRequestsByPriority(@PathVariable String priority){
 		
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 			
 		ArrayList<RequestBean> array = new ArrayList<>();
-		Iterable<RequestBean> result;
 		
 		RequestManager manager = new RequestManager();
-		Iterator<Document> l = (manager.getRequestsByPriority(RequestPriority.valueOf(priority)).iterator());
+		Iterable<Document> iterable = (manager.getRequestsByPriority(RequestPriority.valueOf(priority)));
 		
-		while (l.hasNext())
+		for (Document requestD : iterable)
 			array.add(new RequestBean(
-				l.next().getString("id_requester"), 
-				l.next().getString("serial"),
-				l.next().getString("date"),
-				l.next().getString("note"),
-				l.next().getString("state"),
-				l.next().getString("priority")));
+				requestD.getString("id_requester"), 
+				requestD.getString("serial"),
+				requestD.getString("date"),
+				requestD.getString("note"),
+				requestD.getString("state"),
+				requestD.getString("priority")));
 					
 		manager.close();
 		
-		return result = array;
+		return array;
+
 
 	}
 	
 	
 	
-	@GetMapping("all")	
-	public Iterable<RequestBean> getAllRequests(@PathVariable String state){
+	@GetMapping("get/all")	
+	public Iterable<RequestBean> getAllRequests(){
 		
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 			
 		ArrayList<RequestBean> array = new ArrayList<>();
-		Iterable<RequestBean> result;
 		
 		RequestManager manager = new RequestManager();
-		Iterator<Document> l = (manager.getAllRequests().iterator());
+		Iterable<Document> iterable = (manager.getAllRequests());
 		
-		while (l.hasNext())
+		for (Document requestD : iterable)
 			array.add(new RequestBean(
-				l.next().getString("id_requester"), 
-				l.next().getString("serial"),
-				l.next().getString("date"),
-				l.next().getString("note"),
-				l.next().getString("state"),
-				l.next().getString("priority")));
+				requestD.getString("id_requester"), 
+				requestD.getString("serial"),
+				requestD.getString("date"),
+				requestD.getString("note"),
+				requestD.getString("state"),
+				requestD.getString("priority")));
 					
 		manager.close();
 		
-		return result = array;
+		return array;
 
 
 	}
 	
 	
 	
-	@GetMapping("all")	
-	public Iterable<RequestBean> getAllRequests(@PathVariable String state){
+	@GetMapping("get/our")	
+	public Iterable<RequestBean> getOurRequests(){
 		
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 			
 		ArrayList<RequestBean> array = new ArrayList<>();
-		Iterable<RequestBean> result;
 		
 		RequestManager manager = new RequestManager();
-		Iterator<Document> l = (manager.getAllRequests().iterator());
+		Iterable<Document> iterable = (manager.getOurRequests());
 		
-		while (l.hasNext())
+		for (Document requestD : iterable)
 			array.add(new RequestBean(
-				l.next().getString("id_requester"), 
-				l.next().getString("serial"),
-				l.next().getString("date"),
-				l.next().getString("note"),
-				l.next().getString("state"),
-				l.next().getString("priority")));
+				requestD.getString("id_requester"), 
+				requestD.getString("serial"),
+				requestD.getString("date"),
+				requestD.getString("note"),
+				requestD.getString("state"),
+				requestD.getString("priority")));
 					
 		manager.close();
 		
-		return result = array;
+		return array;
+
 
 
 	}
 	
 	
 	
+	@GetMapping("get/other")	
+	public Iterable<RequestBean> getOtherRequests(){
+		
+		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+		mongoLogger.setLevel(Level.SEVERE);
+			
+		ArrayList<RequestBean> array = new ArrayList<>();
+		
+		RequestManager manager = new RequestManager();
+		Iterable<Document> iterable = (manager.getOtherRequests());
+		
+		for (Document requestD : iterable)
+			array.add(new RequestBean(
+				requestD.getString("id_requester"), 
+				requestD.getString("serial"),
+				requestD.getString("date"),
+				requestD.getString("note"),
+				requestD.getString("state"),
+				requestD.getString("priority")));
+					
+		manager.close();
+		
+		return array;
+
+
+	}
+	
+	
+	//################################################### POST METHOD ####################################################
 	@PostMapping("add")	
 	public String addRequest(@RequestBody RequestBean requestB) throws ParseException{
 
 		Properties props = XMLHelper.getProps(Constants.NODE_PROPERTIES);
+		
 		requestB.setId_requester(props.getProperty("province") + props.getProperty("structureCode"));
+		requestB.setDate(DATE_FORMAT.format(new Date()));
+		requestB.setState(RequestState.pending.toString());
 		
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
@@ -196,7 +227,7 @@ public class RequestController implements ContainerResponseFilter {
 		Request request = new Request(
 				requestB.getId_requester(),
 				requestB.getSerial(),
-				DATE_FORMAT.getCalendar().getTime(),
+				DATE_FORMAT.parse(requestB.getDate()),
 				requestB.getNote(),
 				RequestState.valueOf(requestB.getState()),
 				RequestPriority.valueOf(requestB.getPriority()));
@@ -232,6 +263,9 @@ public class RequestController implements ContainerResponseFilter {
 
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
+		requestB.setDate(DATE_FORMAT.format(new Date()));
+		requestB.setState(RequestState.accepted.toString());
+		requestB.setPriority(RequestPriority.green.toString());
 		
 		Request request = new Request(
 				requestB.getId_requester(), 
@@ -267,6 +301,9 @@ public class RequestController implements ContainerResponseFilter {
 
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
+		requestB.setDate(DATE_FORMAT.format(new Date()));
+		requestB.setState(RequestState.accepted.toString());
+		requestB.setPriority(RequestPriority.green.toString());
 		
 		Request request = new Request(
 				requestB.getId_requester(), 

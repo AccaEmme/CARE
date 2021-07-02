@@ -273,20 +273,7 @@ public class BloodBagController implements ContainerResponseFilter {
     }
 
 
-    //############# POST #############
-
-    /**
-{
- "serial":"IT-NA205101-Aneg-20210615-0037",
- "group":"Bneg",
- "creationDate":965837967,
- "expirationDate":965837968,
- "donator":"CRSDLCER86BH0919",
- "state":"Available",
- "notes":"test note"
-}
-*/
-
+    //############# POST ############
     @PostMapping("/bloodbag/add")
     public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
     	
@@ -298,41 +285,39 @@ public class BloodBagController implements ContainerResponseFilter {
     	
     	
     	
-    	
-    try {
-        BloodBag tempBloodBagObj = new BloodBag(
-                new Serial(bagBean.getSerial()),
-                BloodGroup.valueOf(bagBean.getGroup()),
-                new Date(bagBean.getCreationDate()),
-                new Date(bagBean.getExpirationDate()),
-                bagBean.getDonator(),
-                BloodBagState.valueOf(bagBean.getState()),
-                bagBean.getNotes()
-                
-        );  
-        
-        BloodBagDAO beanToSave = tempBloodBagObj.getBean();
-        //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
-        if (beanToSave.getUsedTimeStamp() == 0)
-            beanToSave.setUsedTimeStamp(new Date().getTime());
-        return bagRepository.save(beanToSave);
-    }
-<<<<<<< HEAD
-    catch(IllegalArgumentException e) {
-    	
-    	
-    	throw new IllegalFiscalCodeException("codice fiscale non valido","/bloodbag/add");
-    	
-    }
+	    	
+	    try {
+	        BloodBag tempBloodBagObj = new BloodBag(
+	                new Serial(bagBean.getSerial()),
+	                BloodGroup.valueOf(bagBean.getGroup()),
+	                new Date(bagBean.getCreationDate()),
+	                new Date(bagBean.getExpirationDate()),
+	                bagBean.getDonator(),
+	                BloodBagState.valueOf(bagBean.getState()),
+	                bagBean.getNotes()
+	                
+	        );  
+	        
+	        BloodBagDAO beanToSave = tempBloodBagObj.getBean();
+	        //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
+	        if (beanToSave.getUsedTimeStamp() == 0)
+	            beanToSave.setUsedTimeStamp(new Date().getTime());
+	        
+	        return bagRepository.save(beanToSave);
+	        		
+	    }catch(IllegalArgumentException e) {
+	    	
+	    	
+	    	throw new IllegalFiscalCodeException("codice fiscale non valido","/bloodbag/add");
+	    	
+	    }
     	
         
 
    
     }
-=======
 
 
->>>>>>> c20ea97450879db88f53b3322c75f65ea6a3c232
     
     @PostMapping("/bloodbag/central/add")
     public BloodBagDAO addCentralBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
@@ -343,27 +328,24 @@ public class BloodBagController implements ContainerResponseFilter {
     	else if (!bagBean.getState().equals(BloodBagState.Available.toString()))
     		throw new BloodBagStateException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
     	
-<<<<<<< HEAD
  
       
- try {    
-    	BloodBag tempBloodBagObj = new BloodBag(BloodGroup.valueOf(bagBean.getGroup()), bagBean.getDonator() );
-=======
-        BloodBag tempBloodBagObj = new BloodBag(
-                new Serial(bagBean.getSerial()),
-                BloodGroup.valueOf(bagBean.getGroup()),
-                new Date(bagBean.getCreationDate()),
-                new Date(bagBean.getExpirationDate()),
-                bagBean.getDonator(),
-                BloodBagState.valueOf(bagBean.getState()),
-                bagBean.getNotes()
-        );
-        
-
-        BloodBagManager manager = new BloodBagManager();
-        manager.addBloodBag(tempBloodBagObj);
-        
->>>>>>> c20ea97450879db88f53b3322c75f65ea6a3c232
+		 try {    
+			 
+		        BloodBag tempBloodBagObj = new BloodBag(
+		                new Serial(bagBean.getSerial()),
+		                BloodGroup.valueOf(bagBean.getGroup()),
+		                new Date(bagBean.getCreationDate()),
+		                new Date(bagBean.getExpirationDate()),
+		                bagBean.getDonator(),
+		                BloodBagState.valueOf(bagBean.getState()),
+		                bagBean.getNotes()
+		        );
+		        
+		
+		        BloodBagManager manager = new BloodBagManager();
+		        manager.addBloodBag(tempBloodBagObj);
+		        
         BloodBagDAO beanToSave = tempBloodBagObj.getBean();
         //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
         if (beanToSave.getUsedTimeStamp() == 0)

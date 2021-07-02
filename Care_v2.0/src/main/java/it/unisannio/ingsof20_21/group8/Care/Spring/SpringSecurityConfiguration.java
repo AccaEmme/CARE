@@ -53,14 +53,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	public void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 		.authorizeRequests().antMatchers("/register").hasRole("ADMINISTRATOR")
-		.antMatchers("/request/add").hasAnyRole("OFFICER")
+		.antMatchers("request/add").hasAnyRole("OFFICER")
 		.antMatchers("/bloodbag/add","/bloodbag/use/{serial}").hasAnyRole("STOREMANAGER")
-<<<<<<< HEAD
-		.antMatchers("/authenticate", "logger/add","request/add","/bloodbag/create_add","/register","/bloodbag/add").permitAll().anyRequest().authenticated()
-=======
 		.antMatchers("/bloodbag/central/add","/bloodbag/use/{serial}").hasAnyRole("CENTRAL_STOREMANAGER")
-		.antMatchers("/authenticate", "logger/add","request/add").permitAll().anyRequest().authenticated()
->>>>>>> c20ea97450879db88f53b3322c75f65ea6a3c232
+		.antMatchers("/authenticate", "logger/add").permitAll().anyRequest().authenticated()
 		.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
 		and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
 		and().addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
