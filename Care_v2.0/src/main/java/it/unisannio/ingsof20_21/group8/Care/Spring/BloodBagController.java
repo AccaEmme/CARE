@@ -11,6 +11,7 @@ import it.unisannio.CARE.model.report.BloodBagReport;
 
 import it.unisannio.CARE.model.util.Constants;
 
+import it.unisannio.CARE.model.util.QRCode;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
@@ -308,6 +309,9 @@ public class BloodBagController implements ContainerResponseFilter {
         //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
         if (beanToSave.getUsedTimeStamp() == 0)
             beanToSave.setUsedTimeStamp(new Date().getTime());
+
+
+
         return bagRepository.save(beanToSave);
     }
     
@@ -328,6 +332,9 @@ public class BloodBagController implements ContainerResponseFilter {
         //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
         if (beanToSave.getUsedTimeStamp() == 0)
             beanToSave.setUsedTimeStamp(new Date().getTime());
+
+        QRCode code = new QRCode(beanToSave);
+        code.createQRCode();
         return bagRepository.save(beanToSave);
     }
 
