@@ -312,7 +312,7 @@ public class BloodBagController implements ContainerResponseFilter {
     }
     
     
-    @PostMapping("/bloodbag/create/add")
+    @PostMapping("/bloodbag/create_add")
     public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
     	
     	if (bagRepository.existsById(bagBean.getSerial()))
@@ -321,15 +321,7 @@ public class BloodBagController implements ContainerResponseFilter {
     	else if (!bagBean.getState().equals(BloodBagState.Available.toString()))
     		throw new BloodBagStateException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
     	
-        BloodBag tempBloodBagObj = new BloodBag(
-                new Serial(new Serial(bagBean.getGroup()).toString()),
-                BloodGroup.valueOf(bagBean.getGroup()),
-                new Date(bagBean.getCreationDate()),
-                new Date(bagBean.getExpirationDate()),
-                bagBean.getDonator(),
-                BloodBagState.valueOf(bagBean.getState()),
-                bagBean.getNotes()
-        );
+        BloodBag tempBloodBagObj = new BloodBag(BloodGroup.valueOf(bagBean.getGroup()), bagBean.getDonator() );
         
 
         BloodBagDAO beanToSave = tempBloodBagObj.getBean();
