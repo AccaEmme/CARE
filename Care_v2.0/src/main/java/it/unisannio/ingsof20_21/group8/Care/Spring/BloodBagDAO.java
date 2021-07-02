@@ -52,7 +52,7 @@ public class BloodBagDAO {
     }
 
     public void setDonator(String donator) {
-        this.donator = donator;
+        this.donator = donator.toUpperCase();
     }
 
     public long getCreationDate() {

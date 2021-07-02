@@ -1,6 +1,7 @@
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 
+import it.unisannio.CARE.controll.bloodBag.BloodBagManager;
 import it.unisannio.CARE.model.bloodBag.BloodBag;
 import it.unisannio.CARE.model.bloodBag.BloodBagState;
 import it.unisannio.CARE.model.bloodBag.BloodGroup;
@@ -13,7 +14,6 @@ import it.unisannio.CARE.model.report.BloodBagReport;
 
 import it.unisannio.CARE.model.util.Constants;
 
-import it.unisannio.CARE.model.util.QRCode;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
@@ -288,7 +288,7 @@ public class BloodBagController implements ContainerResponseFilter {
 */
 
     @PostMapping("/bloodbag/add")
-    public BloodBagDAO addBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
+    public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
     	
     	if (bagRepository.existsById(bagBean.getSerial()))
     		throw new BloodBagCloneNotSupportedException("La sacca che si vuole aggiungere è già esistente.", "/bloodbag/add");
@@ -315,11 +315,9 @@ public class BloodBagController implements ContainerResponseFilter {
         //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
         if (beanToSave.getUsedTimeStamp() == 0)
             beanToSave.setUsedTimeStamp(new Date().getTime());
-
-
-
         return bagRepository.save(beanToSave);
     }
+<<<<<<< HEAD
     catch(IllegalArgumentException e) {
     	
     	
@@ -331,23 +329,48 @@ public class BloodBagController implements ContainerResponseFilter {
 
    
     }
+=======
+
+
+>>>>>>> c20ea97450879db88f53b3322c75f65ea6a3c232
     
-    
-    @PostMapping("/bloodbag/create_add")
-    public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
+    @PostMapping("/bloodbag/central/add")
+    public BloodBagDAO addCentralBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
     	
+    	if (bagRepository.existsById(bagBean.getSerial()))
+    		throw new BloodBagCloneNotSupportedException("La sacca che si vuole aggiungere è già esistente.", "/bloodbag/add");
     	
+    	else if (!bagBean.getState().equals(BloodBagState.Available.toString()))
+    		throw new BloodBagStateException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
+    	
+<<<<<<< HEAD
  
       
  try {    
     	BloodBag tempBloodBagObj = new BloodBag(BloodGroup.valueOf(bagBean.getGroup()), bagBean.getDonator() );
+=======
+        BloodBag tempBloodBagObj = new BloodBag(
+                new Serial(bagBean.getSerial()),
+                BloodGroup.valueOf(bagBean.getGroup()),
+                new Date(bagBean.getCreationDate()),
+                new Date(bagBean.getExpirationDate()),
+                bagBean.getDonator(),
+                BloodBagState.valueOf(bagBean.getState()),
+                bagBean.getNotes()
+        );
+        
+
+        BloodBagManager manager = new BloodBagManager();
+        manager.addBloodBag(tempBloodBagObj);
+        
+>>>>>>> c20ea97450879db88f53b3322c75f65ea6a3c232
         BloodBagDAO beanToSave = tempBloodBagObj.getBean();
         //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
         if (beanToSave.getUsedTimeStamp() == 0)
             beanToSave.setUsedTimeStamp(new Date().getTime());
-
-        QRCode code = new QRCode(beanToSave);
-        code.createQRCode();
+        
+        manager.close();
+        
         return bagRepository.save(beanToSave);
       }
         catch(IllegalArgumentException e) {
@@ -355,8 +378,8 @@ public class BloodBagController implements ContainerResponseFilter {
          	
          }
     }
-
-
+    
+    
 
     /**
      * this method is called to USE a blood bag, it changes the blood bag state to "Used"

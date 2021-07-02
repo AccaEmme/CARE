@@ -290,10 +290,17 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	 * @throws NullPasswordException 
      **************************************************************************
      */
+<<<<<<< HEAD
 	private void setDonatorCF(String fisCode)/*throws IllegalArgumentException */ {
 	if( !fisCode.matches(Constants.RegexDonatorCF) )
 			throw new IllegalArgumentException();
 		this.donatorCF = fisCode;
+=======
+	private void setDonatorCF(String fisCode) {
+		if( !fisCode.toUpperCase().matches(Constants.RegexDonatorCF) )
+			throw new IllegalFiscalCodeException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"donatorCF "+donatorCF+" do not match pattern "+Constants.RegexDonatorCF, "/bloodbag/add" );
+		this.donatorCF = fisCode.toUpperCase();
+>>>>>>> c20ea97450879db88f53b3322c75f65ea6a3c232
 	}
 	
 	
@@ -422,7 +429,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	 /**
 	 **************************************************************************
 	 * Metodo per comaprare due sacche 
-	 * @param BloodBag Viene passato come oggetto una sacca di dangue
+	 * @param bloodBag Viene passato come oggetto una sacca di dangue
 	 **************************************************************************
 	 */
 	public int compareTo(BloodBag bloodBag) {

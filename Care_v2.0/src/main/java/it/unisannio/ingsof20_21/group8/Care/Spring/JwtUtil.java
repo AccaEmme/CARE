@@ -57,6 +57,12 @@ public class JwtUtil {
 		if (roles.contains(new SimpleGrantedAuthority(Role.ROLE_STOREMANAGER.toString()))) {
 			claims.put("is" + Role.ROLE_STOREMANAGER.toString(), true);
 		}
+		if (roles.contains(new SimpleGrantedAuthority(Role.ROLE_CENTRAL_OFFICER.toString()))) {
+			claims.put("is" + Role.ROLE_CENTRAL_OFFICER.toString(), true);
+		}
+		if (roles.contains(new SimpleGrantedAuthority(Role.ROLE_CENTRAL_STOREMANAGER.toString()))) {
+			claims.put("is" + Role.ROLE_CENTRAL_STOREMANAGER.toString(), true);
+		}
 	
 	
 		
@@ -95,6 +101,8 @@ public class JwtUtil {
 		Boolean isAdministrator = claims.get("is"+Role.ROLE_ADMINISTRATOR.toString() , Boolean.class);
 		Boolean isOfficer = claims.get("is" +Role.ROLE_OFFICER.toString(), Boolean.class);
 		Boolean isStoremanager = claims.get("is" + Role.ROLE_STOREMANAGER, Boolean.class);
+		Boolean isCentralOfficer = claims.get("is"+Role.ROLE_CENTRAL_OFFICER.toString() , Boolean.class);
+		Boolean isCentralStoremanager = claims.get("is" + Role.ROLE_CENTRAL_STOREMANAGER, Boolean.class);
 
 		if (isAdministrator != null && isAdministrator) {
 			roles = Arrays.asList(new SimpleGrantedAuthority(Role.ROLE_ADMINISTRATOR.toString()));
@@ -105,6 +113,12 @@ public class JwtUtil {
 		}
 		if (isStoremanager != null && isStoremanager) {
 			roles = Arrays.asList(new SimpleGrantedAuthority(Role.ROLE_STOREMANAGER.toString()));
+		}
+		if (isCentralOfficer != null && isCentralOfficer) {
+			roles = Arrays.asList(new SimpleGrantedAuthority(Role.ROLE_CENTRAL_OFFICER.toString()));
+		}
+		if (isCentralStoremanager != null && isCentralStoremanager) {
+			roles = Arrays.asList(new SimpleGrantedAuthority(Role.ROLE_CENTRAL_STOREMANAGER.toString()));
 		}
 		return roles;
 

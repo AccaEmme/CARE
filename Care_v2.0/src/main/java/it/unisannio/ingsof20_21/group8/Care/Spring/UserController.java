@@ -150,6 +150,8 @@ public  class UserController implements ContainerResponseFilter {
 		long admins = userRepo.countUsersByRole(Role.ROLE_ADMINISTRATOR.toString());
 		long storeManagers = userRepo.countUsersByRole(Role.ROLE_STOREMANAGER.toString());
 		long officers = userRepo.countUsersByRole(Role.ROLE_OFFICER.toString());
+		long centralStoreManagers = userRepo.countUsersByRole(Role.ROLE_CENTRAL_STOREMANAGER.toString());
+		long centralOfficers = userRepo.countUsersByRole(Role.ROLE_CENTRAL_OFFICER.toString());
 
 
 

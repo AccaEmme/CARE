@@ -2,28 +2,28 @@
 # Project specific excludes
 #
 
-tomcat
+#tomcat
 
 #
 # Default excludes
 #
 
 # Binaries
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
-*.war
-*.ear
-*.sar
+#*.7z
+#*.dmg
+#*.gz
+#*.iso
+#*.jar
+#*.rar
+#*.tar
+#*.zip
+#*.war
+#*.ear
+#*.sar
 *.class
 
 # Maven 
-target/
+#target/
 
 # IntelliJ project files 
 #*.iml

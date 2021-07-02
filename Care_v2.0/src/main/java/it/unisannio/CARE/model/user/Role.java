@@ -10,5 +10,9 @@ package it.unisannio.CARE.model.user;
  **************************************************************************
 */
 public enum Role {
-	ROLE_ADMINISTRATOR, ROLE_STOREMANAGER, ROLE_OFFICER;
+	ROLE_ADMINISTRATOR,
+	ROLE_STOREMANAGER, 
+	ROLE_OFFICER, 
+	ROLE_CENTRAL_STOREMANAGER, 
+	ROLE_CENTRAL_OFFICER;
 }

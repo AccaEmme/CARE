@@ -88,7 +88,7 @@ public class QRCodeTester {
 
     @Test
     public void testCreateQRCodeFromBloodBag() throws ParseException {
-        BloodBag bag = new BloodBag(BloodGroup.ABpos,"CRSDLCER86BH7860");
+        BloodBag bag = new BloodBag(BloodGroup.ABpos,"RNRGLN99P08A783G");
         //NON DOVREBBE LANCIARE ECCEZIONE MA LA LANCIA, IL PROBLEMA è BLOOD BAG
         QRCode code = new QRCode(bag);
         code.createQRCode();
