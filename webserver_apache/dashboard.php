@@ -2,7 +2,22 @@
 //?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnaXVsaWFubzgwIiwiaXNST0xFX0FETUlOSVNUUkFUT1IiOnRydWUsImV4cCI6MTYyNTA4MTQ1MCwiaWF0IjoxNjI1MDc2NDUwfQ.jJJT9s-opT_R7gl0sSZr3MRpdlCxCPoQ97-nAkB1YKjGgzfu_bBz8PLjaltoQQZr1sOBx5Fs_SdZBMlnVh9cbw
 
 @$token = $_GET['token'];
-if(!isset($token)) {
+
+$arrayToken 		= explode(".", $token);
+$subtoken   		= $arrayToken['1'];
+$decodedToken 		= base64_decode($subtoken);
+echo("subtoken:".$decodedToken);
+
+$arrayTokenDecoded 	= (array) json_decode($decodedToken, true);
+$username 		= $arrayTokenDecoded['sub'];
+$role			= array_keys($arrayTokenDecoded)[1];
+$roleValue		= $arrayTokenDecoded[				// value of role
+				array_keys($arrayTokenDecoded)[1]	// role
+		  	  ];
+$exp 			= $arrayTokenDecoded['exp'];
+$iat 			= $arrayTokenDecoded['iat'];
+
+if(!isset($token) OR time()>$exp ) {
     //header('WWW-Authenticate: Basic realm="My Realm"');
     header('HTTP/1.0 401 Unauthorized');
     echo 'HTTP/1.0 401 Unauthorized';
@@ -14,31 +29,14 @@ if(!isset($token)) {
 <html>
  <head>
    <title>CARE - Centro Accoglienza Regionale Ematica</title>
-   <script src="./XMLHTTPRequest.js"></script>
+   <script src="./js/XMLHTTPRequest.js"></script>
+   <script src="./js/countdown.js"></script>
    <link rel="stylesheet" href="./css/dashboard.css">
   </head>
 
   <body onload="javascript:document.getElementById('textarea_chatbroadcast_msgs').scrollTop=document.getElementById('textarea_chatbroadcast_msgs').scrollHeight">
 
 <?php
-// $jwt = str_replace('Bearer ', '', $jwt['HTTP_AUTHORIZATION'][0]);
-//$decoded = JWT::decode($jwt, $key, ['HS256']);
-//$key = 'javainuse';
-$arrayToken = explode(".", $token);
-$subtoken   = $arrayToken['1'];
-$decodedToken = base64_decode($subtoken);
-echo("subtoken:".$decodedToken);
-
-$arrayTokenDecoded = (array) json_decode($decodedToken, true);
-$username 	= $arrayTokenDecoded['sub'];
-$role		= array_keys($arrayTokenDecoded)[1];
-$roleValue	= $arrayTokenDecoded[				// value of role
-			array_keys($arrayTokenDecoded)[1]	// role
-		  ];
-$exp 		= $arrayTokenDecoded['exp'];
-$iat 		= $arrayTokenDecoded['iat'];
-
-
 echo("<br>");
 echo("Ciao " . $username . "<br>");
 if( $roleValue == 1  ) { echo("il tuo ruolo è: " . $role ); }
@@ -61,6 +59,16 @@ switch($role){
 }
 ?>
 
+<div align="right">
+Token countdown:
+<script>
+// Set the date we're counting down to
+//var countDownDate = new Date("Jul 12, 2021 15:37:25").getTime();
+//var countDownDate =new Date(1625215858 * 1000).getTime();
+var countDownDate =new Date(<?php echo($exp); ?> * 1000).getTime();
+</script>
+<p id="countdown"></p>
+</div>
 
     <div class="sidenav">
         <div id="logo">
