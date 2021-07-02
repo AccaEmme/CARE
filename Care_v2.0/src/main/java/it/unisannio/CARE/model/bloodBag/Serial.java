@@ -198,6 +198,8 @@ public class Serial{
     	Serial s = (Serial) o;
 		return serial.equals( s.getSerial() );
 	}
+
+
 }
 
 

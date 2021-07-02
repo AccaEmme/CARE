@@ -285,7 +285,7 @@ public class BloodBagController implements ContainerResponseFilter {
 */
 
     @PostMapping("/bloodbag/add")
-    public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
+    public BloodBagDAO addBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
     	
     	if (bagRepository.existsById(bagBean.getSerial()))
     		throw new BloodBagCloneNotSupportedException("La sacca che si vuole aggiungere è già esistente.", "/bloodbag/add");
@@ -310,6 +310,27 @@ public class BloodBagController implements ContainerResponseFilter {
             beanToSave.setUsedTimeStamp(new Date().getTime());
         return bagRepository.save(beanToSave);
     }
+    
+    
+    @PostMapping("/bloodbag/create_add")
+    public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
+    	
+    	if (bagRepository.existsById(bagBean.getSerial()))
+    		throw new BloodBagCloneNotSupportedException("La sacca che si vuole aggiungere è già esistente.", "/bloodbag/add");
+    	
+    	else if (!bagBean.getState().equals(BloodBagState.Available.toString()))
+    		throw new BloodBagStateException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
+    	
+        BloodBag tempBloodBagObj = new BloodBag(BloodGroup.valueOf(bagBean.getGroup()), bagBean.getDonator() );
+        
+
+        BloodBagDAO beanToSave = tempBloodBagObj.getBean();
+        //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
+        if (beanToSave.getUsedTimeStamp() == 0)
+            beanToSave.setUsedTimeStamp(new Date().getTime());
+        return bagRepository.save(beanToSave);
+    }
+
 
 
     /**
