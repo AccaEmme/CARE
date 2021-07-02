@@ -200,4 +200,6 @@ public class Constants {
 
 	public static final long SEVEN_DAYS_MILLIS = 604800000;
     public static final long ONE_DAY_MILLIS = 86400000;
+
+    public static final String QR_CODES_SAVE_PATH = "QR_codes/";
 }

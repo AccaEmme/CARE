@@ -1,10 +1,13 @@
 package it.unisannio.CARE.spring;
 
 import it.unisannio.CARE.model.bloodBag.BloodBag;
+import it.unisannio.CARE.model.bloodBag.BloodGroup;
 import it.unisannio.CARE.model.util.QRCode;
 import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagDAO;
 import org.json.simple.JSONObject;
 import org.junit.Test;
+
+import java.text.ParseException;
 
 public class QRCodeTester {
     @Test
@@ -43,7 +46,7 @@ public class QRCodeTester {
     }
 
     @Test
-    public void testCreateQRCodeFromBloodBag(){
+    public void testCreateQRCodeFromBloodBagDao(){
         BloodBagDAO bag = new BloodBagDAO();
         bag.setSerial("IT-NA205101-Aneg-20210615-0037");
         bag.setGroup("Bneg");
@@ -67,11 +70,27 @@ public class QRCodeTester {
     }
 
     @Test
-    public void testCreateQRCodeFromStringException(){
+    public void testCreateQRCodeFromStringReplaceSpaces(){
         String qr = "Peppiniello è incazzato";
-        String id = "peppiniello_importunato";
+        String id = "peppiniello importunato";  //lo spazio viene rimpiazzato con '_'
 
         QRCode code = new QRCode(qr,id);
+        code.createQRCode();
+    }
+
+    @Test
+    public void testCreateQRCodeFromBloodBagException() throws ParseException {
+        BloodBag bag = new BloodBag(BloodGroup.ABpos,"peppiniello");
+
+        QRCode code = new QRCode(bag);
+        code.createQRCode();
+    }
+
+    @Test
+    public void testCreateQRCodeFromBloodBag() throws ParseException {
+        BloodBag bag = new BloodBag(BloodGroup.ABpos,"CRSDLCER86BH0919");
+        //NON DOVREBBE LANCIARE ECCEZIONE MA LA LANCIA, IL PROBLEMA è BLOOD BAG
+        QRCode code = new QRCode(bag);
         code.createQRCode();
     }
 }

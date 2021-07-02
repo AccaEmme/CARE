@@ -16,24 +16,35 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 public class QRCode {
     String object;
     String identifier;
-
+    String save_path = Constants.QR_CODES_SAVE_PATH;
 
     public QRCode(JSONObject objectToWrite){
         this.object = objectToWrite.toJSONString();
-        this.identifier = objectToWrite.get("serial").toString();
+        this.identifier = objectToWrite.get("serial")
+                .toString()
+                .replaceAll("\\s+", "_")
+                .toLowerCase();
+
     }
     public QRCode(String objectToWrite, String identifier){
         this.object = objectToWrite;
-        this.identifier = identifier;
+        this.identifier = identifier
+                .replaceAll("\\s+", "_")
+                .toLowerCase();
     }
     public QRCode(BloodBag objectToWrite){
         this.object = this.createBloodBagObject(objectToWrite).toJSONString();
-        this.identifier = objectToWrite.getSerial().toString();
+        this.identifier = objectToWrite.getSerial()
+                .toString()
+                .replaceAll("\\s+", "_")
+                .toLowerCase();
     }
 
     public QRCode(BloodBagDAO objectToWrite){
         this.object = this.createBloodBagObject(objectToWrite).toJSONString();
-        this.identifier = objectToWrite.getSerial();
+        this.identifier = objectToWrite.getSerial()
+                .replaceAll("\\s+", "_")
+                .toLowerCase();;
     }
 
 
@@ -71,7 +82,7 @@ public class QRCode {
     public void createQRCode(){
         try {
             String qrCodeData = object;
-            String filePath = "QR_codes/"+identifier+"_"+new Date().getTime() +".png";
+            String filePath = this.save_path+identifier+"_"+new Date().getTime() +".png";
             String charset = "UTF-8"; // or "ISO-8859-1"
             Map < EncodeHintType, ErrorCorrectionLevel > hintMap = new HashMap < EncodeHintType, ErrorCorrectionLevel > ();
             hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
@@ -103,5 +114,11 @@ public class QRCode {
         this.identifier = identifier;
     }
 
+    public String getSave_path() {
+        return save_path;
+    }
 
+    public void setSave_path(String save_path) {
+        this.save_path = save_path;
+    }
 }
