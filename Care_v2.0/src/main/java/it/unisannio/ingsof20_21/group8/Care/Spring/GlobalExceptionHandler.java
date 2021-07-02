@@ -1,4 +1,4 @@
-package it.unisannio.CARE.model.exceptions;
+package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 import java.util.Date;
 
@@ -7,6 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import it.unisannio.CARE.model.exceptions.BloodBagCloneNotSupportedException;
+import it.unisannio.CARE.model.exceptions.BloodBagNotFoundException;
+import it.unisannio.CARE.model.exceptions.BloodBagStateException;
+import it.unisannio.CARE.model.exceptions.IllegalDateException;
+import it.unisannio.CARE.model.exceptions.IllegalFiscalCodeException;
+import it.unisannio.CARE.model.exceptions.IllegalSerialException;
+import it.unisannio.CARE.model.exceptions.RegisterException;
 import it.unisannio.CARE.spring.bean.ErrorBean;
 
 @ControllerAdvice

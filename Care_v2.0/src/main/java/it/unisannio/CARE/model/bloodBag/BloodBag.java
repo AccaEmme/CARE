@@ -13,6 +13,7 @@ import org.bson.Document;
 
 import it.unisannio.CARE.model.exceptions.IllegalDateException;
 import it.unisannio.CARE.model.exceptions.IllegalFiscalCodeException;
+import it.unisannio.CARE.model.exceptions.NullPasswordException;
 import it.unisannio.CARE.model.exceptions.StateException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagDAO;
@@ -48,6 +49,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      * @param bloodGroup  Oggetto che viene passato come paramentro per indicare a quale gruppo sanguigno appartiene 
      * @param donatorCF  coodice fiscale del donatore
      * @exception ParseException
+     * @throws  
      **************************************************************************
      */
 	public BloodBag(BloodGroup bloodGroup, String donatorCF) throws ParseException {
@@ -73,13 +75,13 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      * @param note2  note riguardo la sacca
      **************************************************************************
      */
-	public BloodBag(Serial serial, BloodGroup valueOf, Date cd, Date ed, String donatorCF2, 
+	public BloodBag(Serial serial, BloodGroup valueOf, Date cd, Date ed, String donatorCF, 
 			BloodBagState valueOf2, String note2) {
 		this.serial 		= serial;
 		this.bloodGroup=valueOf;
 		this.creationDate =cd;
 		this.expirationDate=ed;
-		this.donatorCF=donatorCF2;
+		this.setDonatorCF(donatorCF);
 		this.note=note2;		/* TODO: gestirlo con classe Optional per evitare NullPointerException */
 		this.bloodBagState=valueOf2;
 	}
@@ -285,11 +287,12 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      * Metodo privato per modificare il codice fiscale
      * @exception IllegalArgumentException
      * @param fisCode  codice fiscale del donatore
+	 * @throws NullPasswordException 
      **************************************************************************
      */
-	private void setDonatorCF(String fisCode) {
-	/*	if( !fisCode.matches(Constants.RegexDonatorCF) )
-			throw new IllegalFiscalCodeException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"donatorCF "+donatorCF+" do not match pattern "+Constants.RegexDonatorCF, "/bloodbag/add" );*/
+	private void setDonatorCF(String fisCode)/*throws IllegalArgumentException */ {
+	if( !fisCode.matches(Constants.RegexDonatorCF) )
+			throw new IllegalArgumentException();
 		this.donatorCF = fisCode;
 	}
 	
