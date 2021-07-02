@@ -1,10 +1,86 @@
-<html>
- <head>
-     <title>Admin Panel</title>
- </head>
- <body>
-    <div align="center">
+<?php
+echo("ciao ".$token."<br><br>");
+
+$urlAPI = "http://localhost:8087/user/get/all";
+$authorization = "Authorization: Bearer ".$token;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
+    curl_setopt($ch,CURLOPT_URL,$urlAPI);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//    curl_setopt($ch, CURLOPT_POSTFIELDS,$post);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    //return json_decode($result);
+//print_r(json_decode($result));
+
+$usersArray = (array) json_decode($result);
+//echo("user: ".$usersArray['idUser'] . " token:" . $usersArray['username']);
+foreach (array_keys($usersArray ) as $key) {
+    //echo("user: ".$usersArray[$key]['idUser'] . " token:" . $usersArray[$key]['username'] . "<br>");
+// print_r($usersArray[0]);
+
+ echo(	  "<br>"
+	. "userId:"
+	. $usersArray[$key]->idUser 
+	. " - username: "
+	. $usersArray[$key]->username
+	. " - role: "
+	. $usersArray[$key]->userRole
+	. " - creationDate: "
+	. $usersArray[$key]->creationDate
+	. "<br>");
+
+    //print_r($arr);
+}
+
+//unset($usersArray);
+
+?>
+
     <h2>Local Users:</h2>
+    <form action="#">
+     <table>
+         <tr>
+            <td align="center"><b>Username</b></td>
+            <td align="center"><b>Password</b></td>
+            <td align="center"><b>Ruolo</b></td>
+            <td align="center"><b>Actions</b></td>
+        </tr>
+        <tr>
+<?php
+foreach (array_keys($usersArray ) as $key) {
+?>
+            <td><input type="text" name="user_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->username; ?>" /></td>
+            <td><input type="password" name="pass_<?php echo $usersArray[$key]->username; ?>" value="???" disabled /></td>
+            <td>
+                <select name="role" id="role">
+                    <optgroup label="Role-Based Access Control">
+  <?php
+   foreach($roles as $r) {
+     echo('<option value="' . $r . '"');
+     if( $r == 'is'.$usersArray[$key]->userRole ) echo(' selected');
+     echo('>'.$r.'</option>');
+   }
+  ?>
+                    </optgroup>
+                </select>
+            </td>
+            <td>
+                <input type="submit" value="Salva">
+                <input type="button" value="Elimina">
+            </td>
+        </tr>
+<?php
+}
+?>
+
+     </table>
+
+<!-- ----------------OLD-------------------- -->
+    <div align="center">
+    <h2>old Local Users:</h2>
     <form action="#">
      <table>
          <tr>
@@ -486,5 +562,3 @@
     </div>
     <!-- END:   routing table -->
 </div>
- </body>
-</html>
