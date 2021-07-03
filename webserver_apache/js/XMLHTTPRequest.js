@@ -35,7 +35,7 @@ function HTTPPost(url, token, jsonBodyString){
 	let request = new XMLHttpRequest();   // new HttpRequest instance
 
 	request.open("POST", url, true);
-	request.setRequestHeader('Authorization', 'Bearer ' + token);
+	//request.setRequestHeader('Authorization', 'Bearer ' + token);
 	request.setRequestHeader("content-type", "application/json");
 	request.send(JSON.stringify(jsonBodyString));
 	request.onreadystatechange = function() {
@@ -53,7 +53,7 @@ function HTTPPost(url, token, jsonBodyString){
 //=================Users Methods: POST
 
 function addUser(url, token, username, password, email, userRole, loginAttempts, activeUser){
-var url='http://localhost:8087/authenticate';
+//var url='http://localhost:8087/authenticate';
 /*
 http://localhost:8087/register
 {
@@ -74,7 +74,7 @@ http://localhost:8087/register
 
  if(k==0){
   alert(url + " - " + token + " - " + username + " - " + password + " - " + email + " - " + userRole);
-  var jsonBody = '{' + '"username": "' + username + '", "password": "' + password + '", "email": "' + email + '", "userRole": "' + userRole + '", "loginAttempts": "' + loginAttempts + '", "activeUser": ' + activeUser + '}';
+  var jsonBody = '{' + '"username": "' + username + '", "password": "' + password + '", "email": "' + email + '", "userRole": "' + userRole + '", "loginAttempts": ' + loginAttempts + ', "activeUser": ' + activeUser + '}';
   alert("jsonBody: " + jsonBody);
   console.log("jsonBody: " + jsonBody);
   HTTPPost(url, token, jsonBody);

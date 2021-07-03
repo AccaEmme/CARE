@@ -1,13 +1,9 @@
 <?php
 //?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnaXVsaWFubzgwIiwiaXNST0xFX0FETUlOSVNUUkFUT1IiOnRydWUsImV4cCI6MTYyNTA4MTQ1MCwiaWF0IjoxNjI1MDc2NDUwfQ.jJJT9s-opT_R7gl0sSZr3MRpdlCxCPoQ97-nAkB1YKjGgzfu_bBz8PLjaltoQQZr1sOBx5Fs_SdZBMlnVh9cbw
 
-$roles[0] = "isROLE_ADMINISTRATOR";
-$roles[1] = "isROLE_STOREMANAGER";
-$roles[2] = "isROLE_OFFICER";
-
-$isRoles[0] = "is".$roles[0];
-$isRoles[1] = "is".$roles[1];
-$isRoles[2] = "is".$roles[2];
+$roles[0] = "ROLE_ADMINISTRATOR";
+$roles[1] = "ROLE_STOREMANAGER";
+$roles[2] = "ROLE_OFFICER";
 
 @$token = $_GET['token'];
 
@@ -18,10 +14,13 @@ echo("subtoken:".$decodedToken);
 
 $arrayTokenDecoded 	= (array) json_decode($decodedToken, true);
 $username 		= $arrayTokenDecoded['sub'];
+/*
 $role			= array_keys($arrayTokenDecoded)[1];
 $roleValue		= $arrayTokenDecoded[				// value of role
 				array_keys($arrayTokenDecoded)[1]	// role
 		  	  ];
+*/
+$role			= $arrayTokenDecoded['userRole'];
 $exp 			= $arrayTokenDecoded['exp'];
 $iat 			= $arrayTokenDecoded['iat'];
 
@@ -46,20 +45,20 @@ if(!isset($token) OR time()>$exp ) {
 
 <?php
 echo("<br>" . "Ciao " . $username . "<br>");
-if( $roleValue == 1  ) { echo("il tuo ruolo è: " . $role ); }
+echo("il tuo ruolo è: " . $role );
 echo("<br>" . "Hai creato il token: ");
 echo date('l dS \o\f F Y h:i:s A', $iat);
 echo("<br>" . "Scadenza token: ");
 echo date('l dS \o\f F Y h:i:s A', $exp); echo("<br>");
 
 switch($role){
- case "isROLE_ADMINISTRATOR": 
+ case "ROLE_ADMINISTRATOR": 
 	echo("sono Admin Faccio quello che voglio");
 	break;
- case "isROLE_STOREMANAGER":
+ case "ROLE_STOREMANAGER":
 	echo("Magazziniere");
 	break;
- case "isROLE_OFFICER":
+ case "ROLE_OFFICER":
 	echo("Segretaria");
 	break;
  default:
@@ -85,13 +84,13 @@ switch($role){
         </div>
 	<?php
 	 switch($role){
-	   case "isROLE_ADMINISTRATOR": 
+	   case "ROLE_ADMINISTRATOR": 
 	     include("./pages/administratormenu.inc.php");
 	     break;
-	   case "isROLE_STOREMANAGER":
+	   case "ROLE_STOREMANAGER":
 	     include("./pages/storemanagermenu.inc.php");
 	     break;
-	   case "isROLE_OFFICER":
+	   case "ROLE_OFFICER":
 	     include("./pages/officermenu.inc.php");
 	     break;
 	   default:
@@ -138,13 +137,13 @@ switch($role){
 
 	<?php
 	 switch($role){
-	   case "isROLE_ADMINISTRATOR": 
+	   case "ROLE_ADMINISTRATOR": 
 	     include("./pages/administratordashboard.inc.php");
 	     break;
-	   case "isROLE_STOREMANAGER":
+	   case "ROLE_STOREMANAGER":
 	     include("./pages/storemanagerdashboard.inc.php");
 	     break;
-	   case "isROLE_OFFICER":
+	   case "ROLE_OFFICER":
 	     include("./pages/officerdashboard.inc.php");
 	     break;
 	   default:

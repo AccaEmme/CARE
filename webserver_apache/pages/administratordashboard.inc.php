@@ -68,7 +68,7 @@ foreach (array_keys($usersArray ) as $key) {
 			<?php
 			   foreach($roles as $r) {
 			     echo('<option value="' . $r . '"');
-			     if( $r == 'is'.$usersArray[$key]->userRole ) echo(' selected');
+			     if( $r == $usersArray[$key]->userRole ) echo(' selected');
 			     echo('>'.$r.'</option>');
 			   }
 			?>
@@ -107,7 +107,7 @@ foreach (array_keys($usersArray ) as $key) {
             <td><input type="text" value="<?php echo(date('Y-m-d')); ?>" disabled /></td>
             <td><input type="text" value="1900-01-01" disabled /></td>
             <td><input type="text" name="newloginattempts" id="newloginattempts" value="0" /></td>
-            <td><input type="text" name="newactiveuser" id="newactiveuser" value="true" /></td>
+            <td><select name="newactiveuser" id="newactiveuser"><option value="1">1:attivo</option><option value="0">0:disabilitato</option><option value="-1">-1:blacklist</option><option value="1">-2:deleted</option></select></td>
             <td>
 		<input type="text" name="addUserURL" id="addUserURL" value="http://localhost:8087/register" hidden="yes" />
                 <input type="submit" value="Crea" onclick="addUser(document.getElementById('addUserURL').value, '<?php echo($token); ?>', document.getElementById('newusername').value, document.getElementById('newpassword').value, document.getElementById('newemail').value, document.getElementById('newrole').value, document.getElementById('newloginattempts').value, document.getElementById('newactiveuser').value)">
