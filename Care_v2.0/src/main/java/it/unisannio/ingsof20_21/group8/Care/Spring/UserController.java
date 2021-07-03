@@ -17,6 +17,7 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import it.unisannio.CARE.model.exceptions.IllegalPatternException;
 import it.unisannio.CARE.model.exceptions.RegisterException;
 import it.unisannio.CARE.model.report.UserReport;
+import it.unisannio.CARE.model.user.UsersStates;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.Password;
 
@@ -185,7 +186,12 @@ public  class UserController implements ContainerResponseFilter {
 
 		if (user.getLoginAttempts()==4){
 			//deactivate user
-			user.setActiveUser(false);
+			/**
+			 * 1: attivo
+			 *  0: disabilitato (quando sbaglia la password e l'admin deve riabilitarlo)
+			 *  -1: bloccato dal sistema: blacklist. può essere risbloccato dall'admin.
+			 *  -2: utente eliminato in modo logico */
+			user.setActiveUser(UsersStates.INACTIVE);
 
 			userRepo.save(user);
 			return "user deactivated: too may login attempts.";
@@ -201,7 +207,7 @@ public  class UserController implements ContainerResponseFilter {
 		UserDAO user = userRepo.findByUsername(username);
 
 		userRepo.delete(user);
-		user.setActiveUser(true);
+		user.setActiveUser(UsersStates.ACTIVE);
 		user.setLoginAttempts(0);
 		userRepo.save(user);
 
@@ -279,7 +285,14 @@ public  class UserController implements ContainerResponseFilter {
     @DeleteMapping("/deleteUser")
 	public void deleteUser(@RequestBody UserDAO deleteUser) {
 		//userRepo.logicalDelete(deleteUser); /* TODO: sarebbe utile una cancellazione logica e non fisica dal DB */
-    	deleteUser.setActiveUser(false);
+		/**
+		 * 1: attivo
+		 *  0: disabilitato (quando sbaglia la password e l'admin deve riabilitarlo)
+		 *  -1: bloccato dal sistema: blacklist. può essere risbloccato dall'admin.
+		 *  -2: utente eliminato in modo logico */
+
+		/**@// TODO: 03/07/2021 implementare il delete */
+    	deleteUser.setActiveUser(UsersStates.DELETED);
     	userRepo.save(deleteUser);
 	}
 

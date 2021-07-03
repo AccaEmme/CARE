@@ -13,8 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import it.unisannio.CARE.model.user.Role;
-import it.unisannio.CARE.model.user.User;
 import it.unisannio.CARE.model.util.Constants;
 
 /**
@@ -67,7 +65,7 @@ public class UserDAO { // *** UserDAO ???
     private	int			loginAttempts;
 	
 	@Column(nullable = false)
-	private boolean		activeUser;
+	private short activeUser;
 	
 	
 	public UserDAO() {}
@@ -218,14 +216,14 @@ public class UserDAO { // *** UserDAO ???
 	/**
 	 * @return the activeUser
 	 */
-	public boolean isActiveUser() {	
+	public short getActiveUser() {
 		return activeUser;
 	}
 
 	/**
 	 * @param activeUser the activeUser to set
 	 */
-	public void setActiveUser(boolean activeUser) {
+	public void setActiveUser(short activeUser) {
 		this.activeUser = activeUser;
 	}
 
