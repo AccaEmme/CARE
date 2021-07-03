@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
@@ -143,15 +144,13 @@ public  class UserController implements ContainerResponseFilter {
 	  }*/
 	@GetMapping("user/report")
 	public UserReport getUserReport(){
-		long total = userRepo.countAllUsers();
-		long activeUsers = userRepo.countUsersByState(true);
-		long inactiveUsers = userRepo.countUsersByState(false);
-		long loggedLast24H = userRepo.countUsersByLastLogin(new Date().getTime()- Constants.ONE_DAY_MILLIS, new Date().getTime());
-		long admins = userRepo.countUsersByRole(Role.ROLE_ADMINISTRATOR.toString());
-		long storeManagers = userRepo.countUsersByRole(Role.ROLE_STOREMANAGER.toString());
-		long officers = userRepo.countUsersByRole(Role.ROLE_OFFICER.toString());
-
-
+		long total 			= userRepo.countAllUsers();
+		long activeUsers 	= userRepo.countUsersByState(true);
+		long inactiveUsers 	= userRepo.countUsersByState(false);
+		long loggedLast24H 	= userRepo.countUsersByLastLogin(new Date().getTime()- Constants.ONE_DAY_MILLIS, new Date().getTime());
+		long admins 		= userRepo.countUsersByRole(Role.ROLE_ADMINISTRATOR.toString());
+		long storeManagers 	= userRepo.countUsersByRole(Role.ROLE_STOREMANAGER.toString());
+		long officers 		= userRepo.countUsersByRole(Role.ROLE_OFFICER.toString());
 
 		UserReport report = new UserReport(total,activeUsers,inactiveUsers,loggedLast24H,activeUsers,storeManagers,officers);
 
@@ -210,7 +209,6 @@ public  class UserController implements ContainerResponseFilter {
     //===============POST METHODS
 	@PostMapping("/register")
     public UserDAO createUser(@RequestBody UserDAO newUser) {
-	
 	   try {
 	            User tempUserObj = new User(
 	                    newUser.getUsername(),                // HTTP username
@@ -218,60 +216,56 @@ public  class UserController implements ContainerResponseFilter {
 	                    Role.valueOf(newUser.getUserRole()) // HTTP Role
 	                    );
 	
-	            UserDAO saveBean = tempUserObj.getUserBean();
+	            UserDAO saveBean = tempUserObj.getUserDAO();
 	            saveBean.setCreationDate(new Date());
 	            saveBean.setEmail(newUser.getEmail());
 	            saveBean.setLastAccess( -2_208_988_800_000L );
 	            return userRepo.save(saveBean);
-	
-		}catch (IllegalPatternException e) {
-	
-	
+		}catch (IllegalPatternException e) {	
 	        throw new RegisterException(e.getMessage()
 	        		+ "1) Your password must be between 8 and 30 characters."
 	        		+ "2) Your password must contain at least one uppercase, or capital, letter (ex: A, B, etc.)"
 	                + "3) Your password must contain at least one lowercase letter."
 	                + "4) Your password must contain at least one number digit (ex: 0, 1, 2, 3, etc.)"
 	                + "5) Your password must contain at least one special character -for example: $, #, @, !,%,^,&,*");
-	    
 		}catch (IllegalArgumentException e) {
-	
-	
 	        throw new RegisterException("Role not valid");
 	    }
-	        
     }
     
     //===============PUT METHODS
-    /*
     @PutMapping("/editUser")
-	public UserBean editUser(@RequestBody UserBean newUser) {
+	public UserDAO editUser(@RequestBody UserDAO newUser) {
     	// controlla se l'utente esiste
     	// controlla i dati inseriti mediante la classe User
     	// salva nel database
+    	String temppass;
 		User tempUserObj = new User(
 				newUser.getUsername(),				// HTTP username
-				newUser.getPassword(),		// HTTP plainTextPassword
+				newUser.getPassword(),				// HTTP plainTextPassword
 				Role.valueOf(newUser.getUserRole()) // HTTP Role
 				);
 
-	   tempUserObj.setEmail(newUser.getEmail());
-		UserBean saveBean = tempUserObj.getUserBean();
-		//saveBean.setCreationDate(null);
-		saveBean.setCreationDate(new Date());
-		saveBean.setEmail("ricciuto99@gamail.com");
-		System.out.println("#############################");
-		System.out.println("#############################");
-		System.out.println("#############################");
-		System.out.println("#############################");
-		System.out.println(saveBean.getEmail());
-		System.out.println("#############################");
-		System.out.println("#############################");
-		System.out.println("#############################");
-		System.out.println("#############################");
-		return userRepo.save(newUser);
+		tempUserObj.setEmail(newUser.getEmail());
+		
+		UserDAO saveDAO = tempUserObj.getUserDAO();
+		saveDAO.setCreationDate(new Date());
+		saveDAO.setActiveUser(newUser.isActiveUser());
+		System.out.println("temppass:" + newUser.getTemppass() );
+		if( (temppass=newUser.getTemppass())!=null ) {
+			saveDAO.setTemppass( temppass );
+			saveDAO.setPassword(Password.getBCrypt( temppass ));
+		}
+
+		/*
+		 * @TODO *** Da Hermann: non mi piace che per fare l'edit bisogna eliminare e salvare nuovamente la sacca. Alternative?
+		 */
+		//userRepo.delete(newUser);
+		long tempid = newUser.getIdUser();
+		userRepo.deleteById(newUser.getIdUser());
+		newUser.setIdUser(tempid);
+		return userRepo.save(newUser);		
 	}
-	*/
     
     //===============DELETE METHODS
     @DeleteMapping("/deleteUser")

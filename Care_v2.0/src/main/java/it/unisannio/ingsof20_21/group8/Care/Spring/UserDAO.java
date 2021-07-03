@@ -38,7 +38,7 @@ import it.unisannio.CARE.model.util.Constants;
 public class UserDAO { // *** UserDAO ???
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int 		idUser;
+	private long 		idUser;
 	
 	// ============USER Attributes
     @Column(unique = true, nullable = false)
@@ -76,14 +76,14 @@ public class UserDAO { // *** UserDAO ???
 	/**
 	 * @return the idUser
 	 */
-	public int getIdUser() {
+	public long getIdUser() {
 		return idUser;
 	}
 
 	/**
 	 * @param idUser the idUser to set
 	 */
-	public void setIdUser(int idUser) {
+	public void setIdUser(long idUser) {
 		this.idUser = idUser;
 	}
 
