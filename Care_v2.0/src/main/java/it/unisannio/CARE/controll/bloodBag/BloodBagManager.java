@@ -22,6 +22,7 @@ import it.unisannio.CARE.model.bloodBag.BloodBag;
 import it.unisannio.CARE.model.bloodBag.BloodBagState;
 import it.unisannio.CARE.model.bloodBag.Request;
 import it.unisannio.CARE.model.bloodBag.RequestState;
+import it.unisannio.CARE.model.exceptions.BloodBagNotFoundException;
 import it.unisannio.CARE.model.exceptions.RequestCloneNotSupportedException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.XMLHelper;
@@ -81,10 +82,9 @@ public class BloodBagManager {
 		
 		MongoCursor<Document> iterator = this.collection.find().filter(filter).iterator();
 		
-		if(iterator.hasNext()) {
+		if(!iterator.hasNext())
 			return iterator.next();
-		}
-		return null;
+		throw new BloodBagNotFoundException("Sacca non trovata.");
 	}
 	
 	public boolean BloodBagRequestable(String serial_r) {
@@ -103,9 +103,13 @@ public class BloodBagManager {
 	
 	public void BloodBagMarkNotAvailable(String serial_r) {
 		
-		Bson filter=eq("serial", serial_r);
+		Bson filter=and(
+						eq("serial", serial_r),
+						eq("state", BloodBagState.Available.toString())
+						);
 		Bson update=Updates.set("state",BloodBagState.Transfered.toString() );
-		this.collection.updateOne(filter, update);
+		if(this.collection.updateOne(filter, update) == null)
+			throw new BloodBagNotFoundException("La sacca su cui si vuole operare non è esistente.");
 	}
 	
 	

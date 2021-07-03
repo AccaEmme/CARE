@@ -128,8 +128,7 @@ public class RequestManager {
         
         Document editedRequest = Document.parse(request.toString()); 
 		
-
-		if(collection.replaceOne(filter, editedRequest) != null) {
+		if(collection.replaceOne(filter, editedRequest).getMatchedCount() != 0) {
 			
 			filter = and(
 							ne("id_requester", request.getIdRequester()),
@@ -148,7 +147,7 @@ public class RequestManager {
         
 	}
 	
-	public boolean closeRequest(String serial) {
+	public void closeRequest(String serial) {
         
 		Properties prop = XMLHelper.getProps(Constants.NODE_PROPERTIES);
 		String id_requester = prop.getProperty("province") + prop.getProperty("structureCode");
@@ -161,9 +160,8 @@ public class RequestManager {
 		
         Bson update = new Document("$set", new Document("state", RequestState.closed.toString()) );
         
-        if(collection.findOneAndUpdate(filter, update) != null)
-        	return true;
-        return false;
+        if(collection.findOneAndUpdate(filter, update) == null)
+        	throw new RequestNotFoundException("Richiesta non trovata o inesistente...");
 	}
 	
 	/**
@@ -185,7 +183,7 @@ public class RequestManager {
         
         Document editedRequest = Document.parse(request.toString()); 
 		
-			if(collection.replaceOne(filter, editedRequest) == null) {
+			if(collection.replaceOne(filter, editedRequest).getMatchedCount() != 0) {
 				
 				throw new RequestNotFoundException("Richiesta non trovata o inesistente...");
 			}

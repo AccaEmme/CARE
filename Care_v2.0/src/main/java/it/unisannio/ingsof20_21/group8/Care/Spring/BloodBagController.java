@@ -379,26 +379,36 @@ public class BloodBagController implements ContainerResponseFilter {
 	        
     	BloodBagManager managerB = new BloodBagManager();
     	RequestManager managerR = new RequestManager();
+    	try {
+        
+    		managerR.closeRequest(bagDAO.getSerial());
     	
-        if (!managerR.closeRequest(bagDAO.getSerial()))
-    		throw new RequestNotFoundException("La richiesta che si vuole concluder non è esistente.", "/bloodbag/import");
-    	
-        Document bagD = managerB.getBloodBag(bagDAO.getSerial());
-    	if (bagD == null)
+	        Document bagD = managerB.getBloodBag(bagDAO.getSerial());
+	    		
+	    	bagDAO.setGroup(bagD.getString("group"));
+	    	bagDAO.setCreationDate(Long.parseLong(bagD.getString("creationDate")));
+	    	bagDAO.setCreationDate(Long.parseLong(bagD.getString("expirationDate")));
+	    	bagDAO.setDonator(bagD.getString("donator"));
+	    	bagDAO.setState(bagD.getString("state"));
+	    	bagDAO.setNotes(bagD.getString("notes"));
+	    	
+	        if (bagDAO.getUsedTimeStamp() == 0)
+	        	bagDAO.setUsedTimeStamp(new Date().getTime());
+	        
+	        return bagRepository.save(bagDAO);
+    	}catch(RequestNotFoundException e) {
+    		
+    		e.printStackTrace();
+    		throw new RequestNotFoundException("La richiesta che si vuole concludere non è esistente.", "/bloodbag/import");
+    	}catch(BloodBagNotFoundException e) {
+    		
+    		e.printStackTrace();
     		throw new BloodBagNotFoundException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
-
-    	bagDAO.setGroup(bagD.getString("group"));
-    	bagDAO.setCreationDate(Long.parseLong(bagD.getString("creationDate")));
-    	bagDAO.setCreationDate(Long.parseLong(bagD.getString("expirationDate")));
-    	bagDAO.setDonator(bagD.getString("donator"));
-    	bagDAO.setState(bagD.getString("state"));
-    	bagDAO.setNotes(bagD.getString("notes"));
-    	
-        if (bagDAO.getUsedTimeStamp() == 0)
-        	bagDAO.setUsedTimeStamp(new Date().getTime());
-        
-        return bagRepository.save(bagDAO);
-        
+    	}finally {
+    		
+    		managerB.close();
+    		managerR.close();
+    	}
 
    
     }

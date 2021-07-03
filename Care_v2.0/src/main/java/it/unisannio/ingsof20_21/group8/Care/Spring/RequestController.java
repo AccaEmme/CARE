@@ -42,7 +42,7 @@ import it.unisannio.CARE.spring.bean.RequestBean;
 
 
 @RestController
-@RequestMapping("/request")
+@RequestMapping("request")
 
 @Consumes("application/json")
 @Produces("application/json")
@@ -214,7 +214,7 @@ public class RequestController implements ContainerResponseFilter {
 	
 	
 	//################################################### POST METHOD ####################################################
-	@PostMapping("/add")	
+	@PostMapping("add")	
 	public RequestBean addRequest(@RequestBody RequestBean requestB) throws ParseException{
 		
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
@@ -253,6 +253,7 @@ public class RequestController implements ContainerResponseFilter {
 		
 		}catch(RequestCloneNotSupportedException e){
 
+			e.printStackTrace();
 			throw new RequestCloneNotSupportedException("La richiesta che si vuole aggiungere è già esistente o è stata già accettata.", "request/add");
 		
 		}finally {
@@ -264,9 +265,9 @@ public class RequestController implements ContainerResponseFilter {
 	}
 	
 	
-	
-	@PostMapping("/accept")
-	public String acceptRequest(@RequestBody RequestBean requestB) throws ParseException{		
+	//testato	
+	@PostMapping("accept")
+	public RequestBean acceptRequest(@RequestBody RequestBean requestB) throws ParseException{		
 
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
@@ -288,26 +289,29 @@ public class RequestController implements ContainerResponseFilter {
 			
 			manager.acceptRequest(request);
 			bbm.BloodBagMarkNotAvailable(requestB.getSerial());
-			manager.close();
-			bbm.close();
-			return request.toString();
+
+			return requestB;
 		
 		}catch(RequestNotFoundException e){
+
+			e.printStackTrace();
+			throw new RequestCloneNotSupportedException(e.getMessage(), "/request/accept");
+			
+		}catch(BloodBagNotFoundException e) {
+			
+			e.printStackTrace();
+			throw new RequestCloneNotSupportedException(e.getMessage(), "/request/accept");
+			
+		}finally {
 			
 			manager.close();
-			return "{"
-					+ "\n\"timestamp\": \""+ new Date() +"\","
-					+ "\n\"status\": \" -1 \","
-					+ "\n\"error\": \"RequestNotFoundException\","
-					+ "\n\"description\": \""+ e.getMessage() +"\","
-					+ "\n\"path\": \"request/accept\","
-					+ "\n}";
+			bbm.close();
 		}
 	}
 
-	
+
 	@PostMapping("refuse")	
-	public String refuseRequest(@RequestBody RequestBean requestB) throws ParseException{		
+	public RequestBean refuseRequest(@RequestBody RequestBean requestB) throws ParseException{		
 
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
@@ -325,36 +329,24 @@ public class RequestController implements ContainerResponseFilter {
 			
 		RequestManager manager = new RequestManager();
 		try {
+			
 			manager.refuseRequest(request);
-			manager.close();
-			return request.toString();
+
+			return requestB;
 		
 		}catch(RequestNotFoundException e){
+
+			e.printStackTrace();
+			throw new RequestCloneNotSupportedException(e.getMessage(), "/request/accept");
+			
+		}finally {
 			
 			manager.close();
-			return "{"
-					+ "\n\"timestamp\": \""+ new Date() +"\","
-					+ "\n\"status\": \" -1 \","
-					+ "\n\"error\": \"RequestNotFoundException\","
-					+ "\n\"description\": \""+ e.getMessage() +"\","
-					+ "\n\"path\": \"request/refuse\","
-					+ "\n}";
 		}
 	}
 
 	
 	
-	/*
-	 * json pronto per un test
-	{
-		"id_requester":"BN205",
-		"serial":"IT-NA205101-ABpos-20210628-0010",
-		"date":"1941-06-30",
-		"note":"niente da dichiarare",
-		"state":"pending",
-		"priority":"green"
-	}
-	*/
 	@PutMapping("emptytrash")	
 	public void emptyTrash() throws ParseException{		
 
