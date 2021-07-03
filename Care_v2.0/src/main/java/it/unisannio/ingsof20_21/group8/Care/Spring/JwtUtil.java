@@ -45,21 +45,12 @@ public class JwtUtil {
 
 	public String generateToken(UserDetails userDetails) {
 		Map<String, Object> claims = new HashMap<>();
-
 		Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities();
-		
-		
-		for(Role  r : Role.values()) {
-			
-			if (roles.contains(new SimpleGrantedAuthority(r.toString())))
-			claims.put("role" , r.toString());
-			
-		}
 
-		
-	
-	
-		
+		for(Role  r : Role.values()) {
+			if (roles.contains(new SimpleGrantedAuthority(r.toString())))
+			claims.put("userRole" , r.toString());			
+		}
 		return doGenerateToken(claims, userDetails.getUsername());
 	}
 
@@ -67,7 +58,6 @@ public class JwtUtil {
 		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + jwtExpirationInMs))
 				.signWith(SignatureAlgorithm.HS512, secret).compact();
-
 	}
 
 	public boolean validateToken(String authToken) {
@@ -84,33 +74,17 @@ public class JwtUtil {
 	public String getUsernameFromToken(String token) {
 		Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
 		return claims.getSubject();
-
 	}
 
 	public List<SimpleGrantedAuthority> getRolesFromToken(String token) {
 		Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
-
 		List<SimpleGrantedAuthority> roles = null;
 
-		String role= claims.get("role" , String.class);
-	/*	String isOfficer = claims.get("role" , String.class);
-		String isStoremanager =claims.get("role" , String.class);
-		String isCentralOfficer =claims.get("role" , String.class);
-		String isCentralStoremanager =claims.get("role" , String.class);*/
+		String role= claims.get("userRole" , String.class);
 		
-		
-		for(Role  r : Role.values()) {
-
-		if ( role.equals( r.toString())) {
-			roles = Arrays.asList(new SimpleGrantedAuthority(r.toString()));
-		}
-		}
-		
-		
-		
-		
+		for(Role r : Role.values()) 
+			if ( role.equals( r.toString()) ) 
+				roles = Arrays.asList(new SimpleGrantedAuthority(r.toString()));
 		return roles;
-
-	}
-
+		}
 }
