@@ -119,11 +119,11 @@ public  class UserController implements ContainerResponseFilter {
 
 	@GetMapping("user/get/active")
 	public Iterable<UserDAO> getActiveUsers(){
-		return userRepo.filterUsersByState(true);
+		return userRepo.filterUsersByState(UsersStates.ACTIVE);
 	}
 	@GetMapping("user/get/inactive")
 	public Iterable<UserDAO> getInactiveUsers(){
-		return userRepo.filterUsersByState(false);
+		return userRepo.filterUsersByState(UsersStates.INACTIVE);
 	}
 
 
@@ -222,32 +222,12 @@ public  class UserController implements ContainerResponseFilter {
 				   saveBean.setCreationDate(new Date().getTime());
 				   saveBean.setEmail(newUser.getEmail());
 				   saveBean.setLastAccess( new Date().getTime() );
-				   saveBean.setPassword(Password.getBCrypt(tempUserObj.getPassword()));
 				   saveBean.setLoginAttempts(0);
 				   saveBean.setActiveUser(UsersStates.ACTIVE);
 
 
 	            return userRepo.save(saveBean);
 
-
-
-				/*
-				User user = new User(newUser.getUsername(),newUser.getPassword(), Role.valueOf(newUser.getUserRole()));
-
-
-				UserDAO userToSave = new UserDAO();
-
-				userToSave.setUsername(user.getUsername());
-				userToSave.setPassword(user.getPassword());
-				userToSave.setTemppass("");
-				user.setEmail(newUser.getEmail());
-				userToSave.setCreationDate(new Date().getTime());
-		   		userToSave.setLastAccess(new Date().getTime());
-		   		userToSave.setLoginAttempts(0);
-		   		userToSave.setActiveUser(UsersStates.ACTIVE);
-
-
-	            return userRepo.save(userToSave);*/
 
 		}catch (Exception e) {
 
@@ -295,7 +275,7 @@ public  class UserController implements ContainerResponseFilter {
 	*/
     
     //===============DELETE METHODS
-    @DeleteMapping("/user/delete/{username}")
+    @DeleteMapping("/user/delete/username/{username}")
 	public UserDAO deleteUserByUsername(@PathVariable String username) {
 		UserDAO userToDelete = this.getUserByUsername(username);
 		userRepo.delete(userToDelete);
@@ -303,7 +283,7 @@ public  class UserController implements ContainerResponseFilter {
 		userToDelete.setActiveUser(UsersStates.DELETED);
     	return userRepo.save(userToDelete);
 	}
-	@DeleteMapping("/user/delete/{email}")
+	@DeleteMapping("/user/delete/email/{email}")
 	public UserDAO deleteUserByEmail(@PathVariable String email) {
 		UserDAO userToDelete = this.getUserByEmail(email);
 		userRepo.delete(userToDelete);

@@ -27,24 +27,24 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	//UserBean findByUsername(@Param("username") String username);
 	UserDAO findByUsername(String username);
 
-	@Query("FROM UserDAO u WHERE u.userRole =:role")
+	@Query("FROM UserDAO u WHERE u.userRole =:role AND u.activeUser > -2")
 	Iterable<UserDAO> findUserByRole(@Param("role") String role);
 
-	@Query("FROM UserDAO u WHERE u.email =:email")
+	@Query("FROM UserDAO u WHERE u.email =:email AND u.activeUser > -2")
 	UserDAO findByEmail(@Param("email") String email);
 
-	@Query("FROM UserDAO u WHERE u.creationDate >:firstdate AND u.creationDate <:seconddate")
+	@Query("FROM UserDAO u WHERE u.creationDate >:firstdate AND u.creationDate <:seconddate AND u.activeUser > -2")
 	Iterable<UserDAO> findCreatedBetween(@Param("firstdate") long firstdate, @Param("seconddate") long seconddate);
 
 	@Transactional
-	@Query("UPDATE UserDAO u SET u.loginAttempts =:attempts where u.username =:username")
+	@Query("UPDATE UserDAO u SET u.loginAttempts =:attempts where u.username =:username AND u.activeUser > -2")
 	void updateUserLoginAttempts(@Param("attempts") int attempts, @Param("username") String username);
 
-	@Query("FROM UserDAO u WHERE u.activeUser =:isactive ")
-	Iterable<UserDAO> filterUsersByState(@Param("isactive") boolean isactive);
+	@Query("FROM UserDAO u WHERE u.activeUser =:isactive")
+	Iterable<UserDAO> filterUsersByState(@Param("isactive") short isactive);
 
 
-	@Query("FROM UserDAO u WHERE u.lastAccess >:timestamp AND u.lastAccess <:currenttime ")
+	@Query("FROM UserDAO u WHERE u.lastAccess >:timestamp AND u.lastAccess <:currenttime  AND u.activeUser > -2")
 	Iterable<UserDAO> filterUsersByLastLogin(@Param("timestamp") long timestamp, @Param("currenttime") long currenttime);
 
 
@@ -52,18 +52,20 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 
 	// count queries
 
-	@Query("SELECT COUNT(*) FROM UserDAO ")
+	@Query("SELECT COUNT(*) FROM UserDAO  AND u.activeUser > -2")
 	long countAllUsers();
 
-	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.activeUser =:isactive ")
+	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.activeUser =:isactive  AND u.activeUser > -2")
 	long countUsersByState(@Param("isactive") boolean isactive);
 
-	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.lastAccess >:timestamp AND u.lastAccess <:currenttime ")
+	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.lastAccess >:timestamp AND u.lastAccess <:currenttime AND u.activeUser > -2 ")
 	long countUsersByLastLogin(@Param("timestamp") long timestamp, @Param("currenttime") long currenttime);
 
-	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.userRole =:role ")
+	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.userRole =:role AND u.activeUser > -2")
 	long countUsersByRole(@Param("role") String role);
 
+	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.activeUser = -2")
+	long countDeletedUsers();
 
 
 
