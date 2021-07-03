@@ -47,16 +47,16 @@ public class JwtUtil {
 		Map<String, Object> claims = new HashMap<>();
 
 		Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities();
+		
+		
+		for(Role  r : Role.values()) {
+			
+			if (roles.contains(new SimpleGrantedAuthority(r.toString())))
+			claims.put("role" , r.toString());
+			
+		}
 
-		if (roles.contains(new SimpleGrantedAuthority(Role.ROLE_ADMINISTRATOR.toString()))) {
-			claims.put("is"+Role.ROLE_ADMINISTRATOR.toString() , true);
-		}
-		if (roles.contains(new SimpleGrantedAuthority(Role.ROLE_OFFICER.toString()))) {
-			claims.put("is" +Role.ROLE_OFFICER.toString(), true);
-		}
-		if (roles.contains(new SimpleGrantedAuthority(Role.ROLE_STOREMANAGER.toString()))) {
-			claims.put("is" + Role.ROLE_STOREMANAGER.toString(), true);
-		}
+		
 	
 	
 		
@@ -92,20 +92,23 @@ public class JwtUtil {
 
 		List<SimpleGrantedAuthority> roles = null;
 
-		Boolean isAdministrator = claims.get("is"+Role.ROLE_ADMINISTRATOR.toString() , Boolean.class);
-		Boolean isOfficer = claims.get("is" +Role.ROLE_OFFICER.toString(), Boolean.class);
-		Boolean isStoremanager = claims.get("is" + Role.ROLE_STOREMANAGER, Boolean.class);
+		String role= claims.get("role" , String.class);
+	/*	String isOfficer = claims.get("role" , String.class);
+		String isStoremanager =claims.get("role" , String.class);
+		String isCentralOfficer =claims.get("role" , String.class);
+		String isCentralStoremanager =claims.get("role" , String.class);*/
+		
+		
+		for(Role  r : Role.values()) {
 
-		if (isAdministrator != null && isAdministrator) {
-			roles = Arrays.asList(new SimpleGrantedAuthority(Role.ROLE_ADMINISTRATOR.toString()));
+		if ( role.equals( r.toString())) {
+			roles = Arrays.asList(new SimpleGrantedAuthority(r.toString()));
 		}
-
-		if (isOfficer != null && isOfficer) {
-			roles = Arrays.asList(new SimpleGrantedAuthority(Role.ROLE_OFFICER.toString()));
 		}
-		if (isStoremanager != null && isStoremanager) {
-			roles = Arrays.asList(new SimpleGrantedAuthority(Role.ROLE_STOREMANAGER.toString()));
-		}
+		
+		
+		
+		
 		return roles;
 
 	}
