@@ -295,11 +295,13 @@ public  class UserController implements ContainerResponseFilter {
 	*/
     
     //===============DELETE METHODS
-    @DeleteMapping("/deleteUser")
-	public void deleteUser(@RequestBody UserDAO deleteUser) {
-		//userRepo.logicalDelete(deleteUser); /* TODO: sarebbe utile una cancellazione logica e non fisica dal DB */
-    	deleteUser.setActiveUser(UsersStates.DELETED);
-    	userRepo.save(deleteUser);
+    @DeleteMapping("/user/delete/{username}")
+	public void deleteUser(@PathVariable String username) {
+		UserDAO userToDelete = this.getUserByUsername(username);
+		userRepo.delete(userToDelete);
+
+		userToDelete.setActiveUser(UsersStates.DELETED);
+    	userRepo.save(userToDelete);
 	}
 
 
