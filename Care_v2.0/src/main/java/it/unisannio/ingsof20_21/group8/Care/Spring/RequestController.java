@@ -266,7 +266,7 @@ public class RequestController implements ContainerResponseFilter {
 	
 	
 	
-	@PostMapping("accept")
+	@PostMapping("/accept")
 	public String acceptRequest(@RequestBody RequestBean requestB) throws ParseException{		
 
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
@@ -284,9 +284,12 @@ public class RequestController implements ContainerResponseFilter {
 				RequestPriority.valueOf(requestB.getPriority()));
 		
 		RequestManager manager = new RequestManager();
+		BloodBagManager bbm= new BloodBagManager();
 		try {
 			manager.acceptRequest(request);
+			bbm.BloodBagMarkNotAvailable(requestB.getSerial());
 			manager.close();
+			bbm.close();
 			return request.toString();
 		
 		}catch(RequestNotFoundException e){
@@ -301,7 +304,6 @@ public class RequestController implements ContainerResponseFilter {
 					+ "\n}";
 		}
 	}
-
 
 	
 	@PostMapping("refuse")	

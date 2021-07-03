@@ -16,6 +16,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Updates;
 
 import it.unisannio.CARE.model.bloodBag.BloodBag;
 import it.unisannio.CARE.model.bloodBag.BloodBagState;
@@ -88,6 +89,12 @@ public class BloodBagManager {
 	  	  return false;
 	  
 }
+	
+	public void BloodBagMarkNotAvailable(String serial_r) {
+		Bson filter=eq("`serial`", serial_r);
+		Bson update=Updates.set("`state`",BloodBagState.Transfered.toString() );
+		this.collection.updateOne(filter, update);
+	}
 	
 	
 	public void close() {
