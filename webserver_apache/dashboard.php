@@ -5,6 +5,10 @@ $roles[0] = "isROLE_ADMINISTRATOR";
 $roles[1] = "isROLE_STOREMANAGER";
 $roles[2] = "isROLE_OFFICER";
 
+$isRoles[0] = "is".$roles[0];
+$isRoles[1] = "is".$roles[1];
+$isRoles[2] = "is".$roles[2];
+
 @$token = $_GET['token'];
 
 $arrayToken 		= explode(".", $token);

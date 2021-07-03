@@ -243,15 +243,15 @@ public class User {
 	 * @return UserBean
 	 **************************************************************************
 	 */
-    public UserDAO	getUserBean() {
-    	UserDAO ub = new UserDAO();
-    	ub.setUsername(this.username);
-    	ub.setPassword(this.hiddenPassword);
-    	ub.setTemppass(this.temppass);
-    	ub.setEmail(this.email);
-    	ub.setUserRole( this.role.toString() );
+    public UserDAO	getUserDAO() {
+    	UserDAO ud = new UserDAO();
+    	ud.setUsername(this.username);
+    	ud.setPassword(this.hiddenPassword);
+    	ud.setTemppass(this.temppass);
+    	ud.setEmail(this.email);
+    	ud.setUserRole( this.role.toString() );
     	
-		return ub;
+		return ud;
     }
     
     /**

@@ -1,5 +1,5 @@
 <?php
-echo("ciao ".$token."<br><br>");
+//echo("ciao ".$token."<br><br>");
 
 $urlAPI = "http://localhost:8087/user/get/all";
 $authorization = "Authorization: Bearer ".$token;
@@ -20,7 +20,7 @@ $usersArray = (array) json_decode($result);
 foreach (array_keys($usersArray ) as $key) {
     //echo("user: ".$usersArray[$key]['idUser'] . " token:" . $usersArray[$key]['username'] . "<br>");
 // print_r($usersArray[0]);
-
+/*
  echo(	  "<br>"
 	. "userId:"
 	. $usersArray[$key]->idUser 
@@ -31,7 +31,7 @@ foreach (array_keys($usersArray ) as $key) {
 	. " - creationDate: "
 	. $usersArray[$key]->creationDate
 	. "<br>");
-
+*/
     //print_r($arr);
 }
 
@@ -40,33 +40,45 @@ foreach (array_keys($usersArray ) as $key) {
 ?>
 
     <h2>Local Users:</h2>
-    <form action="#">
+<!--    <form action="" method="POST"> -->
      <table>
          <tr>
+            <td align="center"><b>idUser</b></td>
             <td align="center"><b>Username</b></td>
             <td align="center"><b>Password</b></td>
+            <td align="center"><b>temppass</b></td>
+            <td align="center"><b>E-Mail</b></td>
             <td align="center"><b>Ruolo</b></td>
+            <td align="center"><b>creationDate</b></td>
+            <td align="center"><b>lastAccess</b></td>
+            <td align="center"><b>loginAttempts</b></td>
+            <td align="center"><b>activeUser</b></td>
             <td align="center"><b>Actions</b></td>
         </tr>
         <tr>
-<?php
-foreach (array_keys($usersArray ) as $key) {
-?>
+<?php foreach (array_keys($usersArray ) as $key) { ?>
+            <td><input type="text" name="id_<?php echo $usersArray[$key]->idUser; ?>" value="<?php echo $usersArray[$key]->idUser; ?>" /></td>
             <td><input type="text" name="user_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->username; ?>" /></td>
-            <td><input type="password" name="pass_<?php echo $usersArray[$key]->username; ?>" value="???" disabled /></td>
+            <td><input type="password" name="pass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->password; ?>" disabled /></td>
+            <td><input type="text" name="temppass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->temppass; ?>" /></td>
+            <td><input type="text" name="email_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->email; ?>" /></td>
             <td>
                 <select name="role" id="role">
                     <optgroup label="Role-Based Access Control">
-  <?php
-   foreach($roles as $r) {
-     echo('<option value="' . $r . '"');
-     if( $r == 'is'.$usersArray[$key]->userRole ) echo(' selected');
-     echo('>'.$r.'</option>');
-   }
-  ?>
+			<?php
+			   foreach($roles as $r) {
+			     echo('<option value="' . $r . '"');
+			     if( $r == 'is'.$usersArray[$key]->userRole ) echo(' selected');
+			     echo('>'.$r.'</option>');
+			   }
+			?>
                     </optgroup>
                 </select>
             </td>
+            <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->creationDate; ?>" /></td>
+            <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->lastAccess; ?>" /></td>
+            <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->loginAttempts; ?>" /></td>
+            <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->activeUser; ?>" /></td>
             <td>
                 <input type="submit" value="Salva">
                 <input type="button" value="Elimina">
@@ -75,6 +87,34 @@ foreach (array_keys($usersArray ) as $key) {
 <?php
 }
 ?>
+	<!-- START: new user fields -->
+        <tr>
+            <td><input type="text" name="newiduser" id="newiduser" value="#" disabled /></td>
+            <td><input type="text" name="newusername" id="newusername" /></td>
+            <td><input type="text" name="newpassword" id="newpassword" placeholder="if null auto generated" /></td>
+            <td><input type="text" disabled/></td>
+            <td><input type="text" name="newemail" id="newemail" placeholder="e-mail here" /></td>
+            <td>
+                <select name="newrole" id="newrole">
+  			<?php
+			   foreach($roles as $r) {
+			     echo('<option value="' . $r . '"');
+			     echo('>'.$r.'</option>');
+			   }
+			?>
+                </select>
+            </td>
+            <td><input type="text" value="<?php echo(date('Y-m-d')); ?>" disabled /></td>
+            <td><input type="text" value="1900-01-01" disabled /></td>
+            <td><input type="text" name="newloginattempts" id="newloginattempts" value="0" /></td>
+            <td><input type="text" name="newactiveuser" id="newactiveuser" value="true" /></td>
+            <td>
+		<input type="text" name="addUserURL" id="addUserURL" value="http://localhost:8087/register" hidden="yes" />
+                <input type="submit" value="Crea" onclick="addUser(document.getElementById('addUserURL').value, '<?php echo($token); ?>', document.getElementById('newusername').value, document.getElementById('newpassword').value, document.getElementById('newemail').value, document.getElementById('newrole').value, document.getElementById('newloginattempts').value, document.getElementById('newactiveuser').value)">
+            </td>
+        </tr>
+	<!-- END: new user fields -->
+
 
      </table>
 
