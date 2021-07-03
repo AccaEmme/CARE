@@ -1,9 +1,12 @@
 package it.unisannio.CARE.model.util;
 
+import com.google.zxing.WriterException;
 import it.unisannio.CARE.model.bloodBag.BloodBag;
 import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagDAO;
 import org.json.simple.JSONObject;
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -92,8 +95,15 @@ public class QRCode {
             MatrixToImageWriter.writeToFile(matrix, filePath.substring(filePath
                     .lastIndexOf('.') + 1), new File(filePath));
             System.out.println("QR Code image created successfully!");
-        } catch (Exception e) {
-            System.err.println(e);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Couldn't save the QR code.");
+        } catch (WriterException e) {
+            e.printStackTrace();
+            System.err.println("Couldn't create the QR code.");
+        }catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Unexpected QR code error.");
         }
     }
 

@@ -170,11 +170,12 @@ public  class UserController implements ContainerResponseFilter {
 	}
 	//############## ALTER METHODS ###############
 	/*
-	non riesco a far funzionare la query di UPDATE
-	@PatchMapping("/user/patch/loginattempts/{attempts}/{username}")
-    public void changeUserAttempts(@PathVariable int attempts, @PathVariable String username){
+	non riesco a far funzionare la query di UPDATE*/
+
+	@PatchMapping("/user/patch/loginattempts/update/{attempts}/{username}")
+    public void changeUserAttemptsUPDATE(@PathVariable int attempts, @PathVariable String username){
 		userRepo.updateUserLoginAttempts(attempts,username);
-	}*/
+	}
 
 	@PatchMapping("/user/patch/loginattempts/set/{attempts}/{username}")
 	public void changeUserAttempts(@PathVariable int attempts, @PathVariable String username){

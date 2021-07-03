@@ -4,6 +4,7 @@
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -15,10 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Date;
 
-/**
- * @author Acca
- *
- */
+
 
 @Repository
 public interface UserRepository extends JpaRepository<UserDAO, Long>{
@@ -36,9 +34,11 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	@Query("FROM UserDAO u WHERE u.creationDate >:firstdate AND u.creationDate <:seconddate")
 	Iterable<UserDAO> findCreatedBetween(@Param("firstdate") long firstdate, @Param("seconddate") long seconddate);
 
+	@Modifying
 	@Transactional
-	@Query("UPDATE UserDAO u SET u.loginAttempts =:attempts where u.username =:username")
-	void updateUserLoginAttempts(@Param("attempts") int attempts, @Param("username") String username);
+	@Query("UPDATE UserDAO u SET u.loginAttempts = ?1 where u.username = ?2")
+	void updateUserLoginAttempts(int attempts,String username);
+	//void updateUserLoginAttempts(@Param("attempts") int attempts, @Param("username") String username);
 
 	@Query("FROM UserDAO u WHERE u.activeUser =:isactive")
 	Iterable<UserDAO> filterUsersByState(@Param("isactive") short isactive);
