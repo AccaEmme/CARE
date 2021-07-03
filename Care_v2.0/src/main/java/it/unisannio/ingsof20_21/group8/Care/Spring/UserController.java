@@ -296,12 +296,20 @@ public  class UserController implements ContainerResponseFilter {
     
     //===============DELETE METHODS
     @DeleteMapping("/user/delete/{username}")
-	public void deleteUser(@PathVariable String username) {
+	public UserDAO deleteUserByUsername(@PathVariable String username) {
 		UserDAO userToDelete = this.getUserByUsername(username);
 		userRepo.delete(userToDelete);
 
 		userToDelete.setActiveUser(UsersStates.DELETED);
-    	userRepo.save(userToDelete);
+    	return userRepo.save(userToDelete);
+	}
+	@DeleteMapping("/user/delete/{email}")
+	public UserDAO deleteUserByEmail(@PathVariable String email) {
+		UserDAO userToDelete = this.getUserByEmail(email);
+		userRepo.delete(userToDelete);
+
+		userToDelete.setActiveUser(UsersStates.DELETED);
+		return userRepo.save(userToDelete);
 	}
 
 
