@@ -144,16 +144,27 @@ public  class UserController implements ContainerResponseFilter {
 	@GetMapping("user/report")
 	public UserReport getUserReport(){
 		long total = userRepo.countAllUsers();
-		long activeUsers = userRepo.countUsersByState(true);
-		long inactiveUsers = userRepo.countUsersByState(false);
+		System.out.println(total);
+		long activeUsers = userRepo.countUsersByState(UsersStates.ACTIVE);
+		System.out.println(activeUsers);
+		long inactiveUsers = userRepo.countUsersByState(UsersStates.INACTIVE);
+		System.out.println(inactiveUsers);
 		long loggedLast24H = userRepo.countUsersByLastLogin(new Date().getTime()- Constants.ONE_DAY_MILLIS, new Date().getTime());
+		System.out.println(loggedLast24H);
 		long admins = userRepo.countUsersByRole(Role.ROLE_ADMINISTRATOR.toString());
+		System.out.println(admins);
 		long storeManagers = userRepo.countUsersByRole(Role.ROLE_STOREMANAGER.toString());
+		System.out.println(storeManagers);
 		long officers = userRepo.countUsersByRole(Role.ROLE_OFFICER.toString());
+		System.out.println(officers);
+		long blockedBySystem = userRepo.countUsersByState(UsersStates.BLOCKED_BY_SYSTEM);
+		System.out.println(blockedBySystem);
+		long deleted = userRepo.countUsersByState(UsersStates.DELETED);
+		System.out.println(deleted);
 
 
-
-		UserReport report = new UserReport(total,activeUsers,inactiveUsers,loggedLast24H,activeUsers,storeManagers,officers);
+		//long total, long activeUsers, long inactiveUsers, long loggedLast24Hours, long blockedBySystem, long deleted, long administrators, long storeManagers, long officers
+		UserReport report = new UserReport(total,activeUsers,inactiveUsers,loggedLast24H,blockedBySystem,deleted,admins,storeManagers,officers);
 
 		return report;
 	}

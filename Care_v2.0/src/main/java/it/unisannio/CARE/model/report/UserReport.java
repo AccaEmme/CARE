@@ -7,24 +7,33 @@
  */
 package it.unisannio.CARE.model.report;
 
+import java.util.Date;
+
 public class UserReport {
     private long total;
     private long activeUsers;
     private long inactiveUsers;
     private long loggedLast24Hours;
+    private long blockedBySystem;
+    private long deleted;
 
     private long administrators;
     private long storeManagers;
     private long officers;
 
-    public UserReport(long total, long activeUsers, long inactiveUsers, long loggedLast24Hours, long administrators, long storeManagers, long officers) {
+    private long timestamp;
+
+    public UserReport(long total, long activeUsers, long inactiveUsers, long loggedLast24Hours, long blockedBySystem, long deleted, long administrators, long storeManagers, long officers) {
         this.total = total;
         this.activeUsers = activeUsers;
         this.inactiveUsers = inactiveUsers;
         this.loggedLast24Hours = loggedLast24Hours;
+        this.blockedBySystem = blockedBySystem;
+        this.deleted = deleted;
         this.administrators = administrators;
         this.storeManagers = storeManagers;
         this.officers = officers;
+        this.timestamp = new Date().getTime();
     }
 
     public long getTotal() {
@@ -43,11 +52,11 @@ public class UserReport {
         this.activeUsers = activeUsers;
     }
 
-    public long getDeactivatedUsers() {
+    public long getInactiveUsers() {
         return inactiveUsers;
     }
 
-    public void setDeactivatedUsers(long inactiveUsers) {
+    public void setInactiveUsers(long inactiveUsers) {
         this.inactiveUsers = inactiveUsers;
     }
 
@@ -57,6 +66,22 @@ public class UserReport {
 
     public void setLoggedLast24Hours(long loggedLast24Hours) {
         this.loggedLast24Hours = loggedLast24Hours;
+    }
+
+    public long getBlockedBySystem() {
+        return blockedBySystem;
+    }
+
+    public void setBlockedBySystem(long blockedBySystem) {
+        this.blockedBySystem = blockedBySystem;
+    }
+
+    public long getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(long deleted) {
+        this.deleted = deleted;
     }
 
     public long getAdministrators() {
