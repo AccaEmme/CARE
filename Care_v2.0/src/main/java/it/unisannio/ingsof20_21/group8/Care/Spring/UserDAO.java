@@ -176,9 +176,8 @@ public class UserDAO { // *** UserDAO ???
 	/**
 	 * @return the creationDate
 	 */
-	public String getCreationDate() {
-		SimpleDateFormat creationDateString = new SimpleDateFormat(Constants.DATE_FORMAT_STRING);
-		return creationDateString.format(creationDate).toString();
+	public long getCreationDate() {
+		return this.creationDate;
 	}
 
 	/**
@@ -189,16 +188,16 @@ public class UserDAO { // *** UserDAO ???
 		setCreationDate( creationDate.getTime() );
 	}
 	
-	private void setCreationDate(long creationDate) {
+	public void setCreationDate(long creationDate) {
 		this.creationDate = creationDate;
 	}
 
 	/**
 	 * @return the lastAccess
 	 */
-	public String getLastAccess() {
+	public long getLastAccess() {
 		SimpleDateFormat lastAccessString = new SimpleDateFormat(Constants.DATE_FORMAT_STRING);
-		return lastAccessString.format(lastAccess).toString();
+		return this.lastAccess;
 	}
 
 	/**

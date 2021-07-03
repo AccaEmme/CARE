@@ -216,13 +216,38 @@ public  class UserController implements ContainerResponseFilter {
 	                    newUser.getUsername(),                // HTTP username
 	                    newUser.getPassword(),                // HTTP plainTextPassword
 	                    Role.valueOf(newUser.getUserRole()) // HTTP Role
-	                    );
+				);
 
 	            UserDAO saveBean = tempUserObj.getUserDAO();
-	            saveBean.setCreationDate(new Date());
-	            saveBean.setEmail(newUser.getEmail());
-	            saveBean.setLastAccess( -2_208_988_800_000L );
+				   saveBean.setCreationDate(new Date().getTime());
+				   saveBean.setEmail(newUser.getEmail());
+				   saveBean.setLastAccess( new Date().getTime() );
+				   saveBean.setPassword(Password.getBCrypt(tempUserObj.getPassword()));
+				   saveBean.setLoginAttempts(0);
+				   saveBean.setActiveUser(UsersStates.ACTIVE);
+
+
 	            return userRepo.save(saveBean);
+
+
+
+				/*
+				User user = new User(newUser.getUsername(),newUser.getPassword(), Role.valueOf(newUser.getUserRole()));
+
+
+				UserDAO userToSave = new UserDAO();
+
+				userToSave.setUsername(user.getUsername());
+				userToSave.setPassword(user.getPassword());
+				userToSave.setTemppass("");
+				user.setEmail(newUser.getEmail());
+				userToSave.setCreationDate(new Date().getTime());
+		   		userToSave.setLastAccess(new Date().getTime());
+		   		userToSave.setLoginAttempts(0);
+		   		userToSave.setActiveUser(UsersStates.ACTIVE);
+
+
+	            return userRepo.save(userToSave);*/
 
 		}catch (Exception e) {
 
