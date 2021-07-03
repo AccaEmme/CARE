@@ -40,6 +40,19 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	void updateUserLoginAttempts(int attempts,String username);
 	//void updateUserLoginAttempts(@Param("attempts") int attempts, @Param("username") String username);
 
+	// modifica lo stato di un user cercandolo per username
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.activeUser = ?1 where u.username = ?2")
+	void updateUserActiveUserByUsername(short state, String username);
+
+	// modifica lo stato di un user cercandolo per username
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.activeUser = ?1 where u.email = ?2")
+	void updateUserActiveUserByEmail(short state, String email);
+
+
 	@Query("FROM UserDAO u WHERE u.activeUser =:isactive")
 	Iterable<UserDAO> filterUsersByState(@Param("isactive") short isactive);
 

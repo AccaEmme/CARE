@@ -179,43 +179,28 @@ public  class UserController implements ContainerResponseFilter {
 
 	@PatchMapping("/user/patch/loginattempts/set/{attempts}/{username}")
 	public void changeUserAttempts(@PathVariable int attempts, @PathVariable String username){
-		UserDAO user = userRepo.findByUsername(username);
-
-		userRepo.delete(user);
-		user.setLoginAttempts(attempts);
-		userRepo.save(user);
+		userRepo.updateUserLoginAttempts(attempts,username);
 	}
 
 	@PatchMapping("/user/patch/loginattempts/increaseone/{username}")
 	public String increaseUserAttempts(@PathVariable String username){
 		UserDAO user = userRepo.findByUsername(username);
 
-		userRepo.delete(user);
+		userRepo.updateUserLoginAttempts(user.getLoginAttempts()+1,username);
 		user.setLoginAttempts(user.getLoginAttempts()+1);
 
 		if (user.getLoginAttempts()==4){
-			//deactivate user
-			user.setActiveUser(UsersStates.DELETED);
-
-			userRepo.save(user);
+			userRepo.updateUserActiveUserByUsername(UsersStates.INACTIVE,username);
 			return "user deactivated: too may login attempts.";
 		}
-
-		userRepo.save(user);
 
 		return "user login attempts increased.\nuser login attempts: "+user.getLoginAttempts();
 	}
 
 	@PatchMapping("/user/patch/restoreuser/{username}")
 	public UserDAO restoreUser(@PathVariable String username){
-		UserDAO user = userRepo.findByUsername(username);
-
-		userRepo.delete(user);
-		user.setActiveUser(UsersStates.ACTIVE);
-		user.setLoginAttempts(0);
-		userRepo.save(user);
-
-		return user;
+		userRepo.updateUserActiveUserByUsername(UsersStates.ACTIVE,username);
+		return userRepo.findByUsername(username);
 	}
 
 
@@ -289,19 +274,14 @@ public  class UserController implements ContainerResponseFilter {
     //===============DELETE METHODS
     @DeleteMapping("/user/delete/username/{username}")
 	public UserDAO deleteUserByUsername(@PathVariable String username) {
-		UserDAO userToDelete = this.getUserByUsername(username);
-		userRepo.delete(userToDelete);
-
-		userToDelete.setActiveUser(UsersStates.DELETED);
-    	return userRepo.save(userToDelete);
+		userRepo.updateUserActiveUserByUsername(UsersStates.DELETED, username);
+		//puo essere eliminato se non ci interessa ritornare l'user modificato
+		return this.getUserByUsername(username);
 	}
 	@DeleteMapping("/user/delete/email/{email}")
 	public UserDAO deleteUserByEmail(@PathVariable String email) {
-		UserDAO userToDelete = this.getUserByEmail(email);
-		userRepo.delete(userToDelete);
-
-		userToDelete.setActiveUser(UsersStates.DELETED);
-		return userRepo.save(userToDelete);
+		userRepo.updateUserActiveUserByEmail(UsersStates.DELETED, email);
+		return this.getUserByEmail(email);
 	}
 
 
