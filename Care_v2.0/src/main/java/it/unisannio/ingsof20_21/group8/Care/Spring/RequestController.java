@@ -32,6 +32,7 @@ import it.unisannio.CARE.controll.request.RequestManager;
 import it.unisannio.CARE.model.bloodBag.Request;
 import it.unisannio.CARE.model.bloodBag.RequestPriority;
 import it.unisannio.CARE.model.bloodBag.RequestState;
+import it.unisannio.CARE.model.exceptions.BloodBagNotFoundException;
 import it.unisannio.CARE.model.exceptions.RequestCloneNotSupportedException;
 import it.unisannio.CARE.model.exceptions.RequestNotFoundException;
 import it.unisannio.CARE.model.util.Constants;
@@ -225,12 +226,10 @@ public class RequestController implements ContainerResponseFilter {
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 		
-		/* non esiste il controlo se la sacca è presente nel database posso fare richieste
-		 * anche per sacche inesistenti
-		 */
+		
 		BloodBagManager bbm=new BloodBagManager();
-		if(bbm.BloodBagRequestable(requestB.getSerial())) {
-			System.out.println("qua devo lanciare la eccezione");
+		if(!bbm.BloodBagRequestable(requestB.getSerial())) {
+			throw new BloodBagNotFoundException("la sacca su cui è stata fatta la richiesta non esiste o non è disponibile","/request/add");
 
 		}
 		Request request = new Request(

@@ -52,7 +52,6 @@ public class BloodBagManager {
         String db_host = properties.getProperty("db_host");
         String databaseName = properties.getProperty("db_name");
         String collectionName = properties.getProperty("bloodbags");
-        
 		this.mongoClient = new MongoClient(new MongoClientURI("mongodb+srv://"+username+":"+password+"@cluster0"+db_host));
 		this.mongoDatabase = mongoClient.getDatabase(databaseName);
 		this.collection = mongoDatabase.getCollection(collectionName);
@@ -76,13 +75,16 @@ public class BloodBagManager {
 	}
 	
 	public boolean BloodBagRequestable(String serial_r) {
-	Bson filter = and(
-			eq("sate", BloodBagState.Available.toString()),
-    		eq("serial", serial_r));
+       Bson filter = and(
+			eq("`state`", BloodBagState.Available.toString()),
+    		eq("`serial`", serial_r));
 	
-	  MongoCursor<Document> iterator = this.collection.find().filter(filter).iterator();
-	  if(!iterator.hasNext()) 
+	  MongoCursor<Document> iterator =this.collection.find().filter(filter).iterator();
+
+	  if(iterator.hasNext() )
 		  return true;
+	  
+	  
 	  	  return false;
 	  
 }
