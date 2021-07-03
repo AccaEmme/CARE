@@ -61,6 +61,7 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.lastAccess >:timestamp AND u.lastAccess <:currenttime")
 	long countUsersByLastLogin(@Param("timestamp") long timestamp, @Param("currenttime") long currenttime);
 
+
 	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.userRole =:role ")
 	long countUsersByRole(@Param("role") String role);
 
