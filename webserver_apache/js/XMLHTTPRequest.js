@@ -2,7 +2,7 @@ function hello(){
  alert("ciao");
 }
 
-//=================Method:GET
+//=================Method:POST
 function login(){
 	event.preventDefault();
 	let url;
@@ -35,9 +35,11 @@ function HTTPPost(url, token, jsonBodyString){
 	let request = new XMLHttpRequest();   // new HttpRequest instance
 
 	request.open("POST", url, true);
-	//request.setRequestHeader('Authorization', 'Bearer ' + token);
+	request.setRequestHeader('Authorization', 'Bearer ' + token);
 	request.setRequestHeader("content-type", "application/json");
-	request.send(JSON.stringify(jsonBodyString));
+alert(jsonBodyString);
+//	request.send(JSON.stringify(jsonBodyString));
+	request.send(jsonBodyString);
 	request.onreadystatechange = function() {
 	 if (this.readyState === 4 &&  this.status === 200 ) {
 	  console.log("Request: token " + token + " jsonBody: " + jsonBodyString);
@@ -51,7 +53,6 @@ function HTTPPost(url, token, jsonBodyString){
 
 
 //=================Users Methods: POST
-
 function addUser(url, token, username, password, email, userRole, loginAttempts, activeUser){
 //var url='http://localhost:8087/authenticate';
 /*
