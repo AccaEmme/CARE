@@ -51,12 +51,21 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
+<<<<<<< Updated upstream
 		http.csrf().disable()
 		.authorizeRequests().antMatchers().hasRole("ADMINISTRATOR")
 		.antMatchers("request/add").hasAnyRole("OFFICER")
 		.antMatchers("/bloodbag/add","/bloodbag/use/{serial}").hasAnyRole("STOREMANAGER")
 		.antMatchers("/bloodbag/central/add","/bloodbag/use/{serial}").hasAnyRole("CENTRAL_STOREMANAGER")
 		.antMatchers("/authenticate", "logger/add","/request/add","/request/accept","/register","/user/delete/{username}").permitAll().anyRequest().authenticated()
+=======
+		http.csrf().disable().authorizeRequests()
+		//.antMatchers("/register").hasRole("ADMINISTRATOR")
+		.antMatchers("request/add").hasAnyRole("OFFICER")
+		.antMatchers("/bloodbag/add","/bloodbag/use/{serial}").hasAnyRole("STOREMANAGER")
+		.antMatchers("/bloodbag/central/add","/bloodbag/use/{serial}").hasAnyRole("CENTRAL_STOREMANAGER")
+		.antMatchers("/register", "/authenticate", "logger/add","/request/add","/request/accept").permitAll().anyRequest().authenticated()
+>>>>>>> Stashed changes
 		.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
 		and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
 		and().addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

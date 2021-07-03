@@ -206,11 +206,9 @@ public  class UserController implements ContainerResponseFilter {
 		return user;
 	}
 
-
     //===============POST METHODS
 	@PostMapping("/register")
     public UserDAO createUser(@RequestBody UserDAO newUser) throws Exception {
-
 	   try {
 	            User tempUserObj = new User(
 	                    newUser.getUsername(),                // HTTP username
@@ -228,6 +226,7 @@ public  class UserController implements ContainerResponseFilter {
 
 
 	            return userRepo.save(saveBean);
+<<<<<<< Updated upstream
 
 
 
@@ -249,18 +248,16 @@ public  class UserController implements ContainerResponseFilter {
 
 	            return userRepo.save(userToSave);*/
 
+=======
+>>>>>>> Stashed changes
 		}catch (Exception e) {
-
-
 	        throw new Exception(e.getMessage()
 	        		+ "1) Your password must be between 8 and 30 characters."
 	        		+ "2) Your password must contain at least one uppercase, or capital, letter (ex: A, B, etc.)"
 	                + "3) Your password must contain at least one lowercase letter."
 	                + "4) Your password must contain at least one number digit (ex: 0, 1, 2, 3, etc.)"
 	                + "5) Your password must contain at least one special character -for example: $, #, @, !,%,^,&,*");
-
 		}
-
     }
 
     //===============PUT METHODS
