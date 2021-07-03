@@ -47,22 +47,16 @@ public class JwtUtil {
 		Map<String, Object> claims = new HashMap<>();
 
 		Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities();
+		
+		
+		for(Role  r : Role.values()) {
+			
+			if (roles.contains(new SimpleGrantedAuthority(r.toString())))
+			claims.put("role" , r.toString());
+			
+		}
 
-		if (roles.contains(new SimpleGrantedAuthority(Role.ROLE_ADMINISTRATOR.toString()))) {
-			claims.put("role" , Role.ROLE_ADMINISTRATOR.toString());
-		}
-		if (roles.contains(new SimpleGrantedAuthority(Role.ROLE_OFFICER.toString()))) {
-			claims.put("role" , Role.ROLE_OFFICER.toString());
-		}
-		if (roles.contains(new SimpleGrantedAuthority(Role.ROLE_STOREMANAGER.toString()))) {
-			claims.put("role" , Role.ROLE_STOREMANAGER.toString());
-		}
-		if (roles.contains(new SimpleGrantedAuthority(Role.ROLE_CENTRAL_OFFICER.toString()))) {
-			claims.put("role" , Role.ROLE_CENTRAL_OFFICER.toString());
-		}
-		if (roles.contains(new SimpleGrantedAuthority(Role.ROLE_CENTRAL_STOREMANAGER.toString()))) {
-			claims.put("role" , Role.ROLE_CENTRAL_STOREMANAGER.toString());
-		}
+		
 	
 	
 		
@@ -103,26 +97,16 @@ public class JwtUtil {
 		String isStoremanager =claims.get("role" , String.class);
 		String isCentralOfficer =claims.get("role" , String.class);
 		String isCentralStoremanager =claims.get("role" , String.class);*/
+		
+		
+		for(Role  r : Role.values()) {
 
-		if ( role.equals( Role.ROLE_ADMINISTRATOR.toString())) {
-			roles = Arrays.asList(new SimpleGrantedAuthority(Role.ROLE_ADMINISTRATOR.toString()));
+		if ( role.equals( r.toString())) {
+			roles = Arrays.asList(new SimpleGrantedAuthority(r.toString()));
+		}
 		}
 		
-		if ( role.equals( Role.ROLE_OFFICER.toString())) {
-			roles = Arrays.asList(new SimpleGrantedAuthority(Role.ROLE_OFFICER.toString()));
-		}
-
-		if ( role.equals(Role.ROLE_STOREMANAGER.toString())) {
-			roles = Arrays.asList(new SimpleGrantedAuthority(Role.ROLE_STOREMANAGER.toString()));
-		}
-
-		if ( role.equals( Role.ROLE_CENTRAL_OFFICER.toString())) {
-			roles = Arrays.asList(new SimpleGrantedAuthority(Role.ROLE_ADMINISTRATOR.toString()));
-		}
-
-		if ( role.equals( Role.ROLE_CENTRAL_STOREMANAGER.toString())) {
-			roles = Arrays.asList(new SimpleGrantedAuthority(Role.ROLE_CENTRAL_STOREMANAGER.toString()));
-		}
+		
 		
 		
 		return roles;
