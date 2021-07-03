@@ -383,7 +383,7 @@ public class BloodBagController implements ContainerResponseFilter {
         
     		managerR.closeRequest(bagDAO.getSerial());
     	
-	        Document bagD = managerB.getBloodBag(bagDAO.getSerial());
+	        Document bagD = managerB.importBloodBag(bagDAO.getSerial());
 	    		
 	        bagDAO.setCreationDate(Long.parseLong(bagD.getString("creation_date")));
 	        bagDAO.setDonator(bagD.getString("donator"));

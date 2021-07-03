@@ -76,15 +76,29 @@ public class BloodBagManager {
 		this.collection.deleteOne(bloodBagD);
 	}
 	
+	public Document importBloodBag(String serial) {
+		
+		Bson filter = and(
+						eq("serial", serial),
+						eq("state", BloodBagState.Transfered.toString())
+						);
+		Bson update = Updates.set("state",BloodBagState.Arrived.toString() );
+		
+		Document bloodBagD = this.collection.findOneAndUpdate(filter, update);
+		
+		if(bloodBagD != null)
+			return bloodBagD;
+		throw new BloodBagNotFoundException("Sacca non trovata.");
+	}
+	
 	public Document getBloodBag(String serial) {
 		
 		Bson filter = and(
 						eq("serial", serial),
 						eq("state", BloodBagState.Transfered.toString())
 						);
-		Bson update = Updates.set("state",BloodBagState.Transfered.toString() );
 		
-		Document bloodBagD = this.collection.findOneAndUpdate(filter, update);
+		Document bloodBagD = this.collection.find(filter).first();
 		
 		if(bloodBagD != null)
 			return bloodBagD;
