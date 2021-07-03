@@ -75,18 +75,29 @@ public class BloodBagManager {
 		this.collection.deleteOne(bloodBagD);
 	}
 	
+	public Document getBloodBag(String serial) {
+		
+		Bson filter = eq("serial", serial);
+		
+		MongoCursor<Document> iterator = this.collection.find().filter(filter).iterator();
+		
+		if(iterator.hasNext()) {
+			return iterator.next();
+		}
+		return null;
+	}
+	
 	public boolean BloodBagRequestable(String serial_r) {
 		
        Bson filter = and(
-			eq("state", BloodBagState.Available.toString()),
-    		eq("serial", serial_r));
+    		   
+			       		eq("serial", serial_r),
+						eq("state", BloodBagState.Available.toString())
+					);
 	
-	  MongoCursor<Document> iterator =this.collection.find().filter(filter).iterator();
+	  MongoCursor<Document> iterator = this.collection.find(filter).iterator();
 
-	  if(iterator.hasNext() )
-		  return true;
-	  else
-	  	  return false;
+	  return iterator.hasNext();
 	  
 }
 	

@@ -223,6 +223,8 @@ public class RequestController implements ContainerResponseFilter {
 		
 		BloodBagManager bbm = new BloodBagManager();
 		if(!bbm.BloodBagRequestable(requestB.getSerial())) {
+			
+			bbm.close();
 			throw new BloodBagNotFoundException("La sacca su cui è stata fatta la richiesta non esiste o non è disponibile","/request/add");
 
 		}
@@ -247,12 +249,16 @@ public class RequestController implements ContainerResponseFilter {
 		try {
 			
 			manager.addRequest(request);
-			manager.close();
 			return requestB;
 		
 		}catch(RequestCloneNotSupportedException e){
-		
+
 			throw new RequestCloneNotSupportedException("La richiesta che si vuole aggiungere è già esistente o è stata già accettata.", "request/add");
+		
+		}finally {
+			
+			bbm.close();
+			manager.close();
 		}
 		
 	}

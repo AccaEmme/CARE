@@ -12,9 +12,7 @@ import java.util.Locale;
 import org.bson.Document;
 
 import it.unisannio.CARE.model.exceptions.IllegalDateException;
-import it.unisannio.CARE.model.exceptions.IllegalFiscalCodeException;
 import it.unisannio.CARE.model.exceptions.NullPasswordException;
-import it.unisannio.CARE.model.exceptions.StateException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagDAO;
 
@@ -126,7 +124,8 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      */
 	private void setBloodGroup(BloodGroup bloodGroup) 	{
-		if(bloodGroup==null) throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodGroupNotValid+bloodGroup );
+		if(bloodGroup==null) 
+			throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodGroupNotValid+bloodGroup );
 		this.bloodGroup = bloodGroup;
 	}
 	
@@ -383,12 +382,12 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	@Override
 	public String toString() {
 		return   "{\"serial\": \"" 	  			+ this.serial   		+ "\""
-				+", \"bloodGroup\": \""  		+ this.bloodGroup 		+ "\"" 
-				+", \"creationDate\": \"" 		+ new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(creationDate) 	+ "\""
-				+", \"expireDate\": \"" 		+ new SimpleDateFormat(Constants.DATE_FORMAT_STRING).format(expirationDate) + "\""
-				+", \"donatorCF\": \"" 			+ this.donatorCF 		+ "\""
-				+", \"bloodBagState\": \"" 		+ this.bloodBagState 	+ "\""
-				+", \"note\": \"" + this.note 	+ "\""
+				+", \"creation_date\": \"" 		+ this.creationDate.getTime()	+ "\""
+				+", \"donator\": \"" 			+ this.donatorCF 		+ "\""
+				+", \"expiration_date\": \"" 		+ this.expirationDate.getTime() + "\""
+				+", \"group\": \""  		+ this.bloodGroup 		+ "\"" 
+				+", \"notes\": \"" + this.note 	+ "\""
+				+", \"state\": \"" 		+ this.bloodBagState 	+ "\""
 				+ "}";
 	}
 

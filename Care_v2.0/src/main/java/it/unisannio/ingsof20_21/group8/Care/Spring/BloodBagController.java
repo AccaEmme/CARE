@@ -2,18 +2,23 @@ package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 
 import it.unisannio.CARE.controll.bloodBag.BloodBagManager;
+import it.unisannio.CARE.controll.request.RequestManager;
 import it.unisannio.CARE.model.bloodBag.BloodBag;
 import it.unisannio.CARE.model.bloodBag.BloodBagState;
 import it.unisannio.CARE.model.bloodBag.BloodGroup;
 import it.unisannio.CARE.model.bloodBag.Serial;
 import it.unisannio.CARE.model.exceptions.BloodBagCloneNotSupportedException;
+import it.unisannio.CARE.model.exceptions.BloodBagNotFoundException;
 import it.unisannio.CARE.model.exceptions.BloodBagStateException;
 import it.unisannio.CARE.model.exceptions.IllegalFiscalCodeException;
+import it.unisannio.CARE.model.exceptions.IllegalSerialException;
 import it.unisannio.CARE.model.exceptions.NullPasswordException;
+import it.unisannio.CARE.model.exceptions.RequestNotFoundException;
 import it.unisannio.CARE.model.report.BloodBagReport;
 
 import it.unisannio.CARE.model.util.Constants;
 
+import org.bson.Document;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
@@ -282,7 +287,53 @@ public class BloodBagController implements ContainerResponseFilter {
     }
  */
     @PostMapping("/bloodbag/add")
-    public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagDAO) throws ParseException {
+    public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagDAO) {
+
+
+        System.out.println("AAAAAAAAAA");
+	    try {
+	        BloodBag tempBloodBagObj = new BloodBag(
+	                BloodGroup.valueOf(bagDAO.getGroup()),
+	                bagDAO.getDonator()
+	                
+	        );
+	        tempBloodBagObj.setNote(bagDAO.getNotes());
+	        System.out.println("AAAAAAAAAA");
+	        bagDAO = tempBloodBagObj.getBean();
+	        System.out.println("AAAAAAAAAA");
+	        if (bagRepository.existsById(bagDAO.getSerial()))
+	    		throw new BloodBagCloneNotSupportedException("La sacca che si vuole aggiungere è già esistente.", "/bloodbag/add");
+	    	
+	    	else if (!bagDAO.getState().equals(BloodBagState.Available.toString()))
+	    		throw new BloodBagStateException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
+
+	        //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
+	        if (bagDAO.getUsedTimeStamp() == 0)
+	        	bagDAO.setUsedTimeStamp(new Date().getTime());
+	        
+	        System.out.println("AAAAAAAAAA");
+	        
+	        return bagRepository.save(bagDAO);
+	        		
+	    }catch(IllegalArgumentException e) {
+	    	
+	    	e.printStackTrace();
+	    	throw new IllegalFiscalCodeException("codice fiscale non valido","/bloodbag/add");
+	    	
+	    }catch(ParseException e) {
+	    	
+	    	e.printStackTrace();
+	    	return null;
+	    }
+        
+
+   
+    }
+    
+    
+    
+    @PostMapping("/bloodbag/central/add")
+    public BloodBagDAO createAndShareBloodBag(@RequestBody BloodBagDAO bagDAO) throws ParseException {
 
 	    	
 	    try {
@@ -299,6 +350,10 @@ public class BloodBagController implements ContainerResponseFilter {
 	    	else if (!bagDAO.getState().equals(BloodBagState.Available.toString()))
 	    		throw new BloodBagStateException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
 
+	        BloodBagManager managerB = new BloodBagManager();
+	        managerB.addBloodBag(tempBloodBagObj);
+	        
+	        managerB.close();
 	        //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
 	        if (bagDAO.getUsedTimeStamp() == 0)
 	        	bagDAO.setUsedTimeStamp(new Date().getTime());
@@ -307,57 +362,45 @@ public class BloodBagController implements ContainerResponseFilter {
 	        		
 	    }catch(IllegalArgumentException e) {
 	    	
-	    	
-	    	throw new IllegalFiscalCodeException("codice fiscale non valido","/bloodbag/add");
+	    	e.printStackTrace();
+	    	throw new IllegalFiscalCodeException("Formato del codice fiscale non valido","/bloodbag/add");
 	    	
 	    }
         
 
    
     }
-
-
     
-    @PostMapping("/bloodbag/central/add")
-    public BloodBagDAO addCentralBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
+    
+    
+    @PostMapping("/bloodbag/import")
+    public BloodBagDAO importBloodBag(@RequestBody BloodBagDAO bagDAO) throws ParseException {
+
+	        
+    	BloodBagManager managerB = new BloodBagManager();
+    	RequestManager managerR = new RequestManager();
     	
-    	if (bagRepository.existsById(bagBean.getSerial()))
-    		throw new BloodBagCloneNotSupportedException("La sacca che si vuole aggiungere è già esistente.", "/bloodbag/add");
+        if (!managerR.closeRequest(bagDAO.getSerial()))
+    		throw new RequestNotFoundException("La richiesta che si vuole concluder non è esistente.", "/bloodbag/import");
     	
-    	else if (!bagBean.getState().equals(BloodBagState.Available.toString()))
-    		throw new BloodBagStateException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
+        Document bagD = managerB.getBloodBag(bagDAO.getSerial());
+    	if (bagD == null)
+    		throw new BloodBagNotFoundException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
+
+    	bagDAO.setGroup(bagD.getString("group"));
+    	bagDAO.setCreationDate(Long.parseLong(bagD.getString("creationDate")));
+    	bagDAO.setCreationDate(Long.parseLong(bagD.getString("expirationDate")));
+    	bagDAO.setDonator(bagD.getString("donator"));
+    	bagDAO.setState(bagD.getString("state"));
+    	bagDAO.setNotes(bagD.getString("notes"));
     	
- 
-      
-		 try {    
-			 
-		        BloodBag tempBloodBagObj = new BloodBag(
-		                new Serial(bagBean.getSerial()),
-		                BloodGroup.valueOf(bagBean.getGroup()),
-		                new Date(bagBean.getCreationDate()),
-		                new Date(bagBean.getExpirationDate()),
-		                bagBean.getDonator(),
-		                BloodBagState.valueOf(bagBean.getState()),
-		                bagBean.getNotes()
-		        );
-		        
-		
-		        BloodBagManager manager = new BloodBagManager();
-		        manager.addBloodBag(tempBloodBagObj);
-		        
-        BloodBagDAO beanToSave = tempBloodBagObj.getBean();
-        //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
-        if (beanToSave.getUsedTimeStamp() == 0)
-            beanToSave.setUsedTimeStamp(new Date().getTime());
+        if (bagDAO.getUsedTimeStamp() == 0)
+        	bagDAO.setUsedTimeStamp(new Date().getTime());
         
-        manager.close();
+        return bagRepository.save(bagDAO);
         
-        return bagRepository.save(beanToSave);
-      }
-        catch(IllegalArgumentException e) {
-        	throw new IllegalFiscalCodeException("codice fiscale non valido.", "/bloodbag/create_add");
-         	
-         }
+
+   
     }
     
     

@@ -147,7 +147,24 @@ public class RequestManager {
  
         
 	}
+	
+	public boolean closeRequest(String serial) {
+        
+		Properties prop = XMLHelper.getProps(Constants.NODE_PROPERTIES);
+		String id_requester = prop.getProperty("province") + prop.getProperty("structureCode");
 
+	    Bson filter = and(
+	    		eq("id_requester", id_requester),
+	    		eq("serial", serial),
+	    		eq("state", RequestState.accepted.toString())
+	    		);
+		
+        Bson update = new Document("$set", new Document("state", RequestState.closed.toString()) );
+        
+        if(collection.findOneAndUpdate(filter, update) != null)
+        	return true;
+        return false;
+	}
 	
 	/**
      **************************************************************************
