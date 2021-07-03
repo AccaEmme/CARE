@@ -7,5 +7,8 @@ package it.unisannio.CARE.model.bloodBag;
  */
 public enum RequestState {
 	
-	accepted, refused, pending;
+	pending,
+	accepted,
+	closed,
+	refused;
 }

@@ -7,13 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import it.unisannio.CARE.model.exceptions.BloodBagCloneNotSupportedException;
-import it.unisannio.CARE.model.exceptions.BloodBagNotFoundException;
-import it.unisannio.CARE.model.exceptions.BloodBagStateException;
-import it.unisannio.CARE.model.exceptions.IllegalDateException;
-import it.unisannio.CARE.model.exceptions.IllegalFiscalCodeException;
-import it.unisannio.CARE.model.exceptions.IllegalSerialException;
-import it.unisannio.CARE.model.exceptions.RegisterException;
+import it.unisannio.CARE.model.exceptions.*;
 import it.unisannio.CARE.spring.bean.ErrorBean;
 
 @ControllerAdvice
@@ -92,6 +86,26 @@ public class  GlobalExceptionHandler {
     @ExceptionHandler(IllegalFiscalCodeException.class)
     
     public ResponseEntity<?>  IllegalFiscalCodeExceptionHandler(IllegalFiscalCodeException exception){
+      
+    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "500", exception.getClass().getName(), exception.getMessage(), exception.getPath());
+    	
+        return new ResponseEntity<>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
+        
+    }
+    
+    @ExceptionHandler(RequestCloneNotSupportedException.class)
+    
+    public ResponseEntity<?>  RequestCloneNotSupportedExceptionHandler(RequestCloneNotSupportedException exception){
+      
+    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "500", exception.getClass().getName(), exception.getMessage(), exception.getPath());
+    	
+        return new ResponseEntity<>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
+        
+    }
+    
+    @ExceptionHandler(RequestNotFoundException.class)
+    
+    public ResponseEntity<?>  RequestNotFoundExceptionHandler(RequestNotFoundException exception){
       
     	ErrorBean errorBean = new ErrorBean(new Date().toString(), "500", exception.getClass().getName(), exception.getMessage(), exception.getPath());
     	

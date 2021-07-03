@@ -18,8 +18,9 @@ public class Request {
 	private	String			requestedBagSerial;
 	private	Date			requestDate;
 	private String			note;
-	private it.unisannio.CARE.model.bloodBag.RequestState state;
-	private it.unisannio.CARE.model.bloodBag.RequestPriority priority;
+	private RequestState 	state;
+	private RequestPriority priority;
+	
 	
 	
 	
@@ -35,7 +36,7 @@ public class Request {
      **************************************************************************
      */
 	public Request( String idRequester, String requestedBagSerial, 
-			Date requestDate, String note, RequestState state, it.unisannio.CARE.model.bloodBag.RequestPriority priority) {
+			Date requestDate, String note, RequestState state, RequestPriority priority) {
 		
 		this.idRequester = idRequester;
 		this.requestedBagSerial = requestedBagSerial;

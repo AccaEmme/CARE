@@ -274,36 +274,36 @@ public class BloodBagController implements ContainerResponseFilter {
 
 
     //############# POST ############
+/*    
+    {
+    	"group":"Bneg",
+    	"donator":"CRSDLCER86BH0919",
+    	"notes":"test note"
+    }
+ */
     @PostMapping("/bloodbag/add")
-    public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagBean) throws ParseException {
-    	
-    	if (bagRepository.existsById(bagBean.getSerial()))
-    		throw new BloodBagCloneNotSupportedException("La sacca che si vuole aggiungere è già esistente.", "/bloodbag/add");
-    	
-    	else if (!bagBean.getState().equals(BloodBagState.Available.toString()))
-    		throw new BloodBagStateException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
-    	
-    	
-    	
+    public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagDAO) throws ParseException {
+
 	    	
 	    try {
 	        BloodBag tempBloodBagObj = new BloodBag(
-	                new Serial(bagBean.getSerial()),
-	                BloodGroup.valueOf(bagBean.getGroup()),
-	                new Date(bagBean.getCreationDate()),
-	                new Date(bagBean.getExpirationDate()),
-	                bagBean.getDonator(),
-	                BloodBagState.valueOf(bagBean.getState()),
-	                bagBean.getNotes()
+	                BloodGroup.valueOf(bagDAO.getGroup()),
+	                bagDAO.getDonator()
 	                
-	        );  
+	        );
+	        bagDAO = tempBloodBagObj.getBean();
 	        
-	        BloodBagDAO beanToSave = tempBloodBagObj.getBean();
+	        if (bagRepository.existsById(bagDAO.getSerial()))
+	    		throw new BloodBagCloneNotSupportedException("La sacca che si vuole aggiungere è già esistente.", "/bloodbag/add");
+	    	
+	    	else if (!bagDAO.getState().equals(BloodBagState.Available.toString()))
+	    		throw new BloodBagStateException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
+
 	        //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
-	        if (beanToSave.getUsedTimeStamp() == 0)
-	            beanToSave.setUsedTimeStamp(new Date().getTime());
+	        if (bagDAO.getUsedTimeStamp() == 0)
+	        	bagDAO.setUsedTimeStamp(new Date().getTime());
 	        
-	        return bagRepository.save(beanToSave);
+	        return bagRepository.save(bagDAO);
 	        		
 	    }catch(IllegalArgumentException e) {
 	    	
@@ -311,7 +311,6 @@ public class BloodBagController implements ContainerResponseFilter {
 	    	throw new IllegalFiscalCodeException("codice fiscale non valido","/bloodbag/add");
 	    	
 	    }
-    	
         
 
    

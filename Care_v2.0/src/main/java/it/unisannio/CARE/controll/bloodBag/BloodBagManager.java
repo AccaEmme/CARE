@@ -76,23 +76,24 @@ public class BloodBagManager {
 	}
 	
 	public boolean BloodBagRequestable(String serial_r) {
+		
        Bson filter = and(
-			eq("`state`", BloodBagState.Available.toString()),
-    		eq("`serial`", serial_r));
+			eq("state", BloodBagState.Available.toString()),
+    		eq("serial", serial_r));
 	
 	  MongoCursor<Document> iterator =this.collection.find().filter(filter).iterator();
 
 	  if(iterator.hasNext() )
 		  return true;
-	  
-	  
+	  else
 	  	  return false;
 	  
 }
 	
 	public void BloodBagMarkNotAvailable(String serial_r) {
-		Bson filter=eq("`serial`", serial_r);
-		Bson update=Updates.set("`state`",BloodBagState.Transfered.toString() );
+		
+		Bson filter=eq("serial", serial_r);
+		Bson update=Updates.set("state",BloodBagState.Transfered.toString() );
 		this.collection.updateOne(filter, update);
 	}
 	

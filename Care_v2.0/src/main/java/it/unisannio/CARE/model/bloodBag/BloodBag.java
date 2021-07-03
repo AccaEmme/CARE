@@ -170,7 +170,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      * @param creationDate  nuova data di creazione della sacca
      **************************************************************************
      */
-	private void setCreationDate(Date creationDate) throws ParseException 		{
+	public void setCreationDate(Date creationDate) throws ParseException 		{
 		Calendar cal = Calendar.getInstance();
 		cal.setTime( this.creationDate );
 		cal.add(Calendar.DAY_OF_MONTH, -7);
@@ -269,7 +269,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      * @param expirationDate  nuova data di scadenza
      **************************************************************************
      */
-	private void setExpirationDate(Date expirationDate) { 
+	public void setExpirationDate(Date expirationDate) { 
 		if(!expirationDate.after(creationDate)) throw new IllegalArgumentException( Constants.ExceptionIllegalArgument_BloodBagNotValid+"expirationDate "+expirationDate+" not > creationDate "+creationDate );
 		this.expirationDate = expirationDate;
 	}
@@ -291,7 +291,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
      */
 
-	private void setDonatorCF(String fisCode)/*throws IllegalArgumentException */ {
+	public void setDonatorCF(String fisCode)/*throws IllegalArgumentException */ {
 	if( !fisCode.matches(Constants.RegexDonatorCF) )
 			throw new IllegalArgumentException();
 		this.donatorCF = fisCode;
@@ -332,7 +332,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      * @param note  Note riguardo informazioni aggiuntive sulla sacca di sangue
      **************************************************************************
      */
-	protected void setNote(String note) {
+	public void setNote(String note) {
 		this.note=note;			// overwrites notes
 	}
 	
@@ -368,7 +368,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      * @return false se la sacca di sangue non è disponibile: è stata usata, trasferita o eliminata.
      **************************************************************************
      */
-	private void setBloodBagState(BloodBagState s) {
+	public void setBloodBagState(BloodBagState s) {
 		this.bloodBagState = s;
 	}
 

@@ -215,23 +215,24 @@ public class RequestController implements ContainerResponseFilter {
 	
 	//################################################### POST METHOD ####################################################
 	@PostMapping("/add")	
-	public String addRequest(@RequestBody RequestBean requestB) throws ParseException{
+	public RequestBean addRequest(@RequestBody RequestBean requestB) throws ParseException{
+		
+		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+		mongoLogger.setLevel(Level.SEVERE);
+		
+		
+		BloodBagManager bbm = new BloodBagManager();
+		if(!bbm.BloodBagRequestable(requestB.getSerial())) {
+			throw new BloodBagNotFoundException("La sacca su cui è stata fatta la richiesta non esiste o non è disponibile","/request/add");
 
+		}
+		
 		Properties props = XMLHelper.getProps(Constants.NODE_PROPERTIES);
 		
 		requestB.setId_requester(props.getProperty("province") + props.getProperty("structureCode"));
 		requestB.setDate(DATE_FORMAT.format(new Date()));
 		requestB.setState(RequestState.pending.toString());
 		
-		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
-		mongoLogger.setLevel(Level.SEVERE);
-		
-		
-		BloodBagManager bbm=new BloodBagManager();
-		if(!bbm.BloodBagRequestable(requestB.getSerial())) {
-			throw new BloodBagNotFoundException("la sacca su cui è stata fatta la richiesta non esiste o non è disponibile","/request/add");
-
-		}
 		Request request = new Request(
 				requestB.getId_requester(),
 				requestB.getSerial(),
@@ -242,25 +243,17 @@ public class RequestController implements ContainerResponseFilter {
 
 		
 		RequestManager manager = new RequestManager();
+		
 		try {
+			
 			manager.addRequest(request);
 			manager.close();
-			return request.toString();
+			return requestB;
 		
 		}catch(RequestCloneNotSupportedException e){
-			
-			manager.close();
-			return 
-					"{"
-					+ "\n\"timestamp\": \""+ new Date() +"\","
-					+ "\n\"status\": \" -1 \","
-					+ "\n\"error\": \"RequestCloneNotSupportedException\","
-					+ "\n\"description\": \""+ e.getMessage() +"\","
-					+ "\n\"path\": \"request/add\","
-					+ "\n}";
-		}
-			
 		
+			throw new RequestCloneNotSupportedException("La richiesta che si vuole aggiungere è già esistente o è stata già accettata.", "request/add");
+		}
 		
 	}
 	
@@ -284,8 +277,9 @@ public class RequestController implements ContainerResponseFilter {
 				RequestPriority.valueOf(requestB.getPriority()));
 		
 		RequestManager manager = new RequestManager();
-		BloodBagManager bbm= new BloodBagManager();
+		BloodBagManager bbm = new BloodBagManager();
 		try {
+			
 			manager.acceptRequest(request);
 			bbm.BloodBagMarkNotAvailable(requestB.getSerial());
 			manager.close();
