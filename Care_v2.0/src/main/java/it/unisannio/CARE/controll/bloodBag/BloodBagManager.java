@@ -78,12 +78,16 @@ public class BloodBagManager {
 	
 	public Document getBloodBag(String serial) {
 		
-		Bson filter = eq("serial", serial);
+		Bson filter = and(
+						eq("serial", serial),
+						eq("state", BloodBagState.Transfered.toString())
+						);
+		Bson update = Updates.set("state",BloodBagState.Transfered.toString() );
 		
-		MongoCursor<Document> iterator = this.collection.find().filter(filter).iterator();
+		Document bloodBagD = this.collection.findOneAndUpdate(filter, update);
 		
-		if(!iterator.hasNext())
-			return iterator.next();
+		if(bloodBagD != null)
+			return bloodBagD;
 		throw new BloodBagNotFoundException("Sacca non trovata.");
 	}
 	

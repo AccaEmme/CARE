@@ -385,12 +385,12 @@ public class BloodBagController implements ContainerResponseFilter {
     	
 	        Document bagD = managerB.getBloodBag(bagDAO.getSerial());
 	    		
+	        bagDAO.setCreationDate(Long.parseLong(bagD.getString("creation_date")));
+	        bagDAO.setDonator(bagD.getString("donator"));
+	        bagDAO.setExpirationDate(Long.parseLong(bagD.getString("expiration_date")));
 	    	bagDAO.setGroup(bagD.getString("group"));
-	    	bagDAO.setCreationDate(Long.parseLong(bagD.getString("creationDate")));
-	    	bagDAO.setCreationDate(Long.parseLong(bagD.getString("expirationDate")));
-	    	bagDAO.setDonator(bagD.getString("donator"));
-	    	bagDAO.setState(bagD.getString("state"));
 	    	bagDAO.setNotes(bagD.getString("notes"));
+	    	bagDAO.setState(BloodBagState.Available.toString());
 	    	
 	        if (bagDAO.getUsedTimeStamp() == 0)
 	        	bagDAO.setUsedTimeStamp(new Date().getTime());
@@ -403,7 +403,7 @@ public class BloodBagController implements ContainerResponseFilter {
     	}catch(BloodBagNotFoundException e) {
     		
     		e.printStackTrace();
-    		throw new BloodBagNotFoundException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
+    		throw new BloodBagNotFoundException(e.getMessage(), "/bloodbag/add");
     	}finally {
     		
     		managerB.close();
