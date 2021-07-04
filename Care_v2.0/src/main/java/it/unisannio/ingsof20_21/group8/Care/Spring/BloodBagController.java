@@ -278,13 +278,12 @@ public class BloodBagController implements ContainerResponseFilter {
 	/*    
     {
     	"group":"Bneg",
-    	"donator":"CRSDLCER86BH0919",
+    	"donator":"LDDBXB52C07L287S",
     	"notes":"test note"
     }
  */
     @PostMapping("/bloodbag/add")
     public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagDAO) {
-        System.out.println("AAAAAAAAAA");
 	    try {
 	        BloodBag tempBloodBagObj = new BloodBag(
 	                BloodGroup.valueOf(bagDAO.getGroup()),
@@ -292,9 +291,7 @@ public class BloodBagController implements ContainerResponseFilter {
 	                
 	        );
 	        tempBloodBagObj.setNote(bagDAO.getNotes());
-	        System.out.println("AAAAAAAAAA");
 	        bagDAO = tempBloodBagObj.getBean();
-	        System.out.println("AAAAAAAAAA");
 	        if (bagRepository.existsById(bagDAO.getSerial()))
 	    		throw new BloodBagCloneNotSupportedException("La sacca che si vuole aggiungere è già esistente.", "/bloodbag/add");
 	    	
@@ -304,11 +301,7 @@ public class BloodBagController implements ContainerResponseFilter {
 	        //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
 	        if (bagDAO.getUsedTimeStamp() == 0)
 	        	bagDAO.setUsedTimeStamp(new Date().getTime());
-	        
-	        System.out.println("AAAAAAAAAA");
-	        
-	        
-	      
+
 
             JSONObject object = new JSONObject();
                 object.put("serial",bagDAO.getSerial());
