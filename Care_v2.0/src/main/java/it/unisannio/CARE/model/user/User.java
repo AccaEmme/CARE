@@ -239,8 +239,8 @@ public class User {
     
     /**
 	 **************************************************************************
-	 * Metodo per eseguire il parsing da User in UserBean
-	 * @return UserBean
+	 * Metodo per eseguire il parsing da User in UserDAO
+	 * @return UserDAO
 	 **************************************************************************
 	 */
     public UserDAO	getUserDAO() {
@@ -253,6 +253,26 @@ public class User {
     	
 		return ud;
     }
+    
+    /**
+	 **************************************************************************
+	 * Metodo per eseguire il parsing da UserDAO in User
+	 * @return User
+	 **************************************************************************
+	 */
+    /*
+     * POSSIBILE IMPLEMENTAZIONE FUTURA.
+    public static User	getUser(UserDAO dao) {
+    	User user2Dao = new User(
+                dao.getUsername(),                	// HTTP username
+                dao.getPassword(),                	// HTTP plainTextPassword
+                Role.valueOf(dao.getUserRole()) 	// HTTP Role
+                );
+    	user2Dao.setEmail(dao.getEmail());
+    	
+		return user2Dao;
+    }
+    */
     
     /**
 	 **************************************************************************

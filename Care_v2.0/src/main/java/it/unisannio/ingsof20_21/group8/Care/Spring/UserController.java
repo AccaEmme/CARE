@@ -8,17 +8,10 @@ import java.util.Date;
 import java.util.Random;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.PATCH;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
-
-
-import it.unisannio.CARE.model.report.UserReport;
-import it.unisannio.CARE.model.user.UsersStates;
-import it.unisannio.CARE.model.util.Constants;
-import it.unisannio.CARE.model.util.Password;
 
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,10 +22,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.WebRequest;
 
+import it.unisannio.CARE.model.report.UserReport;
 import it.unisannio.CARE.model.user.Role;
 import it.unisannio.CARE.model.user.User;
+import it.unisannio.CARE.model.user.UsersStates;
+import it.unisannio.CARE.model.util.Constants;
+import it.unisannio.CARE.model.util.Password;
 
 
 @CrossOrigin("*")
@@ -214,23 +210,18 @@ public  class UserController implements ContainerResponseFilter {
 	                    newUser.getPassword(),                // HTTP plainTextPassword
 	                    Role.valueOf(newUser.getUserRole()) // HTTP Role
 				);
-
-	            //User tempUser = User.getUser(UserDao u);
+	            
+	            //User tempUserObj = User.getUser(newUser); for future implementations
 	            UserDAO saveBean = tempUserObj.getUserDAO();
-	            /*
+	            
 				   saveBean.setCreationDate(new Date().getTime());
 				   saveBean.setEmail(newUser.getEmail());
 				   saveBean.setLastAccess( new Date().getTime() );
 				   saveBean.setLoginAttempts(0);
 				   saveBean.setActiveUser(UsersStates.ACTIVE);
-*/
 
 	            return userRepo.save(saveBean);
-
-
 		}catch (Exception e) {
-
-
 	        throw new Exception(e.getMessage()
 	        		+ "1) Your password must be between 8 and 30 characters."
 	        		+ "2) Your password must contain at least one uppercase, or capital, letter (ex: A, B, etc.)"
