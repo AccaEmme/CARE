@@ -97,6 +97,7 @@ HTTPBody:
 //=================BloodBag Methods: POST
 function addBloodBag(url, token, group, donator, note){
 
+
 alert("ciaoooooooooo");
  k=0;
  if(url == "") 		{ alert("url null"); 		k=1; }

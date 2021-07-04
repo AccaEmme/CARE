@@ -43,14 +43,14 @@ import java.util.List;
 
 @Consumes("application/json")
 @Produces("application/json")
-public class BloodBagController implements ContainerResponseFilter {
+public class BloodBagController /*implements ContainerResponseFilter */{
     private final BloodBagRepository bagRepository;
     
     public BloodBagController(BloodBagRepository repository){
         this.bagRepository = repository;
     }
 
-
+/*
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
         responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
@@ -59,7 +59,8 @@ public class BloodBagController implements ContainerResponseFilter {
         responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
         responseContext.getHeaders().add("Access-Control-Allow-Methods",
                 "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-    }
+      
+    }*/
 
 
     //############# GET #############
