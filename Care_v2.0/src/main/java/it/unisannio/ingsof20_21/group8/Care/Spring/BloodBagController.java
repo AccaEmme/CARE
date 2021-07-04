@@ -17,6 +17,7 @@ import it.unisannio.CARE.model.exceptions.RequestNotFoundException;
 import it.unisannio.CARE.model.report.BloodBagReport;
 
 import it.unisannio.CARE.model.util.Constants;
+import it.unisannio.CARE.model.util.QRCode;
 
 import org.bson.Document;
 import org.json.simple.JSONArray;
@@ -279,7 +280,8 @@ public class BloodBagController implements ContainerResponseFilter {
 
 
     //############# POST ############
-/*    
+
+	/*    
     {
     	"group":"Bneg",
     	"donator":"CRSDLCER86BH0919",
@@ -312,6 +314,22 @@ public class BloodBagController implements ContainerResponseFilter {
 	        	bagDAO.setUsedTimeStamp(new Date().getTime());
 	        
 	        System.out.println("AAAAAAAAAA");
+	        
+	        
+	      
+
+    JSONObject object = new JSONObject();
+        object.put("serial",bagDAO.getSerial());
+      
+        QRCode code = new QRCode(object);
+
+        code.createQRCode();
+	        
+	        
+	        
+	        
+	        
+	        
 	        
 	        return bagRepository.save(bagDAO);
 	        		

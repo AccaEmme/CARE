@@ -58,24 +58,24 @@ public class QRCode {
     private JSONObject createBloodBagObject(BloodBag bag){
         JSONObject object = new JSONObject();
             object.put("serial",bag.getSerial());
-            object.put("group",bag.getBloodGroup().toString());
+     /*       object.put("group",bag.getBloodGroup().toString());
             object.put("creationDate",bag.getCreationDate());
             object.put("expirationDate",bag.getExpirationDate());
             object.put("donator",bag.getDonatorCF());
             object.put("state",bag.getBloodBagState());
-            object.put("notes",bag.getNote());
+            object.put("notes",bag.getNote());*/
 
         return object;
     }
     private JSONObject createBloodBagObject(BloodBagDAO bag){
         JSONObject object = new JSONObject();
         object.put("serial",bag.getSerial());
-        object.put("group",bag.getGroup());
+   /*     object.put("group",bag.getGroup());
         object.put("creationDate",bag.getCreationDate());
         object.put("expirationDate",bag.getExpirationDate());
         object.put("donator",bag.getDonator());
         object.put("state",bag.getState());
-        object.put("notes",bag.getNotes());
+        object.put("notes",bag.getNotes());*/
 
         return object;
     }
