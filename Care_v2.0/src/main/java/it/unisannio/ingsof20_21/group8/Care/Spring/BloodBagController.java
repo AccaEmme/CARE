@@ -97,7 +97,7 @@ public class BloodBagController implements ContainerResponseFilter {
      * @return all the bloodbags with the given state (probably just one)
      */
     @GetMapping("/bloodbag/get/serial/{serial}")
-    public Iterable<BloodBagDAO> getBloodBagBySerial(@PathVariable String serial){
+    public BloodBagDAO getBloodBagBySerial(@PathVariable String serial){
     	return bagRepository.findBySerial(serial); /*.orElseThrow();*/
     }
 
@@ -117,11 +117,8 @@ public class BloodBagController implements ContainerResponseFilter {
      */
     @GetMapping("/bloodbag/candonateto/bloodbag/serial/{serial}")
     public Iterator<BloodGroup> canDonateToByBagSerial(@PathVariable String serial){
-        Iterable<BloodBagDAO> beanIterator = this.getBloodBagBySerial(serial);
-        for (BloodBagDAO bean : beanIterator){
-            return BloodGroup.canDonateTo(BloodGroup.valueOf(bean.getGroup()));
-        }
-        return null;
+        BloodBagDAO bean = this.getBloodBagBySerial(serial);
+        return BloodGroup.canDonateTo(BloodGroup.valueOf(bean.getGroup()));
     }
 
 
@@ -134,11 +131,8 @@ public class BloodBagController implements ContainerResponseFilter {
 
     @GetMapping("/bloodbag/canreceivefrom/bloodbag/serial/{serial}")
     public Iterator<BloodGroup> canReciveFromByBagSerial(@PathVariable String serial){
-        Iterable<BloodBagDAO> beanIterator = this.getBloodBagBySerial(serial);
-        for (BloodBagDAO bean : beanIterator){
-            return BloodGroup.canReceiveFrom(BloodGroup.valueOf(bean.getGroup()));
-        }
-        return null;
+        BloodBagDAO bean = this.getBloodBagBySerial(serial);
+        return BloodGroup.canReceiveFrom(BloodGroup.valueOf(bean.getGroup()));
     }
 
     //############# get count ###############
@@ -284,15 +278,12 @@ public class BloodBagController implements ContainerResponseFilter {
 	/*    
     {
     	"group":"Bneg",
-    	"donator":"CRSDLCER86BH0919",
+    	"donator":"LDDBXB52C07L287S",
     	"notes":"test note"
     }
  */
     @PostMapping("/bloodbag/add")
     public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagDAO) {
-
-
-        System.out.println("AAAAAAAAAA");
 	    try {
 	        BloodBag tempBloodBagObj = new BloodBag(
 	                BloodGroup.valueOf(bagDAO.getGroup()),
@@ -300,9 +291,7 @@ public class BloodBagController implements ContainerResponseFilter {
 	                
 	        );
 	        tempBloodBagObj.setNote(bagDAO.getNotes());
-	        System.out.println("AAAAAAAAAA");
 	        bagDAO = tempBloodBagObj.getBean();
-	        System.out.println("AAAAAAAAAA");
 	        if (bagRepository.existsById(bagDAO.getSerial()))
 	    		throw new BloodBagCloneNotSupportedException("La sacca che si vuole aggiungere è già esistente.", "/bloodbag/add");
 	    	
@@ -312,25 +301,15 @@ public class BloodBagController implements ContainerResponseFilter {
 	        //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
 	        if (bagDAO.getUsedTimeStamp() == 0)
 	        	bagDAO.setUsedTimeStamp(new Date().getTime());
-	        
-	        System.out.println("AAAAAAAAAA");
-	        
-	        
-	      
 
-    JSONObject object = new JSONObject();
-        object.put("serial",bagDAO.getSerial());
-      
-        QRCode code = new QRCode(object);
 
-        code.createQRCode();
-	        
-	        
-	        
-	        
-	        
-	        
-	        
+            JSONObject object = new JSONObject();
+                object.put("serial",bagDAO.getSerial());
+
+                QRCode code = new QRCode(object);
+
+                code.createQRCode();
+
 	        return bagRepository.save(bagDAO);
 	        		
 	    }catch(IllegalArgumentException e) {
@@ -343,9 +322,6 @@ public class BloodBagController implements ContainerResponseFilter {
 	    	e.printStackTrace();
 	    	return null;
 	    }
-        
-
-   
     }
     
     
@@ -442,30 +418,20 @@ public class BloodBagController implements ContainerResponseFilter {
      * @param serial the blood bag serial
      * @return blood bag
      */
+
     @DeleteMapping("/bloodbag/use/{serial}")
     public BloodBagDAO useBloodBag(@PathVariable("serial") String serial){
-        Iterable<BloodBagDAO> beans = this.getBloodBagBySerial(serial);
-        BloodBagDAO beanToChange = null;
-
-        
-      	if  (!(bagRepository.existsById(serial)))
+      	/*if  (!(bagRepository.existsById(serial)))
         throw new BloodBagStateException("la sacca non esiste");
-        
-  	if(bagRepository.getById(serial).getState().equals("Used"))
-      		throw new BloodBagStateException("la sacca è stata già usata");
-      	
-        System.err.println(beans);
-        for (BloodBagDAO bean : beans){
-            System.err.println(bean.toString());
-            beanToChange = bean;
+        */
+        if(bagRepository.getById(serial).getState().equals("Used"))
+                throw new BloodBagStateException("la sacca è stata già usata");
 
-            bagRepository.delete(beanToChange);
-            beanToChange.setState(BloodBagState.Used.toString());
-            beanToChange.setUsedTimeStamp(new Date().getTime());
+        bagRepository.updateBloodBagStateBySerial(BloodBagState.Used.toString(),serial);
+        bagRepository.updateBloodBagUsedTimestampBySerial(new Date().getTime(),serial);
 
-            bagRepository.save(beanToChange);
-        }
-        return beanToChange;
+        System.err.println(serial);
+        return this.getBloodBagBySerial(serial);
     }
 
 
