@@ -115,6 +115,26 @@ alert("ciaoooooooooo");
 
 
 }
+function addBloodBagCentral(url, token, serial){
+
+alert("ciaoooooooooo");
+ k=0;
+ if(url == "") 		{ alert("url null"); 		k=1; }
+ if(token == "") 	{ alert("token null"); 		k=1; }
+ if(serial == "") 	{ alert("group null"); 	        k=1; }
+
+
+ if(k==0){
+  alert(url + " - " + token + " - " + serial );
+  var jsonBody 	 = '{' + '"serial": "' + serial +'" }';
+ 
+  alert("jsonBody: " + jsonBody);
+  console.log("jsonBody: " + jsonBody);
+  HTTPPost(url, token, jsonBody);
+ }
+
+
+}
 
    
 function deleteUser(token, username){

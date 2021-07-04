@@ -87,6 +87,12 @@ foreach (array_keys($usersArray ) as $key) {
             <td><select name="group" id="group">
  		<option>Apos</option>
  		<option>Aneg</option>
+		<option>Bpos</option>
+ 		<option>Bneg</option>
+		<option>ZEROpos</option>
+ 		<option>ZEROneg</option>
+		<option>ABneg</option>
+		<option>ABpos</option>
 		</select>
 	    </td>
             <td><input type="text" name="donator" id="donator" placeholder="cod.fiscale CF_DONATORE" /></td>
@@ -100,7 +106,23 @@ foreach (array_keys($usersArray ) as $key) {
                 <input type="submit" value="Crea" onclick="addBloodBag(document.getElementById('addBloodBagURL').value, '<?php echo($token); ?>', document.getElementById('group').value, document.getElementById('donator').value, document.getElementById('note').value);">
             </td>
         </tr>
-	<!-- END: new user fields -->
+	
+
+
+ <tr>
+            <td><input type="text" name="serial" id="serial" placeholder="seriale sacca" /></td>
+            <td><input type="text" disabled/></td>
+            <td><input type="text" disabled/></td>
+            <td><input type="text" disabled/></td>
+            <td><input type="text" disabled/></td>
+            <td><input type="text" disabled/></td>
+            <td><input type="text" disabled/></td>
+ 	    <td><input type="text" disabled/></td>
+            <td>
+		<input type="text" name="addBloodBagCURL" id="addBloodBagCURL" value="http://localhost:8087/bloodbag/import" hidden="yes" />
+                <input type="submit" value="import sacca" onclick="addBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo($token); ?>', document.getElementById('serial').value);">
+            </td>
+        </tr>
 
      </table>
      </form>      
