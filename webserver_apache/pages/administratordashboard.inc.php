@@ -48,7 +48,7 @@ foreach (array_keys($usersArray ) as $key) {
             <td align="center"><b>Password</b></td>
             <td align="center"><b>temppass</b></td>
             <td align="center"><b>E-Mail</b></td>
-            <td align="center"><b>Ruolo</b></td>
+            <td align="center"><b>Role-Based Access Control</b></td>
             <td align="center"><b>creationDate</b></td>
             <td align="center"><b>lastAccess</b></td>
             <td align="center"><b>loginAttempts</b></td>
@@ -57,14 +57,13 @@ foreach (array_keys($usersArray ) as $key) {
         </tr>
         <tr>
 <?php foreach (array_keys($usersArray ) as $key) { ?>
-            <td><input type="text" name="id_<?php echo $usersArray[$key]->idUser; ?>" value="<?php echo $usersArray[$key]->idUser; ?>" /></td>
+            <td><input type="text" name="id_<?php echo $usersArray[$key]->idUser; ?>" value="<?php echo $usersArray[$key]->idUser; ?>" disabled /></td>
             <td><input type="text" name="user_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->username; ?>" /></td>
             <td><input type="password" name="pass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->password; ?>" disabled /></td>
             <td><input type="text" name="temppass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->temppass; ?>" /></td>
             <td><input type="text" name="email_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->email; ?>" /></td>
             <td>
                 <select name="role" id="role">
-                    <optgroup label="Role-Based Access Control">
 			<?php
 			   foreach($roles as $r) {
 			     echo('<option value="' . $r . '"');
@@ -72,16 +71,39 @@ foreach (array_keys($usersArray ) as $key) {
 			     echo('>'.$r.'</option>');
 			   }
 			?>
-                    </optgroup>
                 </select>
             </td>
             <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->creationDate/1000); ?>" /></td>
-            <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->lastAccess/1000); ?>" /></td>
-            <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->loginAttempts; ?>" /></td>
-            <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->activeUser; ?>" /></td>
+            <td><input type="text" name="lastAccess_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->lastAccess/1000); ?>" /></td>
             <td>
-                <input type="submit" value="Salva">
+
+             <select name="loginAttempts_<?php echo $usersArray[$key]->username; ?>" id="loginAttempts_<?php echo $usersArray[$key]->username; ?>" width="100%" >
+              <?php
+              $currentAttempts = $usersArray[$key]->loginAttempts;
+              if($currentAttempts=="0") {
+                echo('<option value="0" selected >0</option>');
+              } else {
+                echo('<option value="0">0</option>');
+                echo('<option value="' . $currentAttempts . '" selected>' . $currentAttempts . '</option>');
+              }
+              ?>
+            </select>
+            </td>
+            <td>
+              <?php
+              $currentActiveUser = $usersArray[$key]->activeUser;
+              ?>
+             <select name="activeUser_<?php echo $usersArray[$key]->username; ?>" id="activeUser_<?php echo $usersArray[$key]->username; ?>" >
+              <option value="1"  <?php if($currentActiveUser=="1")  echo(" selected"); ?> >1:attivo</option>
+              <option value="0"  <?php if($currentActiveUser=="0")  echo(" selected"); ?> >0:disabilitato</option>
+              <option value="-1" <?php if($currentActiveUser=="-1") echo(" selected"); ?> >-1:blacklist</option>
+              <option value="1"  <?php if($currentActiveUser=="-2") echo(" selected"); ?> >-2:deleted</option>
+            </select>
+            </td>
+            <td>
+                <input type="button" value="Salva">
                 <input type="button" value="Elimina">
+                <input type="button" value="ResetPassword">
             </td>
         </tr>
 <?php
@@ -106,8 +128,20 @@ foreach (array_keys($usersArray ) as $key) {
             </td>
             <td><input type="text" value="<?php echo(date('Y-m-d')); ?>" disabled /></td>
             <td><input type="text" value="1900-01-01" disabled /></td>
-            <td><input type="text" name="newloginattempts" id="newloginattempts" value="0" /></td>
-            <td><select name="newactiveuser" id="newactiveuser"><option value="1">1:attivo</option><option value="0">0:disabilitato</option><option value="-1">-1:blacklist</option><option value="1">-2:deleted</option></select></td>
+            <td>
+             <select name="newloginattempts" id="newloginattempts" disabled>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+            <td>
+             <select name="newactiveuser" id="newactiveuser" disabled>
+              <option value="1">1:attivo</option>
+              <option value="0">0:disabilitato</option>
+              <option value="-1">-1:blacklist</option>
+              <option value="1">-2:deleted</option>
+            </select>
+            </td>
             <td>
 		<input type="text" name="addUserURL" id="addUserURL" value="http://localhost:8087/register" hidden="yes" />
                 <input type="submit" value="Crea" onclick="addUser(document.getElementById('addUserURL').value, '<?php echo($token); ?>', document.getElementById('newusername').value, document.getElementById('newpassword').value, document.getElementById('newemail').value, document.getElementById('newrole').value, document.getElementById('newloginattempts').value, document.getElementById('newactiveuser').value); setTimeout(function () { location.reload(1); }, 5000);">
@@ -119,244 +153,6 @@ foreach (array_keys($usersArray ) as $key) {
      </form>
 
 <!-- ----------------OLD-------------------- -->
-    <div align="center">
-    <h2>old Local Users:</h2>
-    <form action="#">
-     <table>
-         <tr>
-            <td align="center"><b>Username</b></td>
-            <td align="center"><b>Password</b></td>
-            <td align="center"><b>Ruolo</b></td>
-            <td align="center"><b>Actions</b></td>
-        </tr>
-        <tr>
-            <td><input type="text" name="user_GCanfora" value="DBA" disabled /></td>
-            <td><input type="password" name="pass_GCanfora" value="whoknows?" disabled /></td>
-            <td>
-                <select name="role" id="role">
-                    <optgroup label="Database">
-                        <option value="DBA" selected disabled>DBA</option>
-                        <option value="DBConfigurer" disabled>DBConfigurer</option>
-                        <option value="DBWriter" disabled>DBWriter</option>
-                        <option value="DBViewer" disabled>DBViewer</option>
-                        <option value="DBSync" disabled>DBSync</option>
-                        <option value="DBBackup" disabled>DBBackup</option>
-                    </optgroup>
-                    <optgroup label="Role-Based Access Control">
-                        <option value="Administrator">Administrator</option>
-                        <option value="StoreManager">StoreManager</option>
-                        <option value="Officer">Officer</option>
-                    </optgroup>
-                </select>
-            </td>
-            <td>
-                <input type="submit" value="Salva" disabled>
-                <input type="button" value="Elimina" disabled>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="user_GCanfora" value="DBConfigurer" disabled /></td>
-            <td><input type="password" name="pass_GCanfora" value="whoknows?" disabled /></td>
-            <td>
-                <select name="role" id="role">
-                    <optgroup label="Database">
-                        <option value="DBA" disabled>DBA</option>
-                        <option value="DBConfigurer" selected disabled>DBConfigurer</option>
-                        <option value="DBWriter" disabled>DBWriter</option>
-                        <option value="DBViewer" disabled>DBViewer</option>
-                        <option value="DBSync" disabled>DBSync</option>
-                        <option value="DBBackup" disabled>DBBackup</option>
-                    </optgroup>
-                    <optgroup label="Role-Based Access Control">
-                        <option value="Administrator">Administrator</option>
-                        <option value="StoreManager">StoreManager</option>
-                        <option value="Officer">Officer</option>
-                    </optgroup>
-                </select>
-            </td>
-            <td>
-                <input type="submit" value="Salva" disabled>
-                <input type="button" value="Elimina" disabled>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="user_GCanfora" value="DBWriter" disabled /></td>
-            <td><input type="password" name="pass_GCanfora" value="whoknows?" disabled /></td>
-            <td>
-                <select name="role" id="role">
-                    <optgroup label="Database">
-                        <option value="DBA" disabled>DBA</option>
-                        <option value="DBConfigurer" disabled>DBConfigurer</option>
-                        <option value="DBWriter" selected disabled>DBWriter</option>
-                        <option value="DBViewer" disabled>DBViewer</option>
-                        <option value="DBSync" disabled>DBSync</option>
-                        <option value="DBBackup" disabled>DBBackup</option>
-                    </optgroup>
-                    <optgroup label="Role-Based Access Control">
-                        <option value="Administrator">Administrator</option>
-                        <option value="StoreManager">StoreManager</option>
-                        <option value="Officer">Officer</option>
-                    </optgroup>
-                </select>
-            </td>
-            <td>
-                <input type="submit" value="Salva" disabled>
-                <input type="button" value="Elimina" disabled>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="user_GCanfora" value="DBViewer" disabled /></td>
-            <td><input type="password" name="pass_GCanfora" value="whoknows?" disabled /></td>
-            <td>
-                <select name="role" id="role">
-                    <optgroup label="Database">
-                        <option value="DBA" disabled>DBA</option>
-                        <option value="DBConfigurer" disabled>DBConfigurer</option>
-                        <option value="DBWriter" disabled>DBWriter</option>
-                        <option value="DBViewer" selected disabled>DBViewer</option>
-                        <option value="DBSync" disabled>DBSync</option>
-                        <option value="DBBackup" disabled>DBBackup</option>
-                    </optgroup>
-                    <optgroup label="Role-Based Access Control">
-                        <option value="Administrator">Administrator</option>
-                        <option value="StoreManager">StoreManager</option>
-                        <option value="Officer">Officer</option>
-                    </optgroup>
-                </select>
-            </td>
-            <td>
-                <input type="submit" value="Salva" disabled>
-                <input type="button" value="Elimina" disabled>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="user_GCanfora" value="DBSync" disabled /></td>
-            <td><input type="password" name="pass_GCanfora" value="whoknows?" disabled /></td>
-            <td>
-                <select name="role" id="role">
-                    <optgroup label="Database">
-                        <option value="DBA" disabled>DBA</option>
-                        <option value="DBConfigurer" disabled>DBConfigurer</option>
-                        <option value="DBWriter" disabled>DBWriter</option>
-                        <option value="DBViewer" disabled>DBViewer</option>
-                        <option value="DBSync" selected disabled>DBSync</option>
-                        <option value="DBBackup" disabled>DBBackup</option>
-                    </optgroup>
-                    <optgroup label="Role-Based Access Control">
-                        <option value="Administrator">Administrator</option>
-                        <option value="StoreManager">StoreManager</option>
-                        <option value="Officer">Officer</option>
-                    </optgroup>
-                </select>
-            </td>
-            <td>
-                <input type="submit" value="Salva" disabled>
-                <input type="button" value="Elimina" disabled>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="user_GCanfora" value="DBBackup" disabled /></td>
-            <td><input type="password" name="pass_GCanfora" value="whoknows?" disabled /></td>
-            <td>
-                <select name="role" id="role">
-                    <optgroup label="Database">
-                        <option value="DBA" disabled>DBA</option>
-                        <option value="DBConfigurer" disabled>DBConfigurer</option>
-                        <option value="DBWriter" disabled>DBWriter</option>
-                        <option value="DBViewer" disabled>DBViewer</option>
-                        <option value="DBSync" disabled>DBSync</option>
-                        <option value="DBBackup" selected disabled>DBBackup</option>
-                    </optgroup>
-                    <optgroup label="Role-Based Access Control">
-                        <option value="Administrator">Administrator</option>
-                        <option value="StoreManager">StoreManager</option>
-                        <option value="Officer">Officer</option>
-                    </optgroup>
-                </select>
-            </td>
-            <td>
-                <input type="submit" value="Salva" disabled>
-                <input type="button" value="Elimina" disabled>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="user_GCanfora" value="GCanfora" /></td>
-            <td><input type="text" name="pass_GCanfora" value="872fd71d0229901ae6b4aa0bf4ba5246" /></td>
-            <td>
-                <select name="role" id="role">
-                    <optgroup label="Database">
-                        <option value="DBA" disabled>DBA</option>
-                        <option value="DBConfigurer" disabled>DBConfigurer</option>
-                        <option value="DBWriter" disabled>DBWriter</option>
-                        <option value="DBViewer" disabled>DBViewer</option>
-                        <option value="DBSync" disabled>DBSync</option>
-                        <option value="DBBackup" disabled>DBBackup</option>
-                    </optgroup>
-                    <optgroup label="Role-Based Access Control">
-                        <option value="Administrator" selected>Administrator</option>
-                        <option value="StoreManager">StoreManager</option>
-                        <option value="Officer">Officer</option>
-                    </optgroup>
-                </select>
-            </td>
-            <td>
-                <input type="submit" value="Salva">
-                <input type="button" value="Elimina">
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="user_GCanfora" value="Mario" /></td>
-            <td><input type="text" name="pass_GCanfora" value="8af503a13e7a4e67266b57d1d94fc85c" /></td>
-            <td>
-                <select name="role" id="role">
-                    <optgroup label="Database">
-                        <option value="DBA" disabled>DBA</option>
-                        <option value="DBConfigurer" disabled>DBConfigurer</option>
-                        <option value="DBWriter" disabled>DBWriter</option>
-                        <option value="DBViewer" disabled>DBViewer</option>
-                        <option value="DBSync" disabled>DBSync</option>
-                        <option value="DBBackup" disabled>DBBackup</option>
-                    </optgroup>
-                    <optgroup label="Role-Based Access Control">
-                        <option value="Administrator">Administrator</option>
-                        <option value="StoreManager"selected>StoreManager</option>
-                        <option value="Officer">Officer</option>
-                    </optgroup>
-                </select>
-            </td>
-            <td>
-                <input type="submit" value="Salva">
-                <input type="button" value="Elimina">
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="user_GCanfora" value="Mario" /></td>
-            <td><input type="text" name="pass_GCanfora" value="dcf046dcc2bbff05a419769c1b83dae7" /></td>
-            <td>
-                <select name="role" id="role">
-                    <optgroup label="Database">
-                        <option value="DBA" disabled>DBA</option>
-                        <option value="DBConfigurer" disabled>DBConfigurer</option>
-                        <option value="DBWriter" disabled>DBWriter</option>
-                        <option value="DBViewer" disabled>DBViewer</option>
-                        <option value="DBSync" disabled>DBSync</option>
-                        <option value="DBBackup" disabled>DBBackup</option>
-                    </optgroup>
-                    <optgroup label="Role-Based Access Control">
-                        <option value="Administrator">Administrator</option>
-                        <option value="StoreManager">StoreManager</option>
-                        <option value="Officer" selected>Officer</option>
-                    </optgroup>
-                </select>
-            </td>
-            <td>
-                <input type="submit" value="Salva">
-                <input type="button" value="Elimina">
-            </td>
-        </tr>
-     </table>
-     <input type="button" value="Aggiungi utente">
-    </form>
 
     <div align="center">
         <h2>Database:</h2>

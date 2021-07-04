@@ -46,7 +46,7 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	@Query("UPDATE UserDAO u SET u.activeUser = ?1 where u.username = ?2")
 	void updateUserActiveUserByUsername(short state, String username);
 
-	// modifica lo stato di un user cercandolo per username
+	// modifica lo stato di un user cercandolo per email
 	@Modifying
 	@Transactional
 	@Query("UPDATE UserDAO u SET u.activeUser = ?1 where u.email = ?2")
@@ -64,7 +64,6 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 
 
 	// count queries
-
 	@Query("SELECT COUNT(*) FROM UserDAO")
 	long countAllUsers();
 
