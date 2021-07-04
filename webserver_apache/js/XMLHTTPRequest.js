@@ -61,7 +61,10 @@ alert("error"+this.responseText)
 function addUser(url, token, username, password, email, userRole, loginAttempts, activeUser){
 //var url='http://localhost:8087/authenticate';
 /*
-http://localhost:8087/register
+e.g.:
+URI: http://localhost:8087/register
+HTTPMethod: DELETE
+HTTPBody:
 {
   "username" :"Hermann80",
   "password" : "PasswordBuona1@",
@@ -115,6 +118,16 @@ alert("ciaoooooooooo");
 
    
 function deleteUser(token, username){
+//var url='http://localhost:8087/authenticate';
+/*
+e.g.:
+http://localhost:8087/user/delete/username/{username}
+HTTPMethod: DELETE
+HTTPBody:
+{
+  "username" :"Hermann80",
+}
+*/
 
 }
 

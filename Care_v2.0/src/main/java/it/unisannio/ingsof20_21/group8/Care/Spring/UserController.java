@@ -233,13 +233,15 @@ public  class UserController implements ContainerResponseFilter {
 	                    Role.valueOf(newUser.getUserRole()) // HTTP Role
 				);
 
+	            //User tempUser = User.getUser(UserDao u);
 	            UserDAO saveBean = tempUserObj.getUserDAO();
+	            /*
 				   saveBean.setCreationDate(new Date().getTime());
 				   saveBean.setEmail(newUser.getEmail());
 				   saveBean.setLastAccess( new Date().getTime() );
 				   saveBean.setLoginAttempts(0);
 				   saveBean.setActiveUser(UsersStates.ACTIVE);
-
+*/
 
 	            return userRepo.save(saveBean);
 
@@ -377,7 +379,7 @@ public  class UserController implements ContainerResponseFilter {
 	 *         "activeUser": 1
 	 * }*/
     
-    //===============DELETE METHODS
+    //===============DELETE METHODS by fields
     @DeleteMapping("/user/delete/username/{username}")
 	public UserDAO deleteUserByUsername(@PathVariable String username) {
 		userRepo.updateUserActiveUserByUsername(UsersStates.DELETED, username);
