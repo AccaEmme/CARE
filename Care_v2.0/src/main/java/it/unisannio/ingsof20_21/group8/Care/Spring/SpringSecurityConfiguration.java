@@ -54,8 +54,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http.csrf().disable().authorizeRequests()
 		.antMatchers().hasRole("ADMINISTRATOR")
 		.antMatchers("request/add").hasAnyRole("OFFICER")
-		.antMatchers("/bloodbag/add","/bloodbag/use/{serial}").hasAnyRole("STOREMANAGER")
-		.antMatchers("/bloodbag/central/add","/bloodbag/use/{serial}").hasAnyRole("CENTRAL_STOREMANAGER")
+		.antMatchers("/bloodbag/add").hasAnyRole("STOREMANAGER")
+		.antMatchers("/bloodbag/central/add").hasAnyRole("CENTRAL_STOREMANAGER")
+		.antMatchers("/bloodbag/use/{serial}").hasAnyRole("STOREMANAGER","CENTRAL_STOREMANAGER")	//linea aggiunta
 		.antMatchers("/bloodbag/add","/authenticate", "logger/add","/request/add","/request/accept","/user/delete/{username}","/register","user/update/username/id/{id}/{username}","/bloodbag/import").permitAll().anyRequest().authenticated()
 		.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
 		and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).

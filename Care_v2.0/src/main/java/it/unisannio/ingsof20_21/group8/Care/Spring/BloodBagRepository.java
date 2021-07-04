@@ -1,9 +1,11 @@
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository
@@ -15,7 +17,7 @@ public interface BloodBagRepository extends JpaRepository<BloodBagDAO, String> {
 	
 	/**FINDS A LIST OF ELEMENTS WITH THE GIVEN SERIAL*/
 	@Query("from BloodBagDAO b where b.serial =:serial")
-	Iterable<BloodBagDAO> findBySerial(@Param("serial") String serial);
+	BloodBagDAO findBySerial(@Param("serial") String serial);
 
 	@Query("from BloodBagDAO b where b.state =:state")
 	Iterable<BloodBagDAO> filterByState(@Param("state") String state);
@@ -66,6 +68,19 @@ public interface BloodBagRepository extends JpaRepository<BloodBagDAO, String> {
 																@Param("seconddate") long seconddate,
 																@Param("bloodgroup") String bloodgroup);
 
+
+
+	//metodi di update
+	@Modifying
+	@Transactional
+	@Query("UPDATE BloodBagDAO b SET b.state = ?1 where b.serial = ?2")
+	void updateBloodBagStateBySerial(String state, String serial);
+
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE BloodBagDAO b SET b.usedTimeStamp = ?1 where b.serial = ?2")
+	void updateBloodBagUsedTimestampBySerial(long timestamp, String serial);
 
 
 }
