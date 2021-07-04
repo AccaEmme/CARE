@@ -1,3 +1,4 @@
+<script src="./js/html5-qrcode.min.js"></script>
    
 ciao sono uno store manager
 <?php
@@ -49,12 +50,14 @@ foreach (array_keys($usersArray ) as $key) {
 //unset($usersArray);
 
 ?>
+
+
 <!-- campi tabella -->
     <h2>Local Users:</h2>
     <form action="" method="POST">
      <table>
          <tr>
-            <td align="center"><b>serial</b></td>
+            <td align="center" width="10%"><b>serial</b></td>
             <td align="center"><b>group</b></td>
             <td align="center"><b>donator</b></td>
             <td align="center"><b>creationDate</b></td>
@@ -62,11 +65,12 @@ foreach (array_keys($usersArray ) as $key) {
             <td align="center"><b>state</b></td>
             <td align="center"><b>notes</b></td>
             <td align="center"><b>usedTimeStamp</b></td>
+            <td align="center"><b>Actions</b></td>
         </tr>
         <tr>
 <!-- in php lancio solo il for in html riempo la tabella -->
 <?php foreach (array_keys($usersArray ) as $key) { ?>
-            <td><input type="text" name="id_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->serial; ?>" disabled /></td>
+            <td><input type="text" name="id_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->serial; ?>" size="40" disabled /></td>
             <td><input type="text" name="group_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->group; ?>" disabled/></td>
             <td><input type="text" name="donator_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->donator; ?>" disabled /></td>
             <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->creationDate/1000); ?>" disabled/></td>
@@ -83,7 +87,7 @@ foreach (array_keys($usersArray ) as $key) {
 ?>
 	<!-- START: new user fields -->
         <tr>
-            <td><input type="text" disabled/></td>
+            <td><input type="text" size="40" disabled/></td>
             <td><select name="group" id="group">
  		<option>Apos</option>
  		<option>Aneg</option>
@@ -107,10 +111,8 @@ foreach (array_keys($usersArray ) as $key) {
             </td>
         </tr>
 	
-
-
- <tr>
-            <td><input type="text" name="serial" id="serial" placeholder="seriale sacca" /></td>
+	 <tr>
+            <td><input type="text" name="serial" id="serial" placeholder="seriale sacca" size="40" /></td>
             <td><input type="text" disabled/></td>
             <td><input type="text" disabled/></td>
             <td><input type="text" disabled/></td>
@@ -123,9 +125,28 @@ foreach (array_keys($usersArray ) as $key) {
                 <input type="submit" value="import sacca" onclick="addBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo($token); ?>', document.getElementById('serial').value);">
             </td>
         </tr>
-
      </table>
-     </form>      
+     </form>
+
+<!- START: QRCODE Scanner Reader -->
+<div align="center">
+ <div style="width:500px;" id="reader"></div>
+</div>
+<script type="text/javascript">
+function onScanSuccess(qrCodeMessage) {
+ var qrObj = JSON.parse(qrCodeMessage);
+ document.getElementById('serial').value = qrObj['serial'];
+ document.getElementById("serial").style.border = "thick solid #33cc33";
+
+}
+function onScanError(errorMessage) {
+  //handle scan error
+}
+var html5QrcodeScanner = new Html5QrcodeScanner(
+    "reader", { fps: 10, qrbox: 250 });
+html5QrcodeScanner.render(onScanSuccess, onScanError);
+</script>
+<!- END: QRCODE Scanner Reader -->
 
 <!--fine parte buona-->
 
