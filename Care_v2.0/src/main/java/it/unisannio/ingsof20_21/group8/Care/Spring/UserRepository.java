@@ -52,6 +52,18 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	@Query("UPDATE UserDAO u SET u.activeUser = ?1 where u.email = ?2")
 	void updateUserActiveUserByEmail(short state, String email);
 
+	//aggiorno la password
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.password = ?1 where u.username = ?2")
+	void updateUserPasswordByUsername(String password, String username);
+
+	//aggiorno la password temporanea
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.temppass = ?1 where u.username = ?2")
+	void updateUserTempPasswordByUsername(String temppass, String username);
+
 
 	@Query("FROM UserDAO u WHERE u.activeUser =:isactive")
 	Iterable<UserDAO> filterUsersByState(@Param("isactive") short isactive);

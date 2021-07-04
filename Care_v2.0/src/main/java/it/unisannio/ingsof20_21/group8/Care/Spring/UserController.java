@@ -203,6 +203,16 @@ public  class UserController implements ContainerResponseFilter {
 		return userRepo.findByUsername(username);
 	}
 
+	@PatchMapping("/user/patch/resetpassword/username/{username}")
+	public UserDAO resetPasswordByUser(@PathVariable String username){
+		String tempass = Password.generatePassword(8);
+		userRepo.updateUserTempPasswordByUsername(tempass,username);
+		userRepo.updateUserPasswordByUsername(Password.getBCrypt(tempass),username);
+
+		//il return puo essere tolto
+		return this.getUserByUsername(username);
+	}
+
 
     //===============POST METHODS
 	@PostMapping("/register")
