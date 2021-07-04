@@ -52,6 +52,58 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	@Query("UPDATE UserDAO u SET u.activeUser = ?1 where u.email = ?2")
 	void updateUserActiveUserByEmail(short state, String email);
 
+	//aggiorno la password
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.password = ?1 where u.username = ?2")
+	void updateUserPasswordByUsername(String password, String username);
+
+	//aggiorno la password temporanea
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.temppass = ?1 where u.username = ?2")
+	void updateUserTempPasswordByUsername(String temppass, String username);
+
+
+	// query di aggiornamento user
+	//update username by id
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.username = ?1 where u.idUser = ?2")
+	void updateUserUsernameByID(String username, long id);
+
+
+	//update temppass -> password by id
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.temppass = ?1 where u.idUser = ?2")
+	void updateUserTemppassByID(String temppass, long id);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.password = ?1 where u.idUser = ?2")
+	void updateUserPasswordByID(String password, long id);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.email = ?1 where u.idUser = ?2")
+	void updateUserEmailByID(String email, long id);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.userRole = ?1 where u.idUser = ?2")
+	void updateUserRoleByID(String role, long id);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.loginAttempts = ?1 where u.idUser = ?2")
+	void updateUserLoginAttemptsByID(int loginAttempts, long id);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.activeUser = ?1 where u.idUser = ?2")
+	void updateUserActiveUserByID(short activeuser, long id);
+
 
 	@Query("FROM UserDAO u WHERE u.activeUser =:isactive")
 	Iterable<UserDAO> filterUsersByState(@Param("isactive") short isactive);
@@ -79,9 +131,14 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 
 	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.activeUser = -2")
 	long countDeletedUsers();
+	
+	@Modifying
+	@Transactional
+	 @Query("UPDATE UserDAO u SET u.lastAccess = ?2 where u.username = ?1")
+	void updateAccess(String username, long time);
 
 
-
+	
 
 
 	/*
