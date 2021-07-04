@@ -367,7 +367,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
     }
     
     
-    
+    /* @TODO: serial not bagDAO */
     @PostMapping("/bloodbag/import")
     public BloodBagDAO importBloodBag(@RequestBody BloodBagDAO bagDAO) throws ParseException {
 
