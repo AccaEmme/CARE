@@ -212,6 +212,14 @@ public  class UserController implements ContainerResponseFilter {
 		//il return puo essere tolto
 		return this.getUserByUsername(username);
 	}
+	@PatchMapping("/user/patch/updatepassword/username/{username}/{newpassword}")
+	public UserDAO updateUserPassword(@PathVariable String username, @PathVariable String newpassword){
+		userRepo.updateUserPasswordByUsername(Password.getBCrypt(newpassword),username);
+		userRepo.updateUserTempPasswordByUsername("",username);
+
+		//il return puo essere tolto
+		return userRepo.findByUsername(username);
+	}
 
 
     //===============POST METHODS
