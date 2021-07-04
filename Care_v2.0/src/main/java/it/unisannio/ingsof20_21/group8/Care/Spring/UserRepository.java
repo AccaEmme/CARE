@@ -131,9 +131,14 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 
 	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.activeUser = -2")
 	long countDeletedUsers();
+	
+	@Modifying
+	@Transactional
+	 @Query("UPDATE UserDAO u SET u.lastAccess = ?2 where u.username = ?1")
+	void updateAccess(String username, long time);
 
 
-
+	
 
 
 	/*

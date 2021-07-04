@@ -1,6 +1,7 @@
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -40,6 +41,15 @@ public class AuthenticationController implements ContainerResponseFilter {
         responseContext.getHeaders().add("Access-Control-Allow-Methods",
                 "GET, POST, PUT, DELETE, OPTIONS, HEAD");
     }
+    
+    private final AuthenticationRepository userRepo;
+
+    public AuthenticationController(AuthenticationRepository userRepo) {
+    	this.userRepo = userRepo;
+    }
+
+    
+    
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -49,6 +59,7 @@ public class AuthenticationController implements ContainerResponseFilter {
 
 	@Autowired
 	private JwtUtil jwtUtil;
+
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequestBean authenticationRequest)
@@ -66,8 +77,10 @@ public class AuthenticationController implements ContainerResponseFilter {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}*/
 	catch (Exception e) {
-			  throw new Exception("allesssio__ajskajskja");
+			  throw new Exception("credenziali non valide");
 		}
+    
+	     userRepo.updateAccess(authenticationRequest.getUsername(),(new Date()).getTime());
 		UserDetails userdetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		String token = jwtUtil.generateToken(userdetails);
 		return ResponseEntity.ok(new AuthenticationResponseBean(token));
