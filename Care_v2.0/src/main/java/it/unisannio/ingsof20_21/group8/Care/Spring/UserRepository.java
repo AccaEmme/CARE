@@ -65,6 +65,46 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	void updateUserTempPasswordByUsername(String temppass, String username);
 
 
+	// query di aggiornamento user
+	//update username by id
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.username = ?1 where u.idUser = ?2")
+	void updateUserUsernameByID(String username, long id);
+
+
+	//update temppass -> password by id
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.temppass = ?1 where u.idUser = ?2")
+	void updateUserTemppassByID(String temppass, long id);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.password = ?1 where u.idUser = ?2")
+	void updateUserPasswordByID(String password, long id);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.email = ?1 where u.idUser = ?2")
+	void updateUserEmailByID(String email, long id);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.userRole = ?1 where u.idUser = ?2")
+	void updateUserRoleByID(String role, long id);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.loginAttempts = ?1 where u.idUser = ?2")
+	void updateUserLoginAttemptsByID(int loginAttempts, long id);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.activeUser = ?1 where u.idUser = ?2")
+	void updateUserActiveUserByID(short activeuser, long id);
+
+
 	@Query("FROM UserDAO u WHERE u.activeUser =:isactive")
 	Iterable<UserDAO> filterUsersByState(@Param("isactive") short isactive);
 

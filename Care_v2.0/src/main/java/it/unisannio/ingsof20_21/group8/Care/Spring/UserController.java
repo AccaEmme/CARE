@@ -288,6 +288,94 @@ public  class UserController implements ContainerResponseFilter {
 		return userRepo.save(newUser);
 	}
 	*/
+
+	@PatchMapping("/user/update/username/id/{id}/{username}")
+	public UserDAO updateUserUsernameByID(@PathVariable long id, @PathVariable String username){
+		userRepo.updateUserUsernameByID(username,id);
+
+		return this.getUserByUsername(username);//the new username
+	}
+
+
+	@PatchMapping("/user/update/temppass/id/{id}/{temppass}")
+	public UserDAO updateUserTemppassByID(@PathVariable long id, @PathVariable String temppass){
+		userRepo.updateUserTemppassByID(temppass,id);
+		userRepo.updateUserPasswordByID(Password.getBCrypt(temppass),id);
+		return userRepo.getById(id);
+	}
+
+	@PatchMapping("/user/update/email/id/{id}/{email}")
+	public UserDAO updateUserEmailByID(@PathVariable long id, @PathVariable String email){
+		userRepo.updateUserEmailByID(email,id);
+
+		return userRepo.getById(id);
+	}
+
+	@PatchMapping("/user/update/email/id/{id}/{role}")
+	public UserDAO updateUserRoleByID(@PathVariable long id, @PathVariable String role){
+		userRepo.updateUserRoleByID(Role.valueOf(role).toString(),id);
+
+		return userRepo.getById(id);
+	}
+
+	@PatchMapping("/user/update/attempts/id/{id}/{attempts}")
+	public UserDAO updateUserLoginAttemptsByID(@PathVariable long id, @PathVariable int attempts){
+		userRepo.updateUserLoginAttemptsByID(attempts,id);
+
+		return userRepo.getById(id);
+	}
+	//updateUserActiveUserByID
+
+	@PatchMapping("/user/update/activeuser/id/{id}/{active}")
+	public UserDAO updateUserActiveUserByID(@PathVariable long id, @PathVariable short active){
+		userRepo.updateUserLoginAttemptsByID(active,id);
+
+		return userRepo.getById(id);
+	}
+
+	/**update user
+	 * username, temppass -> password, email, ruolo, login attempts, activeuser*/
+
+	@PostMapping("/user/update")
+	public UserDAO updateUserByID(@RequestBody UserDAO newuser){
+		this.updateUserUsernameByID(newuser.getIdUser(), newuser.getUsername());
+		this.updateUserTemppassByID(newuser.getIdUser(),newuser.getTemppass());
+		this.updateUserEmailByID(newuser.getIdUser(),newuser.getEmail());
+		this.updateUserRoleByID(newuser.getIdUser(),newuser.getUserRole());
+		this.updateUserLoginAttemptsByID(newuser.getIdUser(),newuser.getLoginAttempts());
+		this.updateUserActiveUserByID(newuser.getIdUser(),newuser.getActiveUser());
+
+		return userRepo.getById(newuser.getIdUser());
+	}
+	/**
+	 * BEFORE:
+	 * {
+	 *         "idUser": 3,
+	 *         "username": "antonellino",
+	 *         "password": "$2a$10$PRTZAxBCVhb.h.8jqXEU4.wuhv6v2HSnBbFwYXjzLw.Uc0OQHOMdK",
+	 *         "temppass": "",
+	 *         "email": "antonello99@gmail.com",
+	 *         "userRole": "ROLE_OFFICER",
+	 *         "creationDate": 1625405342438,
+	 *         "lastAccess": 1625405342438,
+	 *         "loginAttempts": 0,
+	 *         "activeUser": 1
+	 *     }*/
+
+	/**
+	 * AFTER:
+	 * {
+	 *         "idUser": 3,
+	 *         "username": "giuseppolino",
+	 *         "password": "$2a$10$PRTZAxBCVhb.h.8jqXEU4.wuhv6v2HSnBbFwYXjzLw.Uc0OQHOMdK",
+	 *         "temppass": "Succhiamelo99+",
+	 *         "email": "antonello99@gmail.com",
+	 *         "userRole": "ROLE_ADMINISTRATOR",
+	 *         "creationDate": 1625405342438,
+	 *         "lastAccess": 1625405342438,
+	 *         "loginAttempts": 1,
+	 *         "activeUser": 1
+	 * }*/
     
     //===============DELETE METHODS
     @DeleteMapping("/user/delete/username/{username}")
