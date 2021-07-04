@@ -34,10 +34,6 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	
-	
-
-	
-	
 	@Bean
 	public PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
@@ -51,8 +47,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Bean
 	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception
-	{
+	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
 	
@@ -61,43 +56,40 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-<<<<<<< HEAD
 		.antMatchers("/helloadmin").hasRole("ADMINISTRATOR")
-=======
-		.antMatchers(/*"/register"*/).hasRole("ADMINISTRATOR")
->>>>>>> c6d2e2e5bf862f548bfd0dc74666b22c80f0b524
+		//.antMatchers("/register").hasRole("ADMINISTRATOR")
 		.antMatchers("request/add").hasAnyRole("OFFICER")
-<<<<<<< HEAD
 		.antMatchers("/bloodbag/add","/bloodbag/use/{serial}").hasAnyRole("STOREMANAGER")
 		.antMatchers("/bloodbag/central/add","/bloodbag/use/{serial}").hasAnyRole("CENTRAL_STOREMANAGER")
-		.antMatchers("/bloodbag/import", "/bloodbag/add","/authenticate", "logger/add","/request/add","/request/accept","/user/delete/{username}","/register","user/update/username/id/{id}/{username}","/bloodbag/import").permitAll().anyRequest().authenticated()
-=======
-		.antMatchers("/bloodbag/add").hasAnyRole("STOREMANAGER")
-		.antMatchers("/bloodbag/central/add").hasAnyRole("CENTRAL_STOREMANAGER")
+		.antMatchers("/register", 		"/bloodbag/import", 		"/bloodbag/add",
+					 "/authenticate", 	"logger/add", 				"/request/add",
+					 "/request/accept",	"/user/delete/{username}",
+					 "user/update/username/id/{id}/{username}",
+					 "/bloodbag/import"
+					 ).permitAll().anyRequest().authenticated()
 		.antMatchers("/bloodbag/use/{serial}").hasAnyRole("STOREMANAGER","CENTRAL_STOREMANAGER")	//linea aggiunta
-<<<<<<< HEAD
 		.antMatchers("/authenticate", "logger/add","/request/add","/request/accept","/user/delete/{username}","/register","user/update/username/id/{id}/{username}","/bloodbag/import").permitAll().anyRequest().authenticated()
-=======
-		.antMatchers("/bloodbag/add","/authenticate", "logger/add","/request/add","/request/accept","/user/delete/{username}","/register","user/update/username/id/{id}/{username}","/bloodbag/import").permitAll().anyRequest().authenticated()
->>>>>>> aca4eb90c7d699d878cf6558edbf946c0cd62680
->>>>>>> c6d2e2e5bf862f548bfd0dc74666b22c80f0b524
-		.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
-		and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
-		and().addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+		.antMatchers(
+					"/bloodbag/add",	"/authenticate", 	"logger/add",
+					"/request/add",		"/request/accept",	"/user/delete/{username}",
+					"/register",		"user/update/username/id/{id}/{username}","/bloodbag/import"
+					).permitAll().anyRequest().authenticated()
+		.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and().addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
-	  @Bean
-	    CorsConfigurationSource corsConfigurationSource() {
-	        CorsConfiguration configuration = new CorsConfiguration();
-	        configuration.setAllowedOrigins(Arrays.asList("*"));
-	        configuration.setAllowCredentials(true);
-	        configuration.setAllowedMethods(Arrays.asList("GET","POST" ,"PUT", "DELETE", "OPTIONS", "HEAD"));
-	        configuration.setAllowedHeaders(Arrays.asList( "CSRF-Token","X-Requested-By", "Authorization", "Content-Type"));
-	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	        source.registerCorsConfiguration("/**", configuration);
-	        return source;
-	    }
 	
-
-
+	@Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedMethods(Arrays.asList("GET","POST" ,"PUT", "DELETE", "OPTIONS", "HEAD"));
+        configuration.setAllowedHeaders(Arrays.asList( "CSRF-Token","X-Requested-By", "Authorization", "Content-Type"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+	
 }
