@@ -1,4 +1,118 @@
-           <!-- START: Expiring BloodBags -->
+   
+ciao sono uno store manager
+<?php
+//echo("ciao ".$token."<br><br>");
+
+$urlAPI = "http://localhost:8087/bloodbag/get/all";
+$authorization = "Authorization: Bearer ".$token;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
+    curl_setopt($ch,CURLOPT_URL,$urlAPI);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//    curl_setopt($ch, CURLOPT_POSTFIELDS,$post);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    //return json_decode($result);
+//print_r(json_decode($result));
+
+$usersArray = (array) json_decode($result);
+//echo("user: ".$usersArray['idUser'] . " token:" . $usersArray['username']);
+foreach (array_keys($usersArray ) as $key) {
+    //echo("user: ".$usersArray[$key]['idUser'] . " token:" . $usersArray[$key]['username'] . "<br>");
+// print_r($usersArray[0]);
+/*
+ echo(	  "<br>"
+	. "serial:"
+	. $usersArray[$key]->serial
+	. " - group: "
+	. $usersArray[$key]->group
+	. " - donator: "
+	. $usersArray[$key]->donator
+	. " - creationDate: "
+	. $usersArray[$key]->creationDate
+	. " - expirationDate: "
+	. $usersArray[$key]->expirationDate
+	. " - state: "
+	. $usersArray[$key]->state
+	. " - notes: "
+	. $usersArray[$key]->notes
+	. " - usedTimeStamp: "
+	. $usersArray[$key]->usedTimeStamp
+	. "<br>");
+*/
+    //print_r($arr);
+
+}
+
+//unset($usersArray);
+
+?>
+<!-- campi tabella -->
+    <h2>Local Users:</h2>
+    <form action="" method="POST">
+     <table>
+         <tr>
+            <td align="center"><b>serial</b></td>
+            <td align="center"><b>group</b></td>
+            <td align="center"><b>donator</b></td>
+            <td align="center"><b>creationDate</b></td>
+            <td align="center"><b>expirationDate</b></td>
+            <td align="center"><b>state</b></td>
+            <td align="center"><b>notes</b></td>
+            <td align="center"><b>usedTimeStamp</b></td>
+        </tr>
+        <tr>
+<!-- in php lancio solo il for in html riempo la tabella -->
+<?php foreach (array_keys($usersArray ) as $key) { ?>
+            <td><input type="text" name="id_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->serial; ?>" disabled /></td>
+            <td><input type="text" name="group_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->group; ?>" disabled/></td>
+            <td><input type="text" name="donator_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->donator; ?>" disabled /></td>
+            <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->creationDate/1000); ?>" disabled/></td>
+            <td><input type="text" name="expirationDate_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->expirationDate/1000); ?>" disabled/></td>
+  	    <td><input type="text" name="state_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->state; ?>" disabled/></td>
+	    <td><input type="text" name="notes_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->notes; ?>" disabled/></td>
+            <td><input type="text" name="usedTimeStamp_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->usedTimeStamp; ?>" disabled/></td>
+            <td>
+                <input type="button" value="Elimina">
+            </td>
+        </tr>
+<?php
+}
+?>
+	<!-- START: new user fields -->
+        <tr>
+            <td><input type="text" disabled/></td>
+            <td><select name="group" id="group">
+ 		<option>Apos</option>
+ 		<option>Aneg</option>
+		</select>
+	    </td>
+            <td><input type="text" name="donator" id="donator" placeholder="cod.fiscale CF_DONATORE" /></td>
+            <td><input type="text" disabled/></td>
+            <td><input type="text" disabled/></td>
+            <td><input type="text" disabled/></td>
+            <td><input type="text" name="note" id="note" /></td>
+            <td><input type="text" disabled/></td>
+            <td>
+		<input type="text" name="addBloodBagURL" id="addBloodBagURL" value="http://localhost:8087/bloodbag/add" hidden="yes" />
+                <input type="submit" value="Crea" onclick="addBloodBag(document.getElementById('addBloodBagURL').value, '<?php echo($token); ?>', document.getElementById('group').value, document.getElementById('donator').value, document.getElementById('note').value);">
+            </td>
+        </tr>
+	<!-- END: new user fields -->
+
+     </table>
+     </form>      
+
+<!--fine parte buona-->
+
+
+
+  <!-- START: Expiring BloodBags -->
+
+  <?php
+  /*
         <fieldset>
             <legend><img src="images\scadenza.png" width="10%"><a name="expiring"><b> In Scadenza</b></a></legend>
             <table id="BloodBags-table" border="1" style="font-size: 20px;" >
@@ -651,4 +765,9 @@
         <!-- END:  StoreManager Requests -->
 
         </fieldset>
+
+       
         <!-- END:   Availability BloodBags -->
+        */
+        ?>
+ 

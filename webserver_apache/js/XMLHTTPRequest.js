@@ -90,6 +90,29 @@ http://localhost:8087/register
 
 
 }
+
+//=================BloodBag Methods: POST
+function addBloodBag(url, token, group, donator, note){
+
+alert("ciaoooooooooo");
+ k=0;
+ if(url == "") 		{ alert("url null"); 		k=1; }
+ if(token == "") 	{ alert("token null"); 		k=1; }
+ if(group == "") 	{ alert("group null"); 	        k=1; }
+ if(donator == "") 	{ alert("donator null");  	k=1; }
+
+ if(k==0){
+  alert(url + " - " + token + " - " + group + " - " + donator + " - " + note );
+  var jsonBody 	 = '{' + '"group": "' + group + '", "donator": "' + donator + '", "notes": "'+ note +'" }';
+ 
+  alert("jsonBody: " + jsonBody);
+  console.log("jsonBody: " + jsonBody);
+  HTTPPost(url, token, jsonBody);
+ }
+
+
+}
+
    
 function deleteUser(token, username){
 
