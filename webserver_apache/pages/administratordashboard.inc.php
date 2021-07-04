@@ -40,7 +40,7 @@ foreach (array_keys($usersArray ) as $key) {
 ?>
 
     <h2>Local Users:</h2>
-<!--    <form action="" method="POST"> -->
+    <form action="" method="POST">
      <table>
          <tr>
             <td align="center"><b>idUser</b></td>
@@ -75,8 +75,8 @@ foreach (array_keys($usersArray ) as $key) {
                     </optgroup>
                 </select>
             </td>
-            <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->creationDate; ?>" /></td>
-            <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->lastAccess; ?>" /></td>
+            <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->creationDate/1000); ?>" /></td>
+            <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->lastAccess/1000); ?>" /></td>
             <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->loginAttempts; ?>" /></td>
             <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->activeUser; ?>" /></td>
             <td>
@@ -110,13 +110,13 @@ foreach (array_keys($usersArray ) as $key) {
             <td><select name="newactiveuser" id="newactiveuser"><option value="1">1:attivo</option><option value="0">0:disabilitato</option><option value="-1">-1:blacklist</option><option value="1">-2:deleted</option></select></td>
             <td>
 		<input type="text" name="addUserURL" id="addUserURL" value="http://localhost:8087/register" hidden="yes" />
-                <input type="submit" value="Crea" onclick="addUser(document.getElementById('addUserURL').value, '<?php echo($token); ?>', document.getElementById('newusername').value, document.getElementById('newpassword').value, document.getElementById('newemail').value, document.getElementById('newrole').value, document.getElementById('newloginattempts').value, document.getElementById('newactiveuser').value)">
+                <input type="submit" value="Crea" onclick="addUser(document.getElementById('addUserURL').value, '<?php echo($token); ?>', document.getElementById('newusername').value, document.getElementById('newpassword').value, document.getElementById('newemail').value, document.getElementById('newrole').value, document.getElementById('newloginattempts').value, document.getElementById('newactiveuser').value); setTimeout(function () { location.reload(1); }, 5000);">
             </td>
         </tr>
 	<!-- END: new user fields -->
 
-
      </table>
+     </form>
 
 <!-- ----------------OLD-------------------- -->
     <div align="center">

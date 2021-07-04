@@ -37,7 +37,10 @@ function HTTPPost(url, token, jsonBodyString){
 	request.open("POST", url, true);
 	request.setRequestHeader('Authorization', 'Bearer ' + token);
 	request.setRequestHeader("content-type", "application/json");
-alert(jsonBodyString);
+request.onerror = function () {
+  console.log("** An error occurred during the transaction");
+  alert("** An error occurred during the transaction");
+};
 //	request.send(JSON.stringify(jsonBodyString));
 	request.send(jsonBodyString);
 	request.onreadystatechange = function() {
@@ -45,10 +48,12 @@ alert(jsonBodyString);
 	  console.log("Request: token " + token + " jsonBody: " + jsonBodyString);
 	  console.log("Response: "+ this.responseText);
 	  let results = JSON.parse(this.responseText);
-  	  //alert(" Result: " + results ); 
-	  //window.open("dashboard.php?token="+results.token);
-         }
+         } else {
+alert("error"+this.responseText)
+	 }
        };
+
+
 }
 
 
@@ -70,12 +75,14 @@ http://localhost:8087/register
  if(token == "") 	{ alert("token null"); 		k=1; }
  if(username == "") 	{ alert("username null"); 	k=1; }
  //if(password == "") 	{ alert("password null");  	k=1; }
- if(email == "") 	{ alert("email null");  	k=1; }
+ //if(email == "") 	{ alert("email null");  	k=1; }
  if(userRole == "") 	{ alert("userRole null");  	k=1; }
 
  if(k==0){
   alert(url + " - " + token + " - " + username + " - " + password + " - " + email + " - " + userRole);
-  var jsonBody = '{' + '"username": "' + username + '", "password": "' + password + '", "email": "' + email + '", "userRole": "' + userRole + '", "loginAttempts": ' + loginAttempts + ', "activeUser": ' + activeUser + '}';
+  var jsonBody 	 = '{' + '"username": "' + username + '", "password": "' + password + '", "email": ';
+  if(email=="") { jsonBody += 'null'; } else { jsonBody +='"'+email+'"'; }
+  jsonBody 	+= ', "userRole": "' + userRole + '", "loginAttempts": ' + loginAttempts + ', "activeUser": ' + activeUser + '}';
   alert("jsonBody: " + jsonBody);
   console.log("jsonBody: " + jsonBody);
   HTTPPost(url, token, jsonBody);
