@@ -64,11 +64,11 @@ public class AuthenticationController implements ContainerResponseFilter {
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequestBean authenticationRequest)
 			throws Exception {
-	try {
-		
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-					authenticationRequest.getUsername(), authenticationRequest.getPassword()+Constants.PASSWORD_SALT));
-	}
+		try {
+			
+				authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+						authenticationRequest.getUsername(), authenticationRequest.getPassword()+Constants.PASSWORD_SALT));
+		}
 			
 		 /*}catch (DisabledException e) {
 			throw new Exception("USER_DISABLED", e);
@@ -76,7 +76,7 @@ public class AuthenticationController implements ContainerResponseFilter {
 		catch (BadCredentialsException e) {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}*/
-	catch (Exception e) {
+		catch (Exception e) {
 			  throw new Exception("credenziali non valide");
 		}
     
