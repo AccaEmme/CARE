@@ -9,6 +9,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.stream.Stream;
 
@@ -19,6 +20,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
+
+import it.unisannio.CARE.model.exceptions.IllegalPatternException;
 import it.unisannio.CARE.model.util.Password;
 
 
@@ -32,7 +35,6 @@ import junitparams.mappers.CsvWithHeaderMapper;
 import junitparams.naming.TestCaseName;
 
 public class PasswordTest {
-	
 
 
 	// =====================Constructor1 tests: Password(String hiddenPassword)
@@ -46,6 +48,15 @@ public class PasswordTest {
 	@Test // Test Constructor1 works propertly with invalid hiddenPassword
 	public void InvalidityTest_Constructor1_nullParam() {
 		String invalidHiddenPassword = null; 
+
+		assertThrows(Exception.class, ()->{
+			Password p = new Password(invalidHiddenPassword);
+		});
+	}
+	
+	@Test // Test Constructor1 works propertly with invalid hiddenPassword
+	public void InvalidityTest2_Constructor1_nullParam() {
+		String invalidHiddenPassword = ""; 
 
 		assertThrows(Exception.class, ()->{
 			Password p = new Password(invalidHiddenPassword);
@@ -67,16 +78,6 @@ public class PasswordTest {
 		Password p = new Password( validHiddenPassword );
 		assertEquals( p.getHiddenPassword(), Password.getBCrypt(validPlainTextPassword) );
 	}
-	
-	@Ignore // Questo test non ha senso di esistere, purtroppo non possiamo validare una password MD5 in quanto hidden non sappiamo se il suo plaintext rispetta il pattern previsto.
-	@Test 	// Test getMd5 doesn't work propertly compairing hidden password with not valid plaintext password.
-	public void InvalidityTest_getMd5_withWrongPlaintextpassword() {
-		String	invalidPlainTextPassword 	= "password";		
-		String 	validHiddenPassword 		= "97283B8AA415245169B8C33904026FAE"; // include SALT
-		Password p = new Password( validHiddenPassword );
-		assertThrows( Exception.class, () -> Password.getBCrypt(invalidPlainTextPassword).equals(p.getHiddenPassword()) );
-	}
-	
 	@Test // Test String generatePassword(int length) 
 	public void ValidityTest_generatePassword_checkLength() {
 		int		passLength		 = 15;
@@ -103,25 +104,37 @@ public class PasswordTest {
 		assertTrue( Password.validatePlaintextPasswordPattern(validPlainTextPassword) );
 	}
 	
-	// In realtà questo test dovrebbe validare tutte le password valide
-	@Test 	// Test validatePassword(final String givenPassword) throws an exception
-	public void InvalidityTest_validatePassword_withWrongPlaintextpassword() {
-		String	invalidPlainTextPassword 	= "password";
+	@ParameterizedTest(name = "#{index} - Run test with invalid password complexity pattern = {0}")
+    @MethodSource("invalidPasswordsProvider")
+	public void InvalidityTest_validatePassword_withWrongPlaintextpassword(String password) {
 
 		assertThrows(Exception.class, ()->{
-			Password.validatePlaintextPasswordPattern(invalidPlainTextPassword);
+			Password.validatePlaintextPasswordPattern(password);
 		});
 	}
 	
 	
 	/* @TODO: below */
     @ParameterizedTest(name = "#{index} - Run test with valid password complexity pattern = {0}")
-    @MethodSource("validPasswordProvider")
+    @MethodSource("validPasswordsProvider")
     public void test_password_regex_valid(String password) {
         Assert.assertTrue( Password.validatePlaintextPasswordPattern(password) );
-        //bisogna specificare la classe di appartenenza
     }	
 	
+    /**
+	 * Test del metodo validatePlaintextPasswordPattern per la validazione del pattern della passw
+	 * @exception validatePlaintextPasswordPattern
+	 * @result il risultato è il richiamo dell'eccezione per via del givenpassw null
+	 */
+    @Test(expected = IllegalPatternException.class)
+    public void InvalidityTest_validatePlaintextPasswordPattern() {
+		String givenPassw = null;
+		Password p = new Password("9964759D115DA0F4946D8C4AABF0A200");
+		p.validatePlaintextPasswordPattern(givenPassw);
+	}
+    
+    
+    
     /*
     @Test
     @Parameters({"17, false", 
@@ -164,7 +177,18 @@ public class PasswordTest {
     	Password.validatePassword(input);
     	assertThat(1+1, 2);
     }
-    */
+    
+    
+	@Ignore // Questo test non ha senso di esistere, purtroppo non possiamo validare una password MD5 in quanto hidden non sappiamo se il suo plaintext rispetta il pattern previsto.
+	@Test 	// Test getMd5 doesn't work propertly compairing hidden password with not valid plaintext password.
+	public void InvalidityTest_getMd5_withWrongPlaintextpassword() {
+		String	invalidPlainTextPassword 	= "password";		
+		String 	validHiddenPassword 		= "97283B8AA415245169B8C33904026FAE"; // include SALT
+		Password p = new Password( validHiddenPassword );
+		assertThrows( Exception.class, () -> Password.getBCrypt(invalidPlainTextPassword).equals(p.getHiddenPassword()) );
+	}
+	
+	*/
     
     static Stream<String> validPasswordsProvider() {
     	/*
