@@ -3,7 +3,7 @@
 
 <?php
 
-$urlAPI = "http://localhost:8087/bloodbag/get/state/Available";
+$urlAPI = "http://localhost:8087/request/get/state/pending";
 $authorization = "Authorization: Bearer ".$token;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
@@ -55,59 +55,32 @@ foreach (array_keys($usersArray ) as $key) {
      <table>
          <tr>
             <td align="center" width="10%"><b>serial</b></td>
-            <td align="center"><b>group</b></td>
-            <td align="center"><b>donator</b></td>
-            <td align="center"><b>creationDate</b></td>
-            <td align="center"><b>expirationDate</b></td>
-            <td align="center"><b>state</b></td>
+            <td align="center"><b>idRequester</b></td>
+            <td align="center"><b>date</b></td>
             <td align="center"><b>notes</b></td>
-            <td align="center"><b>usedTimeStamp</b></td>
-            <td align="center"><b>Actions</b></td>
+            <td align="center"><b>state</b></td>
+            <td align="center"><b>priority</b></td>
         </tr>
         <tr>
 <!-- in php lancio solo il for in html riempo la tabella -->
 <?php foreach (array_keys($usersArray ) as $key) { ?>
             <td><input type="text" name="id_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->serial; ?>" size="40" disabled /></td>
-            <td><input type="text" name="group_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->group; ?>" disabled/></td>
-            <td><input type="text" name="donator_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->donator; ?>" disabled /></td>
-            <td><input type="text" name="creationDate_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->creationDate/1000); ?>" disabled/></td>
-            <td><input type="text" name="expirationDate_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->expirationDate/1000); ?>" disabled/></td>
-  	    <td><input type="text" name="state_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->state; ?>" disabled/></td>
-	    <td><input type="text" name="notes_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->notes; ?>" disabled/></td>
-            <td><input type="text" name="usedTimeStamp_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->usedTimeStamp; ?>" disabled/></td>
+            <td><input type="text" name="idRequester_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->id_requester; ?>" disabled/></td>
+            <td><input type="text" name="date_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo  $usersArray[$key]->date; ?>" disabled/></td>
+            <td><input type="text" name="notes_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->note; ?>" disabled/></td>
+            <td><input type="text" name="state_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->state; ?>" disabled /></td>
+  	        <td><input type="text" name="priority_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->priority; ?>" disabled/></td>
+	        
             <td>
                 
-                <input type="submit" value="PRELEVA" onclick="useBloodBag('http://localhost:8087/bloodbag/use/<?php echo $usersArray[$key]->serial; ?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000)">
+                <input type="submit" value="ACCETTA" onclick="acceptRequest('http://localhost:8087/request/accept<?php echo $usersArray[$key]->serial; ?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000)">
+                <input type="submit" value="RIFIUTA" onclick="acceptRequest('http://localhost:8087/request/refuse<?php echo $usersArray[$key]->serial; ?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000)">
             </td>
         </tr>
 <?php
 }
 ?>
-	<!-- START: new user fields -->
-        <tr>
-            <td><input type="text" size="40" disabled/></td>
-            <td><select name="group" id="group">
- 		<option>Apos</option>
- 		<option>Aneg</option>
-		<option>Bpos</option>
- 		<option>Bneg</option>
-		<option>ZEROpos</option>
- 		<option>ZEROneg</option>
-		<option>ABneg</option>
-		<option>ABpos</option>
-		</select>
-	    </td>
-            <td><input type="text" name="donator" id="donator" placeholder="cod.fiscale CF_DONATORE" /></td>
-            <td><input type="text" disabled/></td>
-            <td><input type="text" disabled/></td>
-            <td><input type="text" disabled/></td>
-            <td><input type="text" name="note" id="note" /></td>
-            <td><input type="text" disabled/></td>
-            <td>
-		<input type="text" name="addBloodBagURL" id="addBloodBagURL" value="http://localhost:8087/bloodbag/add" hidden="yes" />
-                <input type="submit" value="Crea" onclick="addBloodBag(document.getElementById('addBloodBagURL').value, '<?php echo($token); ?>', document.getElementById('group').value, document.getElementById('donator').value, document.getElementById('note').value);setTimeout(function () { location.reload(1); }, 5000)">
-            </td>
-        </tr>
+	
 	
 	 <tr>
             <td><input type="text" name="serial" id="serial" placeholder="seriale sacca" size="40" /></td>
@@ -125,6 +98,8 @@ foreach (array_keys($usersArray ) as $key) {
         </tr>
      </table>
      </form>
+
+
 
 <!- START: QRCODE Scanner Reader -->
 <div align="center">

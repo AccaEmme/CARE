@@ -263,7 +263,12 @@ public class RequestController /*implements ContainerResponseFilter */{
 		}
 		
 	}
-	
+
+	@PostMapping("accept/serial/{serial}")
+	public RequestBean acceptRequestBySerial(@PathVariable String serial){
+
+
+	}
 	
 	//testato	
 	@PostMapping("accept")
