@@ -127,7 +127,7 @@ public class Serial{
     	validateSerial(s);
     	this.serial = s;
 	}
-
+ 
     /**
 	 **************************************************************************
 	 * Metodo GET per ottenere il seriale

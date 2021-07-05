@@ -1,5 +1,6 @@
 package it.unisannio.CARE.spring;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -63,25 +64,66 @@ public class SerialTest {
 	}
 	
 	/**
-	 * Test del metodo Serial 
+	 * Creazione del costruttore della classe Serial
 	 * @result Se la stringa del seriale è giusta, viene inserito il seriale nuovo
 	 */
 	@Test
 	public void ValidityTest_Serial_notNullObject() {
-		assertNotNull(Serial.validateSerial("IT-NA206000-Apos-20210416-0001"));
-		Serial s = new Serial(BloodGroup.ABneg);
+		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
 		assertNotNull(s);
 	}
 	
 	/**
-	 * Test del metodo Serial invalido
+	 * Creazione del costruttore della classe Serial invalido
 	 * @result La stringa del seriale non è valida, quindi ritorna una eccezione
 	 */
 	@Test (expected = IllegalSerialException.class)
 	public void InvalidityTest_Serial_notNullObject() {
-		assertNotNull(Serial.validateSerial("IT-NA206000-Apos-20210416-0001"));
-		Serial s = new Serial(BloodGroup.ABneg);
+		Serial s = new Serial("IT-NA206000-Apos-20210416-000");
 		assertNotNull(s);
+	}
+	
+	/**
+	 * Test del medoto GetSerial
+	 * @result ritorna la convalida del metodo getSerial
+	 */
+	@Test
+	public void ValidityTest_getSerial_notNullObject() {
+		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
+		assertNotNull(s.getSerial());
+	}
+	
+	/**
+	 * Test del medoto TOSTRING
+	 * @result ritorna tutte le informazioni della classe Serial
+	 */
+	@Test
+	public void ValidityTest_ToString_notNullObject() {
+		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
+		s.toString();
+	}
+	
+	/**
+	 * Verifica del funzionamento del metodo equal
+	 * @result ritorna true perchè paragono due oggetti Serial
+	 */
+	@Test
+	public void ValidityTest_Equals_notNullObject() {
+		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
+		Serial s2 = new Serial("IT-NA206000-Apos-20210416-0002");
+		assertNotNull(s.equals(s2));
+	}
+	
+	/**
+	 * Verifica del funzionamento del metodo equal
+	 * @throws ParseException 
+	 * @result ritorna false perchè non paragono due oggetti Serial
+	 */
+	@Test
+	public void InvalidityTest_Equals_notNullObject() throws ParseException {
+		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
+		BloodBag bg = new BloodBag(BloodGroup.ABneg, "PLVDNT96P21A783A");
+		assertFalse(s.equals(bg));
 	}
 	
 	
