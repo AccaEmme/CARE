@@ -9,6 +9,7 @@ import javax.ws.rs.container.ContainerResponseFilter;
 
 import it.unisannio.CARE.model.user.UsersStates;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -65,11 +66,16 @@ public class AuthenticationController /*implements ContainerResponseFilter*/ {
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequestBean authenticationRequest) throws Exception {
+		//controlli
 		UserDAO userCheck = userRepo.getUserDaoFromUsername(authenticationRequest.getUsername());
+		if (userCheck == null)
+			return new ResponseEntity<String>("Couldn't find the user.",HttpStatus.NOT_FOUND);
 		if (userCheck.getActiveUser()==UsersStates.INACTIVE)
-			throw new Exception("User inactive: Too many login attempts.");
+			return new ResponseEntity<String>("User inactive: Too many login attempts.", HttpStatus.UNPROCESSABLE_ENTITY);
 
+		//se l'user esiste AND ha tentativi di accesso < 3 allora procedo all'autenticazione
 		try {
+			//se l'autenticazione non lancia eccezioni (le password coincidono)...
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 					authenticationRequest.getUsername(),
 					authenticationRequest.getPassword()+Constants.PASSWORD_SALT)
@@ -87,24 +93,18 @@ public class AuthenticationController /*implements ContainerResponseFilter*/ {
 			}
 
 			//importantissimo perche se non si lancia l'eccezione viene restituito il token!
-			throw new Exception("credenziali non valide");
+			//a questo punto dico solo che la password è sbagliata, perchè ho gia controllato l'esistenza dell'username.
+			return new ResponseEntity<String>("Wrong Password.", HttpStatus.NOT_ACCEPTABLE);
 		}
-			
-		 /*}catch (DisabledException e) {
-			throw new Exception("USER_DISABLED", e);
-		}
-		catch (BadCredentialsException e) {
-			throw new Exception("INVALID_CREDENTIALS", e);
-		}
-		catch (Exception e) {
-			  throw new Exception("credenziali non valide");
-		}*/
+		//...allora aggiorno l'ultimo accesso ed azzero eventuali tentativi di accesso precedenti.
     
 		userRepo.updateAccess(authenticationRequest.getUsername(),(new Date()).getTime());
 		//azzero i tentativi di accesso perchè autenticato.
 		userRepo.updateUserLoginAttempts(0,authenticationRequest.getUsername());
 		UserDetails userdetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		String token = jwtUtil.generateToken(userdetails);
+
+		//ritorno il token
 		return ResponseEntity.ok(new AuthenticationResponseBean(token));
 	}
 	/*
