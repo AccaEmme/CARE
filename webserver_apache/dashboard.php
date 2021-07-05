@@ -4,6 +4,8 @@
 $roles[0] = "ROLE_ADMINISTRATOR";
 $roles[1] = "ROLE_STOREMANAGER";
 $roles[2] = "ROLE_OFFICER";
+$roles[3] = "ROLE_CENTRAL_ADMINISTRATOR";
+$roles[4] = "ROLE_CENTRAL_STOREMANAGER";
 
 @$token   = $_GET['token'];
 @$subpage = $_GET['subpage'];
@@ -94,6 +96,9 @@ switch($role){
 	   case "ROLE_OFFICER":
 	     include("./pages/officermenu.inc.php");
 	     break;
+     case "ROLE_CENTRAL_STOREMANAGER":
+       include("./pages/centralstoremanagermenu.inc.php");
+       break;
 	   default:
 	     echo("Unauthorized");
 	     break;
@@ -148,6 +153,9 @@ switch($role){
 	   case "ROLE_OFFICER":
 	     $allowed_pages 	= array("officerdashboard");
 	     break;
+     case "ROLE_CENTRAL_STOREMANAGER":
+        $allowed_pages 	= array("centralstoremanagerdashboard");
+        break;
 	   default:
 	     echo("Unauthorized");
 	     break;
