@@ -76,7 +76,8 @@ foreach (array_keys($usersArray ) as $key) {
 	    <td><input type="text" name="notes_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->notes; ?>" disabled/></td>
             <td><input type="text" name="usedTimeStamp_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->usedTimeStamp; ?>" disabled/></td>
             <td>
-                <input type="button" value="Elimina">
+             	<input type="text" name="useBloodBagURL" id="useBloodBagURL" value="http://localhost:8087/use/ document.getElementById('serial').value " hidden="yes" />
+                <input type="submit" value="PRELEVA" onclick="useBloodBag(document.getElementById('useBloodBagURL').value, '<?php echo($token); ?>');setTimeout(function () { location.reload(1); }, 5000)">
             </td>
         </tr>
 <?php

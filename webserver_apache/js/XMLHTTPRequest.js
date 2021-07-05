@@ -29,7 +29,7 @@ function login(){
        //if(ok==0) alert("===Login failed==="+ok);
 }
 
-//=================Users Methods: POST
+//================= Methods: HTTP_POST
 function HTTPPost(url, token, jsonBodyString){
 	event.preventDefault();
 	let request = new XMLHttpRequest();   // new HttpRequest instance
@@ -55,7 +55,25 @@ alert("error"+this.responseText)
 
 
 }
+//================= Methods: HTTP_DELETE
+function HTTPDelete(url, token){
+	event.preventDefault();
+	let request = new XMLHttpRequest();   // new HttpRequest instance
 
+	request.open("DELETE", url, true);
+	alert(url);
+	request.setRequestHeader('Authorization', 'Bearer ' + token);
+	request.send();
+ 	request.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+               alert("operazione completatata");   
+         }
+
+	else{
+	 alert("operazione fallita");   
+	}
+}
+}
 
 //=================Users Methods: POST
 function addUser(url, token, username, password, email, userRole, loginAttempts, activeUser){
@@ -94,6 +112,19 @@ HTTPBody:
 
 }
 
+
+
+
+//=================BloodBag Methods: DELETE
+function useBloodBag(url, token){
+HTTPDelete(url, token)
+
+}
+
+
+
+
+
 //=================BloodBag Methods: POST
 function addBloodBag(url, token, group, donator, note){
 
@@ -116,6 +147,7 @@ alert("ciaoooooooooo");
 
 
 }
+//=================BloodBag Methods: POST
 function addBloodBagCentral(url, token, serial){
 
 alert("ciaoooooooooo");
