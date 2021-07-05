@@ -21,3 +21,7 @@ Checkout the documentation on the [Wiki page](https://github.com/AccaEmme/CARE/w
 # Installation
 Prerequisites:
  - MySQL >= 8.0 on localhost:3306
+
+
+# Screenshot
+<img src="https://raw.githubusercontent.com/AccaEmme/CARE/main/docs/Capitolo8/requested-accepted-arrived-imported.png">
