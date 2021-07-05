@@ -58,7 +58,7 @@ public class Serial{
     private final String serial;
     
     static {
-        Properties loadProps = new Properties();
+        Properties loadProps = new Properties(); 
         
         File f = new File(filesettings);
         if(!f.exists())  {
@@ -107,7 +107,7 @@ public class Serial{
     public Serial(BloodGroup bloodgroup) {
         Serial.counter = (Integer.parseInt(currentDate_aaaaMMdd) > lastdate)? 0 : counter ;	//if today > lastdate -> counter = 0 else counter++
 
-        serial = serialmatrix+
+        serial = serialmatrix+ 
                 "-"+bloodgroup+
                 "-"+currentDate_aaaaMMdd+
                 "-"+(
