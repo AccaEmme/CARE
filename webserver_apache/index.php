@@ -6,5 +6,4 @@ if(!isset($token)){
 } else {
 	include("dashboard.php");
 }
-
 ?>

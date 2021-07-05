@@ -1,6 +1,6 @@
 <script src="./js/html5-qrcode.min.js"></script>
    
-
+sonolapaginadirichieste
 <?php
 
 $urlAPI = "http://localhost:8087/bloodbag/get/state/Available";
