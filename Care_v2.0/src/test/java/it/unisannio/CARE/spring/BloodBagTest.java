@@ -3,6 +3,8 @@ package it.unisannio.CARE.spring;
 
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
@@ -16,12 +18,22 @@ import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 import org.junit.AfterClass;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
+
+import it.unisannio.CARE.model.bloodBag.BloodBag;
+import it.unisannio.CARE.model.bloodBag.BloodBagState;
+import it.unisannio.CARE.model.bloodBag.BloodGroup;
+import it.unisannio.CARE.model.bloodBag.Serial;
+import it.unisannio.CARE.model.exceptions.IllegalSerialException;
+import it.unisannio.CARE.model.util.Constants;
+import it.unisannio.CARE.model.util.Password;
 
 
 /*
@@ -29,6 +41,158 @@ import org.junit.Test;
  */
 
 public class BloodBagTest {
+	
+	
+	/**
+	 * Creazione del costruttore della classe BloodGroup
+	 * @throws ParseException
+	 * @result La sacca viene creata nel modo corretto non sviluppando nessuna eccezione
+	 */
+	@Test
+	public void ValidityTest_Constructor1_notNullObject() throws ParseException {
+		BloodBag bg = new BloodBag(BloodGroup.ABneg, "PLVDNT96P21A783A");
+		assertNotNull(bg);
+	}
+	
+	
+	/**
+	 * Creazione INVALIDA costruttore della classe BloodGroup
+	 * @throws ParseException
+	 * @result La sacca viene creata nel modo non corretto poichè viene inserito un codice fiscale errato
+	 */
+	@Test
+	public void InvalidityTest_Constructor1_notNullObject() throws ParseException {
+		assertThrows(Exception.class, ()->{
+			BloodBag bg = new BloodBag(BloodGroup.ABneg, "PLVDNT96P21A7A");
+		});
+	}
+	
+	
+	/**
+	 * Creazione del costruttore della classe BloodGroup
+	 * @result La sacca viene creata nel modo corretto non sviluppando nessuna eccezione
+	 */
+	@Test
+	public void ValidityTest_Constructor2_notNullObject() throws ParseException {
+		
+		Serial S = new Serial ("IT-NA206000-Apos-20210416-0001");
+		
+		BloodBag bg1 = new BloodBag(S, BloodGroup.Aneg, 
+				Constants.dateFormat.parse("20200921"), 
+				Constants.dateFormat.parse("20201221"), 
+				"PLVDNT96P21A783A",BloodBagState.Arrived, "ciao");
+		
+		assertNotNull(bg1);
+	}
+	
+	/**
+	 * Creazione invalida del costruttore della classe BloodGroup con data scadenza sbagliata
+	 * @throws ParseException 
+	 * @result La sacca viene creata nel modo corretto non sviluppando nessuna eccezione
+	 */
+	@Ignore
+	@Test(expected = ParseException.class) 
+	public void InvalidityTest_Constructor2_notNullObject() throws ParseException{
+		
+		Serial S = new Serial ("IT-NA206000-Apos-20210416-0001");
+	
+		Date cd = Constants.dateFormat.parse("2020092"); 
+		
+		Date ed = Constants.dateFormat.parse("20201221");
+		
+		BloodBag bg1 = new BloodBag(S, BloodGroup.Aneg, cd, ed, "PLVDNT96P21A783A",BloodBagState.Arrived, "Sacca modificata");
+		
+	}
+	
+	
+	/**
+	 * Creazione invalida del costruttore della classe BloodGroup con data di sbagliata
+	 * @result La sacca viene creata nel modo corretto non sviluppando nessuna eccezione
+	 */
+	@Ignore
+	@Test
+	public void InvalidityTest2_Constructor2_notNullObject() throws ParseException {
+		
+		Serial S = new Serial ("IT-NA206000-Apos-20210416-0001");
+		
+		assertThrows(Exception.class, ()->{
+		BloodBag bg1 = new BloodBag(S, BloodGroup.Aneg, 
+				Constants.dateFormat.parse("20200921"), 
+				Constants.dateFormat.parse("2020122"), 
+				"PLVDNT96P21A783A",BloodBagState.Arrived, "ciao");
+		});
+	} 
+	
+	/**
+	 * Creazione invalida del costruttore della classe BloodGroup con Seriale Invalido
+	 * @throws ParseException 
+	 * @result La sacca viene creata nel modo corretto non sviluppando nessuna eccezione
+	 */
+	@Test(expected = IllegalSerialException.class)  
+	public void InvalidityTest3_Constructor2_notNullObject() throws ParseException{
+		
+		Serial S = new Serial ("IT-NA206000-Apos-20210416-000");
+	
+		Date cd = Constants.dateFormat.parse("20200921"); 
+		
+		Date ed = Constants.dateFormat.parse("20201221");
+		
+		BloodBag bg1 = new BloodBag(S, BloodGroup.Aneg, cd, ed, "PLVDNT96P21A783A",BloodBagState.Arrived, "Sacca modificata");
+		
+	}
+	
+	
+	/**
+	 * Creazione Junit per la verica del metodo GET Serial 
+	 * @throws ParseException 
+	 * @result Il seriale viene correttamente visualizzato
+	 */
+	@Test
+	public void ValidityTest_getSerial_notNullObject() throws ParseException{
+		Serial S = new Serial ("IT-NA206000-Apos-20210416-0001");
+		
+		BloodBag bg1 = new BloodBag(S, BloodGroup.Aneg, 
+				Constants.dateFormat.parse("20200921"), 
+				Constants.dateFormat.parse("20201221"), 
+				"PLVDNT96P21A783A",BloodBagState.Arrived, "Sacca Modificata");
+		assertNotNull(bg1.getSerial());
+	}
+	
+	/**
+	 * Creazione Junit per la verica del metodo GET del gruppo
+	 * @throws ParseException 
+	 * @result Il seriale viene correttamente visualizzato
+	 */
+	@Test
+	public void ValidityTest_getBloodGroup_notNullObject() throws ParseException{
+		Serial S = new Serial ("IT-NA206000-Apos-20210416-0001");
+		
+		BloodBag bg1 = new BloodBag(S, BloodGroup.Aneg, 
+				Constants.dateFormat.parse("20200921"), 
+				Constants.dateFormat.parse("20201221"), 
+				"PLVDNT96P21A783A",BloodBagState.Arrived, "Sacca Modificata");
+		assertNotNull(bg1.getBloodBagState());
+	}
+	
+	/**
+	 * Creazione Junit per la verica del metodo SET del gruppo
+	 * @throws ParseException 
+	 * @result Il seriale viene correttamente visualizzato
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void ValidityTest_setBloodGroup_notNullObject() throws ParseException{
+		Serial S = new Serial ("IT-NA206000-Apos-20210416-0001");
+		
+		BloodBag bg1 = new BloodBag(S, null, 
+				Constants.dateFormat.parse("20200921"), 
+				Constants.dateFormat.parse("20201221"), 
+				"PLVDNT96P21A783A",BloodBagState.Arrived, "Sacca Modificata");
+	}
+	
+	
+	
+	
+	
 /*	
 
 	@Test (expected = NullPointerException.class)

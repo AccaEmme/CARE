@@ -53,7 +53,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	public BloodBag(BloodGroup bloodGroup, String donatorCF) throws ParseException {
 		/* Attenzione: new BloodBag() va usato solo per creare sacche perché incrementa il seriale. */ 
 		this.serial 		= new Serial(bloodGroup);
-		this.setBloodGroup	  ( bloodGroup );
+		this.setBloodGroup	  ( bloodGroup ) ;
 		this.setCreationDate  ( this.generateCreationDate() );
 		this.setExpirationDate( this.generateExpirationDate() );
 		this.setDonatorCF(donatorCF);
@@ -75,8 +75,8 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      */
 	public BloodBag(Serial serial, BloodGroup valueOf, Date cd, Date ed, String donatorCF, 
 			BloodBagState valueOf2, String note2) {
-		this.serial 		= serial;
-		this.bloodGroup=valueOf;
+		this.serial = serial;
+		this.setBloodGroup(valueOf);
 		this.creationDate =cd;
 		this.expirationDate=ed;
 		this.setDonatorCF(donatorCF);

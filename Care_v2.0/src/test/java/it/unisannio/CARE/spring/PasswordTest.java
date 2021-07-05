@@ -45,7 +45,7 @@ public class PasswordTest {
 	
 	@Test // Test Constructor1 works propertly with invalid hiddenPassword
 	public void InvalidityTest_Constructor1_nullParam() {
-		String invalidHiddenPassword = null;
+		String invalidHiddenPassword = null; 
 
 		assertThrows(Exception.class, ()->{
 			Password p = new Password(invalidHiddenPassword);

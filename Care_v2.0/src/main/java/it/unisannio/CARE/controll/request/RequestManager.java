@@ -71,8 +71,6 @@ public class RequestManager {
 	}
 
 	
-	
-	
 	/**
      **************************************************************************
      * Metodo per aggiungere una richiesta 
