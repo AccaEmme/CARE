@@ -75,7 +75,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      */
 	public BloodBag(Serial serial, BloodGroup valueOf, Date cd, Date ed, String donatorCF, 
 			BloodBagState valueOf2, String note2) {
-		this.serial = serial;
+		this.setSerial(serial);
 		this.setBloodGroup(valueOf);
 		this.creationDate =cd;
 		this.expirationDate=ed;
@@ -406,9 +406,9 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 					serial.equals(bBag.getSerial()) 		&& 
 					bloodGroup.equals(bBag.getBloodGroup()) && 
 					donatorCF.equals(bBag.getDonatorCF()) 
-					);
+					); 
 		}
-		return false;
+		return false; 
 	}
 	
 	 /**
