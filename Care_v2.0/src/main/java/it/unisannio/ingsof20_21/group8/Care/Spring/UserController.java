@@ -196,6 +196,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	@PatchMapping("/user/patch/restoreuser/{username}")
 	public UserDAO restoreUser(@PathVariable String username){
 		userRepo.updateUserActiveUserByUsername(UsersStates.ACTIVE,username);
+		userRepo.updateUserLoginAttempts(0,username);
 		return userRepo.findByUsername(username);
 	}
 

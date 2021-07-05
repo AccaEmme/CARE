@@ -10,4 +10,19 @@ public interface AuthenticationRepository extends JpaRepository<UserDAO, Long>{
 	@Transactional
 	 @Query("UPDATE UserDAO u SET u.lastAccess = ?2 where u.username = ?1")
 	void updateAccess(String username, long time);
+
+	//users stuff
+	@Query("from UserDAO u WHERE u.username =?1")
+	UserDAO getUserDaoFromUsername(String username);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.loginAttempts = ?1 where u.username = ?2")
+	void updateUserLoginAttempts(int attempts,String username);
+
+	// modifica lo stato di un user cercandolo per username
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.activeUser = ?1 where u.username = ?2")
+	void updateUserActiveUserByUsername(short state, String username);
 }

@@ -7,10 +7,12 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 
+import it.unisannio.CARE.model.user.UsersStates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,12 +64,30 @@ public class AuthenticationController /*implements ContainerResponseFilter*/ {
 
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequestBean authenticationRequest)
-			throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequestBean authenticationRequest) throws Exception {
+		UserDAO userCheck = userRepo.getUserDaoFromUsername(authenticationRequest.getUsername());
+		if (userCheck.getActiveUser()==UsersStates.INACTIVE)
+			throw new Exception("User inactive: Too many login attempts.");
+
 		try {
-			
-				authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-						authenticationRequest.getUsername(), authenticationRequest.getPassword()+Constants.PASSWORD_SALT));
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+					authenticationRequest.getUsername(),
+					authenticationRequest.getPassword()+Constants.PASSWORD_SALT)
+			);
+
+		}catch (AuthenticationException e) {
+			//autenticazione fallita
+			e.printStackTrace();
+			userRepo.updateUserLoginAttempts(userCheck.getLoginAttempts()+1,userCheck.getUsername());
+
+			//bisogna sempre pescare dal database per avere dati aggiornati
+			if (userRepo.getUserDaoFromUsername(authenticationRequest.getUsername()).getLoginAttempts()>2){
+				//marco l'user come inattivo
+				userRepo.updateUserActiveUserByUsername(UsersStates.INACTIVE,authenticationRequest.getUsername());
+			}
+
+			//importantissimo perche se non si lancia l'eccezione viene restituito il token!
+			throw new Exception("credenziali non valide");
 		}
 			
 		 /*}catch (DisabledException e) {
@@ -75,12 +95,14 @@ public class AuthenticationController /*implements ContainerResponseFilter*/ {
 		}
 		catch (BadCredentialsException e) {
 			throw new Exception("INVALID_CREDENTIALS", e);
-		}*/
+		}
 		catch (Exception e) {
 			  throw new Exception("credenziali non valide");
-		}
+		}*/
     
-	     userRepo.updateAccess(authenticationRequest.getUsername(),(new Date()).getTime());
+		userRepo.updateAccess(authenticationRequest.getUsername(),(new Date()).getTime());
+		//azzero i tentativi di accesso perchè autenticato.
+		userRepo.updateUserLoginAttempts(0,authenticationRequest.getUsername());
 		UserDetails userdetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		String token = jwtUtil.generateToken(userdetails);
 		return ResponseEntity.ok(new AuthenticationResponseBean(token));
