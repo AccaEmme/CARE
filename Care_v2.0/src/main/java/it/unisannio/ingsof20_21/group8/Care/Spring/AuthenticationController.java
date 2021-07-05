@@ -29,8 +29,8 @@ import it.unisannio.CARE.spring.bean.AuthenticationResponseBean;
 
 @CrossOrigin("*")
 @RestController
-public class AuthenticationController implements ContainerResponseFilter {
-
+public class AuthenticationController /*implements ContainerResponseFilter*/ {
+/*
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
         // TODO Auto-generated method stub
@@ -40,7 +40,7 @@ public class AuthenticationController implements ContainerResponseFilter {
         responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
         responseContext.getHeaders().add("Access-Control-Allow-Methods",
                 "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-    }
+    }*/
     
     private final AuthenticationRepository userRepo;
 

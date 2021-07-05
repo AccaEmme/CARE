@@ -36,13 +36,13 @@ import it.unisannio.CARE.model.util.Password;
 @Consumes("application/json")
 @Produces("application/json")
 //@Path("rest")
-public  class UserController implements ContainerResponseFilter {
+public  class UserController /*implements ContainerResponseFilter */{
     private final UserRepository userRepo;
 
     public UserController(UserRepository userRepo) {
     	this.userRepo = userRepo;
     }
-
+/*
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
         // TODO Auto-generated method stub
@@ -52,7 +52,7 @@ public  class UserController implements ContainerResponseFilter {
         responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
         responseContext.getHeaders().add("Access-Control-Allow-Methods",
                 "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-    }
+    }*/
 
 
     //===============GET METHODS

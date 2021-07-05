@@ -56,40 +56,30 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-		.antMatchers("/helloadmin").hasRole("ADMINISTRATOR")
-		//.antMatchers("/register").hasRole("ADMINISTRATOR")
-		.antMatchers("request/add").hasAnyRole("OFFICER")
+        .antMatchers("/helloadmin").hasRole("ADMINISTRATOR")
+    	.antMatchers("request/add").hasAnyRole("OFFICER")
 		.antMatchers("/bloodbag/add","/bloodbag/use/{serial}").hasAnyRole("STOREMANAGER")
 		.antMatchers("/bloodbag/central/add","/bloodbag/use/{serial}").hasAnyRole("CENTRAL_STOREMANAGER")
-		.antMatchers("/register", 		"/bloodbag/import", 		"/bloodbag/add",
-					 "/authenticate", 	"logger/add", 				"/request/add",
-					 "/request/accept",	"/user/delete/{username}",
-					 "user/update/username/id/{id}/{username}",
-					 "/bloodbag/import"
-					 ).permitAll().anyRequest().authenticated()
-		.antMatchers("/bloodbag/use/{serial}").hasAnyRole("STOREMANAGER","CENTRAL_STOREMANAGER")	//linea aggiunta
 		.antMatchers("/authenticate", "logger/add","/request/add","/request/accept","/user/delete/{username}","/register","user/update/username/id/{id}/{username}","/bloodbag/import").permitAll().anyRequest().authenticated()
-		.antMatchers(
-					"/bloodbag/add",	"/authenticate", 	"logger/add",
-					"/request/add",		"/request/accept",	"/user/delete/{username}",
-					"/register",		"user/update/username/id/{id}/{username}","/bloodbag/import"
-					).permitAll().anyRequest().authenticated()
-		.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
-		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and().addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-	}
+		.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
+		and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
+		and().addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+		
 
-	
-	@Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowCredentials(true);
-        configuration.setAllowedMethods(Arrays.asList("GET","POST" ,"PUT", "DELETE", "OPTIONS", "HEAD"));
-        configuration.setAllowedHeaders(Arrays.asList( "CSRF-Token","X-Requested-By", "Authorization", "Content-Type"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+        http.cors(c -> {
+            CorsConfigurationSource cs = r -> {
+                CorsConfiguration cc = new CorsConfiguration();
+                cc.setAllowedOriginPatterns(Arrays.asList("*"));
+                cc.setAllowCredentials(true);
+                cc.setAllowedMethods(Arrays.asList("GET","POST" ,"PUT", "DELETE", "OPTIONS", "HEAD"));
+                cc.setAllowedHeaders(Arrays.asList( "CSRF-Token","X-Requested-By", "Authorization", "Content-Type"));
+        
+                return cc;
+            };
+
+            c.configurationSource(cs);
+        });
+		
+	}
 	
 }

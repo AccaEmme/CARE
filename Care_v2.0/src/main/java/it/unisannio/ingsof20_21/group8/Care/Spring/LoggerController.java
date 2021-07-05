@@ -20,14 +20,14 @@ import java.util.Date;
 
 @CrossOrigin("*")
 @RestController
-public class LoggerController implements ContainerResponseFilter {
+public class LoggerController /*implements ContainerResponseFilter */{
 
     private final LoggerRepository loggerRepository;
 
     public LoggerController(LoggerRepository loggerRepository) {
         this.loggerRepository = loggerRepository;
     }
-
+/*
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
         // TODO Auto-generated method stub
@@ -37,7 +37,7 @@ public class LoggerController implements ContainerResponseFilter {
         responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
         responseContext.getHeaders().add("Access-Control-Allow-Methods",
                 "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-    }
+    }*/
 
     // ########## POST METHODS ###########
     @PostMapping("logger/add")

@@ -46,7 +46,7 @@ import it.unisannio.CARE.spring.bean.RequestBean;
 
 @Consumes("application/json")
 @Produces("application/json")
-public class RequestController implements ContainerResponseFilter {
+public class RequestController /*implements ContainerResponseFilter */{
 
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	
@@ -54,7 +54,7 @@ public class RequestController implements ContainerResponseFilter {
 	public RequestController() {}
 
 	
-	
+	/*
 	@Override
 	public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
 			throws IOException {
@@ -66,7 +66,7 @@ public class RequestController implements ContainerResponseFilter {
         responseContext.getHeaders().add("Access-Control-Allow-Methods",
                 "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 	}
-	
+	*/
 	
 	//################################################### GET METHOD ####################################################	
 	@GetMapping("get/state/{state}")	

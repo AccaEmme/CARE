@@ -1,8 +1,7 @@
 <script src="./js/html5-qrcode.min.js"></script>
    
-ciao sono uno store manager
+
 <?php
-//echo("ciao ".$token."<br><br>");
 
 $urlAPI = "http://localhost:8087/bloodbag/get/all";
 $authorization = "Authorization: Bearer ".$token;
@@ -11,18 +10,16 @@ $authorization = "Authorization: Bearer ".$token;
     curl_setopt($ch,CURLOPT_URL,$urlAPI);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//    curl_setopt($ch, CURLOPT_POSTFIELDS,$post);
+
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     $result = curl_exec($ch);
     curl_close($ch);
-    //return json_decode($result);
-//print_r(json_decode($result));
+
 
 $usersArray = (array) json_decode($result);
-//echo("user: ".$usersArray['idUser'] . " token:" . $usersArray['username']);
+
 foreach (array_keys($usersArray ) as $key) {
-    //echo("user: ".$usersArray[$key]['idUser'] . " token:" . $usersArray[$key]['username'] . "<br>");
-// print_r($usersArray[0]);
+  
 /*
  echo(	  "<br>"
 	. "serial:"
@@ -53,7 +50,7 @@ foreach (array_keys($usersArray ) as $key) {
 
 
 <!-- campi tabella -->
-    <h2>Local Users:</h2>
+    <center><h2>========STORE MANAGER========</h2></center>
     <form action="" method="POST">
      <table>
          <tr>
@@ -107,7 +104,7 @@ foreach (array_keys($usersArray ) as $key) {
             <td><input type="text" disabled/></td>
             <td>
 		<input type="text" name="addBloodBagURL" id="addBloodBagURL" value="http://localhost:8087/bloodbag/add" hidden="yes" />
-                <input type="submit" value="Crea" onclick="addBloodBag(document.getElementById('addBloodBagURL').value, '<?php echo($token); ?>', document.getElementById('group').value, document.getElementById('donator').value, document.getElementById('note').value);">
+                <input type="submit" value="Crea" onclick="addBloodBag(document.getElementById('addBloodBagURL').value, '<?php echo($token); ?>', document.getElementById('group').value, document.getElementById('donator').value, document.getElementById('note').value);setTimeout(function () { location.reload(1); }, 5000)">
             </td>
         </tr>
 	
