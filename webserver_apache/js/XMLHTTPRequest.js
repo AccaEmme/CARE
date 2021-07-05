@@ -56,24 +56,45 @@ alert("error"+this.responseText)
 
 }
 //================= Methods: HTTP_DELETE
-function HTTPDelete(url, token){
-	event.preventDefault();
-	let request = new XMLHttpRequest();   // new HttpRequest instance
+function HTTPDelete(url, token){/*
+    event.preventDefault();
+	let request2 = new XMLHttpRequest();   // new HttpRequest instance
+    alert("PRIMO");
+	request2.open("DELETE", url, true);
+	request2.setRequestHeader('Authorization', 'Bearer ' + token);
+    alert("SECONDO");
+	request2.onreadystatechange = function() {
+        alert("TERZO");
+	 if (this.readyState === 4 &&  this.status === 200 ) {
+	  console.log("Request: token " + token );
+	  console.log("Response: "+ this.responseText);
+	  let results = JSON.parse(this.responseText);
+         } else {
+alert("error"+this.responseText)
+	 }
+       };*/
 
-	request.open("DELETE", url, true);
-	alert(url);
-	request.setRequestHeader('Authorization', 'Bearer ' + token);
-	request.send();
- 	request.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-               alert("operazione completatata");   
-         }
 
-	else{
-	 alert("operazione fallita");   
+       var xhr = new XMLHttpRequest();
+    xhr.open("DELETE", url, true);
+    xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+   
+    xhr.onload = function () {
+    
+	var users = JSON.parse(xhr.responseText);
+	if (xhr.readyState == 4 && xhr.status == "200") {
+        console.log("Request: token " + token );
+        console.log("Response: "+ this.responseText);
+	} else {
+		lert("error"+this.responseText)
 	}
 }
+xhr.send(null);
+
 }
+
+
+
 
 //=================Users Methods: POST
 function addUser(url, token, username, password, email, userRole, loginAttempts, activeUser){
@@ -117,7 +138,8 @@ HTTPBody:
 
 //=================BloodBag Methods: DELETE
 function useBloodBag(url, token){
-HTTPDelete(url, token)
+    alert(url);
+HTTPDelete(url, token);
 
 }
 
