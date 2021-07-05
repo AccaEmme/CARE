@@ -5,7 +5,8 @@ $roles[0] = "ROLE_ADMINISTRATOR";
 $roles[1] = "ROLE_STOREMANAGER";
 $roles[2] = "ROLE_OFFICER";
 
-@$token = $_GET['token'];
+@$token   = $_GET['token'];
+@$subpage = $_GET['subpage'];
 
 $arrayToken 		= explode(".", $token);
 $subtoken   		= $arrayToken['1'];
@@ -84,10 +85,10 @@ switch($role){
         </div>
 	<?php
 	 switch($role){
-	   case "ROLE_ADMINISTRATOR": 
+	   case "ROLE_ADMINISTRATOR": 	     
 	     include("./pages/administratormenu.inc.php");
 	     break;
-	   case "ROLE_STOREMANAGER":
+	   case "ROLE_STOREMANAGER":	     
 	     include("./pages/storemanagermenu.inc.php");
 	     break;
 	   case "ROLE_OFFICER":
@@ -136,6 +137,30 @@ switch($role){
         -->
 
 	<?php
+         @$subpage = $_GET['subpage'];
+	 switch($role){
+	   case "ROLE_ADMINISTRATOR": 
+	     $allowed_pages 	= array("administratordashboard"); // admin allowed pages
+	     break;
+	   case "ROLE_STOREMANAGER":
+	     $allowed_pages      = array("storemanagerdashboard", "storemanager_requests");
+	     break;
+	   case "ROLE_OFFICER":
+	     $allowed_pages 	= array("officerdashboard");
+	     break;
+	   default:
+	     echo("Unauthorized");
+	     break;
+	}
+ 	 if( in_array($subpage, $allowed_pages) ) {
+  	   include("./pages/" . $subpage . ".inc.php");
+         } else {
+	   echo('Accedi dal menù nella pagina a te concessa.'.$subpage);
+	 }
+ 	?>
+
+	<?php
+/*
 	 switch($role){
 	   case "ROLE_ADMINISTRATOR": 
 	     include("./pages/administratordashboard.inc.php");
@@ -150,6 +175,7 @@ switch($role){
 	     echo("Unauthorized");
 	     break;
 	}
+*/
  	?>
        
         <!-- START: BROADCAST CHAT 
