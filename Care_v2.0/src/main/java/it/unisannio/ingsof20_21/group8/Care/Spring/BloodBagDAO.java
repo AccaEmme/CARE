@@ -99,6 +99,9 @@ public class BloodBagDAO {
         this.notes = notes;
     }
 
+    /**
+     * @return the String containing all the global variables
+     */
     @Override
     public String toString() {
         return "BloodBagBean{" +
@@ -117,6 +120,10 @@ public class BloodBagDAO {
         return usedTimeStamp;
     }
 
+    /**
+     * thi method is used to update the "used timestamp"
+     * @param usedTimeStamp the date when the bag was used
+     */
     public void setUsedTimeStamp(long usedTimeStamp) {
         this.usedTimeStamp = usedTimeStamp;
     }
