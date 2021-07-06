@@ -235,7 +235,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	            
 				   saveBean.setCreationDate(new Date().getTime());
 				   saveBean.setEmail(newUser.getEmail());
-				   saveBean.setLastAccess( new Date().getTime() );
+				   saveBean.setLastAccess( Constants.timestamp1900 );
 				   saveBean.setLoginAttempts(0);
 				   saveBean.setActiveUser(UsersStates.ACTIVE);
 

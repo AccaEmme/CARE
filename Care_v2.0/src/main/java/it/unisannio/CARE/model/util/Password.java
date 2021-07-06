@@ -37,7 +37,7 @@ public class Password {
 	
 	/**
 	**************************************************************************
-	 * Metodo che controlla se la passw è cripta
+	 * Metodo che controlla se la passw è criptata
 	 * @param String hiddenPassword
 	 * @throws IllegalPatternException 
 	 * @exception IllegalArgumentException
