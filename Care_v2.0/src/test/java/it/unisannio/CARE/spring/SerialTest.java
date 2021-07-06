@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -49,7 +50,13 @@ public class SerialTest {
 	@Test
 	public void testFile() {
 	   File f = new File(path+filename);
-	   assertTrue( f.exists() );
+	   assertTrue(f.exists()); 
+	}
+	
+	
+	@Test(expected = FileNotFoundException.class)
+	public void InvalidityTest_File() {
+	   File f = new File(path+"serial.xml");
 	}
 	
 	

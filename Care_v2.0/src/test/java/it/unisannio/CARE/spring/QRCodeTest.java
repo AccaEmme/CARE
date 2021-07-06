@@ -4,6 +4,7 @@ import it.unisannio.CARE.model.bloodBag.BloodBag;
 import it.unisannio.CARE.model.bloodBag.BloodGroup;
 import it.unisannio.CARE.model.exceptions.NullPasswordException;
 import it.unisannio.CARE.model.exceptions.UserException;
+import it.unisannio.CARE.model.exceptions.lllegalEmailException;
 import it.unisannio.CARE.model.user.User;
 import it.unisannio.CARE.model.util.Password;
 import it.unisannio.CARE.model.util.QRCode;
@@ -156,10 +157,10 @@ public class QRCodeTest {
 
         QRCode qrCode = new QRCode(userDAO);
             qrCode.createQRCode();
-    }
+    } 
 
     @Test
-    public void testCreateQRCodeFromUser() throws NullPasswordException, UserException {
+    public void testCreateQRCodeFromUser() throws NullPasswordException, UserException, lllegalEmailException {
         User user = new User("peppiniello99", new Password("PeppinielloPW9+"));
             user.setEmail("peppiniello99@gmail.com");
         QRCode code = new QRCode(user);
