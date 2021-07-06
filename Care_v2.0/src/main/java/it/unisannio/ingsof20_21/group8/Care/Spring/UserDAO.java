@@ -187,7 +187,10 @@ public class UserDAO { // *** UserDAO ???
 		//Timestamp creationDateTimestamp = new Timestamp(  );
 		setCreationDate( creationDate.getTime() );
 	}
-	
+
+	/**
+	 * @param creationDate the creationDate to set in the timestamp form
+	 */
 	public void setCreationDate(long creationDate) {
 		this.creationDate = creationDate;
 	}
@@ -201,12 +204,15 @@ public class UserDAO { // *** UserDAO ???
 	}
 
 	/**
-	 * @param lastAccess the lastAccess to set
+	 * @param lastAccess the lastAccess in the Date form to set
 	 */
 	public void setLastAccess(Date lastAccess) {
 		setLastAccess( lastAccess.getTime() );
 	}
 
+	/**
+	 * @param lastAccess the last access in the timestamp form to set
+	 */
 	public void setLastAccess(long lastAccess) {
 		this.lastAccess = lastAccess;
 	}

@@ -55,6 +55,9 @@ public  class UserController /*implements ContainerResponseFilter */{
     }*/
 
 
+	/**
+	 * old method, delete it
+	 */
     //===============GET METHODS
     @GetMapping("/user")
 	public UserDAO/*Iterable<UserBean>*/ testGetUser() {
@@ -70,16 +73,22 @@ public  class UserController /*implements ContainerResponseFilter */{
 	}
 
 	/**
-	 * 127.0.0.1:8087/user/get/all
-	 * */
+	 * this method gets all the users in the database
+	 * @return an iterable of Users
+	 * request: 127.0.0.1:8087/user/get/all
+	 */
 	@GetMapping("/user/get/all")
 	public Iterable<UserDAO> getAllUsers() {
 		return userRepo.findAll();
 	}
 
+
 	/**
-	 * 127.0.0.1:8087/user/get/email/dtarver6@simplemachines.org
-	 * */
+	 * this method is used to get the user having the provided email
+	 * @param email used to search the user
+	 * @return the user having the provided email
+	 * request: 127.0.0.1:8087/user/get/email/dtarver6@simplemachines.org
+	 */
 	@GetMapping("/user/get/email/{email}")
 	public UserDAO getUserByEmail(@PathVariable String email){
 		return userRepo.findByEmail(email);
@@ -89,54 +98,72 @@ public  class UserController /*implements ContainerResponseFilter */{
       login():attempts
      */
 
-    /**
-	 * 127.0.0.1:8087/user/get/username/dedland7
-	 * */
+
+	/**
+	 * @param username the provided username to search the user
+	 * @return the user having the provided username
+	 * request: 127.0.0.1:8087/user/get/username/dedland7
+	 */
 	@GetMapping("/user/get/username/{username}")
 	public UserDAO getUserByUsername(@PathVariable String username){
 		return userRepo.findByUsername(username);
 	}
 
+
 	/**
-	 * 127.0.0.1:8087/user/get/role/Administrator
-	 * */
+	 * @param role the provided role the user must have
+	 * @return all the users having the provided role
+	 * request: 127.0.0.1:8087/user/get/role/Administrator
+	 */
 	@GetMapping("/user/get/role/{role}")
 	public Iterable<UserDAO> getUserByRole(@PathVariable String role){
 		return userRepo.findUserByRole(role);
 	}
 
+
 	/**
-	 * 127.0.0.1:8087/user/get/created/1624217670000/1624995270000
-	 * */
+	 * @param firstdate the starting date
+	 * @param seconddate the ending date
+	 * @return all the users created between the first and second date
+	 * request:  127.0.0.1:8087/user/get/created/1624217670000/1624995270000
+	 */
 	@GetMapping("user/get/created/{firstdate}/{seconddate}")
 	public Iterable<UserDAO> getUserCreatedBetween(@PathVariable long firstdate, @PathVariable long seconddate){
 		return userRepo.findCreatedBetween(firstdate,seconddate);
 	}
 
+	/**
+	 * @return all the active users
+	 */
 	@GetMapping("user/get/active")
 	public Iterable<UserDAO> getActiveUsers(){
 		return userRepo.filterUsersByState(UsersStates.ACTIVE);
 	}
+
+	/**
+	 * @return all the inactive users
+	 */
 	@GetMapping("user/get/inactive")
 	public Iterable<UserDAO> getInactiveUsers(){
 		return userRepo.filterUsersByState(UsersStates.INACTIVE);
 	}
 
 
-
-
 	/**
+	 * @return the report
+	 * example:
 	 * HTTP request: 127.0.0.1:8087/user/report
-	 * Output:
-	 {
-	      "total": 1000,
-	      "activeUsers": 482,
-	      "loggedLast24Hours": 2,
-	      "administrators": 482,
-	      "storeManagers": 322,
-	      "officers": 340,
-	      "deactivatedUsers": 518
-	  }*/
+	 * 	  Output:
+	 *          {
+	 * 	      "total": 1000,
+	 * 	      "activeUsers": 482,
+	 * 	      "loggedLast24Hours": 2,
+	 * 	      "administrators": 482,
+	 * 	      "storeManagers": 322,
+	 * 	      "officers": 340,
+	 * 	      "deactivatedUsers": 518
+	 *      }
+	 */
 	@GetMapping("user/report")
 	public UserReport getUserReport(){
 		long total = userRepo.countAllUsers();
@@ -165,19 +192,30 @@ public  class UserController /*implements ContainerResponseFilter */{
 		return report;
 	}
 	//############## ALTER METHODS ###############
-	/*
-	non riesco a far funzionare la query di UPDATE*/
 
+
+	/**
+	 * @param attempts the number of new attempts
+	 * @param username the user to update
+	 */
 	@PatchMapping("/user/patch/loginattempts/update/{attempts}/{username}")
     public void changeUserAttemptsUPDATE(@PathVariable int attempts, @PathVariable String username){
 		userRepo.updateUserLoginAttempts(attempts,username);
 	}
 
+	/**
+	 * @param attempts the number of new attempts to set
+	 * @param username the user to update
+	 */
 	@PatchMapping("/user/patch/loginattempts/set/{attempts}/{username}")
 	public void changeUserAttempts(@PathVariable int attempts, @PathVariable String username){
 		userRepo.updateUserLoginAttempts(attempts,username);
 	}
 
+	/**
+	 * @param username the user to update
+	 * @return the response
+	 */
 	@PatchMapping("/user/patch/loginattempts/increaseone/{username}")
 	public String increaseUserAttempts(@PathVariable String username){
 		UserDAO user = userRepo.findByUsername(username);
@@ -193,6 +231,10 @@ public  class UserController /*implements ContainerResponseFilter */{
 		return "user login attempts increased.\nuser login attempts: "+user.getLoginAttempts();
 	}
 
+	/**
+	 * @param username the user to restore
+	 * @return the restored user
+	 */
 	@PatchMapping("/user/patch/restoreuser/{username}")
 	public UserDAO restoreUser(@PathVariable String username){
 		userRepo.updateUserActiveUserByUsername(UsersStates.ACTIVE,username);
@@ -200,6 +242,10 @@ public  class UserController /*implements ContainerResponseFilter */{
 		return userRepo.findByUsername(username);
 	}
 
+	/**
+	 * @param username the user to reset password
+	 * @return the user with the reset password
+	 */
 	@PatchMapping("/user/patch/resetpassword/username/{username}")
 	public UserDAO resetPasswordByUser(@PathVariable String username){
 		String tempass = Password.generatePassword(8);
@@ -209,6 +255,13 @@ public  class UserController /*implements ContainerResponseFilter */{
 		//il return puo essere tolto
 		return this.getUserByUsername(username);
 	}
+
+
+	/**
+	 * @param username the user to update the password
+	 * @param newpassword the new password to update
+	 * @return the updated user
+	 */
 	@PatchMapping("/user/patch/updatepassword/username/{username}/{newpassword}")
 	public UserDAO updateUserPassword(@PathVariable String username, @PathVariable String newpassword){
 		userRepo.updateUserPasswordByUsername(Password.getBCrypt(newpassword),username);
@@ -220,6 +273,13 @@ public  class UserController /*implements ContainerResponseFilter */{
 
 
     //===============POST METHODS
+
+
+	/**
+	 * @param newUser the user to exchange
+	 * @return the updated user
+	 * @throws Exception if the password is not valid
+	 */
 	@PostMapping("/register")
     public UserDAO createUser(@RequestBody UserDAO newUser) throws Exception {
 
@@ -284,6 +344,11 @@ public  class UserController /*implements ContainerResponseFilter */{
 	}
 	*/
 
+	/**
+	 * @param id the id used to search the user
+	 * @param username the new username
+	 * @return the updated user
+	 */
 	@PatchMapping("/user/update/username/id/{id}/{username}")
 	public UserDAO updateUserUsernameByID(@PathVariable long id, @PathVariable String username){
 		userRepo.updateUserUsernameByID(username,id);
@@ -292,6 +357,11 @@ public  class UserController /*implements ContainerResponseFilter */{
 	}
 
 
+	/**
+	 * @param id the id used to search the user
+	 * @param temppass the new password
+	 * @return the updated user
+	 */
 	@PatchMapping("/user/update/temppass/id/{id}/{temppass}")
 	public UserDAO updateUserTemppassByID(@PathVariable long id, @PathVariable String temppass){
 		userRepo.updateUserTemppassByID(temppass,id);
@@ -299,6 +369,11 @@ public  class UserController /*implements ContainerResponseFilter */{
 		return userRepo.getById(id);
 	}
 
+	/**
+	 * @param id the id used to serach the user
+	 * @param email the new email
+	 * @return the updated user
+	 */
 	@PatchMapping("/user/update/email/id/{id}/{email}")
 	public UserDAO updateUserEmailByID(@PathVariable long id, @PathVariable String email){
 		userRepo.updateUserEmailByID(email,id);
@@ -306,6 +381,11 @@ public  class UserController /*implements ContainerResponseFilter */{
 		return userRepo.getById(id);
 	}
 
+	/**
+	 * @param id the id used to search the user
+	 * @param role the new role
+	 * @return the updated user
+	 */
 	@PatchMapping("/user/update/email/id/{id}/{role}")
 	public UserDAO updateUserRoleByID(@PathVariable long id, @PathVariable String role){
 		userRepo.updateUserRoleByID(Role.valueOf(role).toString(),id);
@@ -313,6 +393,12 @@ public  class UserController /*implements ContainerResponseFilter */{
 		return userRepo.getById(id);
 	}
 
+
+	/**
+	 * @param id the id used to search the user
+	 * @param attempts the new attempts
+	 * @return the updated user
+	 */
 	@PatchMapping("/user/update/attempts/id/{id}/{attempts}")
 	public UserDAO updateUserLoginAttemptsByID(@PathVariable long id, @PathVariable int attempts){
 		userRepo.updateUserLoginAttemptsByID(attempts,id);
@@ -321,6 +407,11 @@ public  class UserController /*implements ContainerResponseFilter */{
 	}
 	//updateUserActiveUserByID
 
+	/**
+	 * @param id the id used to search the user
+	 * @param active the new state
+	 * @return the updated user
+	 */
 	@PatchMapping("/user/update/activeuser/id/{id}/{active}")
 	public UserDAO updateUserActiveUserByID(@PathVariable long id, @PathVariable short active){
 		userRepo.updateUserLoginAttemptsByID(active,id);
@@ -328,9 +419,13 @@ public  class UserController /*implements ContainerResponseFilter */{
 		return userRepo.getById(id);
 	}
 
-	/**update user
-	 * username, temppass -> password, email, ruolo, login attempts, activeuser*/
 
+	/**
+	 * @param newuser the all new user
+	 * @return the updated user
+	 * update user
+	 * 	 * username, temppass -> password, email, ruolo, login attempts, activeuser
+	 */
 	@PostMapping("/user/update")
 	public UserDAO updateUserByID(@RequestBody UserDAO newuser){
 		this.updateUserUsernameByID(newuser.getIdUser(), newuser.getUsername());
@@ -342,6 +437,10 @@ public  class UserController /*implements ContainerResponseFilter */{
 
 		return userRepo.getById(newuser.getIdUser());
 	}
+
+    
+    //===============DELETE METHODS by fields
+
 	/**
 	 * BEFORE:
 	 * {
@@ -371,14 +470,24 @@ public  class UserController /*implements ContainerResponseFilter */{
 	 *         "loginAttempts": 1,
 	 *         "activeUser": 1
 	 * }*/
-    
-    //===============DELETE METHODS by fields
+
+	/**
+	 * @param username the username used to search the user to delete
+	 * @return the updated user
+	 */
+
     @DeleteMapping("/user/delete/username/{username}")
 	public UserDAO deleteUserByUsername(@PathVariable String username) {
 		userRepo.updateUserActiveUserByUsername(UsersStates.DELETED, username);
 		//puo essere eliminato se non ci interessa ritornare l'user modificato
 		return this.getUserByUsername(username);
 	}
+
+
+	/**
+	 * @param email the email used to search the user to delete
+	 * @return the updated user
+	 */
 	@DeleteMapping("/user/delete/email/{email}")
 	public UserDAO deleteUserByEmail(@PathVariable String email) {
 		userRepo.updateUserActiveUserByEmail(UsersStates.DELETED, email);
