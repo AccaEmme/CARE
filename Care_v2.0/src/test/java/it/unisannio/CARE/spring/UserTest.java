@@ -25,7 +25,7 @@ import it.unisannio.CARE.model.user.Role;
 
 public class UserTest {
 	//Location country = new Location(Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"via 25 Aprile","5", "82020");
-	/*
+
 
 	// =====================Constructor1 tests: User(String username, String plainTextPassword)
 	@Test // Test Constructor1 works propertly with valid user and valid password pattern
@@ -36,11 +36,13 @@ public class UserTest {
 		User u = new User(validUsername, pw);
 		assertNotNull(u);
 	}
+	/*
 
 	@Test // Test Constructor1 throws exception with invalid user and valid password pattern
 	public void InvalidityTest_Constructor1_InvalidUserValidPass() throws UserException, NullPasswordException {
 		
 	}
+	*/
 	
 	@Test // Test Constructor1 throws exception with valid user and invalid password pattern
 	public void InvalidityTest_Constructor1_validUserInvalidPass() throws UserException, NullPasswordException {
@@ -63,7 +65,7 @@ public class UserTest {
 		User u = new User(validUsername, validHiddenPasswordObj);
 		assertNotNull(u);
 	}
-	
+	/*
 	@Test // Test Constructor2 works propertly with valid user and invalid password pattern
 	public void InvalidityTest_Constructor2_validUserInvalidPass() throws UserException, NullPasswordException {
 		String validUsername = "Hermann";
@@ -75,7 +77,7 @@ public class UserTest {
 		 }
 		);
 	}
-	*/
+	
 	// =====================Constructor3 tests: User(String username, Role role)
 	/*Role Segretaria; //= new Role();
 	Role Magazziniere;
