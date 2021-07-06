@@ -195,6 +195,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 
 
 	/**
+	 * this method is used to update the user attempts
 	 * @param attempts the number of new attempts
 	 * @param username the user to update
 	 */
@@ -204,6 +205,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	}
 
 	/**
+	 * this method is used to change user login attempts
 	 * @param attempts the number of new attempts to set
 	 * @param username the user to update
 	 */
@@ -213,6 +215,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	}
 
 	/**
+	 * this method is used to patch the login attempts
 	 * @param username the user to update
 	 * @return the response
 	 */
@@ -232,6 +235,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	}
 
 	/**
+	 * this method is used to restore an inactive user
 	 * @param username the user to restore
 	 * @return the restored user
 	 */
@@ -243,6 +247,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	}
 
 	/**
+	 * this method is used to reset an user's password
 	 * @param username the user to reset password
 	 * @return the user with the reset password
 	 */
@@ -258,6 +263,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 
 
 	/**
+	 * this method is used to update an user's password
 	 * @param username the user to update the password
 	 * @param newpassword the new password to update
 	 * @return the updated user
@@ -276,6 +282,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 
 
 	/**
+	 * this method is used to register a new user
 	 * @param newUser the user to exchange
 	 * @return the updated user
 	 * @throws Exception if the password is not valid
@@ -345,6 +352,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	*/
 
 	/**
+	 * this method is used to update an user's username
 	 * @param id the id used to search the user
 	 * @param username the new username
 	 * @return the updated user
@@ -358,6 +366,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 
 
 	/**
+	 * this method is used to change an user's password
 	 * @param id the id used to search the user
 	 * @param temppass the new password
 	 * @return the updated user
@@ -370,6 +379,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	}
 
 	/**
+	 * this method is used to update an user's email
 	 * @param id the id used to serach the user
 	 * @param email the new email
 	 * @return the updated user
@@ -382,6 +392,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	}
 
 	/**
+	 * this method is used to update an user's role
 	 * @param id the id used to search the user
 	 * @param role the new role
 	 * @return the updated user
@@ -395,6 +406,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 
 
 	/**
+	 * this method is used to update an user's attempt
 	 * @param id the id used to search the user
 	 * @param attempts the new attempts
 	 * @return the updated user
@@ -408,6 +420,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	//updateUserActiveUserByID
 
 	/**
+	 * this method is used to update an user's state
 	 * @param id the id used to search the user
 	 * @param active the new state
 	 * @return the updated user
@@ -421,6 +434,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 
 
 	/**
+	 * this method is used to update an entire user with a new one
 	 * @param newuser the all new user
 	 * @return the updated user
 	 * update user
@@ -472,10 +486,10 @@ public  class UserController /*implements ContainerResponseFilter */{
 	 * }*/
 
 	/**
+	 * this method is used to delete an user by username
 	 * @param username the username used to search the user to delete
 	 * @return the updated user
 	 */
-
     @DeleteMapping("/user/delete/username/{username}")
 	public UserDAO deleteUserByUsername(@PathVariable String username) {
 		userRepo.updateUserActiveUserByUsername(UsersStates.DELETED, username);
@@ -485,6 +499,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 
 
 	/**
+	 * this method is used to delete an user by username
 	 * @param email the email used to search the user to delete
 	 * @return the updated user
 	 */
