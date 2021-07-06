@@ -105,13 +105,13 @@ public class Serial{
 	 **************************************************************************
 	 */
     public Serial(BloodGroup bloodgroup) {
-        Serial.counter = (Integer.parseInt(currentDate_aaaaMMdd) > lastdate)? 0 : counter ;	//if today > lastdate -> counter = 0 else counter++
+        Serial.counter = (Integer.parseInt(currentDate_aaaaMMdd) > lastdate)? 0 : counter + 1;	//if today > lastdate -> counter = 0 else counter++
 
         serial = serialmatrix+ 
                 "-"+bloodgroup+
                 "-"+currentDate_aaaaMMdd+
                 "-"+(
-                (new DecimalFormat("0000")).format( counter++ )
+                (new DecimalFormat("0000")).format( counter )
         );
         Serial.updateSerial();
     }

@@ -5,7 +5,9 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.ne;
 import static com.mongodb.client.model.Filters.or;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import org.bson.Document;
@@ -76,6 +78,8 @@ public class BloodBagManager {
 		this.collection.deleteOne(bloodBagD);
 	}
 	
+	
+	
 	public Document importBloodBag(String serial) {
 		
 		Bson filter = and(
@@ -91,6 +95,8 @@ public class BloodBagManager {
 		throw new BloodBagNotFoundException("Sacca non trovata.");
 	}
 	
+	
+	
 	public Document getBloodBag(String serial) {
 		
 		Bson filter = and(
@@ -104,6 +110,24 @@ public class BloodBagManager {
 			return bloodBagD;
 		throw new BloodBagNotFoundException("Sacca non trovata.");
 	}
+	
+	
+	
+	public List<Document> getBloodBags() {
+		
+		List<Document> bloodBags = new ArrayList<>();
+        
+        MongoCursor<Document> iterator= collection.find().iterator();
+        
+        while(iterator.hasNext()) {
+        	
+        	bloodBags.add(iterator.next());
+        }
+		
+		return bloodBags;
+	}
+	
+	
 	
 	public boolean BloodBagRequestable(String serial_r) {
 		

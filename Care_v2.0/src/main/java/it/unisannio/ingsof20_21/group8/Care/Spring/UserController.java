@@ -241,6 +241,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 
 	            return userRepo.save(saveBean);
 		}catch (Exception e) {
+			e.printStackTrace();
 	        throw new Exception(e.getMessage()
 	        		+ "1) Your password must be between 8 and 30 characters."
 	        		+ "2) Your password must contain at least one uppercase, or capital, letter (ex: A, B, etc.)"
