@@ -42,7 +42,7 @@ import it.unisannio.CARE.spring.bean.RequestBean;
 
 
 @RestController
-@RequestMapping("request")
+@RequestMapping("/request")
 
 @Consumes("application/json")
 @Produces("application/json")
@@ -214,7 +214,7 @@ public class RequestController /*implements ContainerResponseFilter */{
 	
 	
 	//################################################### POST METHOD ####################################################
-	@PostMapping("add")	
+	@PostMapping("/add")	
 	public RequestBean addRequest(@RequestBody RequestBean requestB) throws ParseException{
 		
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
