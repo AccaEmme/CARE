@@ -2,7 +2,7 @@
 
 <?php
 $urlAPI = "http://localhost:8087/bloodbag/get/central";
-$authorization = "Authorization: Bearer ".$token;
+$authorization = "Authorization: Bearer ". $token;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
     curl_setopt($ch,CURLOPT_URL,$urlAPI);
@@ -22,7 +22,7 @@ $bagArray = (array) json_decode($result);
             <legend><img src="images\gestionerichieste.png" width="10%"><a name="management"><b> Gestione Richieste </b></a><br><small>(role-user-visibility: Officer)</small></legend>
 
           <!-- START: BloodBags viewer -->
-            <form action="" method="POST">
+            <form action="" method="GET">
                 <div align="center">
                 <body style="margin:0px;">
                 <table>
@@ -39,25 +39,16 @@ $bagArray = (array) json_decode($result);
                                 <option>AB-</option>
                                 <option>0-</option>
                             </select>
-                            <table>
-                                <tr>
-                                    <td><input type="checkbox" name="show_mine" checked /> Mostra proprio magazzino</td>
-                                    <td><input type="checkbox" name="show_others" checked /> Mostra di altri Nodi</td>
-                                    <td><input type="checkbox" name="show_central" checked /> Mostra di sede centrale</td>
-                                    <td><input type="checkbox" name="show_requests" checked /> Mostra richieste sacche da altri nodi</td>
-                                    <td><input type="checkbox" name="show_expired" checked /> Mostra scaduti</td>
-                                </tr>
-                            </table>
                         </th>
                     </tr>
+            </form>
                     <tr>
                       <td>
                         <body style="margin:0px;">
                         <table>
                           <tr style="color:white;background-color:grey; font-size: 20px;">
                           <?php ?>
-                            <th align="center">Notes</th>
-                            <th><input type="button" id="request_button" name="request_button" value="Richiedi"  onclick="addRequest('http://localhost:8087/request/add', '<?php echo($token); ?>', document.getElementById('selected_bag').nodeValue,  );"></th>
+                            <th><input type="button" id="request_button" name="request_button" value="Richiedi"  onclick="addRequestes();" /></th>
                             <th align="center">Priority</th>
                             <th align="center"><b>Seriale</b></th>
                             <th align="center"><b>Data creazione</b></th>
@@ -67,12 +58,12 @@ $bagArray = (array) json_decode($result);
                             <th align="center"><b>Note</b></th>
                             <th align="center"><b>Stato</b></th>
                           </tr>
+            <form action="" method="POST">
                           <tr>
-                        <?php foreach (array_keys($bagArray ) as $key) { ?>
-                          <td><input type="text" id="notes_box" name="notes_box" /></td>
-                          <td align='center'><input type="checkbox" id="selected_bag" name="selected_bad" value="<?php $bagArray[$key]->serial; ?>" />
+                          <?php foreach (array_keys($bagArray ) as $key) {  ?>
+                          <td align='center'><input type="checkbox" id="selected_bag" name="selected_bag[]" value="<?php echo ($bagArray[$key]->serial); ?>" />
                           <td>
-                          <select id="selected_priority" name="selected_priority">
+                          <select id="selected_priority" name="selected_priority[]">
                             <option value="green">GREEN</option>
                             <option value="yellow">YELLOW</option>
                             <option value="red">RED</option>
@@ -87,7 +78,26 @@ $bagArray = (array) json_decode($result);
                             <td><input type="text" id="notes" name="notes" value="<?php echo $bagArray[$key]->notes; ?>" disabled /></td>
                             <td><input type="text" id="state" name="state" value="<?php echo $bagArray[$key]->state; ?>" disabled /></td>
                           </tr>
-                        <?php ; } ?>
+                        <?php ;} ?>
+            </form>
+                        <script>
+                          function addRequestes(){
+
+                            let serials = document.querySelectorAll('input[type=checkbox]:checked');
+                            let priorities = document.getElementsByName('selected_priority[]');
+
+                            console.log(serials);
+                            console.log(priorities);
+                            
+                            var note = prompt("Hai da dichiarare qualcosa?"); 
+
+                            for(i = 0; i<serials.length; i++){
+                              
+                              console.log(serials.item(i).value);
+                              addRequest('http://localhost:8087/request/add', '<?php echo ($token) ?>', serials.item(i).value, priorities.item(i).value, note);
+                            }
+                          }
+                        </script>
                          </table>
                          </body>
                       </td>
@@ -95,7 +105,6 @@ $bagArray = (array) json_decode($result);
                 </table>
                 </body>
                 </div>
-            </form>
         <!-- END: BloodBags viewer-->
 
         <br /><br /><br />
