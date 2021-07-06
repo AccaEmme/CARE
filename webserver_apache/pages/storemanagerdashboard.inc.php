@@ -109,7 +109,7 @@ $bagArray = (array) json_decode($result);
             <td><input type="text" name="usedTimeStamp_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->usedTimeStamp; ?>" disabled/></td>
             <td>
                 
-                <input type="submit" value="PRELEVA" onclick="useBloodBag('http://localhost:8087/bloodbag/use/<?php echo $BagArray[$key]->serial; ?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000)">
+                <input type="submit" value="PRELEVA" onclick="useBloodBag('http://localhost:8087/bloodbag/use/<?php echo $bagArray[$key]->serial; ?>', '<?php echo($token); ?>'); /*setTimeout(function () { location.reload(1); }, 1000)*/">
             </td>
         </tr>
 <?php
