@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.stream.Stream;
 
@@ -18,6 +19,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import it.unisannio.CARE.model.util.Password;
 import it.unisannio.CARE.model.user.User;
+import it.unisannio.CARE.model.bloodBag.BloodBag;
+import it.unisannio.CARE.model.bloodBag.BloodGroup;
+import it.unisannio.CARE.model.exceptions.IllegalPatternException;
 import it.unisannio.CARE.model.exceptions.NullPasswordException;
 import it.unisannio.CARE.model.exceptions.UserException;
 import it.unisannio.CARE.model.user.Role;
@@ -25,113 +29,300 @@ import it.unisannio.CARE.model.user.Role;
 
 public class UserTest {
 	//Location country = new Location(Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"via 25 Aprile","5", "82020");
-	/*
+	
 
-	// =====================Constructor1 tests: User(String username, String plainTextPassword)
+	
+	// =====================Constructor1 tests: User(String username, String plainTextPassword, Role role)
 	@Test // Test Constructor1 works propertly with valid user and valid password pattern
-	public void ValidityTest_Constructor1_notNullObject() throws UserException, NullPasswordException, NullPasswordException, UserException {
+	public void ValidityTest_Constructor1_notNullObject() throws UserException, NullPasswordException {
+		String validUsername = "Hermann";
+		Role secretary 		 = Role.ROLE_OFFICER; 
+		String validPassword = "Test4ll+";
+		User u = new User(validUsername, validPassword, secretary);
+		assertNotNull(u);
+	}
+		
+	@Test // Test Constructor2 works propertly with valid user and invalid password pattern
+	public void InvalidityTest_Constructor1_validUserInvalidPass() throws UserException, NullPasswordException {
+		String validUsername = "Hermann";
+		Role secretary 		 = Role.ROLE_OFFICER;
+		String invalidPassword = "testall";
+		
+		assertThrows(Exception.class, () -> {
+			User u = new User(validUsername, invalidPassword, secretary);
+		 }
+		);
+	}
+	
+	@Test(expected = IllegalPatternException.class) // Test Constructor2 works propertly with valid user and invalid password pattern
+	public void InvalidityTest_Constructor1_validUserInvalidPass2() throws UserException, NullPasswordException {
+		String validUsername = "Hermann";
+		Role secretary 		 = Role.ROLE_OFFICER;
+		String invalidPassword = "";
+		
+		User u = new User(validUsername, invalidPassword, secretary);
+	}
+	
+	// =====================Constructor2 tests: User((String username, Password hiddenPassword)
+	@Test // Test Constructor2 works propertly with valid user and valid password pattern
+	public void ValidityTest_Constructor2_notNullObject() throws UserException, NullPasswordException, NullPasswordException, UserException {
 		String validUsername = "Hermann";
 		String validPassword = "Test4ll+";
 		Password pw = new Password(validPassword);
 		User u = new User(validUsername, pw);
 		assertNotNull(u);
 	}
-
-	@Test // Test Constructor1 throws exception with invalid user and valid password pattern
-	public void InvalidityTest_Constructor1_InvalidUserValidPass() throws UserException, NullPasswordException {
-		
-	}
 	
-	@Test // Test Constructor1 throws exception with valid user and invalid password pattern
-	public void InvalidityTest_Constructor1_validUserInvalidPass() throws UserException, NullPasswordException {
+	@Test(expected = IllegalPatternException.class) // Test Constructor1 throws exception with invalid user and valid password pattern
+	public void InvalidityTest_Constructor2_validUserInvalidPass()  throws UserException, NullPasswordException {
 		String validUsername = "Hermann";
-		String invalidPassword = "testall";
+		String validPassword = "";
+		Password pw = new Password(validPassword);
+		User u = new User(validUsername, pw);
+		assertNotNull(u);
+	}
+
+
+	@Test // Test Constructor1 throws exception with valid user and invalid password pattern
+	public void InvalidityTest_Constructor2_InvalidUserValiddPass() throws UserException, NullPasswordException {
+		String validUsername = "";
 		String invalidPW = "Test4ll+";
 		Password pw = new Password(invalidPW);
 		assertThrows(Exception.class, () -> {
 			User u = new User(validUsername, pw);
-		}
+			}
 		);
 	}
 
-	// =====================Constructor2 tests: User(String username, Password hiddenPassword)
-	@Test // Test Constructor2 works propertly with valid user and valid password pattern
-	public void ValidityTest_Constructor2_notNullObject() throws UserException, NullPasswordException {
-		String validUsername = "Hermann";
-		String validPassword = "Test4ll+";
-		Password validHiddenPasswordObj = new Password(Password.getMd5("Test4ll+"));
-		User u = new User(validUsername, validHiddenPasswordObj);
-		assertNotNull(u);
-	}
 	
-	@Test // Test Constructor2 works propertly with valid user and invalid password pattern
-	public void InvalidityTest_Constructor2_validUserInvalidPass() throws UserException, NullPasswordException {
-		String validUsername = "Hermann";
-		String invalidPassword = "testall";
+	/**
+	 * Creazione Junit per la verica del metodo GET dello Username
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 * @result ritorna lo UserName dell'utente
+	 */
+	@Test
+	public void ValidityTest_getUsername_notNullObject() throws UserException, NullPasswordException {
 		
-		assertThrows(Exception.class, () -> {
-			Password validHiddenPasswordObj = new Password(Password.getMd5(invalidPassword));
-			User u = new User(validUsername, validHiddenPasswordObj);
-		 }
-		);
+		String validUsername = "Hermann";
+		Role secretary 		 = Role.ROLE_OFFICER;
+		String validPassword = "Test4ll+";
+		User u = new User(validUsername, validPassword, secretary);
+		
+		assertNotNull(u.getUsername());
 	}
+	
+	/**
+	 * Creazione Junit per la verica del metodo SET dello Username
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 */
+	@Test()
+	public void ValidityTest_setUsername_notNullObject() throws UserException, NullPasswordException {
+		
+		String validUsername = "Hermann";
+		Role secretary 		 = Role.ROLE_OFFICER;
+		String validPassword = "Test4ll+";
+		User u = new User(validUsername, validPassword, secretary);
+		
+		u.setUsername("Donato");
+		assertNotNull(u);
+	}
+	
+	/**
+	 * Creazione Junit per la verica del metodo SET dello Username inserendo uno nome invalido
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void InvalidityTest_setUsername_notNullObject() throws UserException, NullPasswordException {
+		
+		String validUsername = "Hermann";
+		Role secretary 		 = Role.ROLE_OFFICER;
+		String validPassword = "Test4ll+";
+		User u = new User(validUsername, validPassword, secretary);
+		
+		u.setUsername("D");
+		assertNotNull(u);
+	}
+	
+	
+	/**
+	 * Creazione Junit per la verica del metodo GET per ottenere la passw dell'utente
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 * @result ritorna la passw dell'utente
 	*/
-	// =====================Constructor3 tests: User(String username, Role role)
-	/*Role Segretaria; //= new Role();
-	Role Magazziniere;
-	Role Admin;*/
-
-	/*
-	@Test // Test Constructor3 works propertly with valid user and valid Role(Officer)
-	public void ValidityTest_Constructor3_notNullObject1() throws UserException, NullPasswordException {
+	@Test
+	public void ValidityTest_getPassword_notNullObject() throws UserException, NullPasswordException {
+		
 		String validUsername = "Hermann";
-		Role secretary 		 = Role.Officer;
-
-
+		Role secretary 		 = Role.ROLE_OFFICER;
 		String validPassword = "Test4ll+";
-		User u = new User(validUsername,validPassword, secretary);
+		User u = new User(validUsername, validPassword, secretary);
+		
+		assertNotNull(u.getPassword());
+	}
+	
+	
+	/**
+	 * Creazione Junit per la verica del metodo SET della passw
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 * @result ritorna una eccezione nel caso la password sia non valida per il pattern 
+	*/
+	@Test
+	public void ValidityTest_setPassword_notNullObject() throws UserException, NullPasswordException {
+		
+		String validUsername = "Hermann";
+		Role secretary 		 = Role.ROLE_OFFICER;
+		String validPassword = "Test4ll+";
+		User u = new User(validUsername, validPassword, secretary);
+		
+		u.setPassword("Test5ll+");
 		assertNotNull(u);
 	}
-
-	@Test // Test Constructor3 works propertly with valid user and valid Role(Officer)
-	public void ValidityTest_Constructor3_notNullObject2() throws UserException, NullPasswordException {
+	
+	/**
+	 * Creazione Junit per la verica del metodo SET della passw
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 * @result ritorna una eccezione poichè il pattern della nuova password è errato
+	*/
+	@Test(expected = IllegalPatternException.class)
+	public void InvalidityTest_setPassword_notNullObject() throws UserException, NullPasswordException {
+		
 		String validUsername = "Hermann";
-		Role secretary 		 = Role.StoreManager;
+		Role secretary 		 = Role.ROLE_OFFICER;
 		String validPassword = "Test4ll+";
-		User u = new User(validUsername,validPassword, secretary);
+		User u = new User(validUsername, validPassword, secretary);
+		
+		u.setPassword("Test");
 		assertNotNull(u);
 	}
 	
-	@Test // Test Constructor3 works propertly with valid user and valid Role(Officer)
-	public void ValidityTest_Constructor3_notNullObject3() throws UserException, NullPasswordException {
+	/**
+	 * Creazione Junit per la verica del metodo GET per ottenere la data dell'ultima passw inserita
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 * @result ritorna la data dell'ultima passw inserita
+	*/
+	@Test
+	public void ValidityTest_getPasswordLastUpdate_notNullObject() throws UserException, NullPasswordException {
+		
 		String validUsername = "Hermann";
-		Role secretary 		 = Role.Administrator;
+		Role secretary 		 = Role.ROLE_OFFICER;
 		String validPassword = "Test4ll+";
-		User u = new User(validUsername,validPassword, secretary);
+		User u = new User(validUsername, validPassword, secretary);
+		
+		u.setPassword("Test4ll+");
+		
+		assertNotNull(u.getPasswordLastUpdate());
+	}
+	
+	/**
+	 * Creazione Junit per la verica del metodo SET della Email
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 * @result Il risultato è positivo perchè la passw è giusta
+	*/
+	@Test
+	public void InvalidityTest_setEmail_notNullObject() throws UserException, NullPasswordException {
+		
+		String validUsername = "Hermann";
+		Role secretary 		 = Role.ROLE_OFFICER;
+		String validPassword = "Test4ll+";
+		User u = new User(validUsername, validPassword, secretary);
+		
+		u.setEmail("DonatoGiovanniPeppe@gmail.com");
 		assertNotNull(u);
 	}
-
-	@Test // Test Constructor3 works propertly with valid user and invalid Role
-	public void InvalidityTest_Constructor3_invalidRole() throws UserException, NullPasswordException {
-		String validUsername  = "Hermann";
-		assertThrows(Exception.class, () -> {
-			Role invalidSecretary = Role.valueOf("invalidSecretaryRole");
-			String validPassword = "Test4ll+";
-			User u = new User(validUsername, validPassword, invalidSecretary);
-		 }
-		);
+	
+	/**
+	 * Creazione Junit per la verica del metodo GET per ottenere il ruolo dell'utente
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 * @result ritorna il ruolo dell'utente
+	*/
+	@Test
+	public void ValidityTest_getRole_notNullObject() throws UserException, NullPasswordException {
+		
+		String validUsername = "Hermann";
+		Role secretary 		 = Role.ROLE_OFFICER;
+		String validPassword = "Test4ll+";
+		User u = new User(validUsername, validPassword, secretary);
+		
+		assertNotNull(u.getRole());
 	}
 	
-	// =====================getters tests
+	/**
+	 * Creazione Junit per la verica del metodo SET del ruolo
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 * @result Il ruolo viene correttamente modificato
+	*/
+	@Test
+	public void ValidityTest_setRole_notNullObject() throws UserException, NullPasswordException {
+		
+		String validUsername = "Hermann";
+		Role secretary 		 = Role.ROLE_OFFICER;
+		String validPassword = "Test4ll+";
+		User u = new User(validUsername, validPassword, secretary);
+		
+		u.setRole(Role.ROLE_STOREMANAGER);
+		assertNotNull(u);
+	}
+	
+	/**
+	 * Creazione Junit per la verica del metodo GET USERDAO 
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 * @result ritorna ud se il metodo è giusto
+	*/
+	@Test
+	public void ValidityTest_getUserDAO_notNullObject() throws UserException, NullPasswordException {
+		
+		String validUsername = "Hermann";
+		Role secretary 		 = Role.ROLE_OFFICER;
+		String validPassword = "Test4ll+";
+		User u = new User(validUsername, validPassword, secretary);
+		
+		assertNotNull(u.getUserDAO());
+	}
+	
+	/**
+	 * Creazione Junit per la verica del metodo exist della classe USER
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 * @result ritorna true se l'oggetto USER esiste
+	*/
+	@Test
+	public void ValidityTest_exists_notNullObject() throws UserException, NullPasswordException {
+		
+		String validUsername = "Hermann";
+		Role secretary 		 = Role.ROLE_OFFICER;
+		String validPassword = "Test4ll+";
+		User u = new User(validUsername, validPassword, secretary);
+		
+		assertNotNull(u.exists());
+	}
+	
+
 	
 	
-	// =====================setters tests
+    /*
+    @Test(expected = Exception.class)
+    @Parameters(value = { "invalidInput1", "invalidInput2" })
+    public void shouldThrowOnInvalidInput(String input) {
+    	Password.validatePlaintextPasswordPattern(input);
+    	assertThat(1+1, 2);
+    }
+    */
+    /*
 	
 	
 	
-	
-	
-	
+	/*	
 	//Controllo creazione User corretto con passw in chiaro
 		@Test
 		public void TestValidUserPasswClear() throws UserException, NullPasswordException {
@@ -296,82 +487,8 @@ public class UserTest {
 				);
 	}
 	
-	
-	// PASSWORD TESTS.
-    @ParameterizedTest
-    @MethodSource("validPasswordProvider")
-    public void test_password_regex_valid(String password) {
-        assertTrue( Password.validatePlaintextPasswordPattern(password) );
-    }	
-	
+	*/
 
-    
-    @ParameterizedTest
-    @MethodSource("invalidPasswordProvider")
-    //@Test(expected = IllegalArgumentException.class)
-    public void test_password_regex_invalid(String password) {
-    	//ExceptionThrower exceptionThrower = new ExceptionThrower();
+  
 
-    	//assertFalse(Password.validatePlaintextPasswordPattern(password));
-    	try {
-    		Password.validatePlaintextPasswordPattern(password);
-        } catch(IllegalArgumentException e) {
-        	assertFalse(false);
-        }
-    }*/
-	
-    /*
-    @Test(expected = Exception.class)
-    @Parameters(value = { "invalidInput1", "invalidInput2" })
-    public void shouldThrowOnInvalidInput(String input) {
-    	Password.validatePlaintextPasswordPattern(input);
-    	assertThat(1+1, 2);
-    }
-    */
-    /*
-    static Stream<String> validPasswordProvider() {*/
-    	/*
-    	 *Requires
-    	 	<properties>
-    		 <maven.compiler.source>1.8</maven.compiler.source>
-    		 <maven.compiler.target>1.8</maven.compiler.target>
-			</properties>
-    	 */
-    	/*
-        return Stream.of(
-                "AAAbbbccc@123",
-                "Hello world$123",
-                "A!@#&()–a1",               // valid: punctuation part 1
-                "A[{}]:;',?/*a1",           // valid: punctuation part 2
-                "A~$^+=<>a1",               // valid: symbols
-                "0123456789$abcdefgAB",     // valid: 20 chars
-                "123Aa$Aa"                  // valid: 8 chars
-        );
-    }*/
-    /*
-    static Stream<String> invalidPasswordProvider() {
-        return Stream.of(
-                "12345678",                 // invalid: only digit
-                "abcdefgh",                 // invalid: only lowercase
-                "ABCDEFGH",                 // invalid: only uppercase
-                "abc123$$$",                // invalid: at least one uppercase
-                "ABC123$$$",                // invalid: at least one lowercase
-                "ABC$$$$$$",                // invalid: at least one digit
-                "java REGEX 123",           // invalid: at least one special character
-                "java REGEX 123 %",         // invalid: % is not in the special character group []
-                "________",                 // invalid
-                "--------",                 // invalid
-                "A12i@+",     				// invalid: less 8 chars (6 chars)
-                "A123456789bcdefghi@++",     // invalid: over 20 chars (21 chars)
-                " ",                        // empty
-                ""                       	// empty
-                ); 
-        
-        
-    }*/
-    
-    
-   
-	
-	
 }

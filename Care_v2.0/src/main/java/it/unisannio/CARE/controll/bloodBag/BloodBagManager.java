@@ -5,7 +5,9 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.ne;
 import static com.mongodb.client.model.Filters.or;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import org.bson.Document;
@@ -27,6 +29,8 @@ import it.unisannio.CARE.model.exceptions.RequestCloneNotSupportedException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.XMLHelper;
 
+
+
 public class BloodBagManager {
 
 	
@@ -34,7 +38,14 @@ public class BloodBagManager {
 	private MongoDatabase mongoDatabase;
 	private MongoCollection<Document> collection;
     
-	
+	/**
+     **************************************************************************
+     * Metodo costruttore per la classe BloodManager
+     * @param URI Il link del Database
+     * @param databaseName Nome del Database
+     * @param collectionName
+     **************************************************************************
+     */
 	
 	public BloodBagManager(String URI, String databaseName, String collectionName) {
 		
@@ -59,7 +70,12 @@ public class BloodBagManager {
 		this.collection = mongoDatabase.getCollection(collectionName);
 	}
 	
-	
+	/**
+     **************************************************************************
+     * Metodo Per aggiungere una sacca di sangue 
+     * @param bloodBag  Oggetto per le informazioni sulla sacca di sangue
+     **************************************************************************
+     */
 	
 	public void addBloodBag(BloodBag bloodBag) {
 		
@@ -68,13 +84,27 @@ public class BloodBagManager {
 		this.collection.insertOne(bloodBagD);	
 	}
 	
-	
+	/**
+     **************************************************************************
+     * Metodo Per eliminare una sacca di sangue 
+     * @param bloodBag  Oggetto per le informazioni sulla sacca di sangue
+     **************************************************************************
+     */
 	
 	public void deleteBloodBag(BloodBag bloodBag) {
 		
     	Document bloodBagD = Document.parse(bloodBag.toString());	
 		this.collection.deleteOne(bloodBagD);
 	}
+	
+	/**
+     **************************************************************************
+     * Metodo Per importare una sacca di sangue 
+     * @param serial Il seriale della sacca di sangue da importare
+     * @throws BloodBagNotFoundException
+     * @return bloodBagD
+     **************************************************************************
+     */
 	
 	public Document importBloodBag(String serial) {
 		
@@ -91,6 +121,15 @@ public class BloodBagManager {
 		throw new BloodBagNotFoundException("Sacca non trovata.");
 	}
 	
+	/**
+     **************************************************************************
+     * Metodo Per ottenere la sacca di sangue
+     * @param serial Il seriale della sacca di sangue da leggere
+     * @throws BloodBagNotFoundException
+     * @return bloodBagD
+     **************************************************************************
+     */
+	
 	public Document getBloodBag(String serial) {
 		
 		Bson filter = and(
@@ -105,6 +144,35 @@ public class BloodBagManager {
 		throw new BloodBagNotFoundException("Sacca non trovata.");
 	}
 	
+	/**
+     **************************************************************************
+     * Metodo Per ottenere una lista di sacche di sangue
+     * @return bloodBags
+     **************************************************************************
+     */
+	
+	public List<Document> getBloodBags() {
+		
+		List<Document> bloodBags = new ArrayList<>();
+        
+        MongoCursor<Document> iterator= collection.find().iterator();
+        
+        while(iterator.hasNext()) {
+        	
+        	bloodBags.add(iterator.next());
+        }
+		
+		return bloodBags;
+	}
+	
+	/**
+     **************************************************************************
+     * Metodo ?
+     * @param serial_r Il seriale della sacca di sangue da ?
+     * @return iterator.hasNext()
+     **************************************************************************
+     */
+	
 	public boolean BloodBagRequestable(String serial_r) {
 		
        Bson filter = and(
@@ -117,7 +185,15 @@ public class BloodBagManager {
 
 	  return iterator.hasNext();
 	  
-}
+    }
+	
+	/**
+     **************************************************************************
+     * Metodo Filtrare se la sacca esiste 
+     * @param serial_r Il seriale della sacca di sangue da ricercare
+     * @throws BloodBagNotFoundException
+     **************************************************************************
+     */
 	
 	public void BloodBagMarkNotAvailable(String serial_r) {
 		
@@ -130,6 +206,11 @@ public class BloodBagManager {
 			throw new BloodBagNotFoundException("La sacca su cui si vuole operare non è esistente.");
 	}
 	
+	/**
+     **************************************************************************
+     * Metodo per la chiusura del client di mongoDB
+     **************************************************************************
+     */
 	
 	public void close() {
 		

@@ -2,7 +2,9 @@ package it.unisannio.CARE.model.util;
 
 import com.google.zxing.WriterException;
 import it.unisannio.CARE.model.bloodBag.BloodBag;
+import it.unisannio.CARE.model.user.User;
 import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagDAO;
+import it.unisannio.ingsof20_21.group8.Care.Spring.UserDAO;
 import org.json.simple.JSONObject;
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +23,7 @@ public class QRCode {
     String identifier;
     String save_path = Constants.QR_CODES_SAVE_PATH;
 
+    //tested
     public QRCode(JSONObject objectToWrite){
         this.object = objectToWrite.toJSONString();
         this.identifier = objectToWrite.get("serial")
@@ -29,12 +32,16 @@ public class QRCode {
                 .toLowerCase();
 
     }
+
+    //tested
     public QRCode(String objectToWrite, String identifier){
         this.object = objectToWrite;
         this.identifier = identifier
                 .replaceAll("\\s+", "_")
                 .toLowerCase();
     }
+
+    //tested
     public QRCode(BloodBag objectToWrite){
         this.object = this.createBloodBagObject(objectToWrite).toJSONString();
         this.identifier = objectToWrite.getSerial()
@@ -43,6 +50,7 @@ public class QRCode {
                 .toLowerCase();
     }
 
+    //tested
     public QRCode(BloodBagDAO objectToWrite){
         this.object = this.createBloodBagObject(objectToWrite).toJSONString();
         this.identifier = objectToWrite.getSerial()
@@ -52,34 +60,47 @@ public class QRCode {
 
 
 
+    // ################## CREATE QR CODE USERS ###################
+    public QRCode(UserDAO objectToWrite){
+        this.object = this.createUserObject(objectToWrite).toJSONString();
+        this.identifier = objectToWrite.getUsername();
+    }
+
+    public QRCode(User objectToWrite){
+        this.object = this.createUserObject(objectToWrite).toJSONString();
+        this.identifier = objectToWrite.getUsername();
+    }
 
 
 
+
+
+    //bloodbag utils
     private JSONObject createBloodBagObject(BloodBag bag){
         JSONObject object = new JSONObject();
             object.put("serial",bag.getSerial());
-     /*       object.put("group",bag.getBloodGroup().toString());
-            object.put("creationDate",bag.getCreationDate());
-            object.put("expirationDate",bag.getExpirationDate());
-            object.put("donator",bag.getDonatorCF());
-            object.put("state",bag.getBloodBagState());
-            object.put("notes",bag.getNote());*/
-
         return object;
     }
     private JSONObject createBloodBagObject(BloodBagDAO bag){
         JSONObject object = new JSONObject();
-        object.put("serial",bag.getSerial());
-   /*     object.put("group",bag.getGroup());
-        object.put("creationDate",bag.getCreationDate());
-        object.put("expirationDate",bag.getExpirationDate());
-        object.put("donator",bag.getDonator());
-        object.put("state",bag.getState());
-        object.put("notes",bag.getNotes());*/
-
+            object.put("serial",bag.getSerial());
         return object;
     }
 
+    //user utils
+    private JSONObject createUserObject(UserDAO user){
+        JSONObject object = new JSONObject();
+            object.put("username",user.getUsername());
+            object.put("email",user.getEmail());
+
+        return object;
+    }
+    private JSONObject createUserObject(User user){
+        JSONObject object = new JSONObject();
+            object.put("username",user.getUsername());
+            object.put("email",user.getEmail());
+        return object;
+    }
 
     //important stuff
     public void createQRCode(){

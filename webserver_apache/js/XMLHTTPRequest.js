@@ -172,21 +172,44 @@ alert("ciaoooooooooo");
 //=================BloodBag Methods: POST
 function addBloodBagCentral(url, token, serial){
 
-alert("ciaoooooooooo");
- k=0;
- if(url == "") 		{ alert("url null"); 		k=1; }
- if(token == "") 	{ alert("token null"); 		k=1; }
- if(serial == "") 	{ alert("group null"); 	        k=1; }
+    alert("ciaoooooooooo");
+    k=0;
+    if(url == "") 		{ alert("url null"); 		k=1; }
+    if(token == "") 	{ alert("token null"); 		k=1; }
+    if(serial == "") 	{ alert("group null"); 	        k=1; }
 
 
- if(k==0){
-  alert(url + " - " + token + " - " + serial );
-  var jsonBody 	 = '{' + '"serial": "' + serial +'" }';
- 
-  alert("jsonBody: " + jsonBody);
-  console.log("jsonBody: " + jsonBody);
-  HTTPPost(url, token, jsonBody);
- }
+    if(k==0){
+    alert(url + " - " + token + " - " + serial );
+    var jsonBody 	 = '{' + '"serial": "' + serial +'" }';
+    
+    alert("jsonBody: " + jsonBody);
+    console.log("jsonBody: " + jsonBody);
+    HTTPPost(url, token, jsonBody);
+    }
+}
+
+
+ //=================Request Methods: POST
+function addRequest(url, token, serial, note, priority){
+
+    alert("ciaoooooooooo");
+     k=0;
+     if(url == "") 		{ alert("url null"); 		k=1; }
+     if(token == "") 	{ alert("token null"); 		k=1; }
+     if(serial == "") 	{ alert("serial null");     k=1; }
+     if(note == "") 	{ alert("note null"); 	    k=1; }
+     if(priority == "") 	{ alert("priority null"); 	    k=1; }
+    
+    
+     if(k==0){
+      alert(url + " - " + token + " - " + serial );
+      var jsonBody 	 = '{' + '"serial": "' + serial +'", "note": "'+ note +'", "priority": priority }';
+     
+      alert("jsonBody: " + jsonBody);
+      console.log("jsonBody: " + jsonBody);
+      HTTPPost(url, token, jsonBody);
+     }
 
 
 }

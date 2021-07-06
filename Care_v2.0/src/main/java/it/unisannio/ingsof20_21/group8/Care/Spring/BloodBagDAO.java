@@ -31,7 +31,19 @@ public class BloodBagDAO {
 
     public BloodBagDAO(){}
 
-    public String getSerial() {
+    public BloodBagDAO(String serial, long creationDate, String donator, long expirationDate, String group, String notes,
+			String state ) {
+    	
+		this.serial = serial;
+		this.group = group;
+		this.donator = donator;
+		this.creationDate = creationDate;
+		this.expirationDate = expirationDate;
+		this.state = state;
+		this.notes = notes;
+	}
+
+	public String getSerial() {
         return serial;
     }
 

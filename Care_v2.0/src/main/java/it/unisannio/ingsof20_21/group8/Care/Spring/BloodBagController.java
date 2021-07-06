@@ -18,6 +18,7 @@ import it.unisannio.CARE.model.report.BloodBagReport;
 
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.QRCode;
+import it.unisannio.CARE.spring.bean.RequestBean;
 
 import org.bson.Document;
 import org.json.simple.JSONArray;
@@ -33,9 +34,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 @CrossOrigin("*")
@@ -100,6 +104,37 @@ public class BloodBagController /*implements ContainerResponseFilter */{
     @GetMapping("/bloodbag/get/serial/{serial}")
     public BloodBagDAO getBloodBagBySerial(@PathVariable String serial){
     	return bagRepository.findBySerial(serial); /*.orElseThrow();*/
+    }
+    
+    @GetMapping("/bloodbag/get/central")
+    public Iterable<BloodBagDAO> getCentralBloodBags(){
+		
+		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+		mongoLogger.setLevel(Level.SEVERE);
+			
+		ArrayList<BloodBagDAO> array = new ArrayList<>();
+		
+		BloodBagManager managerB = new BloodBagManager();
+		Iterable<Document> iterable = (managerB.getBloodBags());
+		
+		for (Document bloodBagD : iterable) {
+			
+			BloodBagDAO bagDAO = new BloodBagDAO(
+					bloodBagD.getString("serial"), 
+					Long.parseLong(bloodBagD.getString("creation_date")),
+					bloodBagD.getString("donator"),
+					Long.parseLong(bloodBagD.getString("expiration_date")),
+					bloodBagD.getString("group"),
+					bloodBagD.getString("notes"),
+					bloodBagD.getString("state")
+						);
+			
+			array.add(bagDAO);
+		}
+					
+		managerB.close();
+		
+		return array;
     }
 
     // ############### CAN DONATE TO ###############
@@ -299,10 +334,6 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 	    	else if (!bagDAO.getState().equals(BloodBagState.Available.toString()))
 	    		throw new BloodBagStateException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
 
-	        //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
-	        if (bagDAO.getUsedTimeStamp() == 0)
-	        	bagDAO.setUsedTimeStamp(new Date().getTime());
-
 
             JSONObject object = new JSONObject();
                 object.put("serial",bagDAO.getSerial());
@@ -337,6 +368,8 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 	                bagDAO.getDonator()
 	                
 	        );
+	        tempBloodBagObj.setNote(bagDAO.getNotes());
+	        
 	        bagDAO = tempBloodBagObj.getBean();
 	        
 	        if (bagRepository.existsById(bagDAO.getSerial()))
@@ -349,9 +382,6 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 	        managerB.addBloodBag(tempBloodBagObj);
 	        
 	        managerB.close();
-	        //se la bag viene aggiunta come usata, aggiorno il momento di utilizzo all'ora corrente
-	        if (bagDAO.getUsedTimeStamp() == 0)
-	        	bagDAO.setUsedTimeStamp(new Date().getTime());
 	        
 	        return bagRepository.save(bagDAO);
 	        		
@@ -386,9 +416,6 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 	    	bagDAO.setGroup(bagD.getString("group"));
 	    	bagDAO.setNotes(bagD.getString("notes"));
 	    	bagDAO.setState(BloodBagState.Available.toString());
-	    	
-	        if (bagDAO.getUsedTimeStamp() == 0)
-	        	bagDAO.setUsedTimeStamp(new Date().getTime());
 	        
 	        return bagRepository.save(bagDAO);
     	}catch(RequestNotFoundException e) {

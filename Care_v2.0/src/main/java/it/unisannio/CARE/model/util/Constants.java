@@ -14,6 +14,8 @@ public class Constants {
 	public static final SimpleDateFormat dateFormat 		= new SimpleDateFormat(DATE_FORMAT);
     public static final String DATE_FORMAT_STRING 			= "yyyy-MM-dd";
     public static final SimpleDateFormat dateFormatString 	= new SimpleDateFormat(DATE_FORMAT_STRING);
+
+    public static final long NEGATIVE_TIMESTAMP             = -2208988800000L; //Monday 1 January 1900 00:00:00
     
     //#################################################### Serial Strings ####################################################
     public static final String SERIAL_SETTINGS_RELATIVEPATH = "localsettings/";
