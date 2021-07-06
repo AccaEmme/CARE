@@ -39,9 +39,9 @@ function HTTPPost(url, token, jsonBodyString){
 	request.open("POST", url, true);
 	request.setRequestHeader('Authorization', 'Bearer ' + token);
 	request.setRequestHeader("content-type", "application/json");
-request.onerror = function () {
-  console.log("** An error occurred during the transaction");
-  alert("** An error occurred during the transaction");
+    request.onerror = function () {
+    console.log("** An error occurred during the transaction");
+    alert("** An error occurred during the transaction");
 };
 //	request.send(JSON.stringify(jsonBodyString));
 	request.send(jsonBodyString);
@@ -51,7 +51,7 @@ request.onerror = function () {
 	  console.log("Response: "+ this.responseText);
 	  let results = JSON.parse(this.responseText);
          } else {
-alert("error"+this.responseText)
+    alert("error"+this.responseText)
 	 }
        };
 
@@ -233,20 +233,17 @@ function addBloodBagCentral(url, token, serial){
 
 
  //=================Request Methods: POST
-function addRequest(url, token, serial, note, priority){
+ function addRequest(url, token, serial, priority, note){
 
-    alert("ciaoooooooooo");
      k=0;
      if(url == "") 		{ alert("url null"); 		k=1; }
      if(token == "") 	{ alert("token null"); 		k=1; }
      if(serial == "") 	{ alert("serial null");     k=1; }
-     if(note == "") 	{ alert("note null"); 	    k=1; }
-     if(priority == "") 	{ alert("priority null"); 	    k=1; }
-    
+     if(priority == "") { alert("priority null"); 	k=1; }
     
      if(k==0){
-      alert(url + " - " + token + " - " + serial );
-      var jsonBody 	 = '{' + '"serial": "' + serial +'", "note": "'+ note +'", "priority": priority }';
+
+      var jsonBody 	 = '{' + '"serial": "' + serial +'", "note": "'+ note +'", "priority": "'+ priority +'" }';
      
       alert("jsonBody: " + jsonBody);
       console.log("jsonBody: " + jsonBody);
