@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.stream.Stream;
 
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 /*
@@ -24,6 +25,7 @@ import it.unisannio.CARE.model.bloodBag.BloodGroup;
 import it.unisannio.CARE.model.exceptions.IllegalPatternException;
 import it.unisannio.CARE.model.exceptions.NullPasswordException;
 import it.unisannio.CARE.model.exceptions.UserException;
+import it.unisannio.CARE.model.exceptions.lllegalEmailException;
 import it.unisannio.CARE.model.user.Role;
 
 
@@ -224,18 +226,78 @@ public class UserTest {
 	 * Creazione Junit per la verica del metodo SET della Email
 	 * @throws NullPasswordException 
 	 * @throws UserException 
+	 * @throws lllegalEmailException 
 	 * @result Il risultato è positivo perchè la passw è giusta
 	*/
 	@Test
-	public void InvalidityTest_setEmail_notNullObject() throws UserException, NullPasswordException {
+	public void InvalidityTest_setEmail_notNullObject() throws UserException, NullPasswordException, lllegalEmailException {
 		
 		String validUsername = "Hermann";
 		Role secretary 		 = Role.ROLE_OFFICER;
 		String validPassword = "Test4ll+";
 		User u = new User(validUsername, validPassword, secretary);
 		
-		u.setEmail("DonatoGiovanniPeppe@gmail.com");
+		u.setEmail("Giggino1996@gmail.com");
 		assertNotNull(u);
+	}
+	
+	/**
+	 * Creazione Junit per la verica del metodo GET per ottenere l'email dell'utente
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 * @throws lllegalEmailException 
+	 * @result ritorna l'email dell'utente
+	*/
+	@Test
+	public void ValidityTest_GetEmail_notNullObject() throws UserException, NullPasswordException, lllegalEmailException {
+		
+		String validUsername = "Hermann";
+		Role secretary 		 = Role.ROLE_OFFICER;
+		String validPassword = "Test4ll+";
+		User u = new User(validUsername, validPassword, secretary);
+		u.setEmail("Giggino1996@gmail.com");
+		assertNotNull(u.getEmail());
+	}
+	
+	/**
+	 * Creazione Junit per la verica delle passw corrette con l'uso di uno stream
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 * @throws lllegalEmailException 
+	 * @result I risulati sono tutti positivi
+	*/
+    @ParameterizedTest(name = "#{index} - Run test with valid Email complexity pattern = {0}")
+    @MethodSource("validEmailsProvider")
+    public void ValidityTest_setEmail_notNullObject(String Email) throws lllegalEmailException {
+    	
+    	String validUsername = "Hermann";
+		Role secretary 		 = Role.ROLE_OFFICER;
+		String validPassword = "Test4ll+";
+		User u = new User(validUsername, validPassword, secretary);
+        u.setEmail(Email);
+        assertNotNull(u);
+    }
+
+    /**
+	 * Creazione Junit per la verica delle passw non corrette con l'uso di uno stream
+	 * @throws NullPasswordException 
+	 * @throws UserException 
+	 * @throws lllegalEmailException 
+	 * @result I risulati sono tutti negativi
+	*/
+    @ParameterizedTest(name = "#{index} - Run test with invalid Email complexity pattern = {0}")
+    @MethodSource("invalidEmailsProvider")
+    public void InValidityTest_setEmail_notNullObject(String Email) throws lllegalEmailException {
+
+		
+			String validUsername = "Hermann";
+			Role secretary 		 = Role.ROLE_OFFICER;
+			String validPassword = "Test4ll+";
+			User u = new User(validUsername, validPassword, secretary);
+			
+			assertThrows(Exception.class, ()->{
+				u.setEmail(Email);
+			});
 	}
 	
 	/**
@@ -303,192 +365,29 @@ public class UserTest {
 		Role secretary 		 = Role.ROLE_OFFICER;
 		String validPassword = "Test4ll+";
 		User u = new User(validUsername, validPassword, secretary);
-		
 		assertNotNull(u.exists());
 	}
 	
-
 	
-	
-    /*
-    @Test(expected = Exception.class)
-    @Parameters(value = { "invalidInput1", "invalidInput2" })
-    public void shouldThrowOnInvalidInput(String input) {
-    	Password.validatePlaintextPasswordPattern(input);
-    	assertThat(1+1, 2);
+    
+    static Stream<String> validEmailsProvider() {
+    	
+        return Stream.of(
+                "user@domain.com",
+                "user@domain.co.in",
+                "user1@domain.com",               
+                "user.name@domain.com",           
+                "user#@domain.co.in",            
+                "user@domaincom" 
+        );
     }
-    */
-    /*
-	
-	
-	
-	/*	
-	//Controllo creazione User corretto con passw in chiaro
-		@Test
-		public void TestValidUserPasswClear() throws UserException, NullPasswordException {
-			Password password = new Password("Donato96@");
-			User Segret = new User("Donato", password);
-			assertTrue(Segret.exists());
-		}
-		
-		//Controllo creazione User corretto con passw invalida
-		@Test
-		public void TestInvalidUserPasswClear() throws UserException, NullPasswordException {
-			Password password = new Password("Donato96@");
-			User Segret = new User("Donato", password);
-		}
-		
-		@Test(expected = NullPasswordException.class)
-		public void TestInvalidUserPasswSpace() throws UserException, NullPasswordException {
-			Password password = new Password("");
-			User Segret = new User("Donato", password);
-		}
-		
-		@Test(expected = UserException.class)
-		public void TestInvalidUserPasswNull() throws UserException, NullPasswordException {
-			Password password = new Password("Donato96@");
-			User s = new User( " ", password);
-		}
-		
-		@Test(expected = UserException.class)
-		public void TestInvalidUserWrong() throws UserException, NullPasswordException {
-			Password password = new Password("Donato96@");
-			User Segret = new User("Don", password);
-		}
-		
-		//Controllo creazione User corretto con passw invalida
-		@ParameterizedTest
-	    @MethodSource("validPasswordProvider")
-		public void TestInvalidUserPasswGood(String Passw) throws UserException, NullPasswordException {
-			Password password = new Password("Donato96@");
-			User Segret = new User("Donato", password);
-			Segret.setPassword(Passw);
-		}
-		
-		
-	
-	@Test
-	public void testValidConstructor1()  throws UserException, NullPasswordException{
-	   String user= "Marioverdi";
-	   String pass= "Marioverdi96?";
-	   Password password = new Password(pass);
-	   User u = new User(user, password);
-		u.getUsername();
-		
-		u.getPassword().equals(
-  				Password.getMd5( pass + Constants.USER_MD5_SALT )
-  		);
-
-	}
-	
-	
-	@Test
-	public void testGetRole() throws UserException, NullPasswordException {
-		Role r 			= Role.valueOf("Officer");
-		User u 			= new User("Francesca.Minigazzi","Donato96@", r );
-		u.getRole();
-	}
-	
-	@Test
-	public void testSetRole() throws UserException, NullPasswordException {
-		Role r 			= Role.valueOf("Officer");
-		User u 			= new User("Francesca.Minigazzi","Donato96@", r );
-		u.setRole(r);
-	}
-	
-	
-	@Test
-	public void testGetResidence() throws UserException, NullPasswordException {
-		Password password = new Password("AAAbbbccc@123");
-		User u = new User("Francesca", password);
-		//u.getResidence();
-	}
-	
-	@Test
-	public void testSetResidence() throws UserException, NullPasswordException {
-		
-		//User u = new User("Francesca", "AAAbbbccc@123");
-		//u.setResidence(country);
-	}
-	
-	@Test
-	public void TestGetUsername() throws UserException, NullPasswordException {
-		Password password = new Password("Mariano96@");
-		User u = new User("Mariano", password);
-		u.getUsername();
-	} 
-	
-	@Test
-	public void testSetUsername() throws UserException, NullPasswordException {
-		String user= "Mariano";
-		Password password = new Password("Mariano96@");
-		User u = new User( user, password);
-		u.setUsername(user);
-	}
-	
-	
-	
-	@Test
-	public void testMD5() throws NullPasswordException, UserException {
-		Password password = new Password("AAAbbbccc@123");
-		User u=new User("Luca.Minicozzi",password);
-		assertTrue(
-				   		u.getPassword().equals(
-				   				Password.getMd5( password + Constants.USER_MD5_SALT )
-				   		)
-				   );
-	}
-	
-	@Test
-	public void testValidatePassword() {
-		String password="AAAbbbccc@123";
-		assertTrue(
-				Password.validatePlaintextPasswordPattern(password)
-				);
-	}
-
-	@Test
-	public void testSetPasswordValid() throws NullPasswordException, UserException {
-		String password = "AAAbbbccc@123";
-		Role r 			= Role.valueOf("Officer");
-		User u 			= new User("Francesca.Minigazzi",password, r );
-		u.setPassword(password);
-		assertTrue(
-				u.getPassword().equals(
-						Password.getMd5( password + Constants.USER_MD5_SALT )
-						)
-				);
-	}
-*/
-	/**
-	 * Scusa hermann devo eseguire xD
-	errore. da Console:
-	Password.java givenPassword: AAAbbbccc@123
-	plainTextPassword: AAAbbbccc@123	 Constants.USER_MD5_SALT: CanforaMarkUs30L	 hiddenPassword:6800A4445909CC025ADCAD4243D9974C
-	Wed Jun 16 11:07:44 CEST 2021
-	Password.java givenPassword: AAAbbbccc@123
-	Password.java givenPassword: [C@6150c3ec
-	Password.java givenPassword: null
-	Password.java givenPassword: [C@185a6e9
-	Password.java givenPassword: null*/
-
-	/*
-	@Test
-	public void testSetPasswordWrong() throws NullPasswordException, UserException {
-		String password = "AAAbbbccc@123";
-		Role r 			= Role.valueOf("Officer");
-		User u 			= new User("Luca",password, r );
-
-		u.setPassword(password);
-		assertTrue(
-				u.getPassword().equals(
-						Password.getMd5( password+Constants.USER_MD5_SALT ).toUpperCase()
-						)
-				);
-	}
-	
-	*/
-
+    
+    static Stream<String> invalidEmailsProvider() {
+        return Stream.of(
+                "user#domain.com",                 
+                "@yahoo.com"                
+                ); 
+    }
   
 
 }
