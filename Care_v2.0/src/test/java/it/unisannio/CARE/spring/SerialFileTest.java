@@ -22,7 +22,10 @@ import it.unisannio.CARE.model.bloodBag.BloodGroup;
 import it.unisannio.CARE.model.bloodBag.Serial;
 import it.unisannio.CARE.model.exceptions.IllegalSerialException;
 import it.unisannio.CARE.model.util.Constants;
+
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -33,7 +36,7 @@ import org.junit.Test;
  *
  */
 
-public class SerialTest2 {
+public class SerialFileTest {
 	public static String path = Constants.SERIAL_SETTINGS_RELATIVEPATH;
 	public static String filename = Constants.SERIAL_SETTINGS_FILENAME; 
 	private static SimpleDateFormat ft = new SimpleDateFormat(Constants.DATE_FORMAT);
@@ -50,12 +53,25 @@ public class SerialTest2 {
         Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		//InitSettings.initXML(100,path1);
 		BloodGroup g= BloodGroup.valueOf("ZEROneg") ;
-		Serial s=new Serial(g.toString());
-		  Properties loadProps = new Properties();
+		Serial s=new Serial(g);
+		Properties loadProps = new Properties();
 		/*uso direttamente serial_setting_temp*/
 		
 	}
 
+	@Test
+	public void testNewDate() throws InvalidPropertiesFormatException, FileNotFoundException, IOException {	
+		String path3 = path+"serial_settings.xml";
+	 	
+	    
+
+		  Properties loadProps = new Properties();
+		  loadProps.loadFromXML(new FileInputStream(path3));
+	      int  counter = Integer.valueOf(loadProps.getProperty("counter"));
+		 assertTrue(counter==3); 
+		/*testo se ha la data di oggo*/
+	} 
+	
 	@Test
 	public void testCounter() throws InvalidPropertiesFormatException, FileNotFoundException, IOException {
 		String path3 = path+"serial_settings.xml";
@@ -68,19 +84,6 @@ public class SerialTest2 {
 		/*contatore deve partire da uno*/
 	}
 
-	
-	@Test
-	public void testNewDate() throws InvalidPropertiesFormatException, FileNotFoundException, IOException {	
-		String path3 = path+"serial_settings.xml";
-	 	
-	    
-
-		  Properties loadProps = new Properties();
-		  loadProps.loadFromXML(new FileInputStream(path3));
-	      int  counter = 		Integer.valueOf(loadProps.getProperty("counter"));
-		assertTrue(counter==1);
-		/*testo se ha la data di oggo*/
-	} 
 	
 	/**
 	 * Creazione del costruttore della classe Serial
@@ -163,6 +166,9 @@ public class SerialTest2 {
 		File from = new File(path1);
 		String path2 = path+"serial_settings.xml";
 		File to = new File(path2);
+		String path3 = path+"serial_settings_test.xml";
+		File test = new File(path3);
+        Files.copy(to.toPath(), test.toPath(), StandardCopyOption.REPLACE_EXISTING);
         Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
 	}
 	

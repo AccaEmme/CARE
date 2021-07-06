@@ -58,7 +58,7 @@ public class BloodBagTest {
 	
 	
 	/**
-	 * Creazione INVALIDA costruttore della classe BloodGroup
+	 * Creazione non valida del costruttore della classe BloodGroup
 	 * @throws ParseException
 	 * @result La sacca viene creata nel modo non corretto poichè viene inserito un codice fiscale errato
 	 */
@@ -72,6 +72,7 @@ public class BloodBagTest {
 	
 	/**
 	 * Creazione del costruttore della classe BloodGroup
+	 * @throws ParseException
 	 * @result La sacca viene creata nel modo corretto non sviluppando nessuna eccezione
 	 */
 	@Test
@@ -210,7 +211,6 @@ public class BloodBagTest {
 	/**
 	 * Creazione Junit per la verica del metodo SET del gruppo
 	 * @throws ParseException 
-	 * @exception IllegalArgumentException
 	 * @result Viene utilizzato il metodo SET del tipo del gruppo della sacca di sangue,
 	 * 			il quale ritorna errore e innesca una eccezione 
 	 */
@@ -458,8 +458,6 @@ public class BloodBagTest {
 	}
 	
 
-
-	
 	/**
 	 * Creazione Junit per la verica del metodo SET della creationDate con una data dopo il limite di 7gg
 	 * @throws ParseException 
