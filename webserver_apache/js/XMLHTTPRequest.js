@@ -6,7 +6,7 @@ function hello(){
 function login(){
 	event.preventDefault();
 	let url;
-        //var ok=0;
+        var ok=0;
 
 	url = 'http://localhost:8087/authenticate';
 	let request = new XMLHttpRequest();   // new HttpRequest instance
@@ -19,14 +19,16 @@ function login(){
 	request.send(JSON.stringify({"username": username, "password": password}));
 	request.onreadystatechange = function() {
 	 if (this.readyState === 4 &&  this.status === 200 ) {
-	  //ok=1;
+	  ok=1;
 	  console.log("token:"+ this.responseText);
 	  let results = JSON.parse(this.responseText);
-  	  alert(" provola " + results.token ); 
+  	  //alert(" provola " + results.token ); 
 	  window.open("dashboard.php?token="+results.token);
-         }
+         } else {
+          response = this.responseText; 
+	 }
        };
-       //if(ok==0) alert("===Login failed==="+ok);
+       if(ok==0) alert("===Login failed===\n\n"+response);
 }
 
 //================= Methods: HTTP_POST

@@ -197,6 +197,7 @@ public class Constants {
 	public static final String RegexSerial									= "^IT-\\w{2}\\d{6}-(" 	+ BloodGroup.delimitedValues("|") + ")-\\d{8}-\\d{4}$";
 	public static final String RegexDonatorCF 								= "^^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$";
 	public static final String RegexPasswordCriteria 						= "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})";
+	public static final String RegexEmail 									= "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";		//This regex example uses all the characters permitted by RFC 5322
 
 	//#################################################### Time constants ####################################################
 	public static final long SEVEN_DAYS_MILLIS 	= 604800000;

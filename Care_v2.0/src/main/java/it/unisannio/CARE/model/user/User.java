@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import it.unisannio.CARE.model.exceptions.IllegalPatternException;
 import it.unisannio.CARE.model.exceptions.NullPasswordException;
 import it.unisannio.CARE.model.exceptions.UserException;
+import it.unisannio.CARE.model.exceptions.lllegalEmailException;
+import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.Password;
 import it.unisannio.ingsof20_21.group8.Care.Spring.UserDAO;
 
@@ -15,15 +17,13 @@ public class User {
 	private String 		username, hiddenPassword, temppass, plainTextPassword, email;
 	//private Location 	residence;
 	private Role 		role;
-	private Date			password_lastupdate;
+	private Date		password_lastupdate;
 	
 	
 
 	
 	// Costruttore creazione utente
-	public User(String username, String plainTextPassword, Role role)throws IllegalPatternException {
-		
-
+	public User(String username, String plainTextPassword, Role role)throws IllegalPatternException {		
 		this.setUsername(username);
 		if(plainTextPassword.equals("")) {
 			this.temppass 		= Password.generatePassword(10);
@@ -188,14 +188,18 @@ public class User {
     public Date getPasswordLastUpdate() {
     	return password_lastupdate;
     }
-    
-    
    
     
-    public void setEmail(String email) {
+    public void setEmail(String email) throws lllegalEmailException {
+    	if(!email.matches(Constants.RegexEmail) ) throw new lllegalEmailException("Email not valid");
 		this.email = email;
 	}
-	public String getEmail(){return this.email;}
+    
+    
+	public String getEmail()
+	
+	{return this.email;}
+	
 
 
 
