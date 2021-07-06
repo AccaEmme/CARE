@@ -209,4 +209,9 @@ public class Password {
         	throw new IllegalPatternException("Password pattern conformity not valid");
         //if( !matcher.matches() ) throw new IllegalArgumentException("Password pattern conformity not valid");
     }
+
+	public static String getMd5(String invalidPassword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

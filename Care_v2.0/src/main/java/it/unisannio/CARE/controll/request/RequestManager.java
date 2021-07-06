@@ -73,7 +73,7 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo per aggiungere una richiesta 
+     * Metodo Per aggiungere una richiesta 
      * @param request  Oggetto Richista per le informazioni sulla richiesta
      * @throws RequestCloneNotSupportedException
      **************************************************************************
@@ -109,8 +109,8 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo per accettare le richieste inoltrate
-     * @param request  Oggetto Richista per le informazioni sulla richiesta
+     * Metodo Per accettare le richieste inoltrate
+     * @param request  Oggetto Richiesta per le informazioni sulla richiesta
      * @throws RequestCloneNotSupportedException
      **************************************************************************
      */
@@ -164,8 +164,8 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo per declinare una richiesta
-     * @param request  Oggetto Richista per le informazioni sulla richiesta
+     * Metodo Per declinare una richiesta
+     * @param request  Oggetto Richiesta per le informazioni sulla richiesta
      * @throws RequestCloneNotSupportedException
      **************************************************************************
      */
@@ -212,8 +212,9 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo per ottenere la richieste dallo stato
+     * Metodo Per ottenere le richieste dallo stato
      * @param state  Oggetto che contiene le informazioni della richiesta di stato
+     * @return requestes
      **************************************************************************
      */
 	public List<Document> getRequestsByState(RequestState state) {
@@ -236,8 +237,9 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo per ottenere le richieste dalla priorità
+     * Metodo Per ottenere le richieste dalla priorità
      * @param state  Oggetto che contiene le informazioni della priorità della richiesta
+     * @return requestes
      **************************************************************************
      */
 	public List<Document> getRequestsByPriority(RequestPriority priority) {
@@ -257,7 +259,12 @@ public class RequestManager {
 	    return requestes;
 	}
 	
-	
+	/**
+     **************************************************************************
+     * Metodo Per leggere le tutte richieste 
+     * @return requestes
+     **************************************************************************
+     */
 	
 	public List<Document> getAllRequests() {
         
@@ -273,7 +280,12 @@ public class RequestManager {
 	    return requestes;
 	}
 	
-	
+	/**
+     **************************************************************************
+     * Metodo Per leggere le nostre richieste 
+     * @return requestes
+     **************************************************************************
+     */
 	
 	public List<Document> getOurRequests() {
         
@@ -295,6 +307,12 @@ public class RequestManager {
 	}
 	
 	
+	/**
+     **************************************************************************
+     * Metodo Per leggere le altre richieste 
+     * @return requestes
+     **************************************************************************
+     */
 	
 	public List<Document> getOtherRequests() {
         

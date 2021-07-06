@@ -86,8 +86,8 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 
 	/**
      **************************************************************************
-     * Metodo GET per ottenere il seriale 
-     * @return String ritorna il seriale della sacca
+     * Metodo Per ottenere il seriale 
+     * @return serial Il nuovo seriale della sacca
      **************************************************************************
      */
 	public Serial getSerial(){ 
@@ -96,8 +96,8 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	
 	/**
      **************************************************************************
-     * Metodo SET per modificare il seriale di una sacca
-     * @param serial  Nuovo seriale della sacca
+     * Metodo Per modificare il seriale di una sacca
+     * @param serial Il nuovo seriale della sacca
      **************************************************************************
      */
 	private void setSerial(Serial serial){
@@ -108,8 +108,8 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	
 	/**
      **************************************************************************
-     * Metodo GET per ottenere il gruppo della sacca di sangue
-     * @return bloodGruop ritorno dell gruppo sanguineo della sacca selezionata
+     * Metodo Per ottenere il gruppo della sacca di sangue
+     * @return bloodGruop Il gruppo sanguineo della sacca selezionata
      **************************************************************************
      */
 	public BloodGroup getBloodGroup(){ 
@@ -118,8 +118,8 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	
 	/**
      **************************************************************************
-     * Metodo privato per modificare il gruppo della sacca di sangue 
-     * @param bloodGroup  nuovo gruppo sanguineo della sacca
+     * Metodo privato Per modificare il gruppo della sacca di sangue 
+     * @param bloodGroup  Il nuovo gruppo sanguineo della sacca
      * @exception IllegalArgumentException
      **************************************************************************
      */
@@ -132,9 +132,9 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	
 	/**
      **************************************************************************
-     * Metodo privato per creare una data 
+     * Metodo privato Per creare una data 
      * @exception ParseException
-     * @return viene ritornata la nuova data di creazione
+     * @return creationDate La nuova data di creazione
      **************************************************************************
      */
 	private Date generateCreationDate() throws ParseException {
@@ -152,8 +152,8 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	
 	/**
      **************************************************************************
-     * Metodo GET per ottenere la creazione delle date
-     * @return ritorna la data di creazione della sacca registrata
+     * Metodo Per ottenere la creazione delle date
+     * @return creationDate La data di creazione della sacca registrata
      **************************************************************************
      */
 	public Date getCreationDate() {
@@ -164,9 +164,10 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	
 	/**
      **************************************************************************
-     * Metodo privato per creare una data 
+     * Metodo privato Per creare una data 
      * @exception ParseException
-     * @param creationDate  nuova data di creazione della sacca
+     * @param creationDate La nuova data di creazione della sacca
+     * @throws IllegalDateException
      **************************************************************************
      */
 	public void setCreationDate(Date creationDate) throws ParseException 		{
