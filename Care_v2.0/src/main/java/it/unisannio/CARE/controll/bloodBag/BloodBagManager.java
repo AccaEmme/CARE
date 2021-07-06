@@ -154,8 +154,10 @@ public class BloodBagManager {
 	public List<Document> getBloodBags() {
 		
 		List<Document> bloodBags = new ArrayList<>();
+		
+		Bson filter = eq("state", BloodBagState.Available.toString());
         
-        MongoCursor<Document> iterator= collection.find().iterator();
+        MongoCursor<Document> iterator= collection.find(filter).iterator();
         
         while(iterator.hasNext()) {
         	

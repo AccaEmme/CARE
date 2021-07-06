@@ -244,8 +244,7 @@ function addBloodBagCentral(url, token, serial){
      if(k==0){
 
       var jsonBody 	 = '{' + '"serial": "' + serial +'", "note": "'+ note +'", "priority": "'+ priority +'" }';
-     
-      alert("jsonBody: " + jsonBody);
+      
       console.log("jsonBody: " + jsonBody);
       HTTPPost(url, token, jsonBody);
      }

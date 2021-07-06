@@ -59,8 +59,8 @@ $bagArray = (array) json_decode($result);
                             <th align="center"><b>Stato</b></th>
                           </tr>
             <form action="" method="POST">
+                        <?php foreach (array_keys($bagArray ) as $key) {  ?>
                           <tr>
-                          <?php foreach (array_keys($bagArray ) as $key) {  ?>
                           <td align='center'><input type="checkbox" id="selected_bag" name="selected_bag[]" value="<?php echo ($bagArray[$key]->serial); ?>" />
                           <td>
                           <select id="selected_priority" name="selected_priority[]">
@@ -86,13 +86,10 @@ $bagArray = (array) json_decode($result);
                             let serials = document.querySelectorAll('input[type=checkbox]:checked');
                             let priorities = document.getElementsByName('selected_priority[]');
 
-                            console.log(serials);
-                            console.log(priorities);
-                            
-                            var note = prompt("Hai da dichiarare qualcosa?"); 
+                            var note = ' ' ;//prompt("Hai da dichiarare qualcosa?");
 
                             for(i = 0; i<serials.length; i++){
-                              
+
                               console.log(serials.item(i).value);
                               addRequest('http://localhost:8087/request/add', '<?php echo ($token) ?>', serials.item(i).value, priorities.item(i).value, note);
                             }
@@ -135,27 +132,13 @@ $bagArray = (array) json_decode($result);
                   <td>
                      <div style=" overflow-y: scroll; height:100px; margin:0px;">
                        <table cellspacing="0" cellpadding="1" border="1" width="100%" style="font-size: 20px;" >
-                        <tr bgcolor="red">
-                            <td width="140px">01-11-2020 08:11</td>
-                            <td width="277px">IT-NA206003-APOS-20201101-0010</td>
-                            <td width="80px">Apos</td>
-                            <td width="80px">NA206</td>
-                            <td width="111px">
-                                <div align ="center">
-                                    <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
-                                </div>
-                            </td>
-                        </tr>
                         <tr>
-                            <td width="140px">16-04-2021 11:36</td>
-                            <td width="277px">IT-NA206001-APOS-20210416-0001</td>
-                            <td width="80px">Apos</td>
-                            <td width="80px">NA206</td>
-                            <td width="111px">
-                                <div align ="center">
-                                    <input type="button" name="cancel_request" value="Annulla richiesta" disabled/>
-                                </div>
-                            </td>
+                            <td><input type="text" id="id_requester" name="id_requester"></td>
+                            <td><input type="text" id="serial" name="serial"></td>
+                            <td><input type="text" id="date" name="date"></td>
+                            <td><input type="text" id="note" name="note"></td>
+                            <td><input type="text" id="state" name="state"></td>
+                            <td><input type="text" id="priority" name="priority"></td>
                         </tr>
                        </table>  
                      </div>
