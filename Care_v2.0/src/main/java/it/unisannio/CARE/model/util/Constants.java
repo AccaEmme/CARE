@@ -14,8 +14,6 @@ public class Constants {
 	public static final SimpleDateFormat dateFormat 		= new SimpleDateFormat(DATE_FORMAT);
     public static final String DATE_FORMAT_STRING 			= "yyyy-MM-dd";
     public static final SimpleDateFormat dateFormatString 	= new SimpleDateFormat(DATE_FORMAT_STRING);
-
-    public static final long NEGATIVE_TIMESTAMP             = -2208988800000L; //Monday 1 January 1900 00:00:00
     
     //#################################################### Serial Strings ####################################################
     public static final String SERIAL_SETTINGS_RELATIVEPATH = "localsettings/";
@@ -201,10 +199,11 @@ public class Constants {
 	public static final String RegexPasswordCriteria 						= "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})";
 
 	//#################################################### Time constants ####################################################
-	public static final long SEVEN_DAYS_MILLIS = 604800000;
-    public static final long ONE_DAY_MILLIS = 86400000;
-	public static final long timestamp1900 = (long) 2208996.000; //1900-01-01 in timestamp
+	public static final long SEVEN_DAYS_MILLIS 	= 604800000;
+    public static final long ONE_DAY_MILLIS 	= 86400000;
+	public static final long TIMESTAMP1900      = -2208988800000L; //1900-01-01 00:00:00 in timestamp
 
+	//#################################################### QRCode constants ####################################################
     public static final String QR_CODES_SAVE_PATH = "QR_codes/";
 
 }
