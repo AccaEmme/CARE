@@ -72,9 +72,24 @@ foreach (array_keys($usersArray ) as $key) {
   	        <td><input type="text" name="priority_<?php echo $usersArray[$key]->serial; ?>" value="<?php echo $usersArray[$key]->priority; ?>" disabled/></td>
 	        
             <td>
+                <input type="text" name="acceptReq" id="acceptReq" value="http://localhost:8087/request/accept" hidden="yes" /> <!-- url,token,idRequester,serial,date,notes,state,priority-->
                 
-                <input type="submit" value="ACCETTA" onclick="acceptRequest('http://localhost:8087/request/accept<?php echo $usersArray[$key]->serial; ?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000)">
-                <input type="submit" value="RIFIUTA" onclick="acceptRequest('http://localhost:8087/request/refuse<?php echo $usersArray[$key]->serial; ?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000)">
+                <input type="submit" value="ACCETTA" onclick="
+                    acceptRequest(
+                        document.getElementById('acceptReq').value, 
+                        '<?php echo($token); ?>',
+                        '<?php echo addslashes(json_encode($usersArray[$key])); ?> '
+
+                        //document.getElementById('idRequester_<?php echo $usersArray[$key]->serial; ?>').value
+                        //document.getElementById('id_<?php echo $usersArray[$key]->serial; ?>').value
+                        //document.getElementById('date_<?php echo $usersArray[$key]->serial; ?>').value, 
+                        //document.getElementById('notes_<?php echo $usersArray[$key]->serial; ?>').value, 
+                        //document.getElementById('state_<?php echo $usersArray[$key]->serial; ?>').value, 
+                        //document.getElementById('priority_<?php echo $usersArray[$key]->serial; ?>').value
+                        ); 
+                        
+                        /*setTimeout(function () { location.reload(1); }, 5000);*/">
+                <input type="submit" value="RIFIUTA" onclick="refuseRequest('http://localhost:8087/request/refuse<?php echo $usersArray[$key]->serial; ?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000)">
             </td>
         </tr>
 <?php
@@ -90,9 +105,9 @@ foreach (array_keys($usersArray ) as $key) {
             <td><input type="text" disabled/></td>
             <td><input type="text" disabled/></td>
             <td><input type="text" disabled/></td>
- 	    <td><input type="text" disabled/></td>
+ 	        <td><input type="text" disabled/></td>
             <td>
-		<input type="text" name="addBloodBagCURL" id="addBloodBagCURL" value="http://localhost:8087/bloodbag/import" hidden="yes" />
+		        <input type="text" name="addBloodBagCURL" id="addBloodBagCURL" value="http://localhost:8087/bloodbag/import" hidden="yes" />
                 <input type="submit" value="import sacca" onclick="addBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo($token); ?>', document.getElementById('serial').value);">
             </td>
         </tr>

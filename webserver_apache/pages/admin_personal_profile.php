@@ -102,8 +102,8 @@ foreach (array_keys($usersArray ) as $key) {
             </td>
             <td>
                 <input type="button" value="Salva">
-                <input type="button" value="Elimina">
-                <input type="button" value="ResetPassword">
+                <input type="button" value="Elimina">     
+                <input type="button" value="ResetPassword"> 
             </td>
         </tr>
 <?php

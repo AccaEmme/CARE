@@ -103,7 +103,7 @@ foreach (array_keys($usersArray ) as $key) {
             <td>
                 <input type="button" value="Salva">
                 <input type="button" value="Elimina" onclick="deleteUser('<?php echo('http://localhost:8087/user/delete/username/'.$usersArray[$key]->username);?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000);">
-                <input type="button" value="ResetPassword">
+                <input type="button" value="ResetPassword"><!-- fai questo -->
             </td>
         </tr>
 <?php
