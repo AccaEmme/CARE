@@ -4,6 +4,7 @@
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Random;
 
@@ -13,7 +14,11 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 
+import it.unisannio.CARE.model.exceptions.UserException;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -507,6 +512,30 @@ public  class UserController /*implements ContainerResponseFilter */{
 	public UserDAO deleteUserByEmail(@PathVariable String email) {
 		userRepo.updateUserActiveUserByEmail(UsersStates.DELETED, email);
 		return this.getUserByEmail(email);
+	}
+
+	/**
+	 * this method is used to get the user only if the provided token belongs to the user
+	 * @param token the user token
+	 * @param username the user username
+	 * @return the UserDAO
+	 * @throws ParseException if the token is wrong
+	 * @throws UserException if the token does not belong to the user
+	 */
+	@GetMapping("/user/get/username/token/{token}/{username}")
+	private UserDAO getUserFromToken(@PathVariable String token, @PathVariable String username) throws ParseException, UserException {
+		String[] chunks = token.split("\\.");
+
+		Base64.Decoder decoder = Base64.getDecoder();
+		String header = new String(decoder.decode(chunks[0]));
+		String payload = new String(decoder.decode(chunks[1]));
+
+		JSONParser parser = new JSONParser();
+		JSONObject json = (JSONObject) parser.parse(payload);
+
+		if (!json.get("sub").toString().equals(username))
+			throw new UserException("The token does not belong to the provided user.");
+		return this.getUserByUsername(username);
 	}
 
 
