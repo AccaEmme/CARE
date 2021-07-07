@@ -104,6 +104,28 @@ public class RequestManager {
         }   
 			
 	}
+	
+	
+	/**
+     **************************************************************************
+     * Metodo Per eliminare le richieste inoltrate
+     * @param request  Oggetto Richiesta per le informazioni sulla richiesta
+     * @throws RequestNotFoundException
+     **************************************************************************
+     */	
+	public void deleteRequest(Request request) {
+		
+	    Bson filter = and(
+							eq("id_requester", request.getIdRequester()),
+				    		eq("serial", request.getRequestedBagSerial()),
+				    		eq("state", RequestState.pending.toString())
+						);
+
+		if(collection.findOneAndDelete(filter) == null)
+			throw new RequestNotFoundException("Richiesta non trovata o stato della richiesta diversa da \"pending\"...");
+ 
+        
+	}
 
 	
 	
@@ -208,6 +230,7 @@ public class RequestManager {
         }
         	
 	}
+	
 	
 	
 	/**

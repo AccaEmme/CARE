@@ -317,7 +317,7 @@ public class RequestController /*implements ContainerResponseFilter */{
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 		requestB.setDate(DATE_FORMAT.format(new Date()));
-		requestB.setState(RequestState.accepted.toString());
+		requestB.setState(RequestState.pending.toString());
 		requestB.setPriority(RequestPriority.green.toString());
 		
 		Request request = new Request(
@@ -339,6 +339,47 @@ public class RequestController /*implements ContainerResponseFilter */{
 
 			e.printStackTrace();
 			throw new RequestCloneNotSupportedException(e.getMessage(), "/request/accept");
+			
+		}finally {
+			
+			manager.close();
+		}
+	}
+	
+	
+	
+	@PostMapping("delete")	
+	public RequestBean deleteRequest(@RequestBody RequestBean requestB) throws ParseException{		
+
+		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+		mongoLogger.setLevel(Level.SEVERE);
+
+		Properties props = XMLHelper.getProps(Constants.NODE_PROPERTIES);
+		
+		requestB.setId_requester(props.getProperty("province") + props.getProperty("structureCode"));
+		requestB.setDate(DATE_FORMAT.format(new Date()));
+		requestB.setState(RequestState.pending.toString());
+		requestB.setPriority(RequestPriority.green.toString());
+		
+		Request request = new Request(
+				requestB.getId_requester(), 
+				requestB.getSerial(), 
+				DATE_FORMAT.parse(requestB.getDate()), 
+				requestB.getNote(),RequestState.valueOf(requestB.getState()),
+				RequestPriority.valueOf(requestB.getPriority()));
+		
+			
+		RequestManager manager = new RequestManager();
+		try {
+			
+			manager.deleteRequest(request);
+
+			return requestB;
+		
+		}catch(RequestNotFoundException e){
+
+			e.printStackTrace();
+			throw new RequestNotFoundException(e.getMessage(), "/request/delete");
 			
 		}finally {
 			

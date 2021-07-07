@@ -40,6 +40,7 @@ if(!isset($token) OR time()>$exp ) {
  <head>
    <title>CARE - Centro Accoglienza Regionale Ematica</title>
    <script src="./js/XMLHTTPRequest.js"></script>
+   <script src="./js/http_request.js"></script>
    <script src="./js/countdown.js"></script>
    <link rel="stylesheet" href="./css/dashboard.css">
   </head>

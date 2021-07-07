@@ -34,32 +34,47 @@ function login(){
 //================= Methods: HTTP_POST
 function HTTPPost(url, token, jsonBodyString,mex){
 	event.preventDefault();
-	let request = new XMLHttpRequest();   // new HttpRequest instance
+	
+    let request = new XMLHttpRequest();   // new HttpRequest instance
 
 	request.open("POST", url, true);
 	request.setRequestHeader('Authorization', 'Bearer ' + token);
 	request.setRequestHeader("content-type", "application/json");
+    
     request.onerror = function () {
-    console.log("** An error occurred during the transaction");
-    alert("** An error occurred during the transaction");
-};
+        alert.log("** An error occurred during the transaction");
+    };
 //	request.send(JSON.stringify(jsonBodyString));
 	request.send(jsonBodyString);
 	request.onreadystatechange = function() {
-	 if (this.readyState === 4  ) {
-	  console.log("Request: token " + token + " jsonBody: " + jsonBodyString);
-	  console.log("Response: "+ this.responseText);
-	  let results = JSON.parse(this.responseText);
-         }
-         if(this.status == 500) {
-    alert("error"+this.responseText)
-	 }
-     else{
-         alert(mex);
-     }
-       };
+	    
+    /*
+    request.onreadystatechange = function() {
+        if (this.readyState === 4  ) {
+            console.log("Request: token " + token + " jsonBody: " + jsonBodyString);
+            console.log("Response: "+ this.responseText);
+            let results = JSON.parse(this.responseText);
+        }
+        if(this.status == 500) {
+            alert("error"+this.responseText)
+        }else{
+            alert(mex);
+        }
+    };
+    */
 
+        if (this.readyState === 4  ) {
+            console.log("Request: token " + token + " jsonBody: " + jsonBodyString);
+	        console.log("Response: "+ this.responseText);
+	        let results = JSON.parse(this.responseText);
 
+            if(this.status === 500) {
+                alert("error"+this.responseText);
+            }else if(this.status === 200){
+                alert(mex);
+            }
+        }
+    };
 }
 //================= Methods: HTTP_DELETE
 function HTTPDelete(url, token){/*
@@ -219,27 +234,6 @@ function addBloodBagCentral(url, token, serial){
     console.log("jsonBody: " + jsonBody);
     HTTPPost(url, token, jsonBody);
     
-}
-
-
- //=================Request Methods: POST
- function addRequest(url, token, serial, priority, note){
-
-     k=0;
-     if(url == "") 		{ alert("url null"); 		k=1; }
-     if(token == "") 	{ alert("token null"); 		k=1; }
-     if(serial == "") 	{ alert("serial null");     k=1; }
-     if(priority == "") { alert("priority null"); 	k=1; }
-    
-     if(k==0){
-
-      var jsonBody 	 = '{' + '"serial": "' + serial +'", "note": "'+ note +'", "priority": "'+ priority +'" }';
-      
-      console.log("jsonBody: " + jsonBody);
-      HTTPPost(url, token, jsonBody);
-     }
-
-
 }
 
    
