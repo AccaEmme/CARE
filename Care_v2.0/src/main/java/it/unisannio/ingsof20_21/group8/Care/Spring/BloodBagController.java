@@ -70,6 +70,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
     //############# GET #############
 
     /**
+     * gets all the blood bags
      * @return all the blood bags in the database
      */
     @GetMapping("/bloodbag/get/all")
@@ -79,6 +80,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
 
     /**
+     * gets all the blood bags having a specific state
      * @param state the bloodbag state : {Available,Transfered,Used,Dropped}
      * @return all the blood bags with the given state
      */
@@ -88,6 +90,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
     }
 
     /**
+     * get all the blood bags having a specific blood group
      * @param group the bloodbag blood group : {Apos, Aneg, Bpos, Bneg, ZEROpos, ZEROneg, ABpos, ABneg}
      * @return all the blood bags with the given group
      */
@@ -98,6 +101,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
 
     /**
+     * get a blood bag from it's serial
      * @param serial the bloodbag serial
      * @return all the bloodbags with the given state (probably just one)
      */
@@ -105,7 +109,11 @@ public class BloodBagController /*implements ContainerResponseFilter */{
     public BloodBagDAO getBloodBagBySerial(@PathVariable String serial){
     	return bagRepository.findBySerial(serial); /*.orElseThrow();*/
     }
-    
+
+    /**
+     * gets all the blood bags from the main node database
+     * @return all the bloodbags in the main node database
+     */
     @GetMapping("/bloodbag/get/central")
     public Iterable<BloodBagDAO> getCentralBloodBags(){
 		
@@ -137,6 +145,11 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 		return array;
     }
 
+    /**
+     * gets all the groups a specific group can donate to
+     * @param group the given group
+     * @return all the groups a specific group can donate to
+     */
     // ############### CAN DONATE TO ###############
     @GetMapping("/bloodbag/candonateto/group/{group}")
     public Iterator<BloodGroup> canDonateToByGroup(@PathVariable String group){
@@ -158,6 +171,11 @@ public class BloodBagController /*implements ContainerResponseFilter */{
     }
 
 
+    /**
+     * gets all the groups a specific group can receive from
+     * @param group the given group
+     * @return all the groups a specific group can receive from
+     */
     // ############### CAN RECIVE FROM ###############
     @GetMapping("/bloodbag/canreceivefrom/group/{group}")
     public Iterator<BloodGroup> canReciveFromByGroup(@PathVariable String group){
@@ -165,6 +183,11 @@ public class BloodBagController /*implements ContainerResponseFilter */{
         return BloodGroup.canReceiveFrom(BloodGroup.valueOf(group));
     }
 
+    /**
+     * gets all the groups a specific blood bag can receive from
+     * @param serial the bag's serial
+     * @return all the groups the  blood bag can receive from
+     */
     @GetMapping("/bloodbag/canreceivefrom/bloodbag/serial/{serial}")
     public Iterator<BloodGroup> canReciveFromByBagSerial(@PathVariable String serial){
         BloodBagDAO bean = this.getBloodBagBySerial(serial);
@@ -174,6 +197,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
     //############# get count ###############
 
     /**
+     * counts all the blood bags
      * @return the count of all bags
      */
     @GetMapping("bloodbag/count/all")
@@ -182,6 +206,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
     }
 
     /**
+     * counts the blood bags having a specific group
      * @return the count of all bags having the given blood group
      * @param group the blood group
      */
@@ -191,6 +216,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
     }
 
     /**
+     * counts all the blood bags having a specific state
      * @return the count of all bags having the given state
      * @param state the given state
      */
@@ -201,6 +227,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
 
     /**
+     * counts all the blood bags expiring after a specific date (timestamp)
      * @return the count of all bags expired after the given date
      * @param timestamp the given time
      */
@@ -210,6 +237,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
     }
 
     /**
+     * counts all the blood bags used after a specific date (timestamp)
      * @return the count of all bags used after the given date
      * @param timestamp the given time
      */
@@ -220,6 +248,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
 
     /**
+     * counts all the blood bags expiring between a specific time interval (timestamp)
      * @param firstDate the first date
      * @param secondDate the second date
      * @return the count of the bags expiring between the two dates
@@ -233,6 +262,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
     //########### GET EXPIRING BEFORE/AFTER
     /**
+     * counts all the blood bags expiring before a specific time  (timestamp)
      * @param timestamp the given date
      * @return all blood bags expired before a given date
      */
@@ -242,6 +272,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
     }
 
     /**
+     * counts all the blood bags expiring after a specific time  (timestamp)
      * @param timestamp the given date
      * @return all blood bags expired after a given date
      */
@@ -252,6 +283,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
 
     /**
+     * counts all the blood bags expiring between a specific time interval (timestamp)
      * @param firstdate the first date
      * @param seconddate the second date
      * @return all blood bags expired between the two dates
@@ -265,6 +297,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
     }
 
     /**
+     * counts all the blood bags expiring between a specific time interval, having a specific blood group (timestamp)
      * @param firstdate the first date
      * @param seconddate the second date
      * @param bloodgroup the blood group
@@ -277,6 +310,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
 
     /**
+     * get the blood bags stats
      * @return report the blood bag report having all stats
      */
     @GetMapping("bloodbag/report")
@@ -311,13 +345,17 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
     //############# POST ############
 
-	/*    
-    {
-    	"group":"Bneg",
-    	"donator":"LDDBXB52C07L287S",
-    	"notes":"test note"
-    }
- */
+    /**
+     * add a blood bag
+     * @param bagDAO the bag
+     * @return the added blood bag
+     * example:
+     * {
+     *     	"group":"Bneg",
+     *     	"donator":"LDDBXB52C07L287S",
+     *     	"notes":"test note"
+     *     }
+     */
     @PostMapping("/bloodbag/add")
     public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagDAO) {
 	    try {
@@ -355,9 +393,14 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 	    	return null;
 	    }
     }
-    
-    
-    
+
+
+    /**
+     * add a blood bag in the central node database (mongo)
+     * @param bagDAO the blood bag
+     * @return the added blood bag
+     * @throws ParseException if the blood bag is not valid
+     */
     @PostMapping("/bloodbag/central/add")
     public BloodBagDAO createAndShareBloodBag(@RequestBody BloodBagDAO bagDAO) throws ParseException {
 
@@ -395,8 +438,14 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
    
     }
-    
-    
+
+
+    /**
+     * import a bag from the central node database
+     * @param bagDAO the bag to import
+     * @return the imported bag
+     * @throws ParseException if the bag is not valid
+     */
     /* @TODO: serial not bagDAO */
     @PostMapping("/bloodbag/import")
     public BloodBagDAO importBloodBag(@RequestBody BloodBagDAO bagDAO) throws ParseException {
@@ -487,6 +536,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
 
     /**
+     * get the json from a specific bag
      * @param bean the bean used to generate the json object
      * @return jsonObject the object generated from the bean
      */
