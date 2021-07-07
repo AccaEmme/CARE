@@ -80,7 +80,7 @@ public class User {
 	 
     public User(String username, Password hiddenPassword) throws UserException, NullPasswordException {
         //this.validateCredentials(username,hiddenPassword.getHiddenPassword());    //il metodo per prendere la password è getHiddenPassword
-        this.username 		= username;
+        setUsername(username);
         this.hiddenPassword = hiddenPassword.getHiddenPassword();
     }
    

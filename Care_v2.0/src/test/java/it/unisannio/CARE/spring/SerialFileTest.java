@@ -66,12 +66,12 @@ public class SerialFileTest {
 	}
  
 	/**
-	* Test to verify the correct functioning of the NewDate
+	* Test to verify the correct functioning of the Counter on new date
 	* @throws InvalidPropertiesFormatException
 	* @throws InvalidPropertiesFormatException
 	* @throws IOException
 	* @result The result is true if the counter has a value of 3
-	*/
+	
 	@Test
 	public void testNewDate() throws InvalidPropertiesFormatException, InvalidPropertiesFormatException, IOException {	
 		String path3 = path+"serial_settings.xml";
@@ -79,8 +79,8 @@ public class SerialFileTest {
 		loadProps.loadFromXML(new FileInputStream(path3));
 	    int  counter = Integer.valueOf(loadProps.getProperty("counter"));
 	    assertTrue(counter==3); 
-		/*testo se ha la data di oggo*/
 	} 
+	*/
 	
 	/**
 	* Test to verify the correct functioning of the Counter
