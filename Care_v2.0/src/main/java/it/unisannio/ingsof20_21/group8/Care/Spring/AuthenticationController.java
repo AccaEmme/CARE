@@ -30,6 +30,9 @@ import it.unisannio.CARE.spring.bean.AuthenticationResponseBean;
 
 /*metodi per registrazione e autenticazione*/
 
+/**
+ * this class is used to manage the user's authentication
+ */
 @CrossOrigin("*")
 @RestController
 public class AuthenticationController /*implements ContainerResponseFilter*/ {
@@ -47,6 +50,9 @@ public class AuthenticationController /*implements ContainerResponseFilter*/ {
     
     private final AuthenticationRepository userRepo;
 
+	/**
+	 * @param userRepo the user repository interface
+	 */
     public AuthenticationController(AuthenticationRepository userRepo) {
     	this.userRepo = userRepo;
     }
@@ -64,6 +70,11 @@ public class AuthenticationController /*implements ContainerResponseFilter*/ {
 	private JwtUtil jwtUtil;
 
 
+	/**
+	 * @param authenticationRequest the request
+	 * @return	the response
+	 * @throws Exception if the username or password are wrong
+	 */
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequestBean authenticationRequest) throws Exception {
 		//controlli
