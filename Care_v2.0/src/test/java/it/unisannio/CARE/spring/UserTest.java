@@ -1,6 +1,7 @@
 package it.unisannio.CARE.spring;
 
 import static org.junit.Assert.assertFalse;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
@@ -29,13 +30,19 @@ import it.unisannio.CARE.model.exceptions.lllegalEmailException;
 import it.unisannio.CARE.model.user.Role;
 
 
-public class UserTest {
-	//Location country = new Location(Country.Italy, Region.Campania, Province.Avellino ,City.Avellino,"via 25 Aprile","5", "82020");
-	
+/**
+ * JUnit test for UserTest.
+ */
 
+public class UserTest {
 	
-	// =====================Constructor1 tests: User(String username, String plainTextPassword, Role role)
-	@Test // Test Constructor1 works propertly with valid user and valid password pattern
+	/**
+	* Junit creation for the verification of the constructor of the UserTest class
+	* @throws UserException
+	* @throws NullPasswordException
+	* @result the result is the correct creation of the user
+	*/
+	@Test 
 	public void ValidityTest_Constructor1_notNullObject() throws UserException, NullPasswordException {
 		String validUsername = "Hermann";
 		Role secretary 		 = Role.ROLE_OFFICER; 
@@ -44,7 +51,13 @@ public class UserTest {
 		assertNotNull(u);
 	}
 		
-	@Test // Test Constructor2 works propertly with valid user and invalid password pattern
+	/**
+	* Junit creation to verify the constructor of the UserTest class with an invalid password
+	* @throws UserException
+	* @throws NullPasswordException
+	* @result the result is the exception for the invalid password
+	*/
+	@Test 
 	public void InvalidityTest_Constructor1_validUserInvalidPass() throws UserException, NullPasswordException {
 		String validUsername = "Hermann";
 		Role secretary 		 = Role.ROLE_OFFICER;
@@ -56,7 +69,13 @@ public class UserTest {
 		);
 	}
 	
-	@Test(expected = IllegalPatternException.class) // Test Constructor2 works propertly with valid user and invalid password pattern
+	/**
+	* Junit creation to verify the constructor of the UserTest class with an invalid but empty password
+	* @throws UserException
+	* @throws NullPasswordException
+	* @result the result is the exception for the invalid password
+	*/
+	@Test(expected = IllegalPatternException.class)
 	public void InvalidityTest_Constructor1_validUserInvalidPass2() throws UserException, NullPasswordException {
 		String validUsername = "Hermann";
 		Role secretary 		 = Role.ROLE_OFFICER;
@@ -65,8 +84,28 @@ public class UserTest {
 		User u = new User(validUsername, invalidPassword, secretary);
 	}
 	
-	// =====================Constructor2 tests: User((String username, Password hiddenPassword)
-	@Test // Test Constructor2 works propertly with valid user and valid password pattern
+	/**
+	* Junit creation to verify the constructor of the UserTest class with an invalid name
+	* @throws UserException
+	* @throws NullPasswordException
+	* @result the result is the exception for the invalid name
+	*/
+	@Test(expected = IllegalArgumentException.class)
+	public void InvalidityTest_Constructor1_invalidUservalidPass() throws UserException, NullPasswordException {
+		String validUsername = "H";
+		Role secretary 		 = Role.ROLE_OFFICER;
+		String invalidPassword = "Test4ll+";
+		
+		User u = new User(validUsername, invalidPassword, secretary);
+	}
+	
+	/**
+	* Junit creation for the verification of the second constructor of the UserTest class
+	* @throws UserException
+	* @throws NullPasswordException
+	* @result the result is the correct creation of the user
+	*/
+	@Test 
 	public void ValidityTest_Constructor2_notNullObject() throws UserException, NullPasswordException, NullPasswordException, UserException {
 		String validUsername = "Hermann";
 		String validPassword = "Test4ll+";
@@ -75,7 +114,13 @@ public class UserTest {
 		assertNotNull(u);
 	}
 	
-	@Test(expected = IllegalPatternException.class) // Test Constructor1 throws exception with invalid user and valid password pattern
+	/**
+	* Junit creation to verify the constructor of the UserTest class with an incorrect password
+	* @throws UserException
+	* @throws NullPasswordException
+	* @result the result is the incorrect user creation due to the wrong password
+	*/
+	@Test(expected = IllegalPatternException.class)
 	public void InvalidityTest_Constructor2_validUserInvalidPass()  throws UserException, NullPasswordException {
 		String validUsername = "Hermann";
 		String validPassword = "";
@@ -84,8 +129,13 @@ public class UserTest {
 		assertNotNull(u);
 	}
 
-
-	@Test // Test Constructor1 throws exception with valid user and invalid password pattern
+	/**
+	* Junit creation to verify the constructor of the UserTest class with an incorrect username
+	* @throws UserException
+	* @throws NullPasswordException
+	* @result the result is the incorrect user creation due to the wrong username
+	*/
+	@Test 
 	public void InvalidityTest_Constructor2_InvalidUserValiddPass() throws UserException, NullPasswordException {
 		String validUsername = "";
 		String invalidPW = "Test4ll+";
@@ -98,11 +148,11 @@ public class UserTest {
 
 	
 	/**
-	 * Creazione Junit per la verica del metodo GET dello Username
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 * @result ritorna lo UserName dell'utente
-	 */
+	* Junit creation for the verification of the GET method of the Username
+	* @throws NullPasswordException
+	* @throws UserException
+	* @result returns the UserName of the user
+	*/
 	@Test
 	public void ValidityTest_getUsername_notNullObject() throws UserException, NullPasswordException {
 		
@@ -115,10 +165,10 @@ public class UserTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo SET dello Username
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 */
+	* Junit creation for verification of the SET method of the Username
+	* @throws NullPasswordException
+	* @throws UserException
+	*/
 	@Test()
 	public void ValidityTest_setUsername_notNullObject() throws UserException, NullPasswordException {
 		
@@ -132,10 +182,10 @@ public class UserTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo SET dello Username inserendo uno nome invalido
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 */
+	* Junit creation to verify the SET method of the Username by inserting an invalid name
+	* @throws NullPasswordException
+	* @throws UserException
+	*/
 	@Test(expected = IllegalArgumentException.class)
 	public void InvalidityTest_setUsername_notNullObject() throws UserException, NullPasswordException {
 		
@@ -150,10 +200,10 @@ public class UserTest {
 	
 	
 	/**
-	 * Creazione Junit per la verica del metodo GET per ottenere la passw dell'utente
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 * @result ritorna la passw dell'utente
+	* Junit creation to verify the GET method to get the user's passw
+	* @throws NullPasswordException
+	* @throws UserException
+	* @result returns the user's password
 	*/
 	@Test
 	public void ValidityTest_getPassword_notNullObject() throws UserException, NullPasswordException {
@@ -168,10 +218,10 @@ public class UserTest {
 	
 	
 	/**
-	 * Creazione Junit per la verica del metodo SET della passw
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 * @result ritorna una eccezione nel caso la password sia non valida per il pattern 
+	* Junit creation for the verification of the SET method of the passw
+	* @throws NullPasswordException
+	* @throws UserException
+	* @result returns an exception in case the password is invalid for the pattern
 	*/
 	@Test
 	public void ValidityTest_setPassword_notNullObject() throws UserException, NullPasswordException {
@@ -186,10 +236,10 @@ public class UserTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo SET della passw
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 * @result ritorna una eccezione poichè il pattern della nuova password è errato
+	* Junit creation for the verification of the SET method of the passw
+	* @throws NullPasswordException
+	* @throws UserException
+	* @result returns an exception as the new password pattern is incorrect
 	*/
 	@Test(expected = IllegalPatternException.class)
 	public void InvalidityTest_setPassword_notNullObject() throws UserException, NullPasswordException {
@@ -204,10 +254,10 @@ public class UserTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo GET per ottenere la data dell'ultima passw inserita
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 * @result ritorna la data dell'ultima passw inserita
+	* Junit creation for the verification of the GET method to obtain the date of the last entered passw
+	* @throws NullPasswordException
+	* @throws UserException
+	* @result returns the date of the last password entered
 	*/
 	@Test
 	public void ValidityTest_getPasswordLastUpdate_notNullObject() throws UserException, NullPasswordException {
@@ -223,11 +273,11 @@ public class UserTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo SET della Email
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 * @throws lllegalEmailException 
-	 * @result Il risultato è positivo perchè la passw è giusta
+	* Junit creation for the verification of the SET method of the Email
+	* @throws NullPasswordException
+	* @throws UserException
+	* @throws lllegalEmailException
+	* @result The result is positive because the password is correct
 	*/
 	@Test
 	public void InvalidityTest_setEmail_notNullObject() throws UserException, NullPasswordException, lllegalEmailException {
@@ -242,11 +292,11 @@ public class UserTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo GET per ottenere l'email dell'utente
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 * @throws lllegalEmailException 
-	 * @result ritorna l'email dell'utente
+	* Junit creation for the verification of the GET method to get the user's email
+	* @throws NullPasswordException
+	* @throws UserException
+	* @throws lllegalEmailException
+	* @result returns the user's email
 	*/
 	@Test
 	public void ValidityTest_GetEmail_notNullObject() throws UserException, NullPasswordException, lllegalEmailException {
@@ -260,11 +310,11 @@ public class UserTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica delle passw corrette con l'uso di uno stream
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 * @throws lllegalEmailException 
-	 * @result I risulati sono tutti positivi
+	* Junit creation for verifying correct passwords with the use of a stream
+	* @throws NullPasswordException
+	* @throws UserException
+	* @throws lllegalEmailException
+	* @result The results are all positive
 	*/
     @ParameterizedTest(name = "#{index} - Run test with valid Email complexity pattern = {0}")
     @MethodSource("validEmailsProvider")
@@ -279,12 +329,12 @@ public class UserTest {
     }
 
     /**
-	 * Creazione Junit per la verica delle passw non corrette con l'uso di uno stream
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 * @throws lllegalEmailException 
-	 * @result I risulati sono tutti negativi
-	*/
+    * Junit creation for verifying incorrect passwords with the use of a stream
+    * @throws NullPasswordException
+    * @throws UserException
+    * @throws lllegalEmailException
+    * @result The results are all negative
+    */
     @ParameterizedTest(name = "#{index} - Run test with invalid Email complexity pattern = {0}")
     @MethodSource("invalidEmailsProvider")
     public void InValidityTest_setEmail_notNullObject(String Email) throws lllegalEmailException {
@@ -300,12 +350,12 @@ public class UserTest {
 			});
 	}
 	
-	/**
-	 * Creazione Junit per la verica del metodo GET per ottenere il ruolo dell'utente
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 * @result ritorna il ruolo dell'utente
-	*/
+    /**
+    * Junit creation for GET method verification to get user role
+    * @throws NullPasswordException
+    * @throws UserException
+    * @result returns the user's role
+    */
 	@Test
 	public void ValidityTest_getRole_notNullObject() throws UserException, NullPasswordException {
 		
@@ -318,10 +368,10 @@ public class UserTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo SET del ruolo
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 * @result Il ruolo viene correttamente modificato
+	* Junit creation for the verification of the role SET method
+	* @throws NullPasswordException
+	* @throws UserException
+	* @result The role is successfully changed
 	*/
 	@Test
 	public void ValidityTest_setRole_notNullObject() throws UserException, NullPasswordException {
@@ -336,10 +386,10 @@ public class UserTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo GET USERDAO 
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 * @result ritorna ud se il metodo è giusto
+	* Junit creation for the verification of the GET USERDAO method
+	* @throws NullPasswordException
+	* @throws UserException
+	* @result returns ud if the method is correct
 	*/
 	@Test
 	public void ValidityTest_getUserDAO_notNullObject() throws UserException, NullPasswordException {
@@ -353,10 +403,10 @@ public class UserTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo exist della classe USER
-	 * @throws NullPasswordException 
-	 * @throws UserException 
-	 * @result ritorna true se l'oggetto USER esiste
+	* Junit creation to verify the exist method of the USER class
+	* @throws NullPasswordException
+	* @throws UserException
+	* @result returns true if the USER object exists
 	*/
 	@Test
 	public void ValidityTest_exists_notNullObject() throws UserException, NullPasswordException {
@@ -364,7 +414,7 @@ public class UserTest {
 		String validUsername = "Hermann";
 		Role secretary 		 = Role.ROLE_OFFICER;
 		String validPassword = "Test4ll+";
-		User u = new User(validUsername, validPassword, secretary);
+		User u = new User(validUsername, validPassword, secretary); 
 		assertNotNull(u.exists());
 	}
 	

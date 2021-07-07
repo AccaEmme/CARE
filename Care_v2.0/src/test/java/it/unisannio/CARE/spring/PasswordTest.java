@@ -1,6 +1,8 @@
 package it.unisannio.CARE.spring;
 
-
+/*
+ *  JUnit test for Password class.
+ */
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -37,15 +39,23 @@ import junitparams.naming.TestCaseName;
 public class PasswordTest {
 
 
-	// =====================Constructor1 tests: Password(String hiddenPassword)
-	@Test // Test Constructor1 works propertly with valid hiddenPassword
+	/**
+	* Junit build to verify password constructor method with valid hiddenPassword values
+	* @result The result is the successful creation of the Password object
+	*/
+	@Test 
 	public void ValidityTest_Constructor1_notNullObject() {
 		String validHiddenPassword = "9964759D115DA0F4946D8C4AABF0A200";
 		Password p = new Password(validHiddenPassword);
 		assertNotNull(p);
 	}
 	
-	@Test // Test Constructor1 works propertly with invalid hiddenPassword
+	/**
+	* Junit creation to verify the passwd constructor method with invalid hiddenPassword values
+	* @result The result is the incorrect creation of the Password object by calling an exception for the lack of the
+	* 	password
+	*/
+	@Test 
 	public void InvalidityTest_Constructor1_nullParam() {
 		String invalidHiddenPassword = null; 
 
@@ -54,7 +64,11 @@ public class PasswordTest {
 		});
 	}
 	
-	@Test // Test Constructor1 works propertly with invalid hiddenPassword
+	/**
+	* Junit creation to verify the passwd constructor method with invalid hiddenPassword values
+	* @result The result is the incorrect creation of the Password object by retrieving an exception for the blank password
+	*/
+	@Test
 	public void InvalidityTest2_Constructor1_nullParam() {
 		String invalidHiddenPassword = ""; 
 
@@ -63,8 +77,11 @@ public class PasswordTest {
 		});
 	}
 
-	// =====================getters tests
-	@Test // Test getHiddenPassword() works propertly returning not null
+	/**
+	* Junit creation to verify the password GET method
+	* @result The result is the correct functioning of the getHiddenPassword () method
+	*/
+	@Test 
 	public void ValidityTest_getHiddenPassword_notNullObject() {
 		String validHiddenPassword = "9964759D115DA0F4946D8C4AABF0A200";
 		Password p = new Password(validHiddenPassword);
@@ -72,7 +89,12 @@ public class PasswordTest {
 	}
 	
 	
-	@Test // Test String generatePassword(int length) 
+	/**
+	* Junit creation for the verification of the generatePassword method
+	* @result The result is the correct functioning of the generatedPassword method, returning true for the correct one
+	* password generation
+	*/
+	@Test
 	public void ValidityTest_generatePassword_checkLength() {
 		int		passLength		 = 15;
 		String generatedPassword = Password.generatePassword(passLength);
@@ -80,13 +102,10 @@ public class PasswordTest {
 	}
 	
 
-	// In realtà questo test dovrebbe validare tutte le password valide
-	@Test 	// Test validatePassword(final String givenPassword) equals to a valid hidden password
-	public void ValidityTest_validatePassword_withValidPlaintextpassword() {
-		String	validPlainTextPassword 	= "P4ssword+";
-		assertTrue( Password.validatePlaintextPasswordPattern(validPlainTextPassword) );
-	}
-	
+	/**
+	* Junit creation for the verification of the insertion of a password combo through the static streams
+	* @result The result is the correct functioning of the validatePlaintextPasswordPattern method with the absence of errors
+	*/
 	@ParameterizedTest(name = "#{index} - Run test with invalid password complexity pattern = {0}")
     @MethodSource("invalidPasswordsProvider")
 	public void InvalidityTest_validatePassword_withWrongPlaintextpassword(String password) {
@@ -97,7 +116,10 @@ public class PasswordTest {
 	}
 	
 	
-	/* @TODO: below */
+	/**
+	* Junit creation for verifying the insertion of an incorrect password combo through the static streams
+	* @result The result is that the validatePlaintextPasswordPattern method works correctly with errors
+	*/
     @ParameterizedTest(name = "#{index} - Run test with valid password complexity pattern = {0}")
     @MethodSource("validPasswordsProvider")
     public void test_password_regex_valid(String password) {
@@ -105,27 +127,18 @@ public class PasswordTest {
     }	
 	
     /**
-	 * Test del metodo validatePlaintextPasswordPattern per la validazione del pattern della passw
-	 * @exception validatePlaintextPasswordPattern
-	 * @result il risultato è il richiamo dell'eccezione per via del givenpassw null
-	 */
+    * Test of the validatePlaintextPasswordPattern method to validate the passw pattern
+    * @exception IllegalPatternException
+    * @result the result is the call of the exception due to the givenpassw null
+    */
     @Test(expected = IllegalPatternException.class)
     public void InvalidityTest_validatePlaintextPasswordPattern() {
 		String givenPassw = null;
-		Password p = new Password("9964759D115DA0F4946D8C4AABF0A200");
-		p.validatePlaintextPasswordPattern(givenPassw);
+		Password.validatePlaintextPasswordPattern(givenPassw);
 	}
     
- 
-    
+
     static Stream<String> validPasswordsProvider() {
-    	/*
-    	 *Requires
-    	 	<properties>
-    		 <maven.compiler.source>1.8</maven.compiler.source>
-    		 <maven.compiler.target>1.8</maven.compiler.target>
-			</properties>
-    	 */
         return Stream.of(
                 "AAAbbbccc@123",
                 "Hello world$123",

@@ -28,15 +28,19 @@ import it.unisannio.CARE.model.exceptions.IllegalSerialException;
 
 import org.junit.jupiter.params.ParameterizedTest;
 
-
 /**
- * Unit test for Serial.
+ * JUnit test for Serial.
  */
 public class SerialTest {
 	public static String path 			= Constants.SERIAL_SETTINGS_RELATIVEPATH;
 	public static String filename 			= Constants.SERIAL_SETTINGS_FILENAME;
 	public static final String tempfilename = "serial_settings_temp.xml"; 
 	
+	
+	/**
+	* Before class for the correct creation of the configuration file
+	* @result a copy of the configuration file is created, plus the first serial_settings file is successfully created
+	*/
 	@BeforeClass
 	public static void createFile() throws IOException {
 		String path1 = path+filename;
@@ -47,13 +51,20 @@ public class SerialTest {
 		from.delete();
 	}
 	
+	/**
+	* Junit test to verify the correct creation of the file
+	* @result the result expects true, to indicate the correct creation of the file
+	*/
 	@Test
 	public void testFile() {
 	   File f = new File(path+filename);
 	   assertTrue(f.exists()); 
 	}
 	
-	
+	/**
+	* Junit test to verify the absence of the configuration file
+	* @result the result expects false with the FileNotFound exception call
+	*/
 	@Test(expected = FileNotFoundException.class)
 	public void InvalidityTest_File() {
 	   File f = new File(path+"serial.xml");
@@ -61,9 +72,9 @@ public class SerialTest {
 	
 	
 	/**
-	 * Creazione del costruttore della classe Serial
-	 * @result Il seriale viene creata nel modo corretto non sviluppando nessuna eccezione
-	 */
+	* Creation of the constructor of the Serial class
+	* @result The serial is created correctly by not developing any exceptions
+	*/
 	@Test
 	public void ValidityTest_Constructor1_notNullObject() {
 		Serial s = new Serial(BloodGroup.ABneg);
@@ -71,9 +82,9 @@ public class SerialTest {
 	}
 	
 	/**
-	 * Creazione del costruttore della classe Serial
-	 * @result Se la stringa del seriale è giusta, viene inserito il seriale nuovo
-	 */
+	* Creation of the constructor of the Serial class
+	* @result If the serial string is correct, the new serial is inserted
+	*/
 	@Test
 	public void ValidityTest_Serial_notNullObject() {
 		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
@@ -81,9 +92,9 @@ public class SerialTest {
 	}
 	
 	/**
-	 * Creazione del costruttore della classe Serial invalido
-	 * @result La stringa del seriale non è valida, quindi ritorna una eccezione
-	 */
+	* Invalid creation of the Serial class constructor
+	* @result The serial string is invalid, so it returns an exception
+	*/
 	@Test (expected = IllegalSerialException.class)
 	public void InvalidityTest_Serial_notNullObject() {
 		Serial s = new Serial("IT-NA206000-Apos-20210416-000");
@@ -91,9 +102,9 @@ public class SerialTest {
 	}
 	
 	/**
-	 * Test del medoto GetSerial
-	 * @result ritorna la convalida del metodo getSerial
-	 */
+	* Test of the Get Serial method
+	* @result returns the validation of the getSerial method
+	*/
 	@Test
 	public void ValidityTest_getSerial_notNullObject() {
 		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
@@ -101,9 +112,9 @@ public class SerialTest {
 	}
 	
 	/**
-	 * Test del medoto TOSTRING
-	 * @result ritorna tutte le informazioni della classe Serial
-	 */
+	* Test of the TOSTRING method
+	* @result returns all information of the Serial class
+	*/
 	@Test
 	public void ValidityTest_ToString_notNullObject() {
 		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
@@ -111,9 +122,9 @@ public class SerialTest {
 	}
 	
 	/**
-	 * Verifica del funzionamento del metodo equal
-	 * @result ritorna true perchè paragono due oggetti Serial
-	 */
+	* Verification of the operation of the equal method
+	* @result returns true because I compare two Serial objects
+	*/
 	@Test
 	public void ValidityTest_Equals_notNullObject() {
 		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
@@ -122,10 +133,10 @@ public class SerialTest {
 	}
 	
 	/**
-	 * Verifica del funzionamento del metodo equal
-	 * @throws ParseException 
-	 * @result ritorna false perchè non paragono due oggetti Serial
-	 */
+	* Verification of the operation of the equal method
+	* @throws ParseException
+	* @result returns false because I don't compare two Serial objects
+	*/
 	@Test
 	public void InvalidityTest_Equals_notNullObject() throws ParseException {
 		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
@@ -133,94 +144,11 @@ public class SerialTest {
 		assertFalse(s.equals(bg));
 	}
 	
-	
-	/*
-    @Test(expected = IllegalArgumentException.class)
-    public void serialDefineWrong() {
-		
-    	BloodGroup g= BloodGroup.valueOf("ads");
-    	new Serial(g);
-    }
-   
-    @ParameterizedTest(name = "")
-	@Test(expected = NullPointerException.class)
-    public void serialDefineNull(String bloodGroup) {
-		
-	   BloodGroup g= BloodGroup.valueOf(bloodGroup);
-   	   new Serial(g);
-    }  */ 
-
-
-	/*
-    @Test
-    public void serialBloodGroupWellDefinedApos() {
-    	BloodGroup g= BloodGroup.valueOf("Apos");
-    	Serial s = new Serial(g);
-    	assertTrue( (s.equals(new Serial(s.toString()))) );
-    }
-   
-    @Test
-    public void serialBloodGroupWellDefinedAneg() {
-    	BloodGroup g= BloodGroup.valueOf("Aneg");
-    	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
-    }
-    
-    @Test
-    public void serialBloodGroupWellDefinedBpos() {
-    	BloodGroup g= BloodGroup.valueOf("Bpos");
-    	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
-    }
-    
-    @Test
-    public void serialBloodGroupWellDefinedBneg() {
-    	BloodGroup g= BloodGroup.valueOf("Bneg");
-    	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
-    }
-    
-    @Test
-    public void serialBloodGroupWellDefinedZEROpos() {
-    	BloodGroup g= BloodGroup.valueOf("ZEROpos");
-    	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
-    }
-    
-    @Test
-    public void serialBloodGroupWellDefinedZEROneg() {
-    	BloodGroup g= BloodGroup.valueOf("ZEROneg");
-    	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
-    }
-
-    @Test
-    public void serialBloodGroupWellDefinedABpos() {
-    	BloodGroup g= BloodGroup.valueOf("ABpos");
-    	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
-    }
-    
-    @Test
-    public void serialBloodGroupWellDefinedABneg() {
-    	BloodGroup g= BloodGroup.valueOf("ABneg");
-    	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
-    }
-    */
-    
-    /*
-    @ParameterizedTest(name = "#{index} - Run serial test with valid bloodGroup = {0}")
-    @MethodSource("bloodGroupWellDefined")
-    //@MethodSource(value = {"Apos", "Aneg"})
-    //@Test
-    public void (String bloodGroup) {
-    	BloodGroup g= BloodGroup.valueOf( bloodGroup );
-    	Serial s = new Serial(g);
-    	assertTrue((s.equals(new Serial(s.toString()))));
-    }
-    */
-	
+	/**
+	* After class for the correct restoration of the configuration file
+	* @throws IOException
+	* @result The result is the successful restore of the serial_settings configuration file
+	*/
 	@AfterClass
 	public static void regeneratonFile() throws IOException {
 		String path1 = path+tempfilename;
@@ -229,6 +157,8 @@ public class SerialTest {
 		File to = new File(path2);
         Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
 	}
+	
+	
     static Stream<String> bloodGroupWellDefined() {
         return Stream.of(
                 "Apos",

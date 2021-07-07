@@ -78,8 +78,6 @@ public class BloodBagManager {
      */
 	
 	public void addBloodBag(BloodBag bloodBag) {
-		
-
     	Document bloodBagD = Document.parse(bloodBag.toString());	
 		this.collection.insertOne(bloodBagD);	
 	}
@@ -92,7 +90,6 @@ public class BloodBagManager {
      */
 	
 	public void deleteBloodBag(BloodBag bloodBag) {
-		
     	Document bloodBagD = Document.parse(bloodBag.toString());	
 		this.collection.deleteOne(bloodBagD);
 	}
@@ -107,7 +104,6 @@ public class BloodBagManager {
      */
 	
 	public Document importBloodBag(String serial) {
-		
 		Bson filter = and(
 						eq("serial", serial),
 						eq("state", BloodBagState.Transfered.toString())

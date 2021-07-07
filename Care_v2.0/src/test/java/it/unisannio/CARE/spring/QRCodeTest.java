@@ -17,12 +17,14 @@ import java.text.ParseException;
 
 import static org.junit.Assert.assertThrows;
 
-public class QRCodeTest {
+/**
+ * JUnit test for Qrcode.
+ */
+
+public class QRCodeTest { 
     /**
-     * this method saves a QR code starting from a
-     * BloodBagDAO object.
-     * this object creates a JSONObject that is passed to the QRCode constructor.
-     *
+     * this method saves a QR code starting from a BloodBagDAO object.
+     * @result this object creates a JSONObject that is passed to the QRCode constructor.
      */
     @Test
     public void testCreateQRFromJSONObject(){
@@ -61,6 +63,7 @@ public class QRCodeTest {
 
     /**
      * this method creates a QR code starting from the BloodBagDAO
+     * @result the result is the correct creation of a QRcode
      */
     @Test
     public void testCreateQRCodeFromBloodBagDao(){
@@ -78,7 +81,9 @@ public class QRCodeTest {
     }
 
     /**
-     * this method creates a QR code starting from a content and an identifier*/
+     * this method creates a QR code starting from a content and an identifier
+     * @result the result is the correct creation of a QRcode
+     */
     @Test
     public void testCreateQRCodeFromString(){
         String qr = "Peppiniello è incazzato";
@@ -89,7 +94,9 @@ public class QRCodeTest {
     }
 
     /**
-     * the same as the previous one, i'm testing the space replacing function*/
+     * this method creates a QR code starting from a content and an identifier with space
+     * @result the result is the correct creation of a QRcode
+     */
     @Test
     public void testCreateQRCodeFromStringReplaceSpaces(){
         String qr = "Peppiniello è incazzato";
@@ -101,7 +108,9 @@ public class QRCodeTest {
 
 
     /**
-     * this method creates a QR code starting from a BloodBag*/
+     * this method creates a QR code starting from a BloodBag
+     * @result the result is the correct creation of a QRcode
+    */
     @Test
     public void testCreateQRCodeFromBloodBag() throws ParseException {
         BloodBag bag = new BloodBag(BloodGroup.ABpos,"RNRGLN99P08A783G");
@@ -110,8 +119,10 @@ public class QRCodeTest {
     }
 
     /**
-     * the same as the previous one, but i'm expecting an exception from the donator CF*/
-    @Test // Test Constructor2 works propertly with valid user and invalid password pattern
+	* Invalid creation of the QRCode class constructor
+	* @result The result is the incorrect creation of the QRcode constructor, with the warning of an error for the fiscal code
+	*/
+    @Test 
     public void invalidTestCreateQRCodeFromBloodBagCF(){
         assertThrows(Exception.class, () -> {
                     BloodBag bag = new BloodBag(BloodGroup.ABpos,"peppiniello");
@@ -121,9 +132,13 @@ public class QRCodeTest {
                 }
         );
     }
+    
     /**
-     * the same as the previous one, but i'm expecting an exception from the blood group*/
-    @Test // Test Constructor2 works propertly with valid user and invalid password pattern
+	* Invalid creation of the QRCode class constructor
+	* @result The result is the incorrect creation of the QRcode constructor, 
+	* with the warning of an error for the blood group
+	*/
+    @Test 
     public void invalidTestCreateQRCodeFromBloodBagGroup(){
         assertThrows(Exception.class, () -> {
                     BloodBag bag = new BloodBag(BloodGroup.valueOf("peppiniello"),"RNRGLN99P08A783G");
@@ -133,9 +148,13 @@ public class QRCodeTest {
                 }
         );
     }
+    
     /**
-     * the same as the previous one, but i'm expecting an exception from both the group and the CF*/
-    @Test // Test Constructor2 works propertly with valid user and invalid password pattern
+	* Invalid creation of the QRCode class constructor
+	* @result The result is the incorrect creation of the QRcode constructor, 
+	* with the warning of an error for the blood group & fiscal code
+	*/
+    @Test 
     public void invalidTestCreateQRCodeFromBloodBagBoth(){
         assertThrows(Exception.class, () -> {
                     BloodBag bag = new BloodBag(BloodGroup.valueOf("peppiniello"),"peppiniello");
