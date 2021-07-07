@@ -40,12 +40,11 @@ import it.unisannio.CARE.model.util.Password;
 
 public class BloodBagTest {
 	
-	
 	/**
-	 * Creazione del costruttore della classe BloodGroup
-	 * @throws ParseException
-	 * @result La sacca viene creata nel modo corretto non sviluppando nessuna eccezione
-	 */
+	* Creation of the BloodGroup class constructor
+	* @throws ParseException
+	* @result The bag is created correctly by not developing any exceptions
+	*/
 	@Test
 	public void ValidityTest_Constructor1_notNullObject() throws ParseException {
 		BloodBag bg = new BloodBag(BloodGroup.ABneg, "PLVDNT96P21A783A");
@@ -54,10 +53,10 @@ public class BloodBagTest {
 	
 	
 	/**
-	 * Creazione non valida del costruttore della classe BloodGroup
-	 * @throws ParseException
-	 * @result La sacca viene creata nel modo non corretto poichè viene inserito un codice fiscale errato
-	 */
+	* Invalid creation of the BloodGroup class constructor
+	* @throws ParseException
+	* @result The bag is created incorrectly as an incorrect tax code is entered
+	*/
 	@Test
 	public void InvalidityTest_Constructor1_notNullObject() throws ParseException {
 		assertThrows(Exception.class, ()->{
@@ -67,10 +66,10 @@ public class BloodBagTest {
 	
 	
 	/**
-	 * Creazione del costruttore della classe BloodGroup
-	 * @throws ParseException
-	 * @result La sacca viene creata nel modo corretto non sviluppando nessuna eccezione
-	 */
+	* Creation of the BloodGroup class constructor
+	* @throws ParseException
+	* @result The bag is created correctly by not developing any exceptions
+	*/
 	@Test
 	public void ValidityTest_Constructor2_notNullObject() throws ParseException {
 		
@@ -85,10 +84,10 @@ public class BloodBagTest {
 	}
 	
 	/**
-	 * Creazione invalida del costruttore della classe BloodGroup con data scadenza sbagliata
-	 * @throws ParseException 
-	 * @result La sacca viene creata nel modo corretto non sviluppando nessuna eccezione
-	 */
+	* Invalid creation of the BloodGroup class constructor with wrong expiration date
+	* @throws ParseException
+	* @result The bag is created correctly by not developing any exceptions
+	*/
 	@Test(expected = ParseException.class) 
 	public void InvalidityTest_Constructor2_notNullObject() throws ParseException{
 		
@@ -103,13 +102,11 @@ public class BloodBagTest {
 	}
 	
 	
-	
-	
 	/**
-	 * Creazione invalida del costruttore della classe BloodGroup con data di sbagliata
-	 * @throws ParseException
-	 * @result La sacca viene creata nel modo corretto non sviluppando nessuna eccezione
-	 */
+	* Invalid creation of the BloodGroup class constructor with wrong date
+	* @throws ParseException
+	* @result The bag is created correctly by not developing any exceptions
+	*/
 	@Test
 	public void InvalidityTest2_Constructor2_notNullObject() throws ParseException {
 		
@@ -124,10 +121,10 @@ public class BloodBagTest {
 	} 
 	
 	/**
-	 * Creazione invalida del costruttore della classe BloodGroup con Seriale Invalido
-	 * @throws ParseException 
-	 * @result La sacca viene creata nel modo corretto ma inserendo un errore nel seriale e quindi richiama l'eccezione
-	 */
+	* Invalid creation of the BloodGroup class constructor with Invalid Serial
+	* @throws ParseException
+	* @result The bag is created in the correct way but by inserting an error in the serial and then calling the exception
+	*/
 	@Test(expected = IllegalSerialException.class)  
 	public void InvalidityTest3_Constructor2_notNullObject() throws ParseException{
 		
@@ -142,10 +139,10 @@ public class BloodBagTest {
 	}
 	
 	/**
-	 * Creazione invalida del costruttore della classe BloodGroup con una data di scadenza precendente a quella di creazione
-	 * @throws ParseException 
-	 * @result La sacca viene creata nel modo corretto ma ritornerà un eccezione per la data di scadenza precedente a quella di creazione
-	 */
+	* Invalid creation of the BloodGroup class constructor with an expiration date earlier than the creation date
+	* @throws ParseException
+	* @result The bag is created correctly but will return an exception for the expiration date prior to the creation date
+	*/
 	@Test(expected = IllegalDateException.class)  
 	public void InvalidityTest4_Constructor2_notNullObject() throws ParseException{
 		
@@ -160,10 +157,10 @@ public class BloodBagTest {
 	}
 	
 	/**
-	 * Creazione invalida del costruttore della classe BloodGroup con un codice fiscale errato
-	 * @throws ParseException 
-	 * @result La sacca viene creata nel modo corretto ma ritornerà un eccezione per per il codice fiscale errato
-	 */
+	* Invalid creation of the BloodGroup class constructor with an incorrect tax code
+	* @throws ParseException
+	* @result The bag is created correctly but will return an exception for the wrong fiscal code
+	*/
 	@Test(expected = IllegalArgumentException.class)  
 	public void InvalidityTest5_Constructor2_notNullObject() throws ParseException{
 		
@@ -179,10 +176,10 @@ public class BloodBagTest {
 	
 	
 	/**
-	 * Creazione Junit per la verica del metodo GET Serial 
-	 * @throws ParseException 
-	 * @result ritorna il funzionamento del metodo getSerial
-	 */
+	* Junit creation for the verification of the GET Serial method
+	* @throws ParseException
+	* @result returns the operation of the getSerial method
+	*/
 	@Test
 	public void ValidityTest_getSerial_notNullObject() throws ParseException{
 		Serial S = new Serial ("IT-NA206000-Apos-20210416-0001");
@@ -192,10 +189,10 @@ public class BloodBagTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo GET del gruppo
-	 * @throws ParseException 
-	 * @result ritorna il Get del metodo del gruppo della sacca 
-	 */
+	* Junit creation for the verification of the group's GET method
+	* @throws ParseException
+	* @result returns the Get of the bag group method
+	*/
 	@Test
 	public void ValidityTest_getBloodGroup_notNullObject() throws ParseException{
 		Serial S = new Serial ("IT-NA206000-Apos-20210416-0001");
@@ -205,11 +202,11 @@ public class BloodBagTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo SET del gruppo
-	 * @throws ParseException 
-	 * @result Viene utilizzato il metodo SET del tipo del gruppo della sacca di sangue,
-	 * 			il quale ritorna errore e innesca una eccezione 
-	 */
+	* Junit creation for the verification of the group SET method
+	* @throws ParseException
+	* @result The SET method of the blood bag group type is used,
+	* 			which returns error and triggers an exception
+	*/
 	@Test(expected = IllegalArgumentException.class)
 	public void ValidityTest_setBloodGroup_notNullObject() throws ParseException{
 		Serial S = new Serial ("IT-NA206000-Apos-20210416-0001");
@@ -221,10 +218,10 @@ public class BloodBagTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo GET della creazione delle date
-	 * @throws ParseException 
-	 * @result ritorna il corretto funzionamento del metodo ritorno della data di creazione
-	 */
+	* Junit creation for the verification of the GET method of the creation of the dates
+	* @throws ParseException
+	* @result returns the correct operation of the creation date return method
+	*/
 	@Test
 	public void ValidityTest_getCreationDate_notNullObject() throws ParseException{
 		
@@ -234,10 +231,10 @@ public class BloodBagTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo GET della data di scadenza
-	 * @throws ParseException 
-	 * @result ritorna il corretto funzionamento del metodo ritorno della data di scadenza
-	 */
+	* Junit creation for the verification of the GET method of the expiration date
+	* @throws ParseException
+	* @result returns the correct operation of the return expiration date method
+	*/
 	@Test
 	public void ValidityTest_getExpirationDate_notNullObject() throws ParseException{
 	
@@ -255,13 +252,11 @@ public class BloodBagTest {
 	}
 	
 
-	
-	
 	/**
-	 * Creazione Junit per la verica del metodo GET della data di creazione S
-	 * @throws ParseException 
-	 * @result ritorna il corretto funzionamento del metodo ritorno della data di creazione S
-	 */
+	* Junit creation for the verification of the GET method of the creation date S
+	* @throws ParseException
+	* @result returns the correct operation of the S creation date return method
+	*/
 	@Test
 	public void ValidityTest_getCreationDateS_notNullObject() throws ParseException{
 		
@@ -278,10 +273,10 @@ public class BloodBagTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo GET del codice fiscale del donatore
-	 * @throws ParseException 
-	 * @result ritorna il corretto funzionamento del metodo ritorno del codice fiscale del donatore
-	 */
+	* Junit creation for the verification of the GET method of the donor's tax code
+	* @throws ParseException
+	* @result returns the correct functioning of the return method of the donor's tax code
+	*/
 	@Test
 	public void ValidityTest_getDonatorCF_notNullObject() throws ParseException{
 	
@@ -293,10 +288,10 @@ public class BloodBagTest {
 	
 	
 	/**
-	 * Creazione Junit per la verica del metodo GET del tipo del gruppo sanguineo della sacca
-	 * @throws ParseException 
-	 * @result ritorna il corretto funzionamento del metodo ritorno del gruppo sanguineo della sacca
-	 */
+	* Junit creation for the verification of the GET method of the blood group type of the bag
+	* @throws ParseException
+	* @result returns the correct functioning of the blood group return method of the bag
+	*/
 	@Test
 	public void ValidityTest_getBloodType_notNullObject() throws ParseException{
 	
@@ -308,10 +303,10 @@ public class BloodBagTest {
 	
 	
 	/**
-	 * Creazione Junit per la verica del metodo GET delle note della sacca
-	 * @throws ParseException 
-	 * @result ritorna il corretto funzionamento del metodo ritorno delle note della sacca
-	 */
+	* Junit creation for the verification of the GET method of the bag notes
+	* @throws ParseException
+	* @result returns the correct functioning of the return method of the notes of the bag
+	*/
 	@Test
 	public void ValidityTest_getNote_notNullObject() throws ParseException{
 	
@@ -323,10 +318,10 @@ public class BloodBagTest {
 	
 	
 	/**
-	 * Creazione Junit per la verica del metodo GET dello stato delle sacche 
-	 * @throws ParseException 
-	 * @result ritorna il corretto funzionamento del metodo ritorno dello stato delle sacche 
-	 */
+	* Junit creation for the verification of the GET method of the status of the bags
+	* @throws ParseException
+	* @result returns the correct functioning of the return of the bag status method
+	*/
 	@Test
 	public void ValidityTest_getBloodBagState_notNullObject() throws ParseException{
 	
@@ -336,10 +331,10 @@ public class BloodBagTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo TOSTRING delle informazioni delle sacche
-	 * @throws ParseException 
-	 * @result ritorna tutte le informazioni delle sacche
-	 */
+	* Junit creation for the verification of the TOSTRING method of the bag information
+	* @throws ParseException
+	* @result returns all bag information
+	*/
 	@Test
 	public void ValidityTest_ToString_notNullObject() throws ParseException{
 
@@ -349,10 +344,10 @@ public class BloodBagTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo del PRINT 
-	 * @throws ParseException 
-	 * @result ritorna tutte le informazioni di print
-	 */
+	* Junit creation for the verification of the PRINT method
+	* @throws ParseException
+	* @result returns all print information
+	*/
 	@Test
 	public void ValidityTest_Print_notNullObject() throws ParseException{
 
@@ -363,10 +358,10 @@ public class BloodBagTest {
 	
 	
 	/**
-	 * Creazione Junit per la verica del metodo Comprare
-	 * @throws ParseException 
-	 * @result ritorna se la comparazione di due oggetti è funzionante
-	 */
+	* Junit creation to verify the Buy method
+	* @throws ParseException
+	* @result returns if the comparison of two objects works
+	*/
 	@Test
 	public void ValidityTest_compareTo_notNullObject() throws ParseException{
 
@@ -379,10 +374,10 @@ public class BloodBagTest {
 	
 	
 	/**
-	 * Creazione Junit per la verica del metodo getBean
-	 * @throws ParseException 
-	 * @result ritorna le informazioni getBean
-	 */
+	* Junit creation to verify the getBean method
+	* @throws ParseException
+	* @result returns the getBean information
+	*/
 	@Test
 	public void ValidityTest_getBean_notNullObject() throws ParseException{
 
@@ -392,10 +387,10 @@ public class BloodBagTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo AppendNote
-	 * @throws ParseException 
-	 * @result ritorna le informazioni getBean
-	 */
+	* Junit creation for the verification of the AppendNote method
+	* @throws ParseException
+	* @result returns the getBean information
+	*/
 	@Test
 	public void ValidityTest_appendNote_notNullObject() throws ParseException{
 
@@ -405,10 +400,10 @@ public class BloodBagTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo equals 
-	 * @throws ParseException 
-	 * @result ritorna le informazioni equals, in questo caso ritorna falso perchè i due oggetti non sono uguali
-	 */
+	* Junit creation for the verification of the equals method
+	* @throws ParseException
+	* @result returns the equals information, in this case it returns false because the two objects are not equal
+	*/
 	@Test
 	public void InvalidityTest_equals_notNullObject() throws ParseException{
 
@@ -426,10 +421,10 @@ public class BloodBagTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo equals 
-	 * @throws ParseException 
-	 * @result ritorna le informazioni equals, in questo caso ritorna falso perchè le due sacche non sono uguali
-	 */
+	* Junit creation for the verification of the equals method
+	* @throws ParseException
+	* @result returns the equals information, in this case it returns false because the two pockets are not equal
+	*/
 	@Test
 	public void ValidityTest_equals_notNullObject() throws ParseException{
 
@@ -455,10 +450,10 @@ public class BloodBagTest {
 	
 
 	/**
-	 * Creazione Junit per la verica del metodo SET della creationDate con una data dopo il limite di 7gg
-	 * @throws ParseException 
-	 * @result ritorna il corretto funzionamento del metodo in caso la data sia dopo della data di creazione
-	 */
+	* Junit creation for the verification of the SET method of the creationDate with a date after the limit of 7 days
+	* @throws ParseException
+	* @result returns the correct functioning of the method in case the date is after the creation date
+	*/
 	@Test(expected = IllegalDateException.class)
 	public void ValidityTest_setCreationDate_notNullObject() throws ParseException{
 		
@@ -475,10 +470,10 @@ public class BloodBagTest {
 	}
 	
 	/**
-	 * Creazione Junit per la verica del metodo SET della creationDate con una data dopo il limite di 7gg
-	 * @throws ParseException 
-	 * @result ritorna il corretto funzionamento del metodo in caso la data sia prima della data di creazione
-	 */
+	* Junit creation for the verification of the SET method of the creationDate with a date after the limit of 7 days
+	* @throws ParseException
+	* @result returns the correct functioning of the method in case the date is before the creation date
+	*/
 	@Test(expected = IllegalDateException.class)
 	public void ValidityTest_setCreationDate2_notNullObject() throws ParseException{
 		

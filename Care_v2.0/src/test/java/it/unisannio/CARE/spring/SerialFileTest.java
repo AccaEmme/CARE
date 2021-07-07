@@ -29,9 +29,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-
-
 /*
+ *
+ * JUnit test for Serial.
  * Si preferisce generare due SerialTest in quanto entrambi hanno un @BeforeClass che porta in due stati differenti.
  *
  */
@@ -43,6 +43,12 @@ public class SerialFileTest {
 	private static Date dNow = new Date();
 	private static String currentDate_aaaaMMdd = ft.format(dNow);
 	
+	
+	/**
+	* Before class for the correct creation of the configuration file
+	* @throws IOException
+	* @result a copy of the configuration file is created, plus the first serial_settings file is successfully created
+	*/
 	@BeforeClass
 	public static void createFile() throws IOException {
 		
@@ -58,37 +64,46 @@ public class SerialFileTest {
 		/*uso direttamente serial_setting_temp*/
 		
 	}
-
+ 
+	/**
+	* Test to verify the correct functioning of the NewDate
+	* @throws InvalidPropertiesFormatException
+	* @throws InvalidPropertiesFormatException
+	* @throws IOException
+	* @result The result is true if the counter has a value of 3
+	*/
 	@Test
-	public void testNewDate() throws InvalidPropertiesFormatException, FileNotFoundException, IOException {	
+	public void testNewDate() throws InvalidPropertiesFormatException, InvalidPropertiesFormatException, IOException {	
 		String path3 = path+"serial_settings.xml";
-	 	
-	    
-
-		  Properties loadProps = new Properties();
-		  loadProps.loadFromXML(new FileInputStream(path3));
-	      int  counter = Integer.valueOf(loadProps.getProperty("counter"));
-		 assertTrue(counter==3); 
+		Properties loadProps = new Properties();
+		loadProps.loadFromXML(new FileInputStream(path3));
+	    int  counter = Integer.valueOf(loadProps.getProperty("counter"));
+	    assertTrue(counter==3); 
 		/*testo se ha la data di oggo*/
 	} 
 	
+	/**
+	* Test to verify the correct functioning of the Counter
+	* @throws InvalidPropertiesFormatException
+	* @throws InvalidPropertiesFormatException
+	* @throws IOException
+	* @result The result is true if the counter is right 
+	*/
 	@Test
 	public void testCounter() throws InvalidPropertiesFormatException, FileNotFoundException, IOException {
 		String path3 = path+"serial_settings.xml";
-
-
-		  Properties loadProps = new Properties();
-		  loadProps.loadFromXML(new FileInputStream(path3));
-	      int  lastdate =Integer.valueOf(loadProps.getProperty("lastdate"));
-	    	assertTrue(lastdate==Integer.parseInt(currentDate_aaaaMMdd));
+		Properties loadProps = new Properties();
+		loadProps.loadFromXML(new FileInputStream(path3));
+	    int  lastdate =Integer.valueOf(loadProps.getProperty("lastdate"));
+	    assertTrue(lastdate==Integer.parseInt(currentDate_aaaaMMdd));
 		/*contatore deve partire da uno*/
 	}
 
 	
 	/**
-	 * Creazione del costruttore della classe Serial
-	 * @result Il seriale viene creata nel modo corretto non sviluppando nessuna eccezione
-	 */
+	* Creation of the constructor of the Serial class
+	* @result The serial is created correctly by not developing any exceptions
+	*/
 	@Test
 	public void ValidityTest_Constructor1_notNullObject() {
 		Serial s = new Serial(BloodGroup.ABneg);
@@ -96,9 +111,9 @@ public class SerialFileTest {
 	}
 	
 	/**
-	 * Creazione del costruttore della classe Serial
-	 * @result Se la stringa del seriale è giusta, viene inserito il seriale nuovo
-	 */
+	* Creation of the constructor of the Serial class
+	* @result If the serial string is correct, the new serial is inserted
+	*/
 	@Test
 	public void ValidityTest_Serial_notNullObject() {
 		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
@@ -106,9 +121,9 @@ public class SerialFileTest {
 	}
 	
 	/**
-	 * Creazione del costruttore della classe Serial invalido
-	 * @result La stringa del seriale non è valida, quindi ritorna una eccezione
-	 */
+	* Invalid creation of the Serial class constructor
+	* @result The serial string is invalid, so it returns an exception
+	*/
 	@Test (expected = IllegalSerialException.class)
 	public void InvalidityTest_Serial_notNullObject() {
 		Serial s = new Serial("IT-NA206000-Apos-20210416-000");
@@ -116,9 +131,9 @@ public class SerialFileTest {
 	}
 	
 	/**
-	 * Test del medoto GetSerial
-	 * @result ritorna la convalida del metodo getSerial
-	 */
+	* Test of the Get Serial method
+	* @result returns the validation of the getSerial method
+	*/
 	@Test
 	public void ValidityTest_getSerial_notNullObject() {
 		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
@@ -126,9 +141,9 @@ public class SerialFileTest {
 	}
 	
 	/**
-	 * Test del medoto TOSTRING
-	 * @result ritorna tutte le informazioni della classe Serial
-	 */
+	* Test of the TOSTRING method
+	* @result returns all information of the Serial class
+	*/
 	@Test
 	public void ValidityTest_ToString_notNullObject() {
 		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
@@ -136,9 +151,9 @@ public class SerialFileTest {
 	}
 	
 	/**
-	 * Verifica del funzionamento del metodo equal
-	 * @result ritorna true perchè paragono due oggetti Serial
-	 */
+	* Verification of the operation of the equal method
+	* @result returns true because I compare two Serial objects
+	*/
 	@Test
 	public void ValidityTest_Equals_notNullObject() {
 		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
@@ -147,10 +162,10 @@ public class SerialFileTest {
 	}
 	
 	/**
-	 * Verifica del funzionamento del metodo equal
-	 * @throws ParseException 
-	 * @result ritorna false perchè non paragono due oggetti Serial
-	 */
+	* Verification of the operation of the equal method
+	* @throws ParseException
+	* @result returns false because I don't compare two Serial objects
+	*/
 	@Test
 	public void InvalidityTest_Equals_notNullObject() throws ParseException {
 		Serial s = new Serial("IT-NA206000-Apos-20210416-0001");
@@ -158,7 +173,11 @@ public class SerialFileTest {
 		assertFalse(s.equals(bg));
 	}
 
-	
+	/**
+	* After class for the correct restoration of the configuration file
+	* @throws IOException
+	* @result The result is the successful restore of the serial_settings configuration file
+	*/
 	@AfterClass
 	public static void regeneratonFile() throws IOException {
 	
