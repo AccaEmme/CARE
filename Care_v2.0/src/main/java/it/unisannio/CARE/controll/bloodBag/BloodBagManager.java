@@ -29,6 +29,9 @@ import it.unisannio.CARE.model.exceptions.RequestCloneNotSupportedException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.XMLHelper;
 
+/*
+ * Class that contains all methods for handling blood bags
+ */
 
 
 public class BloodBagManager {
@@ -40,10 +43,10 @@ public class BloodBagManager {
     
 	/**
      **************************************************************************
-     * Metodo costruttore per la classe BloodManager
-     * @param URI Il link del Database
-     * @param databaseName Nome del Database
-     * @param collectionName
+      * Constructor method for the BloodManager class
+      * @param URI The Database link
+      * @param databaseName Name of the Database
+      * @param collectionName
      **************************************************************************
      */
 	
@@ -55,7 +58,11 @@ public class BloodBagManager {
 	}
 	
 	
-	
+	/**
+     **************************************************************************
+     * Constructor method for the BloodManager class
+     **************************************************************************
+     */
 	public BloodBagManager() {
 		
 		Properties properties = XMLHelper.getProps(Constants.MONGODB_CREDENTIALS);
@@ -72,8 +79,8 @@ public class BloodBagManager {
 	
 	/**
      **************************************************************************
-     * Metodo Per aggiungere una sacca di sangue 
-     * @param bloodBag  Oggetto per le informazioni sulla sacca di sangue
+     * Method To add a blood bag
+     * @param bloodBag Object for blood bag information
      **************************************************************************
      */
 	
@@ -84,8 +91,8 @@ public class BloodBagManager {
 	
 	/**
      **************************************************************************
-     * Metodo Per eliminare una sacca di sangue 
-     * @param bloodBag  Oggetto per le informazioni sulla sacca di sangue
+     * Method To eliminate a blood bag
+     * @param bloodBag Object for blood bag information
      **************************************************************************
      */
 	
@@ -96,10 +103,10 @@ public class BloodBagManager {
 	
 	/**
      **************************************************************************
-     * Metodo Per importare una sacca di sangue 
-     * @param serial Il seriale della sacca di sangue da importare
-     * @throws BloodBagNotFoundException
-     * @return bloodBagD
+      * Method To import a blood bag
+      * @param serial The serial of the blood bag to import
+      * @throws BloodBagNotFoundException
+      * @return bloodBagD
      **************************************************************************
      */
 	
@@ -119,10 +126,10 @@ public class BloodBagManager {
 	
 	/**
      **************************************************************************
-     * Metodo Per ottenere la sacca di sangue
-     * @param serial Il seriale della sacca di sangue da leggere
-     * @throws BloodBagNotFoundException
-     * @return bloodBagD
+      * Method To get the blood bag
+      * @param serial The serial of the blood bag to read
+      * @throws BloodBagNotFoundException
+      * @return bloodBagD
      **************************************************************************
      */
 	
@@ -142,7 +149,7 @@ public class BloodBagManager {
 	
 	/**
      **************************************************************************
-     * Metodo Per ottenere una lista di sacche di sangue
+     * Method To get a list of blood bags
      * @return bloodBags
      **************************************************************************
      */
@@ -187,9 +194,9 @@ public class BloodBagManager {
 	
 	/**
      **************************************************************************
-     * Metodo Filtrare se la sacca esiste 
-     * @param serial_r Il seriale della sacca di sangue da ricercare
-     * @throws BloodBagNotFoundException
+      * Method Filter if the bag exists
+      * @param serial_r The serial of the blood bag to search for
+      * @throws BloodBagNotFoundException
      **************************************************************************
      */
 	
@@ -206,7 +213,7 @@ public class BloodBagManager {
 	
 	/**
      **************************************************************************
-     * Metodo per la chiusura del client di mongoDB
+     * Method for closing the mongoDB client
      **************************************************************************
      */
 	
