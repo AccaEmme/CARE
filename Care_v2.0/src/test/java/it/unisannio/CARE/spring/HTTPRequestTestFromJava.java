@@ -34,21 +34,24 @@ public class HTTPRequestTestFromJava {
         URL url = new URL("http://127.0.0.1:8087/authenticate");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
+        //imposto il token
         conn.setRequestProperty("Authorization","Bearer "+"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmb2xsZW45OSIsInVzZXJSb2xlIjoiUk9MRV9BRE1JTklTVFJBVE9SIiwiZXhwIjoxNjI1Njc1NjA1LCJpYXQiOjE2MjU2NzA2MDV9.3EsvmavTjuSYtBO01gYdzVj8NC5vA2-seySU-8sJodbM75WgNc7FBh96RML3grIS3lpwRaFWf0cnEByRrWl-9Q");
         //e.g. bearer token= eyJhbGciOiXXXzUxMiJ9.eyJzdWIiOiPyc2hhcm1hQHBsdW1zbGljZS5jb206OjE6OjkwIiwiZXhwIjoxNTM3MzQyNTIxLCJpYXQiOjE1MzY3Mzc3MjF9.O33zP2l_0eDNfcqSQz29jUGJC-_THYsXllrmkFnk85dNRbAw66dyEKBP5dVcFUuNTA8zhA83kk3Y41_qZYx43T
 
-        conn.setRequestProperty("Content-Type","application/json");
+        conn.setRequestProperty("Content-Type", "application/json; utf-8");
         conn.setRequestMethod("GET");
 
-        conn.setRequestProperty("Content-Type", "application/json; utf-8");
+
         conn.setRequestProperty("Accept", "application/json");
         conn.setDoOutput(true);
 
+        //costruisco il body
         JSONObject object = new JSONObject();
             object.put("username","follen99");
             object.put("password","Apicelloo9+");
         String jsonInputString = object.toJSONString();
 
+        //invio la richiesta
         try {
             OutputStream os = conn.getOutputStream();
             byte[] input = jsonInputString.getBytes("utf-8");
@@ -57,6 +60,8 @@ public class HTTPRequestTestFromJava {
             e.printStackTrace();
         }
 
+
+        //leggo la risposta
         try(BufferedReader br = new BufferedReader(
                 new InputStreamReader(conn.getInputStream(), "utf-8"))) {
             StringBuilder response = new StringBuilder();
@@ -66,18 +71,6 @@ public class HTTPRequestTestFromJava {
             }
             System.out.println(response.toString());
         }
-
-        /*BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        String output;
-
-        StringBuffer response = new StringBuffer();
-        while ((output = in.readLine()) != null) {
-            response.append(output);
-        }
-
-        in.close();
-        // printing result from response
-        System.out.println("Response:-" + response.toString());*/
     }
 
 
