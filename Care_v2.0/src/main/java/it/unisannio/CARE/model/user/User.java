@@ -13,6 +13,10 @@ import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.Password;
 import it.unisannio.ingsof20_21.group8.Care.Spring.UserDAO;
 
+/*
+ * User class that contains all user methods
+ */
+
 public class User {
 	private String 		username, hiddenPassword, temppass, plainTextPassword, email;
 	//private Location 	residence;
@@ -22,7 +26,15 @@ public class User {
 	
 
 	
-	// Costruttore creazione utente
+	/**
+	**************************************************************************
+	 * Method for creating a user with a clear password and role
+	 * @param username Username
+	 * @param plainTextPassword unencrypted password choice
+	 * @param role The user's role
+	 * @throws IllegalPatternException
+	 **************************************************************************
+    */
 	public User(String username, String plainTextPassword, Role role)throws IllegalPatternException {		
 		this.setUsername(username);
 		if(plainTextPassword.equals("")) {
@@ -72,9 +84,10 @@ public class User {
     
     /**
 	**************************************************************************
-	 * Metodo per la gestione dell'utente con una passw criptata
-	 * @param String username, String hiddenPassword
-	 * @exception UserException, NullPasswordException
+	* Method for managing the user with an encrypted password
+	* @param username username
+	* @param hiddenPassword encrypted password
+	* @throws UserException, NullPasswordException
 	 **************************************************************************
     */
 	 
@@ -126,8 +139,8 @@ public class User {
 
 	/**
 	**************************************************************************
-	 * Metodo GET per ottenere lo username 
-	 * @return username
+	* GET method to get the username
+	* @return returns the username as a string
 	 **************************************************************************
     */
     public String getUsername() {
@@ -136,8 +149,9 @@ public class User {
 
     /**
 	**************************************************************************
-	 * Metodo SET per modificare lo username 
-	 * @param String username 
+	* SET method to change the username
+	* @param username username user
+	* @exception IllegalArgumentException
 	 **************************************************************************
     */
     public void setUsername(String username) {
@@ -147,8 +161,8 @@ public class User {
 
     /**
 	**************************************************************************
-	 * Metodo GET per ottenere la hidden password
-	 * @return password
+	* GET method to get the hidden password
+	* @return Returns the password as a string
 	 **************************************************************************
     */
     public String getPassword() {
@@ -157,9 +171,9 @@ public class User {
 
     /**
    	**************************************************************************
-   	 * Metodo SET per il moodificare la password
-   	 * @param String plainTextPassword
-     * @throws IllegalPatternException 
+   	* SET method for changing the password
+   	* @param plainTextPassword password to enter
+   	* @throws IllegalPatternException
    	 **************************************************************************
        */
     
@@ -181,8 +195,8 @@ public class User {
     
     /**
 	**************************************************************************
-	 * Metodo GET per ottenere l'ultima password registrata
-	 * @return password_lastupdate
+	* GET method to get the last registered password
+	* @return returns the last registered password date
 	 **************************************************************************
     */
     public Date getPasswordLastUpdate() {
@@ -190,24 +204,34 @@ public class User {
     }
    
     
+    /**
+   	**************************************************************************
+   	* SET method to change the email entered
+   	* @param email Email to be entered
+    * @throws lllegalEmailException
+   	 **************************************************************************
+       */
+    
     public void setEmail(String email) throws lllegalEmailException {
     	if(!email.matches(Constants.RegexEmail) ) throw new lllegalEmailException("Email not valid");
 		this.email = email;
 	}
     
     
-	public String getEmail()
-	
-	{return this.email;}
-	
-
-
-
+    /**
+	**************************************************************************
+	* GET method to get the email
+	* @return returns the user's email
+	 **************************************************************************
+    */
+	public String getEmail(){
+		return this.email;
+		}
 
 	/**
 	**************************************************************************
-	 * Metodo GET per ottenere il ruolo dell'utente
-	 * @return role
+	* GET method to get the user's role
+	* @return returns the user's role
 	 **************************************************************************
     */
     public Role getRole() {
@@ -216,8 +240,8 @@ public class User {
     
     /**
 	**************************************************************************
-	 * Metodo SET per modificare il Ruolo
-	 * @param Role r
+	* SET method to change the Role
+	* @param r The new role of the user
 	 **************************************************************************
     */
     public void setRole(Role r) {
@@ -226,8 +250,8 @@ public class User {
    
     /**
 	**************************************************************************
-	 * Metodo per il return dell'utente come document xml
-	 * @return document
+	* Method for returning user as document xml
+	* @return returns information for the xml document
 	 **************************************************************************
     */
     public Document getDocument(){
@@ -244,7 +268,7 @@ public class User {
     
     /**
 	 **************************************************************************
-	 * Metodo per eseguire il parsing da User in UserDAO
+	 * Method for parsing by User in UserDAO
 	 * @return UserDAO
 	 **************************************************************************
 	 */
@@ -281,7 +305,7 @@ public class User {
     
     /**
 	 **************************************************************************
-	 * Metodo per il tester Junit per verificare l'esistenza dell'oggetto USER
+	 * Method for the Junit tester to verify the existence of the USER object
 	 * @return true
 	 **************************************************************************
 	 */

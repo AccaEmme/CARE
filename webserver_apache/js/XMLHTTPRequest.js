@@ -77,42 +77,42 @@ function HTTPPost(url, token, jsonBodyString,mex){
     };
 }
 //================= Methods: HTTP_DELETE
-function HTTPDelete(url, token){/*
+/*
     event.preventDefault();
 	let request2 = new XMLHttpRequest();   // new HttpRequest instance
-    alert("PRIMO");
+  
 	request2.open("DELETE", url, true);
 	request2.setRequestHeader('Authorization', 'Bearer ' + token);
     alert("SECONDO");
-	request2.onreadystatechange = function() {
+	request2.onload = function() {
         alert("TERZO");
-	 if (this.readyState === 4 &&  this.status === 200 ) {
+	 if (this.readyState === 4 ) {
 	  console.log("Request: token " + token );
 	  console.log("Response: "+ this.responseText);
 	  let results = JSON.parse(this.responseText);
-         } else {
-alert("error"+this.responseText)
-	 }
-       };*/
+      if(this.status === 500) {
+        alert("error"+this.responseText);
+    }else if(this.status === 200){
+        alert(mex);
+    }
+}
+       };
+    }*/
 
-
-       var xhr = new XMLHttpRequest();
+function HTTPDelete(url, token, mex){
+       let xhr = new XMLHttpRequest();
     xhr.open("DELETE", url, true);
     xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-   
-    xhr.onload = function () {
-    
-	var users = JSON.parse(xhr.responseText);
-	if (xhr.readyState == 4 && xhr.status == "200") {
-        console.log("Request: token " + token );
-        console.log("Response: "+ this.responseText);
-	} else {
-		lert("error"+this.responseText)
-	}
-}
-xhr.send(null);
 
-}
+    
+
+    xhr.onload = function(){}; 
+       
+	
+    alert(mex);
+    xhr.send(null);
+
+};
 
 
 
@@ -199,8 +199,8 @@ function acceptRequest(url,token,jsonBody){
 
 //=================BloodBag Methods: DELETE
 function useBloodBag(url, token){
-    alert(url);
-HTTPDelete(url, token);
+var mex='sacca rimossa';
+HTTPDelete(url, token, mex);
 location.reload();
 
 }

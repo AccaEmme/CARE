@@ -27,9 +27,9 @@ import it.unisannio.CARE.model.exceptions.RequestNotFoundException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.XMLHelper;
 
-
-/**Questa classe implementa i metodi che eseguono i vari inserimenti e le varie query, per gestire le richieste inviate dai nodi locali.
- */
+/*
+* This class implements the methods that perform the various insertions and the various queries, to manage the requests sent by the local nodes.
+*/
 public class RequestManager {
 	
 	private MongoClient mongoClient;
@@ -40,10 +40,10 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo costruttore per creare il Request Manager 
-     * @param URI Uniform Resource Identifie
-     * @param databaseName  Deve essere fornito il nome del database
-     * @param collectionName 
+      * Constructor method to create the Request Manager
+      * @param URI Uniform Resource Identifie
+      * @param databaseName The database name must be provided
+      * @param collectionName
      **************************************************************************
      */
 	public RequestManager(String URI, String databaseName, String collectionName) {
@@ -54,7 +54,11 @@ public class RequestManager {
 	}
 	
 	
-	
+	/**
+     **************************************************************************
+      * Constructor method to create the Request Manager
+     **************************************************************************
+     */
 	public RequestManager() {
 		
 		Properties properties = XMLHelper.getProps(Constants.MONGODB_CREDENTIALS);
@@ -73,9 +77,9 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo Per aggiungere una richiesta 
-     * @param request  Oggetto Richista per le informazioni sulla richiesta
-     * @throws RequestCloneNotSupportedException
+      * Method To add a request
+      * @param request Requestor object for request information
+      * @throws RequestCloneNotSupportedException
      **************************************************************************
      */
 	public void addRequest(Request request) {
@@ -108,9 +112,9 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo Per eliminare le richieste inoltrate
-     * @param request  Oggetto Richiesta per le informazioni sulla richiesta
-     * @throws RequestNotFoundException
+      * Method To delete the submitted requests
+      * @param request Request object for information about the request
+      * @throws RequestNotFoundException
      **************************************************************************
      */	
 	public void deleteRequest(Request request) {
@@ -131,9 +135,9 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo Per accettare le richieste inoltrate
-     * @param request  Oggetto Richiesta per le informazioni sulla richiesta
-     * @throws RequestCloneNotSupportedException
+      * Method To accept submitted requests
+      * @param request Request object for information about the request
+      * @exception RequestCloneNotSupportedException
      **************************************************************************
      */
 	public void acceptRequest(Request request) {
@@ -167,6 +171,14 @@ public class RequestManager {
         
 	}
 	
+	
+	/**
+     **************************************************************************
+      * Method To close the submitted requests
+      * @param request Request object for information about the request
+      * @exception RequestCloneNotSupportedException
+     **************************************************************************
+     */
 	public void closeRequest(String serial) {
         
 		Properties prop = XMLHelper.getProps(Constants.NODE_PROPERTIES);
@@ -186,9 +198,9 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo Per declinare una richiesta
-     * @param request  Oggetto Richiesta per le informazioni sulla richiesta
-     * @throws RequestCloneNotSupportedException
+      * Method To decline a request
+      * @param request Request object for information about the request
+      * @exception RequestCloneNotSupportedException
      **************************************************************************
      */
 	public void refuseRequest(Request request) {
@@ -235,9 +247,9 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo Per ottenere le richieste dallo stato
-     * @param state  Oggetto che contiene le informazioni della richiesta di stato
-     * @return requestes
+      * Method To get requests from the state
+      * @param state Object that contains the information of the status request
+      * @return requestes
      **************************************************************************
      */
 	public List<Document> getRequestsByState(RequestState state) {
@@ -260,9 +272,9 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo Per ottenere le richieste dalla priorità
-     * @param state  Oggetto che contiene le informazioni della priorità della richiesta
-     * @return requestes
+      * Method To get requests from priority
+      * @param priority Object that contains the request priority information
+      * @return requestes
      **************************************************************************
      */
 	public List<Document> getRequestsByPriority(RequestPriority priority) {
@@ -284,8 +296,8 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo Per leggere le tutte richieste 
-     * @return requestes
+     * Method To read the many requests 
+     * @return requests
      **************************************************************************
      */
 	
@@ -305,8 +317,8 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo Per leggere le nostre richieste 
-     * @return requestes
+     * Method To read our requests 
+     * @return requests
      **************************************************************************
      */
 	
@@ -332,8 +344,8 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo Per leggere le altre richieste 
-     * @return requestes
+     * Method To read other requests 
+	 * @return requests
      **************************************************************************
      */
 	
@@ -359,7 +371,7 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
-     * Metodo per la chiusura del client di mongoDB
+     * Method for closing the mongoDB client
      **************************************************************************
      */
 	public void close() {
