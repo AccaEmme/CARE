@@ -1,4 +1,99 @@
+<style>
+/* old
+.dot {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.green{
+  background-color: green;
+}
+.yellow{
+  background-color: yellow;
+}
+.red{
+  background-color: red;
+}
+*/
+</style>
+<style>
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
+/* Hide the browser's default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  //background-color: red;
+}
+
+.red{
+  background-color: red;
+}
+
+.yellow{
+  background-color: yellow;
+}
+
+.green{
+  background-color: green;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+</style>
 
 <?php
 $urlAPI = "http://localhost:8087/bloodbag/get/central";
@@ -48,14 +143,14 @@ $requestArray = (array) json_decode($result);
                         <th>
                             Ho bisogno di:
                             <select name="needsof">
-                                <option>A+</option>
-                                <option>B+</option>
-                                <option>AB+</option>
-                                <option>0+</option>
-                                <option>A-</option>
-                                <option>B-</option>
-                                <option>AB-</option>
-                                <option>0-</option>
+                                <option value="Apos">A+</option>
+                                <option value="Bpos">B+</option>
+                                <option value="ABpos">AB+</option>
+                                <option value="ZEROpos">0+</option>
+                                <option value="Aneg">A-</option>
+                                <option value="Bneg">B-</option>
+                                <option value="ABneg">AB-</option>
+                                <option value="ZEROneg">0-</option>
                             </select>
                         </th>
                     </tr>
@@ -81,11 +176,25 @@ $requestArray = (array) json_decode($result);
                           <tr>
                           <td align='center'><input type="checkbox" id="selected_bags" name="selected_bags[]" value="<?php echo ($bagArray[$key]->serial); ?>" />
                           <td>
+<label class="container">Alta
+  <input type="radio" checked="checked" id="priority_<?php echo ($bagArray[$key]->serial); ?>" name="priority_<?php echo ($bagArray[$key]->serial); ?>"  value="red">
+  <span class="checkmark red"></span>
+</label>
+<label class="container">Media
+  <input type="radio" id="priority_<?php echo ($bagArray[$key]->serial); ?>" name="priority_<?php echo ($bagArray[$key]->serial); ?>" value="yellow">
+  <span class="checkmark yellow"></span>
+</label>
+<label class="container">Bassa
+  <input type="radio" id="priority_<?php echo ($bagArray[$key]->serial); ?>" name="priority_<?php echo ($bagArray[$key]->serial); ?>" value="green" checked>
+  <span class="checkmark green"></span>
+</label>
+<!--
                           <select id="selected_priority" name="selected_priority[]">
                             <option value="green">GREEN</option>
                             <option value="yellow">YELLOW</option>
                             <option value="red">RED</option>
                           </select>
+-->
                           </td>
                           </td>
                             <td><input size="30px" type="text" id="serial" name="serial" value="<?php echo $bagArray[$key]->serial; ?>" disabled /></td>
@@ -155,7 +264,14 @@ $requestArray = (array) json_decode($result);
                             <td><input type="text" id="date" name="date" value="<?php echo $requestArray[$key]->date ?>" disabled></td>
                             <td><input type="text" id="note" name="note" value="<?php echo $requestArray[$key]->note ?>" disabled></td>
                             <td><input type="text" id="state" name="state" value="<?php echo $requestArray[$key]->state ?>" disabled></td>
-                            <td><input type="text" id="priority" name="priority" value="<?php echo $requestArray[$key]->priority ?>" disabled></td>
+                            <td align="center">
+                              <!-- <input type="text" id="priority" name="priority" value="<?php echo $requestArray[$key]->priority ?>" disabled> -->
+                              <!-- <span class="dot <?php echo $requestArray[$key]->priority ?>"></span> -->
+<label class="container">Bassa
+  <input type="radio" id="priority" name="priority" value="<?php echo $requestArray[$key]->priority ?>" checked>
+  <span class="checkmark <?php echo $requestArray[$key]->priority ?>"></span>
+</label>
+                            </td>
                         </tr>
                         <?php } ?>
                         <script>
