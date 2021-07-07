@@ -34,4 +34,14 @@ public class P2PTest {
         P2PManager manager = new P2PManager(request,token);
         manager.testGet();
     }
+
+    @Test
+    public void testGetUsers() throws IOException, ParseException {
+        String request = "http://127.0.0.1:8087/user/get/all";
+        String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmb2xsZW45OSIsInVzZXJSb2xlIjoiUk9MRV9BRE1JTklTVFJBVE9SIiwiZXhwIjoxNjI1Njg1NjYzLCJpYXQiOjE2MjU2ODA2NjN9.x4qCoF1mbeV2xQls6LwkzXOG1AcV_6Xtn6fY156aE426WxzwhbNd2Yxb0tMqVwXolb73r46yp3SL74YseyATjw";
+
+        P2PManager manager = new P2PManager(request,token);
+        System.out.println(manager.getUsers());
+
+    }
 }

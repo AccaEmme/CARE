@@ -83,59 +83,49 @@ public class P2PManager {
             String responseLine = null;
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
-                JSONParser parser = new JSONParser();
-                JSONObject json = (JSONObject) parser.parse(responseLine.trim());
-                responseJson.add(json);
             }
-            System.out.println(response.toString());
+            JSONParser parser = new JSONParser();
+            responseJson = (JSONArray) parser.parse(response.toString().trim());
         }
         return responseJson;
     }
 
-    public void testGet() throws IOException, ParseException {
+    public JSONArray testGet() throws IOException, ParseException {
         JSONArray responseJson = new JSONArray();
         URL url = new URL(this.request);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
 
         con.setRequestProperty("Content-Type", "application/json");
-        //String contentType = con.getHeaderField("Content-Type");
         con.setRequestProperty("Authorization","Bearer "+this.token);
 
         int status = con.getResponseCode();
         System.out.println(status);
 
 
-        /*BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }*/
+
         try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"))) {
             StringBuilder response = new StringBuilder();
             String responseLine = null;
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
-                /*JSONParser parser = new JSONParser();
-                JSONObject json = (JSONObject) parser.parse(responseLine.trim());
-                responseJson.add(json);*/
 
             }
             JSONParser parser = new JSONParser();
-            JSONArray json = (JSONArray) parser.parse(response.toString().trim());
-            System.out.println(json);
+            responseJson = (JSONArray) parser.parse(response.toString().trim());
 
-            System.out.println(json.get(1));
         }
 
 
-        //System.out.println(r);
+        return responseJson;
     }
 
-    public void getUsers(){
-        JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("users",);
+    public JSONObject getUsers() throws IOException, ParseException {
+        JSONArray jsonArray = this.testGet();
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("users",jsonArray);
+
+        return jsonObject1;
     }
 
 
