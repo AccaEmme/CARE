@@ -1,6 +1,7 @@
 <script src="./js/html5-qrcode.min.js"></script>
 <body style="background-color:aliceblue">
 
+
 	<!-- START: new user fields -->
       <center><h2>===========NEW SACCA===========</h2></center>
  <center> <table>
@@ -35,7 +36,7 @@
         
             <td>
 		<input type="text" name="addBloodBagCURL" id="addBloodBagCURL" value="http://localhost:8087/bloodbag/import" hidden="yes" />
-                <input type="submit" value="import sacca" onclick="addBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo($token); ?>', document.getElementById('serial').value);">
+                <input type="submit" value="import sacca" onclick="addBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo($token); ?>', document.getElementById('serial').value);setTimeout(function () { location.reload(1); }, 5000)">
             </td>
         </tr>
      
@@ -89,10 +90,12 @@ $bagArray = (array) json_decode($result);
 
 
 ?>
-
+</fieldset>
+<fieldset>
+            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> Magazzino </b></a><br><small>(Visualizza sacche disponibili nel magazzino)</small></legend>
 
 <!-- campi tabella -->
-    <center><h2>===========SACCHE DISPONIBILI===========</h2></center>
+ 
     <form action="" method="POST">
      <table>
     

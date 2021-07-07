@@ -12,6 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import it.unisannio.CARE.model.exceptions.IllegalPatternException;
 
+/*
+ * Classe con tutti i metodi per la gestione della password
+ */
 
 public class Password {
 	/*
@@ -36,13 +39,12 @@ public class Password {
 	*/
 	
 	/**
-	**************************************************************************
-	 * Metodo che controlla se la passw è criptata
-	 * @param String hiddenPassword
-	 * @throws IllegalPatternException 
-	 * @exception IllegalArgumentException
-	 **************************************************************************
-    */
+	************************************************** ************************
+	* Method that checks if the password is encrypted
+	* @param hiddenPassword hiddenPassword
+	* @throws IllegalPatternException
+	************************************************** ************************
+	*/
 	public Password(String hiddenPassword) throws IllegalPatternException {
 		//assert hiddenPassword != null;
 		if( (hiddenPassword == null) || (hiddenPassword.equals("")) )
@@ -51,21 +53,21 @@ public class Password {
 	}
 
 	/**
-     **************************************************************************
-     * Metodo per il GET della passw criptata
-     * @return hiddenPassword
-     **************************************************************************
-    */
+    ************************************************** ************************
+    * String method for the GET of the encrypted passw
+    * @return returns the encrypted password as a string
+    ************************************************** ************************
+   */
 	public String getHiddenPassword() {
 		return this.hiddenPassword;
 	}
 	
 	/**
-     **************************************************************************
-     * Metodo per il Set della pasw Criptata
-     * @param String hiddenPass
-     **************************************************************************
-    */
+    ************************************************** ************************
+    * Method for the Set of the encrypted password
+    * @param hiddenPass hiddenPass
+    ************************************************** ************************
+   */
 	public void setHiddenPassword(String hiddenPass) {
 		assert hiddenPass != null;
 		this.hiddenPassword = hiddenPass;
@@ -85,12 +87,12 @@ public class Password {
 	*/
 	
 	/**
-	**************************************************************************
-	 * Metodo per il ritorno dell'hashcode con algoritmo MD5 del valore in ingresso inclundento il SALT
-	 * @param String input
-	 * @return hashtext.toUpperCase()
-	 **************************************************************************
-    */
+	************************************************** ************************
+	* Method for returning the hashcode with MD5 algorithm of the input value including the SALT
+	* @param input Input string to encrypt the password
+	* @return hashtext.toUpperCase ()
+	************************************************** ************************
+	*/
     public static String getBCrypt(String input)    {
     	
     	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -124,10 +126,10 @@ public class Password {
     
     
     /**
-	**************************************************************************
-	 * metodo per generare la passw dell'utente
-	 * @param int lenght
-	 **************************************************************************
+    ************************************************** ************************
+    * method to generate the user's password
+    * @param length size of the password to generate
+    ************************************************** ************************
     */
     //public static char[] generatePassword(int length) {
     public static String generatePassword(int length) {
@@ -172,11 +174,11 @@ public class Password {
 	 */
     
     /**
-	**************************************************************************
-	 * Metodo che controlla se il Pattern della passw è giusto
-	 * @param final String givenPassword
-	 * @exception IllegalArgumentException
-	 **************************************************************************
+    ************************************************** ************************
+    * Method that checks if the Pattern of the passw is correct
+    * @param givenPassword Password string to validate the pattern
+    * @exception IllegalArgumentException
+    ************************************************** ************************
     */
     public static boolean validatePlaintextPasswordPattern(final String givenPassword) {
     	final String PASSWORD_PATTERN =

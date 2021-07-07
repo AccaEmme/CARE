@@ -8,6 +8,9 @@ import java.util.Scanner;
 import java.util.*;
 import java.io.*;
 
+/*
+ * 
+ */
 
 public class XMLHelper {
 	
@@ -22,14 +25,14 @@ public class XMLHelper {
 	}
 
 	/**
-	**************************************************************************
-	 * Metodo per ottenere le proprietà da un file xml
-	 * @param String Percorso del file XML
-	 * @return ritorna NULL se non trova il percorso
-	 * @exception InvalidPropertiesFormatException, FileNotFoundException, IOException
-	 **************************************************************************
-    */
-	public static Properties getProps(String xmlfilepath) {
+	************************************************** ************************
+	* Method to get properties from an xml file
+	* @param xmlfilepath Path of the XML file
+	* @return returns NULL if it does not find the path
+	* @exception InvalidPropertiesFormatException, FileNotFoundException, IOException
+	************************************************** ************************
+	*/
+	public static Properties getProps(String xmlfilepath) { 
 		Properties loadProps = new Properties();
 		try {
 			loadProps.loadFromXML(new FileInputStream(xmlfilepath));
@@ -45,13 +48,13 @@ public class XMLHelper {
 	}
 	
 	/**
-	**************************************************************************
-	 * Metodo che inizializza l'XML del seriale 
-	 * @param String seriale del file XML 
-	 * @exception IOException
-	 * @exception IllegalArgumentException
-	 **************************************************************************
-    */
+	************************************************** ************************
+	* Method that initializes the XML of the serial
+	* @param serialmatrix XML file serial
+	* @exception IOException
+	* @exception IllegalArgumentException
+	************************************************** ************************
+	*/
 	public static void initSerialXML( String serialmatrix ) {
 		String filesettings = Constants.SERIAL_SETTINGS_FILENAME_RELATIVEPATH;
 
@@ -113,13 +116,13 @@ public class XMLHelper {
 	
 	
 	/**
-	**************************************************************************
-	 * Metodo che inizializza l'XML del seriale dato un percorso specifico (Utiel anche per Junit Test)
-	 * @param x specifica il contatore da cui deve iniziare 
-	 * @param filesetting specifica il percorso dove salvare il file di setting
-	 * @exception IOException
-	 **************************************************************************
-    */
+	************************************************** ************************
+	* Method that initializes the XML of the serial given a specific path (Utiel also for Junit Test)
+	* @param x specifies the counter to start from
+	* @param filesettings specifies the path where to save the setting file
+	* @exception IOException
+	************************************************** ************************
+	*/
 	public static void initXMLz(int x, String filesettings) {
         Scanner sc = new Scanner(System.in);
         String nationality, prov, codstr, codint, serialmatrix;

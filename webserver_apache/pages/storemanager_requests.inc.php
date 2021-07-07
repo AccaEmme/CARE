@@ -27,11 +27,12 @@ $BagArray = (array) json_decode($result);
 ?>
 
 
-
+<fieldset>
+            <legend><img src="images\gestionerichieste.png" width="10%"><a name="management" ><b> Richieste </b></a><br><small>(visualizza stato delle richieste)</small></legend>
 
 
 <!-- campi tabella -->
-    <center><h2>========STATO RICHIESTE========</h2></center>
+  
    
     <form action="" method="POST">
   <center><table>

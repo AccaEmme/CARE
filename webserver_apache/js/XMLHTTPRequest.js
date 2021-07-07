@@ -32,7 +32,7 @@ function login(){
 }
 
 //================= Methods: HTTP_POST
-function HTTPPost(url, token, jsonBodyString){
+function HTTPPost(url, token, jsonBodyString,mex){
 	event.preventDefault();
 	let request = new XMLHttpRequest();   // new HttpRequest instance
 
@@ -46,13 +46,17 @@ function HTTPPost(url, token, jsonBodyString){
 //	request.send(JSON.stringify(jsonBodyString));
 	request.send(jsonBodyString);
 	request.onreadystatechange = function() {
-	 if (this.readyState === 4 &&  this.status === 200 ) {
+	 if (this.readyState === 4  ) {
 	  console.log("Request: token " + token + " jsonBody: " + jsonBodyString);
 	  console.log("Response: "+ this.responseText);
 	  let results = JSON.parse(this.responseText);
-         } else {
+         }
+         if(this.status == 500) {
     alert("error"+this.responseText)
 	 }
+     else{
+         alert(mex);
+     }
        };
 
 
@@ -182,6 +186,7 @@ function acceptRequest(url,token,jsonBody){
 function useBloodBag(url, token){
     alert(url);
 HTTPDelete(url, token);
+location.reload();
 
 }
 
@@ -192,43 +197,28 @@ HTTPDelete(url, token);
 //=================BloodBag Methods: POST
 function addBloodBag(url, token, group, donator, note){
 
-
-alert("ciaoooooooooo");
- k=0;
- if(url == "") 		{ alert("url null"); 		k=1; }
- if(token == "") 	{ alert("token null"); 		k=1; }
- if(group == "") 	{ alert("group null"); 	        k=1; }
- if(donator == "") 	{ alert("donator null");  	k=1; }
-
- if(k==0){
-  alert(url + " - " + token + " - " + group + " - " + donator + " - " + note );
   var jsonBody 	 = '{' + '"group": "' + group + '", "donator": "' + donator + '", "notes": "'+ note +'" }';
- 
-  alert("jsonBody: " + jsonBody);
+
   console.log("jsonBody: " + jsonBody);
-  HTTPPost(url, token, jsonBody);
- }
+
+  var mex='sacca cereata ed aggiunta in magazzino';
+  HTTPPost(url, token, jsonBody,mex);
+ 
 
 
 }
 //=================BloodBag Methods: POST
 function addBloodBagCentral(url, token, serial){
 
-    alert("ciaoooooooooo");
-    k=0;
-    if(url == "") 		{ alert("url null"); 		k=1; }
-    if(token == "") 	{ alert("token null"); 		k=1; }
-    if(serial == "") 	{ alert("group null"); 	        k=1; }
+    
+    
 
-
-    if(k==0){
-    alert(url + " - " + token + " - " + serial );
     var jsonBody 	 = '{' + '"serial": "' + serial +'" }';
     
-    alert("jsonBody: " + jsonBody);
+  
     console.log("jsonBody: " + jsonBody);
     HTTPPost(url, token, jsonBody);
-    }
+    
 }
 
 
