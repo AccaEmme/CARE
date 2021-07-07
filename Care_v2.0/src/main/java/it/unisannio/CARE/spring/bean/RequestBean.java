@@ -7,12 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-
+/*
+ * 
+ */
 
 @SuppressWarnings("serial")
 public class RequestBean implements Serializable{
-
-
 	
 	private String 	id_requester,
 			serial,
@@ -23,19 +23,18 @@ public class RequestBean implements Serializable{
 	
 	public RequestBean() {}
 
-	
-	
+
 	/**
-	**************************************************************************
-	 * Metodo per la creazione della classe RequestBean
-	 * @param id_requester Id della richiesta
-	 * @param serial Seriale della richiesta
-	 * @param date data della richiesta
-	 * @param note note sulla richiesta 
-	 * @param state Stato della richiesta
-	 * @param priority priorita' della richiesta
-	 **************************************************************************
-    */
+	************************************************** ************************
+	* Method for creating the RequestBean class
+	* @param id_requester Id of the request
+	* @param serial Serial of the request
+	* @param date date of the request
+	* @param note notes on the request
+	* @param state Status of the request
+	* @param priority priority of the request
+	************************************************** ************************
+	*/
 	public RequestBean( String id_requester, String serial, String date, String note, String state, String priority) {
 		
 		this.id_requester = id_requester;
@@ -48,66 +47,66 @@ public class RequestBean implements Serializable{
 	
 
 	/**
-     **************************************************************************
-     * Metodo GET per ottenere l'ID della richiesta
-     * @return ritorna l'id della richiesta
-     **************************************************************************
-    */
+    ************************************************** ************************
+    * String GET method to get the request ID
+    * @return returns the request id as a String
+    ************************************************** ************************
+   */
 	public String getId_requester() {
 		return id_requester;
 	}
 
 
 	/**
-     **************************************************************************
-     * Metodo SET per inserire il nuovo ID della richiesta
-     * @param id_requester ID della richiesta
-     **************************************************************************
-    */
+    ************************************************** ************************
+    * String SET method to enter the new request ID
+    * @param id_requester ID of the request
+    ************************************************** ************************
+   */
 	public void setId_requester(String id_requester) {
 		this.id_requester = id_requester;
 	}
 	
 	
 	/**
-     **************************************************************************
-     * Metodo GET per ottenere il seriale
-     * @return ritorna il seriale inserito nella richiesta
-     **************************************************************************
-    */
+    ************************************************** ************************
+    * String GET method to get the serial
+    * @return returns the serial entered in the request as a String
+    ************************************************** ************************
+   */
 	public String getSerial() {
 		return serial;
 	}
 
 
 	/**
-     **************************************************************************
-     * Metodo SET per inserire il seriale
-     * @param serial nuovo seriale da inserire 
-     **************************************************************************
-    */
+    ************************************************** ************************
+    * String SET method to insert the serial
+    * @param serial new serial to insert
+    ************************************************** ************************
+   */
 	public void setSerial(String serial) {
 		this.serial = serial;
 	}
 
 
 	/**
-     **************************************************************************
-     * Metodo GET per ottenere la DATA
-     * @return ritorna la data della richiesta
-     **************************************************************************
-    */
+    ************************************************** ************************
+    * String GET method to get the DATE
+    * @return returns the date of the request as a String
+    ************************************************** ************************
+   */
 	public String getDate() {
 		return date;
 	}
 
 
 	/**
-     **************************************************************************
-     * Metodo SET per inserire una nuova data
-     * @param date nuova data da inserire
-     **************************************************************************
-    */
+    ************************************************** ************************
+    * String SET method to insert a new date
+    * @param date new date to insert
+    ************************************************** ************************
+   */
 	public void setDate(String date) {
 		this.date = date;
 	}
@@ -115,66 +114,66 @@ public class RequestBean implements Serializable{
 
 
 	/**
-     **************************************************************************
-     * Metodo GET per ottenere le note
-     * @return ritorna le note riguardanti la richiesta
-     **************************************************************************
-    */
+    ************************************************** ************************
+    * String GET method to get the notes
+    * @return returns the notes regarding the request as a String
+    ************************************************** ************************
+   */
 	public String getNote() {
 		return note;
 	}
 
 
 	/**
-     **************************************************************************
-     * Metodo SET per inserire le note della richiesta
-     * @param note nuove note da inserire 
-     **************************************************************************
-    */
+    ************************************************** ************************
+    * String SET method to insert the notes of the request
+    * @param notes new notes to insert
+    ************************************************** ************************
+   */
 	public void setNote(String note) {
 		this.note = note;
 	}
 
 
 	/**
-     **************************************************************************
-     * Metodo GET per ottenere lo stato
-     * @return ritorna lo stato della richiesta
-     **************************************************************************
-    */
+    ************************************************** ************************
+    * String GET method to get the status
+    * @return returns the status of the request as a String
+    ************************************************** ************************
+   */
 	public String getState() {
 		return state;
 	}
 
 
 	/**
-     **************************************************************************
-     * Metodo SET per inserire una nuova richiesta
-     * @param state nuovo stato della richiesta
-     **************************************************************************
-    */
+    ************************************************** ************************
+    * String SET method to insert a new request
+    * @param state new request status
+    ************************************************** ************************
+   */
 	public void setState(String state) {
 		this.state = state;
 	}
 
 
 	/**
-     **************************************************************************
-     * Metodo GET per ottenere la priorita' della richiesta
-     * @return ritorna la priorita' associata alla richiesta
-     **************************************************************************
-    */
+    ************************************************** ************************
+    * String GET method to get the priority of the request
+    * @return returns the priority associated with the request as a String
+    ************************************************** ************************
+   */
 	public String getPriority() {
 		return priority;
 	}
 
 
 	/**
-     **************************************************************************
-     * Metodo SET inserire una nuova priorita'
-     * @param priority nuovo valore della priorita'
-     **************************************************************************
-    */
+    ************************************************** ************************
+    * String SET method insert a new priority
+    * @param priority new priority value
+    ************************************************** ************************
+   */
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
