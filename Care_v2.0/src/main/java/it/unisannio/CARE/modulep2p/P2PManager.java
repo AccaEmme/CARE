@@ -1,18 +1,16 @@
 package it.unisannio.CARE.modulep2p;
 
+import it.unisannio.CARE.model.bloodBag.BloodBag;
+import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagDAO;
+import it.unisannio.ingsof20_21.group8.Care.Spring.UserDAO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
 public class P2PManager {
     String request;
@@ -44,6 +42,16 @@ public class P2PManager {
     }
 
     public JSONArray sendRequest() throws IOException, ParseException {
+        String jsonInputString;
+        if (this.stringBody==null){
+            jsonInputString = this.jsonBody.toJSONString();
+        }else {
+            if (this.jsonBody == null) {
+                return this.getResponse();
+            }
+            jsonInputString = this.stringBody;
+        }
+
         // Sending get request
         //http://127.0.0.1:8087/user/get/all
         JSONArray responseJson = new JSONArray();
@@ -60,12 +68,7 @@ public class P2PManager {
         conn.setRequestProperty("Accept", "application/json");
         conn.setDoOutput(true);
 
-        String jsonInputString;
-        if (this.stringBody==null){
-            jsonInputString = this.jsonBody.toJSONString();
-        }else {
-            jsonInputString = this.stringBody;
-        }
+
 
         //invio la richiesta
         try {
@@ -90,7 +93,7 @@ public class P2PManager {
         return responseJson;
     }
 
-    public JSONArray testGet() throws IOException, ParseException {
+    private JSONArray getResponse() throws IOException, ParseException {
         JSONArray responseJson = new JSONArray();
         URL url = new URL(this.request);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -120,10 +123,21 @@ public class P2PManager {
         return responseJson;
     }
 
-    public JSONObject getUsers() throws IOException, ParseException {
-        JSONArray jsonArray = this.testGet();
+
+
+    public JSONObject getTypedBody(Object obj) throws IOException, ParseException {
+        String objectType;
+        if (obj instanceof UserDAO){
+            objectType = "users";
+        }else if (obj instanceof BloodBagDAO){
+            objectType = "bloodbags";
+        }else {
+            throw new InvalidClassException("the provided object is not a valid object.");
+        }
+
+        JSONArray jsonArray = this.getResponse();
         JSONObject jsonObject1 = new JSONObject();
-        jsonObject1.put("users",jsonArray);
+        jsonObject1.put(objectType,jsonArray);
 
         return jsonObject1;
     }
