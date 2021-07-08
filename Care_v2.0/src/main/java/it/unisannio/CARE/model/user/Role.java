@@ -6,7 +6,7 @@ package it.unisannio.CARE.model.user;
 
 /**
 **************************************************************************
- * Enum con tutti i ruoli che possono avere gli utenti
+	* Enum with all the roles that users can have
  **************************************************************************
 */
 public enum Role {

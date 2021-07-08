@@ -2,10 +2,10 @@ package it.unisannio.CARE.model.user;
 
 public class UsersStates {
     /**
-     * 1: attivo
-     *  0: disabilitato (quando sbaglia la password e l'admin deve riabilitarlo)
-     *  -1: bloccato dal sistema: blacklist. può essere risbloccato dall'admin.
-     *  -2: utente eliminato in modo logico
+      * 1: active
+      * 0: disabled (when the password is wrong and the admin needs to re-enable it)
+      * -1: blocked by system: blacklist. can be unlocked by admin.
+      * -2: user logically deleted
      *  */
 
     public static final short ACTIVE = (short) 1;

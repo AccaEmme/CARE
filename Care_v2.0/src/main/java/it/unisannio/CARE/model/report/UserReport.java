@@ -7,6 +7,9 @@
  */
 package it.unisannio.CARE.model.report;
 
+/**
+ * Class that contains all methods for user reporting
+ */
 import java.util.Date;
 
 public class UserReport {
@@ -23,6 +26,19 @@ public class UserReport {
 
     private long timestamp;
 
+    /**
+      * Constructor method of the UseReport class
+      * @param total the total number of users
+      * @param activeUsers the total number of active users
+      * @param inactiveUsers the total number of inactive users
+      * @param loggedLast24Hours the total number of users logged in the last 24h
+      * @param blockedBySystem the total number of users blocked by the system
+      * @param deleted the deleted users
+      * @param administrators the administrators
+      * @param storeManagers the storemanagers
+      * @param officers the officers
+     */
+    
     public UserReport(long total, long activeUsers, long inactiveUsers, long loggedLast24Hours, long blockedBySystem, long deleted, long administrators, long storeManagers, long officers) {
         this.total = total;
         this.activeUsers = activeUsers;
@@ -36,74 +52,146 @@ public class UserReport {
         this.timestamp = new Date().getTime();
     }
 
+    /**
+      * GET method to get total users
+      * @return returns the total of users
+     */
     public long getTotal() {
         return total;
     }
 
+    /**
+      * SET method to enter the total of users
+      * @param total variable for the amount of users
+     */
     public void setTotal(long total) {
         this.total = total;
     }
 
+    /**
+      * GET method to get the amount of connected users
+      * @return returns the quantity in long format of the connected users
+     */
     public long getActiveUsers() {
         return activeUsers;
     }
 
+    /**
+      * SET method to enter the amount of active users
+      * @param activeUsers variable to insert active users
+     */
     public void setActiveUsers(long activeUsers) {
         this.activeUsers = activeUsers;
     }
 
+    /**
+      * GET method to get inactive users
+      * @return returns inactive users in long format
+     */
     public long getInactiveUsers() {
         return inactiveUsers;
     }
 
+    /**
+      * SET method to enter the amount of inactive users
+      * @param inactiveUsers variable to insert the amount of inactive users
+     */
     public void setInactiveUsers(long inactiveUsers) {
         this.inactiveUsers = inactiveUsers;
     }
 
+    /**
+      * GET method to obtain the amount of users logged in in the last 24H
+      * @return returns the amount of users logged in the last 24H
+     */
     public long getLoggedLast24Hours() {
         return loggedLast24Hours;
     }
 
+    /**
+      * SET method to enter the amount of users logged in in the last 24 H
+      * @param loggedLast24Hours Variable to enter the amount of users logged in the last 24H
+     */
     public void setLoggedLast24Hours(long loggedLast24Hours) {
         this.loggedLast24Hours = loggedLast24Hours;
     }
 
+    /**
+      * Get method to get all blocked users from the system
+      * @return returns all users locked out of the system
+     */
     public long getBlockedBySystem() {
         return blockedBySystem;
     }
 
+    /**
+      * SET method to enter all users blocked by the system
+      * @param blockedBySystem variable to define all users blocked by the system
+     */
     public void setBlockedBySystem(long blockedBySystem) {
         this.blockedBySystem = blockedBySystem;
     }
 
+    /**
+      * GET method to get all deleted users
+      * @return returns the amount of deleted users in long format
+     */
     public long getDeleted() {
         return deleted;
     }
 
+    /**
+      * SET method to enter the amount of deleted users
+      * @param deleted variable to insert the amount of deleted users
+     */
     public void setDeleted(long deleted) {
         this.deleted = deleted;
     }
 
+    /**
+      * Method to get the amount of administrators
+      * @return returns the quantity of administrators in long format
+     */
     public long getAdministrators() {
         return administrators;
     }
 
+    /**
+      * SET method to enter the amount of system administrators
+      * @param administrators Enter the amount of administrators
+     */
     public void setAdministrators(long administrators) {
         this.administrators = administrators;
     }
 
+    /**
+      * GET method to get the store manager quantity
+      * @return returns the amount of stormanager
+     */
     public long getStoreManagers() {
         return storeManagers;
     }
 
+    /**
+      * SET method to enter the amount of the system's store manager
+      * @param storeManagers quantity in long format of the store managers
+     */
     public void setStoreManagers(long storeManagers) {
         this.storeManagers = storeManagers;
     }
 
+    /**
+      * GET method to get the amount of Officer of the system
+      * @return returns the system officer quantity
+     */
     public long getOfficers() {
         return officers;
     }
 
+    /**
+      * Set method to enter the quantity of officer
+      * @param officers quantity of officer
+     */
     public void setOfficers(long officers) {
         this.officers = officers;
     }
