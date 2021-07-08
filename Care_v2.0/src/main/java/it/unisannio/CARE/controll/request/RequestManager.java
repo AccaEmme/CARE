@@ -378,6 +378,23 @@ public class RequestManager {
 		
 		mongoClient.close();
 	}
+
+
+	public Document getRequestByIdSerial(String id_requester, String serial) {
+		
+
+		
+Bson filter = and(
+		eq("id_requester",id_requester),
+    		eq("serial",serial)
+	);
+
+		if(this.collection.find(filter).iterator().hasNext()) 
+			return this.collection.find(filter).iterator().next();
+		
+		throw new RequestNotFoundException("richiesta non trovata");
+		
+}
 	
 	
 	
