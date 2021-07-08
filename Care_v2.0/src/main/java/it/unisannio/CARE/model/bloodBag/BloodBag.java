@@ -66,8 +66,8 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
       * @param serial It is the Serial that uniquely recognizes the bag
       * @param valueOf Enumerator: specifies the blood group among the defined groups
       * @param cd Date of creation of the bag
-      * @param and Bag expiration date
-      * @param donatorCF2 Tax code of the donor
+      * @param ed Bag expiration date
+      * @param donatorCF Tax code of the donor
       * @param valueOf2 Enumerator: specifies the status of a bag
       * @param note2 notes about the bag
      **************************************************************************
@@ -165,7 +165,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
      **************************************************************************
       * Private method To create a date
       * @param creationDate The new creation date of the bag
-      * @throws IllegalDateException
+      * @throws ParseException
      **************************************************************************
      */
 	public void setCreationDate(Date creationDate) throws ParseException 		{
@@ -362,7 +362,7 @@ public class BloodBag implements Cloneable, Comparable<BloodBag>{
 	/**
      **************************************************************************
       * Method to change the status of the bags
-      * @return false if the blood bag is not available: it has been used, transferred or discarded.
+      * @param s Condition of the bag
      **************************************************************************
      */
 	public void setBloodBagState(BloodBagState s) {

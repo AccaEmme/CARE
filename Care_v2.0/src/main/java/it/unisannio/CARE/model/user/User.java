@@ -87,7 +87,8 @@ public class User {
 	* Method for managing the user with an encrypted password
 	* @param username username
 	* @param hiddenPassword encrypted password
-	* @throws UserException, NullPasswordException
+	* @throws UserException
+	* @throws NullPasswordException
 	 **************************************************************************
     */
 	 

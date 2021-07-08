@@ -29,7 +29,6 @@ public class XMLHelper {
 	* Method to get properties from an xml file
 	* @param xmlfilepath Path of the XML file
 	* @return returns NULL if it does not find the path
-	* @exception InvalidPropertiesFormatException, FileNotFoundException, IOException
 	************************************************** ************************
 	*/
 	public static Properties getProps(String xmlfilepath) { 
@@ -51,8 +50,6 @@ public class XMLHelper {
 	************************************************** ************************
 	* Method that initializes the XML of the serial
 	* @param serialmatrix XML file serial
-	* @exception IOException
-	* @exception IllegalArgumentException
 	************************************************** ************************
 	*/
 	public static void initSerialXML( String serialmatrix ) {
@@ -120,7 +117,6 @@ public class XMLHelper {
 	* Method that initializes the XML of the serial given a specific path (Utiel also for Junit Test)
 	* @param x specifies the counter to start from
 	* @param filesettings specifies the path where to save the setting file
-	* @exception IOException
 	************************************************** ************************
 	*/
 	public static void initXMLz(int x, String filesettings) {
