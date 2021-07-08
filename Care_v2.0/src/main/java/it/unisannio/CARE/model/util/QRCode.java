@@ -37,6 +37,9 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+/**
+ * this class is used to generate all the QR codes needed for the CARE system
+ */
 public class QRCode {
     String object;
     String identifier;
@@ -52,7 +55,10 @@ public class QRCode {
     private Colors foreground = Colors.BLACK;
 
 
-    //tested
+    /**
+     * save the QR code starting from a JSON object
+     * @param objectToWrite the object to save on the QR code
+     */
     public QRCode(JSONObject objectToWrite){
         this.identifier = objectToWrite.get("serial")
                 .toString()
@@ -61,7 +67,11 @@ public class QRCode {
         this.object = this.identifier;      //sbagliato! da correggere
     }
 
-    //tested
+    /**
+     * save the QR code starting from a string
+     * @param objectToWrite the string to write on the QR code
+     * @param identifier the identifier used as filename
+     */
     public QRCode(String objectToWrite, String identifier){
         this.object = objectToWrite;
         this.identifier = identifier
@@ -69,10 +79,17 @@ public class QRCode {
                 .toLowerCase();
     }
 
+    /**
+     * empty constructor
+     */
     public QRCode(){
 
     }
 
+    /**
+     * save the QR code starting from a BloodBag object
+     * @param objectToWrite the object to save on the QR code
+     */
     //tested
     public QRCode(BloodBag objectToWrite){
         this.object = objectToWrite.getSerial().getSerial(); //this.createBloodBagObject(objectToWrite).toJSONString();
@@ -82,7 +99,10 @@ public class QRCode {
                 .toLowerCase();
     }
 
-    //tested
+    /**
+     * save the QR code starting from a BloodBagDAO
+     * @param objectToWrite the object to save on the QR code
+     */
     public QRCode(BloodBagDAO objectToWrite){
         this.object = objectToWrite.getSerial();//this.createBloodBagObject(objectToWrite).toJSONString();
         this.identifier = objectToWrite.getSerial()
@@ -91,7 +111,10 @@ public class QRCode {
     }
 
 
-
+    /**
+     * save the QR code starting from UserDAO
+     * @param objectToWrite  the object to write on the QR code
+     */
     // ################## CREATE QR CODE USERS ###################
     public QRCode(UserDAO objectToWrite){
         JSONObject user = new JSONObject();
@@ -101,6 +124,10 @@ public class QRCode {
         this.identifier = objectToWrite.getUsername();
     }
 
+    /**
+     * save the QR code starting from a User object
+     * @param objectToWrite the object to write on the QR code
+     */
     public QRCode(User objectToWrite){
         JSONObject user = new JSONObject();
         user.put("username",objectToWrite.getUsername());
@@ -111,15 +138,20 @@ public class QRCode {
     }
 
 
-
-
-
+    /**
+     * @param bag the BloodBag object
+     * @return the JSON object to write
+     */
     //bloodbag utils
     private JSONObject createBloodBagObject(BloodBag bag){
         JSONObject object = new JSONObject();
             object.put("serial",bag.getSerial());
         return object;
     }
+    /**
+     * @param bag the BloodBagDAO object
+     * @return the JSON object to write
+     */
     private JSONObject createBloodBagObject(BloodBagDAO bag){
         JSONObject object = new JSONObject();
             object.put("serial",bag.getSerial());
@@ -127,6 +159,11 @@ public class QRCode {
     }
 
     //user utils
+
+    /**
+     * @param user the UserDAO object
+     * @return the JSON object to write
+     */
     private JSONObject createUserObject(UserDAO user){
         JSONObject object = new JSONObject();
             object.put("username",user.getUsername());
@@ -134,6 +171,10 @@ public class QRCode {
 
         return object;
     }
+    /**
+     * @param user the User object
+     * @return the JSON object to write
+     */
     private JSONObject createUserObject(User user){
         JSONObject object = new JSONObject();
             object.put("username",user.getUsername());
@@ -141,7 +182,11 @@ public class QRCode {
         return object;
     }
 
-    //important stuff
+    /**
+     * this method is used to create a QR code starting from the given parameters.
+     * @Deprecated please don't use this method, use createQRCodeWithLogo instead.
+     */
+    @Deprecated
     public void createQRCodeOnly(){
         try {
             String qrCodeData = object;
@@ -167,6 +212,11 @@ public class QRCode {
         }
     }
 
+    /**
+     * this method is used to create a QR code starting from the given parameters.
+     * It can create a QR code with a logo in the middle
+     * @throws WriterException if the program couldn't write the QR code successfully
+     */
     public void createQRCodeWithLogo() throws WriterException {
         // Create new configuration that specifies the error correction
         Map<EncodeHintType, ErrorCorrectionLevel> hints = new HashMap<>();
@@ -220,15 +270,30 @@ public class QRCode {
         }
     }
 
-    private BufferedImage getOverly(String LOGO) throws IOException, IOException {
+    /**
+     * used to create the QR code overlay image
+     * @param LOGO the logo address
+     * @return the image of the logo
+     * @throws IOException if the provided link contains no image
+     */
+    private BufferedImage getOverly(String LOGO) throws IOException {
         URL url = new URL(LOGO);
         return ImageIO.read(url);
     }
 
+    /**
+     * used to initialize the QR code file directory
+     * @param DIR the QR code image directory
+     * @throws IOException if the directory is not valid
+     */
     private void initDirectory(String DIR) throws IOException {
         Files.createDirectories(Paths.get(DIR));
     }
 
+    /**
+     * used to wipe the QR code directoru
+     * @param DIR the QR code image directory
+     */
     private void cleanDirectory(String DIR) {
         try {
             Files.walk(Paths.get(DIR), FileVisitOption.FOLLOW_LINKS)
@@ -240,12 +305,22 @@ public class QRCode {
         }
     }
 
+    /**
+     * used to create the QR code matrix
+     * @return the QR code matrix configuration
+     */
     private MatrixToImageConfig getMatrixConfig() {
         // ARGB Colors
         // Check Colors ENUM
         return new MatrixToImageConfig(this.foreground.getArgb(), this.background.getArgb());
     }
 
+    /**
+     * used to create a random title for the QR code
+     * @param random the random object
+     * @param length the length of the filename
+     * @return the generated filename
+     */
     private String generateRandoTitle(Random random, int length) {
         return random.ints(48, 122)
                 .filter(i -> (i < 57 || i > 65) && (i < 90 || i > 97))
@@ -255,6 +330,9 @@ public class QRCode {
                 .toString();
     }
 
+    /**
+     * used to declare the possible QR code colors
+     */
     public enum Colors {
 
         BLUE(0xFF40BAD0),
@@ -276,50 +354,98 @@ public class QRCode {
     }
 
 
+    /**
+     * used to get the object to write
+     * @return the object to write
+     */
     public String getObject() {
         return object;
     }
 
+    /**
+     * used to set the object to write
+     * @param object the object to write
+     */
     public void setObject(String object) {
         this.object = object;
     }
 
+    /**
+     * used to get the identifier
+     * @return the identifier of the QR code
+     */
     public String getIdentifier() {
         return identifier;
     }
 
+    /*
+     * used to set the identifier
+     * @param identifier the identifier of the QR code
+     */
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
 
+    /**
+     * used to get the qr code save path
+     * @return the QR code save path
+     */
     public String getSave_path() {
         return save_path;
     }
 
+    /**
+     * used to set the qr code save path
+     * @param save_path the QR code save path
+     */
     public void setSave_path(String save_path) {
         this.save_path = save_path;
     }
 
+    /**
+     * used to get the logo in the middle of the QR code
+     * @return the Logo in the middle of the QR code
+     */
     public String getLOGO() {
         return LOGO;
     }
 
+    /**
+     * used to set the logo in the middle of the QR code
+     * @param LOGO the Logo in the middle of the QR code
+     */
     public void setLOGO(String LOGO) {
         this.LOGO = LOGO;
     }
 
+    /**
+     * used to get the background color of the QR code
+     * @return the background color
+     */
     public Colors getBackground() {
         return background;
     }
 
+    /**
+     * used to set the background color of the QR code
+     * @param background the background color
+     */
     public void setBackground(Colors background) {
         this.background = background;
     }
 
+    /**
+     * used to set get foreground color of the QR code
+     * @return the foreground color
+     */
     public Colors getForeground() {
         return foreground;
     }
 
+    /**
+     * used to set the foreground color of the QR code
+     * @param foreground the foreground color
+     */
     public void setForeground(Colors foreground) {
         this.foreground = foreground;
     }
