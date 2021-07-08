@@ -41,6 +41,9 @@ if(!isset($token) OR time()>$exp ) {
    <title>CARE - Centro Accoglienza Regionale Ematica</title>
    <script src="./js/XMLHTTPRequest.js"></script>
    <script src="./js/http_request.js"></script>
+   <script src="./js/http_users.js"></script>
+   <script src="./js/http_localbloodbags.js"></script>
+   <script src="./js/http_centralbloodbags.js"></script>
    <script src="./js/countdown.js"></script>
    <link rel="stylesheet" href="./css/dashboard.css">
   </head>
