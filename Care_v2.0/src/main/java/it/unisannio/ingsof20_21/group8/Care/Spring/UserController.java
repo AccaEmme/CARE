@@ -309,7 +309,9 @@ public  class UserController /*implements ContainerResponseFilter */{
 	            UserDAO saveBean = tempUserObj.getUserDAO();
 	            
 				   saveBean.setCreationDate(new Date().getTime());
-				   saveBean.setEmail(newUser.getEmail());
+				   if (this.isValid(newUser.getEmail()))
+                       saveBean.setEmail(newUser.getEmail());
+				   else throw new UserException("The provided email is not valid.");
 				   saveBean.setLastAccess(Constants.TIMESTAMP1900);
 				   saveBean.setLoginAttempts(0);
 				   saveBean.setActiveUser(UsersStates.ACTIVE);
@@ -565,8 +567,15 @@ public  class UserController /*implements ContainerResponseFilter */{
             }else userRepo.updateUserUsernameByID(newUser.getUsername(),newUser.getIdUser());
 
 	        userRepo.updateUserPasswordByID(Password.getBCrypt(newUser.getPassword()),newUser.getIdUser());
-	        userRepo.updateUserEmailByID(newUser.getEmail(),newUser.getIdUser());
+
+	        if (this.isValid(newUser.getEmail()))
+                userRepo.updateUserEmailByID(newUser.getEmail(),newUser.getIdUser());
         }//non serve else perchè verrebbe lanciata un'eccezione.
+    }
+
+    private boolean isValid(String email) {
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        return email.matches(regex);
     }
 
 
