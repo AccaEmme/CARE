@@ -5,8 +5,8 @@ import org.json.simple.JSONObject;
 
 import java.util.Date;
 
-/*
- * Class that contains all methods for blood bag reports
+/**
+ * management class reports on blood bags
  */
 public class BloodBagReport {
     private long total;

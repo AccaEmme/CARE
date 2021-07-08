@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import it.unisannio.CARE.model.exceptions.IllegalPatternException;
 
-/*
+/**
  * Class with all methods for password management
  */
 

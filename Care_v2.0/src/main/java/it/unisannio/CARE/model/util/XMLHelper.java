@@ -8,8 +8,8 @@ import java.util.Scanner;
 import java.util.*;
 import java.io.*;
 
-/*
- * 
+/**
+ * is a helper class for handling XML Properties, with file initialization and value reading methods
  */
 
 public class XMLHelper {

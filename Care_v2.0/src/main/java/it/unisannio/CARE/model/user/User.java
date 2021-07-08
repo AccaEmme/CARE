@@ -13,7 +13,7 @@ import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.Password;
 import it.unisannio.ingsof20_21.group8.Care.Spring.UserDAO;
 
-/*
+/**
  * User class that contains all user methods
  */
 

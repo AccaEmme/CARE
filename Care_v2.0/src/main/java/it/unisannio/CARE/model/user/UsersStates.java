@@ -2,6 +2,7 @@ package it.unisannio.CARE.model.user;
 
 public class UsersStates {
     /**
+     * Class that holds the states of the user
       * 1: active
       * 0: disabled (when the password is wrong and the admin needs to re-enable it)
       * -1: blocked by system: blacklist. can be unlocked by admin.

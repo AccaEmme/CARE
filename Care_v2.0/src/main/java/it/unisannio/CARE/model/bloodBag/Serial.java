@@ -16,7 +16,9 @@ import it.unisannio.CARE.model.exceptions.IllegalSerialException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.XMLHelper;
 
-
+/** 
+ * Class that contains all the methods of the serial
+ */
 
 /*
  * Each serial must uniquely identify a BloodBag blood bag.

@@ -4,7 +4,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-/*metodi su cui vine applicata la politica di sccesso*/
+/**
+ * methods on which the access policy is applied
+ */
 
 @RestController
 public class ResourceController {

@@ -29,7 +29,7 @@ import it.unisannio.CARE.model.exceptions.RequestCloneNotSupportedException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.XMLHelper;
 
-/*
+/**
  * Class that contains all methods for handling blood bags
  */
 

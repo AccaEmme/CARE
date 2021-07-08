@@ -27,7 +27,7 @@ import it.unisannio.CARE.model.exceptions.RequestNotFoundException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.XMLHelper;
 
-/*
+/**
 * This class implements the methods that perform the various insertions and the various queries, to manage the requests sent by the local nodes.
 */
 public class RequestManager {
