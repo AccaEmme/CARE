@@ -5,7 +5,7 @@ function addUser(url, token, username, password, email, userRole, loginAttempts,
 /*
 e.g.:
 URI: http://localhost:8087/register
-HTTPMethod: DELETE
+HTTPMethod: POST
 HTTPBody:
 {
   "username" :"Hermann80",
@@ -32,8 +32,49 @@ HTTPBody:
   console.log("jsonBody: " + jsonBody);
   HTTPPost(url, token, jsonBody);
  }
+}
 
 
+function updateUser(url, token, id, username, temppass, email, role, loginAttempts, activeUser){
+alert("dentro");
+//var url='http://localhost:8087/user/update';
+/*
+e.g.:
+HTTPMethod: POST
+HTTPBody: 
+ {
+  "idUser": 1,
+  "username": "Hermann80",
+  "email": "heraaaamann@care.it",
+  "userRole": "ROLE_ADMINISTRATOR",
+  "loginAttempts": 0,
+  "activeUser": 2
+ }
+*/
+ k=0;
+ if(url == "") 		{ k=1; } else { k=0; }
+ if(token == "") 	{ k=1; } else { k=0; }
+ if(username == "") 	{ k=1; } else { k=0; }
+ //if(password == "") 	{ k=1; } else { k=0; }
+ //if(email == "") 	{ k=1; } else { k=0; }
+ if(userRole == "") 	{ k=1; } else { k=0; }
+
+ if(k==0 || id==""){
+  alert("No changes");
+ } else { 
+  alert(url + " - " + token + " - " + username + " - " + temppass + " - " + email + " - " + userRole + " - " + loginAttempts + " - " + activeUser);
+  var   jsonBody  = '{';
+	jsonBody += '"username": "' + username + '"';
+        if(temppass!="") { jsonBody += ', "temppass": "' + temppass + '"'; }
+        if(email!="")    { jsonBody += ', "email": "'    + email    + '"'; }
+	jsonBody += ', "userRole": "' + userRole + '"';
+	jsonBody += ', "loginAttempts": "' + loginAttempts + '"';
+	jsonBody += ', "activeUser": "' + activeUser + '"';
+	jsonBody += '}';
+  alert("jsonBody: " + jsonBody);
+  console.log("jsonBody: " + jsonBody);
+  HTTPPost(url, token, jsonBody);
+ }
 }
 
 //=================Users Methods: DELETE
@@ -63,5 +104,5 @@ HTTPBody: none
 	var positiveMsg='Eseguito reset password con successo';
 //alert(url + "-" + token + "-" + jsonBody + "-" + positiveMsg);
 	HTTPPatch(url, token, jsonBody, positiveMsg);
-	//location.reload();
+	location.reload();
 }

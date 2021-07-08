@@ -106,7 +106,7 @@ foreach (array_keys($usersArray ) as $key) {
             <td style="text-align: center;"><input type="text" name="temppass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->temppass; ?>" /></td>
             <td style="text-align: center;"><input type="text" name="email_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->email; ?>" /></td>
             <td style="text-align: center;">
-                <select name="role" id="role">
+                <select name="role_<?php echo $usersArray[$key]->username; ?>" id="role_<?php echo $usersArray[$key]->username; ?>">
 			<?php
 			   foreach($roles as $r) {
 			     echo('<option value="' . $r . '"');
@@ -144,8 +144,21 @@ foreach (array_keys($usersArray ) as $key) {
             </select>
             </td>
             <td style="text-align: center;">
-                <input type="button" value="Salva">
-                <input type="button" value="Elimina" onclick="deleteUser('<?php echo('http://localhost:8087/user/delete/username/'.$usersArray[$key]->username);?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000);">
+SALVA NON VA
+                <input type="button" value="Salva"         onclick="updateUser(
+										'http://localhost:8087/user/update',
+										'<?php echo($token); ?>',
+										document.getElementById('id_<?php echo $usersArray[$key]->idUser; ?>').value,
+										document.getElementById('user_<?php echo $usersArray[$key]->username; ?>').value,
+										document.getElementById('temppass_<?php echo $usersArray[$key]->username; ?>').value,
+										document.getElementById('email_<?php echo $usersArray[$key]->username; ?>').value,
+										document.getElementById('role_<?php echo $usersArray[$key]->username; ?>').value,
+										document.getElementById('loginAttempts_<?php echo $usersArray[$key]->username; ?>').value,
+										document.getElementById('activeUser_<?php echo $usersArray[$key]->username; ?>').value
+									      );
+									      /*setTimeout(function () { location.reload(1); }, 5000);*/
+								    ">
+                <input type="button" value="Elimina"       onclick="deleteUser('<?php echo('http://localhost:8087/user/delete/username/'.$usersArray[$key]->username);?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000);">
                 <input type="button" value="ResetPassword" onclick="resetUserPass('<?php echo('http://localhost:8087/user/patch/resetpassword/username/'.$usersArray[$key]->username);?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000);" >
             </td>
         </tr>
