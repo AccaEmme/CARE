@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-<entry key="serialmatrix">it-na206000</entry>
-<<<<<<< HEAD
-<entry key="counter">303</entry>
-=======
-<entry key="counter">154</entry>
->>>>>>> f123c61523a91f4437c3a43e8d1b01babf6d4633
-<entry key="lastdate">20210707</entry>
+<entry key="serialmatrix">IT-NA206000</entry>
+<entry key="counter">1</entry>
+<entry key="lastdate">20210708</entry>
 </properties>

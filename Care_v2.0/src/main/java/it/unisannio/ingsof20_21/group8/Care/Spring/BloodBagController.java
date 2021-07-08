@@ -439,6 +439,45 @@ public class BloodBagController /*implements ContainerResponseFilter */{
    
     }
 
+    @PostMapping("/bloodbag/central/send")
+    public void BloodBagCentralTransfer(@RequestBody BloodBagDAO bagDAO) throws ParseException {
+
+	    	
+	        
+	        BloodBagDAO bbd= bagRepository.findBySerial(bagDAO.getSerial());
+	
+	
+	        try {
+		        BloodBag tempBloodBagObj = new BloodBag(new Serial(bbd.getSerial()),
+		                BloodGroup.valueOf(bbd.getGroup()),new Date(bbd.getCreationDate()),new Date(bbd.getExpirationDate())
+		             ,bbd.getDonator(),BloodBagState.in_recezione,bbd.getNotes()
+		                
+		        );
+
+	        BloodBagManager managerB = new BloodBagManager();
+	        managerB.addBloodBag(tempBloodBagObj);
+	        
+	        managerB.close();
+	        
+	          bagRepository.updateBloodBagStateBySerial("Transfered", bbd.getSerial());
+	        		
+	    }catch(IllegalArgumentException e) {
+	    	
+	    	e.printStackTrace();
+	    	throw new IllegalFiscalCodeException("Formato del codice fiscale non valido","/bloodbag/add");
+	    	
+	    }
+       
+   
+    }
+    
+    
+    @PostMapping("/bloodbag/central/confirm")
+    public void BloodBagCentralTransferConfirm(@RequestBody BloodBagDAO bagDAO) throws ParseException {
+    	BloodBagManager managerB = new BloodBagManager();
+    	managerB.confirm(bagDAO.getSerial());
+    
+    }
 
     /**
      * import a bag from the central node database
