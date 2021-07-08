@@ -429,7 +429,6 @@ public  class UserController /*implements ContainerResponseFilter */{
 	@PatchMapping("/user/update/attempts/id/{id}/{attempts}")
 	public UserDAO updateUserLoginAttemptsByID(@PathVariable long id, @PathVariable int attempts){
 		userRepo.updateUserLoginAttemptsByID(attempts,id);
-
 		return userRepo.getById(id);
 	}
 	//updateUserActiveUserByID
@@ -457,12 +456,12 @@ public  class UserController /*implements ContainerResponseFilter */{
 	 */
 	@PostMapping("/user/update")
 	public UserDAO updateUserByID(@RequestBody UserDAO newuser){
-		this.updateUserUsernameByID(newuser.getIdUser(), newuser.getUsername());
-		this.updateUserTemppassByID(newuser.getIdUser(),newuser.getTemppass());
-		this.updateUserEmailByID(newuser.getIdUser(),newuser.getEmail());
-		this.updateUserRoleByID(newuser.getIdUser(),newuser.getUserRole());
-		this.updateUserLoginAttemptsByID(newuser.getIdUser(),newuser.getLoginAttempts());
-		this.updateUserActiveUserByID(newuser.getIdUser(),newuser.getActiveUser());
+		this.updateUserUsernameByID(		newuser.getIdUser(), newuser.getUsername()							);
+		this.updateUserTemppassByID(		newuser.getIdUser(), newuser.getTemppass()							);
+		this.updateUserEmailByID(			newuser.getIdUser(), newuser.getEmail()								);
+		this.updateUserRoleByID(			newuser.getIdUser(), newuser.getUserRole()							);
+		this.updateUserLoginAttemptsByID(	newuser.getIdUser(), Integer.valueOf(newuser.getLoginAttempts())	);
+		this.updateUserActiveUserByID(		newuser.getIdUser(), newuser.getActiveUser()						);
 
 		return userRepo.getById(newuser.getIdUser());
 	}

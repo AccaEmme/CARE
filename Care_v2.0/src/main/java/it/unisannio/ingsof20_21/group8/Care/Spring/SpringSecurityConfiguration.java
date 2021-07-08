@@ -78,8 +78,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 CorsConfiguration cc = new CorsConfiguration();
                 cc.setAllowedOriginPatterns(Arrays.asList("*"));
                 cc.setAllowCredentials(true);
-                cc.setAllowedMethods(Arrays.asList("GET","POST" ,"PUT", "DELETE", "OPTIONS", "HEAD"));
-                cc.setAllowedHeaders(Arrays.asList( "CSRF-Token","X-Requested-By", "Authorization", "Content-Type"));
+                cc.setAllowedMethods(Arrays.asList("GET","POST" ,"PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"));
+                cc.setAllowedHeaders(Arrays.asList("CSRF-Token","X-Requested-By", "Authorization", "Content-Type"));
         
                 return cc;
             };

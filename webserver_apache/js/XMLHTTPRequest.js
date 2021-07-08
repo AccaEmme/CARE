@@ -1,6 +1,7 @@
 //================= Methods: HTTP_POST
 function HTTPPost(url, token, jsonBodyString, mex){
 	event.preventDefault();
+	
     let request = new XMLHttpRequest();   // new HttpRequest instance
 
 	request.open("POST", url, true);
@@ -67,6 +68,7 @@ function HTTPPost(url, token, jsonBodyString, mex){
        };
     }*/
 
+// NON FUNZIONA: 403
 function HTTPDelete(url, token, mex){
     let xhr = new XMLHttpRequest();
     xhr.open("DELETE", url, true);
