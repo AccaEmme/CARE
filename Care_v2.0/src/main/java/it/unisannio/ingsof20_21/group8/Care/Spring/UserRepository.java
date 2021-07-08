@@ -133,6 +133,9 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 
 	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.activeUser = -2")
 	long countDeletedUsers();
+
+	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.username =:user ")
+	long countUsersByUsername(@Param("user") String user);
 	
 	@Modifying
 	@Transactional

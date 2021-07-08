@@ -13,14 +13,7 @@ import javax.ws.rs.Produces;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import it.unisannio.CARE.model.exceptions.UserException;
 import it.unisannio.CARE.model.report.UserReport;
@@ -533,13 +526,13 @@ public  class UserController /*implements ContainerResponseFilter */{
 	/**
 	 * this method is used to get the user only if the provided token belongs to the user
 	 * @param token the user token
-	 * @param username the user username
+	 * @param id the user identificator
 	 * @return the UserDAO
 	 * @throws ParseException if the token is wrong
 	 * @throws UserException if the token does not belong to the user
 	 */
-	@GetMapping("/user/get/username/token/{token}/{username}")
-	private UserDAO getUserFromToken(@PathVariable String token, @PathVariable String username) throws ParseException, UserException {
+	@GetMapping("/user/get/username/token/{token}/{id}")
+	private UserDAO getUserFromToken(@PathVariable String token, @PathVariable long id) throws ParseException, UserException {
 		String[] chunks = token.split("\\.");
 
 		Base64.Decoder decoder = Base64.getDecoder();
@@ -548,10 +541,33 @@ public  class UserController /*implements ContainerResponseFilter */{
 		JSONParser parser = new JSONParser();
 		JSONObject json = (JSONObject) parser.parse(payload);
 
-		if (!json.get("sub").toString().equals(username))
+		UserDAO user = userRepo.getById(id);
+
+		if (!json.get("sub").toString().equals(user.getUsername()))
 			throw new UserException("The token does not belong to the provided user.");
-		return this.getUserByUsername(username);
+		return userRepo.getById(id);
 	}
+	@GetMapping("user/get/test/{token}/{username}")
+	private boolean hasRights(String token, long id) throws ParseException, UserException {
+	    this.getUserFromToken(token,id);
+        //System.out.println("test");
+	    return true;
+    }
+
+	//long idUser, String username, String password, String temppass, String email, String userRole, long creationDate, long lastAccess, int loginAttempts, short activeUser
+	@PutMapping("/user/update/{token}")
+    public void userMethodUpdateUsername(@PathVariable String token, @RequestBody UserDAO newUser) throws ParseException, UserException {
+	    if (this.hasRights(token,newUser.getIdUser())){
+	        /*conto gli user perchè l'username potrebbe non voler cambiare l'username,
+	        se effettuo solo il controllo sull'esistenza, l'username sarebbe per forza di cose già presente nel database*/
+	        if (userRepo.countUsersByUsername(newUser.getUsername())>1){
+	            throw new UserException("The user already exists.");
+            }else userRepo.updateUserUsernameByID(newUser.getUsername(),newUser.getIdUser());
+
+	        userRepo.updateUserPasswordByID(Password.getBCrypt(newUser.getPassword()),newUser.getIdUser());
+	        userRepo.updateUserEmailByID(newUser.getEmail(),newUser.getIdUser());
+        }//non serve else perchè verrebbe lanciata un'eccezione.
+    }
 
 
 
