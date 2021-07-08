@@ -6,6 +6,7 @@ import it.unisannio.CARE.controll.request.RequestManager;
 import it.unisannio.CARE.model.bloodBag.BloodBag;
 import it.unisannio.CARE.model.bloodBag.BloodBagState;
 import it.unisannio.CARE.model.bloodBag.BloodGroup;
+import it.unisannio.CARE.model.bloodBag.Serial;
 import it.unisannio.CARE.model.exceptions.BloodBagCloneNotSupportedException;
 import it.unisannio.CARE.model.exceptions.BloodBagNotFoundException;
 import it.unisannio.CARE.model.exceptions.BloodBagStateException;

@@ -44,10 +44,13 @@ public class QRCode {
 
     private final String DIR = Constants.QR_CODES_SAVE_PATH;
     private final String ext = ".png";
-    private final String LOGO = "https://i.imgur.com/1CfZ00U.png";
-    private final String CONTENT = "IT-NA200009-Aneg-20210615-8056";
-    private final int WIDTH = 300;
-    private final int HEIGHT = 300;
+    private String LOGO = "https://i.imgur.com/sbssf2U.png";
+    private final int WIDTH = 500;
+    private final int HEIGHT = 500;
+
+    private Colors background = Colors.WHITE;
+    private Colors foreground = Colors.BLACK;
+
 
     //tested
     public QRCode(JSONObject objectToWrite){
@@ -240,7 +243,7 @@ public class QRCode {
     private MatrixToImageConfig getMatrixConfig() {
         // ARGB Colors
         // Check Colors ENUM
-        return new MatrixToImageConfig(NewQRCode.Colors.BLACK.getArgb(), NewQRCode.Colors.WHITE.getArgb());
+        return new MatrixToImageConfig(this.foreground.getArgb(), this.background.getArgb());
     }
 
     private String generateRandoTitle(Random random, int length) {
@@ -295,5 +298,29 @@ public class QRCode {
 
     public void setSave_path(String save_path) {
         this.save_path = save_path;
+    }
+
+    public String getLOGO() {
+        return LOGO;
+    }
+
+    public void setLOGO(String LOGO) {
+        this.LOGO = LOGO;
+    }
+
+    public Colors getBackground() {
+        return background;
+    }
+
+    public void setBackground(Colors background) {
+        this.background = background;
+    }
+
+    public Colors getForeground() {
+        return foreground;
+    }
+
+    public void setForeground(Colors foreground) {
+        this.foreground = foreground;
     }
 }
