@@ -8,14 +8,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *Enumeratore per la definzione dei vari tipi di gruppi sanguinei ed anche di quelli compatibili per le donazioni
+ * Enumerator for the definition of the various types of blood groups and also of those compatible for donations
  */
 public enum BloodGroup {
 	Apos, Aneg, Bpos, Bneg, ZEROpos, ZEROneg, ABpos, ABneg;
 	
 	/**
 	 **************************************************************************
-	 * Metodo privato per la creazione della HASHMAP con tutti i tipi di sacche di chi può donare
+	 * Private method for creating the HASHMAP with all kinds of donor bags
 	 **************************************************************************
 	 */
 	private static  HashMap<BloodGroup, List<BloodGroup>> canDonateTo = new HashMap() {
@@ -33,7 +33,7 @@ public enum BloodGroup {
 	
 	/**
 	 **************************************************************************
-	 * Metodo privato per la creazione della HASHMAP con tutti i tipi di sacche di chi può ricevere
+	 * Private method for creating the HASHMAP with all kinds of recipients' bags
 	 **************************************************************************
 	 */
 	private static HashMap<BloodGroup, List<BloodGroup>> canReceiveFrom = new HashMap() {
@@ -51,8 +51,8 @@ public enum BloodGroup {
 	
 	/**
 	 **************************************************************************
-	 * Metodo per preservare i dati e per negare la rimozione di elemnti da chi dona
-	 * @param b Viene passato un oggetto BloodGroup
+	 * Method to preserve data and to deny the removal of elements from the donor
+	 * @param b A BloodGroup object is passed
 	 **************************************************************************
 	 */
 	public static Iterator<BloodGroup> canDonateTo(BloodGroup b){
@@ -61,8 +61,8 @@ public enum BloodGroup {
 	
 	/**
 	 **************************************************************************
-	 * Metodo per preservare i dati e per negare la rimozione di elemnti da chi riceve
-	 * @param b Viene passato un oggetto BloodGroup
+	 * Method to preserve data and to deny the removal of elements from the recipient
+	 * @param b A BloodGroup object is passed
 	 **************************************************************************
 	 */
 	public static Iterator<BloodGroup> canReceiveFrom(BloodGroup b){
@@ -71,9 +71,9 @@ public enum BloodGroup {
 	
 	/**
 	 **************************************************************************
-	 * Metodo che ritorna la stringa di tutti i valori dell'enumeratore BloodGroup separati dal delimitatore specificato come argomento
-	 * @param delimiter indica il delimitatore per separare i valori
-	 * @return Ritorna una stringa con tutti i valori richiesti
+	 * Method that returns the string of all BloodGroup enumerator values separated by the delimiter specified as an argument
+	 * @param delimiter indicates the delimiter to separate values
+	 * @return Returns a string with all required values
 	 **************************************************************************
 	 */
 	public static String delimitedValues(String delimiter) {

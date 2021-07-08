@@ -19,30 +19,30 @@ import it.unisannio.CARE.model.util.XMLHelper;
 
 
 /*
- * Ogni seriale deve identificare univocamente una sacca di sangue BloodBag.
- * L'univocità tra le sacche di differenti strutture è definita nell'autodeterminazione del codice seriale, mentre l'univocità tra le sacche della stessa struttura è definita in base al giorno e al contatore.
- * Il contatore è un progressivo dipendente dalla data, ovvero la prima sacca del nuovo giorno ha progressivo 1.
- * Il seriale pertanto oltre a preservare l'univocità delle sacche, risulta autoesplicativo di informazioni immediate.
- * Il seriale non prevede un codice regionale, in quanto il concetto di regione è puramente astratto, la sede centrale non è altro che una sede con un codice provinciale con poteri, funzioni e dunque autorizzazioni diverse. 
- * 
- * Il seriale è composto dai seguenti codici:
- * 	[IT]
- *  -
- *  [NA] provincia
- *  [206] codice struttura
- *  [000] eventuale codice uffici interni 3 cifre
- *  -
- *  [Apos] gruppo
- *  -
- *  [20210416] aaaa mm gg di etichettatura, si presume sia contestuale al prelievo; è noto che la sacca di sangue ha validità di scadenza 1 mese dal prelievo.
- *  -
- *  [0001] progressivo di 4 cifre, si presume che una singola struttura in un giorno non riesca a raccogliere più di 9999 sacche
- *  
- *  Esempio seriale: IT-NA206000-Apos-20210416-0001
- *  La dimensione dei caratteri assunta dal seriale può essere esclusivamente di:  
- *   - 30 caratteri
- *   - 31 caratteri
- *   - 33 caratteri
+ * Each serial must uniquely identify a BloodBag blood bag.
+ * The uniqueness between the bags of different structures is defined in the self-determination of the serial code, while the uniqueness between the bags of the same structure is defined on the basis of the day and the counter.
+ * The counter is a progressive dependent on the date, i.e. the first bag of the new day has progressive 1.
+ * The serial therefore, in addition to preserving the uniqueness of the bags, is self-explanatory of immediate information.
+ * The serial does not provide for a regional code, as the concept of region is purely abstract, the headquarters is nothing more than an office with a provincial code with different powers, functions and therefore authorizations.
+ *
+ * The serial is made up of the following codes:
+ * [IT]
+ * -
+ * [NA] province
+ * [206] facility code
+ * [000] 3-digit internal office code, if any
+ * -
+ * [Apos] group
+ * -
+ * [20210416] yyyy mm dd labeling, presumed to be contextual to the sampling; it is known that the blood bag has an expiry date of 1 month from collection.
+ * -
+ * [0001] progressive of 4 digits, it is assumed that a single structure in a day cannot collect more than 9999 bags
+ *
+ * Serial example: IT-NA206000-Apos-20210416-0001
+ * The size of the characters assumed by the serial can only be of:
+ * - 30 characters
+ * - 31 characters
+ * - 33 characters
  */
 
 
@@ -100,8 +100,8 @@ public class Serial{
 
     /**
 	 **************************************************************************
-	 * Costruttore che protocolla ogni sacca con un valore univoco identificativo
-	 * @param bloodgroup indica il gruppo della sacca
+	 * Manufacturer that logs each bag with a unique identifying value
+	 * @param bloodgroup indicates the bag group
 	 **************************************************************************
 	 */
     public Serial(BloodGroup bloodgroup) {
@@ -118,9 +118,9 @@ public class Serial{
     
     /**
 	 **************************************************************************
-	 * Metodo usato sia dal JUnit Test, ma viene adoperato anche per 
-	 * generare un oggetto Serial da ricercare, in questo caso non deve aggiornare il seriale
-	 * @param String nuovo seriale 
+	 * Method used by both the JUnit Test, but is also used for
+	 * generate a Serial object to search, in this case it does not have to update the serial
+	 * @param s new serial
 	 **************************************************************************
 	 */
     public Serial(String s) {
@@ -130,8 +130,8 @@ public class Serial{
  
     /**
 	 **************************************************************************
-	 * Metodo GET per ottenere il seriale
-	 * @return ritorna il seriale della sacca
+	 * GET method to get the serial
+	 * @return returns the serial of the bag
 	 **************************************************************************
 	 */
     public String getSerial() {
@@ -141,7 +141,7 @@ public class Serial{
     
     /**
 	 **************************************************************************
-	 * Metodo UPDATE per inserire un nuovo seriale
+	 * UPDATE method to insert a new serial
 	 * @exception IOException
 	 **************************************************************************
 	 */
@@ -163,8 +163,8 @@ public class Serial{
     
 	/**
 	 **************************************************************************
-	 * Metodo per constatare la validita' del seriale
-	 * @String indica il seriale da controllare
+	 * Method for verifying the validity of the serial
+	 * @param s indicates the serial to be checked
 	 * @exception IllegalArgumentException
 	 **************************************************************************
 	 */
@@ -177,8 +177,8 @@ public class Serial{
     
     /**
 	 **************************************************************************
-	 * Metodo TOSTRING per le informazioni sulla sacca
-	 * @return ritorna le informazioni sulla sacca
+	 * TOSTRING method for bag information
+	 * @return returns bag information
 	 **************************************************************************
 	 */
     public String toString() {
@@ -187,9 +187,9 @@ public class Serial{
     
     /**
 	 **************************************************************************
-	 * Metodo per confrontare due oggetti
-	 * @param Object viene passato come paramentro l'oggetto da paragonare
-	 * @return ritorna una variabile booleana (true/false) per il paragone 
+	 * Method for comparing two objects
+	 * @param o the object to be compared is passed as a parameter
+	 * @return returns a boolean variable (true / false) for comparison
 	 **************************************************************************
 	 */
     public boolean equals(Object o) {

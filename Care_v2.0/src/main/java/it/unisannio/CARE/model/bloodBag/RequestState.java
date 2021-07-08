@@ -2,7 +2,7 @@ package it.unisannio.CARE.model.bloodBag;
 
 /**
  **************************************************************************
- * Metodo ENUM per i vari stati della richiesta
+ * ENUM Class for the various states of the request
  **************************************************************************
  */
 public enum RequestState {

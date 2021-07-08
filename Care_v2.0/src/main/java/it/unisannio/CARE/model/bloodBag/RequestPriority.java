@@ -2,7 +2,7 @@ package it.unisannio.CARE.model.bloodBag;
 
 /**
  **************************************************************************
- * Metodo ENUM per le varie priorità della richiesta
+  * ENUM Class for the various priorities of the request
  **************************************************************************
  */
 public enum RequestPriority {

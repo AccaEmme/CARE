@@ -2,7 +2,7 @@ package it.unisannio.CARE.model.bloodBag;
 
 /**
  **************************************************************************
- * ENUM con tutti i prossimi stati delle sacche
+ * ENUM with all the next states of the pockets
  **************************************************************************
  */
 public enum BloodBagState{ 

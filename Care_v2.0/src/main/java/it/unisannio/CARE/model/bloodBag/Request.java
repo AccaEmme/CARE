@@ -7,7 +7,7 @@ import it.unisannio.CARE.model.bloodBag.RequestState;
 import it.unisannio.CARE.model.bloodBag.RequestPriority;
 
 /**
- * Classe che si occupa delle richieste effettuate o da fare per le sacche di sangue 
+ * Class that deals with requests made or to be made for blood bags
  */
 
 public class Request {
@@ -26,13 +26,13 @@ public class Request {
 	
 	/**
      **************************************************************************
-     * Metodo costruttore per la creazione di una richiesta
-     * @param String ID del nodo richiedente
-     * @param String ID della sacca richiesta
-     * @param Date Data della richiesta
-     * @param String Note per la richiesta
-     * @param RequestState stato della richiesta
-     * @param RequestPriority priorità della richiesta
+      * Constructor method for creating a request
+      * @param idRequester ID of the requesting node
+      * @param requestedBagSerial ID of the requested bag
+      * @param requestDate Date of the request
+      * @param note Notes for the request
+      * @param state status of the request
+      * @param priority priority of the request
      **************************************************************************
      */
 	public Request( String idRequester, String requestedBagSerial, 
@@ -50,8 +50,8 @@ public class Request {
 
 	/**
      **************************************************************************
-     * Metodo GET ottenere l'id della locazione della richiesta
-     * @return ritorna l'ID della richiesta selezionata
+      * GET method get the id of the location of the request
+      * @return returns the ID of the selected request
      **************************************************************************
      */
 	public String getIdRequester() {
@@ -62,8 +62,8 @@ public class Request {
 	
 	/**
      **************************************************************************
-     * Metodo SET inserire l'id della locazione della richiesta
-     * @param idRequester nuovo ID della richiesta
+      * SET method enter the id of the location of the request
+      * @param idRequester new request ID
      **************************************************************************
      */
 	public void setIdRequester(String idRequester) {
@@ -74,8 +74,8 @@ public class Request {
 
 	/**
      **************************************************************************
-     * Metodo GET ottenere il seriale della sacca richiesta
-     * @return ritorna il seriale della sacca 
+      * GET method get the serial of the requested bag
+      * @return returns the serial of the bag
      **************************************************************************
      */
 	public String getRequestedBagSerial() {
@@ -86,8 +86,8 @@ public class Request {
 	
 	/**
      **************************************************************************
-     * Metodo SET inserire il seriale della sacca richiesta
-     * @param requestedBagSerial Nuovo seriale della sacca
+      * SET method enter the serial number of the required bag
+      * @param requestedBagSerial New serial of the bag
      **************************************************************************
      */
 	public void setRequestedBagSerial(String requestedBagSerial) {
@@ -98,8 +98,8 @@ public class Request {
 	
 	/**
      **************************************************************************
-     * Metodo GET ottenere la data della richiesta
-     * @return ritorna la data di richiesta
+      * GET method get the date of the request
+      * @return returns the request date
      **************************************************************************
      */
 	public Date getRequestDate() {
@@ -110,8 +110,8 @@ public class Request {
 	
 	/**
      **************************************************************************
-     * Metodo SET inserire la data della richiesta
-     * @param requestDate nuova data di richiesta
+      * SET method enter the date of the request
+      * @param requestDate new request date
      **************************************************************************
      */
 	public void setRequestDate(Date requestDate) {
@@ -121,8 +121,8 @@ public class Request {
 	
 	/**
      **************************************************************************
-     * Metodo GET per ottenere le note
-     * @return ritorna le note scritte nella richiesta 
+      * GET method to get notes
+      * @return returns the notes written in the request
      **************************************************************************
      */
 	public String getNote() {
@@ -132,8 +132,8 @@ public class Request {
 	
 	/**
      **************************************************************************
-     * Metodo SET per inserire le note
-     * @param note nuove note da inserire
+      * SET method to insert notes
+      * @param notes new notes to insert
      **************************************************************************
      */
 	public void setNote(String note) {
@@ -144,8 +144,8 @@ public class Request {
 	
 	/**
      **************************************************************************
-     * Metodo GET ottenere lo stato della richiesta
-     * @return ritorna lo stato della richista
+      * GET method to get the status of the request
+      * @return returns the status of the request
      **************************************************************************
      */
 	public RequestState getState() {
@@ -156,8 +156,8 @@ public class Request {
 	
 	/**
      **************************************************************************
-     * Metodo SET inserire lo stato della richiesta
-     * @param state Oggetto per identificare lo stato della richiesta
+      * SET method enter the status of the request
+      * @param state Object to identify the status of the request	
      **************************************************************************
      */
 	public void setState(RequestState state) {
@@ -167,8 +167,8 @@ public class Request {
 	
 	/**
      **************************************************************************
-     * Metodo GET per ottenere la priorita'
-     * @return ritorna la priorita' della richiesta
+      * GET method to get priority
+      * @return returns the priority of the request
      **************************************************************************
      */
 	public RequestPriority getPriority() {
@@ -178,8 +178,8 @@ public class Request {
 	
 	/**
      **************************************************************************
-     * Metodo SET per inserire la priorita'
-     * @param priority Oggetto per inserire la priorita' della richiesta
+      * SET method to enter the priority
+      * @param priority Object to insert the priority of the request
      **************************************************************************
      */
 	public void setPriority(RequestPriority priority) {
@@ -190,8 +190,8 @@ public class Request {
 	
 	/**
      **************************************************************************
-     * Metodo ToString per ottenere tutte le informazioni della classe Request
-     * @return ritorna in formato di stringa tutte le informazioni della classe richiesta
+      * ToString method to get all the information of the Request class
+      * @return returns all the information of the requested class in string format
      **************************************************************************
      */
 	public String toString() {
