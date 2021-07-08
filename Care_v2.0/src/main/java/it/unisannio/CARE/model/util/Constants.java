@@ -5,7 +5,9 @@ import java.util.Date;
 
 import it.unisannio.CARE.model.bloodBag.BloodGroup;
 
-
+/**
+ * Class with all the constants of the C.A.R.E program
+ */
 
 public class Constants {
 
