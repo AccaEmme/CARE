@@ -439,6 +439,4 @@ public class UserTest {
                 "@yahoo.com"                
                 ); 
     }
-  
-
 }
