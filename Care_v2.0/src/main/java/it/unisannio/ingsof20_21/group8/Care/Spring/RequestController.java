@@ -269,22 +269,22 @@ public class RequestController /*implements ContainerResponseFilter */{
 	//testato	
 	@PostMapping("accept")
 	public RequestBean acceptRequest(@RequestBody RequestBean requestB) throws ParseException{		
-
+	
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
-		requestB.setDate(DATE_FORMAT.format(new Date()));
-		requestB.setState(RequestState.accepted.toString());
-		requestB.setPriority(RequestPriority.green.toString());
-		
-		Request request = new Request(
-				requestB.getId_requester(), 
-				requestB.getSerial(), 
-				DATE_FORMAT.parse(requestB.getDate()), 
-				requestB.getNote(),
-				RequestState.valueOf(requestB.getState()),
-				RequestPriority.valueOf(requestB.getPriority()));
-		
+	
 		RequestManager manager = new RequestManager();
+		
+		Document requestDoc =manager.getRequestByIdSerial(requestB.getId_requester(), requestB.getSerial());
+		Request request = new Request(
+				requestDoc.getString("id_requester"), 
+				requestDoc.getString("serial"), 
+				DATE_FORMAT.parse(requestDoc.getString("date")), 
+				requestDoc.getString("note"),
+				RequestState.valueOf(requestDoc.getString("state")),
+				RequestPriority.valueOf(requestDoc.getString("priority")));
+		
+		
 		BloodBagManager bbm = new BloodBagManager();
 		try {
 			
@@ -316,19 +316,20 @@ public class RequestController /*implements ContainerResponseFilter */{
 
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
-		requestB.setDate(DATE_FORMAT.format(new Date()));
-		requestB.setState(RequestState.pending.toString());
-		requestB.setPriority(RequestPriority.green.toString());
-		
-		Request request = new Request(
-				requestB.getId_requester(), 
-				requestB.getSerial(), 
-				DATE_FORMAT.parse(requestB.getDate()), 
-				requestB.getNote(),RequestState.valueOf(requestB.getState()),
-				RequestPriority.valueOf(requestB.getPriority()));
-		
-			
+	
 		RequestManager manager = new RequestManager();
+		
+		Document requestDoc =manager.getRequestByIdSerial(requestB.getId_requester(), requestB.getSerial());
+		Request request = new Request(
+				requestDoc.getString(" id_requester"), 
+				requestDoc.getString("serial"), 
+				DATE_FORMAT.parse(requestDoc.getString("date")), 
+				requestDoc.getString("note"),
+				RequestState.valueOf(requestDoc.getString("state")),
+				RequestPriority.valueOf(requestDoc.getString("priority")));
+		
+		
+		BloodBagManager bbm = new BloodBagManager();
 		try {
 			
 			manager.refuseRequest(request);
