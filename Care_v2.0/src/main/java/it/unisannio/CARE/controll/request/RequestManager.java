@@ -175,7 +175,7 @@ public class RequestManager {
 	/**
      **************************************************************************
       * Method To close the submitted requests
-      * @param request Request object for information about the request
+      * @param serial Serial of the request
       * @exception RequestCloneNotSupportedException
      **************************************************************************
      */

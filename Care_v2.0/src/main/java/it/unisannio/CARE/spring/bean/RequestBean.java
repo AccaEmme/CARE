@@ -127,7 +127,7 @@ public class RequestBean implements Serializable{
 	/**
     ************************************************** ************************
     * String SET method to insert the notes of the request
-    * @param notes new notes to insert
+    * @param note new notes to insert
     ************************************************** ************************
    */
 	public void setNote(String note) {

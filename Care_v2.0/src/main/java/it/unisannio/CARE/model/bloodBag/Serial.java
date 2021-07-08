@@ -144,7 +144,6 @@ public class Serial{
     /**
 	 **************************************************************************
 	 * UPDATE method to insert a new serial
-	 * @exception IOException
 	 **************************************************************************
 	 */
 	private static void updateSerial() {
