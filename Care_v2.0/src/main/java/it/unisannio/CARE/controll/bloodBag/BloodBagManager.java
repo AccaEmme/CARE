@@ -211,6 +211,19 @@ public class BloodBagManager {
 			throw new BloodBagNotFoundException("La sacca su cui si vuole operare non è esistente.");
 	}
 	
+	
+	public void confirm(String serial_r) {
+		Bson filter=and(
+				eq("serial", serial_r),
+				eq("state", BloodBagState.in_recezione.toString())
+				);
+Bson update=Updates.set("state",BloodBagState.Available.toString() );
+if(this.collection.updateOne(filter, update) == null)
+	throw new BloodBagNotFoundException("La sacca su cui si vuole operare non è esistente.");
+	}
+	
+	
+	
 	/**
      **************************************************************************
      * Method for closing the mongoDB client
