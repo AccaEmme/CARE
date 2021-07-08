@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import it.unisannio.CARE.model.util.Constants;
 
 /**
@@ -33,6 +35,7 @@ import it.unisannio.CARE.model.util.Constants;
 
 @Entity
 @Table(name="users")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class UserDAO { // *** UserDAO ???
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

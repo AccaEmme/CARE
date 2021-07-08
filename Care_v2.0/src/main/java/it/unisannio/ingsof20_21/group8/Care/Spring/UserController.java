@@ -412,7 +412,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	 * @param role the new role
 	 * @return the updated user
 	 */
-	@PatchMapping("/user/update/email/id/{id}/{role}")
+	@PatchMapping("/user/update/role/id/{id}/{role}")
 	public UserDAO updateUserRoleByID(@PathVariable long id, @PathVariable String role){
 		userRepo.updateUserRoleByID(Role.valueOf(role).toString(),id);
 
@@ -427,10 +427,16 @@ public  class UserController /*implements ContainerResponseFilter */{
 	 * @return the updated user
 	 */
 	@PatchMapping("/user/update/attempts/id/{id}/{attempts}")
-	public UserDAO updateUserLoginAttemptsByID(@PathVariable long id, @PathVariable int attempts){
-		userRepo.updateUserLoginAttemptsByID(attempts,id);
-		return userRepo.getById(id);
-	}
+	public UserDAO updateUserLoginAttemptsByID(@PathVariable long id, @PathVariable int attempts) {
+        //System.out.println(userRepo.getById(id).getUsername());
+        UserDAO dao = userRepo.getById(id);
+        userRepo.updateUserLoginAttemptsByID(attempts,dao.getIdUser());
+
+        //System.out.println(userRepo.findByUsername(userRepo.getById(id).getUsername()).getLoginAttempts());
+        //userRepo.getById(id);
+        //return userRepo.getById(id);
+        return this.getUserByUsername(dao.getUsername());
+    }
 	//updateUserActiveUserByID
 
 	/**
@@ -441,8 +447,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	 */
 	@PatchMapping("/user/update/activeuser/id/{id}/{active}")
 	public UserDAO updateUserActiveUserByID(@PathVariable long id, @PathVariable short active){
-		userRepo.updateUserLoginAttemptsByID(active,id);
-
+		userRepo.updateUserActiveUserByID(active,id);
 		return userRepo.getById(id);
 	}
 
@@ -455,15 +460,17 @@ public  class UserController /*implements ContainerResponseFilter */{
 	 * 	 * username, temppass -> password, email, ruolo, login attempts, activeuser
 	 */
 	@PostMapping("/user/update")
-	public UserDAO updateUserByID(@RequestBody UserDAO newuser){
+	public void updateUserByID(@RequestBody UserDAO newuser){
 		this.updateUserUsernameByID(		newuser.getIdUser(), newuser.getUsername()							);
-		this.updateUserTemppassByID(		newuser.getIdUser(), newuser.getTemppass()							);
+		if(newuser.getTemppass() != null && !newuser.getTemppass().equals("")) {
+			this.updateUserTemppassByID(	newuser.getIdUser(), newuser.getTemppass()							);
+		}
 		this.updateUserEmailByID(			newuser.getIdUser(), newuser.getEmail()								);
 		this.updateUserRoleByID(			newuser.getIdUser(), newuser.getUserRole()							);
-		this.updateUserLoginAttemptsByID(	newuser.getIdUser(), Integer.valueOf(newuser.getLoginAttempts())	);
+		this.updateUserLoginAttemptsByID(	newuser.getIdUser(), newuser.getLoginAttempts()						);
 		this.updateUserActiveUserByID(		newuser.getIdUser(), newuser.getActiveUser()						);
 
-		return userRepo.getById(newuser.getIdUser());
+		//return userRepo.getById(newuser.getIdUser());
 	}
 
     
