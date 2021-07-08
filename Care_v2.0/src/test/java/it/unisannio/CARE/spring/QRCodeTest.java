@@ -1,5 +1,6 @@
 package it.unisannio.CARE.spring;
 
+import com.google.zxing.WriterException;
 import it.unisannio.CARE.model.bloodBag.BloodBag;
 import it.unisannio.CARE.model.bloodBag.BloodGroup;
 import it.unisannio.CARE.model.exceptions.NullPasswordException;
@@ -58,7 +59,7 @@ public class QRCodeTest {
 
         QRCode code = new QRCode(object);
 
-        code.createQRCode();
+        code.createQRCodeOnly();
     }
 
     /**
@@ -77,7 +78,7 @@ public class QRCodeTest {
         bag.setNotes("buonanott");
 
         QRCode code = new QRCode(bag);
-        code.createQRCode();
+        code.createQRCodeOnly();
     }
 
     /**
@@ -90,7 +91,7 @@ public class QRCodeTest {
         String id = "peppiniello_importunato";
 
         QRCode code = new QRCode(qr,id);
-        code.createQRCode();
+        code.createQRCodeOnly();
     }
 
     /**
@@ -103,7 +104,7 @@ public class QRCodeTest {
         String id = "peppiniello importunato";  //lo spazio viene rimpiazzato con '_'
 
         QRCode code = new QRCode(qr,id);
-        code.createQRCode();
+        code.createQRCodeOnly();
     }
 
 
@@ -115,7 +116,7 @@ public class QRCodeTest {
     public void testCreateQRCodeFromBloodBag() throws ParseException {
         BloodBag bag = new BloodBag(BloodGroup.ABpos,"RNRGLN99P08A783G");
         QRCode code = new QRCode(bag);
-        code.createQRCode();
+        code.createQRCodeOnly();
     }
 
     /**
@@ -128,7 +129,7 @@ public class QRCodeTest {
                     BloodBag bag = new BloodBag(BloodGroup.ABpos,"peppiniello");
 
                     QRCode code = new QRCode(bag);
-                    code.createQRCode();
+                    code.createQRCodeOnly();
                 }
         );
     }
@@ -144,7 +145,7 @@ public class QRCodeTest {
                     BloodBag bag = new BloodBag(BloodGroup.valueOf("peppiniello"),"RNRGLN99P08A783G");
 
                     QRCode code = new QRCode(bag);
-                    code.createQRCode();
+                    code.createQRCodeOnly();
                 }
         );
     }
@@ -160,7 +161,7 @@ public class QRCodeTest {
                     BloodBag bag = new BloodBag(BloodGroup.valueOf("peppiniello"),"peppiniello");
 
                     QRCode code = new QRCode(bag);
-                    code.createQRCode();
+                    code.createQRCodeOnly();
                 }
         );
     }
@@ -175,7 +176,7 @@ public class QRCodeTest {
             userDAO.setEmail("peppiniello99@gmail.com");
 
         QRCode qrCode = new QRCode(userDAO);
-            qrCode.createQRCode();
+            qrCode.createQRCodeOnly();
     } 
 
     @Test
@@ -183,7 +184,22 @@ public class QRCodeTest {
         User user = new User("peppiniello99", new Password("PeppinielloPW9+"));
             user.setEmail("peppiniello99@gmail.com");
         QRCode code = new QRCode(user);
-            code.createQRCode();
+            code.createQRCodeOnly();
+    }
+
+    @Test
+    public void createQRCodeWithLogo() throws WriterException, ParseException {
+        BloodBagDAO bag = new BloodBagDAO();
+        bag.setSerial("IT-NA205101-Aneg-20210615-0037");
+        bag.setGroup("Bneg");
+        bag.setCreationDate(965837967);
+        bag.setExpirationDate(965837968);
+        bag.setDonator("CRSDLCER86BH0919");
+        bag.setState("Available");
+        bag.setNotes("buonanott");
+
+        QRCode code = new QRCode(bag);
+        code.createQRCodeWithLogo();
     }
 
 }
