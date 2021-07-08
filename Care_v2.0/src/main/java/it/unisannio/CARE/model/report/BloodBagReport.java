@@ -5,8 +5,8 @@ import org.json.simple.JSONObject;
 
 import java.util.Date;
 
-/*
- * Class that contains all methods for blood bag reports
+/**
+ * management class reports on blood bags
  */
 public class BloodBagReport {
     private long total;
@@ -145,7 +145,7 @@ public class BloodBagReport {
 
     /**
       * SET method to insert expired bags
-      * @param transfered the number in long format of the expired bags
+      * @param dropped the number in long format of the dropped bags
      */
     public void setDropped(long dropped) {
         this.dropped = dropped;

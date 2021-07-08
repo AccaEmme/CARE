@@ -107,8 +107,8 @@ foreach (array_keys($usersArray ) as $key) {
             <td><input type="text" disabled/></td>
  	        <td><input type="text" disabled/></td>
             <td>
-		        <input type="text" name="addBloodBagCURL" id="addBloodBagCURL" value="http://localhost:8087/bloodbag/import" hidden="yes" />
-                <input type="submit" value="import sacca" onclick="addBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo($token); ?>', document.getElementById('serial').value);">
+		        <input type="text" name="addBloodBagCURL" id="addBloodBagCURL" value="http://localhost:8087/bloodbag/central/confirm" hidden="yes" />
+                <input type="submit" value="import sacca" onclick="confirmBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo($token); ?>', document.getElementById('serial').value);">
             </td>
         </tr>
      </table>

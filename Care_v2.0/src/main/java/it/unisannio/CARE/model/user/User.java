@@ -13,7 +13,7 @@ import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.Password;
 import it.unisannio.ingsof20_21.group8.Care.Spring.UserDAO;
 
-/*
+/**
  * User class that contains all user methods
  */
 
@@ -87,7 +87,8 @@ public class User {
 	* Method for managing the user with an encrypted password
 	* @param username username
 	* @param hiddenPassword encrypted password
-	* @throws UserException, NullPasswordException
+	* @throws UserException
+	* @throws NullPasswordException
 	 **************************************************************************
     */
 	 

@@ -133,7 +133,7 @@ public class Request {
 	/**
      **************************************************************************
       * SET method to insert notes
-      * @param notes new notes to insert
+      * @param note new notes to insert
      **************************************************************************
      */
 	public void setNote(String note) {

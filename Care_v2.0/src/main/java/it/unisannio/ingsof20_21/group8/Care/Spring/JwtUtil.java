@@ -25,7 +25,9 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import it.unisannio.CARE.model.user.Role;
 
 
-/*serve a settare il token, tempo sessione e ruolo*/
+/**
+ * it is used to set the token, session time and role
+ */
 
 @Service
 public class JwtUtil {

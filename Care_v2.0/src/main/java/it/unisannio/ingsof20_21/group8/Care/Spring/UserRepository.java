@@ -45,7 +45,7 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	@Modifying
 	@Transactional
 	@Query("UPDATE UserDAO u SET u.loginAttempts = ?1 where u.username = ?2")
-	void updateUserLoginAttempts(int attempts,String username);
+	void updateUserLoginAttempts(int attempts,String username); 
 	//void updateUserLoginAttempts(@Param("attempts") int attempts, @Param("username") String username);
 
 	// modifica lo stato di un user cercandolo per username

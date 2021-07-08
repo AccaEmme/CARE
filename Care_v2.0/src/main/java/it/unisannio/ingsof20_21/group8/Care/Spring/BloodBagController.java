@@ -11,14 +11,11 @@ import it.unisannio.CARE.model.exceptions.BloodBagCloneNotSupportedException;
 import it.unisannio.CARE.model.exceptions.BloodBagNotFoundException;
 import it.unisannio.CARE.model.exceptions.BloodBagStateException;
 import it.unisannio.CARE.model.exceptions.IllegalFiscalCodeException;
-import it.unisannio.CARE.model.exceptions.IllegalSerialException;
-import it.unisannio.CARE.model.exceptions.NullPasswordException;
 import it.unisannio.CARE.model.exceptions.RequestNotFoundException;
 import it.unisannio.CARE.model.report.BloodBagReport;
 
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.QRCode;
-import it.unisannio.CARE.spring.bean.RequestBean;
 
 import org.bson.Document;
 import org.json.simple.JSONArray;
@@ -27,17 +24,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -378,7 +370,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
                 QRCode code = new QRCode(object);
 
-                code.createQRCode();
+                code.createQRCodeOnly();
 
 	        return bagRepository.save(bagDAO);
 	        		
@@ -439,6 +431,45 @@ public class BloodBagController /*implements ContainerResponseFilter */{
    
     }
 
+    @PostMapping("/bloodbag/central/send")
+    public void BloodBagCentralTransfer(@RequestBody BloodBagDAO bagDAO) throws ParseException {
+
+	    	
+	        
+	        BloodBagDAO bbd= bagRepository.findBySerial(bagDAO.getSerial());
+	
+	
+	        try {
+		        BloodBag tempBloodBagObj = new BloodBag(new Serial(bbd.getSerial()),
+		                BloodGroup.valueOf(bbd.getGroup()),new Date(bbd.getCreationDate()),new Date(bbd.getExpirationDate())
+		             ,bbd.getDonator(),BloodBagState.in_recezione,bbd.getNotes()
+		                
+		        );
+
+	        BloodBagManager managerB = new BloodBagManager();
+	        managerB.addBloodBag(tempBloodBagObj);
+	        
+	        managerB.close();
+	        
+	          bagRepository.updateBloodBagStateBySerial("Transfered", bbd.getSerial());
+	        		
+	    }catch(IllegalArgumentException e) {
+	    	
+	    	e.printStackTrace();
+	    	throw new IllegalFiscalCodeException("Formato del codice fiscale non valido","/bloodbag/add");
+	    	
+	    }
+       
+   
+    }
+    
+    
+    @PostMapping("/bloodbag/central/confirm")
+    public void BloodBagCentralTransferConfirm(@RequestBody BloodBagDAO bagDAO) throws ParseException {
+    	BloodBagManager managerB = new BloodBagManager();
+    	managerB.confirm(bagDAO.getSerial());
+    
+    }
 
     /**
      * import a bag from the central node database

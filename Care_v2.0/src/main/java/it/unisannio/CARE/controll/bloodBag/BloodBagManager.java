@@ -29,7 +29,7 @@ import it.unisannio.CARE.model.exceptions.RequestCloneNotSupportedException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.XMLHelper;
 
-/*
+/**
  * Class that contains all methods for handling blood bags
  */
 
@@ -210,6 +210,19 @@ public class BloodBagManager {
 		if(this.collection.updateOne(filter, update) == null)
 			throw new BloodBagNotFoundException("La sacca su cui si vuole operare non è esistente.");
 	}
+	
+	
+	public void confirm(String serial_r) {
+		Bson filter=and(
+				eq("serial", serial_r),
+				eq("state", BloodBagState.in_recezione.toString())
+				);
+Bson update=Updates.set("state",BloodBagState.Available.toString() );
+if(this.collection.updateOne(filter, update) == null)
+	throw new BloodBagNotFoundException("La sacca su cui si vuole operare non è esistente.");
+	}
+	
+	
 	
 	/**
      **************************************************************************

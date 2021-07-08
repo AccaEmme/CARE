@@ -1,7 +1,7 @@
 package it.unisannio.CARE.spring.bean;
 
 /**
- * 
+ * Generic error handling class related to the bean
  */
 
 public class ErrorBean {

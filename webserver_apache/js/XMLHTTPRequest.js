@@ -1,7 +1,6 @@
 //================= Methods: HTTP_POST
 function HTTPPost(url, token, jsonBodyString, mex){
 	event.preventDefault();
-	
     let request = new XMLHttpRequest();   // new HttpRequest instance
 
 	request.open("POST", url, true);

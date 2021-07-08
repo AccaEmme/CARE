@@ -1,7 +1,7 @@
 package it.unisannio.CARE.spring.bean;
 
-/*
- * 
+/**
+ * is the Bean class of User.class, that is, the complex types of User.class are simplified
  */
 public class UserBean {
 	private String username;
