@@ -35,17 +35,33 @@ HTTPBody:
 
 
 }
-   
-function deleteUser(token, username){
+
+//=================Users Methods: DELETE
+function deleteUser(url, token){
 //var url='http://localhost:8087/authenticate';
 /*
 e.g.:
 http://localhost:8087/user/delete/username/{username}
 HTTPMethod: DELETE
-HTTPBody:
-{
-  "username" :"Hermann80",
-}
+HTTPBody: none
 */
+	var positiveMsg='Utente Eliminato';
+	HTTPDelete(url, token, positiveMsg);
+	location.reload();
+}
 
+
+//=================Users Methods: PATCH
+function resetUserPass(url, token){
+/*
+e.g.
+http://localhost:8087/user/patch/resetpassword/username/FakeUser5
+HTTPMethod: PATCH
+HTTPBody: none
+*/
+	var jsonBody="";
+	var positiveMsg='Eseguito reset password con successo';
+//alert(url + "-" + token + "-" + jsonBody + "-" + positiveMsg);
+	HTTPPatch(url, token, jsonBody, positiveMsg);
+	//location.reload();
 }

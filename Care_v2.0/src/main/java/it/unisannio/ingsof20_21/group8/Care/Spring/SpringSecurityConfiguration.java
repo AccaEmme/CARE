@@ -56,7 +56,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-        .antMatchers("/helloadmin").hasRole("ADMINISTRATOR")
+        .antMatchers("/helloadmin", "/user/patch/resetpassword/username/{username}").hasRole("ADMINISTRATOR")
         
     	.antMatchers("/request/add").hasRole("OFFICER")
     	

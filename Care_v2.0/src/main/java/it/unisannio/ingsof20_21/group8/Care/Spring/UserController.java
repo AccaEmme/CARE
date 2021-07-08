@@ -3,22 +3,16 @@
  */
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
-import java.io.IOException;
 import java.util.Base64;
 import java.util.Date;
 import java.util.Random;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
 
-import it.unisannio.CARE.model.exceptions.UserException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.unisannio.CARE.model.exceptions.UserException;
 import it.unisannio.CARE.model.report.UserReport;
 import it.unisannio.CARE.model.user.Role;
 import it.unisannio.CARE.model.user.User;
@@ -61,24 +56,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 
 
 	/**
-	 * old method, delete it
-	 */
-    //===============GET METHODS
-    @GetMapping("/user")
-	public UserDAO/*Iterable<UserBean>*/ testGetUser() {
-    	UserDAO ub = new UserDAO();
-    	ub.setUsername("ciccioGiuliano");
-    	ub.setPassword("ciaccioLuigi");
-    	//Iterable<UserBean> i = new Iterable<UserBean>();
-    	//i.add(ub);
-    	//return i;
-    	ub.setCreationDate(new Date());
-    	ub.setLastAccess(new Date());
-    	return ub;
-	}
-
-	/**
-	 * this method gets all the users in the database
+	 * this method gets all the users in the database (includes deleted users)
 	 * @return an iterable of Users
 	 * request: 127.0.0.1:8087/user/get/all
 	 */
@@ -87,6 +65,37 @@ public  class UserController /*implements ContainerResponseFilter */{
 		return userRepo.findAll();
 	}
 
+	/**
+	 * this method is used to get the user having the provided status
+	 * @param status used to search the users
+	 * @return the users having the provided status
+	 * request: 127.0.0.1:8087/user/get/email/dtarver6@simplemachines.org
+	 */
+	@GetMapping("/user/get/bystatus/{status}")
+	public Iterable<UserDAO> getByStatusUsers(@PathVariable short status) {
+		return userRepo.findByUserState(status);
+	}
+
+	
+	/**
+	 * This method is used to get all not deleted users
+	 * @return iterable list of not deleted users
+	 * request: 127.0.0.1:8087/user/get/notdeleted
+	 */
+	@GetMapping("/user/get/notdeleted")
+	public Iterable<UserDAO> getNotDeletedUsers() {
+		return userRepo.findNotDeletedUsers();
+	}
+	
+	/**
+	 * This method is used to get all deleted users
+	 * @return iterable list of deleted users
+	 * request: 127.0.0.1:8087/user/get/deleted
+	 */
+	@GetMapping("/user/get/deleted")
+	public Iterable<UserDAO> getDeletedUsers() {
+		return userRepo.findByUserState(UsersStates.DELETED);
+	}
 
 	/**
 	 * this method is used to get the user having the provided email
@@ -253,12 +262,13 @@ public  class UserController /*implements ContainerResponseFilter */{
 
 	/**
 	 * this method is used to reset an user's password
+	 * HTTP PATCH /user/patch/resetpassword/username/{username}
 	 * @param username the user to reset password
 	 * @return the user with the reset password
 	 */
 	@PatchMapping("/user/patch/resetpassword/username/{username}")
 	public UserDAO resetPasswordByUser(@PathVariable String username){
-		String tempass = Password.generatePassword(8);
+		String tempass = Password.generatePassword(10);
 		userRepo.updateUserTempPasswordByUsername(tempass,username);
 		userRepo.updateUserPasswordByUsername(Password.getBCrypt(tempass),username);
 

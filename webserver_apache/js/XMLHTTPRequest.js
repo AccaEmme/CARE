@@ -1,5 +1,5 @@
 //================= Methods: HTTP_POST
-function HTTPPost(url, token, jsonBodyString,mex){
+function HTTPPost(url, token, jsonBodyString, mex){
 	event.preventDefault();
 	
     let request = new XMLHttpRequest();   // new HttpRequest instance
@@ -43,6 +43,8 @@ function HTTPPost(url, token, jsonBodyString,mex){
         }
     };
 }
+
+
 //================= Methods: HTTP_DELETE
 /*
     event.preventDefault();
@@ -77,6 +79,33 @@ function HTTPDelete(url, token, mex){
     xhr.send(null);
 };
 
+
+function HTTPPatch(url, token, jsonBodyString, mex){
+    event.preventDefault();	
+    let request = new XMLHttpRequest();   // new HttpRequest instance
+
+    request.open("PATCH", url, true);
+    request.setRequestHeader('Authorization', 'Bearer ' + token);
+    request.setRequestHeader("content-type", "application/json");
+    
+    request.onerror = function () {
+        alert.log("** An error occurred during the transaction");
+    };
+    request.send(jsonBodyString);
+    request.onreadystatechange = function() {
+        if (this.readyState === 4  ) {
+            console.log("Request: token " + token + " jsonBody: " + jsonBodyString);
+	        console.log("Response: "+ this.responseText);
+	        let results = JSON.parse(this.responseText);
+
+            if(this.status === 500) {
+                alert("error"+this.responseText);
+            }else if(this.status === 200){
+                alert(mex);
+            }
+        }
+    };
+}
 
 
 

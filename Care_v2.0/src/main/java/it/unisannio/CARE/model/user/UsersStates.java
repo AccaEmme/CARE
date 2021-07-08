@@ -8,8 +8,8 @@ public class UsersStates {
       * -2: user logically deleted
      *  */
 
-    public static final short ACTIVE = (short) 1;
-    public static final short INACTIVE = (short) 0;
+    public static final short ACTIVE 			= (short)  1;
+    public static final short INACTIVE 			= (short)  0;
     public static final short BLOCKED_BY_SYSTEM = (short) -1;
-    public static final short DELETED = (short) -2;
+    public static final short DELETED 			= (short) -2;	// necessary the last element.
 }

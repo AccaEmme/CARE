@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import it.unisannio.CARE.model.user.UsersStates;
 import it.unisannio.CARE.model.util.Password;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -25,15 +26,22 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	//UserBean findByUsername(@Param("username") String username);
 	UserDAO findByUsername(String username);
 
-	@Query("FROM UserDAO u WHERE u.userRole =:role AND u.activeUser > -2")
+	@Query("FROM UserDAO u WHERE u.userRole =:role AND u.activeUser > "+(short) UsersStates.DELETED)
 	Iterable<UserDAO> findUserByRole(@Param("role") String role);
 
-	@Query("FROM UserDAO u WHERE u.email =:email AND u.activeUser > -2")
+	@Query("FROM UserDAO u WHERE u.email =:email AND u.activeUser > "+(short) UsersStates.DELETED)
 	UserDAO findByEmail(@Param("email") String email);
 
 	@Query("FROM UserDAO u WHERE u.creationDate >:firstdate AND u.creationDate <:seconddate")
 	Iterable<UserDAO> findCreatedBetween(@Param("firstdate") long firstdate, @Param("seconddate") long seconddate);
 
+	@Query("FROM UserDAO u WHERE u.activeUser > "+(short) UsersStates.DELETED)
+	Iterable<UserDAO> findNotDeletedUsers();
+	
+	@Query("FROM UserDAO u WHERE u.activeUser = :userstate") // -2 to show deleted user
+	Iterable<UserDAO> findByUserState(@Param("userstate") short  userstate);
+	
+	
 	@Modifying
 	@Transactional
 	@Query("UPDATE UserDAO u SET u.loginAttempts = ?1 where u.username = ?2")
