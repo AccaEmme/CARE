@@ -12,5 +12,6 @@ function addBloodBag(url, token, group, donator, note){
 function useBloodBag(url, token){
 	var positiveMsg='sacca rimossa';
 	HTTPDelete(url, token, positiveMsg);
-	location.reload();
+ 
+
 }

@@ -68,6 +68,9 @@ switch($role){
  case "ROLE_OFFICER":
 	echo("Segretaria");
 	break;
+case "ROLE_CENTRAL_STOREMANAGER":
+    echo("Segretaria");
+    break;
  default:
 	echo("Unauthorized");
 	break;

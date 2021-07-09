@@ -205,17 +205,17 @@ public class RequestManager {
      */
 	public void refuseRequest(Request request) {
 		
-		request.setState(RequestState.refused);
-
+	
 	    Bson filter = and(
 							eq("id_requester", request.getIdRequester()),
 					    		eq("serial", request.getRequestedBagSerial()),
 					    		eq("state", RequestState.pending.toString())
 						);
         
-        Document editedRequest = Document.parse(request.toString()); 
-		
-			if(collection.replaceOne(filter, editedRequest).getMatchedCount() != 0) {
+     
+	    	Bson update = new Document("$set", new Document("state", RequestState.refused.toString()) );
+	    	
+			if(collection.findOneAndUpdate(filter, update) == null) {
 				
 				throw new RequestNotFoundException("Richiesta non trovata o inesistente...");
 			}
