@@ -7,19 +7,17 @@ import it.unisannio.CARE.model.bloodBag.BloodBag;
 import it.unisannio.CARE.model.bloodBag.BloodBagState;
 import it.unisannio.CARE.model.bloodBag.BloodGroup;
 import it.unisannio.CARE.model.bloodBag.Serial;
-import it.unisannio.CARE.model.exceptions.BloodBagCloneNotSupportedException;
-import it.unisannio.CARE.model.exceptions.BloodBagNotFoundException;
-import it.unisannio.CARE.model.exceptions.BloodBagStateException;
-import it.unisannio.CARE.model.exceptions.IllegalFiscalCodeException;
-import it.unisannio.CARE.model.exceptions.RequestNotFoundException;
+import it.unisannio.CARE.model.exceptions.*;
 import it.unisannio.CARE.model.report.BloodBagReport;
 
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.QRCode;
 
+import it.unisannio.CARE.modulep2p.NodeIDs;
 import org.bson.Document;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.jvnet.hk2.internal.Collector;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Consumes;
@@ -27,9 +25,7 @@ import javax.ws.rs.Produces;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,7 +37,7 @@ import java.util.logging.Logger;
 @Produces("application/json")
 public class BloodBagController /*implements ContainerResponseFilter */{
     private final BloodBagRepository bagRepository;
-    
+
     public BloodBagController(BloodBagRepository repository){
         this.bagRepository = repository;
     }
@@ -459,8 +455,6 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 	    	throw new IllegalFiscalCodeException("Formato del codice fiscale non valido","/bloodbag/add");
 	    	
 	    }
-       
-   
     }
     
     
@@ -540,6 +534,31 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
         System.err.println(serial);
         return this.getBloodBagBySerial(serial);
+    }
+
+
+    //miscellaneous
+    @GetMapping("/bloodbag/sendtonode/{serial}/{nodeid}")
+    public BloodBagDAO transferBloodBag(@PathVariable String serial, @PathVariable String nodeid) throws NodeNotFoundException {
+        Set<String> nodes = new HashSet<>();
+        for (NodeIDs str : NodeIDs.values()){
+            nodes.add(str.toString());
+        }
+        if (nodes.contains(nodeid)){
+            //invia la sacca
+            System.out.println("entro");
+            BloodBagDAO dao = this.getBloodBagBySerial(serial);
+            if (dao==null)
+                throw new BloodBagNotFoundException("There is no bloodbag with the given serial.");
+
+            if (dao.getState().equals(BloodBagState.Available.toString())) {
+                //marcare la bag come trasferita
+                return dao;
+            }
+            throw new BloodBagStateException("The bag is not available");
+        }
+
+        throw new NodeNotFoundException("The provided node does not exists.");
     }
 
 
