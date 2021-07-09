@@ -11,6 +11,9 @@ import it.unisannio.CARE.model.exceptions.*;
 import it.unisannio.CARE.model.report.BloodBagReport;
 
 import it.unisannio.CARE.model.util.Constants;
+import it.unisannio.CARE.model.util.Logger.Actions;
+import it.unisannio.CARE.model.util.Logger.LogManager;
+import it.unisannio.CARE.model.util.Logger.Results;
 import it.unisannio.CARE.model.util.QRCode;
 
 import it.unisannio.CARE.modulep2p.NodeIDs;
@@ -18,9 +21,11 @@ import it.unisannio.CARE.modulep2p.P2PManager;
 import org.bson.Document;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.jvnet.hk2.internal.Collector;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.*;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import java.io.FileWriter;
@@ -381,7 +386,15 @@ public class BloodBagController /*implements ContainerResponseFilter */{
      *     }
      */
     @PostMapping("/bloodbag/add")
-    public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagDAO) {
+    public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagDAO) throws IOException {
+        long id = new Date().getTime(); //soluzione "lazy"
+        LoggerDAO loggerDAO = new LoggerDAO();
+        loggerDAO.setIdLog(id);
+        loggerDAO.setCurrentUserEmail("NotSpecified");
+        loggerDAO.setCurrentUserUsername("ANONYMOUS");
+        loggerDAO.setFromClass(this.getClass().toString());
+        loggerDAO.setAction(Actions.BLOODBAG_ADD.toString());
+        loggerDAO.setExplanation("");
 	    try {
 	        BloodBag tempBloodBagObj = new BloodBag(
 	                BloodGroup.valueOf(bagDAO.getGroup()),
@@ -390,12 +403,20 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 	        );
 	        tempBloodBagObj.setNote(bagDAO.getNotes());
 	        bagDAO = tempBloodBagObj.getBean();
-	        if (bagRepository.existsById(bagDAO.getSerial()))
-	    		throw new BloodBagCloneNotSupportedException("La sacca che si vuole aggiungere è già esistente.", "/bloodbag/add");
-	    	
-	    	else if (!bagDAO.getState().equals(BloodBagState.Available.toString()))
-	    		throw new BloodBagStateException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
-
+	        if (bagRepository.existsById(bagDAO.getSerial())) {
+                loggerDAO.setResult(Results.OPERATION_REFUSED.toString());
+                loggerDAO.setExplanation("Bloodbag already exists");
+                it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
+                logManager.writeLog();
+                throw new BloodBagCloneNotSupportedException("La sacca che si vuole aggiungere è già esistente.", "/bloodbag/add");
+            }
+	    	else if (!bagDAO.getState().equals(BloodBagState.Available.toString())) {
+                loggerDAO.setResult(Results.OPERATION_REFUSED.toString());
+                loggerDAO.setExplanation("Bloodbag state not valid");
+                it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
+                logManager.writeLog();
+                throw new BloodBagStateException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
+            }
 
             JSONObject object = new JSONObject();
                 object.put("serial",bagDAO.getSerial());
@@ -404,6 +425,9 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
                 code.createQRCodeOnly();
 
+            loggerDAO.setResult(Results.OPERATION_SUCCESSFUL.toString());
+            it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
+            logManager.writeLog();
 	        return bagRepository.save(bagDAO);
 	        		
 	    }catch(IllegalArgumentException e) {
@@ -509,8 +533,15 @@ public class BloodBagController /*implements ContainerResponseFilter */{
      */
     /* @TODO: serial not bagDAO */
     @PostMapping("/bloodbag/import")
-    public BloodBagDAO importBloodBag(@RequestBody BloodBagDAO bagDAO) throws ParseException {
-
+    public BloodBagDAO importBloodBag(@RequestBody BloodBagDAO bagDAO) throws ParseException, IOException {
+        long id = new Date().getTime(); //soluzione "lazy"
+        LoggerDAO loggerDAO = new LoggerDAO();
+        loggerDAO.setIdLog(id);
+        loggerDAO.setCurrentUserEmail("NotSpecified");
+        loggerDAO.setCurrentUserUsername("ANONYMOUS");
+        loggerDAO.setFromClass(this.getClass().toString());
+        loggerDAO.setAction(Actions.BLOODBAG_IMPORT.toString());
+        loggerDAO.setExplanation("");
 	        
     	BloodBagManager managerB = new BloodBagManager();
     	RequestManager managerR = new RequestManager();
@@ -526,14 +557,24 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 	    	bagDAO.setGroup(bagD.getString("group"));
 	    	bagDAO.setNotes(bagD.getString("notes"));
 	    	bagDAO.setState(BloodBagState.Available.toString());
-	        
+
+            loggerDAO.setResult(Results.OPERATION_SUCCESSFUL.toString());
+            it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
+            logManager.writeLog();
+
 	        return bagRepository.save(bagDAO);
     	}catch(RequestNotFoundException e) {
-    		
+            loggerDAO.setResult(Results.OPERATION_REFUSED.toString());
+            loggerDAO.setExplanation("request not found");
+            it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
+            logManager.writeLog();
     		e.printStackTrace();
     		throw new RequestNotFoundException("La richiesta che si vuole concludere non è esistente.", "/bloodbag/import");
     	}catch(BloodBagNotFoundException e) {
-    		
+            loggerDAO.setResult(Results.OPERATION_REFUSED.toString());
+            loggerDAO.setExplanation("blood bag not found");
+            it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
+            logManager.writeLog();
     		e.printStackTrace();
     		throw new BloodBagNotFoundException(e.getMessage(), "/bloodbag/add");
     	}finally {
@@ -558,24 +599,46 @@ public class BloodBagController /*implements ContainerResponseFilter */{
      */
 
     @DeleteMapping("/bloodbag/use/{serial}")
-    public BloodBagDAO useBloodBag(@PathVariable("serial") String serial){
-      	/*if  (!(bagRepository.existsById(serial)))
-        throw new BloodBagStateException("la sacca non esiste");
-        */
-        if(bagRepository.getById(serial).getState().equals("Used"))
-                throw new BloodBagStateException("la sacca è stata già usata");
+    public BloodBagDAO useBloodBag(@PathVariable("serial") String serial) throws IOException {
+        long id = new Date().getTime(); //soluzione "lazy"
+        LoggerDAO loggerDAO = new LoggerDAO();
+        loggerDAO.setIdLog(id);
+        loggerDAO.setCurrentUserEmail("NotSpecified");
+        loggerDAO.setCurrentUserUsername("ANONYMOUS");
+        loggerDAO.setFromClass(this.getClass().toString());
+        loggerDAO.setAction(Actions.BLOODBAG_USED.toString());
+        loggerDAO.setExplanation("");
 
+        if(bagRepository.getById(serial).getState().equals("Used")) {
+            loggerDAO.setResult(Results.OPERATION_GONEBAD.toString());
+            loggerDAO.setExplanation("the blood bag was already used.");
+            it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
+            logManager.writeLog();
+            throw new BloodBagStateException("the blood bag was already used.");
+        }
         bagRepository.updateBloodBagStateBySerial(BloodBagState.Used.toString(),serial);
         bagRepository.updateBloodBagUsedTimestampBySerial(new Date().getTime(),serial);
 
-        System.err.println(serial);
+        loggerDAO.setResult(Results.OPERATION_SUCCESSFUL.toString());
+        it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
+        logManager.writeLog();
+
         return this.getBloodBagBySerial(serial);
     }
 
 
     //miscellaneous
     @GetMapping("/bloodbag/get/remote/{serial}/{nodeid}")
-    public BloodBagDAO getRemoteBloodBag(@PathVariable String serial, @PathVariable String nodeid) throws NodeNotFoundException {
+    public BloodBagDAO getRemoteBloodBag(@PathVariable String serial, @PathVariable String nodeid) throws NodeNotFoundException, IOException {
+        long id = new Date().getTime(); //soluzione "lazy"
+        LoggerDAO loggerDAO = new LoggerDAO();
+        loggerDAO.setIdLog(id);
+        loggerDAO.setCurrentUserEmail("NotSpecified");
+        loggerDAO.setCurrentUserUsername("ANONYMOUS");
+        loggerDAO.setFromClass(this.getClass().toString());
+        loggerDAO.setAction(Actions.BLOODBAG_GET.toString());
+        loggerDAO.setExplanation("");
+
         Set<String> nodes = new HashSet<>();
         for (NodeIDs str : NodeIDs.values()){
             nodes.add(str.toString());
@@ -584,23 +647,44 @@ public class BloodBagController /*implements ContainerResponseFilter */{
             //invia la sacca
             System.out.println("entro");
             BloodBagDAO dao = this.getBloodBagBySerial(serial);
-            if (dao==null)
+            if (dao==null) {
+                loggerDAO.setResult(Results.OPERATION_GONEBAD.toString());
+                loggerDAO.setExplanation("There is no bloodbag with the given serial.");
+                it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
+                logManager.writeLog();
                 throw new BloodBagNotFoundException("There is no bloodbag with the given serial.");
-
+            }
             if (dao.getState().equals(BloodBagState.Available.toString())) {
-                //marcare la bag come trasferita
+                loggerDAO.setResult(Results.OPERATION_SUCCESSFUL.toString());
+                it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
+                logManager.writeLog();
                 return dao;
             }
+            loggerDAO.setResult(Results.OPERATION_REFUSED.toString());
+            loggerDAO.setExplanation("The bag is not available");
+            it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
+            logManager.writeLog();
             throw new BloodBagStateException("The bag is not available");
-        }
 
+        }
+        loggerDAO.setResult(Results.OPERATION_REFUSED.toString());
+        loggerDAO.setExplanation("The provided node does not exists.");
+        it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
+        logManager.writeLog();
         throw new NodeNotFoundException("The provided node does not exists.");
     }
 
     @GetMapping("/bloodbag/transfer/{serial}/{nodeid}/{token}")
     public void transferBloodBag(@PathVariable String serial, @PathVariable String nodeid, @PathVariable String token) throws Exception {
+        JSONObject userInfo = this.getUsernameFromToken(token);
+        long id = new Date().getTime(); //soluzione "lazy"
+        LoggerDAO loggerDAO = new LoggerDAO();
+        loggerDAO.setIdLog(id);
+        loggerDAO.setCurrentUserEmail("NotSpecified");
+        loggerDAO.setCurrentUserUsername(userInfo.get("sub").toString());
+        loggerDAO.setFromClass(this.getClass().toString());
+        loggerDAO.setAction(Actions.BLOODBAG_TRANSFERED.toString());
         try {
-            //String request = "http://192.168.1.45:8088/bloodbag/get/remote/IT-NA206000-Aneg-20210709-0004/BN001";
             String request = "http://192.168.1.45:8088/bloodbag/get/remote/"+serial+"/"+nodeid;
             P2PManager manager = new P2PManager(request,token);
             JSONArray object = manager.sendGet();
@@ -624,12 +708,31 @@ public class BloodBagController /*implements ContainerResponseFilter */{
             System.out.println(bagToSave.toString());
             bagRepository.save(bagToSave);
 
+            //scrivo il log qui perchè se arriva a questa linea non ci sono errori
+            //long id, String currentEmail, String currentUsername, String fromClass, String result, String action
 
+            loggerDAO.setResult(Results.OPERATION_SUCCESSFUL.toString());
+            it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
+            logManager.writeLog();
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("entro qui");
+            loggerDAO.setResult(Results.OPERATION_REFUSED.toString());
+            it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
+            logManager.writeLog();
         }
+    }
+
+    private JSONObject getUsernameFromToken(String token) throws org.json.simple.parser.ParseException, UserException {
+        String[] chunks = token.split("\\.");
+
+        Base64.Decoder decoder = Base64.getDecoder();
+        String payload = new String(decoder.decode(chunks[1]));
+
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(payload);
+
+        return json;
     }
 
     @GetMapping("bloodbag/update/state/{state}/{serial}")

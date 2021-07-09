@@ -22,6 +22,8 @@ public class LoggerDAO {
     private String currentUserUsername;
     private String fromClass;           //the calling class
     private String result;              //the response of the op
+    private String action;
+    private String explanation;
 
     /*
     public LoggerBean(long idLog,String currentUserEmail, String currentUserUsername, String fromClass, String result) {
@@ -32,6 +34,22 @@ public class LoggerDAO {
         this.fromClass = fromClass;
         this.result = result;
     }*/
+
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
 
     public LoggerDAO(){}
 
