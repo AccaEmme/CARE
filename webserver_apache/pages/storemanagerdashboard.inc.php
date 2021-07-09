@@ -20,7 +20,7 @@
 	    </td>
             <td><input type="text" name="donator" id="donator" placeholder="cod.fiscale CF_DONATORE" /></td>
          
-            <td><input type="text" name="note" id="note" /></td>
+            <td><input type="text" name="note" id="note" placeholder="Note" /></td>
          
             <td>
 		<input type="text" name="addBloodBagURL" id="addBloodBagURL" value="http://localhost:8087/bloodbag/add" hidden="yes" />
@@ -66,8 +66,12 @@ html5QrcodeScanner.render(onScanSuccess, onScanError);
 <!--fine parte buona-->
 
 
-
-  <!-- START: Expiring BloodBags -->
+	
+    
+	
+	
+      </table></center>
+     </form>
 
   
   <?php
@@ -95,9 +99,21 @@ $bagArray = (array) json_decode($result);
             <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> Magazzino </b></a><br><small>(Visualizza sacche disponibili nel magazzino)</small></legend>
 
 <!-- campi tabella -->
- 
-    <form action="" method="POST">
-     <table>
+<form action="" method="POST">
+  <center><table>
+         <tr>
+            <td align="center"><b>serialr</b></td>
+            <td align="center"><b>group</b></td>
+            <td align="center"><b>donator</b></td>
+            <td align="center"><b>creationDate</b></td>
+            <td align="center"><b>xpirationDate</b></td>
+            <td align="center"><b>state</b></td>
+            <td align="center"><b>notes</b></td>
+            <td align="center"><b>used</b></td>
+        </tr>
+        
+<!-- in php lancio solo il for in html riempo la tabella -->
+<tr>
     
         
 <!-- in php lancio solo il for in html riempo la tabella -->
@@ -110,7 +126,7 @@ $bagArray = (array) json_decode($result);
             <td><input type="text" name="expirationDate_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArray[$key]->expirationDate/1000); ?>" disabled/></td>
   	    <td><input type="text" name="state_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->state; ?>" disabled/></td>
 	    <td><input type="text" name="notes_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->notes; ?>" disabled/></td>
-            <td><input type="text" name="usedTimeStamp_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->usedTimeStamp; ?>" disabled/></td>
+            <td><input type="text" name="usedTimeStamp_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArray[$key]->usedTimeStamp/1000); ?>" disabled/></td>
             <td>
                 
                 <input type="submit" value="PRELEVA" onclick="useBloodBag('http://localhost:8087/bloodbag/use/<?php echo $bagArray[$key]->serial; ?>', '<?php echo($token); ?>');setTimeout(function () { location.reload(1); }, 1000);">
@@ -120,5 +136,5 @@ $bagArray = (array) json_decode($result);
 <?php
 }
 ?>
-</table>
+</table></center>
 </form>
