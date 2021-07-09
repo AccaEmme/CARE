@@ -123,7 +123,41 @@ public class P2PManager {
         return responseJson;
     }
 
+    public JSONArray sendGet() throws Exception {
+        JSONArray jsonArray = new JSONArray();
+        String url = this.request;
 
+        HttpURLConnection httpClient =
+                (HttpURLConnection) new URL(url).openConnection();
+
+        // optional default is GET
+        httpClient.setRequestMethod("GET");
+
+        //add request header
+        httpClient.setRequestProperty("User-Agent", "Mozilla/5.0");
+        httpClient.setRequestProperty("Authorization","Bearer "+this.token);
+
+        int responseCode = httpClient.getResponseCode();
+        System.out.println("\nSending 'GET' request to URL : " + url);
+        System.out.println("Response Code : " + responseCode);
+
+        try (BufferedReader in = new BufferedReader(
+                new InputStreamReader(httpClient.getInputStream()))) {
+
+            StringBuilder response = new StringBuilder();
+            String line;
+
+            while ((line = in.readLine()) != null) {
+                response.append(line);
+            }
+
+            //print result
+            //System.out.println(response.toString());
+            JSONParser parser = new JSONParser();
+            jsonArray = (JSONArray) parser.parse(response.toString().trim());
+        }
+        return jsonArray;
+    }
 
     public JSONObject getTypedBody(Object obj) throws IOException, ParseException {
         String objectType;

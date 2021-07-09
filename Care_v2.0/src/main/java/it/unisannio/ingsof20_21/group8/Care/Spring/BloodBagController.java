@@ -14,6 +14,7 @@ import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.QRCode;
 
 import it.unisannio.CARE.modulep2p.NodeIDs;
+import it.unisannio.CARE.modulep2p.P2PManager;
 import org.bson.Document;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -538,8 +539,8 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
 
     //miscellaneous
-    @GetMapping("/bloodbag/sendtonode/{serial}/{nodeid}")
-    public BloodBagDAO transferBloodBag(@PathVariable String serial, @PathVariable String nodeid) throws NodeNotFoundException {
+    @GetMapping("/bloodbag/get/remote/{serial}/{nodeid}")
+    public BloodBagDAO getRemoteBloodBag(@PathVariable String serial, @PathVariable String nodeid) throws NodeNotFoundException {
         Set<String> nodes = new HashSet<>();
         for (NodeIDs str : NodeIDs.values()){
             nodes.add(str.toString());
@@ -559,6 +560,15 @@ public class BloodBagController /*implements ContainerResponseFilter */{
         }
 
         throw new NodeNotFoundException("The provided node does not exists.");
+    }
+
+    @GetMapping("/bloodbag/transfer/{serial}/{nodeid}/{token}")
+    public void transferBloodBag(@PathVariable String serial, @PathVariable String nodeid, @PathVariable String token) throws Exception {
+        System.out.println("entro");
+        String request = "192.168.1.45:8088/bloodbag/get/remote/"+serial+"/"+NodeIDs.BN001;
+        P2PManager manager = new P2PManager(request,token);
+        JSONArray object = manager.sendGet();
+        System.out.println(object.get(0).toString());
     }
 
 

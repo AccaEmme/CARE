@@ -12,6 +12,7 @@ import static org.junit.Assert.assertThrows;
 import org.springframework.security.core.parameters.P;
 
 import java.io.IOException;
+import java.io.PipedWriter;
 
 public class P2PTest {
     @Test
@@ -38,7 +39,7 @@ public class P2PTest {
 
         P2PManager manager = new P2PManager(request,token);
         /**private method*/
-        //manager.testGet();
+        manager.sendRequest();
     }
 
     @Test
@@ -59,5 +60,14 @@ public class P2PTest {
                     manager.getTypedBody(new String());
                 }
         );
+    }
+
+    @Test
+    public void testGetBloodBags() throws Exception {
+        String request = "http://192.168.1.45:8088/bloodbag/get/all";
+        String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmb2xsZW45OSIsInVzZXJSb2xlIjoiUk9MRV9BRE1JTklTVFJBVE9SIiwiZXhwIjoxNjI1ODUzMzY0LCJpYXQiOjE2MjU4NDgzNjR9.ci--bP88P136ca2bos2eWlPBGL2GolsbjgUwtu9rJajOzqnr3SZ548hKtEngjGMp5Xiucj9R1ZT6UDRuAs0jsQ";
+        P2PManager manager = new P2PManager(request,token);
+        System.out.println(manager.sendGet().get(0).toString());
+
     }
 }
