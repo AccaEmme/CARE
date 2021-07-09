@@ -126,8 +126,9 @@ public class Serial{
 	 **************************************************************************
 	 */
     public Serial(String s) {
-    	validateSerial(s.toUpperCase());
-    	this.serial = s.toUpperCase();
+    	 s = s.toUpperCase();
+    	 validateSerial(s);
+    	 this.serial = s;
 	}
  
     /**

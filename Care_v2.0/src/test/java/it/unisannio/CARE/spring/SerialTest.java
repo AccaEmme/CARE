@@ -106,6 +106,15 @@ public class SerialTest {
 	}
 	
 	/**
+	* valid creation of the Serial class constructor with serial lowercase
+	*/
+	@Test
+	public void validityTestloweCase2_Serial_notNullObject() {
+		Serial s = new Serial("It-NA206000-apOS-20210416-0001");
+		assertNotNull(s);
+	}
+	
+	/**
 	* Test of the Get Serial method
 	*/
 	@Test
