@@ -153,6 +153,8 @@ public class P2PManager {
 
             //print result
             //System.out.println(response.toString());
+            if (response == null)
+                return null;
 
             JSONParser parser = new JSONParser();
             String responseSTR = response.toString();

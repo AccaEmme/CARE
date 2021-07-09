@@ -552,7 +552,8 @@ public class BloodBagController /*implements ContainerResponseFilter */{
             if (dao==null)
                 throw new BloodBagNotFoundException("There is no bloodbag with the given serial.");
 
-            if (dao.getState().equals(BloodBagState.Available.toString())) {
+            /**@// TODO: 09/07/2021 rimuovere true */
+            if (/*dao.getState().equals(BloodBagState.Available.toString())*/true) {
                 //marcare la bag come trasferita
                 return dao;
             }
@@ -564,16 +565,21 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
     @GetMapping("/bloodbag/transfer/{serial}/{nodeid}/{token}")
     public void transferBloodBag(@PathVariable String serial, @PathVariable String nodeid, @PathVariable String token) throws Exception {
-        String request = "http://192.168.1.45:8088/bloodbag/get/remote/"+serial+"/"+NodeIDs.valueOf(nodeid);
-        //String request = "http://192.168.1.45:8088/bloodbag/get/remote/IT-NA206000-Aneg-20210709-0000/BN001";
-        P2PManager manager = new P2PManager(request,token);
-        JSONArray object = manager.sendGet();
+        try {
+            String request = "http://192.168.1.45:8088/bloodbag/get/remote/"+serial+"/"+NodeIDs.valueOf(nodeid);
+            //String request = "http://192.168.1.45:8088/bloodbag/get/remote/IT-NA206000-Aneg-20210709-0000/BN001";
+            P2PManager manager = new P2PManager(request,token);
+            JSONArray object = manager.sendGet();
 
-        JSONObject bloodbag = (JSONObject) object.get(0);
-        System.out.println(bloodbag);
+            JSONObject bloodbag = (JSONObject) object.get(0);
+            System.out.println(bloodbag);
 
-        manager.setRequest("http://192.168.1.45:8088/bloodbag/update/state/"+BloodBagState.Arrived+"/"+serial);
-        manager.sendGet();
+            /*manager.setRequest("http://192.168.1.45:8088/bloodbag/update/state/"+BloodBagState.Available+"/"+serial);
+            manager.sendGet();*/
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("entro qui");
+        }
     }
 
     @GetMapping("bloodbag/update/state/{state}/{serial}")
