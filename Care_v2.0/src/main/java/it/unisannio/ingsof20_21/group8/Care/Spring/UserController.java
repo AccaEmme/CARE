@@ -530,7 +530,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	 * @throws ParseException if the token is wrong
 	 * @throws UserException if the token does not belong to the user
 	 */
-	@GetMapping("/profile/get/token/{token}/{id}")
+	@GetMapping("/profile/get/{token}/{id}")
 	private UserDAO getUserFromToken(@PathVariable String token, @PathVariable long id) throws ParseException, UserException {
 		String[] chunks = token.split("\\.");
 
