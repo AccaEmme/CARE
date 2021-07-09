@@ -97,6 +97,15 @@ public class SerialTest {
 	}
 	
 	/**
+	* valid creation of the Serial class constructor with serial lowercase
+	*/
+	@Test
+	public void validityTestloweCase_Serial_notNullObject() {
+		Serial s = new Serial("it-na206000-apos-20210416-0001");
+		assertNotNull(s);
+	}
+	
+	/**
 	* Test of the Get Serial method
 	*/
 	@Test
@@ -147,6 +156,8 @@ public class SerialTest {
 		File to = new File(path2);
         Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
 	}
+	
+	
 	
 	
 	/** 

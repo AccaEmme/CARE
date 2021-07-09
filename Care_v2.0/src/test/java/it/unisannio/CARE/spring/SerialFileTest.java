@@ -72,6 +72,7 @@ public class SerialFileTest {
 	* @throws InvalidPropertiesFormatException
 	* @throws IOException
 	* @return The result is true if the counter has a value of 3
+	*/
 	
 	@Test
 	public void testNewDate() throws InvalidPropertiesFormatException, InvalidPropertiesFormatException, IOException {	
@@ -79,9 +80,9 @@ public class SerialFileTest {
 		Properties loadProps = new Properties();
 		loadProps.loadFromXML(new FileInputStream(path3));
 	    int  counter = Integer.valueOf(loadProps.getProperty("counter"));
-	    assertTrue(counter==3); 
+	    assertTrue(counter==4); 
 	} 
-	*/
+	
 	
 	/**
 	* Test to verify the correct functioning of the Counter
@@ -127,6 +128,16 @@ public class SerialFileTest {
 		Serial s = new Serial("IT-NA206000-Apos-20210416-000");
 		assertNotNull(s);
 	}
+	
+	/**
+	* valid creation of the Serial class constructor with serial lowercase
+	*/
+	@Test
+	public void validityTestloweCase_Serial_notNullObject() {
+		Serial s = new Serial("it-na206000-apos-20210416-0001");
+		assertNotNull(s);
+	}
+	
 	
 	/**
 	* Test of the Get Serial method
