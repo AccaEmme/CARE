@@ -10,6 +10,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class P2PManager {
@@ -168,6 +169,24 @@ public class P2PManager {
             return jsonArray;
 
         }
+    }
+
+    public void sendGetNoResponse() throws IOException {
+        String url = this.request;
+
+        HttpURLConnection httpClient =
+                (HttpURLConnection) new URL(url).openConnection();
+
+        // optional default is GET
+        httpClient.setRequestMethod("GET");
+
+        //add request header
+        httpClient.setRequestProperty("User-Agent", "Mozilla/5.0");
+        httpClient.setRequestProperty("Authorization","Bearer "+this.token);
+
+        int responseCode = httpClient.getResponseCode();
+        System.out.println("\nSending 'GET' request to URL : " + url);
+        System.out.println("Response Code : " + responseCode);
     }
 
     public JSONObject getTypedBody(Object obj) throws IOException, ParseException {

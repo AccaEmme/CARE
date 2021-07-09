@@ -587,8 +587,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
             if (dao==null)
                 throw new BloodBagNotFoundException("There is no bloodbag with the given serial.");
 
-            /**@// TODO: 09/07/2021 rimuovere true */
-            if (/*dao.getState().equals(BloodBagState.Available.toString())*/true) {
+            if (dao.getState().equals(BloodBagState.Available.toString())) {
                 //marcare la bag come trasferita
                 return dao;
             }
@@ -601,16 +600,32 @@ public class BloodBagController /*implements ContainerResponseFilter */{
     @GetMapping("/bloodbag/transfer/{serial}/{nodeid}/{token}")
     public void transferBloodBag(@PathVariable String serial, @PathVariable String nodeid, @PathVariable String token) throws Exception {
         try {
-            String request = "http://192.168.1.45:8088/bloodbag/get/remote/"+serial+"/"+NodeIDs.valueOf(nodeid);
-            //String request = "http://192.168.1.45:8088/bloodbag/get/remote/IT-NA206000-Aneg-20210709-0000/BN001";
+            //String request = "http://192.168.1.45:8088/bloodbag/get/remote/IT-NA206000-Aneg-20210709-0004/BN001";
+            String request = "http://192.168.1.45:8088/bloodbag/get/remote/"+serial+"/"+nodeid;
             P2PManager manager = new P2PManager(request,token);
             JSONArray object = manager.sendGet();
 
             JSONObject bloodbag = (JSONObject) object.get(0);
             System.out.println(bloodbag);
 
-            /*manager.setRequest("http://192.168.1.45:8088/bloodbag/update/state/"+BloodBagState.Available+"/"+serial);
-            manager.sendGet();*/
+            manager.setRequest("http://192.168.1.45:8088/bloodbag/update/state/"+BloodBagState.Transfered+"/"+serial);
+            manager.sendGetNoResponse();
+
+            BloodBagDAO bagToSave = new BloodBagDAO();
+            bagToSave.setSerial(bloodbag.get("serial").toString());
+            bagToSave.setGroup(bloodbag.get("group").toString());
+            bagToSave.setDonator(bloodbag.get("donator").toString());
+            bagToSave.setCreationDate((Long) bloodbag.get("creationDate"));
+            bagToSave.setExpirationDate((Long) bloodbag.get("expirationDate"));
+            bagToSave.setState(BloodBagState.in_recezione.toString());
+            bagToSave.setNotes(bloodbag.get("notes").toString());
+            bagToSave.setUsedTimeStamp(0L);
+
+            System.out.println(bagToSave.toString());
+            bagRepository.save(bagToSave);
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("entro qui");
