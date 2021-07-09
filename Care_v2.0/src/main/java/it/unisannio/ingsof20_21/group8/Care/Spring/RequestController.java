@@ -267,9 +267,8 @@ public class RequestController /*implements ContainerResponseFilter */{
 
 	
 	//testato	
-	@PostMapping("accept")
+	@PostMapping("/accept")
 	public RequestBean acceptRequest(@RequestBody RequestBean requestB) throws ParseException{		
-	
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
 		mongoLogger.setLevel(Level.SEVERE);
 	
@@ -311,7 +310,7 @@ public class RequestController /*implements ContainerResponseFilter */{
 	}
 
 
-	@PostMapping("refuse")	
+	@PostMapping("/refuse")	
 	public RequestBean refuseRequest(@RequestBody RequestBean requestB) throws ParseException{		
 
 		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
@@ -321,7 +320,7 @@ public class RequestController /*implements ContainerResponseFilter */{
 		
 		Document requestDoc =manager.getRequestByIdSerial(requestB.getId_requester(), requestB.getSerial());
 		Request request = new Request(
-				requestDoc.getString(" id_requester"), 
+				requestDoc.getString("id_requester"), 
 				requestDoc.getString("serial"), 
 				DATE_FORMAT.parse(requestDoc.getString("date")), 
 				requestDoc.getString("note"),
@@ -339,7 +338,7 @@ public class RequestController /*implements ContainerResponseFilter */{
 		}catch(RequestNotFoundException e){
 
 			e.printStackTrace();
-			throw new RequestCloneNotSupportedException(e.getMessage(), "/request/accept");
+			throw new RequestCloneNotSupportedException(e.getMessage(), "/request/refuse");
 			
 		}finally {
 			

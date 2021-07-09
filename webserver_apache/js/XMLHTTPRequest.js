@@ -73,11 +73,13 @@ function HTTPDelete(url, token, mex){
     let xhr = new XMLHttpRequest();
     xhr.open("DELETE", url, true);
     xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-
+    
     xhr.onload = function(){}; 
-     
-    alert(mex);
+    
+    
+   
     xhr.send(null);
+    alert(mex);
 };
 
 
