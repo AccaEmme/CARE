@@ -564,11 +564,21 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 
     @GetMapping("/bloodbag/transfer/{serial}/{nodeid}/{token}")
     public void transferBloodBag(@PathVariable String serial, @PathVariable String nodeid, @PathVariable String token) throws Exception {
-        System.out.println("entro");
-        String request = "192.168.1.45:8088/bloodbag/get/remote/"+serial+"/"+NodeIDs.BN001;
+        String request = "http://192.168.1.45:8088/bloodbag/get/remote/"+serial+"/"+NodeIDs.valueOf(nodeid);
+        //String request = "http://192.168.1.45:8088/bloodbag/get/remote/IT-NA206000-Aneg-20210709-0000/BN001";
         P2PManager manager = new P2PManager(request,token);
         JSONArray object = manager.sendGet();
-        System.out.println(object.get(0).toString());
+
+        JSONObject bloodbag = (JSONObject) object.get(0);
+        System.out.println(bloodbag);
+
+        manager.setRequest("http://192.168.1.45:8088/bloodbag/update/state/"+BloodBagState.Arrived+"/"+serial);
+        manager.sendGet();
+    }
+
+    @GetMapping("bloodbag/update/state/{state}/{serial}")
+    public void updateBloodBagStateBySerial(@PathVariable String state, @PathVariable String serial){
+        bagRepository.updateBloodBagStateBySerial(state,serial);
     }
 
 

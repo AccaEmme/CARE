@@ -153,10 +153,19 @@ public class P2PManager {
 
             //print result
             //System.out.println(response.toString());
+
             JSONParser parser = new JSONParser();
-            jsonArray = (JSONArray) parser.parse(response.toString().trim());
+            String responseSTR = response.toString();
+            if (responseSTR.startsWith("[")){
+                jsonArray = (JSONArray) parser.parse(response.toString().trim());
+                return jsonArray;
+            }
+            JSONObject newObj = (JSONObject) parser.parse(responseSTR);
+            jsonArray.add(newObj);
+
+            return jsonArray;
+
         }
-        return jsonArray;
     }
 
     public JSONObject getTypedBody(Object obj) throws IOException, ParseException {
@@ -177,5 +186,43 @@ public class P2PManager {
     }
 
 
+    public String getRequest() {
+        return request;
+    }
 
+    public void setRequest(String request) {
+        this.request = request;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getStringBody() {
+        return stringBody;
+    }
+
+    public void setStringBody(String stringBody) {
+        this.stringBody = stringBody;
+    }
+
+    public JSONObject getJsonBody() {
+        return jsonBody;
+    }
+
+    public void setJsonBody(JSONObject jsonBody) {
+        this.jsonBody = jsonBody;
+    }
+
+    public RequestType getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(RequestType requestType) {
+        this.requestType = requestType;
+    }
 }
