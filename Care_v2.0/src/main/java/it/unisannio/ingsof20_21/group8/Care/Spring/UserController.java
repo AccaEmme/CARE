@@ -530,7 +530,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	 * @throws ParseException if the token is wrong
 	 * @throws UserException if the token does not belong to the user
 	 */
-	@GetMapping("/user/get/token/id/{token}/{id}")
+	@GetMapping("/profile/get/token/{token}/{id}")
 	private UserDAO getUserFromToken(@PathVariable String token, @PathVariable long id) throws ParseException, UserException {
 		String[] chunks = token.split("\\.");
 
@@ -554,7 +554,7 @@ public  class UserController /*implements ContainerResponseFilter */{
     }
 
 	//long idUser, String username, String password, String temppass, String email, String userRole, long creationDate, long lastAccess, int loginAttempts, short activeUser
-	@PutMapping("/user/set/{token}")
+	@PutMapping("/profile/set/{token}")
     public void userMethodUpdateUsername(@PathVariable String token, @RequestBody UserDAO newUser) throws ParseException, UserException {
 	    if (this.hasRights(token,newUser.getIdUser())){
 	        /*conto gli user perchè l'username potrebbe non voler cambiare l'username,
