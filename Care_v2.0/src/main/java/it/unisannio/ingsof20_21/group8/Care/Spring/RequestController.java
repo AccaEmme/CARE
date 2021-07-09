@@ -184,6 +184,35 @@ public class RequestController /*implements ContainerResponseFilter */{
 	}
 	
 	
+	@GetMapping("get/our/state/{state}")	
+	public Iterable<RequestBean> getOurRequestsByState(@PathVariable String state){
+		
+		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+		mongoLogger.setLevel(Level.SEVERE);
+			
+		ArrayList<RequestBean> array = new ArrayList<>();
+		
+		RequestManager manager = new RequestManager();
+		Iterable<Document> iterable = (manager.getOurRequestsByState(RequestState.valueOf(state)));
+		
+		for (Document requestD : iterable)
+			array.add(new RequestBean(
+				requestD.getString("id_requester"), 
+				requestD.getString("serial"),
+				requestD.getString("date"),
+				requestD.getString("note"),
+				requestD.getString("state"),
+				requestD.getString("priority")));
+					
+		manager.close();
+		
+		return array;
+
+
+
+	}
+	
+	
 	
 	@GetMapping("get/other")	
 	public Iterable<RequestBean> getOtherRequests(){

@@ -344,6 +344,36 @@ public class RequestManager {
 	
 	/**
      **************************************************************************
+     * Method To read our requests by state 
+     * @return requests
+     **************************************************************************
+     */
+	
+	public List<Document> getOurRequestsByState(RequestState state) {
+        
+		Properties prop = XMLHelper.getProps(Constants.NODE_PROPERTIES);
+		String id_requester = prop.getProperty("province") + prop.getProperty("structureCode");
+		
+		List<Document> requestes = new ArrayList<>();
+		
+	    Bson filter = and(
+	    				eq("id_requester", id_requester),
+	    				eq("state", state.toString())
+	    				);
+		
+        MongoCursor<Document> iterator= collection.find().filter(filter).iterator();
+		
+	    while(iterator.hasNext()) {
+	    	
+	    	requestes.add(iterator.next());
+    	}
+			
+	    return requestes;
+	}
+	
+	
+	/**
+     **************************************************************************
      * Method To read other requests 
 	 * @return requests
      **************************************************************************

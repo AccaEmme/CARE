@@ -1,35 +1,48 @@
- //=================Request Methods: POST
- function addRequest(url, token, serial, priority, note){
+//=================Request Methods: POST
+function addRequest(token, serial, priority, note) {
 
-     k=0;
-     if(url == "") 		{ alert("url null"); 		k=1; }
-     if(token == "") 	{ alert("token null"); 		k=1; }
-     if(serial == "") 	{ alert("serial null");     k=1; }
-     if(priority == "") { alert("priority null"); 	k=1; }
-    
-     if(k==0){
+    k = 0;
+    if (token == "") {
+        alert("token null");
+        k = 1;
+    }
+    if (serial == "") {
+        alert("serial null");
+        k = 1;
+    }
+    if (priority == "") {
+        alert("priority null");
+        k = 1;
+    }
 
-        var jsonBody 	 = '{' + '"serial": "' + serial +'", "note": "'+ note +'", "priority": "'+ priority +'" }';
-        
+    if (k == 0) {
+
+        var jsonBody = '{' + '"serial": "' + serial + '", "note": "' + note + '", "priority": "' + priority + '" }';
+
         console.log("jsonBody: " + jsonBody);
-        HTTPPost(url, token, jsonBody, 'Richiesta aggiunta con successo...');
-     }
+        HTTPPost('http://localhost:8087/request/add', token, jsonBody, 'Richiesta aggiunta con successo...');
+    }
 
 }
 
-function deleteRequest(url, token, serial){
+function deleteRequest(token, serial) {
 
-    k=0;
-    if(url == "") 		{ alert("url null"); 		k=1; }
-    if(token == "") 	{ alert("token null"); 		k=1; }
-    if(serial == "") 	{ alert("serial null");     k=1; }
-   
-    if(k==0){
+    k = 0;
+    if (token == "") {
+        alert("token null");
+        k = 1;
+    }
+    if (serial == "") {
+        alert("serial null");
+        k = 1;
+    }
 
-        var jsonBody 	 = '{' + '"serial": "' + serial +'" }';
-        
+    if (k == 0) {
+
+        var jsonBody = '{' + '"serial": "' + serial + '" }';
+
         console.log("jsonBody: " + jsonBody);
-        HTTPPost(url, token, jsonBody, 'Richiesta annullata con successo...');
+        HTTPPost('http://localhost:8087/request/delete', token, jsonBody, 'Richiesta annullata con successo...');
     }
 
 }

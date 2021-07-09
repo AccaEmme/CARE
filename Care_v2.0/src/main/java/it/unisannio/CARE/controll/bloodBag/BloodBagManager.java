@@ -22,6 +22,7 @@ import com.mongodb.client.model.Updates;
 
 import it.unisannio.CARE.model.bloodBag.BloodBag;
 import it.unisannio.CARE.model.bloodBag.BloodBagState;
+import it.unisannio.CARE.model.bloodBag.BloodGroup;
 import it.unisannio.CARE.model.bloodBag.Request;
 import it.unisannio.CARE.model.bloodBag.RequestState;
 import it.unisannio.CARE.model.exceptions.BloodBagNotFoundException;
@@ -159,6 +160,32 @@ public class BloodBagManager {
 		List<Document> bloodBags = new ArrayList<>();
 		
 		Bson filter = eq("state", BloodBagState.Available.toString());
+        
+        MongoCursor<Document> iterator= collection.find(filter).iterator();
+        
+        while(iterator.hasNext()) {
+        	
+        	bloodBags.add(iterator.next());
+        }
+		
+		return bloodBags;
+	}
+	
+	/**
+     **************************************************************************
+     * Method To get a list of blood bags of a blood type
+     * @return bloodBags
+     **************************************************************************
+     */
+	
+	public List<Document> getBloodBagsByGroup(BloodGroup group) {
+		
+		List<Document> bloodBags = new ArrayList<>();
+		
+		Bson filter = and(
+						eq("state", BloodBagState.Available.toString()),
+						eq("group", group.toString())
+						);
         
         MongoCursor<Document> iterator= collection.find(filter).iterator();
         

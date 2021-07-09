@@ -1,301 +1,255 @@
-<style>
-/* old
-.dot {
-  height: 25px;
-  width: 25px;
-  border-radius: 50%;
-  display: inline-block;
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>CARE - Centro Accoglienza Regionale Ematica</title>
+  <script src="./js/http_request.js"></script>
+  <link rel="stylesheet" href="./css/officerdashboard.css">
+</head>
+
+<script>
+  function addRequests() {
+
+    let serials = document.getElementsByName('selected_bags[]');
+    let priorities;
+
+    var note = prompt("Hai da dichiarare qualcosa?");
+
+    for (i = 0; i < serials.length; i++) {
+      if (serials.item(i).checked) {
+        priorities = document.getElementsByName('priority_' + serials.item(i).value + '[]');
+        console.log(serials.item(i).value + priorities);
+
+        for (j = 0; j < 3; j++)
+          if (priorities.item(j).checked) {
+            console.log(serials.item(i).value + priorities.item(j).value);
+            addRequest('<?php echo ($token); ?>', serials.item(i).value, priorities.item(j).value, note);
+          }
+      }
+    }
+    setTimeout(function() {
+      location.reload(1);
+    }, 5000);
+  }
+
+  function deleteRequests() {
+
+    let serials = document.getElementsByName('selected_requests[]');
+
+    for (i = 0; i < serials.length; i++) {
+
+      if (serials.item(i).checked) {
+        console.log(serials.item(i).value);
+        deleteRequest('<?php echo ($token) ?>', serials.item(i).value);
+      }
+    }
+    setTimeout(function() {
+      location.reload(1);
+    }, 5000);
+  }
+
+
+
+groups =  document.getElementsByName('group').values;
+
+for(i=0; i<groups.length; i++)
+if (groups.item(i).selected) {
+  $group = groups.item(i).value;
+  $urlAPI = "http://localhost:8087/bloodbag/get/central/group/" . $group;
+  $authorization = "Authorization: Bearer " . $token;
+  $ch = curl_init();
+
+  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
+  curl_setopt($ch, CURLOPT_URL, $urlAPI);
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+  $result = curl_exec($ch);
+  curl_close($ch);
+
+  <?php $bagsArray = (array) json_decode($result); ?>
+} else {
+  $urlAPI = "http://localhost:8087/bloodbag/get/central";
+  $authorization = "Authorization: Bearer " . $token;
+  $ch = curl_init();
+
+  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
+  curl_setopt($ch, CURLOPT_URL, $urlAPI);
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+  $result = curl_exec($ch);
+  curl_close($ch);
+
+  <?php $bagsArray = (array) json_decode($result); ?>
 }
-.green{
-  background-color: green;
-}
-.yellow{
-  background-color: yellow;
-}
-.red{
-  background-color: red;
-}
-*/
-</style>
-<style>
-/* The container */
-.container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
 
-/* Hide the browser's default radio button */
-.container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
+  <?php
+  $urlAPI = "http://localhost:8087/request/get/state/pending";
+  $authorization = "Authorization: Bearer " . $token;
+  $ch = curl_init();
 
-/* Create a custom radio button */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: red;
-  border-radius: 50%;
-}
+  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
+  curl_setopt($ch, CURLOPT_URL, $urlAPI);
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-  background-color: #ccc;
-}
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+  $result = curl_exec($ch);
+  curl_close($ch);
 
-/* When the radio button is checked, add a blue background */
-.container input:checked ~ .checkmark {
-  //background-color: red;
-}
+  $requestsArray = (array) json_decode($result);
+  ?>
+</script>
 
-.red{
-  background-color: red;
-}
+<fieldset>
+  <legend><img src="images\gestionerichieste.png" width="10%"><a name="management"><b> Gestione Richieste </b></a><br><small>(role-user-visibility: Officer)</small></legend>
 
-.yellow{
-  background-color: yellow;
-}
+  <!-- START: BloodBags viewer -->
+  <div align="center">
 
-.green{
-  background-color: green;
-}
-
-/* Create the indicator (the dot/circle - hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the indicator (dot/circle) when checked */
-.container input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style the indicator (dot/circle) */
-.container .checkmark:after {
- 	top: 9px;
-	left: 9px;
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	background: white;
-}
-</style>
-
-<?php
-$urlAPI = "http://localhost:8087/bloodbag/get/central";
-$authorization = "Authorization: Bearer ". $token;
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
-    curl_setopt($ch,CURLOPT_URL,$urlAPI);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-    $result = curl_exec($ch);
-    curl_close($ch);
-
-
-$bagArray = (array) json_decode($result);
-?>
-
-<?php
-$urlAPI = "http://localhost:8087/request/get/our";
-$authorization = "Authorization: Bearer ". $token;
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
-    curl_setopt($ch,CURLOPT_URL,$urlAPI);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-    $result = curl_exec($ch);
-    curl_close($ch);
-
-
-$requestArray = (array) json_decode($result);
-?>
-
-
-          <fieldset>
-            <legend><img src="images\gestionerichieste.png" width="10%"><a name="management"><b> Gestione Richieste </b></a><br><small>(role-user-visibility: Officer)</small></legend>
-
-          <!-- START: BloodBags viewer -->
+    <body style="margin:0px;">
+      <table>
+        <tr> Sacche disponibili </tr>
+        <tr style="color:white;background-color:rgb(150, 145, 145); font-size: 16px;">
+          <th>
+            Ho bisogno di:
             <form action="" method="GET">
-                <div align="center">
-                <body style="margin:0px;">
-                <table>
-                <tr> Sacche disponibili </tr>
-                    <tr style="color:white;background-color:rgb(150, 145, 145); font-size: 16px;">
-                        <th>
-                            Ho bisogno di:
-                            <select name="needsof">
-                                <option value="Apos">A+</option>
-                                <option value="Bpos">B+</option>
-                                <option value="ABpos">AB+</option>
-                                <option value="ZEROpos">0+</option>
-                                <option value="Aneg">A-</option>
-                                <option value="Bneg">B-</option>
-                                <option value="ABneg">AB-</option>
-                                <option value="ZEROneg">0-</option>
-                            </select>
-                        </th>
-                    </tr>
+              <select name="group">
+                <option <?php if (isset($group) && $group == "") echo "selected"; ?>></option>
+                <option value="Apos" <? //php if (isset($group) && $group=="Apos") echo "selected";
+                                      ?>>A+ </option>
+                <option value="Bpos" <? //php if (isset($group) && $group=="Bpos") echo "selected";
+                                      ?>>B+</option>
+                <option value="ABpos" <? //php if (isset($group) && $group=="ABpos") echo "selected";
+                                      ?>>AB+</option>
+                <option value="ZEROpos" <? //php if (isset($group) && $group=="ZEROpos") echo "selected";
+                                        ?>>0+</option>
+                <option value="Aneg" <? //php if (isset($group) && $group=="Aneg") echo "selected";
+                                      ?>>A-</option>
+                <option value="Bneg" <? //php if (isset($group) && $group=="Bneg") echo "selected";
+                                      ?>>B-</option>
+                <option value="ABneg" <? //php if (isset($group) && $group=="ABneg") echo "selected";
+                                      ?>>AB-</option>
+                <option value="ZEROneg" <? //php if (isset($group) && $group=="ZEROneg") echo "selected";
+                                        ?>>0-</option>
+              </select>
+              <input type="button" id="group_button" name="group_button" value="Filtra" onclick="    setTimeout(function() {
+      location.reload(1);
+    }, 5000);" />
             </form>
+          </th>
+        </tr>
+        <tr>
+          <td>
+
+            <body style="margin:0px;">
+              <table>
+                <tr style="color:white;background-color:grey;">
+                  <?php ?>
+                  <th><input type="button" id="request_button" name="request_button" value="Richiedi" onclick="addRequests();" /></th>
+                  <th align="center">Priorità Bassa</th>
+                  <th align="center">Priorità Media</th>
+                  <th align="center">Priorità Alta</th>
+                  <th align="center"><b>Seriale</b></th>
+                  <th align="center"><b>Data creazione</b></th>
+                  <th align="center"><b>Donatore</b></th>
+                  <th align="center"><b>Data di scadenza</b></th>
+                  <th align="center"><b>Gruppo</b></th>
+                  <th align="center"><b>Note</b></th>
+                  <th align="center"><b>Stato</b></th>
+                </tr>
+                <form action="" method="POST">
+                  <?php foreach (array_keys($bagsArray) as $key) {  ?>
                     <tr>
-                      <td>
-                        <body style="margin:0px;">
-                        <table>
-                          <tr style="color:white;background-color:grey; font-size: 20px;">
-                          <?php ?>
-                            <th><input type="button" id="request_button" name="request_button" value="Richiedi"  onclick="addRequests();" /></th>
-                            <th align="center">Priority</th>
-                            <th align="center"><b>Seriale</b></th>
-                            <th align="center"><b>Data creazione</b></th>
-                            <th align="center"><b>Donatore</b></th>
-                            <th align="center"><b>Data di scadenza</b></th>
-                            <th align="center"><b>Gruppo</b></th>
-                            <th align="center"><b>Note</b></th>
-                            <th align="center"><b>Stato</b></th>
-                          </tr>
-            <form action="" method="POST">
-                        <?php foreach (array_keys($bagArray ) as $key) {  ?>
-                          <tr>
-                          <td align='center'><input type="checkbox" id="selected_bags" name="selected_bags[]" value="<?php echo ($bagArray[$key]->serial); ?>" />
-                          <td>
-<label class="container">Alta
-  <input type="radio" checked="checked" id="priority_<?php echo ($bagArray[$key]->serial); ?>" name="priority_<?php echo ($bagArray[$key]->serial); ?>"  value="red">
-  <span class="checkmark red"></span>
-</label>
-<label class="container">Media
-  <input type="radio" id="priority_<?php echo ($bagArray[$key]->serial); ?>" name="priority_<?php echo ($bagArray[$key]->serial); ?>" value="yellow">
-  <span class="checkmark yellow"></span>
-</label>
-<label class="container">Bassa
-  <input type="radio" id="priority_<?php echo ($bagArray[$key]->serial); ?>" name="priority_<?php echo ($bagArray[$key]->serial); ?>" value="green" checked>
-  <span class="checkmark green"></span>
-</label>
-<!--
-                          <select id="selected_priority" name="selected_priority[]">
-                            <option value="green">GREEN</option>
-                            <option value="yellow">YELLOW</option>
-                            <option value="red">RED</option>
-                          </select>
--->
-                          </td>
-                          </td>
-                            <td><input size="30px" type="text" id="serial" name="serial" value="<?php echo $bagArray[$key]->serial; ?>" disabled /></td>
-                            <td><input type="text" id="creation_date" name="creation_date" value="<?php echo date('Y-m-d', $bagArray[$key]->creationDate/1000); ?>" disabled /></td>
-                            <td><input type="text" id="donator" name="donator" value="<?php echo $bagArray[$key]->donator; ?>" disabled /></td>
-                            <td><input type="text" id="expiration_date" name="expiration_date" value="<?php echo date('Y-m-d', $bagArray[$key]->expirationDate/1000); ?>" disabled /></td>
-                            <td><input type="text" id="group" name="group" value="<?php echo $bagArray[$key]->group; ?>" disabled /></td>
-                            <td><input type="text" id="notes" name="notes" value="<?php echo $bagArray[$key]->notes; ?>" disabled /></td>
-                            <td><input type="text" id="state" name="state" value="<?php echo $bagArray[$key]->state; ?>" disabled /></td>
-                          </tr>
-                        <?php ;} ?>
-            </form>
-                        <script>
-                          function addRequests(){
+                      <td align='center'><input type="checkbox" id="selected_bags" name="selected_bags[]" value="<?php echo ($bagsArray[$key]->serial); ?>"></td>
+                      <td align='center'><label class="container">
+                          <input type="radio" id="priority_<?php echo ($bagsArray[$key]->serial); ?>" name="priority_<?php echo ($bagsArray[$key]->serial) . '[]'; ?>" value="green" checked>
+                          <span class="checkmark green"></span>
+                        </label></td>
+                      <td align='center'><label class="container">
+                          <input type="radio" id="priority_<?php echo ($bagsArray[$key]->serial); ?>" name="priority_<?php echo ($bagsArray[$key]->serial . '[]'); ?>" value="yellow">
+                          <span class="checkmark yellow"></span>
+                        </label></td>
+                      <td align='center'><label class="container">
+                          <input type="radio" id="priority_<?php echo ($bagsArray[$key]->serial); ?>" name="priority_<?php echo ($bagsArray[$key]->serial . '[]'); ?>" value="red">
+                          <span class="checkmark red"></span>
+                        </label></td>
+                      <td><input size="30px" type="text" id="serial" name="serial" value="<?php echo $bagsArray[$key]->serial; ?>" disabled /></td>
+                      <td><input type="text" id="creation_date" name="creation_date" value="<?php echo date('Y-m-d', $bagsArray[$key]->creationDate / 1000); ?>" disabled /></td>
+                      <td><input type="text" id="donator" name="donator" value="<?php echo $bagsArray[$key]->donator; ?>" disabled /></td>
+                      <td><input type="text" id="expiration_date" name="expiration_date" value="<?php echo date('Y-m-d', $bagsArray[$key]->expirationDate / 1000); ?>" disabled /></td>
+                      <td><input type="text" id="group" name="group" value="<?php echo $bagsArray[$key]->group; ?>" disabled /></td>
+                      <td><input type="text" id="notes" name="notes" value="<?php echo $bagsArray[$key]->notes; ?>" disabled /></td>
+                      <td><input type="text" id="state" name="state" value="<?php echo $bagsArray[$key]->state; ?>" disabled /></td>
+                    </tr>
+                  <?php
+                  }; ?>
+                </form>
+              </table>
+            </body>
+          </td>
+        </tr>
+      </table>
+    </body>
+  </div>
+  <!-- END: BloodBags viewer-->
 
-                            let serials = document.getElementsByName('selected_bags[]');
-                            let priorities = document.getElementsByName('selected_priority[]');
+  <br /><br /><br />
+  <!-- START:   Officer Requests -->
+  <form action="#" method="POST">
+    <div align="center">
 
-                            var note = ' ' ;//prompt("Hai da dichiarare qualcosa?");
+      <body style="margin:0px;">
+        <table>
+          <tr style="color:white;background-color:rgb(150, 145, 145);">
+            <th>Richieste:</th>
+          </tr>
+          <tr>
+            <td>
 
-                            for(i = 0; i<serials.length; i++){
-
-                              if(serials.item(i).checked){
-                                console.log(serials.item(i).value);
-                                addRequest('http://localhost:8087/request/add', '<?php echo ($token) ?>', serials.item(i).value, priorities.item(i).value, note);
-                              }
-                            }
-                            setTimeout(function () { location.reload(1); }, 5000);
-                          }
-                        </script>
-                         </table>
-                         </body>
+              <body style="margin:0px;">
+                <table>
+                  <tr style="color:white;background-color:grey;">
+                    <th><input type="button" id="del_request_button" name="del_request_button" value="Annulla richiesta" onclick="deleteRequests();" /></th>
+                    <th align="center">Id del nodo</th>
+                    <th align="center">Seriale</th>
+                    <th align="center">Data</th>
+                    <th align="center">Note</th>
+                    <th align="center">Stato</th>
+                    <th align="center">Priorità</th>
+                  </tr>
+                  <?php foreach (array_keys($requestsArray) as $key) { ?>
+                    <tr>
+                      <td align='center'><input type="checkbox" id="selected_requests" name="selected_requests[]" value="<?php echo ($requestsArray[$key]->serial); ?>" /></td>
+                      <td><input type="text" id="id_requester" name="id_requester" value="<?php echo $requestsArray[$key]->id_requester ?>" disabled></td>
+                      <td><input size="30px" type="text" id="serial" name="serial" value="<?php echo $requestsArray[$key]->serial ?>" disabled></td>
+                      <td><input type="text" id="date" name="date" value="<?php echo $requestsArray[$key]->date ?>" disabled></td>
+                      <td><input type="text" id="note" name="note" value="<?php echo $requestsArray[$key]->note ?>" disabled></td>
+                      <td><input type="text" id="state" name="state" value="<?php echo $requestsArray[$key]->state ?>" disabled></td>
+                      <td align="center">
+                        <!-- <input type="text" id="priority" name="priority" value="<?php echo $requestsArray[$key]->priority ?>" disabled> -->
+                        <!-- <span class="dot <?php echo $requestsArray[$key]->priority ?>"></span> -->
+                        <label class="container_out"><?php if ($requestsArray[$key]->priority == 'green')
+                                                        echo 'Bassa';
+                                                      elseif ($requestsArray[$key]->priority == 'yellow')
+                                                        echo 'Media';
+                                                      elseif ($requestsArray[$key]->priority == 'red')
+                                                        echo 'Alta'; ?>
+                          <span class="checkmark_out <?php echo $requestsArray[$key]->priority; ?>"></span>
+                        </label>
                       </td>
                     </tr>
+                  <?php } ?>
                 </table>
-                </body>
-                </div>
-        <!-- END: BloodBags viewer-->
-
-        <br /><br /><br />
-        <!-- START:   Officer Requests -->
-          <form action="#" method="POST">
-            <div align="center">
-                <body style="margin:0px;">
-                <table>
-                <tr style="color:white;background-color:rgb(150, 145, 145);">
-                    <th>Richieste:</th>
-                </tr>
-                <tr>
-                  <td>
-                    <body style="margin:0px;">
-                        <table>
-                       <tr style="color:white;background-color:grey;">
-                        <th><input type="button" id="del_request_button" name="del_request_button" value="Annulla richiesta"  onclick="deleteRequests();" /></th>
-                        <th align="center" >Id del nodo</th>
-                        <th align="center" >Seriale</th>
-                        <th align="center" >Data</th>
-                        <th align="center" >Note</th>
-                        <th align="center" >Stato</th>
-                        <th align="center" >Priorità</th>
-                       </tr>
-                       <?php foreach (array_keys($requestArray) as $key) { ?>
-                        <tr>
-                            <td align='center'><input type="checkbox" id="selected_requests" name="selected_requests[]" value="<?php echo ($requestArray[$key]->serial); ?>" /></td>
-                            <td><input type="text" id="id_requester" name="id_requester" value="<?php echo $requestArray[$key]->id_requester ?>" disabled></td>
-                            <td><input size="30px" type="text" id="serial" name="serial" value="<?php echo $requestArray[$key]->serial ?>" disabled></td>
-                            <td><input type="text" id="date" name="date" value="<?php echo $requestArray[$key]->date ?>" disabled></td>
-                            <td><input type="text" id="note" name="note" value="<?php echo $requestArray[$key]->note ?>" disabled></td>
-                            <td><input type="text" id="state" name="state" value="<?php echo $requestArray[$key]->state ?>" disabled></td>
-                            <td align="center">
-                              <!-- <input type="text" id="priority" name="priority" value="<?php echo $requestArray[$key]->priority ?>" disabled> -->
-                              <!-- <span class="dot <?php echo $requestArray[$key]->priority ?>"></span> -->
-<label class="container">Bassa
-  <input type="radio" id="priority" name="priority" value="<?php echo $requestArray[$key]->priority ?>" checked>
-  <span class="checkmark <?php echo $requestArray[$key]->priority ?>"></span>
-</label>
-                            </td>
-                        </tr>
-                        <?php } ?>
-                        <script>
-                          function deleteRequests(){
-
-                            let serials = document.getElementsByName('selected_requests[]');
-
-                            for(i = 0; i<serials.length; i++){
-
-                              if(serials.item(i).checked){
-                                console.log(serials.item(i).value);
-                                deleteRequest('http://localhost:8087/request/delete', '<?php echo ($token) ?>', serials.item(i).value);
-                              }
-                            }
-                            setTimeout(function () { location.reload(1); }, 5000);
-                          }
-                        </script>
-                     </table>
-                     </body>
-                  </td>
-                </tr>
-            </table>
-            </body>
-            </div>  
-        </form>
-        <!-- END:  Officer Requests -->
-          </fieldset>
+              </body>
+            </td>
+          </tr>
+        </table>
+      </body>
+    </div>
+  </form>
+  <!-- END:  Officer Requests -->
+</fieldset>

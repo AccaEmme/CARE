@@ -133,6 +133,41 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 		
 		return array;
     }
+    
+    /**
+     * gets all the blood bags of a group type from the main node database
+     * @return all the bloodbags of a group type in the main node database
+     */
+    @GetMapping("/bloodbag/get/central/group/{group}")
+    public Iterable<BloodBagDAO> getCentralBloodBagsByGroup(@PathVariable String group){
+		
+		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+		mongoLogger.setLevel(Level.SEVERE);
+			
+		ArrayList<BloodBagDAO> array = new ArrayList<>();
+		
+		BloodBagManager managerB = new BloodBagManager();
+		Iterable<Document> iterable = (managerB.getBloodBagsByGroup(BloodGroup.valueOf(group)));
+		
+		for (Document bloodBagD : iterable) {
+			
+			BloodBagDAO bagDAO = new BloodBagDAO(
+					bloodBagD.getString("serial"), 
+					Long.parseLong(bloodBagD.getString("creation_date")),
+					bloodBagD.getString("donator"),
+					Long.parseLong(bloodBagD.getString("expiration_date")),
+					bloodBagD.getString("group"),
+					bloodBagD.getString("notes"),
+					bloodBagD.getString("state")
+						);
+			
+			array.add(bagDAO);
+		}
+					
+		managerB.close();
+		
+		return array;
+    }
 
     /**
      * gets all the groups a specific group can donate to
