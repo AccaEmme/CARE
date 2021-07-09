@@ -39,7 +39,7 @@ public class SerialTest {
 	
 	/**
 	* Before class for the correct creation of the configuration file
-	* @result a copy of the configuration file is created, plus the first serial_settings file is successfully created
+	* @throws IOException  Type of data that the program cannot handle or the user gets stuck in entering information
 	*/
 	@BeforeClass
 	public static void createFile() throws IOException {
@@ -53,7 +53,6 @@ public class SerialTest {
 	
 	/**
 	* Junit test to verify the correct creation of the file
-	* @result the result expects true, to indicate the correct creation of the file
 	*/
 	@Test
 	public void testFile() {
@@ -63,7 +62,6 @@ public class SerialTest {
 	
 	/**
 	* Junit test to verify the absence of the configuration file
-	* @result the result expects false with the FileNotFound exception call
 	*/
 	@Test(expected = FileNotFoundException.class)
 	public void InvalidityTest_File() {
@@ -73,7 +71,6 @@ public class SerialTest {
 	
 	/**
 	* Creation of the constructor of the Serial class
-	* @result The serial is created correctly by not developing any exceptions
 	*/
 	@Test
 	public void ValidityTest_Constructor1_notNullObject() {
@@ -83,7 +80,6 @@ public class SerialTest {
 	
 	/**
 	* Creation of the constructor of the Serial class
-	* @result If the serial string is correct, the new serial is inserted
 	*/
 	@Test
 	public void ValidityTest_Serial_notNullObject() {
@@ -93,7 +89,6 @@ public class SerialTest {
 	
 	/**
 	* Invalid creation of the Serial class constructor
-	* @result The serial string is invalid, so it returns an exception
 	*/
 	@Test (expected = IllegalSerialException.class)
 	public void InvalidityTest_Serial_notNullObject() {
@@ -103,7 +98,6 @@ public class SerialTest {
 	
 	/**
 	* Test of the Get Serial method
-	* @result returns the validation of the getSerial method
 	*/
 	@Test
 	public void ValidityTest_getSerial_notNullObject() {
@@ -113,7 +107,6 @@ public class SerialTest {
 	
 	/**
 	* Test of the TOSTRING method
-	* @result returns all information of the Serial class
 	*/
 	@Test
 	public void ValidityTest_ToString_notNullObject() {
@@ -123,7 +116,6 @@ public class SerialTest {
 	
 	/**
 	* Verification of the operation of the equal method
-	* @result returns true because I compare two Serial objects
 	*/
 	@Test
 	public void ValidityTest_Equals_notNullObject() {
@@ -134,8 +126,7 @@ public class SerialTest {
 	
 	/**
 	* Verification of the operation of the equal method
-	* @throws ParseException
-	* @result returns false because I don't compare two Serial objects
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void InvalidityTest_Equals_notNullObject() throws ParseException {
@@ -146,8 +137,7 @@ public class SerialTest {
 	
 	/**
 	* After class for the correct restoration of the configuration file
-	* @throws IOException
-	* @result The result is the successful restore of the serial_settings configuration file
+	* @throws IOException Type of data that the program cannot handle or the user gets stuck in entering information
 	*/
 	@AfterClass
 	public static void regeneratonFile() throws IOException {
@@ -159,6 +149,10 @@ public class SerialTest {
 	}
 	
 	
+	/** 
+	 * Staitc Stream with all types of blood groups
+	 * @return The blood type returns
+	 */
     static Stream<String> bloodGroupWellDefined() {
         return Stream.of(
                 "Apos",

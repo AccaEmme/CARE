@@ -184,7 +184,7 @@ public class QRCode {
 
     /**
      * this method is used to create a QR code starting from the given parameters.
-     * @Deprecated please don't use this method, use createQRCodeWithLogo instead.
+     * @deprecated please don't use this method, use createQRCodeWithLogo instead.
      */
     @Deprecated
     public void createQRCodeOnly(){

@@ -450,9 +450,6 @@ public  class UserController /*implements ContainerResponseFilter */{
 	/**
 	 * this method is used to update an entire user with a new one
 	 * @param newuser the all new user
-	 * @return the updated user
-	 * update user
-	 * 	 * username, temppass -> password, email, ruolo, login attempts, activeuser
 	 */
 	@PostMapping("/user/update")
 	public void updateUserByID(@RequestBody UserDAO newuser){

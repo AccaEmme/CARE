@@ -38,9 +38,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation for the verification of the constructor of the UserTest class
-	* @throws UserException
-	* @throws NullPasswordException
-	* @result the result is the correct creation of the user
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test 
 	public void ValidityTest_Constructor1_notNullObject() throws UserException, NullPasswordException {
@@ -53,9 +52,8 @@ public class UserTest {
 		
 	/**
 	* Junit creation to verify the constructor of the UserTest class with an invalid password
-	* @throws UserException
-	* @throws NullPasswordException
-	* @result the result is the exception for the invalid password
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test 
 	public void InvalidityTest_Constructor1_validUserInvalidPass() throws UserException, NullPasswordException {
@@ -71,9 +69,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation to verify the constructor of the UserTest class with an invalid but empty password
-	* @throws UserException
-	* @throws NullPasswordException
-	* @result the result is the exception for the invalid password
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	//@Test(expected = IllegalPatternException.class)
 	public void InvalidityTest_Constructor1_validUserInvalidPass2() throws UserException, NullPasswordException {
@@ -87,9 +84,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation to verify the constructor of the UserTest class with an invalid name
-	* @throws UserException
-	* @throws NullPasswordException
-	* @result the result is the exception for the invalid name
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test(expected = IllegalArgumentException.class)
 	public void InvalidityTest_Constructor1_invalidUservalidPass() throws UserException, NullPasswordException {
@@ -102,9 +98,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation for the verification of the second constructor of the UserTest class
-	* @throws UserException
-	* @throws NullPasswordException
-	* @result the result is the correct creation of the user
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test 
 	public void ValidityTest_Constructor2_notNullObject() throws UserException, NullPasswordException, NullPasswordException, UserException {
@@ -117,9 +112,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation to verify the constructor of the UserTest class with an incorrect password
-	* @throws UserException
-	* @throws NullPasswordException
-	* @result the result is the incorrect user creation due to the wrong password
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test(expected = IllegalPatternException.class)
 	public void InvalidityTest_Constructor2_validUserInvalidPass()  throws UserException, NullPasswordException {
@@ -132,9 +126,8 @@ public class UserTest {
 
 	/**
 	* Junit creation to verify the constructor of the UserTest class with an incorrect username
-	* @throws UserException
-	* @throws NullPasswordException
-	* @result the result is the incorrect user creation due to the wrong username
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test 
 	public void InvalidityTest_Constructor2_InvalidUserValiddPass() throws UserException, NullPasswordException {
@@ -150,9 +143,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation for the verification of the GET method of the Username
-	* @throws NullPasswordException
-	* @throws UserException
-	* @result returns the UserName of the user
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test
 	public void ValidityTest_getUsername_notNullObject() throws UserException, NullPasswordException {
@@ -167,8 +159,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation for verification of the SET method of the Username
-	* @throws NullPasswordException
-	* @throws UserException
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test()
 	public void ValidityTest_setUsername_notNullObject() throws UserException, NullPasswordException {
@@ -184,8 +176,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation to verify the SET method of the Username by inserting an invalid name
-	* @throws NullPasswordException
-	* @throws UserException
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test(expected = IllegalArgumentException.class)
 	public void InvalidityTest_setUsername_notNullObject() throws UserException, NullPasswordException {
@@ -202,9 +194,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation to verify the GET method to get the user's passw
-	* @throws NullPasswordException
-	* @throws UserException
-	* @result returns the user's password
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test
 	public void ValidityTest_getPassword_notNullObject() throws UserException, NullPasswordException {
@@ -220,9 +211,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation for the verification of the SET method of the passw
-	* @throws NullPasswordException
-	* @throws UserException
-	* @result returns an exception in case the password is invalid for the pattern
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test
 	public void ValidityTest_setPassword_notNullObject() throws UserException, NullPasswordException {
@@ -238,9 +228,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation for the verification of the SET method of the passw
-	* @throws NullPasswordException
-	* @throws UserException
-	* @result returns an exception as the new password pattern is incorrect
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test(expected = IllegalPatternException.class)
 	public void InvalidityTest_setPassword_notNullObject() throws UserException, NullPasswordException {
@@ -256,9 +245,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation for the verification of the GET method to obtain the date of the last entered passw
-	* @throws NullPasswordException
-	* @throws UserException
-	* @result returns the date of the last password entered
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test
 	public void ValidityTest_getPasswordLastUpdate_notNullObject() throws UserException, NullPasswordException {
@@ -275,10 +263,9 @@ public class UserTest {
 	
 	/**
 	* Junit creation for the verification of the SET method of the Email
-	* @throws NullPasswordException
-	* @throws UserException
-	* @throws lllegalEmailException
-	* @result The result is positive because the password is correct
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
+	* @throws lllegalEmailException The email is invalid
 	*/
 	@Test
 	public void InvalidityTest_setEmail_notNullObject() throws UserException, NullPasswordException, lllegalEmailException {
@@ -294,10 +281,9 @@ public class UserTest {
 	
 	/**
 	* Junit creation for the verification of the GET method to get the user's email
-	* @throws NullPasswordException
-	* @throws UserException
-	* @throws lllegalEmailException
-	* @result returns the user's email
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
+	* @throws lllegalEmailException The email is invalid
 	*/
 	@Test
 	public void ValidityTest_GetEmail_notNullObject() throws UserException, NullPasswordException, lllegalEmailException {
@@ -312,10 +298,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation for verifying correct passwords with the use of a stream
-	* @throws NullPasswordException
-	* @throws UserException
-	* @throws lllegalEmailException
-	* @result The results are all positive
+	* @param Email Character string to identify the email
+	* @throws lllegalEmailException The email is invalid
 	*/
     @ParameterizedTest(name = "#{index} - Run test with valid Email complexity pattern = {0}")
     @MethodSource("validEmailsProvider")
@@ -331,10 +315,8 @@ public class UserTest {
 
     /**
     * Junit creation for verifying incorrect passwords with the use of a stream
-    * @throws NullPasswordException
-    * @throws UserException
-    * @throws lllegalEmailException
-    * @result The results are all negative
+    * @param Email Character string to identify the email
+	* @throws lllegalEmailException The email is invalid
     */
     @ParameterizedTest(name = "#{index} - Run test with invalid Email complexity pattern = {0}")
     @MethodSource("invalidEmailsProvider")
@@ -353,9 +335,8 @@ public class UserTest {
 	
     /**
     * Junit creation for GET method verification to get user role
-    * @throws NullPasswordException
-    * @throws UserException
-    * @result returns the user's role
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
     */
 	@Test
 	public void ValidityTest_getRole_notNullObject() throws UserException, NullPasswordException {
@@ -370,9 +351,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation for the verification of the role SET method
-	* @throws NullPasswordException
-	* @throws UserException
-	* @result The role is successfully changed
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test
 	public void ValidityTest_setRole_notNullObject() throws UserException, NullPasswordException {
@@ -388,9 +368,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation for the verification of the GET USERDAO method
-	* @throws NullPasswordException
-	* @throws UserException
-	* @result returns ud if the method is correct
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test
 	public void ValidityTest_getUserDAO_notNullObject() throws UserException, NullPasswordException {
@@ -405,9 +384,8 @@ public class UserTest {
 	
 	/**
 	* Junit creation to verify the exist method of the USER class
-	* @throws NullPasswordException
-	* @throws UserException
-	* @result returns true if the USER object exists
+	* @throws UserException The username was not found or is not valid
+	* @throws NullPasswordException The password was not found or is not valid
 	*/
 	@Test
 	public void ValidityTest_exists_notNullObject() throws UserException, NullPasswordException {
@@ -420,7 +398,10 @@ public class UserTest {
 	}
 	
 	
-    
+    /**
+     * Stream with all valid email inside
+     * @return Return valid emails one at a time
+     */
     static Stream<String> validEmailsProvider() {
     	
         return Stream.of(
@@ -433,6 +414,10 @@ public class UserTest {
         );
     }
     
+    /**
+     * Stream with all invalid email inside
+     * @return Return invalid emails one at a time
+     */
     static Stream<String> invalidEmailsProvider() {
         return Stream.of(
                 "user#domain.com",                 

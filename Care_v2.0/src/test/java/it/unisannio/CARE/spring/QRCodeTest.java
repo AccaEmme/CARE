@@ -25,7 +25,6 @@ import static org.junit.Assert.assertThrows;
 public class QRCodeTest { 
     /**
      * this method saves a QR code starting from a BloodBagDAO object.
-     * @result this object creates a JSONObject that is passed to the QRCode constructor.
      */
     @Test
     public void testCreateQRFromJSONObject(){
@@ -64,7 +63,6 @@ public class QRCodeTest {
 
     /**
      * this method creates a QR code starting from the BloodBagDAO
-     * @result the result is the correct creation of a QRcode
      */
     @Test
     public void testCreateQRCodeFromBloodBagDao(){
@@ -83,7 +81,6 @@ public class QRCodeTest {
 
     /**
      * this method creates a QR code starting from a content and an identifier
-     * @result the result is the correct creation of a QRcode
      */
     @Test
     public void testCreateQRCodeFromString(){
@@ -96,7 +93,6 @@ public class QRCodeTest {
 
     /**
      * this method creates a QR code starting from a content and an identifier with space
-     * @result the result is the correct creation of a QRcode
      */
     @Test
     public void testCreateQRCodeFromStringReplaceSpaces(){
@@ -110,7 +106,6 @@ public class QRCodeTest {
 
     /**
      * this method creates a QR code starting from a BloodBag
-     * @result the result is the correct creation of a QRcode
     */
     @Test
     public void testCreateQRCodeFromBloodBag() throws ParseException {
@@ -121,7 +116,6 @@ public class QRCodeTest {
 
     /**
 	* Invalid creation of the QRCode class constructor
-	* @result The result is the incorrect creation of the QRcode constructor, with the warning of an error for the fiscal code
 	*/
     @Test 
     public void invalidTestCreateQRCodeFromBloodBagCF(){
@@ -136,8 +130,6 @@ public class QRCodeTest {
     
     /**
 	* Invalid creation of the QRCode class constructor
-	* @result The result is the incorrect creation of the QRcode constructor, 
-	* with the warning of an error for the blood group
 	*/
     @Test 
     public void invalidTestCreateQRCodeFromBloodBagGroup(){
@@ -152,8 +144,6 @@ public class QRCodeTest {
     
     /**
 	* Invalid creation of the QRCode class constructor
-	* @result The result is the incorrect creation of the QRcode constructor, 
-	* with the warning of an error for the blood group & fiscal code
 	*/
     @Test 
     public void invalidTestCreateQRCodeFromBloodBagBoth(){

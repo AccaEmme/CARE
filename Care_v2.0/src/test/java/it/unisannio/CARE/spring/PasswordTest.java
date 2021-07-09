@@ -41,7 +41,6 @@ public class PasswordTest {
 
 	/**
 	* Junit build to verify password constructor method with valid hiddenPassword values
-	* @result The result is the successful creation of the Password object
 	*/
 	@Test 
 	public void ValidityTest_Constructor1_notNullObject() {
@@ -52,8 +51,6 @@ public class PasswordTest {
 	
 	/**
 	* Junit creation to verify the passwd constructor method with invalid hiddenPassword values
-	* @result The result is the incorrect creation of the Password object by calling an exception for the lack of the
-	* 	password
 	*/
 	@Test 
 	public void InvalidityTest_Constructor1_nullParam() {
@@ -66,7 +63,6 @@ public class PasswordTest {
 	
 	/**
 	* Junit creation to verify the passwd constructor method with invalid hiddenPassword values
-	* @result The result is the incorrect creation of the Password object by retrieving an exception for the blank password
 	*/
 	@Test
 	public void InvalidityTest2_Constructor1_nullParam() {
@@ -79,7 +75,6 @@ public class PasswordTest {
 
 	/**
 	* Junit creation to verify the password GET method
-	* @result The result is the correct functioning of the getHiddenPassword () method
 	*/
 	@Test 
 	public void ValidityTest_getHiddenPassword_notNullObject() {
@@ -91,8 +86,6 @@ public class PasswordTest {
 	
 	/**
 	* Junit creation for the verification of the generatePassword method
-	* @result The result is the correct functioning of the generatedPassword method, returning true for the correct one
-	* password generation
 	*/
 	@Test
 	public void ValidityTest_generatePassword_checkLength() {
@@ -104,7 +97,7 @@ public class PasswordTest {
 
 	/**
 	* Junit creation for the verification of the insertion of a password combo through the static streams
-	* @result The result is the correct functioning of the validatePlaintextPasswordPattern method with the absence of errors
+	* @param password the password to be tested
 	*/
 	@ParameterizedTest(name = "#{index} - Run test with invalid password complexity pattern = {0}")
     @MethodSource("invalidPasswordsProvider")
@@ -118,7 +111,7 @@ public class PasswordTest {
 	
 	/**
 	* Junit creation for verifying the insertion of an incorrect password combo through the static streams
-	* @result The result is that the validatePlaintextPasswordPattern method works correctly with errors
+	* @param password the password to be tested
 	*/
     @ParameterizedTest(name = "#{index} - Run test with valid password complexity pattern = {0}")
     @MethodSource("validPasswordsProvider")
@@ -129,7 +122,6 @@ public class PasswordTest {
     /**
     * Test of the validatePlaintextPasswordPattern method to validate the passw pattern
     * @exception IllegalPatternException
-    * @result the result is the call of the exception due to the givenpassw null
     */
     @Test(expected = IllegalPatternException.class)
     public void InvalidityTest_validatePlaintextPasswordPattern() {

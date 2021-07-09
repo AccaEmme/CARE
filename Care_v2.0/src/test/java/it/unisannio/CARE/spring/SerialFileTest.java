@@ -46,8 +46,9 @@ public class SerialFileTest {
 	
 	/**
 	* Before class for the correct creation of the configuration file
-	* @throws IOException
-	* @result a copy of the configuration file is created, plus the first serial_settings file is successfully created
+	* @throws IOException Type of data that the program cannot handle or the user gets stuck in entering information
+
+
 	*/
 	@BeforeClass
 	public static void createFile() throws IOException {
@@ -70,7 +71,7 @@ public class SerialFileTest {
 	* @throws InvalidPropertiesFormatException
 	* @throws InvalidPropertiesFormatException
 	* @throws IOException
-	* @result The result is true if the counter has a value of 3
+	* @return The result is true if the counter has a value of 3
 	
 	@Test
 	public void testNewDate() throws InvalidPropertiesFormatException, InvalidPropertiesFormatException, IOException {	
@@ -84,10 +85,10 @@ public class SerialFileTest {
 	
 	/**
 	* Test to verify the correct functioning of the Counter
-	* @throws InvalidPropertiesFormatException
-	* @throws InvalidPropertiesFormatException
-	* @throws IOException
-	* @result The result is true if the counter is right 
+	* @throws InvalidPropertiesFormatException Property information is invalid
+	* @throws FileNotFoundException The requested file was not found
+	* @throws IOException The date entered by the user is not well written or has a wrong format
+
 	*/
 	@Test
 	public void testCounter() throws InvalidPropertiesFormatException, FileNotFoundException, IOException {
@@ -102,7 +103,6 @@ public class SerialFileTest {
 	
 	/**
 	* Creation of the constructor of the Serial class
-	* @result The serial is created correctly by not developing any exceptions
 	*/
 	@Test
 	public void ValidityTest_Constructor1_notNullObject() {
@@ -112,7 +112,6 @@ public class SerialFileTest {
 	
 	/**
 	* Creation of the constructor of the Serial class
-	* @result If the serial string is correct, the new serial is inserted
 	*/
 	@Test
 	public void ValidityTest_Serial_notNullObject() {
@@ -122,7 +121,6 @@ public class SerialFileTest {
 	
 	/**
 	* Invalid creation of the Serial class constructor
-	* @result The serial string is invalid, so it returns an exception
 	*/
 	@Test (expected = IllegalSerialException.class)
 	public void InvalidityTest_Serial_notNullObject() {
@@ -132,7 +130,6 @@ public class SerialFileTest {
 	
 	/**
 	* Test of the Get Serial method
-	* @result returns the validation of the getSerial method
 	*/
 	@Test
 	public void ValidityTest_getSerial_notNullObject() {
@@ -142,7 +139,6 @@ public class SerialFileTest {
 	
 	/**
 	* Test of the TOSTRING method
-	* @result returns all information of the Serial class
 	*/
 	@Test
 	public void ValidityTest_ToString_notNullObject() {
@@ -152,7 +148,6 @@ public class SerialFileTest {
 	
 	/**
 	* Verification of the operation of the equal method
-	* @result returns true because I compare two Serial objects
 	*/
 	@Test
 	public void ValidityTest_Equals_notNullObject() {
@@ -163,8 +158,7 @@ public class SerialFileTest {
 	
 	/**
 	* Verification of the operation of the equal method
-	* @throws ParseException
-	* @result returns false because I don't compare two Serial objects
+	* @throws ParseException  The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void InvalidityTest_Equals_notNullObject() throws ParseException {
@@ -175,8 +169,7 @@ public class SerialFileTest {
 
 	/**
 	* After class for the correct restoration of the configuration file
-	* @throws IOException
-	* @result The result is the successful restore of the serial_settings configuration file
+	* @throws IOException  Type of data that the program cannot handle or the user gets stuck in entering information
 	*/
 	@AfterClass
 	public static void regeneratonFile() throws IOException {

@@ -43,8 +43,7 @@ public class BloodBagTest {
 	
 	/**
 	* Creation of the BloodGroup class constructor
-	* @throws ParseException
-	* @result The bag is created correctly by not developing any exceptions
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_Constructor1_notNullObject() throws ParseException {
@@ -55,8 +54,7 @@ public class BloodBagTest {
 	
 	/**
 	* Invalid creation of the BloodGroup class constructor
-	* @throws ParseException
-	* @result The bag is created incorrectly as an incorrect tax code is entered
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void InvalidityTest_Constructor1_notNullObject() throws ParseException {
@@ -68,8 +66,7 @@ public class BloodBagTest {
 	
 	/**
 	* Creation of the BloodGroup class constructor
-	* @throws ParseException
-	* @result The bag is created correctly by not developing any exceptions
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_Constructor2_notNullObject() throws ParseException {
@@ -86,8 +83,7 @@ public class BloodBagTest {
 	
 	/**
 	* Invalid creation of the BloodGroup class constructor with wrong expiration date
-	* @throws ParseException
-	* @result The bag is created correctly by not developing any exceptions
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	//@Test(expected = ParseException.class) 
 	public void InvalidityTest_Constructor2_notNullObject() throws ParseException{
@@ -103,8 +99,7 @@ public class BloodBagTest {
 	
 	/**
 	* Invalid creation of the BloodGroup class constructor with wrong date
-	* @throws ParseException
-	* @result The bag is created correctly by not developing any exceptions
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void InvalidityTest2_Constructor2_notNullObject() throws ParseException {
@@ -120,8 +115,7 @@ public class BloodBagTest {
 	
 	/**
 	* Invalid creation of the BloodGroup class constructor with Invalid Serial
-	* @throws ParseException
-	* @result The bag is created in the correct way but by inserting an error in the serial and then calling the exception
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test(expected = IllegalSerialException.class)  
 	public void InvalidityTest3_Constructor2_notNullObject() throws ParseException{
@@ -138,8 +132,7 @@ public class BloodBagTest {
 	
 	/**
 	* Invalid creation of the BloodGroup class constructor with an expiration date earlier than the creation date
-	* @throws ParseException
-	* @result The bag is created correctly but will return an exception for the expiration date prior to the creation date
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	//@Test(expected = IllegalDateException.class)  
 	public void InvalidityTest4_Constructor2_notNullObject() throws ParseException{
@@ -154,8 +147,7 @@ public class BloodBagTest {
 	
 	/**
 	* Invalid creation of the BloodGroup class constructor with an incorrect tax code
-	* @throws ParseException
-	* @result The bag is created correctly but will return an exception for the wrong fiscal code
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test(expected = IllegalArgumentException.class)  
 	public void InvalidityTest5_Constructor2_notNullObject() throws ParseException{
@@ -173,8 +165,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the GET Serial method
-	* @throws ParseException
-	* @result returns the operation of the getSerial method
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_getSerial_notNullObject() throws ParseException{
@@ -186,8 +177,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the group's GET method
-	* @throws ParseException
-	* @result returns the Get of the bag group method
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_getBloodGroup_notNullObject() throws ParseException{
@@ -199,9 +189,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the group SET method
-	* @throws ParseException
-	* @result The SET method of the blood bag group type is used,
-	* 			which returns error and triggers an exception
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test(expected = IllegalArgumentException.class)
 	public void ValidityTest_setBloodGroup_notNullObject() throws ParseException{
@@ -215,8 +203,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the GET method of the creation of the dates
-	* @throws ParseException
-	* @result returns the correct operation of the creation date return method
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_getCreationDate_notNullObject() throws ParseException{
@@ -228,8 +215,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the GET method of the expiration date
-	* @throws ParseException
-	* @result returns the correct operation of the return expiration date method
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_getExpirationDate_notNullObject() throws ParseException{
@@ -250,8 +236,7 @@ public class BloodBagTest {
 
 	/**
 	* Junit creation for the verification of the GET method of the creation date S
-	* @throws ParseException
-	* @result returns the correct operation of the S creation date return method
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_getCreationDateS_notNullObject() throws ParseException{
@@ -270,8 +255,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the GET method of the donor's tax code
-	* @throws ParseException
-	* @result returns the correct functioning of the return method of the donor's tax code
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_getDonatorCF_notNullObject() throws ParseException{
@@ -285,8 +269,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the GET method of the blood group type of the bag
-	* @throws ParseException
-	* @result returns the correct functioning of the blood group return method of the bag
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_getBloodType_notNullObject() throws ParseException{
@@ -300,8 +283,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the GET method of the bag notes
-	* @throws ParseException
-	* @result returns the correct functioning of the return method of the notes of the bag
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_getNote_notNullObject() throws ParseException{
@@ -315,8 +297,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the GET method of the status of the bags
-	* @throws ParseException
-	* @result returns the correct functioning of the return of the bag status method
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_getBloodBagState_notNullObject() throws ParseException{
@@ -328,8 +309,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the TOSTRING method of the bag information
-	* @throws ParseException
-	* @result returns all bag information
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_ToString_notNullObject() throws ParseException{
@@ -341,8 +321,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the PRINT method
-	* @throws ParseException
-	* @result returns all print information
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_Print_notNullObject() throws ParseException{
@@ -355,8 +334,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation to verify the Buy method
-	* @throws ParseException
-	* @result returns if the comparison of two objects works
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_compareTo_notNullObject() throws ParseException{
@@ -371,8 +349,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation to verify the getBean method
-	* @throws ParseException
-	* @result returns the getBean information
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_getBean_notNullObject() throws ParseException{
@@ -384,8 +361,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the AppendNote method
-	* @throws ParseException
-	* @result returns the getBean information
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_appendNote_notNullObject() throws ParseException{
@@ -397,8 +373,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the equals method
-	* @throws ParseException
-	* @result returns the equals information, in this case it returns false because the two objects are not equal
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void InvalidityTest_equals_notNullObject() throws ParseException{
@@ -418,8 +393,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the equals method
-	* @throws ParseException
-	* @result returns the equals information, in this case it returns false because the two pockets are not equal
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test
 	public void ValidityTest_equals_notNullObject() throws ParseException{
@@ -447,8 +421,7 @@ public class BloodBagTest {
 
 	/**
 	* Junit creation for the verification of the SET method of the creationDate with a date after the limit of 7 days
-	* @throws ParseException
-	* @result returns the correct functioning of the method in case the date is after the creation date
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test(expected = IllegalDateException.class)
 	public void ValidityTest_setCreationDate_notNullObject() throws ParseException{
@@ -467,8 +440,7 @@ public class BloodBagTest {
 	
 	/**
 	* Junit creation for the verification of the SET method of the creationDate with a date after the limit of 7 days
-	* @throws ParseException
-	* @result returns the correct functioning of the method in case the date is before the creation date
+	* @throws ParseException The date entered by the user is not well written or has a wrong format
 	*/
 	@Test(expected = IllegalDateException.class)
 	public void ValidityTest_setCreationDate2_notNullObject() throws ParseException{

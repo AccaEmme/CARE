@@ -46,7 +46,7 @@ public class BloodBagManager {
       * Constructor method for the BloodManager class
       * @param URI The Database link
       * @param databaseName Name of the Database
-      * @param collectionName
+      * @param collectionName Collection of names
      **************************************************************************
      */
 	
@@ -105,7 +105,7 @@ public class BloodBagManager {
      **************************************************************************
       * Method To import a blood bag
       * @param serial The serial of the blood bag to import
-      * @throws BloodBagNotFoundException
+      * @throws BloodBagNotFoundException The bag was not found
       * @return bloodBagD
      **************************************************************************
      */
@@ -128,7 +128,7 @@ public class BloodBagManager {
      **************************************************************************
       * Method To get the blood bag
       * @param serial The serial of the blood bag to read
-      * @throws BloodBagNotFoundException
+      * @throws BloodBagNotFoundException The bag was not found
       * @return bloodBagD
      **************************************************************************
      */
@@ -196,7 +196,7 @@ public class BloodBagManager {
      **************************************************************************
       * Method Filter if the bag exists
       * @param serial_r The serial of the blood bag to search for
-      * @throws BloodBagNotFoundException
+      * @throws BloodBagNotFoundException The bag was not found
      **************************************************************************
      */
 	
