@@ -704,14 +704,15 @@ public class BloodBagController /*implements ContainerResponseFilter */{
         loggerDAO.setFromClass(this.getClass().toString());
         loggerDAO.setAction(Actions.BLOODBAG_TRANSFERED.toString());
         try {
-            String request = "http://192.168.1.45:8088/bloodbag/get/remote/"+serial+"/"+nodeid;
+            String request = "http://192.168.150.3:8087/bloodbag/get/remote/"+serial+"/"+nodeid;
             P2PManager manager = new P2PManager(request,token);
             JSONArray object = manager.sendGet();
 
             JSONObject bloodbag = (JSONObject) object.get(0);
             System.out.println(bloodbag);
 
-            manager.setRequest("http://192.168.1.45:8088/bloodbag/update/state/"+BloodBagState.Transfered+"/"+serial);
+            //manager.setRequest("http://192.168.1.45:8088/bloodbag/update/state/"+BloodBagState.Transfered+"/"+serial);
+            manager.setRequest("http://192.168.150.3:8087/bloodbag/update/state/"+BloodBagState.Transfered+"/"+serial);
             manager.sendGetNoResponse();
 
             BloodBagDAO bagToSave = new BloodBagDAO();

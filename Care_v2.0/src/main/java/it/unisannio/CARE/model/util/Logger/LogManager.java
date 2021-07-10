@@ -1,6 +1,7 @@
 package it.unisannio.CARE.model.util.Logger;
 
 import it.unisannio.ingsof20_21.group8.Care.Spring.LoggerDAO;
+import it.unisannio.ingsof20_21.group8.Care.Spring.LoggerRepository;
 import org.json.simple.JSONObject;
 
 import java.io.File;
@@ -18,6 +19,8 @@ public class LogManager {
     private String fromClass;           //the calling class
     private String result; **/
     private LoggerDAO loggerDAO;
+    private LoggerRepository logRepo;
+
     public LogManager(long id, String currentEmail, String currentUsername, String fromClass, String result, String action,String explanation){
         this.loggerDAO = new LoggerDAO();
         loggerDAO.setIdLog(id);
@@ -29,8 +32,24 @@ public class LogManager {
         loggerDAO.setExplanation(explanation);
     }
 
+    public LogManager(long id, String currentEmail, String currentUsername, String fromClass, String result, String action,String explanation,LoggerRepository logRepo){
+        this.loggerDAO = new LoggerDAO();
+        loggerDAO.setIdLog(id);
+        loggerDAO.setCurrentUserEmail(currentEmail);
+        loggerDAO.setCurrentUserUsername(currentUsername);
+        loggerDAO.setFromClass(fromClass);
+        loggerDAO.setResult(result);
+        loggerDAO.setAction(action);
+        loggerDAO.setExplanation(explanation);
+        this.logRepo = logRepo;
+    }
+
     public LogManager(LoggerDAO loggerDAO){
         this.loggerDAO = loggerDAO;
+    }
+    public LogManager(LoggerDAO loggerDAO, LoggerRepository logRepo){
+        this.loggerDAO = loggerDAO;
+        this.logRepo = logRepo;
     }
 
     public void writeLog() throws IOException {
@@ -38,6 +57,10 @@ public class LogManager {
         FileWriter fw = new FileWriter(logFile,true);
         fw.write(this.toString()+"\n");
         fw.close();
+    }
+
+    public void saveToDB(){
+        logRepo.save(this.loggerDAO);
     }
 
     public String toString(){
