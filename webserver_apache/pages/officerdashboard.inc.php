@@ -8,6 +8,18 @@
 </head>
 
 <script>
+
+
+function filter() {
+    setTimeout(function() {
+      select = document.getElementById('selected_group');
+      group = select['options'][select.selectedIndex].value;
+      location.replace('dashboard.php?token=' + '<?php echo ($token);  ?>' + '&subpage=officerdashboard&subpage=officerdashboard&group=' + group);
+    }, 1000);
+  }
+
+
+
   function addRequests() {
 
     let serials = document.getElementsByName('selected_bags[]');
@@ -29,8 +41,10 @@
     }
     setTimeout(function() {
       location.reload(1);
-    }, 5000);
+    }, 3000);
   }
+
+
 
   function deleteRequests() {
 
@@ -45,48 +59,33 @@
     }
     setTimeout(function() {
       location.reload(1);
-    }, 5000);
+    }, 3000);
   }
+</script>
 
 
-
-groups =  document.getElementsByName('group').values;
-
-for(i=0; i<groups.length; i++)
-if (groups.item(i).selected) {
-  $group = groups.item(i).value;
-  $urlAPI = "http://localhost:8087/bloodbag/get/central/group/" . $group;
-  $authorization = "Authorization: Bearer " . $token;
-  $ch = curl_init();
-
-  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
-  curl_setopt($ch, CURLOPT_URL, $urlAPI);
-  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-  $result = curl_exec($ch);
-  curl_close($ch);
-
-  <?php $bagsArray = (array) json_decode($result); ?>
-} else {
-  $urlAPI = "http://localhost:8087/bloodbag/get/central";
-  $authorization = "Authorization: Bearer " . $token;
-  $ch = curl_init();
-
-  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
-  curl_setopt($ch, CURLOPT_URL, $urlAPI);
-  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-  $result = curl_exec($ch);
-  curl_close($ch);
-
-  <?php $bagsArray = (array) json_decode($result); ?>
-}
-
+<script>
   <?php
+  $group = $_GET['group'];
+  if (isset($group) || $group != "")
+    $urlAPI = "http://localhost:8087/bloodbag/get/central/group/" . $group;
+  else
+    $urlAPI = "http://localhost:8087/bloodbag/get/central";
+
+  $authorization = "Authorization: Bearer " . $token;
+  $ch = curl_init();
+
+  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
+  curl_setopt($ch, CURLOPT_URL, $urlAPI);
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+  $result = curl_exec($ch);
+  curl_close($ch);
+
+  $bagsArray = (array) json_decode($result);
+
   $urlAPI = "http://localhost:8087/request/get/state/pending";
   $authorization = "Authorization: Bearer " . $token;
   $ch = curl_init();
@@ -116,30 +115,18 @@ if (groups.item(i).selected) {
         <tr style="color:white;background-color:rgb(150, 145, 145); font-size: 16px;">
           <th>
             Ho bisogno di:
-            <form action="" method="GET">
-              <select name="group">
-                <option <?php if (isset($group) && $group == "") echo "selected"; ?>></option>
-                <option value="Apos" <? //php if (isset($group) && $group=="Apos") echo "selected";
-                                      ?>>A+ </option>
-                <option value="Bpos" <? //php if (isset($group) && $group=="Bpos") echo "selected";
-                                      ?>>B+</option>
-                <option value="ABpos" <? //php if (isset($group) && $group=="ABpos") echo "selected";
-                                      ?>>AB+</option>
-                <option value="ZEROpos" <? //php if (isset($group) && $group=="ZEROpos") echo "selected";
-                                        ?>>0+</option>
-                <option value="Aneg" <? //php if (isset($group) && $group=="Aneg") echo "selected";
-                                      ?>>A-</option>
-                <option value="Bneg" <? //php if (isset($group) && $group=="Bneg") echo "selected";
-                                      ?>>B-</option>
-                <option value="ABneg" <? //php if (isset($group) && $group=="ABneg") echo "selected";
-                                      ?>>AB-</option>
-                <option value="ZEROneg" <? //php if (isset($group) && $group=="ZEROneg") echo "selected";
-                                        ?>>0-</option>
-              </select>
-              <input type="button" id="group_button" name="group_button" value="Filtra" onclick="    setTimeout(function() {
-      location.reload(1);
-    }, 5000);" />
-            </form>
+            <select id="selected_group" name="selected_group">
+              <option <?php if (isset($group) && $group == "") echo "selected"; ?>></option>
+              <option value="Apos">A+ </option>
+              <option value="Bpos">B+</option>
+              <option value="ABpos">AB+</option>
+              <option value="ZEROpos">0+</option>
+              <option value="Aneg">A-</option>
+              <option value="Bneg">B-</option>
+              <option value="ABneg">AB-</option>
+              <option value="ZEROneg">0-</option>
+            </select>
+            <input type="button" id="group_button" name="group_button" value="Filtra" onclick="filter();" />
           </th>
         </tr>
         <tr>
