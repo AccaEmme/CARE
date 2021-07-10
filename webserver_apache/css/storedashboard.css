@@ -1,0 +1,75 @@
+
+
+
+.myButton {
+	background-color:#44c767;
+	border-radius:28px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#100404;
+	font-family:Trebuchet MS;
+	font-size:17px;
+	padding:7px 15px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+.myButton:hover {
+	background-color:#5cbf2a;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+.textcss {
+    padding: 5px;
+    font-size: 12px;
+    border-width: 4px;
+    border-color: #000000;
+    background-color: #FFFFFF;
+    color: #000000;
+    border-style: solid;
+    border-radius: 0px;
+    box-shadow: 0px 0px 5px rgba(66,66,66,.75);
+    text-shadow: 0px 0px 5px rgba(66,66,66,.75);
+}
+.css-input:focus {
+    outline:none;
+}
+.myButtonNeg {
+	background-color:#dd0000;
+	border-radius:28px;
+	border:1px solid #ab1818;
+	display:inline-block;
+	cursor:pointer;
+	color:#100404;
+	font-family:Trebuchet MS;
+	font-size:17px;
+	padding:7px 15px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #662727;
+}
+.myButton:hover {
+	background-color:#bf2a2a;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+fieldset {
+	background-color: #10f8e13f;
+  }
+  
+  legend {
+	background-color: rgb(233, 10, 10);
+	color: rgb(242, 255, 0);
+	border:1px solid #000000;
+	padding: 5px 10px;
+  }
+  
+  input {
+	margin: 5px;
+  }

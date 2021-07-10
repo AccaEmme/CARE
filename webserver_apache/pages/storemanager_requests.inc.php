@@ -1,5 +1,5 @@
 <script src="./js/html5-qrcode.min.js"></script>
-   
+<link rel="stylesheet" href="./css/storedashboard.css">
 
 
 <?php
@@ -28,13 +28,12 @@ $BagArray = (array) json_decode($result);
 
 
 <fieldset>
-            <legend><img src="images\gestionerichieste.png" width="10%"><a name="management" ><b> Richieste </b></a><br><small>(visualizza stato delle richieste)</small></legend>
+    <legend><img src="images\gestionerichieste.png" width="10%"><a name="management" ><b> Richieste </b></a><br><small>(visualizza stato delle richieste)</small></legend>
 
 
 <!-- campi tabella -->
   
-   
-    <form action="" method="POST">
+<form action="" method="POST">
   <center><table>
          <tr>
             <td align="center"><b>id_requester</b></td>
@@ -47,11 +46,11 @@ $BagArray = (array) json_decode($result);
 <!-- in php lancio solo il for in html riempo la tabella -->
 <tr>
 <?php foreach (array_keys($BagArray ) as $key) { ?>
-            <td><input type="text" name="id_<?php echo $BagArrayy[$key]->serial; ?>" value="<?php echo $BagArray[$key]->id_requester; ?>" size="40" disabled /></td>
-            <td><input type="text" name="serial_<?php echo $BagArray[$key]->serial; ?>" value="<?php echo $BagArray[$key]->serial; ?>" disabled/></td>
-            <td><input type="text" name="date_<?php echo $BagArray[$key]->serial; ?>" value="<?php echo $BagArray[$key]->date; ?>" disabled /></td>
-            <td><input type="text" name="note_<?php echo $BagArray[$key]->serial; ?>" value="<?php echo $BagArray[$key]->note; ?>" disabled/></td>
-            <td><input type="text" name="state_<?php echo $BagArray[$key]->serial; ?>" value="<?php echo $BagArray[$key]->state; ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="id_<?php echo $BagArrayy[$key]->serial; ?>" value="<?php echo $BagArray[$key]->id_requester; ?>" size="40" disabled /></td>
+            <td><input type="text" class="textcss" name="serial_<?php echo $BagArray[$key]->serial; ?>" value="<?php echo $BagArray[$key]->serial; ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="date_<?php echo $BagArray[$key]->serial; ?>" value="<?php echo $BagArray[$key]->date; ?>" disabled /></td>
+            <td><input type="text" class="textcss" name="note_<?php echo $BagArray[$key]->serial; ?>" value="<?php echo $BagArray[$key]->note; ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="state_<?php echo $BagArray[$key]->serial; ?>" value="<?php echo $BagArray[$key]->state; ?>" disabled/></td>
         </tr>
 <?php
 }
@@ -60,8 +59,8 @@ $BagArray = (array) json_decode($result);
     
 	
 	
-      </table></center>
-     </form>
+ </table></center>
+</form>
 
 
    
@@ -86,8 +85,9 @@ $bagArray = (array) json_decode($result);
 
 ?>
 </fieldset>
+
 <fieldset>
-            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> Magazzino </b></a><br><small>(Visualizza sacche spedibili)</small></legend>
+     <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> Magazzino </b></a><br><small>(Visualizza sacche spedibili)</small></legend>
 
 <!-- campi tabella -->
 <form action="" method="POST">
@@ -110,17 +110,17 @@ $bagArray = (array) json_decode($result);
 <!-- in php lancio solo il for in html riempo la tabella -->
 <!-- in php lancio solo il for in html riempo la tabella -->
 <?php foreach (array_keys($bagArray ) as $key) { ?>
-            <td><input type="text" name="id_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->serial; ?>" size="40" disabled /></td>
-            <td><input type="text" name="group_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->group; ?>" disabled/></td>
-            <td><input type="text" name="donator_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->donator; ?>" disabled /></td>
-            <td><input type="text" name="creationDate_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArray[$key]->creationDate/1000); ?>" disabled/></td>
-            <td><input type="text" name="expirationDate_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArray[$key]->expirationDate/1000); ?>" disabled/></td>
-  	    <td><input type="text" name="state_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->state; ?>" disabled/></td>
-	    <td><input type="text" name="notes_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->notes; ?>" disabled/></td>
-            <td><input type="text" name="usedTimeStamp_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArray[$key]->usedTimeStamp/1000); ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="id_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->serial; ?>" size="40" disabled /></td>
+            <td><input type="text" class="textcss" name="group_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->group; ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="donator_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->donator; ?>" disabled /></td>
+            <td><input type="text" class="textcss" name="creationDate_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArray[$key]->creationDate/1000); ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="expirationDate_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArray[$key]->expirationDate/1000); ?>" disabled/></td>
+  	        <td><input type="text" class="textcss" name="state_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->state; ?>" disabled/></td>
+	        <td><input type="text" class="textcss" name="notes_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->notes; ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="usedTimeStamp_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArray[$key]->usedTimeStamp/1000); ?>" disabled/></td>
             <td>
                 
-                <input type="submit" value="SPEDISCI" onclick="transferBloodBagC('http://localhost:8087/bloodbag/central/send', '<?php echo($token); ?>', '<?php echo $bagArray[$key]->serial; ?>');setTimeout(function () { location.reload(1); }, 2000);">
+            <input type="button" value="SPEDISCI" class="myButton" onclick="transferBloodBagC('http://localhost:8087/bloodbag/central/send', '<?php echo($token); ?>', '<?php echo $bagArray[$key]->serial; ?>');setTimeout(function () { location.reload(1); }, 2000);"> </input>
             </td>
         </tr>
 <?php

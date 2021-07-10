@@ -1,10 +1,11 @@
 <script src="./js/html5-qrcode.min.js"></script>
+<link rel="stylesheet" href="./css/storedashboard.css">
 <fieldset>
             <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO </b></a><br></legend>
  <center> <table><tr>
-            <td><input type="text" name="serial" id="serial" placeholder="seriale sacca" size="40" /></td>
+            <td><input type="text" name="serial" class="textcss" id="serial" placeholder="seriale sacca" size="40" /></td>
 		        <input type="text" name="addBloodBagCURL" id="addBloodBagCURL" value="http://localhost:8087/bloodbag/central/confirm" hidden="yes" />
-                <td>    <input type="submit" value="import sacca" onclick="confirmBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo($token); ?>', document.getElementById('serial').value);"> <td>
+                <td>    <input type="submit" value="import sacca" class="myButton" onclick="confirmBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo($token); ?>', document.getElementById('serial').value);"> <td>
             </td>
         </tr>
      </table></center>
@@ -60,36 +61,38 @@ $requestArray = (array) json_decode($result);
 <!-- campi tabella -->
    
     <form action="" method="POST">
-     <table>
+    <center><table> 
         <tr>
-            <td align="center" width="10%"><b>serial</b></td>
+            <td align="center"><b>serial</b></td>
             <td align="center"><b>idRequester</b></td>
             <td align="center"><b>sate</b></td>
             <td align="center"><b>notes</b></td>
             <td align="center"><b>state</b></td>
             <td align="center"><b>priority</b></td>
-        </tr>
+          </tr>
         <tr>
 <!-- in php lancio solo il for in html riempo la tabella -->
 <?php foreach (array_keys($requestArray ) as $key) { ?>
-            <td><input type="text" name="id_<?php echo $requestArray[$key]->serial; ?>" value="<?php echo $requestArray[$key]->serial; ?>" size="40" disabled /></td>
-            <td><input type="text" name="idRequester_<?php echo $requestArray[$key]->serial; ?>" value="<?php echo $requestArray[$key]->id_requester; ?>" disabled/></td>
-            <td><input type="text" name="date_<?php echo $requestArray[$key]->serial; ?>" value="<?php echo  $requestArray[$key]->date; ?>" disabled/></td>
-            <td><input type="text" name="notes_<?php echo $requestArray[$key]->serial; ?>" value="<?php echo $requestArray[$key]->note; ?>" disabled/></td>
-            <td><input type="text" name="state_<?php echo $requestArray[$key]->serial; ?>" value="<?php echo $requestArray[$key]->state; ?>" disabled /></td>
-  	        <td><input type="text" name="priority_<?php echo $requestArray[$key]->serial; ?>" value="<?php echo $requestArray[$key]->priority; ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="id_<?php echo $requestArray[$key]->serial; ?>" value="<?php echo $requestArray[$key]->serial; ?>" size="40" disabled /></td>
+            <td><input type="text" class="textcss" name="idRequester_<?php echo $requestArray[$key]->serial; ?>" value="<?php echo $requestArray[$key]->id_requester; ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="date_<?php echo $requestArray[$key]->serial; ?>" value="<?php echo  $requestArray[$key]->date; ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="notes_<?php echo $requestArray[$key]->serial; ?>" value="<?php echo $requestArray[$key]->note; ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="state_<?php echo $requestArray[$key]->serial; ?>" value="<?php echo $requestArray[$key]->state; ?>" disabled /></td>
+  	        <td><input type="text" class="textcss" name="priority_<?php echo $requestArray[$key]->serial; ?>" value="<?php echo $requestArray[$key]->priority; ?>" disabled/></td>
 	        
             <td>
                 
-                <input type="submit" value="ACCETTA" onclick="acceptRequest('http://localhost:8087/request/accept','<?php echo($token); ?>','<?php echo $requestArray[$key]->id_requester; ?>','<?php echo $requestArray[$key]->serial; ?>');setTimeout(function () { location.reload(1); }, 1000);">
-               
-                <input type="submit" value="RIFIUTA" onclick="refuseRequest('http://localhost:8087/request/refuse','<?php echo($token); ?>','<?php echo $requestArray[$key]->id_requester; ?>','<?php echo $requestArray[$key]->serial; ?>');setTimeout(function () { location.reload(1); }, 1000);">
+                <input type="submit" value="ACCETTA" class="myButtonNeg" onclick="acceptRequest('http://localhost:8087/request/accept','<?php echo($token); ?>','<?php echo $requestArray[$key]->id_requester; ?>','<?php echo $requestArray[$key]->serial; ?>');setTimeout(function () { location.reload(1); }, 1000);">
+                </td>
+                <td>
+                <input type="submit" value="RIFIUTA" class="myButton" onclick="refuseRequest('http://localhost:8087/request/refuse','<?php echo($token); ?>','<?php echo $requestArray[$key]->id_requester; ?>','<?php echo $requestArray[$key]->serial; ?>');setTimeout(function () { location.reload(1); }, 1000);">
             </td>
         </tr>
 </form>
 <?php
 }
 ?>
+</table></center>
 	
 	</fieldset>
 	

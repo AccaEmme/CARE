@@ -1,13 +1,16 @@
 <script src="./js/html5-qrcode.min.js"></script>
+<link rel="stylesheet" href="./css/storedashboard.css">
 <body style="background-color:aliceblue">
 
 
 	<!-- START: new user fields -->
-      <center><h2>===========NEW SACCA===========</h2></center>
- <center> <table>
+<fieldset>
+            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO </b></a><br><small>(Assegna seriale alla sacca e la aggiunge al magazzino)</small></legend>
+ 
+    <center> <table>
         <tr>
          
-            <td><select name="group" id="group">
+            <td><select name="group" id="group" class="textcss">
  		<option>Apos</option>
  		<option>Aneg</option>
 		<option>Bpos</option>
@@ -18,34 +21,40 @@
 		<option>ABpos</option>
 		</select>
 	    </td>
-            <td><input type="text" name="donator" id="donator" placeholder="cod.fiscale CF_DONATORE" /></td>
+            <td><input type="text" name="donator" id="donator"  class="textcss" placeholder="cod.fiscale CF_DONATORE" /></td>
          
-            <td><input type="text" name="note" id="note" placeholder="Note" /></td>
+            <td><input type="text" name="note" id="note" class="textcss" placeholder="Note" /></td>
          
             <td>
-		<input type="text" name="addBloodBagURL" id="addBloodBagURL" value="http://localhost:8087/bloodbag/add" hidden="yes" />
-                <input type="submit" value="Crea" onclick="addBloodBag(document.getElementById('addBloodBagURL').value, '<?php echo($token); ?>', document.getElementById('group').value, document.getElementById('donator').value, document.getElementById('note').value);setTimeout(function () { location.reload(1); }, 1000)">
+		<input type="text" name="addBloodBagURL" id="addBloodBagURL"  value="http://localhost:8087/bloodbag/add" hidden="yes" />
+        <input type="button" value="CREA" class="myButton" onclick="addBloodBag(document.getElementById('addBloodBagURL').value, '<?php echo($token); ?>', document.getElementById('group').value, document.getElementById('donator').value, document.getElementById('note').value);setTimeout(function () { location.reload(1); }, 1000)">
             </td>
         </tr>
-        </table> <center>
-	<center><h2>===========IMPORT SACCHE===========</h2></center>
+    </table> <center>
+</fieldset>
+
+
+	
+<fieldset>
+    <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> IMPORT SACCHE </b></a><br><small>(Aggiungi sacche al magazzino)</small></legend>
+
     <center>scannerizza il QR code della sacca premi il tasto "import sacca" per confermare</center>
     <center> <table>
 	 <tr>
-            <td><input type="text" name="serial" id="serial" placeholder="seriale sacca" size="100" disabled/></td>
+            <td><input type="text" name="serial" id="serial" placeholder="seriale sacca"  class="textcss" size="100" disabled/></td>
         
             <td>
 		<input type="text" name="addBloodBagCURL" id="addBloodBagCURL" value="http://localhost:8087/bloodbag/import" hidden="yes" />
-                <input type="submit" value="import sacca" onclick="addBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo($token); ?>', document.getElementById('serial').value);setTimeout(function () { location.reload(1); }, 1000)">
+        <input type="button" value="IMPORT SACCA" class="myButton" onclick="addBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo($token); ?>', document.getElementById('serial').value);setTimeout(function () { location.reload(1); }, 1000)">
             </td>
-        </tr>
+    </tr>
      
-        </table> <center>
+    </table> <center>
    
 
 <!- START: QRCODE Scanner Reader -->
 <div align="center">
- <div style="width:500px;" id="reader"></div>
+ <div style="width:500px;" id="reader" >  </div>
 </div>
 <script type="text/javascript">
 function onScanSuccess(qrCodeMessage) {
@@ -71,7 +80,8 @@ html5QrcodeScanner.render(onScanSuccess, onScanError);
 	
 	
       </table></center>
-     </form>
+ </fieldset>
+
 
   
   <?php
@@ -100,7 +110,7 @@ $bagArray = (array) json_decode($result);
 
 <!-- campi tabella -->
 <form action="" method="POST">
-  <center><table>
+    <center><table>
          <tr>
             <td align="center"><b>serialr</b></td>
             <td align="center"><b>group</b></td>
@@ -119,22 +129,22 @@ $bagArray = (array) json_decode($result);
 <!-- in php lancio solo il for in html riempo la tabella -->
 <?php foreach (array_keys($bagArray ) as $key) { ?>
     <tr>
-            <td><input type="text" name="id_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->serial; ?>" size="40" disabled /></td>
-            <td><input type="text" name="group_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->group; ?>" disabled/></td>
-            <td><input type="text" name="donator_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->donator; ?>" disabled /></td>
-            <td><input type="text" name="creationDate_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArray[$key]->creationDate/1000); ?>" disabled/></td>
-            <td><input type="text" name="expirationDate_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArray[$key]->expirationDate/1000); ?>" disabled/></td>
-  	    <td><input type="text" name="state_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->state; ?>" disabled/></td>
-	    <td><input type="text" name="notes_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->notes; ?>" disabled/></td>
-            <td><input type="text" name="usedTimeStamp_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArray[$key]->usedTimeStamp/1000); ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="id_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->serial; ?>" size="40" disabled /></td>
+            <td><input type="text" class="textcss" name="group_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->group; ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="donator_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->donator; ?>" disabled /></td>
+            <td><input type="text" class="textcss" name="creationDate_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArray[$key]->creationDate/1000); ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="expirationDate_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArray[$key]->expirationDate/1000); ?>" disabled/></td>
+  	    <td><input type="text" class="textcss" name="state_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->state; ?>" disabled/></td>
+	    <td><input type="text" class="textcss" name="notes_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo $bagArray[$key]->notes; ?>" disabled/></td>
+            <td><input type="text" class="textcss" name="usedTimeStamp_<?php echo $bagArray[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArray[$key]->usedTimeStamp/1000); ?>" disabled/></td>
             <td>
                 
-                <input type="submit" value="PRELEVA" onclick="useBloodBag('http://localhost:8087/bloodbag/use/<?php echo $bagArray[$key]->serial; ?>', '<?php echo($token); ?>');setTimeout(function () { location.reload(1); }, 1000);">
+                <input type="button" value="PRELEVA" class="myButton" onclick="useBloodBag('http://localhost:8087/bloodbag/use/<?php echo $bagArray[$key]->serial; ?>', '<?php echo($token); ?>');setTimeout(function () { location.reload(1); }, 1000);"></input>
     
             </td>
         </tr>
 <?php
 }
 ?>
-</table></center>
+    </table></center>
 </form>
