@@ -23,6 +23,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.jvnet.hk2.internal.Collector;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.*;
@@ -43,11 +44,16 @@ import java.util.logging.Logger;
 @Produces("application/json")
 public class BloodBagController /*implements ContainerResponseFilter */{
     private final BloodBagRepository bagRepository;
+    private final LoggerRepository logRepository;
 
-    public BloodBagController(BloodBagRepository repository){
-        this.bagRepository = repository;
+    public BloodBagController(BloodBagRepository repository1,LoggerRepository repository2){
+        this.bagRepository = repository1;
+        this.logRepository = repository2;
+		
     }
+    
 
+    
 /*
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
@@ -385,13 +391,14 @@ public class BloodBagController /*implements ContainerResponseFilter */{
      *     	"notes":"test note"
      *     }
      */
-    @PostMapping("/bloodbag/add")
+    @SuppressWarnings("deprecation")
+	@PostMapping("/bloodbag/add")
     public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagDAO) throws IOException {
         long id = new Date().getTime(); //soluzione "lazy"
         LoggerDAO loggerDAO = new LoggerDAO();
         loggerDAO.setIdLog(id);
         loggerDAO.setCurrentUserEmail("NotSpecified");
-        loggerDAO.setCurrentUserUsername("ANONYMOUS");
+        loggerDAO.setCurrentUserUsername(SecurityContextHolder.getContext().getAuthentication().getName().toString());
         loggerDAO.setFromClass(this.getClass().toString());
         loggerDAO.setAction(Actions.BLOODBAG_ADD.toString());
         loggerDAO.setExplanation("");
@@ -408,6 +415,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
                 loggerDAO.setExplanation("Bloodbag already exists");
                 it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
                 logManager.writeLog();
+                logRepository.save(loggerDAO);
                 throw new BloodBagCloneNotSupportedException("La sacca che si vuole aggiungere è già esistente.", "/bloodbag/add");
             }
 	    	else if (!bagDAO.getState().equals(BloodBagState.Available.toString())) {
@@ -415,6 +423,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
                 loggerDAO.setExplanation("Bloodbag state not valid");
                 it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
                 logManager.writeLog();
+                logRepository.save(loggerDAO);
                 throw new BloodBagStateException("Lo stato dela sacca che si vuole aggiungere non è valido.", "/bloodbag/add");
             }
 
@@ -428,6 +437,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
             loggerDAO.setResult(Results.OPERATION_SUCCESSFUL.toString());
             it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
             logManager.writeLog();
+            logRepository.save(loggerDAO);
 	        return bagRepository.save(bagDAO);
 	        		
 	    }catch(IllegalArgumentException e) {
@@ -441,6 +451,8 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 	    	return null;
 	    }
     }
+    
+  
 
 
     /**
@@ -538,7 +550,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
         LoggerDAO loggerDAO = new LoggerDAO();
         loggerDAO.setIdLog(id);
         loggerDAO.setCurrentUserEmail("NotSpecified");
-        loggerDAO.setCurrentUserUsername("ANONYMOUS");
+        loggerDAO.setCurrentUserUsername(SecurityContextHolder.getContext().getAuthentication().getName().toString());
         loggerDAO.setFromClass(this.getClass().toString());
         loggerDAO.setAction(Actions.BLOODBAG_IMPORT.toString());
         loggerDAO.setExplanation("");
@@ -561,6 +573,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
             loggerDAO.setResult(Results.OPERATION_SUCCESSFUL.toString());
             it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
             logManager.writeLog();
+            logRepository.save(loggerDAO);
 
 	        return bagRepository.save(bagDAO);
     	}catch(RequestNotFoundException e) {
@@ -568,6 +581,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
             loggerDAO.setExplanation("request not found");
             it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
             logManager.writeLog();
+            logRepository.save(loggerDAO);
     		e.printStackTrace();
     		throw new RequestNotFoundException("La richiesta che si vuole concludere non è esistente.", "/bloodbag/import");
     	}catch(BloodBagNotFoundException e) {
@@ -575,6 +589,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
             loggerDAO.setExplanation("blood bag not found");
             it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
             logManager.writeLog();
+            logRepository.save(loggerDAO);
     		e.printStackTrace();
     		throw new BloodBagNotFoundException(e.getMessage(), "/bloodbag/add");
     	}finally {
@@ -604,16 +619,17 @@ public class BloodBagController /*implements ContainerResponseFilter */{
         LoggerDAO loggerDAO = new LoggerDAO();
         loggerDAO.setIdLog(id);
         loggerDAO.setCurrentUserEmail("NotSpecified");
-        loggerDAO.setCurrentUserUsername("ANONYMOUS");
+        loggerDAO.setCurrentUserUsername(SecurityContextHolder.getContext().getAuthentication().getName().toString());
         loggerDAO.setFromClass(this.getClass().toString());
         loggerDAO.setAction(Actions.BLOODBAG_USED.toString());
         loggerDAO.setExplanation("");
-
+    
         if(bagRepository.getById(serial).getState().equals("Used")) {
             loggerDAO.setResult(Results.OPERATION_GONEBAD.toString());
             loggerDAO.setExplanation("the blood bag was already used.");
             it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
             logManager.writeLog();
+            logRepository.save(loggerDAO);
             throw new BloodBagStateException("the blood bag was already used.");
         }
         bagRepository.updateBloodBagStateBySerial(BloodBagState.Used.toString(),serial);
@@ -622,7 +638,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
         loggerDAO.setResult(Results.OPERATION_SUCCESSFUL.toString());
         it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
         logManager.writeLog();
-
+        logRepository.save(loggerDAO);
         return this.getBloodBagBySerial(serial);
     }
 
@@ -634,7 +650,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
         LoggerDAO loggerDAO = new LoggerDAO();
         loggerDAO.setIdLog(id);
         loggerDAO.setCurrentUserEmail("NotSpecified");
-        loggerDAO.setCurrentUserUsername("ANONYMOUS");
+        loggerDAO.setCurrentUserUsername(SecurityContextHolder.getContext().getAuthentication().getName().toString());
         loggerDAO.setFromClass(this.getClass().toString());
         loggerDAO.setAction(Actions.BLOODBAG_GET.toString());
         loggerDAO.setExplanation("");
@@ -652,6 +668,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
                 loggerDAO.setExplanation("There is no bloodbag with the given serial.");
                 it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
                 logManager.writeLog();
+                logRepository.save(loggerDAO);
                 throw new BloodBagNotFoundException("There is no bloodbag with the given serial.");
             }
             if (dao.getState().equals(BloodBagState.Available.toString())) {
@@ -664,6 +681,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
             loggerDAO.setExplanation("The bag is not available");
             it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
             logManager.writeLog();
+            logRepository.save(loggerDAO);
             throw new BloodBagStateException("The bag is not available");
 
         }
@@ -671,6 +689,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
         loggerDAO.setExplanation("The provided node does not exists.");
         it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
         logManager.writeLog();
+        logRepository.save(loggerDAO);
         throw new NodeNotFoundException("The provided node does not exists.");
     }
 
@@ -714,12 +733,14 @@ public class BloodBagController /*implements ContainerResponseFilter */{
             loggerDAO.setResult(Results.OPERATION_SUCCESSFUL.toString());
             it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
             logManager.writeLog();
+            logRepository.save(loggerDAO);
 
         } catch (Exception e) {
             e.printStackTrace();
             loggerDAO.setResult(Results.OPERATION_REFUSED.toString());
             it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
             logManager.writeLog();
+            logRepository.save(loggerDAO);
         }
     }
 

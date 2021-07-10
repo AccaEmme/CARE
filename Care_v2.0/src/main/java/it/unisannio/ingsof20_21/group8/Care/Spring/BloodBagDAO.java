@@ -6,11 +6,15 @@ import it.unisannio.CARE.model.bloodBag.BloodGroup;
 import it.unisannio.CARE.model.bloodBag.Serial;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
 /**
  * this class is the modeling class of a blood bag
  */
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table (name = "Bloodbag")
 public class BloodBagDAO {
