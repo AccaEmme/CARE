@@ -42,7 +42,7 @@ public class P2PRequestController {
     }
 
     @PatchMapping("p2prequest/accept/{serial}/{token}")
-    public void acceptRequest(@PathVariable String serial, @PathVariable String token) throws Exception {
+    public BloodBagDAO acceptRequest(@PathVariable String serial, @PathVariable String token) throws Exception {
         //requestRepo.updateRequestStateBySerial(RequestState.transfered.toString(), serial);
         //httprequest from java to the requesting node
         /*RequestDAO requestDAO = requestRepo.getRequestFromSerial(serial);
@@ -58,10 +58,18 @@ public class P2PRequestController {
         P2PManager manager = new P2PManager(request,token);
         JSONArray jsonArray = manager.sendGet();
         JSONObject bag = (JSONObject) jsonArray.get(0);
-        System.out.println(bag.get("serial"));
+
 
         BloodBagDAO bloodbag = new BloodBagDAO();
+        bloodbag.setSerial(bag.get("serial").toString());
+        bloodbag.setGroup(bag.get("group").toString());
+        bloodbag.setDonator(bag.get("donator").toString());
+        bloodbag.setCreationDate((Long) bag.get("creationDate"));
+        bloodbag.setExpirationDate((Long) bag.get("expirationDate"));
+        bloodbag.setState(bag.get("state").toString());
+        bloodbag.setNotes(bag.get("notes").toString());
 
+        return bloodbag;
     }
 
     @PatchMapping("p2prequest/set/state/{serial}/{state}")
