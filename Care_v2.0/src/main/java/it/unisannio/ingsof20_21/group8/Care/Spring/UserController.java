@@ -462,7 +462,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 		this.updateUserLoginAttemptsByID(	newuser.getIdUser(), newuser.getLoginAttempts()						);
 		this.updateUserActiveUserByID(		newuser.getIdUser(), newuser.getActiveUser()						);
 
-		//return userRepo.getById(newuser.getIdUser());
+		//return userRepo.getById(newuser.getIdUser()); non ritorniamo niente perché non fa il refresh in tempo reale
 	}
 
     
