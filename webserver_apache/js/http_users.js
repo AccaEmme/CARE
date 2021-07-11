@@ -35,8 +35,7 @@ HTTPBody:
 }
 
 
-function updateUser(url, token, id, username, temppass, email, role, loginAttempts, activeUser){
-alert("dentro");
+function updateUser(url, token, idUser, username, temppass, email, userRole, loginAttempts, activeUser){
 //var url='http://localhost:8087/user/update';
 /*
 e.g.:
@@ -52,28 +51,34 @@ HTTPBody:
  }
 */
  k=0;
- if(url == "") 		{ k=1; } else { k=0; }
- if(token == "") 	{ k=1; } else { k=0; }
- if(username == "") 	{ k=1; } else { k=0; }
- //if(password == "") 	{ k=1; } else { k=0; }
- //if(email == "") 	{ k=1; } else { k=0; }
- if(userRole == "") 	{ k=1; } else { k=0; }
-
- if(k==0 || id==""){
+/*
+ if(
+	(url == "") 	 ||
+	(token == "") 	 ||
+ 	(idUser == "") 	 ||
+ 	(username == "") ||
+      //(password == "") ||
+      //(email == "") 	 ||
+        (userRole == "")
+   ) { k=1; } else { k=0; }
+*/
+ if(k==1){
   alert("No changes");
  } else { 
-  alert(url + " - " + token + " - " + username + " - " + temppass + " - " + email + " - " + userRole + " - " + loginAttempts + " - " + activeUser);
+  alert(url + " - " + token + " - " + idUser + " - " + username + " - " + temppass + " - " + email + " - " + userRole + " - " + loginAttempts + " - " + activeUser);
   var   jsonBody  = '{';
-	jsonBody += '"username": "' + username + '"';
+	jsonBody += '"idUser": '   + idUser   + ',';
+	// jsonBody += '"username": "' + username + '"'; non modificabile
         if(temppass!="") { jsonBody += ', "temppass": "' + temppass + '"'; }
         if(email!="")    { jsonBody += ', "email": "'    + email    + '"'; }
 	jsonBody += ', "userRole": "' + userRole + '"';
-	jsonBody += ', "loginAttempts": "' + loginAttempts + '"';
-	jsonBody += ', "activeUser": "' + activeUser + '"';
+	jsonBody += ', "loginAttempts": ' + loginAttempts + '';
+	jsonBody += ', "activeUser": ' + activeUser + '';
 	jsonBody += '}';
   alert("jsonBody: " + jsonBody);
   console.log("jsonBody: " + jsonBody);
-  HTTPPost(url, token, jsonBody);
+  var positiveMsg='Utente Eliminato';
+  HTTPPost(url, token, jsonBody, positiveMsg);
  }
 }
 

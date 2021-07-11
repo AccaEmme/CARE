@@ -453,7 +453,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	 */
 	@PostMapping("/user/update")
 	public void updateUserByID(@RequestBody UserDAO newuser){
-		this.updateUserUsernameByID(		newuser.getIdUser(), newuser.getUsername()							);
+		//this.updateUserUsernameByID(		newuser.getIdUser(), newuser.getUsername()							); shouldn't be changed because used in token(no problem) and expecially in logger.
 		if(newuser.getTemppass() != null && !newuser.getTemppass().equals("")) {
 			this.updateUserTemppassByID(	newuser.getIdUser(), newuser.getTemppass()							);
 		}
