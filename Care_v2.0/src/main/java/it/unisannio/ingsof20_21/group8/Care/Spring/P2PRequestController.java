@@ -9,10 +9,13 @@ package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 import it.unisannio.CARE.model.bloodBag.BloodBagState;
 import it.unisannio.CARE.model.bloodBag.RequestState;
+import it.unisannio.CARE.model.exceptions.BloodBagNotFoundException;
 import it.unisannio.CARE.model.exceptions.NodeNotFoundException;
+import it.unisannio.CARE.model.exceptions.RequestNotFoundException;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.XMLHelper;
 import it.unisannio.CARE.modulep2p.P2PManager;
+import it.unisannio.CARE.modulep2p.RequestException;
 import it.unisannio.CARE.modulep2p.RequestType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -59,11 +62,28 @@ public class P2PRequestController {
 
     @PatchMapping("p2prequest/accept/{serial}/{token}")
     public JSONArray acceptRequest(@PathVariable String serial, @PathVariable String token) throws Exception {
+        RequestDAO requestDAO = requestRepo.getRequestFromSerial(serial);
+        //controlli preliminari
+        if (requestDAO == null)
+            throw new RequestNotFoundException("there is no request with the provided serial");
+        else if (requestDAO.getState()!=RequestState.pending.toString()){
+            if (requestDAO.getState().equals(RequestState.accepted))
+                throw new RequestException("the request has already been accepted");
+            else if (requestDAO.getState().equals(RequestState.refused))
+                throw new RequestException("the request has already been refused");
+            else if (requestDAO.getState().equals(RequestState.transfered))
+                throw new RequestException("the request has already been sent");
+            else throw new RequestException("unexpected exception");
+        }
+
+
         requestRepo.updateRequestStateBySerial(RequestState.transfered.toString(), serial);
 
         String request = "http://"+this.getAddressFromNodeID(this.getNodeId())+"/bloodbag/get/serial/"+serial;
         P2PManager local = new P2PManager(request,token);
         JSONArray jsonArray = local.sendGet();
+        if (jsonArray==null)
+            throw new BloodBagNotFoundException("blood bag not found");
         JSONObject bag = (JSONObject) jsonArray.get(0);
 
 
@@ -77,7 +97,7 @@ public class P2PRequestController {
         bagJson.put("state", BloodBagState.receiving.toString());
         bagJson.put("notes",bag.get("notes").toString());
 
-        request = "http://"+this.getAddressFromNodeID(requestRepo.getRequestFromSerial(serial).getRequestingNode())+"/bloodbag/add/forced";
+        request = "http://"+this.getAddressFromNodeID(requestDAO.getRequestingNode())+"/bloodbag/add/forced";
         P2PManager remote = new P2PManager(request,token,bagJson, RequestType.POST);
         return remote.sendRequest();
     }
