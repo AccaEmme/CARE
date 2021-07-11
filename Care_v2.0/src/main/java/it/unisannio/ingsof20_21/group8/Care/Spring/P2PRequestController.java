@@ -26,6 +26,9 @@ import javax.ws.rs.Produces;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * this class is used to run http requests for the p2p bloodbag requests
+ */
 @CrossOrigin("*")
 @RestController
 
@@ -34,24 +37,45 @@ import java.util.Properties;
 public class P2PRequestController {
     private final RequestRepository requestRepo;
 
+    /**
+     * @param requestRepo the repository interface containing all the queries
+     */
     public P2PRequestController(RequestRepository requestRepo) {
         this.requestRepo = requestRepo;
     }
 
+    /**
+     * @return all the local requests
+     */
     @GetMapping("p2prequest/get/all")
     public List<RequestDAO> getAllp2pRequests(){
         return this.requestRepo.findAll();
     }
 
+    /**
+     * @param request the new request
+     * @return the added request
+     */
     @PostMapping("p2prequest/add")
     public RequestDAO addp2pRequest(@RequestBody RequestDAO request){
         return this.requestRepo.save(request);
     }
 
+    /**
+     * get the node id
+     * @return  the node id from the node_properties.xml
+     */
     private String getNodeId(){
         Properties props = XMLHelper.getProps("localsettings/node_properties.xml");
         return props.getProperty("province")+props.getProperty("structureCode");
     }
+
+    /**
+     * get the node's address from the node's identifier
+     * @param nodeID the node's id
+     * @return the node's address
+     * @throws NodeNotFoundException if there is no note having that id
+     */
     private String getAddressFromNodeID(String nodeID) throws NodeNotFoundException {
         Properties props = XMLHelper.getProps("localsettings/RoutingTable.xml");
         String address = props.getProperty(nodeID);
@@ -60,6 +84,13 @@ public class P2PRequestController {
         return address;
     }
 
+    /**
+     * accept a local request, sending to the requesting node the requested bag
+     * @param serial the request/bag's serial
+     * @param token the user's token
+     * @return the bloodbag's request
+     * @throws Exception if the request is not valid
+     */
     @PatchMapping("p2prequest/accept/{serial}/{token}")
     public JSONArray acceptRequest(@PathVariable String serial, @PathVariable String token) throws Exception {
         RequestDAO requestDAO = requestRepo.getRequestFromSerial(serial);
@@ -102,16 +133,31 @@ public class P2PRequestController {
         return remote.sendRequest();
     }
 
+    /**
+     * set a request's state
+     * @param serial the request's serial
+     * @param state the state
+     */
     @PatchMapping("p2prequest/set/state/{serial}/{state}")
     private void setRequestStateBySerial(@PathVariable String serial, @PathVariable String state){
         requestRepo.updateRequestStateBySerial(RequestState.valueOf(state).toString(),serial);
     }
 
+    /**
+     * get a request from it's serial
+     * @param serial the request's serial
+     * @return the request
+     */
     @GetMapping("p2prequest/get/{serial}")
     private RequestDAO getRequestFromSerial(@PathVariable String serial){
         return requestRepo.getRequestFromSerial(serial);
     }
 
+    /**
+     * get all the request having a specific state
+     * @param state the request's state
+     * @return all the request having that state
+     */
     @GetMapping("p2prequest/get/state/{state}")
     public Iterable<RequestDAO> getRequestsByState(@PathVariable String state){
         return requestRepo.getRequestsByState(state);
