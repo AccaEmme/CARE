@@ -7,11 +7,7 @@ public class AuthenticationRequestBean {
 	
 	private String username;
 	private String password;
-	
-	
-	/* è qullo che canfora chiam Bean due stringhe username e password
-	 * che permettono di autenticarsi
-	 */
+
 	
 	/**
 	 * Constructor of the bean AuthenticationRequestBean class

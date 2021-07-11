@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
+/**
+ * used to specify all bloodbag controller queries
+ */
 @Repository
 public interface BloodBagRepository extends JpaRepository<BloodBagDAO, String> {
 

@@ -49,6 +49,9 @@ import it.unisannio.CARE.model.util.Logger.Results;
 import it.unisannio.CARE.modulep2p.Node.NodeIDs;
 import it.unisannio.CARE.modulep2p.P2PManager;
 
+/**
+ * used to send the bloodbag http requests
+ */
 @CrossOrigin("*")
 @RestController
 

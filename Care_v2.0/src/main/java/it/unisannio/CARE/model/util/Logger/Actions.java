@@ -1,5 +1,8 @@
 package it.unisannio.CARE.model.util.Logger;
 
+/**
+ * possible log actions
+ */
 public enum Actions {
     //user actions
     USER_LOGIN,

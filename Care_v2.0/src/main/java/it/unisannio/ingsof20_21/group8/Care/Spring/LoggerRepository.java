@@ -26,6 +26,11 @@ public interface LoggerRepository extends JpaRepository<LoggerDAO, Long> {
     LoggerDAO findLogById(@Param("id") long id);
 
 
+    /**
+     * @param first the first date
+     * @param second the second date
+     * @return all the logs made between the dates
+     */
     @Query("FROM LoggerDAO l WHERE l.currentTimeStamp >:first AND l.currentTimeStamp <:second")
     Iterable<LoggerDAO> filterLogsByDate(@Param("first") long first, @Param("second") long second);
 }

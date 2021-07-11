@@ -30,8 +30,7 @@ import it.unisannio.CARE.model.util.Constants;
 *  - classe serializzabile
 *  - non conterrà alcun metodo per la gestione degli eventi
 *  https://it.wikipedia.org/wiki/JavaBean
-* *
-* @author AccaEmme on 2021-06-26
+
 */
 
 @Entity

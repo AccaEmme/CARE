@@ -3,8 +3,13 @@ package it.unisannio.CARE.modulep2p;
 import java.util.EnumMap;
 
 import it.unisannio.CARE.modulep2p.Node.NodeIDs;
-	
 
+
+/**
+ * this class is used to specify a routing table
+ * not used anymore in favour of a dynamic routing table
+ */
+@Deprecated
 public class RoutingTable {
 	private String id, codStr, city, address, endpoint;
 

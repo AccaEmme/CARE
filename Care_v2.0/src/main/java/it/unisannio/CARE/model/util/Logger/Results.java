@@ -1,5 +1,8 @@
 package it.unisannio.CARE.model.util.Logger;
 
+/**
+ * possible log results
+ */
 public enum Results {
     OPERATION_SUCCESSFUL,
     OPERATION_GONEBAD,
