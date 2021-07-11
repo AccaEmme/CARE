@@ -9,6 +9,9 @@ package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 import it.unisannio.CARE.model.bloodBag.BloodBagState;
 import it.unisannio.CARE.model.bloodBag.RequestState;
+import it.unisannio.CARE.model.exceptions.NodeNotFoundException;
+import it.unisannio.CARE.model.util.Constants;
+import it.unisannio.CARE.model.util.XMLHelper;
 import it.unisannio.CARE.modulep2p.P2PManager;
 import it.unisannio.CARE.modulep2p.RequestType;
 import org.json.simple.JSONArray;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import java.util.List;
+import java.util.Properties;
 
 @CrossOrigin("*")
 @RestController
@@ -41,19 +45,29 @@ public class P2PRequestController {
         return this.requestRepo.save(request);
     }
 
+    private String getNodeId(){
+        Properties props = XMLHelper.getProps("localsettings/node_properties.xml");
+        return props.getProperty("province")+props.getProperty("structureCode");
+    }
+    private String getAddressFromNodeID(String nodeID) throws NodeNotFoundException {
+        Properties props = XMLHelper.getProps("localsettings/RoutingTable.xml");
+        String address = props.getProperty(nodeID);
+        if (address==null)
+            throw new NodeNotFoundException("there is no node having the provided id");
+        return address;
+    }
+
     @PatchMapping("p2prequest/accept/{serial}/{token}")
     public JSONArray acceptRequest(@PathVariable String serial, @PathVariable String token) throws Exception {
         requestRepo.updateRequestStateBySerial(RequestState.transfered.toString(), serial);
 
-        String request = "http://192.168.1.204:8087/bloodbag/get/serial/"+serial;
+        String request = "http://"+this.getAddressFromNodeID(this.getNodeId())+"/bloodbag/get/serial/"+serial;
         P2PManager local = new P2PManager(request,token);
         JSONArray jsonArray = local.sendGet();
         JSONObject bag = (JSONObject) jsonArray.get(0);
-        System.out.println(bag.get("serial").toString());
+
 
         //salvo la bloodbag richiesta sul pc richiedente
-        request = "http://"+"192.168.1.25:8088"+"/bloodbag/add/forced";
-
         JSONObject bagJson = new JSONObject();
         bagJson.put("serial",bag.get("serial").toString());
         bagJson.put("group",bag.get("group").toString());
@@ -63,8 +77,7 @@ public class P2PRequestController {
         bagJson.put("state", BloodBagState.receiving.toString());
         bagJson.put("notes",bag.get("notes").toString());
 
-        //porta da ricavare dinamicamente
-        request = "http://192.168.1.25:8088/bloodbag/add/forced";
+        request = "http://"+this.getAddressFromNodeID(requestRepo.getRequestFromSerial(serial).getRequestingNode())+"/bloodbag/add/forced";
         P2PManager remote = new P2PManager(request,token,bagJson, RequestType.POST);
         return remote.sendRequest();
     }
