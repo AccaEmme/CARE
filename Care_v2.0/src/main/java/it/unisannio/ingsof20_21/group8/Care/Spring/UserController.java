@@ -453,7 +453,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	 */
 	@PostMapping("/user/update")
 	public void updateUserByID(@RequestBody UserDAO newuser){
-		this.updateUserUsernameByID(		newuser.getIdUser(), newuser.getUsername()							);
+		//this.updateUserUsernameByID(		newuser.getIdUser(), newuser.getUsername()							); shouldn't be changed because used in token(no problem) and expecially in logger.
 		if(newuser.getTemppass() != null && !newuser.getTemppass().equals("")) {
 			this.updateUserTemppassByID(	newuser.getIdUser(), newuser.getTemppass()							);
 		}
@@ -462,7 +462,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 		this.updateUserLoginAttemptsByID(	newuser.getIdUser(), newuser.getLoginAttempts()						);
 		this.updateUserActiveUserByID(		newuser.getIdUser(), newuser.getActiveUser()						);
 
-		//return userRepo.getById(newuser.getIdUser());
+		//return userRepo.getById(newuser.getIdUser()); non ritorniamo niente perché non fa il refresh in tempo reale
 	}
 
     

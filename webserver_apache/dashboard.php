@@ -6,6 +6,7 @@ $roles[1] = "ROLE_STOREMANAGER";
 $roles[2] = "ROLE_OFFICER";
 $roles[3] = "ROLE_CENTRAL_ADMINISTRATOR";
 $roles[4] = "ROLE_CENTRAL_STOREMANAGER";
+$roles[5] = "ROLE_CENTRAL_OFFICER";
 
 @$token   = $_GET['token'];
 @$subpage = $_GET['subpage'];
@@ -68,8 +69,14 @@ switch($role){
  case "ROLE_OFFICER":
 	echo("Segretaria");
 	break;
-case "ROLE_CENTRAL_STOREMANAGER":
-    echo("Segretaria");
+ case "ROLE_CENTRAL_ADMINISTRATOR":
+    echo("Amministratore centrale");
+    break;
+ case "ROLE_CENTRAL_STOREMANAGER":
+    echo("Magazziniere centrale");
+    break;
+ case "ROLE_CENTRAL_OFFICER":
+    echo("Segretaria centrale");
     break;
  default:
 	echo("Unauthorized");
@@ -103,9 +110,15 @@ case "ROLE_CENTRAL_STOREMANAGER":
 	   case "ROLE_OFFICER":
 	     include("./pages/officermenu.inc.php");
 	     break;
-     case "ROLE_CENTRAL_STOREMANAGER":
-       include("./pages/centralstoremanagermenu.inc.php");
-       break;
+	   case "ROLE_CENTRAL_ADMINISTRATOR":
+	     include("./pages/centraladministrator_menu.inc.php");
+	     break;
+	   case "ROLE_CENTRAL_STOREMANAGER":
+	     include("./pages/centralstoremanagermenu.inc.php");
+	     break;
+	   case "ROLE_CENTRAL_OFFICER":
+	     include("./pages/centralofficer_menu.inc.php");
+	     break;
 	   default:
 	     echo("Unauthorized");
 	     break;
@@ -160,9 +173,15 @@ case "ROLE_CENTRAL_STOREMANAGER":
 	   case "ROLE_OFFICER":
 	     $allowed_pages 	= array("officerdashboard", "officer_personal_profile");
 	     break;
-     case "ROLE_CENTRAL_STOREMANAGER":
-        $allowed_pages 	= array("centralstoremanagerdashboard");
-        break;
+	   case "ROLE_CENTRAL_ADMINISTRATOR":
+	     $allowed_pages 	= array("centraladministrator_dashboard");
+	     break;
+	   case "ROLE_CENTRAL_STOREMANAGER":
+             $allowed_pages 	= array("centralstoremanagerdashboard");
+	     break;
+	   case "ROLE_CENTRAL_OFFICER":
+	     $allowed_pages 	= array("centralofficer_dashboard");
+	     break;
 	   default:
 	     echo("Unauthorized");
 	     break;
@@ -172,25 +191,6 @@ case "ROLE_CENTRAL_STOREMANAGER":
          } else {
 	   echo('Accedi dal menù nella pagina a te concessa.'.$subpage);
 	 }
- 	?>
-
-	<?php
-/*
-	 switch($role){
-	   case "ROLE_ADMINISTRATOR": 
-	     include("./pages/administratordashboard.inc.php");
-	     break;
-	   case "ROLE_STOREMANAGER":
-	     include("./pages/storemanagerdashboard.inc.php");
-	     break;
-	   case "ROLE_OFFICER":
-	     include("./pages/officerdashboard.inc.php");
-	     break;
-	   default:
-	     echo("Unauthorized");
-	     break;
-	}
-*/
  	?>
        
         <!-- START: BROADCAST CHAT 

@@ -100,13 +100,13 @@ foreach (array_keys($usersArray ) as $key) {
 	<!-- END: new user fields -->
         <tr>
 <?php foreach (array_keys($usersArray ) as $key) { ?>
-            <td style="text-align: center;"><input type="text" name="id_<?php echo $usersArray[$key]->idUser; ?>" value="<?php echo $usersArray[$key]->idUser; ?>" disabled /></td>
-            <td style="text-align: center;"><input type="text" name="user_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->username; ?>" /></td>
-            <td style="text-align: center;"><input type="password" name="pass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->password; ?>" disabled /></td>
-            <td style="text-align: center;"><input type="text" name="temppass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->temppass; ?>" /></td>
-            <td style="text-align: center;"><input type="text" name="email_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->email; ?>" /></td>
+            <td style="text-align: center;"><input type="text" 		name="id_<?php echo $usersArray[$key]->idUser; ?>" 		id="id_<?php echo $usersArray[$key]->idUser; ?>" 		value="<?php echo $usersArray[$key]->idUser;   ?>" disabled /></td>
+            <td style="text-align: center;"><input type="text" 		name="user_<?php echo $usersArray[$key]->username; ?>" 		id="user_<?php echo $usersArray[$key]->username; ?>" 		value="<?php echo $usersArray[$key]->username; ?>" disabled /></td>
+            <td style="text-align: center;"><input type="password" 	name="pass_<?php echo $usersArray[$key]->username; ?>" 		id="pass_<?php echo $usersArray[$key]->username; ?>"		value="<?php echo $usersArray[$key]->password; ?>" disabled /></td>
+            <td style="text-align: center;"><input type="text" 		name="temppass_<?php echo $usersArray[$key]->username; ?>"	id="temppass_<?php echo $usersArray[$key]->username; ?>" 	value="<?php echo $usersArray[$key]->temppass; ?>" /></td>
+            <td style="text-align: center;"><input type="text" 		name="email_<?php echo $usersArray[$key]->username; ?>"		id="email_<?php echo $usersArray[$key]->username; ?>" 		value="<?php echo $usersArray[$key]->email;    ?>" /></td>
             <td style="text-align: center;">
-                <select name="role_<?php echo $usersArray[$key]->username; ?>" id="role_<?php echo $usersArray[$key]->username; ?>">
+                <select 						name="role_<?php echo $usersArray[$key]->username; ?>" 		id="role_<?php echo $usersArray[$key]->username; ?>">
 			<?php
 			   foreach($roles as $r) {
 			     echo('<option value="' . $r . '"');
@@ -116,11 +116,11 @@ foreach (array_keys($usersArray ) as $key) {
 			?>
                 </select>
             </td>
-            <td style="text-align: center;"><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->creationDate/1000); ?>" disabled /></td>
-            <td style="text-align: center;"><input type="text" name="lastAccess_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->lastAccess/1000); ?>" disabled /></td>
+            <td style="text-align: center;"><input type="text" 		name="creationDate_<?php echo $usersArray[$key]->username; ?>"	id="creationDate_<?php echo $usersArray[$key]->username; ?>" 	value="<?php echo date('Y-m-d', $usersArray[$key]->creationDate/1000); ?>" disabled /></td>
+            <td style="text-align: center;"><input type="text" 		name="lastAccess_<?php echo $usersArray[$key]->username; ?>" 	id="lastAccess_<?php echo $usersArray[$key]->username; ?>" 	value="<?php echo date('Y-m-d', $usersArray[$key]->lastAccess/1000); ?>" disabled /></td>
             <td style="text-align: center;">
 
-             <select name="loginAttempts_<?php echo $usersArray[$key]->username; ?>" id="loginAttempts_<?php echo $usersArray[$key]->username; ?>" width="100%" >
+             <select 							name="loginAttempts_<?php echo $usersArray[$key]->username; ?>" id="loginAttempts_<?php echo $usersArray[$key]->username; ?>" width="100%" >
               <?php
               $currentAttempts = $usersArray[$key]->loginAttempts;
               if($currentAttempts=="0") {
@@ -136,7 +136,7 @@ foreach (array_keys($usersArray ) as $key) {
               <?php
               $currentActiveUser = $usersArray[$key]->activeUser;
               ?>
-             <select name="activeUser_<?php echo $usersArray[$key]->username; ?>" id="activeUser_<?php echo $usersArray[$key]->username; ?>" >
+             <select 							name="activeUser_<?php echo $usersArray[$key]->username; ?>" 	id="activeUser_<?php echo $usersArray[$key]->username; ?>" >
               <option value="1"  <?php if($currentActiveUser=="1")  echo(" selected"); ?> >1:attivo</option>
               <option value="0"  <?php if($currentActiveUser=="0")  echo(" selected"); ?> >0:disabilitato</option>
               <option value="-1" <?php if($currentActiveUser=="-1") echo(" selected"); ?> >-1:blacklist</option>
@@ -156,8 +156,8 @@ SALVA NON VA
 										document.getElementById('loginAttempts_<?php echo $usersArray[$key]->username; ?>').value,
 										document.getElementById('activeUser_<?php echo $usersArray[$key]->username; ?>').value
 									      );
-									      /*setTimeout(function () { location.reload(1); }, 5000);*/
-								    ">
+									      setTimeout(function () { location.reload(1); }, 5000);
+                ">
                 <input type="button" value="Elimina"       onclick="deleteUser('<?php echo('http://localhost:8087/user/delete/username/'.$usersArray[$key]->username);?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000);">
                 <input type="button" value="ResetPassword" onclick="resetUserPass('<?php echo('http://localhost:8087/user/patch/resetpassword/username/'.$usersArray[$key]->username);?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000);" >
             </td>
@@ -190,13 +190,13 @@ SALVA NON VA
         </tr>
         <tr>
 <?php foreach (array_keys($usersArray ) as $key) { ?>
-            <td style="text-align: center;"><input type="text" name="id_<?php echo $usersArray[$key]->idUser; ?>" value="<?php echo $usersArray[$key]->idUser; ?>" disabled /></td>
-            <td style="text-align: center;"><input type="text" name="user_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->username; ?>" disabled /></td>
-            <td style="text-align: center;"><input type="password" name="pass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->password; ?>" disabled /></td>
-            <td style="text-align: center;"><input type="text" name="temppass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->temppass; ?>" disabled /></td>
-            <td style="text-align: center;"><input type="text" name="email_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->email; ?>" disabled /></td>
+            <td style="text-align: center;"><input type="text" 			name="id_<?php echo $usersArray[$key]->idUser; ?>"		id="id_<?php echo $usersArray[$key]->idUser; ?>"	 value="<?php echo $usersArray[$key]->idUser; ?>" disabled /></td>
+            <td style="text-align: center;"><input type="text" 			name="user_<?php echo $usersArray[$key]->username; ?>"		id="user_<?php echo $usersArray[$key]->username; ?>"	 value="<?php echo $usersArray[$key]->username; ?>" disabled /></td>
+            <td style="text-align: center;"><input type="password" 		name="pass_<?php echo $usersArray[$key]->username; ?>"		id="pass_<?php echo $usersArray[$key]->username; ?>"	 value="<?php echo $usersArray[$key]->password; ?>" disabled /></td>
+            <td style="text-align: center;"><input type="text" 			name="temppass_<?php echo $usersArray[$key]->username; ?>"	id="temppass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->temppass; ?>" disabled /></td>
+            <td style="text-align: center;"><input type="text" 			name="email_<?php echo $usersArray[$key]->username; ?>" 	id="email_<?php echo $usersArray[$key]->username; ?>"	 value="<?php echo $usersArray[$key]->email; ?>" disabled /></td>
             <td style="text-align: center;">
-                <select name="role" id="role" disabled >
+                <select name="role_<?php echo $usersArray[$key]->username; ?>" id="role_<?php echo $usersArray[$key]->username; ?>" disabled >
 			<?php
 			   foreach($roles as $r) {
 			     echo('<option value="' . $r . '"');
@@ -206,8 +206,8 @@ SALVA NON VA
 			?>
                 </select>
             </td>
-            <td style="text-align: center;"><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->creationDate/1000); ?>" disabled /></td>
-            <td style="text-align: center;"><input type="text" name="lastAccess_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->lastAccess/1000); ?>" disabled /></td>
+            <td style="text-align: center;"><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" id="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->creationDate/1000); ?>" disabled /></td>
+            <td style="text-align: center;"><input type="text" name="lastAccess_<?php echo $usersArray[$key]->username; ?>" id="lastAccess_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->lastAccess/1000); ?>" disabled /></td>
             <td style="text-align: center;">
 
              <select name="loginAttempts_<?php echo $usersArray[$key]->username; ?>" id="loginAttempts_<?php echo $usersArray[$key]->username; ?>" width="100%" disabled >
