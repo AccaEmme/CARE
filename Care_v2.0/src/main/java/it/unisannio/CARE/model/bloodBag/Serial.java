@@ -110,7 +110,7 @@ public class Serial{
         Serial.counter = (Integer.parseInt(currentDate_aaaaMMdd) > lastdate)? 0 : counter;	//if today > lastdate -> counter = 0 else counter++
 
         serial = serialmatrix+ 
-                "-"+bloodgroup+
+                "-"+bloodgroup.toString().toUpperCase()+
                 "-"+currentDate_aaaaMMdd+
                 "-"+(
                 (new DecimalFormat("0000")).format( counter++ )

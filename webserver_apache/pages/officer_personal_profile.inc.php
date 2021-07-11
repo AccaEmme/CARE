@@ -78,7 +78,7 @@ mi serve per consentire a ogni utente di aggiornare il proprio profilo, sennò l
               <option value="1"  <?php if($currentActiveUser=="1")  echo(" selected"); ?> >1:attivo</option>
               <option value="0"  <?php if($currentActiveUser=="0")  echo(" selected"); ?> >0:disabilitato</option>
               <option value="-1" <?php if($currentActiveUser=="-1") echo(" selected"); ?> >-1:blacklist</option>
-              <option value="1"  <?php if($currentActiveUser=="-2") echo(" selected"); ?> >-2:deleted</option>
+              <option value="-2"  <?php if($currentActiveUser=="-2") echo(" selected"); ?> >-2:deleted</option>
              </select>
             </td>
         </tr>

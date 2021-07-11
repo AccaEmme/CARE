@@ -42,7 +42,7 @@ import it.unisannio.CARE.spring.bean.RequestBean;
 
 
 @RestController
-@RequestMapping("/request")
+@RequestMapping("request")
 
 @Consumes("application/json")
 @Produces("application/json")
