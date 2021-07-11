@@ -54,14 +54,21 @@ public class P2PRequestController {
         return requestRepo.getRequestFromSerial(serial);
     }
 
+    @GetMapping("p2prequest/get/state/{state}")
+    public Iterable<RequestDAO> getRequestsByState(@PathVariable String state){
+        return requestRepo.getRequestsByState(state);
+    }
+
     //serial-nodorichiedente-nodoripondente (indirizzo o hostname)
     @GetMapping("p2prequest/get/accepted/{serial}/{requesting}/{responding}/{token}")
     public JSONArray getAcceptedBag(@PathVariable String serial, @PathVariable String requesting, @PathVariable String responding, @PathVariable String token ) throws Exception {
-        System.out.println("entro");
+        /*System.out.println("entro");
         String request = "http://"+"localhost"+"/p2prequest/get/"+serial;
         P2PManager manager = new P2PManager(request,token);
-        JSONArray dao = manager.sendGet();
-
-        return dao;
+        JSONArray dao = manager.sendGet();*/
+        Iterable<RequestDAO> waitingRequests = this.getRequestsByState(RequestState.accepted_waiting_for_response.toString());
+        for (RequestDAO request : waitingRequests)
+            System.out.println(request.getSerial());
+        return null;
     }
 }

@@ -17,4 +17,7 @@ public interface RequestRepository extends JpaRepository<RequestDAO, Long> {
 
     @Query("FROM RequestDAO r where r.serial = ?1")
     RequestDAO getRequestFromSerial(String serial);
+
+    @Query("FROM RequestDAO r where r.state = ?1")
+    Iterable<RequestDAO> getRequestsByState(String state);
 }
