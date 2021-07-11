@@ -45,7 +45,7 @@
         
             <td>
 		<input type="text" name="addBloodBagCURL" id="addBloodBagCURL" value="http://localhost:8087/bloodbag/import" hidden="yes" />
-        <input type="button" value="IMPORT SACCA" class="myButton" onclick="addBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo($token); ?>', document.getElementById('serial').value);setTimeout(function () { location.reload(1); }, 1000)">
+        <input type="button" value="IMPORT SACCA" class="myButton" onclick="addBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo($token); ?>', document.getElementById('serial').value);/*setTimeout(function () { location.reload(1); }, 1000)*/">
             </td>
     </tr>
      

@@ -13,15 +13,18 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Updates;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.or;
 import static com.mongodb.client.model.Filters.ne;
 
+import it.unisannio.CARE.model.bloodBag.BloodBagState;
 import it.unisannio.CARE.model.bloodBag.Request;
 import it.unisannio.CARE.model.bloodBag.RequestPriority;
 import it.unisannio.CARE.model.bloodBag.RequestState;
+import it.unisannio.CARE.model.exceptions.BloodBagNotFoundException;
 import it.unisannio.CARE.model.exceptions.RequestCloneNotSupportedException;
 import it.unisannio.CARE.model.exceptions.RequestNotFoundException;
 import it.unisannio.CARE.model.util.Constants;
@@ -189,12 +192,13 @@ public class RequestManager {
 	    		eq("serial", serial),
 	    		eq("state", RequestState.accepted.toString())
 	    		);
-		
-        Bson update = new Document("$set", new Document("state", RequestState.closed.toString()) );
+	 
+        Bson update =   Updates.set("state",RequestState.closed.toString());
         
-        if(collection.findOneAndUpdate(filter, update) == null)
+        if(this.collection.updateOne(filter, update).getModifiedCount()== 0)
         	throw new RequestNotFoundException("Richiesta non trovata o inesistente...");
 	}
+
 	
 	/**
      **************************************************************************

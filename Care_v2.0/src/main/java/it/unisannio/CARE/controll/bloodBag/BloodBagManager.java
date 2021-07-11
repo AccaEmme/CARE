@@ -245,7 +245,7 @@ public class BloodBagManager {
 				eq("state", BloodBagState.receiving.toString())
 				);
 Bson update=Updates.set("state",BloodBagState.Available.toString() );
-     if(this.collection.updateOne(filter, update).getModifiedCount()== 0)
+     if(this.collection.updateOne(filter, update).getModifiedCount() == 0)
 	throw new BloodBagNotFoundException("La sacca su cui si vuole operare non è esistente.");
 	}
 	
