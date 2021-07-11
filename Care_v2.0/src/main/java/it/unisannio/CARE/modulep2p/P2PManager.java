@@ -13,6 +13,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * this class is used to send HTTP requests from java
+ */
 public class P2PManager {
     String request;
     String token;
@@ -20,6 +23,13 @@ public class P2PManager {
     JSONObject jsonBody;
     RequestType requestType;
 
+    /**
+     * used to send a request having a body (such as post)
+     * @param request the http request
+     * @param token the user's token
+     * @param stringBody the request's body in the string form
+     * @param type the type of the reuqest: GET, PUT, POST...
+     */
     public P2PManager(String request, String token, String stringBody, RequestType type) {
         this.request = request;
         this.token = token;
@@ -27,6 +37,14 @@ public class P2PManager {
         this.jsonBody = null;
         this.requestType = type;
     }
+
+    /**
+     * used to send a request having a body (such as post)
+     * @param request the http request
+     * @param token the user's token
+     * @param jsonBody the request's body in the Json form
+     * @param type the type of the reuqest: GET, PUT, POST...
+     */
     public P2PManager(String request, String token, JSONObject jsonBody, RequestType type) {
         this.request = request;
         this.token = token;
@@ -34,6 +52,12 @@ public class P2PManager {
         this.jsonBody = jsonBody;
         this.requestType = type;
     }
+
+    /**
+     * used to send a request without a body (such as get)
+     * @param request the http request
+     * @param token the user's token
+     */
     public P2PManager(String request, String token) {
         this.request = request;
         this.token = token;
@@ -42,6 +66,12 @@ public class P2PManager {
         this.requestType = null;
     }
 
+    /**
+     * used to send a request expecting a response body
+     * @return the http response body
+     * @throws IOException null
+     * @throws ParseException if the http response cannot be parsed
+     */
     public JSONArray sendRequest() throws IOException, ParseException {
         String jsonInputString;
         if (this.stringBody==null){
@@ -104,6 +134,12 @@ public class P2PManager {
         return responseJson;
     }
 
+    /**
+     * private method used to get the http response
+     * @return the response
+     * @throws IOException null
+     * @throws ParseException if the response body cannot be parsed
+     */
     private JSONArray getResponse() throws IOException, ParseException {
         JSONArray responseJson = new JSONArray();
         URL url = new URL(this.request);
@@ -134,6 +170,11 @@ public class P2PManager {
         return responseJson;
     }
 
+    /**
+     * used to send a specific get request
+     * @return the http response
+     * @throws Exception if the body cannot be casted
+     */
     public JSONArray sendGet() throws Exception {
         JSONArray jsonArray = new JSONArray();
         String url = this.request;
@@ -181,6 +222,10 @@ public class P2PManager {
         }
     }
 
+    /**
+     * used to send a specific http get request, not expecting a response
+     * @throws IOException if the request's body cannot be parsed
+     */
     public void sendGetNoResponse() throws IOException {
         String url = this.request;
 
@@ -217,42 +262,74 @@ public class P2PManager {
     }
 
 
+    /**
+     * @return the request
+     */
     public String getRequest() {
         return request;
     }
 
+    /**
+     * @param request the request
+     */
     public void setRequest(String request) {
         this.request = request;
     }
 
+    /**
+     * @return the token
+     */
     public String getToken() {
         return token;
     }
 
+    /**
+     * @param token the token
+     */
     public void setToken(String token) {
         this.token = token;
     }
 
+    /**
+     * @return the string body
+     */
     public String getStringBody() {
         return stringBody;
     }
 
+    /**
+     * @param stringBody the string body
+     */
     public void setStringBody(String stringBody) {
         this.stringBody = stringBody;
     }
 
+    /**
+     * @return the json body
+     */
     public JSONObject getJsonBody() {
         return jsonBody;
     }
 
+    /**
+     * @param jsonBody the json body
+     */
     public void setJsonBody(JSONObject jsonBody) {
         this.jsonBody = jsonBody;
     }
 
+    /**
+     * the type of the request: GET, POST, PUT ...
+     * @return the request type
+     */
     public RequestType getRequestType() {
         return requestType;
     }
 
+    /**
+     * the type of the request: GET, POST, PUT ...
+     * @param requestType the request type
+     */
     public void setRequestType(RequestType requestType) {
         this.requestType = requestType;
     }
