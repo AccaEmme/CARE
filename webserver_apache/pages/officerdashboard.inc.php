@@ -238,5 +238,8 @@ function filter() {
       </body>
     </div>
   </form>
+  <div>
+    <input type="button" id="report_button" name="report_button" value="Report" onclick=""; />
+  </div>
   <!-- END:  Officer Requests -->
 </fieldset>

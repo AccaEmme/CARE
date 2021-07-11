@@ -3,6 +3,7 @@ package it.unisannio.CARE.model.report;
 
 import org.json.simple.JSONObject;
 
+import java.io.PrintStream;
 import java.util.Date;
 
 /**
@@ -350,6 +351,28 @@ public class BloodBagReport {
                 ", usedThisWeek=" + usedThisWeek +
                 ", expiredThisWeek=" + expiredThisWeek +
                 '}';
+    }
+    
+    
+    public void print(PrintStream ps) {
+    	
+    	ps.println("Sacche totali: " + total + ";\n" +
+    			"Sacche disponibili: " + available + ";\n" +
+    			"Sacche usate: " + used + ";\n" +
+    			"Sacche trasferite: " + transfered + ";\n" +
+    			"Sacche cestinate: " + dropped + ";\n" +
+    			"Apos: " + Apos + ";\n" +
+    			"Aneg: " + Aneg + ";\n" +
+    			"Bpos: " + Bpos + ";\n" +
+    			"Bneg: " + Bneg + ";\n" +
+    			"ZEROpos: " + ZEROpos + ";\n" +
+    			"ZEROneg: " + ZEROneg + ";\n" +
+    			"ABpos: " + ABpos + ";\n" +
+    			"ABneg: " + ABneg + ";\n" +
+    			"Timestamp: " + timestamp + ";\n" +
+    			"Sacche usate in questa settimana: " + usedThisWeek + ";\n" +
+    			"Sacche scadute in questa settimana: " + expiredThisWeek + ";\n"
+    			);
     }
 
     /*

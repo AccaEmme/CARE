@@ -88,6 +88,16 @@ public interface BloodBagRepository extends JpaRepository<BloodBagDAO, String> {
 	 */
 	@Query("SELECT COUNT(*) FROM BloodBagDAO b where b.usedTimeStamp >:firstdate AND b.usedTimeStamp <:seconddate")
 	long countUsedBetweenDates(@Param("firstdate") long firstdate, @Param("seconddate") long seconddate);
+	
+	
+	/**
+	 * gets the count of all bags that were used between two dates
+	 * @param firstdate the first date
+	 * @param seconddate the second date
+	 * @return the count
+	 */
+	@Query("SELECT COUNT(*) FROM BloodBagDAO b where b.usedTimeStamp > seconddate")
+	long countDroppedBetweenDates(@Param("firstdate") long firstdate, @Param("seconddate") long seconddate);
 
 
 	/**

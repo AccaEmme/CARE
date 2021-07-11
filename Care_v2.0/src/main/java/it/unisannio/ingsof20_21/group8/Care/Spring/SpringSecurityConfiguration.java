@@ -60,9 +60,11 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
         
     	.antMatchers("/request/add").hasRole("OFFICER")
     	
-		.antMatchers("/bloodbag/add","/bloodbag/use/{serial}").hasRole("STOREMANAGER")
+		.antMatchers("/bloodbag/use/{serial}").hasRole("STOREMANAGER")
 		
 		.antMatchers("/bloodbag/central/add").hasRole("CENTRAL_STOREMANAGER")
+		
+		.antMatchers("/bloodbag/add").hasAnyRole("STOREMANAGER", "CENTRAL_STOREMANAGER")
 		
 		.antMatchers("/authenticate","/register","/bloodbag/transfer/{serial}/{nodeid}/{token}"/*, 	"logger/add",
 					 "/request/accept",	"/user/delete/{username}",

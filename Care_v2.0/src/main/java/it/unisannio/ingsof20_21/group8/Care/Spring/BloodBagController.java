@@ -1,7 +1,9 @@
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.text.ParseException;
 import java.util.*;
 import java.util.logging.Level;
@@ -353,20 +355,9 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 	 * @param bloodgroup the blood group
 	 * @return all blood bags expired between two dates of a specific blood group
 	 */
-	@GetMapping("bloodbag/expiring/between/{firstdate}/{seconddate}/{bloodgroup}")
-	public Iterable<BloodBagDAO> getBloodBagsExpiringBetweenDateWithGroup(@PathVariable long firstdate,
-			@PathVariable long seconddate, @PathVariable String bloodgroup) {
-		return bagRepository.findExpirationBetweenDate_bloodGroup(firstdate, seconddate, bloodgroup);
-	}
-
-	/**
-	 * get the blood bags stats
-	 * 
-	 * @return report the blood bag report having all stats
-	 */
 	@GetMapping("bloodbag/report")
-	public BloodBagReport getReport() {
-		return new BloodBagReport(this.getAllBagsCount(), this.getCountByState(BloodBagState.Available.toString()),
+	public BloodBagReport getReport() throws IOException {
+		BloodBagReport report =  new BloodBagReport(this.getAllBagsCount(), this.getCountByState(BloodBagState.Available.toString()),
 				this.getCountByState(BloodBagState.Used.toString()),
 				this.getCountByState(BloodBagState.Transfered.toString()),
 				this.getCountByState(BloodBagState.Dropped.toString()),
@@ -379,6 +370,14 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 				this.getCountExpiringBetweenDates(new Date().getTime() - Constants.SEVEN_DAYS_MILLIS,
 						new Date().getTime()),
 				this.getCountUsedAfterDate(new Date().getTime() - Constants.SEVEN_DAYS_MILLIS));
+		
+		File file = new File("Report/report("+Constants.dateFormatFile.format(new Date())+").txt");
+		file.createNewFile();
+			
+		PrintStream ps = new PrintStream(file);
+		report.print(ps);
+		
+		return report;
 	}
 
 	// not working
@@ -807,8 +806,8 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 		return json;
 	}
 
-	@GetMapping("bloodbag/update/state/{state}/{serial}")
-	public void updateBloodBagStateBySerial(@PathVariable String state, @PathVariable String serial) {
+	@PostMapping("bloodbag/update/state")
+	public void updateBloodBagStateBySerial(@RequestBody String state, @RequestBody String serial) {
 		bagRepository.updateBloodBagStateBySerial(state, serial);
 	}
 
