@@ -3,18 +3,14 @@ package it.unisannio.ingsof20_21.group8.Care.Spring;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 
+import it.unisannio.CARE.model.util.XMLHelper;
 import org.bson.Document;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -728,9 +724,21 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 		throw new NodeNotFoundException("The provided node does not exists.");
 	}
 
+	private String getAddress(String nodeid) throws NodeNotFoundException {
+		Properties properties = XMLHelper.getProps("localsettings/RoutingTable.xml");
+		String address = properties.getProperty(nodeid);
+		System.out.println(address);
+		if (address==null)
+			throw new NodeNotFoundException("there is no node with the given nodeid.");
+		return address;
+	}
+
+
 	@GetMapping("/bloodbag/transfer/{serial}/{nodeid}/{token}")
 	public void transferBloodBag(@PathVariable String serial, @PathVariable String nodeid, @PathVariable String token)
 			throws Exception {
+		String address = this.getAddress(nodeid);
+
 		JSONObject userInfo = this.getUsernameFromToken(token);
 		long id = new Date().getTime(); // soluzione "lazy"
 		LoggerDAO loggerDAO = new LoggerDAO();
@@ -740,7 +748,7 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 		loggerDAO.setFromClass(this.getClass().toString());
 		loggerDAO.setAction(Actions.BLOODBAG_TRANSFERED.toString());
 		try {
-			String request = "http://192.168.150.3:8087/bloodbag/get/remote/" + serial + "/" + nodeid;
+			String request = "http://"+address+"/bloodbag/get/remote/" + serial + "/" + nodeid;
 			P2PManager manager = new P2PManager(request, token);
 			JSONArray object = manager.sendGet();
 
@@ -749,7 +757,7 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 
 			// manager.setRequest("http://192.168.1.45:8088/bloodbag/update/state/"+BloodBagState.Transfered+"/"+serial);
 			manager.setRequest(
-					"http://192.168.150.3:8087/bloodbag/update/state/" + BloodBagState.Transfered + "/" + serial);
+					"http://"+address+"/bloodbag/update/state/" + BloodBagState.Transfered + "/" + serial);
 			manager.sendGetNoResponse();
 
 			BloodBagDAO bagToSave = new BloodBagDAO();

@@ -50,10 +50,10 @@ public class LoggerController /*implements ContainerResponseFilter */{
         return loggerRepository.findAll();
     }
 
-    @GetMapping("logger/get/user/usermail/{mail}")
+    /*@GetMapping("logger/get/user/usermail/{mail}")
     public Iterable<LoggerDAO> getLogsByUserMail(@PathVariable String mail){
         return loggerRepository.filterLogsByEmail(mail);
-    }
+    }*/
 
     @GetMapping("logger/get/user/username/{username}")
     public Iterable<LoggerDAO> getLogsByUsername(@PathVariable String username){

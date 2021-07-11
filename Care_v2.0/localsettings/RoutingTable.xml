@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="BN001">192.168.1.25:8088</entry> <!-- mac -->
+    <entry key="BN002">192.168.1.204:8087</entry> <!-- fisso -->
+    <entry key="NA001">192.168.1.1</entry>
+    <entry key="Mo002">192.168.1.2</entry>
+</properties>

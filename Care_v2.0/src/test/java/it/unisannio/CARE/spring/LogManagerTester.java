@@ -19,7 +19,7 @@ public class LogManagerTester {
         LoggerDAO loggerDAO = new LoggerDAO();
         loggerDAO.setCurrentTimeStamp(new Date().getTime());
         loggerDAO.setCurrentUserUsername("peppe");
-        loggerDAO.setCurrentUserEmail("peppe99@gmail.com");
+        //loggerDAO.setCurrentUserEmail("peppe99@gmail.com");
         loggerDAO.setFromClass(String.valueOf(this.getClass()));
         loggerDAO.setIdLog(123213123);
         loggerDAO.setResult("ok");
@@ -56,7 +56,7 @@ public class LogManagerTester {
         LoggerDAO loggerDAO = new LoggerDAO();
         loggerDAO.setCurrentTimeStamp(new Date().getTime());
         loggerDAO.setCurrentUserUsername("peppe");
-        loggerDAO.setCurrentUserEmail("peppe99@gmail.com");
+        //loggerDAO.setCurrentUserEmail("peppe99@gmail.com");
         loggerDAO.setFromClass(String.valueOf(this.getClass()));
         loggerDAO.setIdLog(123213123);
         loggerDAO.setResult("ok");
