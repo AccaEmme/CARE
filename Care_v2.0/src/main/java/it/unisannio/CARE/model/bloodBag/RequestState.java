@@ -6,10 +6,11 @@ package it.unisannio.CARE.model.bloodBag;
  **************************************************************************
  */
 public enum RequestState {
-	
 	pending,
 	accepted,
-	closed,
+	transfering,
+	transfered,
+	receiving,
 	refused,
-	accepted_waiting_for_response;
+	closed;
 }

@@ -7,9 +7,11 @@
  */
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
+import it.unisannio.CARE.model.bloodBag.Request;
 import it.unisannio.CARE.model.bloodBag.RequestState;
 import it.unisannio.CARE.modulep2p.P2PManager;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,9 +41,27 @@ public class P2PRequestController {
         return this.requestRepo.save(request);
     }
 
-    @PatchMapping("p2prequest/accept/{serial}")
-    public void acceptRequest(@PathVariable String serial){
-        requestRepo.updateRequestStateBySerial(RequestState.accepted_waiting_for_response.toString(), serial);
+    @PatchMapping("p2prequest/accept/{serial}/{token}")
+    public void acceptRequest(@PathVariable String serial, @PathVariable String token) throws Exception {
+        //requestRepo.updateRequestStateBySerial(RequestState.transfered.toString(), serial);
+        //httprequest from java to the requesting node
+        /*RequestDAO requestDAO = requestRepo.getRequestFromSerial(serial);
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("serial",requestDAO.getSerial());
+        requestBody.put("timestamp",requestDAO.getTimestamp());
+        requestBody.put("requestingNode",requestDAO.getRequestingNode());
+        requestBody.put("state",RequestState.receiving);*/
+
+        //da cambiare con l'url da prendere dalla routing table
+        String request = "http://192.168.1.25:8088/bloodbag/get/serial/"+serial;
+        P2PManager manager = new P2PManager(request,token);
+        JSONArray jsonArray = manager.sendGet();
+        JSONObject bag = (JSONObject) jsonArray.get(0);
+        System.out.println(bag.get("serial"));
+
+        BloodBagDAO bloodbag = new BloodBagDAO();
+
     }
 
     @PatchMapping("p2prequest/set/state/{serial}/{state}")
@@ -59,16 +79,4 @@ public class P2PRequestController {
         return requestRepo.getRequestsByState(state);
     }
 
-    //serial-nodorichiedente-nodoripondente (indirizzo o hostname)
-    @GetMapping("p2prequest/get/accepted/{serial}/{requesting}/{responding}/{token}")
-    public JSONArray getAcceptedBag(@PathVariable String serial, @PathVariable String requesting, @PathVariable String responding, @PathVariable String token ) throws Exception {
-        /*System.out.println("entro");
-        String request = "http://"+"localhost"+"/p2prequest/get/"+serial;
-        P2PManager manager = new P2PManager(request,token);
-        JSONArray dao = manager.sendGet();*/
-        Iterable<RequestDAO> waitingRequests = requestRepo.getRequestByStateAndNode(RequestState.accepted_waiting_for_response.toString(),requesting);
-        for (RequestDAO request : waitingRequests)
-            System.out.println(request.getSerial());
-        return null;
-    }
 }
