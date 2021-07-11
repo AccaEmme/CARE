@@ -67,7 +67,7 @@ function filter() {
 <script>
   <?php
   $group = $_GET['group'];
-  if (isset($group) || $group != "")
+  if (isset($group) && $group != "none")
     $urlAPI = "http://localhost:8087/bloodbag/get/central/group/" . $group;
   else
     $urlAPI = "http://localhost:8087/bloodbag/get/central";
@@ -116,7 +116,7 @@ function filter() {
           <th>
             Ho bisogno di:
             <select id="selected_group" name="selected_group">
-              <option <?php if (isset($group) && $group == "") echo "selected"; ?>></option>
+              <option value="none">none</option>
               <option value="Apos">A+ </option>
               <option value="Bpos">B+</option>
               <option value="ABpos">AB+</option>
