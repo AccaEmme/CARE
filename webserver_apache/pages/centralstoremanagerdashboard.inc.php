@@ -34,7 +34,7 @@ html5QrcodeScanner.render(onScanSuccess, onScanError);
 </fieldset>
 
 <fieldset>
-            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO </b></a><br><small>(Assegna seriale alla sacca e la aggiunge al magazzino)</small></legend>
+            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO CENTRALE </b></a><br><small>(Assegna seriale alla sacca e la aggiunge al magazzino)</small></legend>
  
     <center> <table>
         <tr>
@@ -55,14 +55,29 @@ html5QrcodeScanner.render(onScanSuccess, onScanError);
             <td><input type="text" name="note" id="note" class="textcss" placeholder="Note" /></td>
          
             <td>
-		<input type="text" name="addBloodBagURL" id="addBloodBagURL"  value="http://localhost:8087/bloodbag/central/add" hidden="yes" />
-        <input type="button" value="CREA" class="myButton" onclick="addBloodBag(document.getElementById('addBloodBagURL').value, '<?php echo($token); ?>', document.getElementById('group').value, document.getElementById('donator').value, document.getElementById('note').value);setTimeout(function () { location.reload(1); }, 1000)">
+		<input type="text" name="addBloodBagURL" id="addBloodBagURL"  value="http://localhost:8087/bloodbag/add" hidden="yes" />
+        <input type="button" value="CREA" class="myButton" onclick="addBloodBag(document.getElementById('addBloodBagURL').value, '<?php echo($token); ?>', document.getElementById('group').value, document.getElementById('donator').value, document.getElementById('note').value);setTimeout(function () { location.reload(1); }, 3000)">
             </td>
         </tr>
     </table> <center>
 </fieldset>
 
 
+<fieldset>
+            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO CENTRALE </b></a><br><small>(Rende disponibili sacche del magazzino centrali ai nodi perifcerici)</small></legend>
+ 
+    <center> <table>
+        <tr>
+         
+            <td><input type="text" name="inserted_serial" id="inserted_serial"  class="textcss" placeholder="seriale della sacca" /></td>
+         
+            <td>
+		<input type="text" name="centralAddURL" id="centralAddURL"  value="http://localhost:8087/bloodbag/central/add" hidden="yes" />
+        <input type="button" value="CONDIVIDI" class="myButton" onclick="addBloodBagCentral(document.getElementById('centralAddURL').value, '<?php echo($token); ?>', document.getElementById('inserted_serial').value);setTimeout(function () { location.reload(1); }, 3000)">
+            </td>
+        </tr>
+    </table> <center>
+</fieldset>
 
 
 <!- END: QRCODE Scanner Reader -->  
