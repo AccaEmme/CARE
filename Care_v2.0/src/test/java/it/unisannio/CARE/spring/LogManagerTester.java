@@ -49,4 +49,21 @@ public class LogManagerTester {
 
         return json.toJSONString();
     }
+
+
+    @Test
+    public void testSaveToDB(){
+        LoggerDAO loggerDAO = new LoggerDAO();
+        loggerDAO.setCurrentTimeStamp(new Date().getTime());
+        loggerDAO.setCurrentUserUsername("peppe");
+        loggerDAO.setCurrentUserEmail("peppe99@gmail.com");
+        loggerDAO.setFromClass(String.valueOf(this.getClass()));
+        loggerDAO.setIdLog(123213123);
+        loggerDAO.setResult("ok");
+        loggerDAO.setAction("the user logged in.");
+
+        LogManager logManager = new LogManager(loggerDAO);
+
+        logManager.saveToDB();
+    }
 }

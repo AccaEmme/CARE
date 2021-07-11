@@ -158,7 +158,7 @@ case "ROLE_CENTRAL_STOREMANAGER":
 	     $allowed_pages      = array("storemanagerdashboard", "storemanager_requests");
 	     break;
 	   case "ROLE_OFFICER":
-	     $allowed_pages 	= array("officerdashboard");
+	     $allowed_pages 	= array("officerdashboard", "officer_personal_profile");
 	     break;
      case "ROLE_CENTRAL_STOREMANAGER":
         $allowed_pages 	= array("centralstoremanagerdashboard");

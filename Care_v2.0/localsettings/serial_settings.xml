@@ -2,6 +2,10 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <entry key="serialmatrix">IT-NA206000</entry>
+<<<<<<< HEAD
 <entry key="counter">11</entry>
+=======
+<entry key="counter">1</entry>
+>>>>>>> e4d4805a10c63758e698832f5fce2242d9f45d41
 <entry key="lastdate">20210710</entry>
 </properties>
