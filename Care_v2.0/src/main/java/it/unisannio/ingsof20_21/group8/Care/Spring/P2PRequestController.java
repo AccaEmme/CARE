@@ -7,12 +7,12 @@
  */
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
-import it.unisannio.CARE.model.bloodBag.Request;
+import it.unisannio.CARE.model.bloodBag.BloodBagState;
 import it.unisannio.CARE.model.bloodBag.RequestState;
 import it.unisannio.CARE.modulep2p.P2PManager;
+import it.unisannio.CARE.modulep2p.RequestType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Consumes;
@@ -42,34 +42,54 @@ public class P2PRequestController {
     }
 
     @PatchMapping("p2prequest/accept/{serial}/{token}")
-    public BloodBagDAO acceptRequest(@PathVariable String serial, @PathVariable String token) throws Exception {
+    public JSONArray acceptRequest(@PathVariable String serial, @PathVariable String token) throws Exception {
         //requestRepo.updateRequestStateBySerial(RequestState.transfered.toString(), serial);
-        //httprequest from java to the requesting node
-        /*RequestDAO requestDAO = requestRepo.getRequestFromSerial(serial);
 
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("serial",requestDAO.getSerial());
-        requestBody.put("timestamp",requestDAO.getTimestamp());
-        requestBody.put("requestingNode",requestDAO.getRequestingNode());
-        requestBody.put("state",RequestState.receiving);*/
+        String request = "http://192.168.1.204:8087/bloodbag/get/serial/"+serial;
+        P2PManager local = new P2PManager(request,token);
+        JSONArray jsonArray = local.sendGet();
+        JSONObject bag = (JSONObject) jsonArray.get(0);
+        System.out.println(bag.get("serial").toString());
+
+        //salvo la bloodbag richiesta sul pc richiedente
+        request = "http://"+"192.168.1.25:8088"+"/bloodbag/add/forced";
+
+        JSONObject bagJson = new JSONObject();
+        bagJson.put("serial",bag.get("serial").toString());
+        bagJson.put("group",bag.get("group").toString());
+        bagJson.put("donator",bag.get("donator").toString());
+        bagJson.put("creationDate",bag.get("creationDate"));
+        bagJson.put("expirationDate",bag.get("expirationDate"));
+        bagJson.put("state", BloodBagState.receiving.toString());
+        bagJson.put("notes",bag.get("notes").toString());
+
+        //porta da ricavare dinamicamente
+        request = "http://192.168.1.25:8088/bloodbag/add/forced";
+        P2PManager remote = new P2PManager(request,token,bagJson, RequestType.POST);
+        return remote.sendRequest();
 
         //da cambiare con l'url da prendere dalla routing table
-        String request = "http://192.168.1.25:8088/bloodbag/get/serial/"+serial;
+        /*String request = "http://192.168.1.25:8088/bloodbag/get/serial/"+serial;
         P2PManager manager = new P2PManager(request,token);
         JSONArray jsonArray = manager.sendGet();
         JSONObject bag = (JSONObject) jsonArray.get(0);
 
 
-        BloodBagDAO bloodbag = new BloodBagDAO();
-        bloodbag.setSerial(bag.get("serial").toString());
-        bloodbag.setGroup(bag.get("group").toString());
-        bloodbag.setDonator(bag.get("donator").toString());
-        bloodbag.setCreationDate((Long) bag.get("creationDate"));
-        bloodbag.setExpirationDate((Long) bag.get("expirationDate"));
-        bloodbag.setState(bag.get("state").toString());
-        bloodbag.setNotes(bag.get("notes").toString());
+        JSONObject bagJson = new JSONObject();
+        bagJson.put("serial",bag.get("serial").toString());
+        bagJson.put("group",bag.get("group").toString());
+        bagJson.put("donator",bag.get("donator").toString());
+        bagJson.put("creationDate",bag.get("creationDate"));
+        bagJson.put("expirationDate",bag.get("expirationDate"));
+        bagJson.put("state", BloodBagState.receiving.toString());
+        bagJson.put("notes",bag.get("notes").toString());
 
-        return bloodbag;
+        //porta da ricavare dinamicamente
+        request = "http://localhost:8087/bloodbag/add/forced";
+        P2PManager local = new P2PManager(request,token,bagJson, RequestType.POST);
+        local.sendRequest();
+
+        return local.sendRequest();*/
     }
 
     @PatchMapping("p2prequest/set/state/{serial}/{state}")

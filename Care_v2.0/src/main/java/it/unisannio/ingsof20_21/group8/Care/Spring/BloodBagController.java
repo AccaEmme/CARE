@@ -392,6 +392,10 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 	}
 
 	// ############# POST ############
+	@PostMapping("/bloodbag/add/forced")
+	public BloodBagDAO addBloodBag(@RequestBody BloodBagDAO bagDAO){
+		return bagRepository.save(bagDAO);
+	}
 
 	/**
 	 * add a blood bag

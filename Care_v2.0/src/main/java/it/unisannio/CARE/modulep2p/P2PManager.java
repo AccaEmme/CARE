@@ -88,8 +88,18 @@ public class P2PManager {
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
-            JSONParser parser = new JSONParser();
-            responseJson = (JSONArray) parser.parse(response.toString().trim());
+            String responseSTR = response.toString();
+            if (responseSTR.startsWith("[")){
+                JSONParser parser = new JSONParser();
+                responseJson = (JSONArray) parser.parse(response.toString().trim());
+            }else try {
+                JSONParser parser = new JSONParser();
+                JSONObject object = (JSONObject) parser.parse(response.toString().trim());
+                responseJson.add(object);
+            } catch (ParseException e) {
+                return null;
+            }
+
         }
         return responseJson;
     }
