@@ -13,7 +13,14 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.Date;
 
+/**
+ * this class is used to test the LogManager
+ */
 public class LogManagerTester {
+    /**
+     * used to test the log writing function
+     * @throws IOException if the manager cannot write the file
+     */
     @Test
     public void testLogWrite() throws IOException {
         LoggerDAO loggerDAO = new LoggerDAO();
@@ -30,6 +37,11 @@ public class LogManagerTester {
         logManager.writeLog();
     }
 
+    /**
+     * used to test the token decode
+     * @throws ParseException null
+     * @throws UserException null
+     */
     @Test
     public void testGetUserInfoFromToken() throws ParseException, UserException {
         String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmb2xsZW45OSIsInVzZXJSb2xlIjoiUk9MRV9BRE1JTklTVFJBVE9SIiwiZXhwIjoxNjI1ODY2NTc5LCJpYXQiOjE2MjU4NjE1Nzl9.D3BxrrsMVb2h8dxzTiWi_LzYaqbPUzhFvTS9k_ZimUKM3PAWoyLs8h3YSB8mlkmRXwbCVszNuQb1G5ToSgTkuQ";
@@ -37,6 +49,13 @@ public class LogManagerTester {
     }
 
 
+    /**
+     * used to test the token decode
+     * @param token the user's token
+     * @return the user tonek's info
+     * @throws org.json.simple.parser.ParseException null
+     * @throws UserException null
+     */
     //returns: {"sub":"follen99","userRole":"ROLE_ADMINISTRATOR","exp":1625866579,"iat":1625861579}
     private String getUsernameFromToken(String token) throws org.json.simple.parser.ParseException, UserException {
         String[] chunks = token.split("\\.");
@@ -51,6 +70,9 @@ public class LogManagerTester {
     }
 
 
+    /**
+     * used to test the log saving to db
+     */
     @Test
     public void testSaveToDB(){
         LoggerDAO loggerDAO = new LoggerDAO();
