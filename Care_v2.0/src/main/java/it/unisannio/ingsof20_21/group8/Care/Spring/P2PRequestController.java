@@ -66,7 +66,7 @@ public class P2PRequestController {
         String request = "http://"+"localhost"+"/p2prequest/get/"+serial;
         P2PManager manager = new P2PManager(request,token);
         JSONArray dao = manager.sendGet();*/
-        Iterable<RequestDAO> waitingRequests = this.getRequestsByState(RequestState.accepted_waiting_for_response.toString());
+        Iterable<RequestDAO> waitingRequests = requestRepo.getRequestByStateAndNode(RequestState.accepted_waiting_for_response.toString(),requesting);
         for (RequestDAO request : waitingRequests)
             System.out.println(request.getSerial());
         return null;
