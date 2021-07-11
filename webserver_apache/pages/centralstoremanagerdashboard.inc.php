@@ -32,6 +32,39 @@ var html5QrcodeScanner = new Html5QrcodeScanner(
 html5QrcodeScanner.render(onScanSuccess, onScanError);
 </script>
 </fieldset>
+
+<fieldset>
+            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO </b></a><br><small>(Assegna seriale alla sacca e la aggiunge al magazzino)</small></legend>
+ 
+    <center> <table>
+        <tr>
+         
+            <td><select name="group" id="group" class="textcss">
+ 		<option>Apos</option>
+ 		<option>Aneg</option>
+		<option>Bpos</option>
+ 		<option>Bneg</option>
+		<option>ZEROpos</option>
+ 		<option>ZEROneg</option>
+		<option>ABneg</option>
+		<option>ABpos</option>
+		</select>
+	    </td>
+            <td><input type="text" name="donator" id="donator"  class="textcss" placeholder="cod.fiscale CF_DONATORE" /></td>
+         
+            <td><input type="text" name="note" id="note" class="textcss" placeholder="Note" /></td>
+         
+            <td>
+		<input type="text" name="addBloodBagURL" id="addBloodBagURL"  value="http://localhost:8087/bloodbag/central/add" hidden="yes" />
+        <input type="button" value="CREA" class="myButton" onclick="addBloodBag(document.getElementById('addBloodBagURL').value, '<?php echo($token); ?>', document.getElementById('group').value, document.getElementById('donator').value, document.getElementById('note').value);setTimeout(function () { location.reload(1); }, 1000)">
+            </td>
+        </tr>
+    </table> <center>
+</fieldset>
+
+
+
+
 <!- END: QRCODE Scanner Reader -->  
 <fieldset>
             <legend><img src="images\SaccaPiena.png" width="10%"><a name="management" ><b> RICHIESTE </b></a><br></legend>
