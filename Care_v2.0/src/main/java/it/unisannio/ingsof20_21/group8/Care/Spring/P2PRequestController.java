@@ -43,7 +43,7 @@ public class P2PRequestController {
 
     @PatchMapping("p2prequest/accept/{serial}/{token}")
     public JSONArray acceptRequest(@PathVariable String serial, @PathVariable String token) throws Exception {
-        //requestRepo.updateRequestStateBySerial(RequestState.transfered.toString(), serial);
+        requestRepo.updateRequestStateBySerial(RequestState.transfered.toString(), serial);
 
         String request = "http://192.168.1.204:8087/bloodbag/get/serial/"+serial;
         P2PManager local = new P2PManager(request,token);
@@ -67,29 +67,6 @@ public class P2PRequestController {
         request = "http://192.168.1.25:8088/bloodbag/add/forced";
         P2PManager remote = new P2PManager(request,token,bagJson, RequestType.POST);
         return remote.sendRequest();
-
-        //da cambiare con l'url da prendere dalla routing table
-        /*String request = "http://192.168.1.25:8088/bloodbag/get/serial/"+serial;
-        P2PManager manager = new P2PManager(request,token);
-        JSONArray jsonArray = manager.sendGet();
-        JSONObject bag = (JSONObject) jsonArray.get(0);
-
-
-        JSONObject bagJson = new JSONObject();
-        bagJson.put("serial",bag.get("serial").toString());
-        bagJson.put("group",bag.get("group").toString());
-        bagJson.put("donator",bag.get("donator").toString());
-        bagJson.put("creationDate",bag.get("creationDate"));
-        bagJson.put("expirationDate",bag.get("expirationDate"));
-        bagJson.put("state", BloodBagState.receiving.toString());
-        bagJson.put("notes",bag.get("notes").toString());
-
-        //porta da ricavare dinamicamente
-        request = "http://localhost:8087/bloodbag/add/forced";
-        P2PManager local = new P2PManager(request,token,bagJson, RequestType.POST);
-        local.sendRequest();
-
-        return local.sendRequest();*/
     }
 
     @PatchMapping("p2prequest/set/state/{serial}/{state}")
