@@ -144,7 +144,6 @@ foreach (array_keys($usersArray ) as $key) {
             </select>
             </td>
             <td style="text-align: center;">
-SALVA NON VA
                 <input type="button" value="Salva"         onclick="updateUser(
 										'http://localhost:8087/user/update',
 										'<?php echo($token); ?>',
@@ -156,10 +155,10 @@ SALVA NON VA
 										document.getElementById('loginAttempts_<?php echo $usersArray[$key]->username; ?>').value,
 										document.getElementById('activeUser_<?php echo $usersArray[$key]->username; ?>').value
 									      );
-									      setTimeout(function () { location.reload(1); }, 5000);
+									      setTimeout(function () { location.reload(1); }, 2000);
                 ">
-                <input type="button" value="Elimina"       onclick="deleteUser('<?php echo('http://localhost:8087/user/delete/username/'.$usersArray[$key]->username);?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000);">
-                <input type="button" value="ResetPassword" onclick="resetUserPass('<?php echo('http://localhost:8087/user/patch/resetpassword/username/'.$usersArray[$key]->username);?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 5000);" >
+                <input type="button" value="Elimina"       onclick="deleteUser('<?php echo('http://localhost:8087/user/delete/username/'.$usersArray[$key]->username);?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 2000);">
+                <input type="button" value="ResetPassword" onclick="resetUserPass('<?php echo('http://localhost:8087/user/patch/resetpassword/username/'.$usersArray[$key]->username);?>', '<?php echo($token); ?>'); setTimeout(function () { location.reload(1); }, 2000);" >
             </td>
         </tr>
 <?php
@@ -234,258 +233,22 @@ SALVA NON VA
             </select>
             </td>
             <td style="text-align: center;">
-                <input type="button" value="Salva">
+                <input type="button" value="Salva"         onclick="updateUser(
+										'http://localhost:8087/user/update',
+										'<?php echo($token); ?>',
+										document.getElementById('id_<?php echo $usersArray[$key]->idUser; ?>').value,
+										document.getElementById('user_<?php echo $usersArray[$key]->username; ?>').value,
+										document.getElementById('temppass_<?php echo $usersArray[$key]->username; ?>').value,
+										document.getElementById('email_<?php echo $usersArray[$key]->username; ?>').value,
+										document.getElementById('role_<?php echo $usersArray[$key]->username; ?>').value,
+										document.getElementById('loginAttempts_<?php echo $usersArray[$key]->username; ?>').value,
+										document.getElementById('activeUser_<?php echo $usersArray[$key]->username; ?>').value
+									      );
+									      setTimeout(function () { location.reload(1); }, 5000);
+                ">
             </td>
         </tr>
 <?php
 }
 ?>
      </table>
-
-
-<!-- ----------------OLD-------------------- -->
-
-    <div align="center">
-        <h2>Database:</h2>
-        <form action="#">
-         <table>
-            <tr>
-                <td>Local DBMS:</td>
-                <td>
-                    <select name="DBMS_type">
-                        <option name="MySQL">MySQL</option>
-                        <option name="MongoDB" selected>MongoDB</option>
-                    </select>
-                </td>
-           </tr>
-           <tr>
-            <td>Local DB:</td>
-            <td>
-               Upload dump: <input type="file" name="db_upload_dump" /><br/>
-               Download dump: <input type="button" name="db_download_dump" value="Download current dump" />
-            </td>
-           </tr>
-           <tr>
-                 <td>Master endpoint:<br><small>(sede centrale)</small></td>
-                 <td><input type="text" name="master_ip" placeholder="IP:PORT;..." /> <small> ( i.g. 92.86.104.10:3308;www.care.it/Molise:27017 )</small></td>
-            </tr>
-            <tr>
-                <td>Sync:</td>
-                <td>
-                   <input type="checkbox" name="sync_auto_active" checked /> Attiva Sincronizzazioni automatica <small>(Scrive in config.xml)</small>
-                </td>
-               </tr>
-        </table>
-        <table cellspacing="0" cellpadding="0" border="0" width="325">
-            <tr style="color:white;background-color:grey">
-                <th>Log: <input type="text" name="log_finder" placeholder="Ricerca: " /></th>
-            </tr>
-            <tr>
-              <td>
-                 <table cellspacing="0" cellpadding="1" border="1" width="666" >
-                   <tr style="color:white;background-color:grey">
-                    <th width="80px">Data</th>
-                    <th width="111px">Utente</th>
-                    <th width="111px">Operazione</th>
-                    <th width="111px">Azione</th>
-                    <th width="111px">Seriale</th>
-                    <th width="111px">Note</th>
-                   </tr>
-                 </table>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                 <div style="width:666px; height:180px; overflow:auto;">
-                   <table cellspacing="0" cellpadding="1" border="1" width="666" style="font-size: 11px;" >
-                    <tr>
-                        <td width="80px">16-04-2021 11:36</td>
-                        <td width="111px">ManualSync: 206002</td>
-                        <td width="111px">ELIMINAZIONE</td>
-                        <td width="111px">Franco ha prelevato la sacca dal magazzino locale per darla al magazzino centrale</td>
-                        <td width="111px">YYY_ID_SACCA_YYY</td>
-                        <td width="111px">IP: 95.249.112.71 user_agent: Mozilla Firefox</td>
-                    </tr>
-                    <tr>
-                        <td>16-04-2021 11:35</td>
-                        <td>206001</td>
-                        <td>LOGOUT</td>
-                        <td>Mario si è sloggato dal sistema</td>
-                        <td>null</td>
-                        <td>null</td>
-                    </tr>
-                    <tr>
-                        <td>16-04-2021 11:30</td>
-                        <td>AutoSync</td>
-                        <td>ELIMINAZIONE</td>
-                        <td>AutoSync ha prelevato la sacca dal magazzino locale per darla al magazzino centrale</td>
-                        <td>XXX_ID_SACCA_XXX</td>
-                        <td>null</td>
-                    </tr>
-                    <tr>
-                        <td>16-04-2021 11:10</td>
-                        <td>206001</td>
-                        <td>INSERIMENTO</td>
-                        <td>Mario ha raccolto la sacca mettendola ne magazzino</td>
-                        <td>XXX_ID_SACCA_XXX</td>
-                        <td>null</td>
-                    </tr>
-                    <tr>
-                        <td>16-04-2021 11:01</td>
-                        <td>206001</td>
-                        <td>LOGIN</td>
-                        <td>Mario si è loggato nel sistema</td>
-                        <td>null</td>
-                        <td>null</td>
-                    </tr>
-                   </table>  
-                 </div>
-              </td>
-            </tr>
-          </table>
-    </form>
-    </div>
-
-    <!-- START: routing table -->
-    <div align="center">
-        <h2>Routing Table:</h2>
-	 <input type="radio" name="routingtable_useEndpoint" value="downloadRoutingTable" id="downloadRoutingTable" checked /> <label for="downloadRoutingTable">Scarica e utilizza da Master Endpoint ( 92.86.104.10:3308;www.care.it/Molise:27017 )</label><br />
-	 <input type="radio" name="routingtable_useEndpoint" value="createRoutingTable" id="createRoutingTable" /> <label for="createRoutingTable">Compila routing table</label>
-        <form action="#">
-        <table cellspacing="0" cellpadding="0" border="0" width="325">
-            <tr>
-              <td>
-                 <table cellspacing="0" cellpadding="1" border="1" width="1000" >
-                   <tr style="color:white;background-color:grey">
-                    <th align="center" width="40px">Usa</th>
-                    <th align="center" width="430px">IP/DNS</th>
-                    <th align="center" width="120px">Nome Nodo</th>
-                    <th align="center" width="50px">Nazione</th>
-                    <th align="center" width="50px">Regione</th>
-                    <th align="center" width="50px">Prov.</th>
-                    <th align="center" width="50px">Comune</th>
-                   </tr>
-                 </table>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                 <div style="width:1000px; height:180px; overflow:auto;">
-                   <table cellspacing="0" cellpadding="1" border="1" width="1000" style="font-size: 11px;" >
-                    <tr>
-                        <td align="center" width="50px"><input type="checkbox" checked /></td>
-                        <td align="center">https://www.care.it/Campania/AV/Avellino/Malzoni</td>
-                        <td align="center" width="50px">Malzoni</td>
-                        <td align="center" width="50px">Italy</td>
-                        <td align="center" width="50px">Campania</td>
-                        <td align="center" width="50px">AV</td>
-                        <td align="center" width="50px">Avellino</td>
-                    </tr>
-                    <tr>
-                        <td align="center"><input type="checkbox" checked /></td>
-                        <td align="center">https://www.care.it/Campania/AV/Avellino/Moscati</td>
-                        <td align="center">Malzoni</td>
-                        <td align="center">Italy</td>
-                        <td align="center">Campania</td>
-                        <td align="center">AV</td>
-                        <td align="center">Avellino</td>
-                    </tr>
-                    <tr>
-                        <td align="center"><input type="checkbox" checked /></td>
-                        <td align="center">https://www.care.it/Campania/AV/Avellino/Salvoni</td>
-                        <td align="center">Salvoni</td>
-                        <td align="center">Italy</td>
-                        <td align="center">Campania</td>
-                        <td align="center">AV</td>
-                        <td align="center">Avellino</td>
-                    </tr>
-                    <tr>
-                        <td align="center"><input type="checkbox" checked /></td>
-                        <td align="center">https://www.care.it/Campania/AV/Mercogliano/ClinicaMontevergine</td>
-                        <td align="center">Clinica Montevergine</td>
-                        <td align="center">Italy</td>
-                        <td align="center">Campania</td>
-                        <td align="center">AV</td>
-                        <td align="center">Mercogliano</td>
-                    </tr>
-                    <tr>
-                        <td align="center"><input type="checkbox" checked /></td>
-                        <td align="center">https://www.care.it/Campania/AV/Solofra/Landolfi</td>
-                        <td align="center">Landolfi</td>
-                        <td align="center">Italy</td>
-                        <td align="center">Campania</td>
-                        <td align="center">AV</td>
-                        <td align="center">Solofra</td>
-                    </tr>
-                    <tr>
-                        <td align="center"><input type="checkbox" checked /></td>
-                        <td align="center">https://www.care.it/Campania/BN/Benevento/SanPio</td>
-                        <td align="center">San Pio</td>
-                        <td align="center">Italy</td>
-                        <td align="center">Campania</td>
-                        <td align="center">BN</td>
-                        <td align="center">Benevento</td>
-                    </tr>
-                    <tr>
-                        <td align="center"><input type="checkbox" checked /></td>
-                        <td align="center">https://www.care.it/Campania/BN/Benevento/Rummo</td>
-                        <td align="center">Rummo</td>
-                        <td align="center">Italy</td>
-                        <td align="center">Campania</td>
-                        <td align="center">BN</td>
-                        <td align="center">Benevento</td>
-                    </tr>
-                    <tr>
-                        <td align="center"><input type="checkbox" checked /></td>
-                        <td align="center">https://www.care.it/Campania/CE/Caserta/SanSebastiano</td>
-                        <td align="center">San Sebastiano</td>
-                        <td align="center">Italy</td>
-                        <td align="center">Campania</td>
-                        <td align="center">CE</td>
-                        <td align="center">Caserta</td>
-                    </tr>
-                    <tr>
-                        <td align="center"><input type="checkbox" checked /></td>
-                        <td align="center">https://www.care.it/Campania/CE/Caserta/SanSebastiano</td>
-                        <td align="center">San Sebastiano</td>
-                        <td align="center">Italy</td>
-                        <td align="center">Campania</td>
-                        <td align="center">CE</td>
-                        <td align="center">Caserta</td>
-                    </tr>
-                    <tr>
-                        <td align="center"><input type="checkbox" checked /></td>
-                        <td align="center">https://www.care.it/Campania/SA/Salerno/SanLeonardo</td>
-                        <td align="center">SanLeonardo</td>
-                        <td align="center">Italy</td>
-                        <td align="center">Campania</td>
-                        <td align="center">SA</td>
-                        <td align="center">Salerno</td>
-                    </tr>
-                    <tr>
-                        <td align="center"><input type="checkbox" checked /></td>
-                        <td align="center">https://www.care.it/Campania/SA/Salerno/Ruggi</td>
-                        <td align="center">Ruggi</td>
-                        <td align="center">Italy</td>
-                        <td align="center">Campania</td>
-                        <td align="center">SA</td>
-                        <td align="center">Salerno</td>
-                    </tr>
-                    <tr>
-                        <td align="center"><input type="checkbox" checked /></td>
-                        <td align="center">https://www.care.it/Campania/NA/Napoli/Cardarelli</td>
-                        <td align="center">Cardarelli</td>
-                        <td align="center">Italy</td>
-                        <td align="center">Campania</td>
-                        <td align="center">NA</td>
-                        <td align="center">Napoli</td>
-                    </tr>
-                   </table>
-                 </div>
-              </td>
-            </tr>
-          </table>
-    </form>
-    </div>
-    <!-- END:   routing table -->
-</div>

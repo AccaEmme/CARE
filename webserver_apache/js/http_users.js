@@ -109,5 +109,5 @@ HTTPBody: none
 	var positiveMsg='Eseguito reset password con successo';
 //alert(url + "-" + token + "-" + jsonBody + "-" + positiveMsg);
 	HTTPPatch(url, token, jsonBody, positiveMsg);
-	location.reload();
+//	location.reload();
 }
