@@ -11,5 +11,5 @@ public enum RequestState {
 	accepted,
 	closed,
 	refused,
-	accepted_waiting_for_response
+	accepted_waiting_for_response;
 }

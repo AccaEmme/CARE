@@ -11,5 +11,5 @@ public enum BloodBagState{
 	Arrived,
 	Used,		// Sacca adoperata. Non utilizzabile, non trasferibile, non eliminabile
 	Dropped,	// Sacca eliminata (es. per scadenza o altre motivazioni)
-	in_recezione;
+	receiving;
 }

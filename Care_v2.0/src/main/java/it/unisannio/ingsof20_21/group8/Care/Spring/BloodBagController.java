@@ -408,8 +408,11 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 	                bagDAO.getDonator()
 	                
 	        );
+	        
 	        tempBloodBagObj.setNote(bagDAO.getNotes());
+	        
 	        bagDAO = tempBloodBagObj.getBean();
+	        bagDAO.setUsedTimeStamp(Constants.TIMESTAMP1900);
 	        if (bagRepository.existsById(bagDAO.getSerial())) {
                 loggerDAO.setResult(Results.OPERATION_REFUSED.toString());
                 loggerDAO.setExplanation("Bloodbag already exists");
@@ -510,7 +513,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 	        try {
 		        BloodBag tempBloodBagObj = new BloodBag(new Serial(bbd.getSerial()),
 		                BloodGroup.valueOf(bbd.getGroup()),new Date(bbd.getCreationDate()),new Date(bbd.getExpirationDate())
-		             ,bbd.getDonator(),BloodBagState.in_recezione,bbd.getNotes()
+		             ,bbd.getDonator(),BloodBagState.receiving,bbd.getNotes()
 		                
 		        );
 
@@ -532,9 +535,15 @@ public class BloodBagController /*implements ContainerResponseFilter */{
     
     @PostMapping("/bloodbag/central/confirm")
     public void BloodBagCentralTransferConfirm(@RequestBody BloodBagDAO bagDAO) throws ParseException {
+    	try {
     	BloodBagManager managerB = new BloodBagManager();
     	managerB.confirm(bagDAO.getSerial());
-    
+    	managerB.close();
+    	}
+    	catch(BloodBagNotFoundException e) {
+    		throw new BloodBagNotFoundException(e.getMessage(), "/bloodbag/central/confirm");
+    	}
+    	
     }
 
     /**
@@ -721,7 +730,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
             bagToSave.setDonator(bloodbag.get("donator").toString());
             bagToSave.setCreationDate((Long) bloodbag.get("creationDate"));
             bagToSave.setExpirationDate((Long) bloodbag.get("expirationDate"));
-            bagToSave.setState(BloodBagState.in_recezione.toString());
+            bagToSave.setState(BloodBagState.receiving.toString());
             bagToSave.setNotes(bloodbag.get("notes").toString());
             bagToSave.setUsedTimeStamp(0L);
 

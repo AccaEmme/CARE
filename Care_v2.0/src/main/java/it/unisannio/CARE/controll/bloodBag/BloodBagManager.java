@@ -242,10 +242,10 @@ public class BloodBagManager {
 	public void confirm(String serial_r) {
 		Bson filter=and(
 				eq("serial", serial_r),
-				eq("state", BloodBagState.in_recezione.toString())
+				eq("state", BloodBagState.receiving.toString())
 				);
 Bson update=Updates.set("state",BloodBagState.Available.toString() );
-if(this.collection.updateOne(filter, update) == null)
+     if(this.collection.updateOne(filter, update).getModifiedCount()== 0)
 	throw new BloodBagNotFoundException("La sacca su cui si vuole operare non è esistente.");
 	}
 	

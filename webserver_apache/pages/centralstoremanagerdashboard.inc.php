@@ -82,10 +82,10 @@ $requestArray = (array) json_decode($result);
 	        
             <td>
                 
-                <input type="submit" value="ACCETTA" class="myButtonNeg" onclick="acceptRequest('http://localhost:8087/request/accept','<?php echo($token); ?>','<?php echo $requestArray[$key]->id_requester; ?>','<?php echo $requestArray[$key]->serial; ?>');setTimeout(function () { location.reload(1); }, 1000);">
+                <input type="submit" value="ACCETTA" class="myButton" onclick="acceptRequest('http://localhost:8087/request/accept','<?php echo($token); ?>','<?php echo $requestArray[$key]->id_requester; ?>','<?php echo $requestArray[$key]->serial; ?>');setTimeout(function () { location.reload(1); }, 1000);">
                 </td>
                 <td>
-                <input type="submit" value="RIFIUTA" class="myButton" onclick="refuseRequest('http://localhost:8087/request/refuse','<?php echo($token); ?>','<?php echo $requestArray[$key]->id_requester; ?>','<?php echo $requestArray[$key]->serial; ?>');setTimeout(function () { location.reload(1); }, 1000);">
+                <input type="submit" value="RIFIUTA" class="myButtonNeg" onclick="refuseRequest('http://localhost:8087/request/refuse','<?php echo($token); ?>','<?php echo $requestArray[$key]->id_requester; ?>','<?php echo $requestArray[$key]->serial; ?>');setTimeout(function () { location.reload(1); }, 1000);">
             </td>
         </tr>
 </form>

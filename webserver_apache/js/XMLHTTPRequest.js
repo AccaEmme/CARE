@@ -33,9 +33,10 @@ function HTTPPost(url, token, jsonBodyString, mex){
         if (this.readyState === 4  ) {
             console.log("Request: token " + token + " jsonBody: " + jsonBodyString);
 	        console.log("Response: "+ this.responseText);
-	        let results = JSON.parse(this.responseText);
+	       
 
-            if(this.status === 500) {
+            if(this.status === 500) { 
+              let results = JSON.parse(this.responseText);
                 alert("error"+this.responseText);
             }else if(this.status === 200){
                 alert(mex);

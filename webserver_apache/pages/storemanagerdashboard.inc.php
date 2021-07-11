@@ -41,7 +41,7 @@
     <center>scannerizza il QR code della sacca premi il tasto "import sacca" per confermare</center>
     <center> <table>
 	 <tr>
-            <td><input type="text" name="serial" id="serial" placeholder="seriale sacca"  class="textcss" size="100" disabled/></td>
+            <td><input type="text" name="serial" id="serial" placeholder="seriale sacca"  class="textcss" size="100"/></td>
         
             <td>
 		<input type="text" name="addBloodBagCURL" id="addBloodBagCURL" value="http://localhost:8087/bloodbag/import" hidden="yes" />
@@ -112,7 +112,7 @@ $bagArray = (array) json_decode($result);
 <form action="" method="POST">
     <center><table>
          <tr>
-            <td align="center"><b>serialr</b></td>
+            <td align="center"><b>serial</b></td>
             <td align="center"><b>group</b></td>
             <td align="center"><b>donator</b></td>
             <td align="center"><b>creationDate</b></td>
