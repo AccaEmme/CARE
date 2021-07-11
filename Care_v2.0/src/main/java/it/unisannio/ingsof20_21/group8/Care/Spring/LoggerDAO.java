@@ -21,11 +21,11 @@ public class LoggerDAO {
     private long idLog;
 
     private long currentTimeStamp;
-    private String currentUserEmail;
     private String currentUserUsername;
     private String fromClass;           //the calling class
     private String result;              //the response of the op
     private String action;
+    private String information;
     private String explanation;
 
     /*
@@ -72,12 +72,12 @@ public class LoggerDAO {
         this.currentTimeStamp = currentTimeStamp;
     }
 
-    public String getCurrentUserEmail() {
-        return currentUserEmail;
+    public String getInformation() {
+        return information;
     }
 
-    public void setCurrentUserEmail(String currentUserEmail) {
-        this.currentUserEmail = currentUserEmail;
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public String getCurrentUserUsername() {

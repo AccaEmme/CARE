@@ -21,10 +21,10 @@ public class LogManager {
     private LoggerDAO loggerDAO;
     private LoggerRepository logRepo;
 
-    public LogManager(long id, String currentEmail, String currentUsername, String fromClass, String result, String action,String explanation){
+    public LogManager(long id, String information, String currentUsername, String fromClass, String result, String action,String explanation){
         this.loggerDAO = new LoggerDAO();
         loggerDAO.setIdLog(id);
-        loggerDAO.setCurrentUserEmail(currentEmail);
+        loggerDAO.setInformation(information);
         loggerDAO.setCurrentUserUsername(currentUsername);
         loggerDAO.setFromClass(fromClass);
         loggerDAO.setResult(result);
@@ -32,10 +32,10 @@ public class LogManager {
         loggerDAO.setExplanation(explanation);
     }
 
-    public LogManager(long id, String currentEmail, String currentUsername, String fromClass, String result, String action,String explanation,LoggerRepository logRepo){
+    public LogManager(long id, String information, String currentUsername, String fromClass, String result, String action,String explanation,LoggerRepository logRepo){
         this.loggerDAO = new LoggerDAO();
         loggerDAO.setIdLog(id);
-        loggerDAO.setCurrentUserEmail(currentEmail);
+        loggerDAO.setInformation(information);
         loggerDAO.setCurrentUserUsername(currentUsername);
         loggerDAO.setFromClass(fromClass);
         loggerDAO.setResult(result);
@@ -70,7 +70,7 @@ public class LogManager {
     public JSONObject getJSONObject(){
         JSONObject json = new JSONObject();
         json.put("id",this.loggerDAO.getIdLog());
-        json.put("currentUserEmail",this.loggerDAO.getCurrentUserEmail());
+        json.put("currentUserEmail",this.loggerDAO.getInformation());
         json.put("currentUserUsername",this.loggerDAO.getCurrentUserUsername());
         json.put("fromClass",this.loggerDAO.getFromClass());
         json.put("result",this.loggerDAO.getResult());

@@ -412,7 +412,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
         long id = new Date().getTime(); //soluzione "lazy"
         LoggerDAO loggerDAO = new LoggerDAO();
         loggerDAO.setIdLog(id);
-        loggerDAO.setCurrentUserEmail("NotSpecified");
+        
         loggerDAO.setCurrentUserUsername(SecurityContextHolder.getContext().getAuthentication().getName().toString());
         loggerDAO.setFromClass(this.getClass().toString());
         loggerDAO.setAction(Actions.BLOODBAG_ADD.toString());
@@ -423,7 +423,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
 	                bagDAO.getDonator()
 	                
 	        );
-	        
+	        loggerDAO.setInformation(tempBloodBagObj.getSerial().toString());
 	        tempBloodBagObj.setNote(bagDAO.getNotes());
 	        
 	        bagDAO = tempBloodBagObj.getBean();
@@ -573,7 +573,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
         long id = new Date().getTime(); //soluzione "lazy"
         LoggerDAO loggerDAO = new LoggerDAO();
         loggerDAO.setIdLog(id);
-        loggerDAO.setCurrentUserEmail("NotSpecified");
+        loggerDAO.setInformation(bagDAO.getSerial());
         loggerDAO.setCurrentUserUsername(SecurityContextHolder.getContext().getAuthentication().getName().toString());
         loggerDAO.setFromClass(this.getClass().toString());
         loggerDAO.setAction(Actions.BLOODBAG_IMPORT.toString());
@@ -642,7 +642,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
         long id = new Date().getTime(); //soluzione "lazy"
         LoggerDAO loggerDAO = new LoggerDAO();
         loggerDAO.setIdLog(id);
-        loggerDAO.setCurrentUserEmail("NotSpecified");
+        loggerDAO.setInformation(serial);
         loggerDAO.setCurrentUserUsername(SecurityContextHolder.getContext().getAuthentication().getName().toString());
         loggerDAO.setFromClass(this.getClass().toString());
         loggerDAO.setAction(Actions.BLOODBAG_USED.toString());
@@ -673,7 +673,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
         long id = new Date().getTime(); //soluzione "lazy"
         LoggerDAO loggerDAO = new LoggerDAO();
         loggerDAO.setIdLog(id);
-        loggerDAO.setCurrentUserEmail("NotSpecified");
+        loggerDAO.setInformation(serial);
         loggerDAO.setCurrentUserUsername(SecurityContextHolder.getContext().getAuthentication().getName().toString());
         loggerDAO.setFromClass(this.getClass().toString());
         loggerDAO.setAction(Actions.BLOODBAG_GET.toString());
@@ -723,7 +723,7 @@ public class BloodBagController /*implements ContainerResponseFilter */{
         long id = new Date().getTime(); //soluzione "lazy"
         LoggerDAO loggerDAO = new LoggerDAO();
         loggerDAO.setIdLog(id);
-        loggerDAO.setCurrentUserEmail("NotSpecified");
+        loggerDAO.setInformation(serial);
         loggerDAO.setCurrentUserUsername(userInfo.get("sub").toString());
         loggerDAO.setFromClass(this.getClass().toString());
         loggerDAO.setAction(Actions.BLOODBAG_TRANSFERED.toString());

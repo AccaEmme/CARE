@@ -8,12 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LoggerRepository extends JpaRepository<LoggerDAO, Long> {
 
-    /**
-     * @param usermail the given user email
-     * @return all the logs of that specific user
-     */
-    @Query("FROM LoggerDAO l WHERE l.currentUserEmail =:usermail")
-    Iterable<LoggerDAO> filterLogsByEmail(@Param("usermail") String usermail);
+  
 
     /**
      * @param username the given user username
