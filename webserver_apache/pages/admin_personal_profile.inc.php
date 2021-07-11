@@ -53,7 +53,7 @@ mi serve per consentire a ogni utente di aggiornare il proprio profilo, sennò l
          </tr>
          <tr>
             <td align="right"><b>Username</b></td>
-            <td align="center"><input type="text" name="user_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->username; ?>" /></td>
+            <td align="center"><input type="text" name="user_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->username; ?>" disabled /></td>
          </tr>
          <tr>
             <td align="right"><b>temppass</b></td>

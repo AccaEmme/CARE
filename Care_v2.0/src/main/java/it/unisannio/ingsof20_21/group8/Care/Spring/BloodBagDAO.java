@@ -16,7 +16,7 @@ import java.util.Date;
  */
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
-@Table (name = "bloodbag")
+@Table (name = "bloodbags")
 public class BloodBagDAO {
     @Id
     private String serial;
