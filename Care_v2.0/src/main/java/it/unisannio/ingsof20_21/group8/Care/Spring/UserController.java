@@ -453,15 +453,20 @@ public  class UserController /*implements ContainerResponseFilter */{
 	/**
 	 * this method is used to update an entire user with a new one
 	 * @param newuser the all new user
+	 * @throws UserException 
 	 */
 	@PostMapping("/user/update")
-	public void updateUserByID(@RequestBody UserDAO newuser){
+	public void updateUserByID(@RequestBody UserDAO newuser) throws UserException{
 		//this.updateUserUsernameByID(		newuser.getIdUser(), newuser.getUsername()							); shouldn't be changed because used in token(no problem) and expecially in logger.
 		if(newuser.getTemppass() != null && !newuser.getTemppass().equals("")) {
 			this.updateUserTemppassByID(	newuser.getIdUser(), newuser.getTemppass()							);
 		}
-		this.updateUserEmailByID(			newuser.getIdUser(), newuser.getEmail()								);
-		this.updateUserRoleByID(			newuser.getIdUser(), newuser.getUserRole()							);
+		
+		if (this.isValidEmail(newuser.getEmail()))
+			this.updateUserEmailByID(		newuser.getIdUser(), newuser.getEmail()								);
+		else
+			throw new UserException("E-mail non valida.", "/user/update");
+		this.updateUserRoleByID(			newuser.getIdUser(), newuser.getUserRole()							); // TODO: check if is valid role
 		this.updateUserLoginAttemptsByID(	newuser.getIdUser(), newuser.getLoginAttempts()						);
 		this.updateUserActiveUserByID(		newuser.getIdUser(), newuser.getActiveUser()						);
 
@@ -473,33 +478,35 @@ public  class UserController /*implements ContainerResponseFilter */{
 
 	/**
 	 * BEFORE:
-	 * {
-	 *         "idUser": 3,
-	 *         "username": "antonellino",
-	 *         "password": "$2a$10$PRTZAxBCVhb.h.8jqXEU4.wuhv6v2HSnBbFwYXjzLw.Uc0OQHOMdK",
-	 *         "temppass": "",
-	 *         "email": "antonello99@gmail.com",
-	 *         "userRole": "ROLE_OFFICER",
-	 *         "creationDate": 1625405342438,
-	 *         "lastAccess": 1625405342438,
-	 *         "loginAttempts": 0,
-	 *         "activeUser": 1
-	 *     }*/
+	  {
+	          "idUser": 3,
+	          "username": "antonellino",
+	          "password": "$2a$10$PRTZAxBCVhb.h.8jqXEU4.wuhv6v2HSnBbFwYXjzLw.Uc0OQHOMdK",
+	          "temppass": "",
+	          "email": "antonello99@gmail.com",
+	          "userRole": "ROLE_OFFICER",
+	          "creationDate": 1625405342438,
+	          "lastAccess": 1625405342438,
+	          "loginAttempts": 0,
+	          "activeUser": 1
+	      }
+	 */
 
 	/**
-	 * AFTER:
-	 * {
-	 *         "idUser": 3,
-	 *         "username": "giuseppolino",
-	 *         "password": "$2a$10$PRTZAxBCVhb.h.8jqXEU4.wuhv6v2HSnBbFwYXjzLw.Uc0OQHOMdK",
-	 *         "temppass": "Succhiamelo99+",
-	 *         "email": "antonello99@gmail.com",
-	 *         "userRole": "ROLE_ADMINISTRATOR",
-	 *         "creationDate": 1625405342438,
-	 *         "lastAccess": 1625405342438,
-	 *         "loginAttempts": 1,
-	 *         "activeUser": 1
-	 * }*/
+	  AFTER:
+	  {
+	          "idUser": 3,
+	          "username": "giuseppolino",
+	          "password": "$2a$10$PRTZAxBCVhb.h.8jqXEU4.wuhv6v2HSnBbFwYXjzLw.Uc0OQHOMdK",
+	          "temppass": "Succhiamelo99+",
+	          "email": "antonello99@gmail.com",
+	          "userRole": "ROLE_ADMINISTRATOR",
+	          "creationDate": 1625405342438,
+	          "lastAccess": 1625405342438,
+	          "loginAttempts": 1,
+	          "activeUser": 1
+	  }
+	 */
 
 	/**
 	 * this method is used to delete an user by username
