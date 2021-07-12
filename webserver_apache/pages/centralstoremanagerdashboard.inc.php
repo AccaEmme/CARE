@@ -37,7 +37,7 @@ html5QrcodeScanner.render(onScanSuccess, onScanError);
 </fieldset>
 
 <fieldset>
-            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO </b></a><br><small>(Assegna seriale alla sacca e la aggiunge al magazzino CSS)</small></legend>
+            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO </b></a><br><small>(Assegna seriale alla sacca e la aggiunge al magazzino)</small></legend>
  
     <center> <table>
         <tr>
@@ -67,7 +67,7 @@ html5QrcodeScanner.render(onScanSuccess, onScanError);
 
 
 <fieldset>
-            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO CENTRALE </b></a><br><small>(Rende disponibili le sacche del magazzino CSS ai nodi perifcerici)</small></legend>
+            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO CENTRALE </b></a><br><small>(Rende disponibili sacche del magazzino centrali ai nodi perifcerici)</small></legend>
  
     <center> <table>
         <tr>

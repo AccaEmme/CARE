@@ -6,7 +6,7 @@
 <h3 style="text-align: center;">===STOREMANAGER===</h3>
 	<!-- START: new user fields -->
 <fieldset>
-            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO </b></a><br><small>(Assegna seriale alla sacca e la aggiunge al magazzino CTT)</small></legend>
+            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO </b></a><br><small>(Assegna seriale alla sacca e la aggiunge al magazzino)</small></legend>
  
     <center> <table>
         <tr>
@@ -31,13 +31,13 @@
         <input type="button" value="CREA" class="myButton" onclick="addBloodBag(document.getElementById('addBloodBagURL').value, '<?php echo($token); ?>', document.getElementById('group').value, document.getElementById('donator').value, document.getElementById('note').value);setTimeout(function () { location.reload(1); }, 1000)">
             </td>
         </tr>
-    </table> </center>
+    </table> <center>
 </fieldset>
 
 
 	
 <fieldset>
-    <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> IMPORT SACCHE </b></a><br><small>(Aggiungi sacche al magazzino CTT)</small></legend>
+    <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> IMPORT SACCHE </b></a><br><small>(Aggiungi sacche al magazzino)</small></legend>
 
     <center>scannerizza il QR code della sacca premi il tasto "import sacca" per confermare</center>
     <center> <table>
@@ -50,7 +50,7 @@
             </td>
     </tr>
      
-    </table> </center>
+    </table> <center>
    
 
 <!- START: QRCODE Scanner Reader -->

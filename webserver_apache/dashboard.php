@@ -14,7 +14,7 @@ $roles[5] = "ROLE_CENTRAL_OFFICER";
 $arrayToken 		= explode(".", $token);
 $subtoken   		= $arrayToken['1'];
 $decodedToken 		= base64_decode($subtoken);
-echo("subtoken:".$decodedToken);
+
 
 $arrayTokenDecoded 	= (array) json_decode($decodedToken, true);
 $username 		= $arrayTokenDecoded['sub'];
@@ -41,6 +41,7 @@ if(!isset($token) OR time()>$exp ) {
  <head>
    <title>CARE - Centro Accoglienza Regionale Ematica</title>
    <script src="./js/XMLHTTPRequest.js"></script>
+   <script src="./js/profile.js"></script>
    <script src="./js/http_request.js"></script>
    <script src="./js/http_users.js"></script>
    <script src="./js/http_localbloodbags.js"></script>
@@ -165,22 +166,22 @@ switch($role){
          @$subpage = $_GET['subpage'];
 	 switch($role){
 	   case "ROLE_ADMINISTRATOR": 
-	     $allowed_pages 	= array("admin_users_manager", "admin_log_manager", "admin_node_manager", "admin_personal_profile"); // admin allowed pages
+	     $allowed_pages 	= array("admin_users_manager", "admin_log_manager", "admin_node_manager", "profile"); // admin allowed pages
 	     break;
 	   case "ROLE_STOREMANAGER":
-	     $allowed_pages      = array("storemanagerdashboard", "storemanager_requests");
+	     $allowed_pages      = array("storemanagerdashboard", "storemanager_requests", "profile");
 	     break;
 	   case "ROLE_OFFICER":
-	     $allowed_pages 	= array("officerdashboard", "officer_personal_profile");
+	     $allowed_pages 	= array("officerdashboard", "officer_personal_profile", "profile");
 	     break;
 	   case "ROLE_CENTRAL_ADMINISTRATOR":
-	     $allowed_pages 	= array("centraladministrator_dashboard");
+	     $allowed_pages 	= array("centraladministrator_dashboard", "profile");
 	     break;
 	   case "ROLE_CENTRAL_STOREMANAGER":
-             $allowed_pages 	= array("centralstoremanagerdashboard");
+             $allowed_pages 	= array("centralstoremanagerdashboard", "profile");
 	     break;
 	   case "ROLE_CENTRAL_OFFICER":
-	     $allowed_pages 	= array("centralofficer_dashboard");
+	     $allowed_pages 	= array("centralofficer_dashboard", "profile");
 	     break;
 	   default:
 	     echo("Unauthorized");

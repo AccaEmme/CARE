@@ -1,84 +1,62 @@
 <?php
 //echo("ciao ".$token."<br><br>");
 
-$urlAPI = "http://localhost:8087/user/get/all";
+//$urlAPI = "http://localhost:8087/user/get/all";
+$urlAPI = "http://localhost:8087/profile/get/" . $token . "/".$_GET['username'];
+
 $authorization = "Authorization: Bearer ".$token;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
     curl_setopt($ch,CURLOPT_URL,$urlAPI);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//    curl_setopt($ch, CURLOPT_POSTFIELDS,$post);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     $result = curl_exec($ch);
     curl_close($ch);
     //return json_decode($result);
 //print_r(json_decode($result));
 
-$usersArray = (array) json_decode($result);
-//echo("user: ".$usersArray['idUser'] . " token:" . $usersArray['username']);
-foreach (array_keys($usersArray ) as $key) {
-    //echo("user: ".$usersArray[$key]['idUser'] . " token:" . $usersArray[$key]['username'] . "<br>");
-// print_r($usersArray[0]);
-/*
- echo(	  "<br>"
-	. "userId:"
-	. $usersArray[$key]->idUser 
-	. " - username: "
-	. $usersArray[$key]->username
-	. " - role: "
-	. $usersArray[$key]->userRole
-	. " - creationDate: "
-	. $usersArray[$key]->creationDate
-	. "<br>");
-*/
-    //print_r($arr);
-}
-
-//unset($usersArray);
-
+$profileObj = (object) json_decode($result);
+//print_r( $profileObj );
 ?>
 
-Incomplete:
-si necessita di un metodo che, passando una {username} verifica che sia la stessa del token e possa elaborarne sia la GET sia la PUT?
-mi serve per consentire a ogni utente di aggiornare il proprio profilo, sennò la password temporanea è inutile
-
+   <?php echo("<small><i>subtoken:" . $decodedToken . "</i></small>"); ?>
    <div align="center">
     <h2>Profile:</h2>
     <form action="" method="POST">
      <table style="border-collapse:separate; border:solid black 1px;  border-radius:6px; -moz-border-radius:6px;">
          <tr>
             <td align="right"><b>idUser</b></td>
-            <td align="center"><input type="text" name="id_<?php echo $usersArray[$key]->idUser; ?>" value="<?php echo $usersArray[$key]->idUser; ?>" disabled /></td>
+            <td align="center"><input type="text" name="id_<?php echo $profileObj->idUser; ?>" value="<?php echo $profileObj->idUser; ?>" disabled /></td>
          </tr>
          <tr>
             <td align="right"><b>Username</b></td>
-            <td align="center"><input type="text" name="user_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->username; ?>" disabled /></td>
+            <td align="center"><input type="text" name="user_<?php echo $profileObj->username; ?>" id="user_<?php echo $profileObj->username; ?>" value="<?php echo $profileObj->username; ?>" disabled /></td>
          </tr>
          <tr>
             <td align="right"><b>temppass</b></td>
-            <td align="center"><input type="text" name="temppass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->temppass; ?>" disabled /></td>
+            <td align="center"><input type="text" name="temppass_<?php echo $profileObj->username; ?>" value="<?php echo $profileObj->temppass; ?>" disabled /></td>
          </tr>
          <tr>
-            <td align="right"><b>Password(*)</b></td>
-            <td align="center"><input type="password" name="pass_<?php echo $usersArray[$key]->username; ?>" value="" placeholder="Enter a valid new password" /></td>
+            <td align="right"><b>New Password(*)</b></td>
+            <td align="center"><input type="password" name="pass1_<?php echo $profileObj->username; ?>" id="pass1_<?php echo $profileObj->username; ?>" value="" placeholder="Enter a valid new password" /></td>
          </tr>
          <tr>
             <td align="right"><b>Confirm Password</b></td>
-            <td align="center"><input type="password" name="pass_<?php echo $usersArray[$key]->username; ?>" value="" placeholder="Retype password again" /></td>
+            <td align="center"><input type="password" name="pass2_<?php echo $profileObj->username; ?>" id="pass2_<?php echo $profileObj->username; ?>" value="" placeholder="Retype new password again" /></td>
          </tr>
          <tr>
             <td align="right"><b>E-Mail</b></td>
-            <td align="center"><input type="text" name="email_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->email; ?>" /></td>
+            <td align="center"><input type="text" name="email_<?php echo $profileObj->username; ?>" id="email_<?php echo $profileObj->username; ?>" value="<?php echo $profileObj->email; ?>" /></td>
         </tr>
          <tr>
             <td align="right"><b>Role-Based Access Control</b></td>
             <td align="center">
-                <select name="role" id="role" disabled >
+                <select name="role" id="role" disabled>
 			<?php
 			   foreach($roles as $r) {
 			     echo('<option value="' . $r . '"');
-			     if( $r == $usersArray[$key]->userRole ) echo(' selected');
+			     if( $r == $profileObj->userRole ) echo(' selected');
 			     echo('>'.$r.'</option>');
 			   }
 			?>
@@ -87,18 +65,18 @@ mi serve per consentire a ogni utente di aggiornare il proprio profilo, sennò l
          </tr>
          <tr>
             <td align="right"><b>creationDate</b></td>
-            <td align="center"><input type="text" name="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->creationDate/1000); ?>" disabled /></td>
+            <td align="center"><input type="text" name="creationDate_<?php echo $profileObj->username; ?>" value="<?php echo date('Y-m-d', $profileObj->creationDate/1000); ?>" disabled /></td>
          </tr>
          <tr>
             <td align="right"><b>lastAccess</b></td>
-            <td align="center"><input type="text" name="lastAccess_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->lastAccess/1000); ?>" disabled /></td>
+            <td align="center"><input type="text" name="lastAccess_<?php echo $profileObj->username; ?>" value="<?php echo date('Y-m-d', $profileObj->lastAccess/1000); ?>" disabled /></td>
         </tr>
          <tr>
             <td align="right"><b>loginAttempts</b></td>
             <td align="center">
-             <select name="loginAttempts_<?php echo $usersArray[$key]->username; ?>" id="loginAttempts_<?php echo $usersArray[$key]->username; ?>" width="100%" disabled >
+             <select name="loginAttempts_<?php echo $profileObj->username; ?>" id="loginAttempts_<?php echo $profileObj->username; ?>" width="100%" disabled >
               <?php
-              $currentAttempts = $usersArray[$key]->loginAttempts;
+              $currentAttempts = $profileObj->loginAttempts;
               if($currentAttempts=="0") {
                 echo('<option value="0" selected >0</option>');
               } else {
@@ -113,9 +91,9 @@ mi serve per consentire a ogni utente di aggiornare il proprio profilo, sennò l
             <td align="right"><b>activeUser</b></td>
             <td align="center">
               <?php
-              $currentActiveUser = $usersArray[$key]->activeUser;
+              $currentActiveUser = $profileObj->activeUser;
               ?>
-             <select name="activeUser_<?php echo $usersArray[$key]->username; ?>" id="activeUser_<?php echo $usersArray[$key]->username; ?>" disabled >
+             <select name="activeUser_<?php echo $profileObj->username; ?>" id="activeUser_<?php echo $profileObj->username; ?>" disabled >
               <option value="1"  <?php if($currentActiveUser=="1")  echo(" selected"); ?> >1:attivo</option>
               <option value="0"  <?php if($currentActiveUser=="0")  echo(" selected"); ?> >0:disabilitato</option>
               <option value="-1" <?php if($currentActiveUser=="-1") echo(" selected"); ?> >-1:blacklist</option>
@@ -128,12 +106,19 @@ mi serve per consentire a ogni utente di aggiornare il proprio profilo, sennò l
                 <input type="reset" value="Annulla">
             </td>
             <td align="center">
-                <input type="button" value="Salva">
+                <input type="button" value="Salva" onclick="updateProfile(
+									'http://localhost:8087/profile/set',
+									'<?php echo($token); ?>',
+									document.getElementById('user_<?php echo $profileObj->username; ?>').value,
+									document.getElementById('pass1_<?php echo $profileObj->username; ?>').value,
+									document.getElementById('pass2_<?php echo $profileObj->username; ?>').value,
+									document.getElementById('email_<?php echo $profileObj->username; ?>').value
+							);  setTimeout(function () { location.reload(1); }, 5000);">
             </td>
         </tr>
      </table>
      </form>
-     <small><i>
+     <small><i><br>
       * Password must contain at least one digit [0-9].<br>
       * Password must contain at least one lowercase Latin character [a-z].<br>
       * Password must contain at least one uppercase Latin character [A-Z].<br>
@@ -142,3 +127,7 @@ mi serve per consentire a ogni utente di aggiornare il proprio profilo, sennò l
      </i></small>
     </div>
 </div>
+
+<?php
+unset($profileObj);
+?>
