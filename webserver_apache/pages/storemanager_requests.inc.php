@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="./css/storedashboard.css">
 
 
+<h3 style="text-align: center;">===STOREMANAGER===</h3>
 <?php
 
 $urlAPI = "http://localhost:8087/request/get/our";

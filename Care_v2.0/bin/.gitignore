@@ -32,3 +32,13 @@ build/
 
 ### VS Code ###
 .vscode/
+/.gitignore
+/.mvn/
+/DatabasePopulationSamples/
+/QR_codes/
+/Report/
+/doc/
+/localsettings/
+/logs/
+/mvnw
+/mvnw.cmd
