@@ -13,10 +13,7 @@ Versione _1_ del _17.03.2021_
 
 
 Checkout the documentation on the [Wiki page](https://github.com/AccaEmme/CARE/wiki/1.0-Problem-Statement) \[lang: IT\]:
- - [1. Problem Statement](https://github.com/AccaEmme/CARE/wiki/1.-Problem-Statement)
- - [2. Project Members](https://github.com/AccaEmme/CARE/wiki/2.-Assignment-Request)
- - [3. Assignment request/](https://github.com/AccaEmme/CARE/wiki/2.-Assignment-Request)
- - [4. ¿who knows?](https://www.google.it)
+
 
 # License <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Cc-by_new_white.svg/24px-Cc-by_new_white.svg.png"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Cc-nc_white.svg/24px-Cc-nc_white.svg.png"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Cc-sa.svg/24px-Cc-sa.svg.png">
 Licenze Creative Commons - CC BY-NC-SA.<br>
@@ -27,7 +24,20 @@ It allows you to distribute, modify, create derivative works from the original, 
 # Installation
 Prerequisites:
  - MySQL >= 8.0 on localhost:3306
-
+ - ../../URI.xml with your personal MongoDB credentials: 
+ ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="username"></entry>
+	<entry key="password"></entry>
+	<entry key="db_host">.ksjti.mongodb.net/test</entry>
+	<entry key="db_name">CARE</entry>
+	<entry key="requests">requests</entry>
+	<entry key="bloodbags">bloodbags</entry>
+</properties>
+```
 
 # Screenshot
+<img src="https://github.com/AccaEmme/CARE/raw/main/docs/Capitolo8/MainCode.png">
 <img src="https://raw.githubusercontent.com/AccaEmme/CARE/main/docs/Capitolo8/requested-accepted-arrived-imported.png">
