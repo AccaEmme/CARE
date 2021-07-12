@@ -449,7 +449,7 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 
 			QRCode code = new QRCode(object);
 
-			code.createQRCodeOnly();
+			code.createQRCode();
 
 			loggerDAO.setResult(Results.OPERATION_SUCCESSFUL.toString());
 			it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);
