@@ -12,7 +12,7 @@ Progetto per la fornitura di un sistema software per la gestione integrata delle
 Versione _1_ del _17.03.2021_
 
 
-Checkout the documentation on the [Wiki page](https://github.com/AccaEmme/CARE/wiki) \[lang: IT\]:
+Checkout the documentation on the [Wiki page](https://github.com/AccaEmme/CARE/wiki/1.0-Problem-Statement) \[lang: IT\]:
  - [1. Problem Statement](https://github.com/AccaEmme/CARE/wiki/1.-Problem-Statement)
  - [2. Project Members](https://github.com/AccaEmme/CARE/wiki/2.-Assignment-Request)
  - [3. Assignment request/](https://github.com/AccaEmme/CARE/wiki/2.-Assignment-Request)
