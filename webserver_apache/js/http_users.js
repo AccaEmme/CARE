@@ -51,33 +51,30 @@ HTTPBody:
  }
 */
  k=0;
-/*
- if(
-	(url == "") 	 ||
-	(token == "") 	 ||
- 	(idUser == "") 	 ||
- 	(username == "") ||
-      //(password == "") ||
-      //(email == "") 	 ||
-        (userRole == "")
-   ) { k=1; } else { k=0; }
-*/
+ if(url == "") 	 	{ k=1; }
+ if(token == "") 	{ k=1; }
+ if(idUser == "") 	{ k=1; }
+ if(username == "") 	{ k=1; }
+ //if(password == "") 	{ k=1; }
+ //if(email == "") 	{ k=1; }
+ if(userRole == "")	{ k=1; }
+
  if(k==1){
   alert("No changes");
  } else { 
   alert(url + " - " + token + " - " + idUser + " - " + username + " - " + temppass + " - " + email + " - " + userRole + " - " + loginAttempts + " - " + activeUser);
   var   jsonBody  = '{';
-	jsonBody += '"idUser": '   + idUser   + ',';
+	jsonBody += '"idUser": '   + idUser;
 	// jsonBody += '"username": "' + username + '"'; non modificabile
         if(temppass!="") { jsonBody += ', "temppass": "' + temppass + '"'; }
         if(email!="")    { jsonBody += ', "email": "'    + email    + '"'; }
-	jsonBody += ', "userRole": "' + userRole + '"';
+	jsonBody += ', "userRole": "' 	  + userRole 	 + '"';
 	jsonBody += ', "loginAttempts": ' + loginAttempts + '';
-	jsonBody += ', "activeUser": ' + activeUser + '';
+	jsonBody += ', "activeUser": ' 	  + activeUser 	 + '';
 	jsonBody += '}';
   alert("jsonBody: " + jsonBody);
   console.log("jsonBody: " + jsonBody);
-  var positiveMsg='Utente Eliminato';
+  var positiveMsg='Utente Aggiornato';
   HTTPPost(url, token, jsonBody, positiveMsg);
  }
 }
