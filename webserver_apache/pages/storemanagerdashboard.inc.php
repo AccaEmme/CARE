@@ -3,6 +3,7 @@
 <body style="background-color:aliceblue">
 
 
+<h3 style="text-align: center;">===STOREMANAGER===</h3>
 	<!-- START: new user fields -->
 <fieldset>
             <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO </b></a><br><small>(Assegna seriale alla sacca e la aggiunge al magazzino)</small></legend>

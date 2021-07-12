@@ -1,7 +1,10 @@
 <script src="./js/html5-qrcode.min.js"></script>
 <link rel="stylesheet" href="./css/storedashboard.css">
+<h3 style="text-align: center;">===CENTRAL_STOREMANAGER===</h3>
+
+
 <fieldset>
-            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO </b></a><br></legend>
+            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO  CENTRALE </b></a><br><small>(Rende disponibili le sacche che gli vengono spedite)</small></legend>
  <center> <table><tr>
             <td><input type="text" name="serial" class="textcss" id="serial" placeholder="seriale sacca" size="40" /></td>
 		        <input type="text" name="addBloodBagCURL" id="addBloodBagCURL" value="http://localhost:8087/bloodbag/central/confirm" hidden="yes" />
@@ -34,7 +37,7 @@ html5QrcodeScanner.render(onScanSuccess, onScanError);
 </fieldset>
 
 <fieldset>
-            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO CENTRALE </b></a><br><small>(Assegna seriale alla sacca e la aggiunge al magazzino)</small></legend>
+            <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> MAGAZZINO </b></a><br><small>(Assegna seriale alla sacca e la aggiunge al magazzino)</small></legend>
  
     <center> <table>
         <tr>
