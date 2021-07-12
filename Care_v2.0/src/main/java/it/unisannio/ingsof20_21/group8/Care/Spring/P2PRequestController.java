@@ -1,10 +1,3 @@
-/**
- * @author giuliano ranauro
- * Date: 10/07/2021 18:22
- * Ide: Intellij
- * JDK: 1.8
- * @version 1.0
- */
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 import it.unisannio.CARE.model.bloodBag.BloodBagState;

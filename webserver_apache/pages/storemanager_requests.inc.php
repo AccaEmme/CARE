@@ -29,7 +29,7 @@ $BagArray = (array) json_decode($result);
 
 
 <fieldset>
-    <legend><img src="images\gestionerichieste.png" width="10%"><a name="management" ><b> Richieste </b></a><br><small>(visualizza stato delle richieste)</small></legend>
+    <legend><img src="images\gestionerichieste.png" width="10%"><a name="management" ><b> Richieste </b></a><br><small>(Stato delle richieste)</small></legend>
 
 
 <!-- campi tabella -->
@@ -88,7 +88,7 @@ $bagArray = (array) json_decode($result);
 </fieldset>
 
 <fieldset>
-     <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> Magazzino </b></a><br><small>(Visualizza sacche spedibili)</small></legend>
+     <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> Magazzino </b></a><br><small>(Sacche spedibili al CSS)</small></legend>
 
 <!-- campi tabella -->
 <form action="" method="POST">
