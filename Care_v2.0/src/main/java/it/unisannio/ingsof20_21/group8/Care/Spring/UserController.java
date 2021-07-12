@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import it.unisannio.CARE.model.exceptions.UserException;
@@ -530,6 +531,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	 * @throws ParseException if the token is wrong
 	 * @throws UserException if the token does not belong to the user
 	 */
+	/*
 	@GetMapping("/profile/get/{token}/{id}")
 	private UserDAO getUserFromToken(@PathVariable String token, @PathVariable long id) throws ParseException, UserException {
 		String[] chunks = token.split("\\.");
@@ -545,21 +547,32 @@ public  class UserController /*implements ContainerResponseFilter */{
 		if (!json.get("sub").toString().equals(user.getUsername()))
 			throw new UserException("The token does not belong to the provided user.");
 		return userRepo.getById(id);
+	}*/
+	
+	@GetMapping("/profile/get")
+	private UserDAO getUser() throws ParseException, UserException {
+	
+
+		
+		return userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName().toString());
 	}
+	
+	
+	/*
 	@GetMapping("user/get/test/{token}/{username}")
 	private boolean hasRights(String token, long id) throws ParseException, UserException {
 	    this.getUserFromToken(token,id);
         //System.out.println("test");
 	    return true;
-    }
+    }*/
 
 	//long idUser, String username, String password, String temppass, String email, String userRole, long creationDate, long lastAccess, int loginAttempts, short activeUser
-	@PutMapping("/profile/set/{token}")
+	/*@PutMapping("/profile/set/{token}")
     public void userMethodUpdateUsername(@PathVariable String token, @RequestBody UserDAO newUser) throws ParseException, UserException {
 	    if (this.hasRights(token,newUser.getIdUser())){
 	        /*conto gli user perchè l'username potrebbe non voler cambiare l'username,
 	        se effettuo solo il controllo sull'esistenza, l'username sarebbe per forza di cose già presente nel database*/
-	        if (userRepo.countUsersByUsername(newUser.getUsername())>1){
+	   /*     if (userRepo.countUsersByUsername(newUser.getUsername())>1){
 	            throw new UserException("The user already exists.");
             }else userRepo.updateUserUsernameByID(newUser.getUsername(),newUser.getIdUser());
 
@@ -573,8 +586,24 @@ public  class UserController /*implements ContainerResponseFilter */{
     private boolean isValid(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(regex);
-    }
+    }*/
+  //long idUser, String username, String password, String temppass, String email, String userRole, long creationDate, long lastAccess, int loginAttempts, short activeUser
+  	@PutMapping("/profile/set")
+      public void userMethodUpdateUsername(@RequestBody UserDAO newUser) throws ParseException, UserException {
+  		
+  	
 
+  	        userRepo.updateUserPasswordByUsername(Password.getBCrypt(newUser.getPassword()),SecurityContextHolder.getContext().getAuthentication().getName().toString());
+
+  	        if (this.isValid(newUser.getEmail()))
+                  userRepo.updateUserEmailByUsername(newUser.getEmail(),SecurityContextHolder.getContext().getAuthentication().getName().toString());
+          //non serve else perchè verrebbe lanciata un'eccezione.
+      }
+
+      private boolean isValid(String email) {
+          String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+          return email.matches(regex);
+      }
 
 
 	// ########## ADMIN STUFF ##############
