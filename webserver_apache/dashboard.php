@@ -34,6 +34,20 @@ if(!isset($token) OR time()>$exp ) {
     echo 'HTTP/1.0 401 Unauthorized';
     exit;
 }
+
+// START: get current user profile to check if temppass is null
+$urlAPI = "http://localhost:8087/profile/get";
+$authorization = "Authorization: Bearer ".$token;
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
+curl_setopt($ch,CURLOPT_URL,$urlAPI);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+$result = curl_exec($ch);
+curl_close($ch);
+$profileObjc = (object) json_decode($result);
+// END: get current user profile to check if temppass is null
 ?>
 
 <!DOCTYPE HTML> 
@@ -188,7 +202,11 @@ switch($role){
 	     break;
 	}
  	 if( in_array($subpage, $allowed_pages) ) {
-  	   include("./pages/" . $subpage . ".inc.php");
+            if($profileObjc->temppass!="" OR $profileObjc->temppass != null) {
+             include("./pages/profile.inc.php");
+            } else {
+    	     include("./pages/" . $subpage . ".inc.php");
+            }
          } else {
 	   echo('Accedi dal menù nella pagina a te concessa.'.$subpage);
 	 }
