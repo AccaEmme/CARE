@@ -12,17 +12,18 @@ import it.unisannio.CARE.model.bloodBag.RequestState;
 import it.unisannio.CARE.model.exceptions.BloodBagNotFoundException;
 import it.unisannio.CARE.model.exceptions.NodeNotFoundException;
 import it.unisannio.CARE.model.exceptions.RequestNotFoundException;
-import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.XMLHelper;
 import it.unisannio.CARE.modulep2p.P2PManager;
 import it.unisannio.CARE.modulep2p.RequestException;
 import it.unisannio.CARE.modulep2p.RequestType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
+import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
@@ -59,6 +60,31 @@ public class P2PRequestController {
     @PostMapping("p2prequest/add")
     public RequestDAO addp2pRequest(@RequestBody RequestDAO request){
         return this.requestRepo.save(request);
+    }
+
+    /**
+     * used to send a remote bloodbag request
+     * @param request the bloodbag request
+     * @param nodeid the node having that blood bag
+     * @param token the user's token
+     * @return the added request
+     * @throws NodeNotFoundException if there is no node having that id
+     * @throws IOException null
+     * @throws ParseException if the response is not valid
+     */
+    @PostMapping("p2prequest/add/remote/{nodeid}/{token}")
+    public JSONArray addp2pRequestRemote(@RequestBody RequestDAO request, @PathVariable String nodeid, @PathVariable String token) throws NodeNotFoundException, IOException, ParseException {
+        String remoteAddress = this.getAddressFromNodeID(nodeid);
+        String httpRequest = "http://"+remoteAddress+"/p2prequest/add";
+        JSONObject jsonBody = new JSONObject();
+
+        jsonBody.put("serial" , request.getSerial());
+        jsonBody.put("timestamp" , request.getTimestamp());
+        jsonBody.put("requestingNode" , request.getRequestingNode());
+        jsonBody.put("state" , request.getState());
+
+        P2PManager manager = new P2PManager(httpRequest,token,jsonBody,RequestType.POST);
+        return manager.sendRequest();
     }
 
     /**
