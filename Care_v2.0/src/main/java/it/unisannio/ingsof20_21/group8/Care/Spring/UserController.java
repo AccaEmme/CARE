@@ -163,15 +163,15 @@ public  class UserController /*implements ContainerResponseFilter */{
 	 * example:
 	 * HTTP request: 127.0.0.1:8087/user/report
 	 * 	  Output:
-	 *          {
-	 * 	      "total": 1000,
-	 * 	      "activeUsers": 482,
-	 * 	      "loggedLast24Hours": 2,
-	 * 	      "administrators": 482,
-	 * 	      "storeManagers": 322,
-	 * 	      "officers": 340,
-	 * 	      "deactivatedUsers": 518
-	 *      }
+	           {
+	  	      "total": 1000,
+	  	      "activeUsers": 482,
+	  	      "loggedLast24Hours": 2,
+	  	      "administrators": 482,
+	  	      "storeManagers": 322,
+	  	      "officers": 340,
+	  	      "deactivatedUsers": 518
+	       }
 	 */
 	@GetMapping("user/report")
 	public UserReport getUserReport(){
@@ -289,8 +289,6 @@ public  class UserController /*implements ContainerResponseFilter */{
 
 
     //===============POST METHODS
-
-
 	/**
 	 * this method is used to register a new user
 	 * @param newUser the user to exchange
@@ -299,34 +297,37 @@ public  class UserController /*implements ContainerResponseFilter */{
 	 */
 	@PostMapping("/register")
     public UserDAO createUser(@RequestBody UserDAO newUser) throws Exception {
-
 	   try {
-	            User tempUserObj = new User(
-	                    newUser.getUsername(),                // HTTP username
-	                    newUser.getPassword(),                // HTTP plainTextPassword
-	                    Role.valueOf(newUser.getUserRole()) // HTTP Role
-				);
-	            
-	            //User tempUserObj = User.getUser(newUser); for future implementations
-	            UserDAO saveBean = tempUserObj.getUserDAO();
-	            
-				   saveBean.setCreationDate(new Date().getTime());
-				   if (this.isValidEmail(newUser.getEmail()))
-                       saveBean.setEmail(newUser.getEmail());
-				   else throw new UserException("The provided email is not valid.");
-				   saveBean.setLastAccess(Constants.TIMESTAMP1900);
-				   saveBean.setLoginAttempts(0);
-				   saveBean.setActiveUser(UsersStates.ACTIVE);
+            User tempUserObj = new User(
+                    newUser.getUsername(),                // HTTP username
+                    newUser.getPassword(),                // HTTP plainTextPassword
+                    Role.valueOf(newUser.getUserRole()) // HTTP Role
+            		);
+            
+            //User tempUserObj = User.getUser(newUser); for future implementations
+            UserDAO saveBean = tempUserObj.getUserDAO();
+            
+			   saveBean.setCreationDate(new Date().getTime());
+			   
+			   String newEmail = newUser.getEmail();
+			   if (this.isValidEmail(newEmail))
+				   saveBean.setEmail(newEmail);
+			   else
+				   throw new UserException("E-mail non valida.", "/register");
+			   saveBean.setLastAccess(Constants.TIMESTAMP1900);
+			   saveBean.setLoginAttempts(0);
+			   saveBean.setActiveUser(UsersStates.ACTIVE);
 
-	            return userRepo.save(saveBean);
+            return userRepo.save(saveBean);
 		}catch (Exception e) {
 			e.printStackTrace();
-	        throw new Exception(e.getMessage()
-	        		+ "1) Your password must be between 8 and 30 characters."
+			String exceptionMsg = e.getMessage()
+	        		+ "\n1) Your password must be between 8 and 30 characters."
 	        		+ "2) Your password must contain at least one uppercase, or capital, letter (ex: A, B, etc.)"
 	                + "3) Your password must contain at least one lowercase letter."
 	                + "4) Your password must contain at least one number digit (ex: 0, 1, 2, 3, etc.)"
-	                + "5) Your password must contain at least one special character -for example: $, #, @, !,%,^,&,*");
+	                + "5) Your password must contain at least one special character -for example: $, #, @, !,%,^,&,*";
+			throw new UserException( exceptionMsg, "/profile/set");
 
 		}
 
@@ -587,26 +588,26 @@ public  class UserController /*implements ContainerResponseFilter */{
         return email.matches(regex);
     }*/
   //long idUser, String username, String password, String temppass, String email, String userRole, long creationDate, long lastAccess, int loginAttempts, short activeUser
-  	@PutMapping("/profile/set")
-      public void userMethodUpdateUsername(@RequestBody UserDAO newUser) throws ParseException, UserException {
-			String newPlaintextPass		= newUser.getPassword();				// get from DAO
-			try {
-			Password.validatePlaintextPasswordPattern(newPlaintextPass);		// if something bad, exception will be throws.
-			String newHiddenPass 		= Password.getBCrypt(newPlaintextPass);
-			userRepo.updateUserPasswordByUsername(
-													newHiddenPass,
-													SecurityContextHolder.getContext().getAuthentication().getName().toString()
-													);
-			} catch(Exception e) {
-				throw new UserException(e.getMessage(), "/profile/set");
-			}
-  			
-  			String newEmail = newUser.getEmail();
-  	        if (this.isValidEmail(newEmail))
-                  userRepo.updateUserEmailByUsername(newUser.getEmail(),SecurityContextHolder.getContext().getAuthentication().getName().toString());
-  	        else
-				throw new UserException("E-mail non valida.", "/profile/set");
-      }
+	@PutMapping("/profile/set")
+	public void userMethodUpdateUsername(@RequestBody UserDAO newUser) throws ParseException, UserException {
+		String newPlaintextPass		= newUser.getPassword();				// get from DAO
+		try {
+		Password.validatePlaintextPasswordPattern(newPlaintextPass);		// if something bad, exception will be throws.
+		String newHiddenPass 		= Password.getBCrypt(newPlaintextPass);
+		userRepo.updateUserPasswordByUsername(
+												newHiddenPass,
+												SecurityContextHolder.getContext().getAuthentication().getName().toString()
+												);
+		} catch(Exception e) {
+			throw new UserException(e.getMessage(), "/profile/set");
+		}
+		
+		String newEmail = newUser.getEmail();
+        if (this.isValidEmail(newEmail))
+              userRepo.updateUserEmailByUsername(newUser.getEmail(),SecurityContextHolder.getContext().getAuthentication().getName().toString());
+        else
+			throw new UserException("E-mail non valida.", "/profile/set");
+	}
 
       private boolean isValidEmail(String email) {
           return email.matches(Constants.RegexEmail);
