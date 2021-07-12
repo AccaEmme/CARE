@@ -58,7 +58,7 @@ public class QRCodeTest {
 
         QRCode code = new QRCode(object);
 
-        code.createQRCodeOnly();
+        code.createQRCode();
     }
 
     /**
@@ -76,7 +76,7 @@ public class QRCodeTest {
         bag.setNotes("buonanott");
 
         QRCode code = new QRCode(bag);
-        code.createQRCodeOnly();
+        code.createQRCode();
     }
 
     /**
@@ -88,7 +88,7 @@ public class QRCodeTest {
         String id = "peppiniello_importunato";
 
         QRCode code = new QRCode(qr,id);
-        code.createQRCodeOnly();
+        code.createQRCode();
     }
 
     /**
@@ -100,7 +100,7 @@ public class QRCodeTest {
         String id = "peppiniello importunato";  //lo spazio viene rimpiazzato con '_'
 
         QRCode code = new QRCode(qr,id);
-        code.createQRCodeOnly();
+        code.createQRCode();
     }
 
 
@@ -111,7 +111,7 @@ public class QRCodeTest {
     public void testCreateQRCodeFromBloodBag() throws ParseException {
         BloodBag bag = new BloodBag(BloodGroup.ABpos,"RNRGLN99P08A783G");
         QRCode code = new QRCode(bag);
-        code.createQRCodeOnly();
+        code.createQRCode();
     }
 
     /**
@@ -123,7 +123,7 @@ public class QRCodeTest {
                     BloodBag bag = new BloodBag(BloodGroup.ABpos,"peppiniello");
 
                     QRCode code = new QRCode(bag);
-                    code.createQRCodeOnly();
+                    code.createQRCode();
                 }
         );
     }
@@ -137,7 +137,7 @@ public class QRCodeTest {
                     BloodBag bag = new BloodBag(BloodGroup.valueOf("peppiniello"),"RNRGLN99P08A783G");
 
                     QRCode code = new QRCode(bag);
-                    code.createQRCodeOnly();
+                    code.createQRCode();
                 }
         );
     }
@@ -151,7 +151,7 @@ public class QRCodeTest {
                     BloodBag bag = new BloodBag(BloodGroup.valueOf("peppiniello"),"peppiniello");
 
                     QRCode code = new QRCode(bag);
-                    code.createQRCodeOnly();
+                    code.createQRCode();
                 }
         );
     }
@@ -166,7 +166,7 @@ public class QRCodeTest {
             userDAO.setEmail("peppiniello99@gmail.com");
 
         QRCode qrCode = new QRCode(userDAO);
-            qrCode.createQRCodeOnly();
+            qrCode.createQRCode();
     } 
 
     @Test
@@ -174,9 +174,10 @@ public class QRCodeTest {
         User user = new User("peppiniello99", new Password("PeppinielloPW9+"));
             user.setEmail("peppiniello99@gmail.com");
         QRCode code = new QRCode(user);
-            code.createQRCodeOnly();
+            code.createQRCode();
     }
 
+    /* @TODO: è stato tolta la possibilità di creare il QRCode con logo, chissà se momentaneamente o per sempre.
     @Test
     public void createQRCodeWithLogo() throws WriterException, ParseException {
         BloodBagDAO bag = new BloodBagDAO();
@@ -191,5 +192,6 @@ public class QRCodeTest {
         QRCode code = new QRCode(bag);
         code.createQRCodeWithLogo();
     }
+    */
 
 }
