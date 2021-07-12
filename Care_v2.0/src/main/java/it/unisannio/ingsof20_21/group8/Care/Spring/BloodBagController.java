@@ -18,13 +18,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import it.unisannio.CARE.controll.bloodBag.BloodBagManager;
 import it.unisannio.CARE.controll.request.RequestManager;
@@ -574,6 +568,12 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 			throw new BloodBagNotFoundException(e.getMessage(), "/bloodbag/central/confirm");
 		}
 
+	}
+
+	@PatchMapping("/bloodbag/p2p/import/{serial}")
+	public BloodBagDAO importP2PBloodBag(@PathVariable String serial){
+		this.bagRepository.updateBloodBagStateBySerial(BloodBagState.Available.toString(),serial);
+		return this.bagRepository.findBySerial(serial);
 	}
 
 	/**
