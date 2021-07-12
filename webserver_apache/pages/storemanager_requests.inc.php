@@ -88,7 +88,7 @@ $bagArray = (array) json_decode($result);
 </fieldset>
 
 <fieldset>
-     <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> Magazzino </b></a><br><small>(Sacche spedibili al CSS)</small></legend>
+     <legend><img src="images\Magazzino.png" width="10%"><a name="management" ><b> Magazzino </b></a><br><small>(Sacche spedibili al CCS)</small></legend>
 
 <!-- campi tabella -->
 <form action="" method="POST">

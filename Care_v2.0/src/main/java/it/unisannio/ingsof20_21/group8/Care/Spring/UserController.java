@@ -16,6 +16,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import it.unisannio.CARE.model.exceptions.BloodBagStateException;
 import it.unisannio.CARE.model.exceptions.UserException;
 import it.unisannio.CARE.model.report.UserReport;
 import it.unisannio.CARE.model.user.Role;
@@ -310,7 +311,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	            UserDAO saveBean = tempUserObj.getUserDAO();
 	            
 				   saveBean.setCreationDate(new Date().getTime());
-				   if (this.isValid(newUser.getEmail()))
+				   if (this.isValidEmail(newUser.getEmail()))
                        saveBean.setEmail(newUser.getEmail());
 				   else throw new UserException("The provided email is not valid.");
 				   saveBean.setLastAccess(Constants.TIMESTAMP1900);
@@ -551,9 +552,7 @@ public  class UserController /*implements ContainerResponseFilter */{
 	
 	@GetMapping("/profile/get")
 	private UserDAO getUser() throws ParseException, UserException {
-	
-
-		
+		// TODO: controllo if tokenUsername = daoUsername else null. 
 		return userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName().toString());
 	}
 	
@@ -590,19 +589,27 @@ public  class UserController /*implements ContainerResponseFilter */{
   //long idUser, String username, String password, String temppass, String email, String userRole, long creationDate, long lastAccess, int loginAttempts, short activeUser
   	@PutMapping("/profile/set")
       public void userMethodUpdateUsername(@RequestBody UserDAO newUser) throws ParseException, UserException {
-  		
-  	
-
-  	        userRepo.updateUserPasswordByUsername(Password.getBCrypt(newUser.getPassword()),SecurityContextHolder.getContext().getAuthentication().getName().toString());
-
-  	        if (this.isValid(newUser.getEmail()))
+			String newPlaintextPass		= newUser.getPassword();				// get from DAO
+			try {
+			Password.validatePlaintextPasswordPattern(newPlaintextPass);		// if something bad, exception will be throws.
+			String newHiddenPass 		= Password.getBCrypt(newPlaintextPass);
+			userRepo.updateUserPasswordByUsername(
+													newHiddenPass,
+													SecurityContextHolder.getContext().getAuthentication().getName().toString()
+													);
+			} catch(Exception e) {
+				throw new UserException(e.getMessage(), "/profile/set");
+			}
+  			
+  			String newEmail = newUser.getEmail();
+  	        if (this.isValidEmail(newEmail))
                   userRepo.updateUserEmailByUsername(newUser.getEmail(),SecurityContextHolder.getContext().getAuthentication().getName().toString());
-          //non serve else perchè verrebbe lanciata un'eccezione.
+  	        else
+				throw new UserException("E-mail non valida.", "/profile/set");
       }
 
-      private boolean isValid(String email) {
-          String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-          return email.matches(regex);
+      private boolean isValidEmail(String email) {
+          return email.matches(Constants.RegexEmail);
       }
 
 

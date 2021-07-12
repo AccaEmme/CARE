@@ -2,7 +2,7 @@
 //echo("ciao ".$token."<br><br>");
 
 //$urlAPI = "http://localhost:8087/user/get/all";
-$urlAPI = "http://localhost:8087/profile/get/" . $token . "/".$_GET['username'];
+$urlAPI = "http://localhost:8087/profile/get";
 
 $authorization = "Authorization: Bearer ".$token;
     $ch = curl_init();

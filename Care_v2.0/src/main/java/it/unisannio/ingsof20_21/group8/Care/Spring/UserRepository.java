@@ -57,7 +57,7 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	//aggiorno la password
 	@Modifying
 	@Transactional
-	@Query("UPDATE UserDAO u SET u.password = ?1 where u.username = ?2")
+	@Query("UPDATE UserDAO u SET u.password = ?1, u.temppass=null where u.username = ?2")
 	void updateUserPasswordByUsername(String password, String username);
 	
 	

@@ -37,7 +37,7 @@ public class  GlobalExceptionHandler {
     }
     
     @ExceptionHandler(BloodBagNotFoundException.class)
-    
+
     public ResponseEntity<?>  BloodBagAlredyExistsHandling(BloodBagNotFoundException exception){
       
     	ErrorBean errorBean = new ErrorBean(new Date().toString(), "500", exception.getClass().getName(), exception.getMessage(), exception.getPath());
@@ -111,6 +111,12 @@ public class  GlobalExceptionHandler {
     	
         return new ResponseEntity<>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
         
+    }
+    
+    @ExceptionHandler(UserException.class)
+    public ResponseEntity<?>  UserExceptionHandler(UserException exception){    
+    	ErrorBean errorBean = new ErrorBean(new Date().toString(), "500", exception.getClass().getName(), exception.getMessage(), exception.getPath());
+        return new ResponseEntity<>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
