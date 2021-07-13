@@ -1,6 +1,7 @@
 package it.unisannio.CARE.model.report;
 
 
+import it.unisannio.CARE.model.util.Constants;
 import org.json.simple.JSONObject;
 
 import java.io.BufferedWriter;
@@ -358,7 +359,7 @@ public class BloodBagReport {
 
 
     public void saveReport(String report_in_json) throws IOException {
-        FileWriter fw = new FileWriter("logs/report.json");
+        FileWriter fw = new FileWriter(Constants.BLOODBAG_REPORT_PATH);
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write(report_in_json);
         bw.newLine();
