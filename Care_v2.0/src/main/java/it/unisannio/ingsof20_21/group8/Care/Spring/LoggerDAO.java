@@ -1,10 +1,3 @@
-/**
- * @author giuliano ranauro
- * Date: 01/07/2021 11:44
- * Ide: Intellij
- * JDK: 1.8
- * @version 1.0
- */
 package it.unisannio.ingsof20_21.group8.Care.Spring;
 
 import javax.persistence.*;

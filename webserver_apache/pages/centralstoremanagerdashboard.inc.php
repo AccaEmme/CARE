@@ -44,7 +44,7 @@
 </fieldset>
 
 <fieldset>
-    <legend><img src="images\Magazzino.png" width="10%"><a name="management"><b> MAGAZZINO CENTRALE </b></a><br><small>(Assegna seriale alla sacca e la aggiunge al magazzino CSS)</small></legend>
+    <legend><img src="images\Magazzino.png" width="10%"><a name="management"><b> MAGAZZINO CENTRALE </b></a><br><small>(Assegna seriale alla sacca e la aggiunge al magazzino CTT centrale)</small></legend>
 
     <center>
         <table>
@@ -76,7 +76,7 @@
 
 
 <fieldset>
-    <legend><img src="images\Magazzino.png" width="10%"><a name="management"><b> MAGAZZINO CENTRALE </b></a><br><small>(Rende disponibili le sacche del magazzino CSS ai nodi perifcerici)</small></legend>
+    <legend><img src="images\Magazzino.png" width="10%"><a name="management"><b> MAGAZZINO CENTRALE </b></a><br><small>(Rende disponibili le sacche del magazzino CCS per i nodi periferici)</small></legend>
 
     <center>
         <table>

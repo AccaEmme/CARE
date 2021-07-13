@@ -39,11 +39,14 @@ public class LoggerController /*implements ContainerResponseFilter */{
                 "GET, POST, PUT, DELETE, OPTIONS, HEAD");
     }*/
 
+    
     // ########## POST METHODS ###########
+/*	Logs can't be added by others, only by the system.
     @PostMapping("logger/add")
     public void addLog(@RequestBody LoggerDAO loggerBean){
         loggerRepository.save(loggerBean);
     }
+*/
 
     @GetMapping("logger/get/all")
     public Iterable<LoggerDAO> getAllLogs(){
