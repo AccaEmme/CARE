@@ -1,0 +1,19 @@
+.welcome{
+    color: #f44336;
+    border: 3px dotted blue;
+    text-align: center;
+}
+
+.details_welcome{
+    color: blue;
+    text-align: center;
+}
+
+.niceframe{ 
+    align-items: center;
+    text-align: center;
+}
+
+.nice_body{
+    background-color: aliceblue;
+}

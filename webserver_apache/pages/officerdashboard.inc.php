@@ -1,16 +1,9 @@
-<!DOCTYPE HTML>
-<html>
-
 <head>
-  <title>CARE - Centro Accoglienza Regionale Ematica</title>
-  <script src="./js/http_request.js"></script>
   <link rel="stylesheet" href="./css/officerdashboard.css">
 </head>
 
 <script>
-
-
-function filter() {
+  function filter() {
     setTimeout(function() {
       select = document.getElementById('selected_group');
       group = select['options'][select.selectedIndex].value;
@@ -103,93 +96,75 @@ function filter() {
   ?>
 </script>
 
-<fieldset>
-  <legend><img src="images\gestionerichieste.png" width="10%"><a name="management"><b> Gestione Richieste </b></a><br><small>(role-user-visibility: Officer)</small></legend>
-
-  <!-- START: BloodBags viewer -->
-  <div align="center">
-
-    <body style="margin:0px;">
-      <table>
-        <tr> Sacche disponibili </tr>
-        <tr style="color:white;background-color:rgb(150, 145, 145); font-size: 16px;">
-          <th>
-            Ho bisogno di:
-            <select id="selected_group" name="selected_group">
-              <option value="none">none</option>
-              <option value="Apos">A+ </option>
-              <option value="Bpos">B+</option>
-              <option value="ABpos">AB+</option>
-              <option value="ZEROpos">0+</option>
-              <option value="Aneg">A-</option>
-              <option value="Bneg">B-</option>
-              <option value="ABneg">AB-</option>
-              <option value="ZEROneg">0-</option>
-            </select>
-            <input type="button" id="group_button" name="group_button" value="Filtra" onclick="filter();" />
-          </th>
+<body>
+  <div class="hadReq_div">
+    <fieldset>
+      <legend><img src="images\gestionerichieste.png" width="10%"><a name="management"><b>Sacche disponibili</b></a><br><small>(role-user-visibility: Officer)</small></legend>
+      <label class="bag_filter" style="color:white;background-color:rgb(150, 145, 145);">
+        Ho bisogno di:
+        <select id="selected_group" name="selected_group">
+          <option value="none">none</option>
+          <option value="Apos">A+ </option>
+          <option value="Bpos">B+</option>
+          <option value="ABpos">AB+</option>
+          <option value="ZEROpos">0+</option>
+          <option value="Aneg">A-</option>
+          <option value="Bneg">B-</option>
+          <option value="ABneg">AB-</option>
+          <option value="ZEROneg">0-</option>
+        </select>
+        <input type="button" id="group_button" name="group_button" value="Filtra" onclick="filter();" />
+      </label>
+      <table class="tab">
+        <tr style="color:white;background-color:grey;">
+          <?php ?>
+          <th><input type="button" id="request_button" name="request_button" value="Richiedi" onclick="addRequests();" /></th>
+          <th align="center">Priorità Bassa</th>
+          <th align="center">Priorità Media</th>
+          <th align="center">Priorità Alta</th>
+          <th align="center"><b>Seriale</b></th>
+          <th align="center"><b>Data creazione</b></th>
+          <th align="center"><b>Donatore</b></th>
+          <th align="center"><b>Data di scadenza</b></th>
+          <th align="center"><b>Gruppo</b></th>
+          <th align="center"><b>Note</b></th>
+          <th align="center"><b>Stato</b></th>
         </tr>
+        <?php foreach (array_keys($bagsArray) as $key) {  ?>
         <tr>
-          <td>
-
-            <body style="margin:0px;">
-              <table>
-                <tr style="color:white;background-color:grey;">
-                  <?php ?>
-                  <th><input type="button" id="request_button" name="request_button" value="Richiedi" onclick="addRequests();" /></th>
-                  <th align="center">Priorità Bassa</th>
-                  <th align="center">Priorità Media</th>
-                  <th align="center">Priorità Alta</th>
-                  <th align="center"><b>Seriale</b></th>
-                  <th align="center"><b>Data creazione</b></th>
-                  <th align="center"><b>Donatore</b></th>
-                  <th align="center"><b>Data di scadenza</b></th>
-                  <th align="center"><b>Gruppo</b></th>
-                  <th align="center"><b>Note</b></th>
-                  <th align="center"><b>Stato</b></th>
-                </tr>
-                <form action="" method="POST">
-                  <?php foreach (array_keys($bagsArray) as $key) {  ?>
-                    <tr>
-                      <td align='center'><input type="checkbox" id="selected_bags" name="selected_bags[]" value="<?php echo ($bagsArray[$key]->serial); ?>"></td>
-                      <td align='center'><label class="container">
-                          <input type="radio" id="priority_<?php echo ($bagsArray[$key]->serial); ?>" name="priority_<?php echo ($bagsArray[$key]->serial) . '[]'; ?>" value="green" checked>
-                          <span class="checkmark green"></span>
-                        </label></td>
-                      <td align='center'><label class="container">
-                          <input type="radio" id="priority_<?php echo ($bagsArray[$key]->serial); ?>" name="priority_<?php echo ($bagsArray[$key]->serial . '[]'); ?>" value="yellow">
-                          <span class="checkmark yellow"></span>
-                        </label></td>
-                      <td align='center'><label class="container">
-                          <input type="radio" id="priority_<?php echo ($bagsArray[$key]->serial); ?>" name="priority_<?php echo ($bagsArray[$key]->serial . '[]'); ?>" value="red">
-                          <span class="checkmark red"></span>
-                        </label></td>
-                      <td><input size="30px" type="text" id="serial" name="serial" value="<?php echo $bagsArray[$key]->serial; ?>" disabled /></td>
-                      <td><input type="text" id="creation_date" name="creation_date" value="<?php echo date('Y-m-d', $bagsArray[$key]->creationDate / 1000); ?>" disabled /></td>
-                      <td><input type="text" id="donator" name="donator" value="<?php echo $bagsArray[$key]->donator; ?>" disabled /></td>
-                      <td><input type="text" id="expiration_date" name="expiration_date" value="<?php echo date('Y-m-d', $bagsArray[$key]->expirationDate / 1000); ?>" disabled /></td>
-                      <td><input type="text" id="group" name="group" value="<?php echo $bagsArray[$key]->group; ?>" disabled /></td>
-                      <td><input type="text" id="notes" name="notes" value="<?php echo $bagsArray[$key]->notes; ?>" disabled /></td>
-                      <td><input type="text" id="state" name="state" value="<?php echo $bagsArray[$key]->state; ?>" disabled /></td>
-                    </tr>
-                  <?php
-                  }; ?>
-                </form>
-              </table>
-            </body>
-          </td>
+          <td align='center'><input type="checkbox" id="selected_bags" name="selected_bags[]" value="<?php echo ($bagsArray[$key]->serial); ?>"></td>
+          <td align='center'><label class="container">
+              <input type="radio" id="priority_<?php echo ($bagsArray[$key]->serial); ?>" name="priority_<?php echo ($bagsArray[$key]->serial) . '[]'; ?>" value="green" checked>
+              <span class="checkmark green"></span>
+            </label></td>
+          <td align='center'><label class="container">
+              <input type="radio" id="priority_<?php echo ($bagsArray[$key]->serial); ?>" name="priority_<?php echo ($bagsArray[$key]->serial . '[]'); ?>" value="yellow">
+              <span class="checkmark yellow"></span>
+            </label></td>
+          <td align='center'><label class="container">
+              <input type="radio" id="priority_<?php echo ($bagsArray[$key]->serial); ?>" name="priority_<?php echo ($bagsArray[$key]->serial . '[]'); ?>" value="red">
+              <span class="checkmark red"></span>
+            </label></td>
+          <td><input size="30px" type="text" id="serial" name="serial" value="<?php echo $bagsArray[$key]->serial; ?>" disabled /></td>
+          <td><input type="text" id="creation_date" name="creation_date" value="<?php echo date('Y-m-d', $bagsArray[$key]->creationDate / 1000); ?>" disabled /></td>
+          <td><input type="text" id="donator" name="donator" value="<?php echo $bagsArray[$key]->donator; ?>" disabled /></td>
+          <td><input type="text" id="expiration_date" name="expiration_date" value="<?php echo date('Y-m-d', $bagsArray[$key]->expirationDate / 1000); ?>" disabled /></td>
+          <td><input type="text" id="group" name="group" value="<?php echo $bagsArray[$key]->group; ?>" disabled /></td>
+          <td><input type="text" id="notes" name="notes" value="<?php echo $bagsArray[$key]->notes; ?>" disabled /></td>
+          <td><input type="text" id="state" name="state" value="<?php echo $bagsArray[$key]->state; ?>" disabled /></td>
         </tr>
+        <?php
+        }; ?>
       </table>
-    </body>
+    </fieldset>
   </div>
-  <!-- END: BloodBags viewer-->
+<!-- END: BloodBags viewer-->
 
-  <br /><br /><br />
-  <!-- START:   Officer Requests -->
-  <form action="#" method="POST">
-    <div align="center">
-
-      <body style="margin:0px;">
+<br /><br /><br />
+<!-- START:   Officer Requests -->
+<form action="#" method="POST">
+  <div align="center">
+    <fieldset>
         <table>
           <tr style="color:white;background-color:rgb(150, 145, 145);">
             <th>Richieste:</th>
@@ -236,10 +211,10 @@ function filter() {
           </tr>
         </table>
       </body>
-    </div>
-  </form>
-  <div>
-    <input type="button" id="report_button" name="report_button" value="Report" onclick=""; />
   </div>
-  <!-- END:  Officer Requests -->
+</form>
+<div>
+  <input type="button" id="report_button" name="report_button" value="Report" onclick="" ; />
+</div>
+<!-- END:  Officer Requests -->
 </fieldset>

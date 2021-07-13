@@ -11,36 +11,36 @@ $roles[5] = "ROLE_CENTRAL_OFFICER";
 @$token   = $_GET['token'];
 @$subpage = $_GET['subpage'];
 
-$arrayToken 		= explode(".", $token);
-$subtoken   		= $arrayToken['1'];
-$decodedToken 		= base64_decode($subtoken);
+$arrayToken     = explode(".", $token);
+$subtoken       = $arrayToken['1'];
+$decodedToken     = base64_decode($subtoken);
 
 
-$arrayTokenDecoded 	= (array) json_decode($decodedToken, true);
-$username 		= $arrayTokenDecoded['sub'];
+$arrayTokenDecoded   = (array) json_decode($decodedToken, true);
+$username     = $arrayTokenDecoded['sub'];
 /*
 $role			= array_keys($arrayTokenDecoded)[1];
 $roleValue		= $arrayTokenDecoded[				// value of role
 				array_keys($arrayTokenDecoded)[1]	// role
 		  	  ];
 */
-$role			= $arrayTokenDecoded['userRole'];
-$exp 			= $arrayTokenDecoded['exp'];
-$iat 			= $arrayTokenDecoded['iat'];
+$role      = $arrayTokenDecoded['userRole'];
+$exp       = $arrayTokenDecoded['exp'];
+$iat       = $arrayTokenDecoded['iat'];
 
-if(!isset($token) OR time()>$exp ) {
-    //header('WWW-Authenticate: Basic realm="My Realm"');
-    header('HTTP/1.0 401 Unauthorized');
-    echo 'HTTP/1.0 401 Unauthorized';
-    exit;
+if (!isset($token) or time() > $exp) {
+  //header('WWW-Authenticate: Basic realm="My Realm"');
+  header('HTTP/1.0 401 Unauthorized');
+  echo 'HTTP/1.0 401 Unauthorized';
+  exit;
 }
 
 // START: get current user profile to check if temppass is null
 $urlAPI = "http://localhost:8087/profile/get";
-$authorization = "Authorization: Bearer ".$token;
+$authorization = "Authorization: Bearer " . $token;
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
-curl_setopt($ch,CURLOPT_URL,$urlAPI);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
+curl_setopt($ch, CURLOPT_URL, $urlAPI);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
@@ -50,105 +50,107 @@ $profileObjc = (object) json_decode($result);
 // END: get current user profile to check if temppass is null
 ?>
 
-<!DOCTYPE HTML> 
+<!DOCTYPE HTML>
 <html>
- <head>
-   <title>CARE - Centro Accoglienza Regionale Ematica</title>
-   <script src="./js/XMLHTTPRequest.js"></script>
-   <script src="./js/profile.js"></script>
-   <script src="./js/http_request.js"></script>
-   <script src="./js/http_users.js"></script>
-   <script src="./js/http_localbloodbags.js"></script>
-   <script src="./js/http_centralbloodbags.js"></script>
-   <script src="./js/countdown.js"></script>
-   <link rel="stylesheet" href="./css/dashboard.css">
-  </head>
 
-  <body onload="javascript:document.getElementById('textarea_chatbroadcast_msgs').scrollTop=document.getElementById('textarea_chatbroadcast_msgs').scrollHeight">
+<head>
+  <title>CARE - Centro Accoglienza Regionale Ematica</title>
+  <script src="./js/XMLHTTPRequest.js"></script>
+  <script src="./js/profile.js"></script>
+  <script src="./js/http_request.js"></script>
+  <script src="./js/http_users.js"></script>
+  <script src="./js/http_localbloodbags.js"></script>
+  <script src="./js/http_centralbloodbags.js"></script>
+  <script src="./js/countdown.js"></script>
+  <link rel="stylesheet" href="./css/dashboard.css">
+</head>
 
-<?php
-echo("<br>" . "Ciao " . $username . "<br>");
-echo("il tuo ruolo è: " . $role );
-echo("<br>" . "Hai creato il token: ");
-echo date('l dS \o\f F Y h:i:s A', $iat);
-echo("<br>" . "Scadenza token: ");
-echo date('l dS \o\f F Y h:i:s A', $exp); echo("<br>");
+<body onload="javascript:document.getElementById('textarea_chatbroadcast_msgs').scrollTop=document.getElementById('textarea_chatbroadcast_msgs').scrollHeight">
 
-switch($role){
- case "ROLE_ADMINISTRATOR": 
-	echo("sono Admin Faccio quello che voglio");
-	break;
- case "ROLE_STOREMANAGER":
-	echo("Magazziniere");
-	break;
- case "ROLE_OFFICER":
-	echo("Segretaria");
-	break;
- case "ROLE_CENTRAL_ADMINISTRATOR":
-    echo("Amministratore centrale");
-    break;
- case "ROLE_CENTRAL_STOREMANAGER":
-    echo("Magazziniere centrale");
-    break;
- case "ROLE_CENTRAL_OFFICER":
-    echo("Segretaria centrale");
-    break;
- default:
-	echo("Unauthorized");
-	break;
-}
-?>
+  <?php
+  echo ("<br>" . "Ciao " . $username . "<br>");
+  echo ("il tuo ruolo è: " . $role);
+  echo ("<br>" . "Hai creato il token: ");
+  echo date('l dS \o\f F Y h:i:s A', $iat);
+  echo ("<br>" . "Scadenza token: ");
+  echo date('l dS \o\f F Y h:i:s A', $exp);
+  echo ("<br>");
 
-<div align="right">
- Token countdown:
- <script>
-  // Set the date we're counting down to
-  //var countDownDate = new Date("Jul 12, 2021 15:37:25").getTime();
-  //var countDownDate =new Date(1625215858 * 1000).getTime();
-  var countDownDate =new Date(<?php echo($exp); ?> * 1000).getTime();
- </script>
- <p id="countdown"></p>
-</div>
+  switch ($role) {
+    case "ROLE_ADMINISTRATOR":
+      echo ("sono Admin Faccio quello che voglio");
+      break;
+    case "ROLE_STOREMANAGER":
+      echo ("Magazziniere");
+      break;
+    case "ROLE_OFFICER":
+      echo ("Segretaria");
+      break;
+    case "ROLE_CENTRAL_ADMINISTRATOR":
+      echo ("Amministratore centrale");
+      break;
+    case "ROLE_CENTRAL_STOREMANAGER":
+      echo ("Magazziniere centrale");
+      break;
+    case "ROLE_CENTRAL_OFFICER":
+      echo ("Segretaria centrale");
+      break;
+    default:
+      echo ("Unauthorized");
+      break;
+  }
+  ?>
 
-    <div class="sidenav">
-        <div id="logo">
-            <img src="images\logo.png" alt="logo" width="30%" />
-        </div>
-	<?php
-	 switch($role){
-	   case "ROLE_ADMINISTRATOR": 	     
-	     include("./pages/administratormenu.inc.php");
-	     break;
-	   case "ROLE_STOREMANAGER":	     
-	     include("./pages/storemanagermenu.inc.php");
-	     break;
-	   case "ROLE_OFFICER":
-	     include("./pages/officermenu.inc.php");
-	     break;
-	   case "ROLE_CENTRAL_ADMINISTRATOR":
-	     include("./pages/centraladministrator_menu.inc.php");
-	     break;
-	   case "ROLE_CENTRAL_STOREMANAGER":
-	     include("./pages/centralstoremanagermenu.inc.php");
-	     break;
-	   case "ROLE_CENTRAL_OFFICER":
-	     include("./pages/centralofficer_menu.inc.php");
-	     break;
-	   default:
-	     echo("Unauthorized");
-	     break;
-	}
- 	?>
-        <hr>
-        <p>Next Version:</p>
-            <ul>
-                <li>Manage Patients</li>
-                <li>Manage Donators</li>
-            </ul>
-      </div>
+  <div align="right">
+    Token countdown:
+    <script>
+      // Set the date we're counting down to
+      //var countDownDate = new Date("Jul 12, 2021 15:37:25").getTime();
+      //var countDownDate =new Date(1625215858 * 1000).getTime();
+      var countDownDate = new Date(<?php echo ($exp); ?> * 1000).getTime();
+    </script>
+    <p id="countdown"></p>
+  </div>
 
-      <div class="main">
-           <!--
+  <div class="sidenav">
+    <div id="logo">
+      <img src="images\logo.png" alt="logo" width="30%" />
+    </div>
+    <?php
+    switch ($role) {
+      case "ROLE_ADMINISTRATOR":
+        include("./pages/administratormenu.inc.php");
+        break;
+      case "ROLE_STOREMANAGER":
+        include("./pages/storemanagermenu.inc.php");
+        break;
+      case "ROLE_OFFICER":
+        include("./pages/officermenu.inc.php");
+        break;
+      case "ROLE_CENTRAL_ADMINISTRATOR":
+        include("./pages/centraladministrator_menu.inc.php");
+        break;
+      case "ROLE_CENTRAL_STOREMANAGER":
+        include("./pages/centralstoremanagermenu.inc.php");
+        break;
+      case "ROLE_CENTRAL_OFFICER":
+        include("./pages/centralofficer_menu.inc.php");
+        break;
+      default:
+        echo ("Unauthorized");
+        break;
+    }
+    ?>
+    <hr>
+    <p>Next Version:</p>
+    <ul>
+      <li>Manage Patients</li>
+      <li>Manage Donators</li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <!--
         <div class="alert warningg">
             <span class="closebtn">&times;</span>  
             <strong>Warning!</strong> Stai per superare il quantitativo di scorta massima prevista per A+
@@ -176,43 +178,43 @@ switch($role){
           </div>
         -->
 
-	<?php
-         @$subpage = $_GET['subpage'];
-	 switch($role){
-	   case "ROLE_ADMINISTRATOR": 
-	     $allowed_pages 	= array("admin_users_manager", "admin_log_manager", "admin_node_manager", "profile"); // admin allowed pages
-	     break;
-	   case "ROLE_STOREMANAGER":
-	     $allowed_pages      = array("storemanagerdashboard", "storemanager_requests", "profile");
-	     break;
-	   case "ROLE_OFFICER":
-	     $allowed_pages 	= array("officerdashboard", "officer_personal_profile", "profile");
-	     break;
-	   case "ROLE_CENTRAL_ADMINISTRATOR":
-	     $allowed_pages 	= array("centraladministrator_dashboard", "profile");
-	     break;
-	   case "ROLE_CENTRAL_STOREMANAGER":
-             $allowed_pages 	= array("centralstoremanagerdashboard", "profile");
-	     break;
-	   case "ROLE_CENTRAL_OFFICER":
-	     $allowed_pages 	= array("centralofficer_dashboard", "profile");
-	     break;
-	   default:
-	     echo("Unauthorized");
-	     break;
-	}
- 	 if( in_array($subpage, $allowed_pages) ) {
-            if($profileObjc->temppass!="" OR $profileObjc->temppass != null) {
-             include("./pages/profile.inc.php");
-            } else {
-    	     include("./pages/" . $subpage . ".inc.php");
-            }
-         } else {
-	   echo('Accedi dal menù nella pagina a te concessa.'.$subpage);
-	 }
- 	?>
-       
-        <!-- START: BROADCAST CHAT 
+    <?php
+    @$subpage = $_GET['subpage'];
+    switch ($role) {
+      case "ROLE_ADMINISTRATOR":
+        $allowed_pages   = array("admin_users_manager", "admin_log_manager", "admin_node_manager", "profile"); // admin allowed pages
+        break;
+      case "ROLE_STOREMANAGER":
+        $allowed_pages      = array("storemanagerdashboard", "storemanager_requests", "profile");
+        break;
+      case "ROLE_OFFICER":
+        $allowed_pages   = array("officerdashboard", "officer_personal_profile", "profile");
+        break;
+      case "ROLE_CENTRAL_ADMINISTRATOR":
+        $allowed_pages   = array("centraladministrator_dashboard", "profile");
+        break;
+      case "ROLE_CENTRAL_STOREMANAGER":
+        $allowed_pages   = array("centralstoremanagerdashboard", "profile");
+        break;
+      case "ROLE_CENTRAL_OFFICER":
+        $allowed_pages   = array("centralofficer_dashboard", "profile");
+        break;
+      default:
+        echo ("Unauthorized");
+        break;
+    }
+    if (in_array($subpage, $allowed_pages)) {
+      if ($profileObjc->temppass != "" or $profileObjc->temppass != null) {
+        include("./pages/profile.inc.php");
+      } else {
+        include("./pages/" . $subpage . ".inc.php");
+      }
+    } else {
+      include("./pages/home.inc.php");
+    }
+    ?>
+
+    <!-- START: BROADCAST CHAT 
         <fieldset>
             <legend><img src="images\broadcastchat.png" width="10%"><a name="broadcastchat"><b> Broadcast Chat</b></a></legend>
             <textarea id="textarea_chatbroadcast_msgs" disabled>
@@ -240,20 +242,23 @@ switch($role){
             </form>
         </fieldset>
         END: BROADCAST CHAT -->
-      </div>
-      <script>
-        /* START: alert */
-        var close = document.getElementsByClassName("closebtn");
-        var i;
-        
-        for (i = 0; i < close.length; i++) {
-          close[i].onclick = function(){
-            var div = this.parentElement;
-            div.style.opacity = "0";
-            setTimeout(function(){ div.style.display = "none"; }, 600);
-          }
-        }
-        /* END: alert */
-    </script>
-  </body>
+  </div>
+  <script>
+    /* START: alert */
+    var close = document.getElementsByClassName("closebtn");
+    var i;
+
+    for (i = 0; i < close.length; i++) {
+      close[i].onclick = function() {
+        var div = this.parentElement;
+        div.style.opacity = "0";
+        setTimeout(function() {
+          div.style.display = "none";
+        }, 600);
+      }
+    }
+    /* END: alert */
+  </script>
+</body>
+
 </html>
