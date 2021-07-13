@@ -346,10 +346,7 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 	/**
 	 * counts all the blood bags expiring between a specific time interval, having a
 	 * specific blood group (timestamp)
-	 * 
-	 * @param firstdate  the first date
-	 * @param seconddate the second date
-	 * @param bloodgroup the blood group
+	 *
 	 * @return all blood bags expired between two dates of a specific blood group
 	 */
 	@GetMapping("bloodbag/report")
@@ -367,13 +364,30 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 				this.getCountExpiringBetweenDates(new Date().getTime() - Constants.SEVEN_DAYS_MILLIS,
 						new Date().getTime()),
 				this.getCountUsedAfterDate(new Date().getTime() - Constants.SEVEN_DAYS_MILLIS));
+
+		report.saveReport(this.getJSONObject(report).toJSONString());
 		
-		File file = new File("Report/report("+Constants.dateFormatFile.format(new Date())+").txt");
-		file.createNewFile();
-			
-		PrintStream ps = new PrintStream(file);
-		report.print(ps);
-		
+		return report;
+	}
+
+	private JSONObject getJSONObject(BloodBagReport reportObj){
+		JSONObject report = new JSONObject();
+		report.put("total",reportObj.getTotal());
+		report.put("available",reportObj.getAvailable());
+		report.put("used",reportObj.getUsed());
+		report.put("transfered",reportObj.getTransfered());
+		report.put("Apos",reportObj.getApos());
+		report.put("Aneg",reportObj.getAneg());
+		report.put("Bpos",reportObj.getBpos());
+		report.put("Bneg",reportObj.getBneg());
+		report.put("ZEROpos",reportObj.getZEROpos());
+		report.put("ZEROneg",reportObj.getZEROneg());
+		report.put("ABpos",reportObj.getABpos());
+		report.put("ABneg",reportObj.getABneg());
+		report.put("timestamp",reportObj.getTimestamp());
+		report.put("usedThisWeek",reportObj.getUsedThisWeek());
+		report.put("expiredThisWeek",reportObj.getExpiredThisWeek());
+
 		return report;
 	}
 

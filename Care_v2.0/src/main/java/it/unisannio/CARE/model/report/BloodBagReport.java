@@ -3,6 +3,9 @@ package it.unisannio.CARE.model.report;
 
 import org.json.simple.JSONObject;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Date;
 
@@ -352,7 +355,15 @@ public class BloodBagReport {
                 ", expiredThisWeek=" + expiredThisWeek +
                 '}';
     }
-    
+
+
+    public void saveReport(String report_in_json) throws IOException {
+        FileWriter fw = new FileWriter("logs/report.json");
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(report_in_json);
+        bw.newLine();
+        bw.close();
+    }
     
     public void print(PrintStream ps) {
     	
@@ -375,24 +386,4 @@ public class BloodBagReport {
     			);
     }
 
-    /*
-    public org.json.simple.JSONObject getJsonObject(){
-        JSONObject report = new JSONObject();
-        report.put("total",total);
-        report.put("available",available);
-        report.put("used",used);
-        report.put("transfered",transfered);
-        report.put("dropped",dropped);
-        report.put("Apos",Apos);
-        report.put("Aneg",Aneg);
-        report.put("Bpos",Bpos);
-        report.put("Bneg",Bneg);
-        report.put("ZEROpos",ZEROpos);
-        report.put("ZEROneg",ZEROneg);
-        report.put("ABpos",ABpos);
-        report.put("ABneg",ABneg);
-        report.put("timestamp",timestamp);
-
-        return report;
-    }*/
 }
