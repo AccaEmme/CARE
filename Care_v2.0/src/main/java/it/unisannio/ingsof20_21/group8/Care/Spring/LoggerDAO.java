@@ -20,7 +20,7 @@ public class LoggerDAO {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long idLog;
 
-    private long currentTimeStamp;
+    private long currentTimeStamp = (new Date()).getTime();
     private String currentUserUsername;
     private String fromClass;           //the calling class
     private String result;              //the response of the op
