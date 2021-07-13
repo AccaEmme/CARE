@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * management class reports on blood bags
@@ -366,15 +367,21 @@ public class BloodBagReport {
 
         fw = new FileWriter(Constants.BLOODBAG_REPORT_PATH_CSV);
         bw = new BufferedWriter(fw);
-        bw.write(this.getCSV());
+        bw.write(this.getCSV(true));
+        bw.newLine();
+        bw.close();
+
+        fw = new FileWriter(Constants.BLOODBAG_REPORT_PATH_TXT);
+        bw = new BufferedWriter(fw);
+        bw.write(this.toString());
         bw.newLine();
         bw.close();
     }
 
-    private String getCSV(){
+    private String getCSV(Boolean header){
         StringBuilder sb = new StringBuilder();
-        sb.append("total,available,transfered,dropped,Apos,Aneg,Bpos,Bneg,ZEROpos,ZEROneg,ABpos,ABneg,timestamp,usedThisWeek,expiredThisWeek");
-        sb.append("\n");
+        if (header)
+            sb.append("total,available,transfered,dropped,Apos,Aneg,Bpos,Bneg,ZEROpos,ZEROneg,ABpos,ABneg,timestamp,usedThisWeek,expiredThisWeek"+"\n");
         sb.append(this.total+",");
         sb.append(this.available+",");
         sb.append(this.transfered+",");
