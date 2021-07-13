@@ -44,7 +44,8 @@ public class Constants {
     public static final String TAG_DB 						= "db_mysql_dbname";
 
     public static final String DB_TABLE_BLOODBAGS 			= "Bloodbags";
-    public static final String BLOODBAG_REPORT_PATH         = "../webserver_apache/report/report.json";
+    public static final String BLOODBAG_REPORT_PATH_JSON     = "../webserver_apache/report/report.json";
+    public static final String BLOODBAG_REPORT_PATH_CSV     = "../webserver_apache/report/report.csv";
     private static final String COL_Serial 					= "serial";
     private static final String COL_GROUP 					= "bloodgroup";
     private static final String COL_creation 				= "creation";

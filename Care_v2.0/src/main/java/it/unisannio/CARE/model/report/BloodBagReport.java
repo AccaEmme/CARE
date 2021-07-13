@@ -2,7 +2,6 @@ package it.unisannio.CARE.model.report;
 
 
 import it.unisannio.CARE.model.util.Constants;
-import org.json.simple.JSONObject;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -359,11 +358,40 @@ public class BloodBagReport {
 
 
     public void saveReport(String report_in_json) throws IOException {
-        FileWriter fw = new FileWriter(Constants.BLOODBAG_REPORT_PATH);
+        FileWriter fw = new FileWriter(Constants.BLOODBAG_REPORT_PATH_JSON);
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write(report_in_json);
         bw.newLine();
         bw.close();
+
+        fw = new FileWriter(Constants.BLOODBAG_REPORT_PATH_CSV);
+        bw = new BufferedWriter(fw);
+        bw.write(this.getCSV());
+        bw.newLine();
+        bw.close();
+    }
+
+    public String getCSV(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("total,available,transfered,dropped,Apos,Aneg,Bpos,Bneg,ZEROpos,ZEROneg,ABpos,ABneg,timestamp,usedThisWeek,expiredThisWeek");
+        sb.append("\n");
+        sb.append(this.total+",");
+        sb.append(this.available+",");
+        sb.append(this.transfered+",");
+        sb.append(this.dropped+",");
+        sb.append(this.Apos+",");
+        sb.append(this.Aneg+",");
+        sb.append(this.Bpos+",");
+        sb.append(this.Bneg+",");
+        sb.append(this.ZEROpos+",");
+        sb.append(this.ZEROneg+",");
+        sb.append(this.ABpos+",");
+        sb.append(this.ABneg+",");
+        sb.append(this.timestamp+",");
+        sb.append(this.usedThisWeek+",");
+        sb.append(this.expiredThisWeek);
+
+        return sb.toString();
     }
     
     public void print(PrintStream ps) {
