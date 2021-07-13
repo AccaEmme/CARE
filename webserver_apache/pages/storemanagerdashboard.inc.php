@@ -4,7 +4,8 @@
 <!-- START: new user fields -->
 <fieldset>
     <legend><img src="images\Magazzino.png" width="10%"><a name="management"><b> MAGAZZINO </b></a><br><small>(Assegna seriale alla sacca e la aggiunge al magazzino CTT)</small></legend>
-    <table>
+   <center>  <table>
+         
         <tr>
             <td><select name="group" id="group" class="textcss">
                     <option>Apos</option>
@@ -26,7 +27,7 @@
                 <input type="button" value="CREA" class="myButton" onclick="addBloodBag(document.getElementById('addBloodBagURL').value, '<?php echo ($token); ?>', document.getElementById('group').value, document.getElementById('donator').value, document.getElementById('note').value);setTimeout(function () { location.reload(1); }, 1000)">
             </td>
         </tr>
-    </table>
+    </table></center>
 </fieldset>
 
 
@@ -35,7 +36,7 @@
     <legend><img src="images\Magazzino.png" width="10%"><a name="management"><b> IMPORT SACCHE </b></a><br><small>(Aggiungi sacche al magazzino CTT)</small></legend>
 
     <center>scannerizza il QR code della sacca premi il tasto "import sacca" per confermare</center>
-    <table>
+    <center><table>
         <tr>
             <td><input type="text" name="serial" id="serial" placeholder="seriale sacca" class="textcss" size="100" /></td>
 
@@ -44,7 +45,7 @@
                 <input type="button" value="IMPORT SACCA" class="myButton" onclick="addBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo ($token); ?>', document.getElementById('serial').value);/*setTimeout(function () { location.reload(1); }, 1000)*/">
             </td>
         </tr>
-    </table>
+    </table></center>
 
 
     <!- START: QRCODE Scanner Reader -->

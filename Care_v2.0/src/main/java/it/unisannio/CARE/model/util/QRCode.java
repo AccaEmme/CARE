@@ -28,8 +28,7 @@ public class QRCode {
         this.object = objectToWrite.toJSONString();
         this.identifier = objectToWrite.get("serial")
                 .toString()
-                .replaceAll("\\s+", "_")
-                .toLowerCase();
+                .replaceAll("\\s+", "_");
 
     }
 
@@ -37,8 +36,7 @@ public class QRCode {
     public QRCode(String objectToWrite, String identifier){
         this.object = objectToWrite;
         this.identifier = identifier
-                .replaceAll("\\s+", "_")
-                .toLowerCase();
+                .replaceAll("\\s+", "_");
     }
 
     //tested
@@ -46,16 +44,14 @@ public class QRCode {
         this.object = this.createBloodBagObject(objectToWrite).toJSONString();
         this.identifier = objectToWrite.getSerial()
                 .toString()
-                .replaceAll("\\s+", "_")
-                .toLowerCase();
+                .replaceAll("\\s+", "_");
     }
 
     //tested
     public QRCode(BloodBagDAO objectToWrite){
         this.object = this.createBloodBagObject(objectToWrite).toJSONString();
         this.identifier = objectToWrite.getSerial()
-                .replaceAll("\\s+", "_")
-                .toLowerCase();;
+                .replaceAll("\\s+", "_");
     }
 
 
