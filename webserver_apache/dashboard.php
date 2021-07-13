@@ -187,7 +187,7 @@ $profileObjc = (object) json_decode($result);
     @$subpage = $_GET['subpage'];
     switch ($role) {
       case "ROLE_ADMINISTRATOR":
-        $allowed_pages   = array("admin_users_manager", "admin_log_manager", "admin_node_manager", "profile"); // admin allowed pages
+        $allowed_pages   = array("admin_users_manager", "admin_log_manager", "admin_node_manager", "admin_report_manager", "profile"); // admin allowed pages
         break;
       case "ROLE_STOREMANAGER":
         $allowed_pages      = array("storemanagerdashboard", "storemanager_requests", "profile");

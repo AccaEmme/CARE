@@ -391,15 +391,6 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 		return report;
 	}
 
-	// not working
-	private void writeReport(JSONObject report) {
-		try {
-			FileWriter reportFile = new FileWriter("localsettings/BloodBagReports.txt");
-			reportFile.write(report.toJSONString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	// ############# POST ############
 	@PostMapping("/bloodbag/add/forced")

@@ -337,24 +337,24 @@ public class BloodBagReport {
      */
     @Override
     public String toString() {
-        return "BloodBagReport{" +
-                "total=" + total +
-                ", available=" + available +
-                ", used=" + used +
-                ", transfered=" + transfered +
-                ", dropped=" + dropped +
-                ", Apos=" + Apos +
-                ", Aneg=" + Aneg +
-                ", Bpos=" + Bpos +
-                ", Bneg=" + Bneg +
-                ", ZEROpos=" + ZEROpos +
-                ", ZEROneg=" + ZEROneg +
-                ", ABpos=" + ABpos +
-                ", ABneg=" + ABneg +
-                ", timestamp=" + timestamp +
-                ", usedThisWeek=" + usedThisWeek +
-                ", expiredThisWeek=" + expiredThisWeek +
-                '}';
+        return "BloodBagReport{" 
+                +"total=" 				+ total 
+                +", available=" 		+ available 
+                +", used=" 				+ used 
+                +", transfered=" 		+ transfered 
+                +", dropped=" 			+ dropped 
+                +", Apos=" 				+ Apos 
+                +", Aneg=" 				+ Aneg
+                +", Bpos=" 				+ Bpos 
+                +", Bneg=" 				+ Bneg 
+                +", ZEROpos=" 			+ ZEROpos 
+                +", ZEROneg=" 			+ ZEROneg 
+                +", ABpos=" 			+ ABpos 
+                +", ABneg=" 			+ ABneg 
+                +", timestamp=" 		+ timestamp 
+                +", usedThisWeek=" 		+ usedThisWeek 
+                +", expiredThisWeek="	+ expiredThisWeek 
+                +'}';
     }
 
 
