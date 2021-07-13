@@ -4,7 +4,7 @@
 
 <body>
   <div id="niceframe">
-    <fieldset class="nice_body">
+    <fieldset class="nice_field">
       <h1 class="welcome">Benvenuto in CARE</h1>
       <h3 class="details_welcome">centro accoglienza regionale ematica</h3>
     </fieldset>

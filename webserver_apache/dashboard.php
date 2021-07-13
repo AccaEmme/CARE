@@ -66,40 +66,45 @@ $profileObjc = (object) json_decode($result);
 </head>
 
 <body onload="javascript:document.getElementById('textarea_chatbroadcast_msgs').scrollTop=document.getElementById('textarea_chatbroadcast_msgs').scrollHeight">
+  <div align="center" class="upBar_div">
+    <legend class="upBar">
+      <label>
+        <?php
+        echo ("<br>" . "Ciao " . $username . "<br>");
+        echo ("il tuo ruolo è: " . $role);
+        echo ("<br>" . "Hai creato il token: ");
+        echo date('l dS \o\f F Y h:i:s A', $iat);
+        echo ("<br>" . "Scadenza token: ");
+        echo date('l dS \o\f F Y h:i:s A', $exp);
+        echo ("<br>");
 
-  <?php
-  echo ("<br>" . "Ciao " . $username . "<br>");
-  echo ("il tuo ruolo è: " . $role);
-  echo ("<br>" . "Hai creato il token: ");
-  echo date('l dS \o\f F Y h:i:s A', $iat);
-  echo ("<br>" . "Scadenza token: ");
-  echo date('l dS \o\f F Y h:i:s A', $exp);
-  echo ("<br>");
-
-  switch ($role) {
-    case "ROLE_ADMINISTRATOR":
-      echo ("sono Admin Faccio quello che voglio");
-      break;
-    case "ROLE_STOREMANAGER":
-      echo ("Magazziniere");
-      break;
-    case "ROLE_OFFICER":
-      echo ("Segretaria");
-      break;
-    case "ROLE_CENTRAL_ADMINISTRATOR":
-      echo ("Amministratore centrale");
-      break;
-    case "ROLE_CENTRAL_STOREMANAGER":
-      echo ("Magazziniere centrale");
-      break;
-    case "ROLE_CENTRAL_OFFICER":
-      echo ("Segretaria centrale");
-      break;
-    default:
-      echo ("Unauthorized");
-      break;
-  }
-  ?>
+        switch ($role) {
+          case "ROLE_ADMINISTRATOR":
+            echo ("ADMINISTRATOR");
+            break;
+          case "ROLE_STOREMANAGER":
+            echo ("STOREMANAGER");
+            break;
+          case "ROLE_OFFICER":
+            echo ("OFFICER");
+            break;
+          case "ROLE_CENTRAL_ADMINISTRATOR":
+            echo ("CENTRAL ADMINISTRATOR");
+            break;
+          case "ROLE_CENTRAL_STOREMANAGER":
+            echo ("CENTRAL STOREMANAGER");
+            break;
+          case "ROLE_CENTRAL_OFFICER":
+            echo ("CENTRAL OFFICER");
+            break;
+          default:
+            echo ("Unauthorized");
+            break;
+        }
+        ?>
+      </label>
+    </legend>
+  </div>
 
   <div align="right">
     Token countdown:

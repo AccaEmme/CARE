@@ -1,3 +1,28 @@
+fieldset {
+	background-color: aliceblue;
+}
+
+
+legend {
+	background-color: rgb(233, 10, 10);
+	color: rgb(242, 255, 0);
+	border: 1px solid #000000;
+	padding: 5px 10px;
+}
+
+.textcss {
+	padding: 5px;
+	font-size: 12px;
+	border-width: 4px;
+	border-color: #000000;
+	background-color: #FFFFFF;
+	color: #000000;
+	border-style: solid;
+	border-radius: 0px;
+	box-shadow: 0px 0px 5px rgba(66, 66, 66, .75);
+	text-shadow: 0px 0px 5px rgba(66, 66, 66, .75);
+}
+
 .myButton {
 	background-color: #44c767;
 	border-radius: 28px;
@@ -21,23 +46,6 @@
 	top: 1px;
 }
 
-.textcss {
-	padding: 5px;
-	font-size: 12px;
-	border-width: 4px;
-	border-color: #000000;
-	background-color: #FFFFFF;
-	color: #000000;
-	border-style: solid;
-	border-radius: 0px;
-	box-shadow: 0px 0px 5px rgba(66, 66, 66, .75);
-	text-shadow: 0px 0px 5px rgba(66, 66, 66, .75);
-}
-
-.css-input:focus {
-	outline: none;
-}
-
 .myButtonNeg {
 	background-color: #dd0000;
 	border-radius: 28px;
@@ -59,18 +67,6 @@
 .myButton:active {
 	position: relative;
 	top: 1px;
-}
-
-fieldset {
-	background-color: #10f8e13f;
-}
-
-legend {
-	p
-	background-color: rgb(233, 10, 10);
-	color: rgb(242, 255, 0);
-	border: 1px solid #000000;
-	padding: 5px 10px;
 }
 
 input {

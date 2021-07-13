@@ -129,7 +129,7 @@ public class RequestManager {
 						);
 
 		if(collection.findOneAndDelete(filter) == null)
-			throw new RequestNotFoundException("Richiesta non trovata o stato della richiesta diversa da \"pending\"...");
+			throw new RequestNotFoundException("Richiesta non trovata o stato della richiesta diversa da 'pending'...");
  
         
 	}
