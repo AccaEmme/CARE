@@ -371,7 +371,7 @@ public class BloodBagReport {
         bw.close();
     }
 
-    public String getCSV(){
+    private String getCSV(){
         StringBuilder sb = new StringBuilder();
         sb.append("total,available,transfered,dropped,Apos,Aneg,Bpos,Bneg,ZEROpos,ZEROneg,ABpos,ABneg,timestamp,usedThisWeek,expiredThisWeek");
         sb.append("\n");
