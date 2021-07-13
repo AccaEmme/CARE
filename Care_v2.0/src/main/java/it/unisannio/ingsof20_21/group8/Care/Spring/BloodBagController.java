@@ -347,7 +347,7 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 	 * counts all the blood bags expiring between a specific time interval, having a
 	 * specific blood group (timestamp)
 	 *
-	 * @return all blood bags expired between two dates of a specific blood group
+	 * @return the report
 	 */
 	@GetMapping("bloodbag/report")
 	public BloodBagReport getReport() throws IOException {
