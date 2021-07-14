@@ -84,7 +84,7 @@
     <center>
         <table>
             <tr>
-                <td align="center"><b>serialr</b></td>
+                <td align="center"><b>seriale</b></td>
                 <td align="center"><b>group</b></td>
                 <td align="center"><b>donator</b></td>
                 <td align="center"><b>creationDate</b></td>
