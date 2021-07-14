@@ -159,3 +159,128 @@
     </center>
 
     </fieldset>
+
+    <?php
+
+    $urlAPI = "http://localhost:8087/bloodbag/get/state/Available";
+    $authorization = "Authorization: Bearer " . $token;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
+    curl_setopt($ch, CURLOPT_URL, $urlAPI);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+
+    $bagArrayc = (array) json_decode($result);
+
+
+
+    ?>
+
+
+    <fieldset>
+    <legend><img src="images\Magazzino.png" width="10%"><a name="management"><b> MAGAZZINO CCS </b></a><br><small>(Sacche in magazzino)</small></legend>
+    <!-- campi tabella -->
+    <center>
+        <table>
+            <tr>
+                <td align="center"><b>seriale</b></td>
+                <td align="center"><b>group</b></td>
+                <td align="center"><b>donator</b></td>
+                <td align="center"><b>creationDate</b></td>
+                <td align="center"><b>expirationDate</b></td>
+                <td align="center"><b>state</b></td>
+                <td align="center"><b>notes</b></td>
+                <td align="center"><b>used</b></td>
+            </tr>
+
+            <!-- in php lancio solo il for in html riempo la tabella -->
+            <tr>
+
+
+                <!-- in php lancio solo il for in html riempo la tabella -->
+                <!-- in php lancio solo il for in html riempo la tabella -->
+                <?php foreach (array_keys($bagArrayc) as $key) { ?>
+                    <td><input type="text" class="textcss" name="id_<?php echo $bagArrayc[$key]->serial; ?>" value="<?php echo $bagArrayc[$key]->serial; ?>" size="40" disabled /></td>
+                    <td><input type="text" class="textcss" name="group_<?php echo $bagArrayc[$key]->serial; ?>" value="<?php echo $bagArrayc[$key]->group; ?>" disabled /></td>
+                    <td><input type="text" class="textcss" name="donator_<?php echo $bagArrayc[$key]->serial; ?>" value="<?php echo $bagArrayc[$key]->donator; ?>" disabled /></td>
+                    <td><input type="text" class="textcss" name="creationDate_<?php echo $bagArrayc[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArrayc[$key]->creationDate / 1000); ?>" disabled /></td>
+                    <td><input type="text" class="textcss" name="expirationDate_<?php echo $bagArrayc[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArrayc[$key]->expirationDate / 1000); ?>" disabled /></td>
+                    <td><input type="text" class="textcss" name="state_<?php echo $bagArrayc[$key]->serial; ?>" value="<?php echo $bagArrayc[$key]->state; ?>" disabled /></td>
+                    <td><input type="text" class="textcss" name="notes_<?php echo $bagArrayc[$key]->serial; ?>" value="<?php echo $bagArrayc[$key]->notes; ?>" disabled /></td>
+                    <td><input type="text" class="textcss" name="usedTimeStamp_<?php echo $bagArrayc[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArrayc[$key]->usedTimeStamp / 1000); ?>" disabled /></td>
+                
+            </tr>
+        <?php
+                }
+        ?>
+        </table>
+    </center>
+
+
+  </fieldset>
+
+    <?php
+
+$urlAPI = "http://localhost:8087/bloodbag/get/central";
+$authorization = "Authorization: Bearer " . $token;
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
+curl_setopt($ch, CURLOPT_URL, $urlAPI);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+$result = curl_exec($ch);
+curl_close($ch);
+
+
+$bagArraycr = (array) json_decode($result);
+
+
+
+?>
+
+
+<fieldset>
+<legend><img src="images\Magazzino.png" width="10%"><a name="management"><b> SACCHE ESPOSTE </b></a><br><small>(Sacche richiedibili dai ctt)</small></legend>
+<!-- campi tabella -->
+<center>
+    <table>
+        <tr>
+            <td align="center"><b>seriale</b></td>
+            <td align="center"><b>group</b></td>
+            <td align="center"><b>donator</b></td>
+            <td align="center"><b>creationDate</b></td>
+            <td align="center"><b>expirationDate</b></td>
+            <td align="center"><b>state</b></td>
+            <td align="center"><b>notes</b></td>
+            <td align="center"><b>used</b></td>
+        </tr>
+
+        <!-- in php lancio solo il for in html riempo la tabella -->
+        <tr>
+
+
+            <!-- in php lancio solo il for in html riempo la tabella -->
+            <!-- in php lancio solo il for in html riempo la tabella -->
+            <?php foreach (array_keys($bagArraycr) as $key) { ?>
+                <td><input type="text" class="textcss" name="id_<?php echo $bagArraycr[$key]->serial; ?>" value="<?php echo $bagArraycr[$key]->serial; ?>" size="40" disabled /></td>
+                <td><input type="text" class="textcss" name="group_<?php echo $bagArraycr[$key]->serial; ?>" value="<?php echo $bagArraycr[$key]->group; ?>" disabled /></td>
+                <td><input type="text" class="textcss" name="donator_<?php echo $bagArraycr[$key]->serial; ?>" value="<?php echo $bagArraycr[$key]->donator; ?>" disabled /></td>
+                <td><input type="text" class="textcss" name="creationDate_<?php echo $bagArraycr[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArraycr[$key]->creationDate / 1000); ?>" disabled /></td>
+                <td><input type="text" class="textcss" name="expirationDate_<?php echo $bagArraycr[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArraycr[$key]->expirationDate / 1000); ?>" disabled /></td>
+                <td><input type="text" class="textcss" name="state_<?php echo $bagArraycr[$key]->serial; ?>" value="<?php echo $bagArraycr[$key]->state; ?>" disabled /></td>
+                <td><input type="text" class="textcss" name="notes_<?php echo $bagArraycr[$key]->serial; ?>" value="<?php echo $bagArraycr[$key]->notes; ?>" disabled /></td>
+                <td><input type="text" class="textcss" name="usedTimeStamp_<?php echo $bagArraycr[$key]->serial; ?>" value="<?php echo date('Y-m-d', $bagArraycr[$key]->usedTimeStamp / 1000); ?>" disabled /></td>
+            
+        </tr>
+    <?php
+            }
+    ?>
+    </table>
+</center>
