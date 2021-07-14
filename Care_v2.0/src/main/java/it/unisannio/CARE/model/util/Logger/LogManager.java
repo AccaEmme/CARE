@@ -2,6 +2,7 @@ package it.unisannio.CARE.model.util.Logger;
 
 import it.unisannio.ingsof20_21.group8.Care.Spring.LoggerDAO;
 import it.unisannio.ingsof20_21.group8.Care.Spring.LoggerRepository;
+
 import org.json.simple.JSONObject;
 
 import java.io.File;

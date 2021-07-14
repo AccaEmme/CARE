@@ -1,4 +1,4 @@
-package it.unisannio.ingsof20_21.group8.Care.Spring;
+package it.unisannio.ingsof20_21.group8.Care.controller;
 
 import it.unisannio.CARE.model.bloodBag.BloodBagState;
 import it.unisannio.CARE.model.bloodBag.RequestState;
@@ -9,6 +9,9 @@ import it.unisannio.CARE.model.util.XMLHelper;
 import it.unisannio.CARE.modulep2p.P2PManager;
 import it.unisannio.CARE.modulep2p.RequestException;
 import it.unisannio.CARE.modulep2p.RequestType;
+import it.unisannio.ingsof20_21.group8.Care.Spring.RequestDAO;
+import it.unisannio.ingsof20_21.group8.Care.Spring.RequestRepository;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;

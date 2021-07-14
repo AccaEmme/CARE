@@ -1,4 +1,4 @@
-package it.unisannio.ingsof20_21.group8.Care.Spring;
+package it.unisannio.ingsof20_21.group8.Care.controller;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -41,6 +41,10 @@ import it.unisannio.CARE.model.util.Logger.Actions;
 import it.unisannio.CARE.model.util.Logger.LogManager;
 import it.unisannio.CARE.model.util.Logger.Results;
 import it.unisannio.CARE.modulep2p.Node.NodeIDs;
+import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagDAO;
+import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagRepository;
+import it.unisannio.ingsof20_21.group8.Care.Spring.LoggerDAO;
+import it.unisannio.ingsof20_21.group8.Care.Spring.LoggerRepository;
 import it.unisannio.CARE.modulep2p.P2PManager;
 
 /**

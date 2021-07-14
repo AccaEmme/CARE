@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.unisannio.ingsof20_21.group8.Care.Spring;
+package it.unisannio.ingsof20_21.group8.Care.controller;
 
 import java.util.Base64;
 import java.util.Date;
@@ -24,6 +24,8 @@ import it.unisannio.CARE.model.user.User;
 import it.unisannio.CARE.model.user.UsersStates;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.model.util.Password;
+import it.unisannio.ingsof20_21.group8.Care.Spring.UserDAO;
+import it.unisannio.ingsof20_21.group8.Care.Spring.UserRepository;
 
 
 @CrossOrigin("*")
