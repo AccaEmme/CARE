@@ -51,7 +51,7 @@ import it.unisannio.CARE.modulep2p.P2PManager;
 
 @Consumes("application/json")
 @Produces("application/json")
-public class BloodBagController /* implements ContainerResponseFilter */ {
+public class BloodBagController  {
 	private final BloodBagRepository bagRepository;
 	private final LoggerRepository logRepository;
 
@@ -61,18 +61,7 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 
 	}
 
-	/*
-	 * @Override public void filter(ContainerRequestContext requestContext,
-	 * ContainerResponseContext responseContext) throws IOException {
-	 * responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
-	 * responseContext.getHeaders().add("Access-Control-Allow-Headers",
-	 * "CSRF-Token, X-Requested-By, Authorization, Content-Type");
-	 * responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
-	 * responseContext.getHeaders().add("Access-Control-Allow-Methods",
-	 * "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-	 * 
-	 * }
-	 */
+
 
 	// ############# GET #############
 
@@ -233,163 +222,9 @@ public class BloodBagController /* implements ContainerResponseFilter */ {
 		return BloodGroup.canReceiveFrom(BloodGroup.valueOf(bean.getGroup()));
 	}
 
-	// ############# get count ###############
+	
 
-	/**
-	 * counts all the blood bags
-	 * 
-	 * @return the count of all bags
-	 */
-	@GetMapping("bloodbag/count/all")
-	public long getAllBagsCount() {
-		return bagRepository.countAll();
-	}
-
-	/**
-	 * counts the blood bags having a specific group
-	 * 
-	 * @return the count of all bags having the given blood group
-	 * @param group the blood group
-	 */
-	@GetMapping("bloodbag/count/group/{group}")
-	public long getCountByGroup(@PathVariable String group) {
-		return bagRepository.countByGroup(group);
-	}
-
-	/**
-	 * counts all the blood bags having a specific state
-	 * 
-	 * @return the count of all bags having the given state
-	 * @param state the given state
-	 */
-	@GetMapping("bloodbag/count/state/{state}")
-	public long getCountByState(@PathVariable String state) {
-		return bagRepository.countByState(state);
-	}
-
-	/**
-	 * counts all the blood bags expiring after a specific date (timestamp)
-	 * 
-	 * @return the count of all bags expired after the given date
-	 * @param timestamp the given time
-	 */
-	@GetMapping("bloodbag/count/expiring/after/{timestamp}")
-	public long getCountExpiringAfterDate(@PathVariable long timestamp) {
-		return bagRepository.countExpirationAfterDate(timestamp);
-	}
-
-	/**
-	 * counts all the blood bags used after a specific date (timestamp)
-	 * 
-	 * @return the count of all bags used after the given date
-	 * @param timestamp the given time
-	 */
-	@GetMapping("/bloodvag/count/used/after/{timestamp}")
-	public long getCountUsedAfterDate(@PathVariable long timestamp) {
-		return bagRepository.countUsedAfterDate(timestamp);
-	}
-
-	/**
-	 * counts all the blood bags expiring between a specific time interval
-	 * (timestamp)
-	 * 
-	 * @param firstDate  the first date
-	 * @param secondDate the second date
-	 * @return the count of the bags expiring between the two dates
-	 */
-
-	@GetMapping("/bloodbag/get/expiring/between/{firstdate}/{seconddate}")
-	public long getCountExpiringBetweenDates(@PathVariable long firstDate, @PathVariable long secondDate) {
-		return bagRepository.countUsedBetweenDates(firstDate, secondDate);
-	}
-
-	// ########### GET EXPIRING BEFORE/AFTER
-	/**
-	 * counts all the blood bags expiring before a specific time (timestamp)
-	 * 
-	 * @param timestamp the given date
-	 * @return all blood bags expired before a given date
-	 */
-	@GetMapping("bloodbag/expiring/before/{timestamp}")
-	public Iterable<BloodBagDAO> getBloodBagsExpiringBeforeDate(@PathVariable long timestamp) {
-		return bagRepository.findExpirationBeforeDate(timestamp);
-	}
-
-	/**
-	 * counts all the blood bags expiring after a specific time (timestamp)
-	 * 
-	 * @param timestamp the given date
-	 * @return all blood bags expired after a given date
-	 */
-	@GetMapping("bloodbag/expiring/after/{timestamp}")
-	public Iterable<BloodBagDAO> getBloodBagsExpiringAfterDate(@PathVariable long timestamp) {
-		return bagRepository.findExpirationAfterDate(timestamp);
-	}
-
-	/**
-	 * counts all the blood bags expiring between a specific time interval
-	 * (timestamp)
-	 * 
-	 * @param firstdate  the first date
-	 * @param seconddate the second date
-	 * @return all blood bags expired between the two dates
-	 */
-	@GetMapping("bloodbag/expiring/between/{firstdate}/{seconddate}")
-	public Iterable<BloodBagDAO> getBloodBagsExpiringBetweenDate(@PathVariable long firstdate,
-			@PathVariable long seconddate) {
-		if (firstdate > seconddate) {
-			return bagRepository.findExpirationBetweenDate(seconddate, firstdate);
-		}
-		return bagRepository.findExpirationBetweenDate(firstdate, seconddate);
-	}
-
-	/**
-	 * counts all the blood bags expiring between a specific time interval, having a
-	 * specific blood group (timestamp)
-	 *
-	 * @return the report
-	 */
-	@GetMapping("bloodbag/report")
-	public BloodBagReport getReport() throws IOException {
-		BloodBagReport report =  new BloodBagReport(this.getAllBagsCount(), this.getCountByState(BloodBagState.Available.toString()),
-				this.getCountByState(BloodBagState.Used.toString()),
-				this.getCountByState(BloodBagState.Transfered.toString()),
-				this.getCountByState(BloodBagState.Dropped.toString()),
-
-				this.getCountByGroup(BloodGroup.ABpos.toString()), this.getCountByGroup(BloodGroup.Aneg.toString()),
-				this.getCountByGroup(BloodGroup.Bpos.toString()), this.getCountByGroup(BloodGroup.Bneg.toString()),
-				this.getCountByGroup(BloodGroup.ZEROpos.toString()),
-				this.getCountByGroup(BloodGroup.ZEROneg.toString()), this.getCountByGroup(BloodGroup.ABpos.toString()),
-				this.getCountByGroup(BloodGroup.ABneg.toString()),
-				this.getCountExpiringBetweenDates(new Date().getTime() - Constants.SEVEN_DAYS_MILLIS,
-						new Date().getTime()),
-				this.getCountUsedAfterDate(new Date().getTime() - Constants.SEVEN_DAYS_MILLIS));
-
-		report.saveReport(this.getJSONObject(report).toJSONString());
-		
-		return report;
-	}
-
-	private JSONObject getJSONObject(BloodBagReport reportObj){
-		JSONObject report = new JSONObject();
-		report.put("total",reportObj.getTotal());
-		report.put("available",reportObj.getAvailable());
-		report.put("used",reportObj.getUsed());
-		report.put("transfered",reportObj.getTransfered());
-		report.put("Apos",reportObj.getApos());
-		report.put("Aneg",reportObj.getAneg());
-		report.put("Bpos",reportObj.getBpos());
-		report.put("Bneg",reportObj.getBneg());
-		report.put("ZEROpos",reportObj.getZEROpos());
-		report.put("ZEROneg",reportObj.getZEROneg());
-		report.put("ABpos",reportObj.getABpos());
-		report.put("ABneg",reportObj.getABneg());
-		report.put("timestamp",reportObj.getTimestamp());
-		report.put("usedThisWeek",reportObj.getUsedThisWeek());
-		report.put("expiredThisWeek",reportObj.getExpiredThisWeek());
-
-		return report;
-	}
+	
 
 
 	// ############# POST ############

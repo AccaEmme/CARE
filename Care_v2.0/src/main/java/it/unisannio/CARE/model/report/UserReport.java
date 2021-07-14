@@ -7,12 +7,18 @@
  */
 package it.unisannio.CARE.model.report;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
 /**
  * Class that contains all methods for user reporting
  */
 import java.util.Date;
 
-public class UserReport {
+import it.unisannio.CARE.model.util.Constants;
+
+public class UserReport implements Reportable{
     private long total;
     private long activeUsers;
     private long inactiveUsers;
@@ -25,6 +31,8 @@ public class UserReport {
     private long officers;
 
     private long timestamp;
+    
+    private String json;
 
     /**
       * Constructor method of the UseReport class
@@ -39,7 +47,8 @@ public class UserReport {
       * @param officers the officers
      */
     
-    public UserReport(long total, long activeUsers, long inactiveUsers, long loggedLast24Hours, long blockedBySystem, long deleted, long administrators, long storeManagers, long officers) {
+    public UserReport(long total, long activeUsers, long inactiveUsers, long loggedLast24Hours, long blockedBySystem, long deleted, 
+    		long administrators, long storeManagers, long officers) {
         this.total = total;
         this.activeUsers = activeUsers;
         this.inactiveUsers = inactiveUsers;
@@ -50,6 +59,88 @@ public class UserReport {
         this.storeManagers = storeManagers;
         this.officers = officers;
         this.timestamp = new Date().getTime();
+        
+        this.json=toJson(total,activeUsers,  inactiveUsers,loggedLast24Hours,
+        		blockedBySystem, 
+        		deleted,  administrators,storeManagers, officers);
+    }
+    public String toString() {
+        return "UserReport{" 
+                +"activeUsers=" 				+ activeUsers
+                +", inactiveUsers=" 		+ inactiveUsers 
+                +", loggedLast24Hours=" 				+loggedLast24Hours
+                +", blockedBySystem=" 		+ blockedBySystem
+                +", deleted=" 			+ deleted 
+                +", administrators=" 				+ administrators
+                +", storeManagers=" 				+ storeManagers
+                +", officers=" 				+ officers 
+                +'}';
+    }
+    
+    public String toJson(long total, long activeUsers, long inactiveUsers, long loggedLast24Hours, long blockedBySystem, long deleted, 
+    		long administrators, long storeManagers, long officers) {
+    
+        		return "UserReport{" 
+                +"activeUsers=" 				+ activeUsers
+                +", inactiveUsers=" 		+ inactiveUsers 
+                +", loggedLast24Hours=" 				+loggedLast24Hours
+                +", blockedBySystem=" 		+ blockedBySystem
+                +", deleted=" 			+ deleted 
+                +", administrators=" 				+ administrators
+                +", storeManagers=" 				+ storeManagers
+                +", officers=" 				+ officers 
+                +'}';
+    }
+    public void saveReport() throws IOException   {
+        FileWriter fw = new FileWriter(Constants.USER_REPORT_PATH_JSON);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(this.json);
+        bw.newLine();
+        bw.close();
+
+        fw = new FileWriter(Constants.USER_REPORT_PATH_CSV);
+        bw = new BufferedWriter(fw);
+        bw.write(this.getCSV(true));
+        bw.newLine();
+        bw.close();
+
+        fw = new FileWriter(Constants.USER_REPORT_PATH_TXT);
+        bw = new BufferedWriter(fw);
+        bw.write(this.toString());
+        bw.newLine();
+        bw.close();
+    }
+    
+    public String getCSV(Boolean header){
+        StringBuilder sb = new StringBuilder();
+        if (header)
+        sb.append("total,activeUsers,inactiveUsers,loggedLast24Hours,blockedBySystem,deleted,administrators,storeManagers,officers,timestamp"+"\n");
+        sb.append(this.total+",");
+        sb.append(this.activeUsers+",");
+        sb.append(this.activeUsers+",");
+        sb.append(this.loggedLast24Hours+",");
+        sb.append(this.blockedBySystem+",");
+        sb.append(this.deleted+",");
+        sb.append(this.administrators+",");
+        sb.append(this.storeManagers+",");
+        sb.append(this.officers+",");
+        sb.append(this.timestamp+",");
+
+        return sb.toString();
+    }
+public void print(PrintStream ps) {
+    	
+    	ps.println("Utenti totali: " + total + ";\n" +
+    			"activeUsers: " + activeUsers + ";\n" +
+    			"inactiveUsers: " + inactiveUsers + ";\n" +
+    			"loggedLast24Hours: " + loggedLast24Hours + ";\n" +
+    			"Utentibloccati dal sistema: " +blockedBySystem + ";\n" +
+    			"Utenti eliminati: " + deleted + ";\n" +
+    			"Administrator: " + administrators + ";\n" +
+    			"StoreManager: " + storeManagers + ";\n" +
+    			"Officer: " + officers + ";\n" +
+    			"timestamps: " + timestamp + ";\n" 
+    			);
     }
 
     /**

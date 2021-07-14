@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * management class reports on blood bags
  */
-public class BloodBagReport {
+public class BloodBagReport implements Reportable {
     private long total;
     private long available;
     private long used;
@@ -35,6 +35,8 @@ public class BloodBagReport {
 
     private long usedThisWeek;
     private long expiredThisWeek;
+    
+    private String json;
 
     
     /**
@@ -74,8 +76,125 @@ public class BloodBagReport {
         this.timestamp = new Date().getTime();
         this.usedThisWeek = usedThisWeek;
         this.expiredThisWeek = expiredThisWeek;
+        
+        this.json=toJson(total,available,  used, transfered,  dropped, 
+    		apos,  aneg,bpos, bneg,  ZEROpos, 
+    		ZEROneg,  ABpos,  ABneg,  usedThisWeek, expiredThisWeek);
+    } 
+    
+    /**
+     * TOSTRING method for returning all information of the BloodBagReport class
+     */
+    @Override
+    public String toString() {
+        return "BloodBagReport{" 
+                +"total=" 				+ total 
+                +", available=" 		+ available 
+                +", used=" 				+ used 
+                +", transfered=" 		+ transfered 
+                +", dropped=" 			+ dropped 
+                +", Apos=" 				+ Apos 
+                +", Aneg=" 				+ Aneg
+                +", Bpos=" 				+ Bpos 
+                +", Bneg=" 				+ Bneg 
+                +", ZEROpos=" 			+ ZEROpos 
+                +", ZEROneg=" 			+ ZEROneg 
+                +", ABpos=" 			+ ABpos 
+                +", ABneg=" 			+ ABneg 
+                +", timestamp=" 		+ timestamp 
+                +", usedThisWeek=" 		+ usedThisWeek 
+                +", expiredThisWeek="	+ expiredThisWeek 
+                +'}';
+    }
+    public String toJson(long total, long available, long used, long transfered, long dropped, 
+    		long apos, long aneg, long bpos, long bneg, long ZEROpos, 
+    		long ZEROneg, long ABpos, long ABneg, long usedThisWeek, long expiredThisWeek) {
+        return "BloodBagReport{" 
+                +"total=" 				+ total 
+                +", available=" 		+ available 
+                +", used=" 				+ used 
+                +", transfered=" 		+ transfered 
+                +", dropped=" 			+ dropped 
+                +", Apos=" 				+ Apos 
+                +", Aneg=" 				+ Aneg
+                +", Bpos=" 				+ Bpos 
+                +", Bneg=" 				+ Bneg 
+                +", ZEROpos=" 			+ ZEROpos 
+                +", ZEROneg=" 			+ ZEROneg 
+                +", ABpos=" 			+ ABpos 
+                +", ABneg=" 			+ ABneg 
+                +", timestamp=" 		+ timestamp 
+                +", usedThisWeek=" 		+ usedThisWeek 
+                +", expiredThisWeek="	+ expiredThisWeek 
+                +'}';
     }
 
+    	public void saveReport() throws IOException   {
+        FileWriter fw = new FileWriter(Constants.BLOODBAG_REPORT_PATH_JSON);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(this.json);
+        bw.newLine();
+        bw.close();
+
+        fw = new FileWriter(Constants.BLOODBAG_REPORT_PATH_CSV);
+        bw = new BufferedWriter(fw);
+        bw.write(this.getCSV(true));
+        bw.newLine();
+        bw.close();
+
+        fw = new FileWriter(Constants.BLOODBAG_REPORT_PATH_TXT);
+        bw = new BufferedWriter(fw);
+        bw.write(this.toString());
+        bw.newLine();
+        bw.close();
+    }
+
+    public String getCSV(Boolean header){
+        StringBuilder sb = new StringBuilder();
+        if (header)
+            sb.append("total,available,transfered,dropped,Apos,Aneg,Bpos,Bneg,ZEROpos,ZEROneg,ABpos,ABneg,timestamp,usedThisWeek,expiredThisWeek"+"\n");
+        sb.append(this.total+",");
+        sb.append(this.available+",");
+        sb.append(this.transfered+",");
+        sb.append(this.dropped+",");
+        sb.append(this.Apos+",");
+        sb.append(this.Aneg+",");
+        sb.append(this.Bpos+",");
+        sb.append(this.Bneg+",");
+        sb.append(this.ZEROpos+",");
+        sb.append(this.ZEROneg+",");
+        sb.append(this.ABpos+",");
+        sb.append(this.ABneg+",");
+        sb.append(this.timestamp+",");
+        sb.append(this.usedThisWeek+",");
+        sb.append(this.expiredThisWeek);
+
+        return sb.toString();
+    }
+    
+    public void print(PrintStream ps) {
+    	
+    	ps.println("Sacche totali: " + total + ";\n" +
+    			"Sacche disponibili: " + available + ";\n" +
+    			"Sacche usate: " + used + ";\n" +
+    			"Sacche trasferite: " + transfered + ";\n" +
+    			"Sacche cestinate: " + dropped + ";\n" +
+    			"Apos: " + Apos + ";\n" +
+    			"Aneg: " + Aneg + ";\n" +
+    			"Bpos: " + Bpos + ";\n" +
+    			"Bneg: " + Bneg + ";\n" +
+    			"ZEROpos: " + ZEROpos + ";\n" +
+    			"ZEROneg: " + ZEROneg + ";\n" +
+    			"ABpos: " + ABpos + ";\n" +
+    			"ABneg: " + ABneg + ";\n" +
+    			"Timestamp: " + timestamp + ";\n" +
+    			"Sacche usate in questa settimana: " + usedThisWeek + ";\n" +
+    			"Sacche scadute in questa settimana: " + expiredThisWeek + ";\n"
+    			);
+    }
+    public void report(){
+    	
+    }
     /**
       * GET method to return the total of the bags
       * @return returns the total of bags in long format
@@ -332,94 +451,6 @@ public class BloodBagReport {
         this.expiredThisWeek = expiredThisWeek;
     }
 
-    /**
-     * TOSTRING method for returning all information of the BloodBagReport class
-     */
-    @Override
-    public String toString() {
-        return "BloodBagReport{" 
-                +"total=" 				+ total 
-                +", available=" 		+ available 
-                +", used=" 				+ used 
-                +", transfered=" 		+ transfered 
-                +", dropped=" 			+ dropped 
-                +", Apos=" 				+ Apos 
-                +", Aneg=" 				+ Aneg
-                +", Bpos=" 				+ Bpos 
-                +", Bneg=" 				+ Bneg 
-                +", ZEROpos=" 			+ ZEROpos 
-                +", ZEROneg=" 			+ ZEROneg 
-                +", ABpos=" 			+ ABpos 
-                +", ABneg=" 			+ ABneg 
-                +", timestamp=" 		+ timestamp 
-                +", usedThisWeek=" 		+ usedThisWeek 
-                +", expiredThisWeek="	+ expiredThisWeek 
-                +'}';
-    }
-
-
-    public void saveReport(String report_in_json) throws IOException {
-        FileWriter fw = new FileWriter(Constants.BLOODBAG_REPORT_PATH_JSON);
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(report_in_json);
-        bw.newLine();
-        bw.close();
-
-        fw = new FileWriter(Constants.BLOODBAG_REPORT_PATH_CSV);
-        bw = new BufferedWriter(fw);
-        bw.write(this.getCSV(true));
-        bw.newLine();
-        bw.close();
-
-        fw = new FileWriter(Constants.BLOODBAG_REPORT_PATH_TXT);
-        bw = new BufferedWriter(fw);
-        bw.write(this.toString());
-        bw.newLine();
-        bw.close();
-    }
-
-    private String getCSV(Boolean header){
-        StringBuilder sb = new StringBuilder();
-        if (header)
-            sb.append("total,available,transfered,dropped,Apos,Aneg,Bpos,Bneg,ZEROpos,ZEROneg,ABpos,ABneg,timestamp,usedThisWeek,expiredThisWeek"+"\n");
-        sb.append(this.total+",");
-        sb.append(this.available+",");
-        sb.append(this.transfered+",");
-        sb.append(this.dropped+",");
-        sb.append(this.Apos+",");
-        sb.append(this.Aneg+",");
-        sb.append(this.Bpos+",");
-        sb.append(this.Bneg+",");
-        sb.append(this.ZEROpos+",");
-        sb.append(this.ZEROneg+",");
-        sb.append(this.ABpos+",");
-        sb.append(this.ABneg+",");
-        sb.append(this.timestamp+",");
-        sb.append(this.usedThisWeek+",");
-        sb.append(this.expiredThisWeek);
-
-        return sb.toString();
-    }
-    
-    public void print(PrintStream ps) {
-    	
-    	ps.println("Sacche totali: " + total + ";\n" +
-    			"Sacche disponibili: " + available + ";\n" +
-    			"Sacche usate: " + used + ";\n" +
-    			"Sacche trasferite: " + transfered + ";\n" +
-    			"Sacche cestinate: " + dropped + ";\n" +
-    			"Apos: " + Apos + ";\n" +
-    			"Aneg: " + Aneg + ";\n" +
-    			"Bpos: " + Bpos + ";\n" +
-    			"Bneg: " + Bneg + ";\n" +
-    			"ZEROpos: " + ZEROpos + ";\n" +
-    			"ZEROneg: " + ZEROneg + ";\n" +
-    			"ABpos: " + ABpos + ";\n" +
-    			"ABneg: " + ABneg + ";\n" +
-    			"Timestamp: " + timestamp + ";\n" +
-    			"Sacche usate in questa settimana: " + usedThisWeek + ";\n" +
-    			"Sacche scadute in questa settimana: " + expiredThisWeek + ";\n"
-    			);
-    }
+   
 
 }
