@@ -11,6 +11,7 @@ import it.unisannio.CARE.model.util.Password;
 import it.unisannio.CARE.model.util.QRCode;
 import it.unisannio.ingsof20_21.group8.Care.Spring.BloodBagDAO;
 import it.unisannio.ingsof20_21.group8.Care.Spring.UserDAO;
+
 import org.json.simple.JSONObject;
 import org.junit.Test;
 

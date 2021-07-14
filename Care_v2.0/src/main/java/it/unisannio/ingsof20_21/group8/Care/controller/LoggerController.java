@@ -5,10 +5,12 @@
  * JDK: 1.8
  * @version 1.0
  */
-package it.unisannio.ingsof20_21.group8.Care.Spring;
+package it.unisannio.ingsof20_21.group8.Care.controller;
 
 
 import it.unisannio.CARE.model.util.Constants;
+import it.unisannio.ingsof20_21.group8.Care.Spring.LoggerDAO;
+import it.unisannio.ingsof20_21.group8.Care.Spring.LoggerRepository;
 
 import org.springframework.web.bind.annotation.*;
 

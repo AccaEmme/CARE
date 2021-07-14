@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * used to specify the p2p requests queries
  */
+@Repository
 public interface RequestRepository extends JpaRepository<RequestDAO, Long> {
 
     /**

@@ -5,6 +5,7 @@ import it.unisannio.CARE.model.bloodBag.BloodBagState;
 import it.unisannio.CARE.model.bloodBag.BloodGroup;
 import it.unisannio.CARE.model.util.QRCode;
 import it.unisannio.ingsof20_21.group8.Care.Spring.UserDAO;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;

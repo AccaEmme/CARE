@@ -1,4 +1,4 @@
-package it.unisannio.ingsof20_21.group8.Care.Spring;
+package it.unisannio.ingsof20_21.group8.Care.controller;
 
 import java.io.IOException;
 import java.util.Date;
@@ -24,6 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 import it.unisannio.CARE.model.util.Constants;
 import it.unisannio.CARE.spring.bean.AuthenticationRequestBean;
 import it.unisannio.CARE.spring.bean.AuthenticationResponseBean;
+import it.unisannio.ingsof20_21.group8.Care.Spring.AuthenticationRepository;
+import it.unisannio.ingsof20_21.group8.Care.Spring.CustomUserDetailsService;
+import it.unisannio.ingsof20_21.group8.Care.Spring.JwtUtil;
+import it.unisannio.ingsof20_21.group8.Care.Spring.UserDAO;
 
 
 
