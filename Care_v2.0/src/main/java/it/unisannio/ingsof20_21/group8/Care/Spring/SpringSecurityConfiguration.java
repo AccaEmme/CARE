@@ -51,7 +51,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 		return super.authenticationManagerBean();
 	}
 	
-	/*/hello admin --> puo farlo solo admin e devo fare prima una register poi un authenticate*/
+
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {

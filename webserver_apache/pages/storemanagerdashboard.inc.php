@@ -24,7 +24,7 @@
 
             <td>
                 <input type="text" name="addBloodBagURL" id="addBloodBagURL" value="http://localhost:8087/bloodbag/add" hidden="yes" />
-                <input type="button" value="CREA" class="myButton" onclick="addBloodBag(document.getElementById('addBloodBagURL').value, '<?php echo ($token); ?>', document.getElementById('group').value, document.getElementById('donator').value, document.getElementById('note').value);setTimeout(function () { location.reload(1); }, 1000)">
+                <input type="button" value="CREA" class="myButton" onclick="addBloodBag(document.getElementById('addBloodBagURL').value, '<?php echo ($token); ?>', document.getElementById('group').value, document.getElementById('donator').value, document.getElementById('note').value);setTimeout(function () { location.reload(1); }, 3000)">
             </td>
         </tr>
     </table></center>
@@ -114,7 +114,7 @@ $bagArray = (array) json_decode($result);
         <center>
             <table>
                 <tr>
-                    <td align="center"><b>serial</b></td>
+                    <td align="center"><b>seriale</b></td>
                     <td align="center"><b>group</b></td>
                     <td align="center"><b>donator</b></td>
                     <td align="center"><b>creationDate</b></td>
