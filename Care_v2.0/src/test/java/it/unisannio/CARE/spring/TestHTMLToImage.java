@@ -1,5 +1,6 @@
 package it.unisannio.CARE.spring;
 
+import it.unisannio.CARE.model.util.Constants;
 import org.junit.Test;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
@@ -26,6 +27,7 @@ public class TestHTMLToImage {
     @Test
     public void testGenerate() throws IOException {
         String imageSource = "https://i.imgur.com/fFVTdb8.png";
+        String bloodGroup = Constants.DEFAULT_NOT_AVAILABLE;
         String html = "<html>\n" +
                 " <head>\n" +
                 "  <title>Etichetta Sacca</title>\n" +
@@ -44,7 +46,7 @@ public class TestHTMLToImage {
                 "        <td>logo</td>\n" +
                 "      </tr>\n" +
                 "      <tr colspan=\"2\">\n" +
-                "        <td>gruppo sanguigno</td>\n" +
+                "        <td>"+bloodGroup+"</td>\n" +
                 "      </tr>\n" +
                 "    </table>\n" +
                 "  </td>\n" +

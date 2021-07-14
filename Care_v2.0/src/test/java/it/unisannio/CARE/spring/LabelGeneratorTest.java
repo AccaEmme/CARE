@@ -8,10 +8,11 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class LabelGeneratorTest {
     @Test
-    public void testGenerateHTMLImage() throws IOException {
+    public void testGenerateHTMLImage() throws IOException, InterruptedException {
         BloodBagDAO dao = new BloodBagDAO();
         dao.setSerial("IT-AV201000-ANEG-20210713-0000");
         dao.setCreationDate(new Date().getTime());
@@ -19,6 +20,7 @@ public class LabelGeneratorTest {
         dao.setGroup(BloodGroup.ABneg.toString());
 
         LabelGenerator labelGenerator = new LabelGenerator(dao);
-        labelGenerator.renderHTML();
+
+        labelGenerator.createLabel();
     }
 }

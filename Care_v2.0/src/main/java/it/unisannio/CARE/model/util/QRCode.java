@@ -23,6 +23,7 @@ public class QRCode {
     String identifier;
     String save_path = Constants.QR_CODES_SAVE_PATH;
 
+    private long customTimestamp = 0;
     //tested
     public QRCode(JSONObject objectToWrite){
         this.object = objectToWrite.toJSONString();
@@ -30,6 +31,13 @@ public class QRCode {
                 .toString()
                 .replaceAll("\\s+", "_");
 
+    }
+    public QRCode(JSONObject objectToWrite, long customTimestamp){
+        this.object = objectToWrite.toJSONString();
+        this.identifier = objectToWrite.get("serial")
+                .toString()
+                .replaceAll("\\s+", "_");
+        this.customTimestamp = customTimestamp;
     }
 
     //tested
@@ -102,7 +110,11 @@ public class QRCode {
     public void createQRCode(){
         try {
             String qrCodeData = object;
-            String filePath = this.save_path+identifier+"_"+new Date().getTime() +".png";
+            String filePath;
+            if (this.customTimestamp!=0)
+                filePath = this.save_path+identifier+"_"+this.customTimestamp +".png";
+            else filePath = this.save_path+identifier+"_"+new Date().getTime() +".png";
+
             String charset = "UTF-8"; // or "ISO-8859-1"
             Map < EncodeHintType, ErrorCorrectionLevel > hintMap = new HashMap < EncodeHintType, ErrorCorrectionLevel > ();
             hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);

@@ -18,6 +18,7 @@ public class Constants {
     public static final String DATE_FORMAT_STRING 			= "yyyy-MM-dd";
     public static final SimpleDateFormat dateFormatString 	= new SimpleDateFormat(DATE_FORMAT_STRING);
     public static final SimpleDateFormat dateFormatFile 	= new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+    public static final String DEFAULT_NOT_AVAILABLE        = "not available.";
     
     //#################################################### Serial Strings ####################################################
     public static final String SERIAL_SETTINGS_RELATIVEPATH = "localsettings/";
