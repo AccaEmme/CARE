@@ -283,18 +283,16 @@ public class BloodBagController  {
 						"/bloodbag/add");
 			}
 
-			/*JSONObject object = new JSONObject();
+			/*
+			old code
+			JSONObject object = new JSONObject();
+
 			object.put("serial", bagDAO.getSerial());
 
 			QRCode code = new QRCode(object);
 
 			code.createQRCode();*/
 
-			BloodBagDAO dao = new BloodBagDAO();
-			dao.setSerial(bagDAO.getSerial());
-			dao.setCreationDate(new Date().getTime());
-			dao.setExpirationDate(new Date().getTime()+ Constants.SEVEN_DAYS_MILLIS);
-			dao.setGroup(bagDAO.getGroup());
 
 			LabelGenerator labelGenerator = new LabelGenerator(bagDAO);
 			labelGenerator.createLabel();

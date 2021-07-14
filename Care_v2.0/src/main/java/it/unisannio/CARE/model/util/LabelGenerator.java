@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -82,6 +83,10 @@ public class LabelGenerator {
     }
 
     private void renderHTML() throws IOException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String creationStr = format.format(new Date(this.creationDate));
+        String expirationStr = format.format(new Date(this.expirationDate));
+
         String htmlBody = "<p>&nbsp;</p>\n" +
                 "<table style=\"border-collapse: collapse; width: 100.3%; height: 383px;\" border=\"1\">\n" +
                 "<tbody>\n" +
@@ -101,9 +106,9 @@ public class LabelGenerator {
                 "<p style=\"text-align: center;\">"+this.serial+"</p>\n" +
                 "</td>\n" +
                 "<td style=\"width: 57.0644%; height: 169px; text-align: center;\">\n" +
-                "<h2><span style=\"color: #ff0000;\">"+this.bloodGroup+"</span></h2>\n" +
+                "<h2><span style=\"color: #ff0000;\">Blood Group</span></h2>\n" +
                 "<h2>&nbsp;</h2>\n" +
-                "<h2>ZEROpos</h2>\n" +
+                "<h2>"+this.bloodGroup+"</h2>\n" +
                 "<p>------------------------------</p>\n" +
                 "</td>\n" +
                 "</tr>\n" +
@@ -111,12 +116,12 @@ public class LabelGenerator {
                 "<td style=\"width: 61.7699%; height: 214px;\">\n" +
                 "<h2 style=\"text-align: center;\">Creation Date</h2>\n" +
                 "<p style=\"text-align: center;\">&nbsp;"+this.creationDate+"</p>\n" +
-                "<p style=\"text-align: center;\">datahuman</p>\n" +
+                "<p style=\"text-align: center;\">"+creationStr+"</p>\n" +
                 "</td>\n" +
                 "<td style=\"width: 57.0644%; height: 214px;\">\n" +
                 "<h2 style=\"text-align: center;\">Expiration Date</h2>\n" +
                 "<p style=\"text-align: center;\">"+this.expirationDate+"&nbsp;</p>\n" +
-                "<p style=\"text-align: center;\">datahuman</p>\n" +
+                "<p style=\"text-align: center;\">"+expirationStr+"</p>\n" +
                 "</td>\n" +
                 "</tr>\n" +
                 "</tbody>\n" +
