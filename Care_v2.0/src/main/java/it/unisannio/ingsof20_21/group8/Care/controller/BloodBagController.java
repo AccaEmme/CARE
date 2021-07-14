@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 
+import it.unisannio.CARE.model.util.LabelGenerator;
 import it.unisannio.CARE.model.util.XMLHelper;
 import org.bson.Document;
 import org.json.simple.JSONArray;
@@ -246,7 +247,7 @@ public class BloodBagController  {
 	 */
 	@SuppressWarnings("deprecation")
 	@PostMapping("/bloodbag/add")
-	public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagDAO) throws IOException {
+	public BloodBagDAO createBloodBag(@RequestBody BloodBagDAO bagDAO) throws IOException, InterruptedException {
 		long id = new Date().getTime(); // soluzione "lazy"
 		LoggerDAO loggerDAO = new LoggerDAO();
 		loggerDAO.setIdLog(id);
@@ -282,12 +283,21 @@ public class BloodBagController  {
 						"/bloodbag/add");
 			}
 
-			JSONObject object = new JSONObject();
+			/*JSONObject object = new JSONObject();
 			object.put("serial", bagDAO.getSerial());
 
 			QRCode code = new QRCode(object);
 
-			code.createQRCode();
+			code.createQRCode();*/
+
+			BloodBagDAO dao = new BloodBagDAO();
+			dao.setSerial(bagDAO.getSerial());
+			dao.setCreationDate(new Date().getTime());
+			dao.setExpirationDate(new Date().getTime()+ Constants.SEVEN_DAYS_MILLIS);
+			dao.setGroup(bagDAO.getGroup());
+
+			LabelGenerator labelGenerator = new LabelGenerator(bagDAO);
+			labelGenerator.createLabel();
 
 			loggerDAO.setResult(Results.OPERATION_SUCCESSFUL.toString());
 			it.unisannio.CARE.model.util.Logger.LogManager logManager = new LogManager(loggerDAO);

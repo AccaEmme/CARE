@@ -62,11 +62,11 @@ public class LabelGenerator {
 
         g.dispose();
 
-        JFrame f = new JFrame();
+        /*JFrame f = new JFrame();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.getContentPane().add(new JLabel(new ImageIcon(im)));
         f.pack();
-        f.setVisible(true);
+        f.setVisible(true);*/
 
 
         ImageIO.write(im, "png", new File("Labels/"+this.serial+"-"+this.timestamp+".png"));
@@ -124,9 +124,10 @@ public class LabelGenerator {
 
         int width = 450, height = 600;
 
-        BufferedImage image = GraphicsEnvironment.getLocalGraphicsEnvironment()
+        /*BufferedImage image = GraphicsEnvironment.getLocalGraphicsEnvironment()
                 .getDefaultScreenDevice().getDefaultConfiguration()
-                .createCompatibleImage(width, height);
+                .createCompatibleImage(width, height);*/
+        BufferedImage image = new BufferedImage(450, 600, BufferedImage.TYPE_INT_RGB);
 
         Graphics graphics = image.createGraphics();
 
