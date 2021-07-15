@@ -202,8 +202,4 @@
       </table>
     </fieldset>
   </div>
-
-  <div>
-    <input type="button" class="myButton" id="report_button" name="report_button" value="Report" onclick="" ; />
-  </div>
   <!-- END:  Officer Requests -->

@@ -1,7 +1,7 @@
 <?php $currenturl='http://'.apache_getenv("HTTP_HOST") . apache_getenv("REQUEST_URI"); ?>
        <img src="images\magazzino.png" weight="3%" height="3%" /><a href="<?php echo($currenturl . '&subpage=admin_users_manager'); ?>">Gestione utenti</a><br />
-       <img src="images\scadenza.png" weight="3%" height="3%" /><a href="<?php echo($currenturl . '&subpage=admin_log_manager'); ?>">Gestione Log</a><br />
-       <img src="images\scadenza.png" weight="3%" height="3%" /><a href="<?php echo($currenturl . '&subpage=admin_node_manager'); ?>">Gestione Nodo</a><br />
-       <img src="images\scadenza.png" weight="3%" height="3%" /><a href="<?php echo($currenturl . '&subpage=admin_report_manager'); ?>">Report</a><br />
-       <img src="images\scadenza.png" weight="3%" height="3%" /><a href="<?php echo($currenturl . '&subpage=profile&username='.$username); ?>">Profilo</a><br />
-       <img src="images\scadenza.png" weight="3%" height="3%" /><a href="./logout.php">Logout (<?php echo($username); ?>)</a><br />
+<!--       <img src="images\scadenza.png" weight="3%" height="3%" /><a href="<?php echo($currenturl . '&subpage=admin_log_manager'); ?>">Gestione Log</a><br />
+       <img src="images\scadenza.png" weight="3%" height="3%" /><a href="<?php echo($currenturl . '&subpage=admin_node_manager'); ?>">Gestione Nodo</a><br /> -->
+       <img src="images\dashboard.png" weight="3%" height="3%" /><a href="<?php echo($currenturl . '&subpage=admin_report_manager'); ?>">Report</a><br />
+       <img src="images\icon-settings.png" weight="3%" height="3%" /><a href="<?php echo($currenturl . '&subpage=profile&username='.$username); ?>">Profilo</a><br />
+       <img src="images\exit.png" weight="3%" height="3%" /><a href="./logout.php">Logout (<?php echo($username); ?>)</a><br />
