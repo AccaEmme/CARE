@@ -136,13 +136,13 @@ function HTTPPatch(url, token, jsonBodyString, mex){
     };
 }
 
-
+  
 
 //=================Method:POST
 function login(){
 	event.preventDefault();
 	let url;
-        var ok=0;
+        
 
 	url = 'http://localhost:8087/authenticate';
 	let request = new XMLHttpRequest();   // new HttpRequest instance
@@ -152,18 +152,27 @@ function login(){
 
 	request.open("POST", url, true);
 	request.setRequestHeader("content-type", "application/json");
-	request.send(JSON.stringify({"username": username, "password": password}));
+	request.send(JSON.stringify({"username": username, "password": password})); 
+   
 	request.onreadystatechange = function() {
-	 if (this.readyState === 4 &&  this.status === 200 ) {
-	  ok=1;
-	  console.log("token:"+ this.responseText);
-	  let results = JSON.parse(this.responseText);
-  	  //alert(" provola " + results.token ); 
-	  window.open("dashboard.php?token="+results.token);
-         } else {
-          response = this.responseText; 
-	 }
-       };
-       if(ok==0) alert("===Login failed===\n\n"+response);
-}
+    if (this.readyState === 4) {
+     
+	        
 
+
+           if(this.status !== 200){ 
+              
+                alert("login fallito");
+              
+            }  
+            else { 
+                let results = JSON.parse(this.responseText);
+                window.open("dashboard.php?token="+results.token);
+            }
+            
+        }
+       
+        
+            
+    };
+}
