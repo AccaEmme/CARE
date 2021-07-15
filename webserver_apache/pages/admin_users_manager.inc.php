@@ -67,13 +67,13 @@ foreach (array_keys($usersArray) as $key) {
       </tr>
       <!-- START: new user fields -->
       <tr>
-        <td><input type="text" class="textcss" name="newiduser" id="newiduser" value="#" disabled /></td>
-        <td><input type="text" class="textcss" name="newusername" id="newusername" /></td>
-        <td><input type="text" class="textcss" name="newpassword" id="newpassword" placeholder="if null auto generated" /></td>
-        <td><input type="text" class="textcss" disabled /></td>
-        <td><input type="text" class="textcss" name="newemail" id="newemail" placeholder="e-mail here" /></td>
+        <td><input type="text" class="textcs" name="newiduser" id="newiduser" value="#" disabled /></td>
+        <td><input type="text" class="textcs" name="newusername" id="newusername" /></td>
+        <td><input type="text" class="textcs" name="newpassword" id="newpassword" placeholder="if null auto generated" /></td>
+        <td><input type="text" class="textcs" disabled /></td>
+        <td><input type="text" class="textcs" name="newemail" id="newemail" placeholder="e-mail here" /></td>
         <td>
-          <select name="newrole" class="textcss" id="newrole">
+          <select name="newrole" class="textcs" id="newrole">
             <?php
             foreach ($roles as $r) {
               echo ('<option value="' . $r . '"');
@@ -109,10 +109,10 @@ foreach (array_keys($usersArray) as $key) {
           <td style="text-align: center;"><input type="text" class="textcss" name="id_<?php echo $usersArray[$key]->idUser; ?>" id="id_<?php echo $usersArray[$key]->idUser; ?>" value="<?php echo $usersArray[$key]->idUser;   ?>" disabled /></td>
           <td style="text-align: center;"><input type="text" class="textcss" name="user_<?php echo $usersArray[$key]->username; ?>" id="user_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->username; ?>" disabled /></td>
           <td style="text-align: center;"><input type="password" class="textcss" name="pass_<?php echo $usersArray[$key]->username; ?>" id="pass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->password; ?>" disabled /></td>
-          <td style="text-align: center;"><input type="text" class="textcss" name="temppass_<?php echo $usersArray[$key]->username; ?>" id="temppass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->temppass; ?>" /></td>
-          <td style="text-align: center;"><input type="text" class="textcss" name="email_<?php echo $usersArray[$key]->username; ?>" id="email_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->email;    ?>" /></td>
+          <td style="text-align: center;"><input type="text" class="textcs" name="temppass_<?php echo $usersArray[$key]->username; ?>" id="temppass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->temppass; ?>" /></td>
+          <td style="text-align: center;"><input type="text" class="textcs" name="email_<?php echo $usersArray[$key]->username; ?>" id="email_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->email;    ?>" /></td>
           <td style="text-align: center;">
-            <select name="role_<?php echo $usersArray[$key]->username; ?>" class="textcss" id="role_<?php echo $usersArray[$key]->username; ?>">
+            <select name="role_<?php echo $usersArray[$key]->username; ?>" class="textcs" id="role_<?php echo $usersArray[$key]->username; ?>">
               <?php
               foreach ($roles as $r) {
                 echo ('<option value="' . $r . '"');
@@ -125,7 +125,7 @@ foreach (array_keys($usersArray) as $key) {
           <td style="text-align: center;"><input type="text" class="textcss" name="creationDate_<?php echo $usersArray[$key]->username; ?>" id="creationDate_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->creationDate / 1000); ?>" disabled /></td>
           <td style="text-align: center;"><input type="text" class="textcss" name="lastAccess_<?php echo $usersArray[$key]->username; ?>" id="lastAccess_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->lastAccess / 1000); ?>" disabled /></td>
           <td style="text-align: center;">
-            <select name="loginAttempts_<?php echo $usersArray[$key]->username; ?>" class="textcss" id="loginAttempts_<?php echo $usersArray[$key]->username; ?>" width="100%">
+            <select name="loginAttempts_<?php echo $usersArray[$key]->username; ?>" class="textcs" id="loginAttempts_<?php echo $usersArray[$key]->username; ?>" width="100%">
               <?php
               $currentAttempts = $usersArray[$key]->loginAttempts;
               if ($currentAttempts == "0") {
@@ -141,7 +141,7 @@ foreach (array_keys($usersArray) as $key) {
             <?php
             $currentActiveUser = $usersArray[$key]->activeUser;
             ?>
-            <select name="activeUser_<?php echo $usersArray[$key]->username; ?>" class="textcss" id="activeUser_<?php echo $usersArray[$key]->username; ?>">
+            <select name="activeUser_<?php echo $usersArray[$key]->username; ?>" class="textcs" id="activeUser_<?php echo $usersArray[$key]->username; ?>">
               <option value="1" <?php if ($currentActiveUser == "1")  echo (" selected"); ?>>1:attivo</option>
               <option value="0" <?php if ($currentActiveUser == "0")  echo (" selected"); ?>>0:disabilitato</option>
               <option value="-1" <?php if ($currentActiveUser == "-1") echo (" selected"); ?>>-1:blacklist</option>
@@ -202,7 +202,7 @@ $usersArray = httpRequest("http://localhost:8087/user/get/deleted", $token, "GET
           <td style="text-align: center;"><input type="text" class="textcss" name="temppass_<?php echo $usersArray[$key]->username; ?>" id="temppass_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->temppass; ?>" disabled /></td>
           <td style="text-align: center;"><input type="text" class="textcss" name="email_<?php echo $usersArray[$key]->username; ?>" id="email_<?php echo $usersArray[$key]->username; ?>" value="<?php echo $usersArray[$key]->email; ?>" disabled /></td>
           <td style="text-align: center;">
-            <select name="role_<?php echo $usersArray[$key]->username; ?>" id="role_<?php echo $usersArray[$key]->username; ?>" disabled>
+            <select name="role_<?php echo $usersArray[$key]->username; ?>" class="textcss" id="role_<?php echo $usersArray[$key]->username; ?>" disabled>
               <?php
               foreach ($roles as $r) {
                 echo ('<option value="' . $r . '"');
@@ -216,7 +216,7 @@ $usersArray = httpRequest("http://localhost:8087/user/get/deleted", $token, "GET
           <td style="text-align: center;"><input type="text" class="textcss" name="lastAccess_<?php echo $usersArray[$key]->username; ?>" id="lastAccess_<?php echo $usersArray[$key]->username; ?>" value="<?php echo date('Y-m-d', $usersArray[$key]->lastAccess / 1000); ?>" disabled /></td>
           <td style="text-align: center;">
 
-            <select name="loginAttempts_<?php echo $usersArray[$key]->username; ?>" id="loginAttempts_<?php echo $usersArray[$key]->username; ?>" width="100%" disabled>
+            <select name="loginAttempts_<?php echo $usersArray[$key]->username; ?>" class="textcss" id="loginAttempts_<?php echo $usersArray[$key]->username; ?>" width="100%" disabled>
               <?php
               $currentAttempts = $usersArray[$key]->loginAttempts;
               if ($currentAttempts == "0") {
@@ -232,7 +232,7 @@ $usersArray = httpRequest("http://localhost:8087/user/get/deleted", $token, "GET
             <?php
             $currentActiveUser = $usersArray[$key]->activeUser;
             ?>
-            <select name="activeUser_<?php echo $usersArray[$key]->username; ?>" class="textcss" id="activeUser_<?php echo $usersArray[$key]->username; ?>">
+            <select name="activeUser_<?php echo $usersArray[$key]->username; ?>" class="textcs" id="activeUser_<?php echo $usersArray[$key]->username; ?>">
               <option value="1" <?php if ($currentActiveUser == "1")  echo (" selected"); ?>>1:attivo</option>
               <option value="0" <?php if ($currentActiveUser == "0")  echo (" selected"); ?>>0:disabilitato</option>
               <option value="-1" <?php if ($currentActiveUser == "-1") echo (" selected"); ?>>-1:blacklist</option>

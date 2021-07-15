@@ -166,6 +166,14 @@ input {
 	font-size: 12px;
 	border: 2px solid black;
 	background-color: #FFFFFF;
+	color: blue;
+}
+
+.textcs {
+	padding: 5px;
+	font-size: 12px;
+	border: 2px solid black;
+	background-color: #FFFFFF;
 	color: #000000;
 }
 

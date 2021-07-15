@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
-  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+<class-diagram version="1.2.4" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <enumeration id="1" language="java" name="it.unisannio.CARE.model.util.Logger.Actions" project="Care_v2.0" 
     file="/Care_v2.0/src/main/java/it/unisannio/CARE/model/util/Logger/Actions.java" binary="false" 
     corner="BOTTOM_RIGHT">    

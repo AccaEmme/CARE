@@ -7,7 +7,7 @@
    <center>  <table>
          
         <tr>
-            <td><select name="group" id="group" class="textcss">
+            <td><select name="group" id="group" class="textcs">
                     <option>Apos</option>
                     <option>Aneg</option>
                     <option>Bpos</option>
@@ -18,9 +18,9 @@
                     <option>ABpos</option>
                 </select>
             </td>
-            <td><input type="text" name="donator" id="donator" class="textcss" placeholder="cod.fiscale CF_DONATORE" /></td>
+            <td><input type="text" name="donator" id="donator" class="textcs" placeholder="cod.fiscale CF_DONATORE" /></td>
 
-            <td><input type="text" name="note" id="note" class="textcss" placeholder="Note" /></td>
+            <td><input type="text" name="note" id="note" class="textcs" placeholder="Note" /></td>
 
             <td>
                 <input type="text" name="addBloodBagURL" id="addBloodBagURL" value="http://localhost:8087/bloodbag/add" hidden="yes" />
@@ -38,7 +38,7 @@
     <center>scannerizza il QR code della sacca premi il tasto "import sacca" per confermare</center>
     <center><table>
         <tr>
-            <td><input type="text" name="serial" id="serial" placeholder="seriale sacca" class="textcss" size="100" /></td>
+            <td><input type="text" name="serial" id="serial" placeholder="seriale sacca" class="textcs" size="100" /></td>
 
             <td>
                 <input type="text" name="addBloodBagCURL" id="addBloodBagCURL" value="http://localhost:8087/bloodbag/import" hidden="yes" />

@@ -7,7 +7,7 @@
     <center>
         <table>
             <tr>
-                <td><input type="text" name="serial" class="textcss" id="serial" placeholder="seriale sacca" size="40" /></td>
+                <td><input type="text" name="serial" class="textcs" id="serial" placeholder="seriale sacca" size="40" /></td>
                 <input type="text" name="addBloodBagCURL" id="addBloodBagCURL" value="http://localhost:8087/bloodbag/central/confirm" hidden="yes" />
                 <td> <input type="submit" value="import sacca" class="myButton" onclick="confirmBloodBagCentral(document.getElementById('addBloodBagCURL').value, '<?php echo ($token); ?>', document.getElementById('serial').value);">
                 <td>
@@ -50,7 +50,7 @@
         <table>
             <tr>
 
-                <td><select name="group" id="group" class="textcss">
+                <td><select name="group" id="group" class="textcs">
                         <option>Apos</option>
                         <option>Aneg</option>
                         <option>Bpos</option>
@@ -61,9 +61,9 @@
                         <option>ABpos</option>
                     </select>
                 </td>
-                <td><input type="text" name="donator" id="donator" class="textcss" placeholder="cod.fiscale CF_DONATORE" /></td>
+                <td><input type="text" name="donator" id="donator" class="textcs" placeholder="cod.fiscale CF_DONATORE" /></td>
 
-                <td><input type="text" name="note" id="note" class="textcss" placeholder="Note" /></td>
+                <td><input type="text" name="note" id="note" class="textcs" placeholder="Note" /></td>
 
                 <td>
                     <input type="text" name="addBloodBagURL" id="addBloodBagURL" value="http://localhost:8087/bloodbag/add" hidden="yes" />
@@ -82,7 +82,7 @@
         <table>
             <tr>
 
-                <td><input type="text" name="inserted_serial" id="inserted_serial" class="textcss" placeholder="seriale della sacca" /></td>
+                <td><input type="text" name="inserted_serial" id="inserted_serial" class="textcs" placeholder="seriale della sacca" /></td>
 
                 <td>
                     <input type="text" name="centralAddURL" id="centralAddURL" value="http://localhost:8087/bloodbag/central/add" hidden="yes" />

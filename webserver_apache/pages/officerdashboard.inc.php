@@ -102,7 +102,7 @@
       <legend><img class="imagine" src="images\gestionerichieste.png"><a name="management"><b> Sacche disponibili</b></a><br></legend>
       <label class="bag_filter">
         Ho bisogno di:
-        <select class="textcss" id="selected_group" name="selected_group">
+        <select class="textcs" id="selected_group" name="selected_group">
           <option value="none">none</option>
           <option value="Apos">A+ </option>
           <option value="Bpos">B+</option>
