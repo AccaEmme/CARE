@@ -42,7 +42,7 @@
             <!-- in php lancio solo il for in html riempo la tabella -->
             <tr>
                 <?php foreach (array_keys($BagArray) as $key) { ?>
-                    <td><input type="text" class="textcss" name="id_<?php echo $BagArrayy[$key]->serial; ?>" value="<?php echo $BagArray[$key]->id_requester; ?>" size="40" disabled /></td>
+                    <td><input type="text" class="textcss" name="id_<?php echo $BagArray[$key]->serial; ?>" value="<?php echo $BagArray[$key]->id_requester; ?>" size="40" disabled /></td>
                     <td><input type="text" class="textcss" name="serial_<?php echo $BagArray[$key]->serial; ?>" value="<?php echo $BagArray[$key]->serial; ?>" disabled /></td>
                     <td><input type="text" class="textcss" name="date_<?php echo $BagArray[$key]->serial; ?>" value="<?php echo $BagArray[$key]->date; ?>" disabled /></td>
                     <td><input type="text" class="textcss" name="note_<?php echo $BagArray[$key]->serial; ?>" value="<?php echo $BagArray[$key]->note; ?>" disabled /></td>
