@@ -51,9 +51,16 @@ foreach (array_keys($usersArray) as $key) {
 <div align="center">
   <fieldset>
     <legend><img src=""><a><b>Report</b></a></legend>
-    <input type="button" value="Download CSV report"  onclick="window.location = 'report/report.csv';" />
-    <input type="button" value="Download JSON report" onclick="window.location = 'report/report.json';" />
-    <input type="button" value="Download TXT report" onclick="window.location = 'report/report.txt';" />
+    <b>User Report</b>:
+    <input type="button" value="Download CSV report"  onclick="window.location = 'report/reportUser.csv';" />
+    <input type="button" value="Download JSON report" onclick="window.location = 'report/reportUser.json';" />
+    <input type="button" value="Download TXT report" onclick="window.location = 'report/reportUser.txt';" />
+    <br />
+    <b>Bags Report</b>:
+    <input type="button" value="Download CSV report"  onclick="window.location = 'report/reportBag.csv';" />
+    <input type="button" value="Download JSON report" onclick="window.location = 'report/reportBag.json';" />
+    <input type="button" value="Download TXT report" onclick="window.location = 'report/reportBag.txt';" />
+    <br />
   </fieldset>
 </div>
 
