@@ -15,12 +15,12 @@ public class IllegalSerialException extends RuntimeException {
 		// TODO Auto-generated constructor stub
 	}
 
-    public  IllegalSerialException(String message, String path) {
-        
-    	super(message);
-    	this.path = path;
-    }
-    
+	public IllegalSerialException(String message, String path) {
+
+		super(message);
+		this.path = path;
+	}
+
 	public String getPath() {
 		return path;
 	}
@@ -30,6 +30,5 @@ public class IllegalSerialException extends RuntimeException {
 	}
 
 	String path;
-	
 
 }

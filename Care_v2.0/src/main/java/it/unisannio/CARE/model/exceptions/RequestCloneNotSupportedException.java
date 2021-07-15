@@ -16,7 +16,7 @@ public class RequestCloneNotSupportedException extends RuntimeException {
 	}
 
 	public RequestCloneNotSupportedException(String message, String path) {
-		
+
 		super(message);
 		this.path = path;
 
@@ -31,5 +31,5 @@ public class RequestCloneNotSupportedException extends RuntimeException {
 	}
 
 	String path;
-	
+
 }

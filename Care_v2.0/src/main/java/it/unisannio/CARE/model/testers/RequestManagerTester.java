@@ -18,24 +18,23 @@ public class RequestManagerTester {
 
 	public static void main(String[] args) throws ParseException, IOException {
 
-		//BloodBag bb=new BloodBag(BloodGroup.ABpos,"RSSMRA80A01A509I");
-		
+		// BloodBag bb=new BloodBag(BloodGroup.ABpos,"RSSMRA80A01A509I");
+
 		System.out.println(Constants.dateFormatFile.format(new Date()));
-		
-		File file = new File("Reports/report("+Constants.dateFormatFile.format(new Date())+").txt");
+
+		File file = new File("Reports/report(" + Constants.dateFormatFile.format(new Date()) + ").txt");
 		file.createNewFile();
-		
-		
-		
+
 		PrintStream ps = new PrintStream(file);
 		ps.println("ciaoooooo");
-		
-		//RequestManager rm=new RequestManager("mongodb+srv://ricciuto99:desk9123@cluster0.ksjti.mongodb.net/test","CARE","requestes");
-  
-		//Request r = new Request("3","1", bb.getSerial().toString(), new Date(), "notaProva", RequestState.pending, RequestPriority.red);
-  
- 
-		//rm.addRequest(r);
+
+		// RequestManager rm=new
+		// RequestManager("mongodb+srv://ricciuto99:desk9123@cluster0.ksjti.mongodb.net/test","CARE","requestes");
+
+		// Request r = new Request("3","1", bb.getSerial().toString(), new Date(),
+		// "notaProva", RequestState.pending, RequestPriority.red);
+
+		// rm.addRequest(r);
 	}
-	
+
 }

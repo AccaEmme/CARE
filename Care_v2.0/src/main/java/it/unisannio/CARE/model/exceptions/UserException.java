@@ -4,16 +4,16 @@ public class UserException extends Exception {
 	public UserException() {
 		super();
 	}
-	
+
 	public UserException(String m) {
 		super(m);
 	}
-	
-    public UserException(String message, String path) {
-    	super(message);
-    	this.path = path;
-    }
-	
+
+	public UserException(String message, String path) {
+		super(message);
+		this.path = path;
+	}
+
 	public String getPath() {
 		return path;
 	}
@@ -23,5 +23,5 @@ public class UserException extends Exception {
 	}
 
 	String path;
-	
+
 }

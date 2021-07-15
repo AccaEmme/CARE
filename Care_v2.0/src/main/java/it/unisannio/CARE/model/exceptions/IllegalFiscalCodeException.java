@@ -15,12 +15,12 @@ public class IllegalFiscalCodeException extends RuntimeException {
 		// TODO Auto-generated constructor stub
 	}
 
-    public  IllegalFiscalCodeException(String message, String path) {
-        
-    	super(message);
-    	this.path = path;
-    }
-    
+	public IllegalFiscalCodeException(String message, String path) {
+
+		super(message);
+		this.path = path;
+	}
+
 	public String getPath() {
 		return path;
 	}
@@ -30,6 +30,5 @@ public class IllegalFiscalCodeException extends RuntimeException {
 	}
 
 	String path;
-	
 
 }

@@ -7,21 +7,21 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class BloodBagStateException extends RuntimeException {
 
 	public BloodBagStateException() {
-		
+
 		super();
 	}
-	
+
 	public BloodBagStateException(String m) {
-		
+
 		super(m);
 	}
 
-    public  BloodBagStateException(String message, String path) {
-        
-    	super(message);
-    	this.path = path;
-    }
-    
+	public BloodBagStateException(String message, String path) {
+
+		super(message);
+		this.path = path;
+	}
+
 	public String getPath() {
 		return path;
 	}
@@ -31,9 +31,5 @@ public class BloodBagStateException extends RuntimeException {
 	}
 
 	String path;
-	
+
 }
-
-
-
-

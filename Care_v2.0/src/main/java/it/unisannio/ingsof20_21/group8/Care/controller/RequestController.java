@@ -40,394 +40,328 @@ import it.unisannio.CARE.model.util.XMLHelper;
 import it.unisannio.CARE.spring.bean.ErrorBean;
 import it.unisannio.CARE.spring.bean.RequestBean;
 
-
 @RestController
 @RequestMapping("request")
 
 @Consumes("application/json")
 @Produces("application/json")
-public class RequestController /*implements ContainerResponseFilter */{
+public class RequestController /* implements ContainerResponseFilter */ {
 
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-	
 
-	public RequestController() {}
-
-	
-	/*
-	@Override
-	public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
-			throws IOException {
-		
-		responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
-        responseContext.getHeaders().add("Access-Control-Allow-Headers",
-                "CSRF-Token, X-Requested-By, Authorization, Content-Type");
-        responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
-        responseContext.getHeaders().add("Access-Control-Allow-Methods",
-                "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+	public RequestController() {
 	}
-	*/
-	
-	//################################################### GET METHOD ####################################################	
-	@GetMapping("get/state/{state}")	
-	public Iterable<RequestBean> getRequestsByState(@PathVariable String state){
-		
+
+	/*
+	 * @Override public void filter(ContainerRequestContext requestContext,
+	 * ContainerResponseContext responseContext) throws IOException {
+	 * 
+	 * responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
+	 * responseContext.getHeaders().add("Access-Control-Allow-Headers",
+	 * "CSRF-Token, X-Requested-By, Authorization, Content-Type");
+	 * responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
+	 * responseContext.getHeaders().add("Access-Control-Allow-Methods",
+	 * "GET, POST, PUT, DELETE, OPTIONS, HEAD"); }
+	 */
+
+	// ################################################### GET METHOD
+	// ####################################################
+	@GetMapping("get/state/{state}")
+	public Iterable<RequestBean> getRequestsByState(@PathVariable String state) {
+
 		ArrayList<RequestBean> array = new ArrayList<>();
-		
-		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+
+		Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
 		mongoLogger.setLevel(Level.SEVERE);
-			
+
 		RequestManager manager = new RequestManager();
 		Iterable<Document> iterable = (manager.getRequestsByState(RequestState.valueOf(state)));
-		
+
 		for (Document requestD : iterable)
-			array.add(new RequestBean(
-				requestD.getString("id_requester"), 
-				requestD.getString("serial"),
-				requestD.getString("date"),
-				requestD.getString("note"),
-				requestD.getString("state"),
-				requestD.getString("priority")));
-					
+			array.add(new RequestBean(requestD.getString("id_requester"), requestD.getString("serial"),
+					requestD.getString("date"), requestD.getString("note"), requestD.getString("state"),
+					requestD.getString("priority")));
+
 		manager.close();
-		
+
 		return array;
 
 	}
-	
-	
-	
-	@GetMapping("get/priority/{priority}")	
-	public Iterable<RequestBean> getRequestsByPriority(@PathVariable String priority){
-		
-		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+
+	@GetMapping("get/priority/{priority}")
+	public Iterable<RequestBean> getRequestsByPriority(@PathVariable String priority) {
+
+		Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
 		mongoLogger.setLevel(Level.SEVERE);
-			
+
 		ArrayList<RequestBean> array = new ArrayList<>();
-		
+
 		RequestManager manager = new RequestManager();
 		Iterable<Document> iterable = (manager.getRequestsByPriority(RequestPriority.valueOf(priority)));
-		
+
 		for (Document requestD : iterable)
-			array.add(new RequestBean(
-				requestD.getString("id_requester"), 
-				requestD.getString("serial"),
-				requestD.getString("date"),
-				requestD.getString("note"),
-				requestD.getString("state"),
-				requestD.getString("priority")));
-					
+			array.add(new RequestBean(requestD.getString("id_requester"), requestD.getString("serial"),
+					requestD.getString("date"), requestD.getString("note"), requestD.getString("state"),
+					requestD.getString("priority")));
+
 		manager.close();
-		
+
 		return array;
 
-
 	}
-	
-	
-	
-	@GetMapping("get/all")	
-	public Iterable<RequestBean> getAllRequests(){
-		
-		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+
+	@GetMapping("get/all")
+	public Iterable<RequestBean> getAllRequests() {
+
+		Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
 		mongoLogger.setLevel(Level.SEVERE);
-			
+
 		ArrayList<RequestBean> array = new ArrayList<>();
-		
+
 		RequestManager manager = new RequestManager();
 		Iterable<Document> iterable = (manager.getAllRequests());
-		
+
 		for (Document requestD : iterable)
-			array.add(new RequestBean(
-				requestD.getString("id_requester"), 
-				requestD.getString("serial"),
-				requestD.getString("date"),
-				requestD.getString("note"),
-				requestD.getString("state"),
-				requestD.getString("priority")));
-					
+			array.add(new RequestBean(requestD.getString("id_requester"), requestD.getString("serial"),
+					requestD.getString("date"), requestD.getString("note"), requestD.getString("state"),
+					requestD.getString("priority")));
+
 		manager.close();
-		
+
 		return array;
 
-
 	}
-	
-	
-	
-	@GetMapping("get/our")	
-	public Iterable<RequestBean> getOurRequests(){
-		
-		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+
+	@GetMapping("get/our")
+	public Iterable<RequestBean> getOurRequests() {
+
+		Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
 		mongoLogger.setLevel(Level.SEVERE);
-			
+
 		ArrayList<RequestBean> array = new ArrayList<>();
-		
+
 		RequestManager manager = new RequestManager();
 		Iterable<Document> iterable = (manager.getOurRequests());
-		
+
 		for (Document requestD : iterable)
-			array.add(new RequestBean(
-				requestD.getString("id_requester"), 
-				requestD.getString("serial"),
-				requestD.getString("date"),
-				requestD.getString("note"),
-				requestD.getString("state"),
-				requestD.getString("priority")));
-					
+			array.add(new RequestBean(requestD.getString("id_requester"), requestD.getString("serial"),
+					requestD.getString("date"), requestD.getString("note"), requestD.getString("state"),
+					requestD.getString("priority")));
+
 		manager.close();
-		
+
 		return array;
 
-
-
 	}
-	
-	
-	@GetMapping("get/our/state/{state}")	
-	public Iterable<RequestBean> getOurRequestsByState(@PathVariable String state){
-		
-		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+
+	@GetMapping("get/our/state/{state}")
+	public Iterable<RequestBean> getOurRequestsByState(@PathVariable String state) {
+
+		Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
 		mongoLogger.setLevel(Level.SEVERE);
-			
+
 		ArrayList<RequestBean> array = new ArrayList<>();
-		
+
 		RequestManager manager = new RequestManager();
 		Iterable<Document> iterable = (manager.getOurRequestsByState(RequestState.valueOf(state)));
-		
+
 		for (Document requestD : iterable)
-			array.add(new RequestBean(
-				requestD.getString("id_requester"), 
-				requestD.getString("serial"),
-				requestD.getString("date"),
-				requestD.getString("note"),
-				requestD.getString("state"),
-				requestD.getString("priority")));
-					
+			array.add(new RequestBean(requestD.getString("id_requester"), requestD.getString("serial"),
+					requestD.getString("date"), requestD.getString("note"), requestD.getString("state"),
+					requestD.getString("priority")));
+
 		manager.close();
-		
+
 		return array;
 
-
-
 	}
-	
-	
-	
-	@GetMapping("get/other")	
-	public Iterable<RequestBean> getOtherRequests(){
-		
-		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+
+	@GetMapping("get/other")
+	public Iterable<RequestBean> getOtherRequests() {
+
+		Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
 		mongoLogger.setLevel(Level.SEVERE);
-			
+
 		ArrayList<RequestBean> array = new ArrayList<>();
-		
+
 		RequestManager manager = new RequestManager();
 		Iterable<Document> iterable = (manager.getOtherRequests());
-		
+
 		for (Document requestD : iterable)
-			array.add(new RequestBean(
-				requestD.getString("id_requester"), 
-				requestD.getString("serial"),
-				requestD.getString("date"),
-				requestD.getString("note"),
-				requestD.getString("state"),
-				requestD.getString("priority")));
-					
+			array.add(new RequestBean(requestD.getString("id_requester"), requestD.getString("serial"),
+					requestD.getString("date"), requestD.getString("note"), requestD.getString("state"),
+					requestD.getString("priority")));
+
 		manager.close();
-		
+
 		return array;
 
-
 	}
-	
-	
-	//################################################### POST METHOD ####################################################
-	@PostMapping("/add")	
-	public RequestBean addRequest(@RequestBody RequestBean requestB) throws ParseException{
-		
-		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+
+	// ################################################### POST METHOD
+	// ####################################################
+	@PostMapping("/add")
+	public RequestBean addRequest(@RequestBody RequestBean requestB) throws ParseException {
+
+		Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
 		mongoLogger.setLevel(Level.SEVERE);
-		
-		
+
 		BloodBagManager bbm = new BloodBagManager();
-		if(!bbm.BloodBagRequestable(requestB.getSerial())) {
-			
+		if (!bbm.BloodBagRequestable(requestB.getSerial())) {
+
 			bbm.close();
-			throw new BloodBagNotFoundException("La sacca su cui è stata fatta la richiesta non esiste o non è disponibile","/request/add");
+			throw new BloodBagNotFoundException(
+					"La sacca su cui è stata fatta la richiesta non esiste o non è disponibile", "/request/add");
 
 		}
-		
+
 		Properties props = XMLHelper.getProps(Constants.NODE_PROPERTIES);
-		
+
 		requestB.setId_requester(props.getProperty("province") + props.getProperty("structureCode"));
 		requestB.setDate(DATE_FORMAT.format(new Date()));
 		requestB.setState(RequestState.pending.toString());
-		
-		Request request = new Request(
-				requestB.getId_requester(),
-				requestB.getSerial(),
-				DATE_FORMAT.parse(requestB.getDate()),
-				requestB.getNote(),
-				RequestState.valueOf(requestB.getState()),
+
+		Request request = new Request(requestB.getId_requester(), requestB.getSerial(),
+				DATE_FORMAT.parse(requestB.getDate()), requestB.getNote(), RequestState.valueOf(requestB.getState()),
 				RequestPriority.valueOf(requestB.getPriority()));
 
-		
 		RequestManager manager = new RequestManager();
-		
+
 		try {
-			
+
 			manager.addRequest(request);
 			return requestB;
-		
-		}catch(RequestCloneNotSupportedException e){
+
+		} catch (RequestCloneNotSupportedException e) {
 
 			e.printStackTrace();
-			throw new RequestCloneNotSupportedException("La richiesta che si vuole aggiungere è già esistente o è stata già accettata.", "request/add");
-		
-		}finally {
-			
+			throw new RequestCloneNotSupportedException(
+					"La richiesta che si vuole aggiungere è già esistente o è stata già accettata.", "request/add");
+
+		} finally {
+
 			bbm.close();
 			manager.close();
 		}
-		
+
 	}
 
-
-	
-	//testato	
+	// testato
 	@PostMapping("/accept")
-	public RequestBean acceptRequest(@RequestBody RequestBean requestB) throws ParseException{		
-		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+	public RequestBean acceptRequest(@RequestBody RequestBean requestB) throws ParseException {
+		Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
 		mongoLogger.setLevel(Level.SEVERE);
-	
+
 		RequestManager manager = new RequestManager();
-		
-		Document requestDoc =manager.getRequestByIdSerial(requestB.getId_requester(), requestB.getSerial());
-		Request request = new Request(
-				requestDoc.getString("id_requester"), 
-				requestDoc.getString("serial"), 
-				DATE_FORMAT.parse(requestDoc.getString("date")), 
-				requestDoc.getString("note"),
+
+		Document requestDoc = manager.getRequestByIdSerial(requestB.getId_requester(), requestB.getSerial());
+		Request request = new Request(requestDoc.getString("id_requester"), requestDoc.getString("serial"),
+				DATE_FORMAT.parse(requestDoc.getString("date")), requestDoc.getString("note"),
 				RequestState.valueOf(requestDoc.getString("state")),
 				RequestPriority.valueOf(requestDoc.getString("priority")));
-		
-		
+
 		BloodBagManager bbm = new BloodBagManager();
 		try {
-			
+
 			manager.acceptRequest(request);
 			bbm.BloodBagMarkNotAvailable(requestB.getSerial());
 
 			return requestB;
-		
-		}catch(RequestNotFoundException e){
+
+		} catch (RequestNotFoundException e) {
 
 			e.printStackTrace();
 			throw new RequestCloneNotSupportedException(e.getMessage(), "/request/accept");
-			
-		}catch(BloodBagNotFoundException e) {
-			
+
+		} catch (BloodBagNotFoundException e) {
+
 			e.printStackTrace();
 			throw new RequestCloneNotSupportedException(e.getMessage(), "/request/accept");
-			
-		}finally {
-			
+
+		} finally {
+
 			manager.close();
 			bbm.close();
 		}
 	}
 
+	@PostMapping("/refuse")
+	public RequestBean refuseRequest(@RequestBody RequestBean requestB) throws ParseException {
 
-	@PostMapping("/refuse")	
-	public RequestBean refuseRequest(@RequestBody RequestBean requestB) throws ParseException{		
-
-		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+		Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
 		mongoLogger.setLevel(Level.SEVERE);
-	
+
 		RequestManager manager = new RequestManager();
-		
-		Document requestDoc =manager.getRequestByIdSerial(requestB.getId_requester(), requestB.getSerial());
-		Request request = new Request(
-				requestDoc.getString("id_requester"), 
-				requestDoc.getString("serial"), 
-				DATE_FORMAT.parse(requestDoc.getString("date")), 
-				requestDoc.getString("note"),
+
+		Document requestDoc = manager.getRequestByIdSerial(requestB.getId_requester(), requestB.getSerial());
+		Request request = new Request(requestDoc.getString("id_requester"), requestDoc.getString("serial"),
+				DATE_FORMAT.parse(requestDoc.getString("date")), requestDoc.getString("note"),
 				RequestState.valueOf(requestDoc.getString("state")),
 				RequestPriority.valueOf(requestDoc.getString("priority")));
-		
-		
+
 		BloodBagManager bbm = new BloodBagManager();
 		try {
-			
+
 			manager.refuseRequest(request);
 
 			return requestB;
-		
-		}catch(RequestNotFoundException e){
+
+		} catch (RequestNotFoundException e) {
 
 			e.printStackTrace();
 			throw new RequestCloneNotSupportedException(e.getMessage(), "/request/refuse");
-			
-		}finally {
-			
+
+		} finally {
+
 			manager.close();
 		}
 	}
-	
-	
-	
-	@PostMapping("delete")	
-	public RequestBean deleteRequest(@RequestBody RequestBean requestB) throws ParseException{		
 
-		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+	@PostMapping("delete")
+	public RequestBean deleteRequest(@RequestBody RequestBean requestB) throws ParseException {
+
+		Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
 		mongoLogger.setLevel(Level.SEVERE);
 
 		Properties props = XMLHelper.getProps(Constants.NODE_PROPERTIES);
-		
+
 		requestB.setId_requester(props.getProperty("province") + props.getProperty("structureCode"));
 		requestB.setDate(DATE_FORMAT.format(new Date()));
 		requestB.setState(RequestState.pending.toString());
 		requestB.setPriority(RequestPriority.green.toString());
-		
-		Request request = new Request(
-				requestB.getId_requester(), 
-				requestB.getSerial(), 
-				DATE_FORMAT.parse(requestB.getDate()), 
-				requestB.getNote(),RequestState.valueOf(requestB.getState()),
+
+		Request request = new Request(requestB.getId_requester(), requestB.getSerial(),
+				DATE_FORMAT.parse(requestB.getDate()), requestB.getNote(), RequestState.valueOf(requestB.getState()),
 				RequestPriority.valueOf(requestB.getPriority()));
-		
-			
+
 		RequestManager manager = new RequestManager();
 		try {
-			
+
 			manager.deleteRequest(request);
 
 			return requestB;
-		
-		}catch(RequestNotFoundException e){
+
+		} catch (RequestNotFoundException e) {
 
 			e.printStackTrace();
 			throw new RequestNotFoundException(e.getMessage(), "/request/delete");
-			
-		}finally {
-			
+
+		} finally {
+
 			manager.close();
 		}
 	}
 
-	
-	
-	@PutMapping("emptytrash")	
-	public void emptyTrash() throws ParseException{		
+	@PutMapping("emptytrash")
+	public void emptyTrash() throws ParseException {
 
-		Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+		Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
 		mongoLogger.setLevel(Level.SEVERE);
-			
-		RequestManager manager = new RequestManager("mongodb+srv://ricciuto99:desk9123@cluster0.ksjti.mongodb.net/test", "CARE", "requests");
+
+		RequestManager manager = new RequestManager("mongodb+srv://ricciuto99:desk9123@cluster0.ksjti.mongodb.net/test",
+				"CARE", "requests");
 		manager.emptyTrash();
 		manager.close();
 	}
-
 
 }

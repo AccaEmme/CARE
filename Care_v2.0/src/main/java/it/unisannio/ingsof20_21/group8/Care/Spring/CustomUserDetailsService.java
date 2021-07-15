@@ -18,7 +18,6 @@ import it.unisannio.CARE.spring.bean.UserBean;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-	
 	@Autowired
 	private UserRepository userDao;
 
@@ -28,15 +27,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		List<SimpleGrantedAuthority> roles = null;
-		
-			
-		UserDAO user =userDao.findByUsername(username);
+
+		UserDAO user = userDao.findByUsername(username);
 		if (user != null) {
 			roles = Arrays.asList(new SimpleGrantedAuthority(user.getUserRole()));
 			return new User(user.getUsername(), user.getPassword(), roles);
 		}
-		throw new UsernameNotFoundException("User not found with the name " + username);	}
-	
+		throw new UsernameNotFoundException("User not found with the name " + username);
+	}
+
 	public UserDAO save(UserBean user) {
 		UserDAO newUser = new UserDAO();
 		newUser.setUsername(user.getUsername());

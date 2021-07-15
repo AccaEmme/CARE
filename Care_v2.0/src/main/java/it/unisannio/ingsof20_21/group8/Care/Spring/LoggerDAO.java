@@ -9,91 +9,90 @@ import java.util.Date;
 @Entity
 @Table(name = "logs")
 public class LoggerDAO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long idLog;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long idLog;
 
-    private long currentTimeStamp = (new Date()).getTime();
-    private String currentUserUsername;
-    private String fromClass;           //the calling class
-    private String result;              //the response of the op
-    private String action;
-    private String information;
-    private String explanation;
+	private long currentTimeStamp = (new Date()).getTime();
+	private String currentUserUsername;
+	private String fromClass; // the calling class
+	private String result; // the response of the op
+	private String action;
+	private String information;
+	private String explanation;
 
-    /*
-    public LoggerBean(long idLog,String currentUserEmail, String currentUserUsername, String fromClass, String result) {
-        this.idLog = idLog;
-        this.currentTimeStamp = new Date().getTime();
-        this.currentUserEmail = currentUserEmail;
-        this.currentUserUsername = currentUserUsername;
-        this.fromClass = fromClass;
-        this.result = result;
-    }*/
+	/*
+	 * public LoggerBean(long idLog,String currentUserEmail, String
+	 * currentUserUsername, String fromClass, String result) { this.idLog = idLog;
+	 * this.currentTimeStamp = new Date().getTime(); this.currentUserEmail =
+	 * currentUserEmail; this.currentUserUsername = currentUserUsername;
+	 * this.fromClass = fromClass; this.result = result; }
+	 */
 
-    public String getExplanation() {
-        return explanation;
-    }
+	public String getExplanation() {
+		return explanation;
+	}
 
-    public void setExplanation(String explanation) {
-        this.explanation = explanation;
-    }
+	public void setExplanation(String explanation) {
+		this.explanation = explanation;
+	}
 
-    public String getAction() {
-        return action;
-    }
+	public String getAction() {
+		return action;
+	}
 
-    public void setAction(String action) {
-        this.action = action;
-    }
+	public void setAction(String action) {
+		this.action = action;
+	}
 
-    public LoggerDAO(){}
+	public LoggerDAO() {
+	}
 
-    public long getIdLog() {
-        return idLog;
-    }
+	public long getIdLog() {
+		return idLog;
+	}
 
-    public void setIdLog(long idLog) {
-        this.idLog = idLog;
-    }
+	public void setIdLog(long idLog) {
+		this.idLog = idLog;
+	}
 
-    public long getCurrentTimeStamp() {
-        return currentTimeStamp;
-    }
+	public long getCurrentTimeStamp() {
+		return currentTimeStamp;
+	}
 
-    public void setCurrentTimeStamp(long currentTimeStamp) {
-        this.currentTimeStamp = currentTimeStamp;
-    }
+	public void setCurrentTimeStamp(long currentTimeStamp) {
+		this.currentTimeStamp = currentTimeStamp;
+	}
 
-    public String getInformation() {
-        return information;
-    }
+	public String getInformation() {
+		return information;
+	}
 
-    public void setInformation(String information) {
-        this.information = information;
-    }
+	public void setInformation(String information) {
+		this.information = information;
+	}
 
-    public String getCurrentUserUsername() {
-        return currentUserUsername;
-    }
+	public String getCurrentUserUsername() {
+		return currentUserUsername;
+	}
 
-    public void setCurrentUserUsername(String currentUserUsername) {
-        this.currentUserUsername = currentUserUsername;
-    }
+	public void setCurrentUserUsername(String currentUserUsername) {
+		this.currentUserUsername = currentUserUsername;
+	}
 
-    public String getFromClass() {
-        return fromClass;
-    }
+	public String getFromClass() {
+		return fromClass;
+	}
 
-    public void setFromClass(String fromClass) {
-        this.fromClass = fromClass;
-    }
+	public void setFromClass(String fromClass) {
+		this.fromClass = fromClass;
+	}
 
-    public String getResult() {
-        return result;
-    }
+	public String getResult() {
+		return result;
+	}
 
-    public void setResult(String result) {
-        this.result = result;
-    }
+	public void setResult(String result) {
+		this.result = result;
+	}
 }

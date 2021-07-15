@@ -8,11 +8,11 @@
 package it.unisannio.CARE.model.exceptions;
 
 public class NullUserException extends Exception {
-    public NullUserException() {
-        super();
-    }
+	public NullUserException() {
+		super();
+	}
 
-    public NullUserException(String m) {
-        super(m);
-    }
+	public NullUserException(String m) {
+		super(m);
+	}
 }

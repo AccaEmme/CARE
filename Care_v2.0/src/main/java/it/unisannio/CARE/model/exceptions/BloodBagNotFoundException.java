@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class BloodBagNotFoundException extends RuntimeException {
 
 	String path;
-	
+
 	public BloodBagNotFoundException() {
 		// TODO Auto-generated constructor stub
 	}
@@ -22,11 +22,11 @@ public class BloodBagNotFoundException extends RuntimeException {
 		// TODO Auto-generated constructor stub
 	}
 
-    public  BloodBagNotFoundException(String mess, String path) {
-        
-    	super(mess);
-    	this.path = path;
-    }
+	public BloodBagNotFoundException(String mess, String path) {
+
+		super(mess);
+		this.path = path;
+	}
 
 	public String getPath() {
 		return path;

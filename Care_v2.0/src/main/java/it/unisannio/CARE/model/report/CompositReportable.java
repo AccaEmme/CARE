@@ -6,16 +6,16 @@ import java.util.List;
 
 public class CompositReportable implements Reportable {
 
-	List<Reportable> reportabili=new ArrayList<>();
-	
+	List<Reportable> reportabili = new ArrayList<>();
+
 	public void saveReport() throws IOException {
-		for(Reportable re : reportabili) {
+		for (Reportable re : reportabili) {
 			re.saveReport();
 		}
 	}
-	
+
 	public void add(Reportable r) {
 		reportabili.add(r);
 	}
-	
+
 }

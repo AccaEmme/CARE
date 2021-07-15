@@ -12,35 +12,33 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.unisannio.CARE.model.user.UsersStates;
 
-
-
 @Repository
-public interface UserRepository extends JpaRepository<UserDAO, Long>{
-	@Query("FROM UserDAO u  WHERE u.username =:username")         //non serve con il metodo di Luigi
-	//UserBean findByUsername(@Param("username") String username);
+public interface UserRepository extends JpaRepository<UserDAO, Long> {
+	@Query("FROM UserDAO u  WHERE u.username =:username") // non serve con il metodo di Luigi
+	// UserBean findByUsername(@Param("username") String username);
 	UserDAO findByUsername(String username);
 
-	@Query("FROM UserDAO u WHERE u.userRole =:role AND u.activeUser > "+(short) UsersStates.DELETED)
+	@Query("FROM UserDAO u WHERE u.userRole =:role AND u.activeUser > " + (short) UsersStates.DELETED)
 	Iterable<UserDAO> findUserByRole(@Param("role") String role);
 
-	@Query("FROM UserDAO u WHERE u.email =:email AND u.activeUser > "+(short) UsersStates.DELETED)
+	@Query("FROM UserDAO u WHERE u.email =:email AND u.activeUser > " + (short) UsersStates.DELETED)
 	UserDAO findByEmail(@Param("email") String email);
 
 	@Query("FROM UserDAO u WHERE u.creationDate >:firstdate AND u.creationDate <:seconddate")
 	Iterable<UserDAO> findCreatedBetween(@Param("firstdate") long firstdate, @Param("seconddate") long seconddate);
 
-	@Query("FROM UserDAO u WHERE u.activeUser > "+(short) UsersStates.DELETED)
+	@Query("FROM UserDAO u WHERE u.activeUser > " + (short) UsersStates.DELETED)
 	Iterable<UserDAO> findNotDeletedUsers();
-	
+
 	@Query("FROM UserDAO u WHERE u.activeUser = :userstate") // -2 to show deleted user
-	Iterable<UserDAO> findByUserState(@Param("userstate") short  userstate);
-	
-	
+	Iterable<UserDAO> findByUserState(@Param("userstate") short userstate);
+
 	@Modifying
 	@Transactional
 	@Query("UPDATE UserDAO u SET u.loginAttempts = ?1 where u.username = ?2")
-	void updateUserLoginAttempts(int attempts, String username); 
-	//void updateUserLoginAttempts(@Param("attempts") int attempts, @Param("username") String username);
+	void updateUserLoginAttempts(int attempts, String username);
+	// void updateUserLoginAttempts(@Param("attempts") int attempts,
+	// @Param("username") String username);
 
 	// modifica lo stato di un user cercandolo per username
 	@Modifying
@@ -54,37 +52,32 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	@Query("UPDATE UserDAO u SET u.activeUser = ?1 where u.email = ?2")
 	void updateUserActiveUserByEmail(short state, String email);
 
-	//aggiorno la password
+	// aggiorno la password
 	@Modifying
 	@Transactional
 	@Query("UPDATE UserDAO u SET u.password = ?1, u.temppass=null where u.username = ?2")
 	void updateUserPasswordByUsername(String password, String username);
-	
-	
-	
-	
-	//aggiorno la email
-		@Modifying
-		@Transactional
-		@Query("UPDATE UserDAO u SET u.email = ?1 where u.username = ?2")
-		void updateUserEmailByUsername(String email, String username);
 
-	//aggiorno la password temporanea
+	// aggiorno la email
+	@Modifying
+	@Transactional
+	@Query("UPDATE UserDAO u SET u.email = ?1 where u.username = ?2")
+	void updateUserEmailByUsername(String email, String username);
+
+	// aggiorno la password temporanea
 	@Modifying
 	@Transactional
 	@Query("UPDATE UserDAO u SET u.temppass = ?1 where u.username = ?2")
 	void updateUserTempPasswordByUsername(String temppass, String username);
 
-
 	// query di aggiornamento user
-	//update username by id
+	// update username by id
 	@Modifying
 	@Transactional
 	@Query("UPDATE UserDAO u SET u.username = ?1 where u.idUser = ?2")
 	void updateUserUsernameByID(String username, long id);
 
-
-	//update temppass -> password by id
+	// update temppass -> password by id
 	@Modifying
 	@Transactional
 	@Query("UPDATE UserDAO u SET u.temppass = ?1 where u.idUser = ?2")
@@ -115,16 +108,12 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	@Query("UPDATE UserDAO u SET u.activeUser = ?1 where u.idUser = ?2")
 	void updateUserActiveUserByID(short activeuser, long id);
 
-
 	@Query("FROM UserDAO u WHERE u.activeUser =:isactive")
 	Iterable<UserDAO> filterUsersByState(@Param("isactive") short isactive);
 
-
 	@Query("FROM UserDAO u WHERE u.lastAccess >:timestamp AND u.lastAccess <:currenttime")
-	Iterable<UserDAO> filterUsersByLastLogin(@Param("timestamp") long timestamp, @Param("currenttime") long currenttime);
-
-
-
+	Iterable<UserDAO> filterUsersByLastLogin(@Param("timestamp") long timestamp,
+			@Param("currenttime") long currenttime);
 
 	// count queries
 	@Query("SELECT COUNT(*) FROM UserDAO")
@@ -136,7 +125,6 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.lastAccess >:timestamp AND u.lastAccess <:currenttime")
 	long countUsersByLastLogin(@Param("timestamp") long timestamp, @Param("currenttime") long currenttime);
 
-
 	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.userRole =:role ")
 	long countUsersByRole(@Param("role") String role);
 
@@ -145,36 +133,34 @@ public interface UserRepository extends JpaRepository<UserDAO, Long>{
 
 	@Query("SELECT COUNT(*) FROM UserDAO u WHERE u.username =:user ")
 	long countUsersByUsername(@Param("user") String user);
-	
+
 	@Modifying
 	@Transactional
-	 @Query("UPDATE UserDAO u SET u.lastAccess = ?2 where u.username = ?1")
+	@Query("UPDATE UserDAO u SET u.lastAccess = ?2 where u.username = ?1")
 	void updateAccess(String username, long time);
 
-
-	
-
-
 	/*
-	@Query("FROM users u  WHERE u.hiddenpass =:hiddenpass")	
-	Iterable<UserBean> findByHiddenPassword(@Param("password") String password);
-	
-	@Query("FROM users u  WHERE u.loginAttempts =:loginAttempts")
-	Iterable<UserBean> findByLoginAttempts(@Param("username") String loginAttempts);
-	
-	@Query("FROM users u  WHERE u.email =:email")
-	Iterable<UserBean> findByEmail(@Param("email") String email);
-	
-	@Query("FROM users u  WHERE u.role =:role")
-	Iterable<UserBean> findByRole(@Param("role") String role);
-	
-	@Query("FROM users u  WHERE u.creationDate =:creationDate")
-	Iterable<UserBean> findByUserCreationDate(@Param("creationDate") String creationDate);
-	
-	@Query("FROM users u  WHERE u.lastAccess =:lastAccess")
-	Iterable<UserBean> findByLastAccess(@Param("lastAccess") String lastAccess);
-	
-	@Query("FROM users u  WHERE u.username =:username")
-	Iterable<UserBean> findByIsActiveUser(@Param("username") String username);
-	*/
+	 * @Query("FROM users u  WHERE u.hiddenpass =:hiddenpass") Iterable<UserBean>
+	 * findByHiddenPassword(@Param("password") String password);
+	 * 
+	 * @Query("FROM users u  WHERE u.loginAttempts =:loginAttempts")
+	 * Iterable<UserBean> findByLoginAttempts(@Param("username") String
+	 * loginAttempts);
+	 * 
+	 * @Query("FROM users u  WHERE u.email =:email") Iterable<UserBean>
+	 * findByEmail(@Param("email") String email);
+	 * 
+	 * @Query("FROM users u  WHERE u.role =:role") Iterable<UserBean>
+	 * findByRole(@Param("role") String role);
+	 * 
+	 * @Query("FROM users u  WHERE u.creationDate =:creationDate")
+	 * Iterable<UserBean> findByUserCreationDate(@Param("creationDate") String
+	 * creationDate);
+	 * 
+	 * @Query("FROM users u  WHERE u.lastAccess =:lastAccess") Iterable<UserBean>
+	 * findByLastAccess(@Param("lastAccess") String lastAccess);
+	 * 
+	 * @Query("FROM users u  WHERE u.username =:username") Iterable<UserBean>
+	 * findByIsActiveUser(@Param("username") String username);
+	 */
 }

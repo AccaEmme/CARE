@@ -15,12 +15,12 @@ public class IllegalDateException extends RuntimeException {
 		// TODO Auto-generated constructor stub
 	}
 
-    public  IllegalDateException(String message, String path) {
-        
-    	super(message);
-    	this.path = path;
-    }
-    
+	public IllegalDateException(String message, String path) {
+
+		super(message);
+		this.path = path;
+	}
+
 	public String getPath() {
 		return path;
 	}
@@ -30,6 +30,5 @@ public class IllegalDateException extends RuntimeException {
 	}
 
 	String path;
-	
 
 }

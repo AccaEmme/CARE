@@ -20,9 +20,7 @@ public class RequestNotFoundException extends RuntimeException {
 		this.path = path;
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
+
 	public String getPath() {
 		return path;
 	}
@@ -30,8 +28,6 @@ public class RequestNotFoundException extends RuntimeException {
 	public void setPath(String path) {
 		this.path = path;
 	}
-
-
 
 	String path;
 }

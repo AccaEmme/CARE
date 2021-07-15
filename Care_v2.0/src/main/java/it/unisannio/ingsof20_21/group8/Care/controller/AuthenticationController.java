@@ -29,9 +29,6 @@ import it.unisannio.ingsof20_21.group8.Care.Spring.CustomUserDetailsService;
 import it.unisannio.ingsof20_21.group8.Care.Spring.JwtUtil;
 import it.unisannio.ingsof20_21.group8.Care.Spring.UserDAO;
 
-
-
-
 /*metodi per registrazione e autenticazione*/
 
 /**
@@ -41,18 +38,14 @@ import it.unisannio.ingsof20_21.group8.Care.Spring.UserDAO;
 @RestController
 public class AuthenticationController {
 
-    
-    private final AuthenticationRepository userRepo;
+	private final AuthenticationRepository userRepo;
 
 	/**
 	 * @param userRepo the user repository interface
 	 */
-    public AuthenticationController(AuthenticationRepository userRepo) {
-    	this.userRepo = userRepo;
-    }
-
-    
-    
+	public AuthenticationController(AuthenticationRepository userRepo) {
+		this.userRepo = userRepo;
+	}
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -63,58 +56,62 @@ public class AuthenticationController {
 	@Autowired
 	private JwtUtil jwtUtil;
 
-
 	/**
 	 * @param authenticationRequest the request
-	 * @return	the response
+	 * @return the response
 	 * @throws Exception if the username or password are wrong
 	 */
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequestBean authenticationRequest) throws Exception {
-		//controlli
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequestBean authenticationRequest)
+			throws Exception {
+		// controlli
 		UserDAO userCheck = userRepo.getUserDaoFromUsername(authenticationRequest.getUsername());
 		if (userCheck == null)
-			return new ResponseEntity<String>("Couldn't find the user.",HttpStatus.NOT_FOUND);
-		if (userCheck.getActiveUser()==UsersStates.INACTIVE)
-			return new ResponseEntity<String>("User inactive: Too many login attempts.", HttpStatus.UNPROCESSABLE_ENTITY);
+			return new ResponseEntity<String>("Couldn't find the user.", HttpStatus.NOT_FOUND);
+		if (userCheck.getActiveUser() == UsersStates.INACTIVE)
+			return new ResponseEntity<String>("User inactive: Too many login attempts.",
+					HttpStatus.UNPROCESSABLE_ENTITY);
 
-		//se l'user esiste AND ha tentativi di accesso < 3 allora procedo all'autenticazione
+		// se l'user esiste AND ha tentativi di accesso < 3 allora procedo
+		// all'autenticazione
 		try {
-			//se l'autenticazione non lancia eccezioni (le password coincidono)...
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-					authenticationRequest.getUsername(),
-					authenticationRequest.getPassword()+Constants.PASSWORD_SALT)
-			);
+			// se l'autenticazione non lancia eccezioni (le password coincidono)...
+			authenticationManager
+					.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+							authenticationRequest.getPassword() + Constants.PASSWORD_SALT));
 
-		}catch (AuthenticationException e) {
-			//autenticazione fallita
+		} catch (AuthenticationException e) {
+			// autenticazione fallita
 			e.printStackTrace();
-			userRepo.updateUserLoginAttempts(userCheck.getLoginAttempts()+1,userCheck.getUsername());
+			userRepo.updateUserLoginAttempts(userCheck.getLoginAttempts() + 1, userCheck.getUsername());
 
-			//bisogna sempre pescare dal database per avere dati aggiornati
-			if (userRepo.getUserDaoFromUsername(authenticationRequest.getUsername()).getLoginAttempts()>2){
-				//marco l'user come inattivo
-				userRepo.updateUserActiveUserByUsername(UsersStates.INACTIVE,authenticationRequest.getUsername());
+			// bisogna sempre pescare dal database per avere dati aggiornati
+			if (userRepo.getUserDaoFromUsername(authenticationRequest.getUsername()).getLoginAttempts() > 2) {
+				// marco l'user come inattivo
+				userRepo.updateUserActiveUserByUsername(UsersStates.INACTIVE, authenticationRequest.getUsername());
 			}
 
-			//importantissimo perche se non si lancia l'eccezione viene restituito il token!
-			//a questo punto dico solo che la password è sbagliata, perchè ho gia controllato l'esistenza dell'username.
+			// importantissimo perche se non si lancia l'eccezione viene restituito il
+			// token!
+			// a questo punto dico solo che la password è sbagliata, perchè ho gia
+			// controllato l'esistenza dell'username.
 			return new ResponseEntity<String>("Wrong Password.", HttpStatus.NOT_ACCEPTABLE);
 		}
-		//...allora aggiorno l'ultimo accesso ed azzero eventuali tentativi di accesso precedenti.
-    
-		userRepo.updateAccess(authenticationRequest.getUsername(),(new Date()).getTime());
-		//azzero i tentativi di accesso perchè autenticato.
-		userRepo.updateUserLoginAttempts(0,authenticationRequest.getUsername());
+		// ...allora aggiorno l'ultimo accesso ed azzero eventuali tentativi di accesso
+		// precedenti.
+
+		userRepo.updateAccess(authenticationRequest.getUsername(), (new Date()).getTime());
+		// azzero i tentativi di accesso perchè autenticato.
+		userRepo.updateUserLoginAttempts(0, authenticationRequest.getUsername());
 		UserDetails userdetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		String token = jwtUtil.generateToken(userdetails);
 
-		//ritorno il token
+		// ritorno il token
 		return ResponseEntity.ok(new AuthenticationResponseBean(token));
 	}
 	/*
-@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
-		return ResponseEntity.ok(userDetailsService.save(user));
-	}*/
+	 * @RequestMapping(value = "/register", method = RequestMethod.POST) public
+	 * ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+	 * return ResponseEntity.ok(userDetailsService.save(user)); }
+	 */
 }

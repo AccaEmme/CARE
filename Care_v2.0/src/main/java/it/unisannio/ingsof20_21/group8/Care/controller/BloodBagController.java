@@ -56,7 +56,7 @@ import it.unisannio.CARE.modulep2p.P2PManager;
 
 @Consumes("application/json")
 @Produces("application/json")
-public class BloodBagController  {
+public class BloodBagController {
 	private final BloodBagRepository bagRepository;
 	private final LoggerRepository logRepository;
 
@@ -65,8 +65,6 @@ public class BloodBagController  {
 		this.logRepository = repository2;
 
 	}
-
-
 
 	// ############# GET #############
 
@@ -227,14 +225,9 @@ public class BloodBagController  {
 		return BloodGroup.canReceiveFrom(BloodGroup.valueOf(bean.getGroup()));
 	}
 
-	
-
-	
-
-
 	// ############# POST ############
 	@PostMapping("/bloodbag/add/forced")
-	public BloodBagDAO addBloodBag(@RequestBody BloodBagDAO bagDAO){
+	public BloodBagDAO addBloodBag(@RequestBody BloodBagDAO bagDAO) {
 		return bagRepository.save(bagDAO);
 	}
 
@@ -284,15 +277,14 @@ public class BloodBagController  {
 			}
 
 			/*
-			old code
-			JSONObject object = new JSONObject();
-
-			object.put("serial", bagDAO.getSerial());
-
-			QRCode code = new QRCode(object);
-
-			code.createQRCode();*/
-
+			 * old code JSONObject object = new JSONObject();
+			 * 
+			 * object.put("serial", bagDAO.getSerial());
+			 * 
+			 * QRCode code = new QRCode(object);
+			 * 
+			 * code.createQRCode();
+			 */
 
 			LabelGenerator labelGenerator = new LabelGenerator(bagDAO);
 			labelGenerator.createLabel();
@@ -423,8 +415,8 @@ public class BloodBagController  {
 	}
 
 	@PatchMapping("/bloodbag/p2p/import/{serial}")
-	public BloodBagDAO importP2PBloodBag(@PathVariable String serial){
-		this.bagRepository.updateBloodBagStateBySerial(BloodBagState.Available.toString(),serial);
+	public BloodBagDAO importP2PBloodBag(@PathVariable String serial) {
+		this.bagRepository.updateBloodBagStateBySerial(BloodBagState.Available.toString(), serial);
 		return this.bagRepository.findBySerial(serial);
 	}
 
@@ -586,11 +578,10 @@ public class BloodBagController  {
 		Properties properties = XMLHelper.getProps("localsettings/RoutingTable.xml");
 		String address = properties.getProperty(nodeid);
 		System.out.println(address);
-		if (address==null)
+		if (address == null)
 			throw new NodeNotFoundException("there is no node with the given nodeid.");
 		return address;
 	}
-
 
 	@GetMapping("/bloodbag/transfer/{serial}/{nodeid}/{token}")
 	public void transferBloodBag(@PathVariable String serial, @PathVariable String nodeid, @PathVariable String token)
@@ -606,7 +597,7 @@ public class BloodBagController  {
 		loggerDAO.setFromClass(this.getClass().toString());
 		loggerDAO.setAction(Actions.BLOODBAG_TRANSFERED.toString());
 		try {
-			String request = "http://"+address+"/bloodbag/get/remote/" + serial + "/" + nodeid;
+			String request = "http://" + address + "/bloodbag/get/remote/" + serial + "/" + nodeid;
 			P2PManager manager = new P2PManager(request, token);
 			JSONArray object = manager.sendGet();
 
@@ -615,7 +606,7 @@ public class BloodBagController  {
 
 			// manager.setRequest("http://192.168.1.45:8088/bloodbag/update/state/"+BloodBagState.Transfered+"/"+serial);
 			manager.setRequest(
-					"http://"+address+"/bloodbag/update/state/" + BloodBagState.Transfered + "/" + serial);
+					"http://" + address + "/bloodbag/update/state/" + BloodBagState.Transfered + "/" + serial);
 			manager.sendGetNoResponse();
 
 			BloodBagDAO bagToSave = new BloodBagDAO();

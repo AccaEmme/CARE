@@ -19,60 +19,59 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import it.unisannio.CARE.model.util.Constants;
 
 /**
-* DAO: User class JPA
-* Si definisce la classe UserBean mediante il pattern architetturale DAO(Data Access Object) la quale rappresenta l'entità tabellare del RDBMS.
-* La classe stratifica e isola l'accesso alla tabella mediante il data layer della business logic, creando un maggiore livello di astrazione e una più facile anuntenibilità.
-* La classe verrà adoperata da "JPA Entity Manager".
-* 
-* La classe rispetterà le convenzioni previste:
-*  - costruttore senza argomenti
-*  - proprietà accessibili mediante metodi getter, setter, is
-*  - classe serializzabile
-*  - non conterrà alcun metodo per la gestione degli eventi
-*  https://it.wikipedia.org/wiki/JavaBean
-
-*/
+ * DAO: User class JPA Si definisce la classe UserBean mediante il pattern
+ * architetturale DAO(Data Access Object) la quale rappresenta l'entità
+ * tabellare del RDBMS. La classe stratifica e isola l'accesso alla tabella
+ * mediante il data layer della business logic, creando un maggiore livello di
+ * astrazione e una più facile anuntenibilità. La classe verrà adoperata da "JPA
+ * Entity Manager".
+ * 
+ * La classe rispetterà le convenzioni previste: - costruttore senza argomenti -
+ * proprietà accessibili mediante metodi getter, setter, is - classe
+ * serializzabile - non conterrà alcun metodo per la gestione degli eventi
+ * https://it.wikipedia.org/wiki/JavaBean
+ * 
+ */
 
 @Entity
-@Table(name="users")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "users")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class UserDAO { // *** UserDAO ???
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long 		idUser;
-	
+	private long idUser;
+
 	// ============USER Attributes
-    @Column(unique = true, nullable = false)
-	private String  	username;
-    
-    @Column(nullable = false)				// If null, will be generated
-    private String		password;			// when used in REST is plaintextpassword, when used in DB is hiddenpassword
-    
-    private String 		temppass;
-	
+	@Column(unique = true, nullable = false)
+	private String username;
+
+	@Column(nullable = false) // If null, will be generated
+	private String password; // when used in REST is plaintextpassword, when used in DB is hiddenpassword
+
+	private String temppass;
+
 	@Column(unique = true, nullable = true)
-	private String		email;
+	private String email;
 
 	// ============ROLE Attributes
 	@Column(nullable = false)
-	private String		userRole;
-	
+	private String userRole;
+
 	// ============Access Attributes
 	@Column(nullable = false)
-	private long		creationDate;	// timestamp
-	
+	private long creationDate; // timestamp
+
 	@Column(nullable = false)
-	private long		lastAccess;		// timestamp
-	
+	private long lastAccess; // timestamp
+
 	@Column(nullable = false)
-    private	int			loginAttempts;
-	
+	private int loginAttempts;
+
 	@Column(nullable = false)
 	private short activeUser;
-	
-	
-	public UserDAO() {}
 
+	public UserDAO() {
+	}
 
 	/**
 	 * @return the idUser
@@ -103,14 +102,16 @@ public class UserDAO { // *** UserDAO ???
 	}
 
 	/**
-	 * @return the password:				when used in REST is plaintextpassword, when used in DB is hiddenpassword
+	 * @return the password: when used in REST is plaintextpassword, when used in DB
+	 *         is hiddenpassword
 	 */
 	public String getPassword() {
 		return password;
 	}
 
 	/**
-	 * @param password the password to set: when used in REST is plaintextpassword, when used in DB is hiddenpassword
+	 * @param password the password to set: when used in REST is plaintextpassword,
+	 *                 when used in DB is hiddenpassword
 	 */
 	public void setPassword(String password) {
 		this.password = password;
@@ -165,16 +166,12 @@ public class UserDAO { // *** UserDAO ???
 		return userRole;
 	}
 
-
-
 	/**
 	 * @param userRole the userRole to set
 	 */
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
-
-
 
 	/**
 	 * @return the creationDate
@@ -187,8 +184,8 @@ public class UserDAO { // *** UserDAO ???
 	 * @param creationDate the creationDate to set
 	 */
 	public void setCreationDate(Date creationDate) {
-		//Timestamp creationDateTimestamp = new Timestamp(  );
-		setCreationDate( creationDate.getTime() );
+		// Timestamp creationDateTimestamp = new Timestamp( );
+		setCreationDate(creationDate.getTime());
 	}
 
 	/**
@@ -210,7 +207,7 @@ public class UserDAO { // *** UserDAO ???
 	 * @param lastAccess the lastAccess in the Date form to set
 	 */
 	public void setLastAccess(Date lastAccess) {
-		setLastAccess( lastAccess.getTime() );
+		setLastAccess(lastAccess.getTime());
 	}
 
 	/**
@@ -219,7 +216,6 @@ public class UserDAO { // *** UserDAO ???
 	public void setLastAccess(long lastAccess) {
 		this.lastAccess = lastAccess;
 	}
-
 
 	/**
 	 * @return the activeUser

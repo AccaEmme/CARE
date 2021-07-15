@@ -8,11 +8,11 @@
 package it.unisannio.CARE.model.exceptions;
 
 public class NullPasswordException extends Exception {
-    public NullPasswordException() {
-        super();
-    }
+	public NullPasswordException() {
+		super();
+	}
 
-    public NullPasswordException(String m) {
-        super(m);
-    }
+	public NullPasswordException(String m) {
+		super(m);
+	}
 }

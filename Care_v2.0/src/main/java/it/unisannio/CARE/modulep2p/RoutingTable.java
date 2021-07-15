@@ -4,10 +4,9 @@ import java.util.EnumMap;
 
 import it.unisannio.CARE.modulep2p.Node.NodeIDs;
 
-
 /**
- * this class is used to specify a routing table
- * not used anymore in favour of a dynamic routing table
+ * this class is used to specify a routing table not used anymore in favour of a
+ * dynamic routing table
  */
 @Deprecated
 public class RoutingTable {
@@ -15,12 +14,12 @@ public class RoutingTable {
 
 	public RoutingTable(String id, String codStr, String city, String address) {
 		super();
-		this.id 	 = id;
-		this.codStr  = codStr;
-		this.city 	 = city;
+		this.id = id;
+		this.codStr = codStr;
+		this.city = city;
 		this.address = address;
 		this.endpoint = "";
-		
+
 	}
 
 	void setAll() {
@@ -30,5 +29,5 @@ public class RoutingTable {
 		routingTable.put(NodeIDs.NA001, "");
 		routingTable.put(NodeIDs.Mo002, "");
 	}
-	
+
 }

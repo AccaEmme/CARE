@@ -24,7 +24,6 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import it.unisannio.CARE.model.user.Role;
 
-
 /**
  * it is used to set the token, session time and role
  */
@@ -49,9 +48,9 @@ public class JwtUtil {
 		Map<String, Object> claims = new HashMap<>();
 		Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities();
 
-		for(Role  r : Role.values()) {
+		for (Role r : Role.values()) {
 			if (roles.contains(new SimpleGrantedAuthority(r.toString())))
-			claims.put("userRole" , r.toString());			
+				claims.put("userRole", r.toString());
 		}
 		return doGenerateToken(claims, userDetails.getUsername());
 	}
@@ -82,11 +81,11 @@ public class JwtUtil {
 		Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
 		List<SimpleGrantedAuthority> roles = null;
 
-		String role= claims.get("userRole" , String.class);
-		
-		for(Role r : Role.values()) 
-			if ( role.equals( r.toString()) ) 
+		String role = claims.get("userRole", String.class);
+
+		for (Role r : Role.values())
+			if (role.equals(r.toString()))
 				roles = Arrays.asList(new SimpleGrantedAuthority(r.toString()));
 		return roles;
-		}
+	}
 }

@@ -19,9 +19,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
-
 /**
- *  It has the function of customizing the token 
+ * It has the function of customizing the token
  */
 
 @Component
@@ -34,8 +33,8 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 
-		 try{
-		
+		try {
+
 			String jwtToken = extractJwtFromRequest(request);
 
 			if (StringUtils.hasText(jwtToken) && jwtTokenUtil.validateToken(jwtToken)) {
@@ -44,21 +43,16 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
 
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
-				
-				
-				
+
 				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 			} else {
 				System.out.println("Cannot set the Security Context");
 			}
-		 }catch(ExpiredJwtException ex)
-		 {
-			 request.setAttribute("exception", ex);
-		 }
-		 catch(BadCredentialsException ex)
-		 {
-			 request.setAttribute("exception", ex);
-		 }
+		} catch (ExpiredJwtException ex) {
+			request.setAttribute("exception", ex);
+		} catch (BadCredentialsException ex) {
+			request.setAttribute("exception", ex);
+		}
 		chain.doFilter(request, response);
 	}
 
