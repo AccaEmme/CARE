@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <enumeration id="1" language="java" name="it.unisannio.CARE.model.util.Logger.Actions" project="Care_v2.0" 
+    file="/Care_v2.0/src/main/java/it/unisannio/CARE/model/util/Logger/Actions.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="353" width="242" x="336" y="218"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="2" language="java" name="it.unisannio.CARE.model.util.Logger.Results" project="Care_v2.0" 
+    file="/Care_v2.0/src/main/java/it/unisannio/CARE/model/util/Logger/Results.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="173" width="230" x="618" y="218"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="3" language="java" name="it.unisannio.CARE.model.util.Logger.LogManager" project="Care_v2.0" 
+    file="/Care_v2.0/src/main/java/it/unisannio/CARE/model/util/Logger/LogManager.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="245" width="431" x="888" y="218"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
