@@ -3,11 +3,12 @@
     width: 160px;
     position: fixed;
     z-index: 1;
-    top: 8.5%;
+    top: 7px;
     left: 0;
     background-color: rgb(207, 72, 72);
     overflow-x: hidden;
     padding-top: 20px;
+    border: 1px solid #000000;
     border-radius: 20px;
     text-align: left;
 }
@@ -166,8 +167,10 @@ body{
 }
 
 .upBar{
-	background-color: red;
+    background-color: rgb(207, 72, 72);
 	color: rgb(242, 255, 0);
 	border: 1px solid #000000;
-	padding: 10px 665px;
+    margin-left: 155px;
+	padding: 20px 515px;
+    border-radius: 20px;
 }
