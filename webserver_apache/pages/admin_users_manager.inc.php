@@ -67,11 +67,11 @@ foreach (array_keys($usersArray) as $key) {
       </tr>
       <!-- START: new user fields -->
       <tr>
-        <td><input type="text" class="textcs" name="newiduser" id="newiduser" value="#" disabled /></td>
-        <td><input type="text" class="textcs" name="newusername" id="newusername" /></td>
-        <td><input type="text" class="textcs" name="newpassword" id="newpassword" placeholder="if null auto generated" /></td>
-        <td><input type="text" class="textcs" disabled /></td>
-        <td><input type="text" class="textcs" name="newemail" id="newemail" placeholder="e-mail here" /></td>
+        <td><input type="text" class="textcss" name="newiduser" id="newiduser" value="#" disabled /></td>
+        <td><input type="text" class="textcss" name="newusername" id="newusername" /></td>
+        <td><input type="text" class="textcss" name="newpassword" id="newpassword" placeholder="if null auto generated" /></td>
+        <td><input type="text" class="textcss" disabled /></td>
+        <td><input type="text" class="textcss" name="newemail" id="newemail" placeholder="e-mail here" /></td>
         <td>
           <select name="newrole" class="textcs" id="newrole">
             <?php
