@@ -14,17 +14,18 @@ Versione _1_ del _17.03.2021_
 
 Checkout the documentation on the [Wiki page](https://github.com/AccaEmme/CARE/wiki/1.0-Problem-Statement) \[lang: IT\]:
 
-## Presentazione
-[Link alla presentazione](https://github.com/AccaEmme/CARE/blob/main/Presentazione/presentazione%20CARE.pdf)
+## ==Presentazione==
+ - [PDF presentazione](https://github.com/AccaEmme/CARE/blob/main/Presentazione/presentazione%20CARE.pdf)
+ - [Google Doc](https://docs.google.com/presentation/d/12kt6T9zaPwv3toitpu3gyocXufYmGekspI7-59VSSkM/edit?usp=sharing)(presentazione con note relatori e animazioni)
 
 
-# License <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Cc-by_new_white.svg/24px-Cc-by_new_white.svg.png"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Cc-nc_white.svg/24px-Cc-nc_white.svg.png"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Cc-sa.svg/24px-Cc-sa.svg.png">
+# ==License== <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Cc-by_new_white.svg/24px-Cc-by_new_white.svg.png"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Cc-nc_white.svg/24px-Cc-nc_white.svg.png"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Cc-sa.svg/24px-Cc-sa.svg.png">
 Licenze Creative Commons - CC BY-NC-SA.<br>
 It allows you to distribute, modify, create derivative works from the original, but not for commercial purposes, provided that you: acknowledge adequate authorship, provide a link to the license and indicate if any changes have been made; and that the new work is given the same license as the original (therefore any derivative work will not be permitted for commercial use).
 
 
 
-# Installation
+# ==Installation==
 Prerequisites:
  - MySQL >= 8.0 on localhost:3306
  - ../../URI.xml with your personal MongoDB credentials: 
