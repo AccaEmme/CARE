@@ -14,6 +14,9 @@ Versione _1_ del _17.03.2021_
 
 Checkout the documentation on the [Wiki page](https://github.com/AccaEmme/CARE/wiki/1.0-Problem-Statement) \[lang: IT\]:
 
+## Presentazione
+[Link alla presentazione](https://github.com/AccaEmme/CARE/blob/main/Presentazione/presentazione%20CARE.pdf)
+
 
 # License <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Cc-by_new_white.svg/24px-Cc-by_new_white.svg.png"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Cc-nc_white.svg/24px-Cc-nc_white.svg.png"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Cc-sa.svg/24px-Cc-sa.svg.png">
 Licenze Creative Commons - CC BY-NC-SA.<br>
