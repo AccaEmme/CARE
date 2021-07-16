@@ -15,7 +15,7 @@ Versione _1_ del _17.03.2021_
 Checkout the documentation on the [Wiki page](https://github.com/AccaEmme/CARE/wiki/1.0-Problem-Statement) \[lang: IT\]:
 
 # ==Slides==
- - [PDF presentazione](https://github.com/AccaEmme/CARE/blob/main/docs/CARE.pdf)
+ - [PDF presentazione](https://github.com/AccaEmme/CARE/blob/main/docs/presentazione%20CARE.pdf)
  - [Google Doc](https://docs.google.com/presentation/d/12kt6T9zaPwv3toitpu3gyocXufYmGekspI7-59VSSkM/edit?usp=sharing)(presentazione con note relatori e animazioni)
 
 
